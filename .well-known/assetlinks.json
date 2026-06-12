@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.netlify.rihla_jihawi.twa",
+        "sha256_cert_fingerprints": ["0F:A9:45:F0:BC:6F:94:80:0C:5F:EE:02:85:19:E8:2B:41:0D:E9:0B:09:3F:F7:9A:32:27:EC:F0:64:33:87:7E"]
+      }
+    }]
