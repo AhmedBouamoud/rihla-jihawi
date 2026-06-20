@@ -1,22 +1,21 @@
 {
-  "name": "بوابة رحلة الجهوي التعليمية",
-  "short_name": "بوابة الجهوي",
-  "description": "البوابة الرسمية لتطبيقات رحلة الجهوي — مراجعة ذكية وتعلم باللعب",
-  "start_url": "./",
+  "name": "رحلة الجهوي الذهبية - مراجعة الاجتماعيات",
+  "short_name": "رحلة الجهوي",
+  "description": "تطبيق مراجعة تفاعلي للثالثة إعدادي في مادة الاجتماعيات من إعداد ذ. أحمد بوعمود.",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "dir": "rtl",
   "lang": "ar-MA",
-  "background_color": "#fff7e8",
-  "theme_color": "#F59E0B",
+  "background_color": "#FDF8F0",
+  "theme_color": "#123F63",
   "categories": ["education", "games"],
   "icons": [
     { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
     { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ],
   "shortcuts": [
-    { "name": "رحلة الجهوي الذهبية", "url": "./jihawi/", "description": "مراجعة الاجتماعيات — الثالثة إعدادي" },
-    { "name": "رحلة الإشهادي", "url": "./ibtidai/", "description": "مراجعة السادسة ابتدائي" }
+    { "name": "موقع المراجعة", "short_name": "الموقع", "url": "https://moraja3a.netlify.app/", "description": "فتح موقع المراجعة الكامل" }
   ]
 }
