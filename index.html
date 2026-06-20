@@ -29,7 +29,7 @@
   --r:28px;--r-sm:18px;--r-xs:12px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth;overscroll-behavior:none}
+html{scroll-behavior:smooth;overscroll-behavior:none;overflow-x:hidden}
 body{
   font-family:'Tajawal','Cairo','Segoe UI',Tahoma,Arial,sans-serif;
   color:var(--ink);overflow-x:hidden;
@@ -129,7 +129,7 @@ img{max-width:100%;display:block}
 .btn-ghost:hover{border-color:rgba(138,75,24,.35);transform:translateY(-2px)}
 
 /* ── Hero Visual ── */
-.hero-visual{display:flex;justify-content:center;align-items:center;position:relative}
+.hero-visual{display:flex;justify-content:center;align-items:center;position:relative;overflow:hidden}
 .mascot-stage{
   width:300px;height:300px;position:relative;
   display:flex;align-items:center;justify-content:center;
@@ -450,9 +450,9 @@ footer::before{
       <div class="mascot-stage reveal right" style="transition-delay:.1s">
         <div class="glow-ring"></div>
         <div class="glow-ring2"></div>
-        <div class="orbit" style="--od:12s;inset:-40px"><span class="orbit-dot">⭐</span></div>
-        <div class="orbit" style="--od:9s;--odir:reverse;inset:-60px"><span class="orbit-dot">🏆</span></div>
-        <div class="orbit" style="--od:16s;inset:-80px"><span class="orbit-dot">📚</span></div>
+        <div class="orbit" style="--od:12s;inset:-20px"><span class="orbit-dot">⭐</span></div>
+        <div class="orbit" style="--od:9s;--odir:reverse;inset:-36px"><span class="orbit-dot">🏆</span></div>
+        <div class="orbit" style="--od:16s;inset:-52px"><span class="orbit-dot">📚</span></div>
         <span class="mascot-main">🦉</span>
         <div class="mascot-badge">+90 امتحاناً جهوياً</div>
         <div class="mascot-badge2">⭐ تعلم باللعب</div>
