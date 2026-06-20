@@ -80,10 +80,10 @@ img{max-width:100%;display:block}
 }
 .btn-enter:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(67,40,24,.35)}
 
-/* ── Floating particles ── */
-.particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.p{position:absolute;font-size:1.9rem;opacity:.13;animation:pfloat var(--d,9s) ease-in-out var(--delay,0s) infinite}
-@keyframes pfloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-30px) rotate(14deg)}}
+/* ── Floating particles (disabled) ── */
+.particles{display:none}
+.p{display:none}
+@keyframes pfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
 /* ── Hero ── */
 .hero-wrap{position:relative;z-index:1}
@@ -137,7 +137,7 @@ img{max-width:100%;display:block}
   background:radial-gradient(circle at 40% 40%,rgba(242,179,61,.2),rgba(232,114,12,.08) 55%,transparent 75%);
   animation:breathe 4.5s ease-in-out infinite;
 }
-@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.018)}}
 .glow-ring{
   position:absolute;inset:12px;border-radius:50%;
   border:2.5px dashed rgba(242,179,61,.38);
@@ -169,7 +169,7 @@ img{max-width:100%;display:block}
   color:#fff;font-size:.76rem;font-weight:900;
   padding:7px 14px;border-radius:999px;
   box-shadow:0 8px 20px rgba(67,40,24,.3);
-  animation:pfloat 3s ease-in-out infinite;white-space:nowrap;
+  animation:pfloat 3.5s ease-in-out infinite;white-space:nowrap;
 }
 .mascot-badge2{
   position:absolute;top:44px;right:10px;z-index:3;
@@ -177,7 +177,7 @@ img{max-width:100%;display:block}
   color:var(--brown-xd);font-size:.76rem;font-weight:900;
   padding:7px 14px;border-radius:999px;
   box-shadow:0 8px 20px rgba(216,154,30,.32);
-  animation:pfloat 4s ease-in-out .8s infinite;white-space:nowrap;
+  animation:pfloat 4.5s ease-in-out .8s infinite;white-space:nowrap;
 }
 
 /* ── Stats ── */
