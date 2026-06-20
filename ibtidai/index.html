@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>رحلة الامتحان الإشهادي المرحة | السادس ابتدائي</title>
 <meta name="description" content="تطبيق مراجعة ممتع للسادس ابتدائي: محطات، ألغاز، نقاط، أصوات، نصائح وشهادة تشجيعية." />
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
+<meta name="theme-color" content="#fb8500">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="رحلة السادس">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
 :root{
   --sun:#ffb703;--orange:#fb8500;--rose:#ff6b6b;--mint:#2ec4b6;--sky:#38bdf8;--violet:#8b5cf6;
@@ -533,6 +539,11 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape' && $('#modal').cla
 function boot(){ load(); $('#playerName').value=state.name||''; $('#className').value=state.className||''; initAvatars(); updateHud(); renderMap(); }
 boot();
 })();
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
+}
 </script>
 </body>
 </html>
