@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>رحلة الامتحان الإشهادي المرحة | السادس ابتدائي</title>
+<meta name="description" content="تطبيق مراجعة ممتع للسادس ابتدائي: محطات، ألغاز، نقاط، أصوات، نصائح وشهادة تشجيعية." />
+<style>
+:root{
+  --sun:#ffb703;--orange:#fb8500;--rose:#ff6b6b;--mint:#2ec4b6;--sky:#38bdf8;--violet:#8b5cf6;
+  --ink:#243041;--muted:#64748b;--paper:#fffaf0;--card:#ffffff;--good:#16a34a;--bad:#ef4444;--warn:#f59e0b;
+  --shadow:0 24px 70px rgba(67,42,8,.18);--radius:28px;--line:#f1e6d4;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;color:var(--ink);
+  background:
+    radial-gradient(circle at 92% 8%,rgba(255,183,3,.35) 0 12%,transparent 26%),
+    radial-gradient(circle at 8% 20%,rgba(46,196,182,.22) 0 13%,transparent 27%),
+    radial-gradient(circle at 20% 88%,rgba(139,92,246,.16) 0 15%,transparent 30%),
+    linear-gradient(135deg,#fff7ed 0%,#fffbea 48%,#ecfeff 100%);
+  overflow-x:hidden;
+}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background-image:radial-gradient(rgba(251,133,0,.14) 1px,transparent 1px);background-size:24px 24px;mask-image:linear-gradient(#000,transparent 88%)}
+button,input,select,textarea{font:inherit}
+button{border:0;cursor:pointer}
+button:disabled{opacity:.55;cursor:not-allowed;filter:grayscale(.2)}
+.app{max-width:1240px;margin:auto;padding:16px}
+.topbar{position:sticky;top:8px;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.78);backdrop-filter:blur(16px);border:1px solid rgba(251,133,0,.18);border-radius:24px;box-shadow:0 10px 28px rgba(0,0,0,.08);padding:10px 12px;margin-bottom:18px}
+.brand{display:flex;gap:11px;align-items:center;min-width:0}.logo{width:52px;height:52px;border-radius:18px;background:linear-gradient(135deg,var(--sun),var(--mint));display:grid;place-items:center;color:white;font-weight:1000;font-size:24px;box-shadow:0 12px 22px rgba(251,133,0,.22)}
+.brand h1{margin:0;font-size:clamp(16px,2.2vw,26px);line-height:1.2}.brand small{display:block;color:var(--muted);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:540px}.hud{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:flex-end}.pill{background:#fff;border:1px solid rgba(36,48,65,.08);border-radius:999px;padding:8px 12px;box-shadow:0 5px 14px rgba(0,0,0,.05);font-weight:1000;white-space:nowrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:18px;padding:12px 16px;background:#fff;color:var(--ink);font-weight:1000;box-shadow:0 10px 22px rgba(0,0,0,.08);border:1px solid rgba(36,48,65,.08);transition:.18s transform,.18s box-shadow,.18s filter,.18s background}.btn:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(0,0,0,.12)}.btn:active{transform:translateY(0) scale(.98)}.btn.primary{background:linear-gradient(135deg,#fb8500,#ffb703);color:white}.btn.mint{background:linear-gradient(135deg,#0f766e,#2ec4b6);color:white}.btn.violet{background:linear-gradient(135deg,#6d28d9,#a78bfa);color:white}.btn.rose{background:linear-gradient(135deg,#e11d48,#fb7185);color:white}.btn.ghost{background:rgba(255,255,255,.68)}.btn.small{padding:9px 11px;border-radius:14px;font-size:14px}.btn.full{width:100%}
+.screen{display:none;animation:enter .28s ease}.screen.active{display:block}@keyframes enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.card{background:rgba(255,255,255,.92);border:1px solid rgba(251,133,0,.14);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}.soft{box-shadow:0 12px 30px rgba(0,0,0,.08)}.hero{display:grid;grid-template-columns:1fr .95fr;gap:22px;align-items:stretch}.hero-title{font-size:clamp(33px,6vw,70px);line-height:1.04;margin:0 0 14px;font-weight:1000;letter-spacing:-1px}.warm{background:linear-gradient(135deg,#c2410c,#fb8500,#0f766e,#6d28d9);-webkit-background-clip:text;background-clip:text;color:transparent}.lead{font-size:clamp(17px,2.2vw,23px);line-height:1.85;margin:0 0 16px;color:#374151}.field{display:grid;gap:8px;margin:10px 0}.field label{font-weight:1000}.field input,.field textarea,.field select{border:2px solid #fed7aa;border-radius:18px;padding:14px 15px;background:#fffdf8;outline:none;font-weight:900;width:100%}.field input:focus,.field textarea:focus,.field select:focus{border-color:#fb8500;box-shadow:0 0 0 5px rgba(251,133,0,.15)}.cta{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.avatar-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}.avatar{width:50px;height:50px;border-radius:18px;background:#fff;border:2px solid #f3f4f6;display:grid;place-items:center;font-size:27px;box-shadow:0 8px 18px rgba(0,0,0,.06);transition:.18s transform,.18s border}.avatar:hover{transform:translateY(-3px)}.avatar.selected{border-color:#fb8500;background:#fff7ed}.notice{border-radius:20px;padding:13px 14px;background:#ecfeff;border:1px solid #a5f3fc;color:#155e75;font-weight:900;line-height:1.7}.notice.sun{background:#fffbeb;border-color:#fde68a;color:#92400e}.notice.good{background:#ecfdf5;border-color:#bbf7d0;color:#166534}.notice.rose{background:#fff1f2;border-color:#fecdd3;color:#9f1239}
+.playground{min-height:470px;position:relative;overflow:hidden;background:linear-gradient(160deg,#fff,#fffbeb 55%,#ecfeff)}.cloud{position:absolute;width:80px;height:36px;border-radius:99px;background:white;box-shadow:28px 8px 0 white,58px 0 0 white;opacity:.92;animation:float 6s ease-in-out infinite}.cloud.c1{top:58px;right:70px}.cloud.c2{top:128px;left:90px;animation-delay:1.2s}.rainbow{position:absolute;width:260px;height:130px;border-radius:260px 260px 0 0;border:18px solid rgba(251,133,0,.28);border-bottom:0;bottom:185px;right:42%;transform:translateX(50%);box-shadow:0 0 0 18px rgba(46,196,182,.18),0 0 0 36px rgba(139,92,246,.12)}.road{position:absolute;bottom:-10px;right:10%;left:10%;height:58%;background:linear-gradient(180deg,#fbbf24,#fb8500);clip-path:polygon(44% 0,56% 0,86% 100%,14% 100%);opacity:.22}.mascot{position:absolute;right:50%;bottom:78px;transform:translateX(50%);width:min(370px,88%);padding:24px;border-radius:34px;text-align:center;color:white;background:linear-gradient(135deg,#fb8500,#f97316);box-shadow:0 26px 50px rgba(194,65,12,.25);animation:bus 3.2s ease-in-out infinite}.mascot .face{font-size:76px;filter:drop-shadow(0 7px 0 rgba(0,0,0,.08))}.mascot h2{margin:0;font-size:30px}.mascot p{margin:6px 0 0;font-weight:900}.wheel-row{display:flex;justify-content:space-around;margin-top:14px}.wheel{width:40px;height:40px;border-radius:50%;background:#1f2937;border:8px solid #fff}@keyframes float{50%{transform:translateY(-12px)}}@keyframes bus{50%{transform:translateX(50%) translateY(-9px) rotate(-.6deg)}}
+.grid{display:grid;gap:16px}.grid.cols3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid.cols2{grid-template-columns:repeat(2,minmax(0,1fr))}.stat{display:flex;align-items:center;gap:12px;background:#fff;border-radius:20px;padding:14px;border:1px solid rgba(0,0,0,.05)}.stat b{font-size:28px}.stat span{font-weight:900;color:var(--muted)}
+.map-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:4px 0 16px}.map-head h2{font-size:clamp(28px,4vw,46px);margin:0}.progress-wrap{height:15px;background:#f3f4f6;border-radius:999px;overflow:hidden;border:1px solid rgba(0,0,0,.06)}.progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--sun),var(--violet));transition:.32s width}.stations{display:grid;grid-template-columns:repeat(7,1fr);gap:14px;position:relative}.stations:before{content:"";position:absolute;top:56px;right:5%;left:5%;height:9px;background:linear-gradient(90deg,var(--mint),var(--sun),var(--violet));border-radius:999px;opacity:.22}.station{position:relative;z-index:1;background:#fff;border-radius:26px;padding:16px 12px;min-height:205px;border:2px solid transparent;box-shadow:0 14px 32px rgba(0,0,0,.08);display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;transition:.2s transform,.2s border,.2s opacity}.station:hover{transform:translateY(-5px)}.station .big{font-size:42px;width:78px;height:78px;border-radius:28px;background:linear-gradient(135deg,#fffbeb,#fef3c7);display:grid;place-items:center;border:1px solid #fde68a}.station h3{font-size:16px;margin:0}.station p{font-size:12px;color:var(--muted);font-weight:800;line-height:1.55;margin:0}.station.done{border-color:#22c55e;background:linear-gradient(180deg,#ecfdf5,#fff)}.station.open{border-color:#fb8500}.station.locked{opacity:.55;filter:grayscale(.68)}.tag{font-size:12px;border-radius:999px;padding:5px 10px;background:#f3f4f6;font-weight:1000}.station.done .tag{background:#dcfce7;color:#166534}.station.open .tag{background:#ffedd5;color:#9a3412}.station.locked .tag{background:#e5e7eb;color:#4b5563}.station .start{margin-top:auto;width:100%}
+.quiz-layout{display:grid;grid-template-columns:1fr 350px;gap:18px}.question-card{padding:24px;position:relative;overflow:hidden}.question-card:before{content:"";position:absolute;width:160px;height:160px;border-radius:50%;background:rgba(255,183,3,.16);left:-55px;top:-55px}.question-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;position:relative}.station-name{font-size:clamp(25px,3.5vw,38px);margin:0}.qtype{display:inline-flex;gap:7px;align-items:center;border-radius:999px;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;padding:7px 12px;font-weight:1000;margin-bottom:12px}.question{font-size:clamp(21px,3.1vw,32px);line-height:1.68;font-weight:1000;margin:8px 0 16px;position:relative}.subtext{font-size:16px;line-height:1.8;color:#475569;font-weight:800;background:#f8fafc;border:1px solid #e2e8f0;padding:12px 14px;border-radius:17px;margin:8px 0 14px}.choices{display:grid;gap:12px;position:relative}.choice{width:100%;text-align:right;border-radius:20px;padding:16px;background:#fff;border:2px solid #f3f4f6;box-shadow:0 8px 18px rgba(0,0,0,.05);font-weight:1000;color:#1f2937;display:flex;gap:12px;align-items:center;justify-content:flex-start;transition:.16s transform,.16s border,.16s background}.choice:hover{transform:translateY(-2px);border-color:#fb8500}.choice .letter{min-width:36px;height:36px;border-radius:13px;background:#f3f4f6;display:grid;place-items:center;font-weight:1000}.choice.correct{border-color:#22c55e;background:#ecfdf5}.choice.wrong{border-color:#ef4444;background:#fef2f2}.choice.correct .letter{background:#22c55e;color:#fff}.choice.wrong .letter{background:#ef4444;color:#fff}.arrange-pool,.arrange-answer{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0;padding:12px;border-radius:18px;border:2px dashed #fed7aa;background:#fffaf0;min-height:68px}.chip{border-radius:999px;padding:10px 14px;background:#fff;border:1px solid #e5e7eb;box-shadow:0 6px 14px rgba(0,0,0,.06);font-weight:1000}.chip.used{opacity:.4}.feedback{display:none;margin-top:15px;border-radius:20px;padding:15px;font-weight:1000;line-height:1.75}.feedback.show{display:block}.feedback.good{background:#ecfdf5;color:#166534;border:1px solid #bbf7d0}.feedback.bad{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}.feedback.tip{background:#fffbeb;color:#92400e;border:1px solid #fde68a}.side{display:grid;gap:14px;align-content:start}.panel{background:#fff;border-radius:26px;padding:18px;box-shadow:0 12px 30px rgba(0,0,0,.08);border:1px solid rgba(0,0,0,.06)}.panel h3{margin:0 0 10px;font-size:20px}.mini-list{display:grid;gap:8px}.mini-list div{display:flex;justify-content:space-between;gap:12px;padding:10px 12px;background:#f9fafb;border-radius:15px;font-weight:900}.tools{display:grid;grid-template-columns:1fr 1fr;gap:10px}.teacher-note{border-radius:18px;padding:13px;background:#f8fafc;border:1px solid #e2e8f0;color:#334155;line-height:1.7;font-weight:900}.coach{display:flex;gap:10px;align-items:flex-start}.coach .emoji{font-size:40px}.spark{position:fixed;top:-20px;width:12px;height:18px;border-radius:4px;background:#ffb703;animation:fall 1.7s linear forwards;z-index:100}.toast{position:fixed;right:50%;bottom:22px;transform:translateX(50%) translateY(120px);background:#111827;color:#fff;padding:13px 18px;border-radius:18px;box-shadow:0 16px 40px rgba(0,0,0,.25);font-weight:1000;z-index:120;max-width:min(92vw,620px);text-align:center;transition:.25s transform}.toast.show{transform:translateX(50%) translateY(0)}@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.15}}
+.result{max-width:850px;margin:auto;text-align:center}.trophy{font-size:96px;animation:tada 1.4s ease infinite alternate}.result h2{font-size:clamp(30px,4.5vw,54px);margin:0}.badges{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}.badge{padding:11px 14px;border-radius:999px;background:#fff7ed;border:1px solid #fed7aa;font-weight:1000}.clinic-list{display:grid;gap:12px}.mistake{background:#fff;border-radius:20px;padding:15px;border:1px solid #fee2e2;box-shadow:0 8px 18px rgba(0,0,0,.05)}.mistake b{color:#991b1b}.certificate{background:#fff;border:8px double #fb8500;border-radius:30px;padding:34px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden}.certificate:before,.certificate:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:#fffbeb;z-index:0}.certificate:before{right:-60px;top:-60px}.certificate:after{left:-70px;bottom:-70px}.certificate>*{position:relative}.certificate h2{font-size:42px;margin:0;color:#92400e}.cert-name{font-size:36px;font-weight:1000;color:#0f766e;margin:18px 0}.small{color:var(--muted);font-weight:900;line-height:1.7}.footer{margin:22px 0 10px;text-align:center;color:#6b7280;font-weight:900}.kbd{background:#111827;color:white;border-radius:8px;padding:2px 7px;font-size:12px}.hidden{display:none!important}@keyframes tada{from{transform:rotate(-2deg) scale(1)}to{transform:rotate(2deg) scale(1.04)}}
+.modal{position:fixed;inset:0;background:rgba(17,24,39,.56);display:none;align-items:center;justify-content:center;z-index:99;padding:20px}.modal.show{display:flex}.modal-box{width:min(680px,100%);background:#fff;border-radius:30px;padding:24px;box-shadow:0 32px 90px rgba(0,0,0,.28);animation:pop .22s ease}.modal-box h2{margin-top:0}.modal-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}@keyframes pop{from{transform:scale(.96);opacity:.6}to{transform:scale(1);opacity:1}}
+@media(max-width:1040px){.hero,.quiz-layout{grid-template-columns:1fr}.stations{grid-template-columns:repeat(2,1fr)}.stations:before{display:none}.topbar{position:static;flex-direction:column;text-align:center}.brand{justify-content:center}.hud{justify-content:center}.playground{min-height:350px}.grid.cols3{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.app{padding:10px}.card{padding:16px}.grid.cols3,.grid.cols2{grid-template-columns:1fr}.stations{grid-template-columns:1fr}.station{min-height:auto}.cta,.tools{display:grid;grid-template-columns:1fr}.btn{width:100%;padding:13px}.question{font-size:22px}.hero-title{font-size:38px}.certificate h2{font-size:28px}.cert-name{font-size:27px}.mascot{bottom:55px}.rainbow{display:none}.pill{font-size:14px}.side{order:-1}.brand small{white-space:normal}}
+@media print{body{background:#fff}.no-print,.topbar,.footer,.modal,.toast{display:none!important}.screen{display:block}.certificate{box-shadow:none;margin-top:40px}.card{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar no-print">
+  <div class="brand">
+    <a href="../" style="display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#1A6FA8,#123F63);color:#fff;font-size:1.2rem;text-decoration:none;flex-shrink:0;box-shadow:0 4px 12px rgba(18,63,99,.3);" title="رحلة الجهوي — البوابة الرئيسية">🏠</a>
+    <div class="logo">6</div>
+    <div><h1>رحلة الامتحان الإشهادي المرحة</h1><small>السادس ابتدائي | هدية تربوية من الأستاذ أحمد بوعمود</small></div>
+  </div>
+  <div class="hud">
+    <span class="pill"><span id="hudAvatar">🧒</span> <b id="hudName">ضيف الرحلة</b></span>
+    <span class="pill">⭐ <b id="hudScore">0</b></span>
+    <span class="pill">💎 <b id="hudGems">0</b></span>
+    <span class="pill">🔥 <b id="hudStreak">0</b></span>
+    <span class="pill">❤️ <b id="hudHearts">4</b></span>
+    <button class="btn ghost small" data-action="toggleSound" id="soundBtn">🔊 الصوت</button>
+  </div>
+</header>
+
+<main>
+<section id="home" class="screen active">
+  <div class="hero">
+    <div class="card">
+      <h2 class="hero-title">مرحباً أيها البطل في <span class="warm">رحلة الامتحان</span>!</h2>
+      <p class="lead">هذا التطبيق ليس اختباراً قاسياً. إنه رفيق مراجعة: يسأل، يشرح، يشجع، يفتح محطات، ويذكّرك أن الخطأ خطوة في طريق النجاح.</p>
+      <div class="notice sun">🌞 قاعدة الرحلة: فكر بهدوء، اقرأ السؤال مرتين، ثم اختر جوابك. لا نخاف من الخطأ؛ نتعلم منه.</div>
+      <div class="grid cols2" style="margin-top:14px">
+        <div class="field"><label for="playerName">اسم التلميذ أو التلميذة</label><input id="playerName" placeholder="مثال: ياسين / سلمى" autocomplete="name" /></div>
+        <div class="field"><label for="className">القسم أو المؤسسة</label><input id="className" placeholder="مثال: السادس ابتدائي - مؤسسة الحنان" /></div>
+      </div>
+      <div class="field">
+        <label>اختر مرافق الرحلة</label>
+        <div id="avatarRow" class="avatar-row"></div>
+      </div>
+      <div class="cta">
+        <button class="btn primary" data-action="startNew">🚀 ابدأ مغامرة جديدة</button>
+        <button class="btn mint" data-action="continueGame">↩️ تابع آخر رحلة</button>
+        <button class="btn violet" data-action="showGuide">🧭 كيف ألعب؟</button>
+        <button class="btn ghost" data-action="openTeacher">👨‍🏫 وضع الأستاذ</button>
+      </div>
+      <div class="grid cols3" style="margin-top:18px">
+        <div class="stat"><b>7</b><span>محطات ممتعة</span></div>
+        <div class="stat"><b>90+</b><span>سؤال ولغز</span></div>
+        <div class="stat"><b>🔊</b><span>صوت وتشجيع</span></div>
+      </div>
+    </div>
+    <div class="card playground" aria-hidden="true">
+      <div class="cloud c1"></div><div class="cloud c2"></div><div class="rainbow"></div><div class="road"></div>
+      <div class="mascot"><div class="face">🚌✨</div><h2>حافلة الأبطال</h2><p>كل محطة = معرفة + ثقة + ابتسامة</p><div class="wheel-row"><span class="wheel"></span><span class="wheel"></span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="map" class="screen">
+  <div class="map-head no-print">
+    <div><h2>خريطة الرحلة</h2><p class="small">اختر المحطة المفتوحة. قبل كل محطة ستظهر نصيحة، وبعد كل جواب ستحصل على تفسير مفيد.</p></div>
+    <div class="cta"><button class="btn ghost" data-action="showHome">🏠 البداية</button><button class="btn mint" data-action="showClinic">🩺 عيادة الأخطاء</button><button class="btn violet" data-action="showCertificate">🎓 الشهادة</button></div>
+  </div>
+  <div class="card soft" style="margin-bottom:16px">
+    <div class="coach"><div class="emoji" id="coachEmoji">🦉</div><div><b id="coachTitle">رسالة المرشد</b><p id="coachText" class="small" style="margin:3px 0 0">ابدأ بمحطة تحبها، لكن لا تستعجل. النقاط مهمة، أما الفهم فهو الأهم.</p></div></div>
+    <div class="progress-wrap" style="margin-top:14px"><div id="globalProgress" class="progress-bar"></div></div>
+    <p class="small" id="progressText">0 من 7 محطات منجزة</p>
+  </div>
+  <div id="stations" class="stations"></div>
+</section>
+
+<section id="quiz" class="screen">
+  <div class="quiz-layout">
+    <div class="card question-card">
+      <div class="question-head">
+        <div><h2 class="station-name" id="quizStation">المحطة</h2><span class="qtype" id="qType">سؤال</span></div>
+        <div class="cta no-print"><button class="btn ghost small" data-action="readQuestion">🔊 اقرأ السؤال</button><button class="btn ghost small" data-action="backToMap">🗺️ الخريطة</button></div>
+      </div>
+      <div id="questionText" class="question"></div>
+      <div id="questionSub" class="subtext hidden"></div>
+      <div id="answerArea" class="choices"></div>
+      <div id="feedback" class="feedback"></div>
+      <div class="cta no-print" style="margin-top:14px">
+        <button class="btn primary" id="nextBtn" data-action="nextQuestion" disabled>السؤال التالي ➜</button>
+        <button class="btn mint hidden" id="finishStationBtn" data-action="finishStation">إنهاء المحطة 🏁</button>
+      </div>
+    </div>
+    <aside class="side no-print">
+      <div class="panel">
+        <h3>🎯 مهمة هذه المحطة</h3>
+        <div class="mini-list">
+          <div><span>السؤال</span><b id="missionStep">1 / 8</b></div>
+          <div><span>صحيحة في المحطة</span><b id="missionCorrect">0</b></div>
+          <div><span>نقاط المحطة</span><b id="missionScore">0</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>🧰 أدوات المساعدة</h3>
+        <div class="tools">
+          <button class="btn ghost small" data-action="useHint">💡 تلميح</button>
+          <button class="btn ghost small" data-action="useFifty">✂️ حذف اختيارين</button>
+          <button class="btn ghost small" data-action="useCalm">🫁 نفس عميق</button>
+          <button class="btn ghost small" data-action="showTip">🍯 نصيحة</button>
+        </div>
+        <p class="small">التلميح لا ينقصك. حذف اختيارين يستعمل مرة واحدة في كل محطة.</p>
+      </div>
+      <div class="panel">
+        <h3>🌟 صندوق التشجيع</h3>
+        <p id="encourageBox" class="teacher-note">أنت قادر. اقرأ بهدوء، وابدأ بما تعرفه.</p>
+      </div>
+      <div class="panel">
+        <h3>🧩 لغز قصير</h3>
+        <p id="miniRiddle" class="teacher-note">اضغط على “نصيحة” لتظهر لك فكرة تساعدك.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section id="result" class="screen">
+  <div class="card result">
+    <div class="trophy">🏆</div>
+    <h2>أحسنت يا بطل الرحلة!</h2>
+    <p class="lead" id="resultMsg">لقد أنجزت جزءاً مهماً من المراجعة.</p>
+    <div class="grid cols3" style="margin:18px 0">
+      <div class="stat"><b id="finalScore">0</b><span>نقطة</span></div>
+      <div class="stat"><b id="finalGems">0</b><span>جوهرة</span></div>
+      <div class="stat"><b id="finalPercent">0%</b><span>نسبة النجاح</span></div>
+    </div>
+    <div class="badges" id="badges"></div>
+    <div class="cta" style="justify-content:center;margin-top:18px"><button class="btn mint" data-action="showClinic">🩺 راجع الأخطاء</button><button class="btn violet" data-action="showCertificate">🎓 الشهادة</button><button class="btn ghost" data-action="backToMap">🗺️ الخريطة</button></div>
+  </div>
+</section>
+
+<section id="clinic" class="screen">
+  <div class="map-head no-print"><div><h2>عيادة الأخطاء</h2><p class="small">هنا لا نلوم الخطأ. نفهمه ونصلحه.</p></div><div class="cta"><button class="btn ghost" data-action="backToMap">🗺️ الخريطة</button><button class="btn rose" data-action="clearMistakes">مسح الأخطاء</button></div></div>
+  <div class="card"><div id="clinicList" class="clinic-list"></div></div>
+</section>
+
+<section id="certificate" class="screen">
+  <div class="certificate">
+    <h2>شهادة تشجيع وتقدير</h2>
+    <p class="small">تُمنح هذه الشهادة إلى التلميذ/التلميذة</p>
+    <div id="certName" class="cert-name">بطل الرحلة</div>
+    <p class="lead">للمشاركة في رحلة الامتحان الإشهادي للسادس ابتدائي، وبذل الجهد في المراجعة والتعلم من الأخطاء.</p>
+    <div class="badges" id="certBadges"></div>
+    <p class="small" style="margin-top:18px">إعداد وإهداء: الأستاذ أحمد بوعمود</p>
+  </div>
+  <div class="cta no-print" style="justify-content:center;margin-top:18px"><button class="btn primary" onclick="window.print()">🖨️ طباعة الشهادة</button><button class="btn mint" data-action="exportReport">📄 تصدير تقرير CSV</button><button class="btn ghost" data-action="backToMap">🗺️ الخريطة</button></div>
+</section>
+</main>
+<footer class="footer no-print">رحلة الامتحان الإشهادي المرحة | ملف واحد يعمل بدون إنترنت | مناسب للهاتف والحاسوب والعرض في القسم</footer>
+</div>
+
+<div id="modal" class="modal no-print" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <h2 id="modalTitle">عنوان</h2>
+    <div id="modalBody" class="small"></div>
+    <div class="modal-actions" style="margin-top:16px"><button class="btn primary" data-action="closeModal">حسناً</button></div>
+  </div>
+</div>
+<div id="toast" class="toast no-print">رسالة</div>
+
+<script>
+(function(){
+'use strict';
+const $ = (s, r=document)=>r.querySelector(s);
+const $$ = (s, r=document)=>Array.from(r.querySelectorAll(s));
+const KEY = 'rihla_ibtidai_v3_state';
+const avatars = ['🧒','👧','🦁','🦉','🐬','🚀','⭐','🌈'];
+const letters = ['أ','ب','ج','د','هـ','و'];
+const tips = [
+  'اقرأ السؤال مرتين: مرة للفهم، ومرة للبحث عن الكلمة المفتاح.',
+  'في الرياضيات اكتب المعطيات أولاً، ثم العملية المناسبة.',
+  'في الفرنسية انتبه إلى الفاعل والزمن قبل اختيار الفعل.',
+  'في العربية ابحث عن نوع الكلمة: اسم، فعل، أو حرف.',
+  'في العلوم اربط السبب بالنتيجة: لماذا يحدث الشيء؟',
+  'في الاجتماعيات ركز على المكان، الزمن، والمفاهيم.',
+  'في التربية الإسلامية اجمع بين المعرفة والسلوك الحسن.'
+];
+const encouragements = [
+  'رائع! كل محاولة تقوي ذاكرتك.', 'أنت تتقدم خطوة بخطوة.', 'لا تستعجل، الذكي يقرأ بهدوء.', 'الخطأ رسالة تقول: راجعني فقط.', 'استمر، الطريق أصبح أقصر.', 'جوابك القادم قد يكون نقطة التحول!', 'فكر كما يفكر الباحث الصغير.'
+];
+const riddles = [
+  'لغز: شيء كلما أخذت منه كبر؟ الجواب: الحفرة.',
+  'لغز: له أوراق وليس نباتاً؟ الجواب: الكتاب.',
+  'لغز: ما الشيء الذي يمشي بلا رجلين؟ الجواب: الوقت.',
+  'لغز: بيت بلا أبواب ولا نوافذ؟ الجواب: البيضة.',
+  'لغز: كلما زاد نقص؟ الجواب: العمر المتبقي.'
+];
+const stationData = [
+  {id:'arabic', name:'العربية', emoji:'📚', color:'#fb8500', goal:'الفهم، الظواهر، والتعبير', tip:'في العربية: اقرأ النص أو الجملة، ثم اسأل نفسك: ما المطلوب بالضبط؟', unlock:0},
+  {id:'french', name:'Français', emoji:'🇫🇷', color:'#38bdf8', goal:'Compréhension et langue', tip:'En français: lis la phrase doucement et cherche le sujet avant le verbe.', unlock:1},
+  {id:'math', name:'الرياضيات', emoji:'🧮', color:'#8b5cf6', goal:'حساب، قياس، هندسة', tip:'في الرياضيات: لا تبدأ بالحساب قبل فهم المطلوب والوحدة.', unlock:2},
+  {id:'science', name:'النشاط العلمي', emoji:'🔬', color:'#2ec4b6', goal:'علوم الحياة والطاقة والبيئة', tip:'في العلوم: كل ظاهرة لها سبب ونتيجة. ابحث عنهما.', unlock:3},
+  {id:'islamic', name:'التربية الإسلامية', emoji:'🕌', color:'#16a34a', goal:'قيم، عبادات، وسيرة', tip:'في التربية الإسلامية: اربط المعلومة بالسلوك اليومي الجميل.', unlock:4},
+  {id:'social', name:'الاجتماعيات', emoji:'🌍', color:'#ef4444', goal:'تاريخ، جغرافيا، مواطنة', tip:'في الاجتماعيات: لا تنس المكان والزمن والمفهوم.', unlock:5},
+  {id:'final', name:'التحدي النهائي', emoji:'🏆', color:'#f59e0b', goal:'مراجعة مختلطة', tip:'في التحدي النهائي: الهدوء أهم من السرعة.', unlock:6}
+];
+const banks = {
+arabic:[
+ q('mcq','ما الفكرة المناسبة لجملة: «يحافظ التلميذ على كتبه لأنها مصدر علمه»؟',['أهمية المحافظة على الكتب','اللعب في الساحة','تنظيف الشارع','زيارة الطبيب'],0,'الجملة تتحدث عن الكتب ومكانتها في التعلم.'),
+ q('mcq','الكلمة التي تدل على جمع هي:',['مدارس','مدرسة','مدرس','يدرس'],0,'مدارس جمع، أما مدرسة فهي مفرد.'),
+ q('mcq','نوع كلمة «يكتب» هو:',['فعل مضارع','اسم','حرف جر','فعل أمر'],0,'الفعل المضارع يدل على حدث يقع الآن أو مستقبلاً.'),
+ q('mcq','ضد كلمة «نشِيط» هو:',['كسول','سعيد','قريب','جميل'],0,'النشيط عكسه الكسول.'),
+ q('tf','الجملة الاسمية تبدأ غالباً باسم.',['صحيح','خطأ'],0,'الجملة الاسمية تبدأ باسم مثل: التلميذ مجتهد.'),
+ q('mcq','الجملة الصحيحة إملائياً هي:',['ذهب التلميذ إلى المدرسة.','ذهب التلميد إلى المدرسة.','دهب التلميذ إلى المدرسة.','ذهب التلميذ الا المدرسة.'],0,'الكلمات الصحيحة: ذهب، التلميذ، إلى.'),
+ q('mcq','مرادف كلمة «مسرور» هو:',['فرح','حزين','متعب','غاضب'],0,'مسرور تعني فرح.'),
+ q('mcq','في جملة «قرأ الطفل قصةً»، المفعول به هو:',['قصةً','قرأ','الطفل','في'],0,'المفعول به هو الشيء الذي وقع عليه الفعل.'),
+ q('arrange','رتب كلمات الجملة المفيدة:', ['يحافظ','التلميذ','على','نظافة','قسمه'], ['يحافظ','التلميذ','على','نظافة','قسمه'], 'الترتيب يبدأ بالفعل ثم الفاعل ثم تتمة المعنى.'),
+ q('mcq','أي عنوان يناسب نصاً عن غرس الأشجار في المدرسة؟',['حديقة مدرستنا','رحلة إلى البحر','لعبة كرة القدم','زيارة المتحف'],0,'العنوان يجب أن ينسجم مع موضوع الأشجار والمدرسة.'),
+ q('mcq','الكلمة التي تحتوي على تاء مربوطة هي:',['مدرسة','بيت','كتب','قلم'],0,'التاء المربوطة تظهر في آخر الكلمة مثل: مدرسة.'),
+ q('mcq','الأسلوب في: «ما أجمل الوطن!» هو:',['تعجب','استفهام','نفي','أمر'],0,'ما أفعلَه صيغة تعجب.'),
+ q('mcq','الفعل الماضي من «يلعب» هو:',['لَعِبَ','العب','لعبة','يلعبون'],0,'الفعل الماضي يدل على حدث وقع وانتهى.'),
+ q('tf','كلمة «إلى» حرف جر.',['صحيح','خطأ'],0,'إلى من حروف الجر.'),
+ q('mcq','الصفة المناسبة في: «تلميذةٌ ...» هي:',['مجتهدةٌ','مجتهدٌ','مجتهدان','مجتهدون'],0,'الصفة تتبع الموصوف في التأنيث والإفراد.'),
+ q('mcq','في التعبير الكتابي، البداية الجيدة تكون بـ:',['مقدمة قصيرة تمهد للموضوع','كلمات عشوائية','نسخ السؤال فقط','خاتمة دون موضوع'],0,'المقدمة تساعد القارئ على فهم الموضوع.')
+],
+french:[
+ q('mcq','Choisis la phrase correcte :',['Je suis élève.','Je être élève.','Je sommes élève.','Je es élève.'],0,'Avec « je », on dit: je suis.'),
+ q('mcq','Le contraire de « grand » est :',['petit','long','rapide','fort'],0,'Grand ↔ petit.'),
+ q('mcq','Dans « Les enfants jouent », le verbe est :',['jouent','Les','enfants','Dans'],0,'Le verbe exprime l’action.'),
+ q('mcq','Complète : Nous ... à l’école.',['allons','allez','vont','vais'],0,'Avec nous, on dit: nous allons.'),
+ q('tf','« Une table » est au féminin.',['Vrai','Faux'],0,'On dit: une table.'),
+ q('mcq','Le pluriel de « un journal » est :',['des journaux','des journals','des journales','des journau'],0,'Les mots en -al font souvent -aux.'),
+ q('mcq','Choisis le mot qui convient : Le soleil brille dans le ...',['ciel','stylo','cahier','cartable'],0,'Le soleil brille dans le ciel.'),
+ q('mcq','La phrase interrogative est :',['Où vas-tu ?','Je vais bien.','Ferme la porte.','Quelle belle journée !'],0,'Le point d’interrogation indique une question.'),
+ q('arrange','Remets les mots dans l’ordre :', ['Je','vais','à','l’école'], ['Je','vais','à','l’école'], 'La phrase simple suit: sujet + verbe + complément.'),
+ q('mcq','Complète : Hier, j’... un livre.',['ai lu','lis','lire','lisez'],0,'Hier indique le passé; on peut dire: j’ai lu.'),
+ q('mcq','Le synonyme de « content » est :',['heureux','triste','malade','lent'],0,'Content veut dire heureux.'),
+ q('tf','« Ils mange » est une phrase correcte.',['Faux','Vrai'],0,'Avec « ils », on écrit: ils mangent.'),
+ q('mcq','Le féminin de « ami » est :',['amie','amis','amical','amies'],0,'On ajoute souvent e: ami → amie.'),
+ q('mcq','Quel mot est un animal ?',['chat','table','route','livre'],0,'Le chat est un animal.'),
+ q('mcq','Complète : La fille ... une pomme.',['mange','mangent','manges','manger'],0,'La fille = elle; on dit: elle mange.'),
+ q('mcq','Pour remercier, on dit :',['Merci','Pardon','Au revoir','Silence'],0,'Merci est une formule de remerciement.')
+],
+math:[
+ q('mcq','احسب: 125 + 75 =',['200','190','210','250'],0,'نجمع 125 و75 فنحصل على 200.'),
+ q('mcq','نصف العدد 48 هو:',['24','12','36','96'],0,'النصف هو القسمة على 2.'),
+ q('mcq','ربع الساعة يساوي:',['15 دقيقة','10 دقائق','20 دقيقة','30 دقيقة'],0,'الساعة 60 دقيقة وربعها 15.'),
+ q('mcq','محيط مربع طول ضلعه 6 cm هو:',['24 cm','12 cm','36 cm','18 cm'],0,'محيط المربع = الضلع × 4.'),
+ q('mcq','أي كسر يساوي نصفاً؟',['2/4','1/3','3/5','4/6'],0,'2/4 نبسطها فتصبح 1/2.'),
+ q('tf','كل مستطيل له أربعة أضلاع.',['صحيح','خطأ'],0,'المستطيل رباعي، وله أربعة أضلاع.'),
+ q('mcq','إذا كان ثمن كتاب 30 درهماً واشتريت كتابين، فالمجموع:',['60 درهماً','30 درهماً','45 درهماً','90 درهماً'],0,'30 × 2 = 60.'),
+ q('mcq','العدد العشري الأكبر هو:',['3,8','3,08','3,18','3,09'],0,'3,8 يساوي 3,80 وهو أكبر من الباقي.'),
+ q('arrange','رتب الأعداد تصاعدياً:', ['2,5','3','4,2','5'], ['2,5','3','4,2','5'], 'تصاعدياً يعني من الأصغر إلى الأكبر.'),
+ q('mcq','مساحة مستطيل طوله 8m وعرضه 3m هي:',['24 m²','11 m²','22 m²','48 m²'],0,'المساحة = الطول × العرض = 8 × 3.'),
+ q('mcq','10% من 200 تساوي:',['20','10','2','2000'],0,'10% تعني عشر العدد، وعشر 200 هو 20.'),
+ q('mcq','9000 g تساوي:',['9 kg','90 kg','900 kg','0,9 kg'],0,'كل 1000 g = 1 kg، إذن 9000 g = 9 kg.'),
+ q('mcq','إذا انطلق قطار في 08:30 ووصل 10:00 فالمدة:',['ساعة ونصف','ساعتان','نصف ساعة','ثلاث ساعات'],0,'من 8:30 إلى 10:00 = ساعة و30 دقيقة.'),
+ q('tf','الزاوية القائمة قياسها 90 درجة.',['صحيح','خطأ'],0,'الزاوية القائمة قياسها 90°.'),
+ q('mcq','ناتج 7 × 8 هو:',['56','54','64','49'],0,'من جدول الضرب: 7 × 8 = 56.'),
+ q('mcq','إذا قسمت 36 على 4 فالنتيجة:',['9','8','6','12'],0,'36 ÷ 4 = 9.')
+],
+science:[
+ q('mcq','النبات الأخضر يصنع غذاءه بوجود:',['الضوء','الظلام فقط','الصوت','الملح فقط'],0,'تحتاج النباتات إلى الضوء لصنع غذائها.'),
+ q('mcq','عضو التنفس عند الإنسان هو:',['الرئتان','المعدة','العظام','الكبد'],0,'الرئتان تقومان بتبادل الغازات.'),
+ q('mcq','في الدارة الكهربائية البسيطة نحتاج إلى:',['مولد وأسلاك ومصباح','ماء وتراب','ورق وقلم','هواء فقط'],0,'الدارة الكهربائية تحتاج مولداً وأسلاكاً ومستقبلاً مثل المصباح.'),
+ q('tf','الماء الصالح للشرب يجب أن يكون نظيفاً وخالياً من الملوثات.',['صحيح','خطأ'],0,'الماء الملوث يسبب أمراضاً.'),
+ q('mcq','تحول الماء إلى بخار يسمى:',['تبخر','تجمد','انصهار','تكاثف'],0,'التبخر انتقال من الحالة السائلة إلى الغازية.'),
+ q('mcq','الحيوان العاشب يتغذى أساساً على:',['النباتات','اللحوم فقط','الحجارة','الخشب المطبوخ'],0,'العواشب تتغذى على النباتات.'),
+ q('mcq','لحماية البيئة ينبغي:',['تقليل النفايات وفرزها','رمي الأزبال في البحر','قطع الأشجار','تبذير الماء'],0,'تقليل النفايات وفرزها سلوك بيئي سليم.'),
+ q('tf','الاحتكاك قد يبطئ حركة جسم.',['صحيح','خطأ'],0,'الاحتكاك قوة تعاكس الحركة أحياناً.'),
+ q('arrange','رتب مراحل دورة الماء:', ['تبخر','تكاثف','تساقطات','جريان'], ['تبخر','تكاثف','تساقطات','جريان'], 'تبدأ الدورة بتبخر الماء ثم تكاثفه فتساقطه وجريانه.'),
+ q('mcq','الغذاء المتوازن يحتوي على:',['مواد متنوعة ومناسبة','الحلوى فقط','الماء فقط','الملح فقط'],0,'التوازن يعني تنوع الأغذية حسب الحاجة.'),
+ q('mcq','وظيفة الجذور في النبات هي:',['امتصاص الماء والأملاح','صنع الصوت','إنتاج الكهرباء','الرؤية'],0,'الجذور تثبت النبات وتمتص الماء والأملاح.'),
+ q('mcq','المادة التي تسمح بمرور الكهرباء تسمى:',['موصلة','عازلة','شفافة','رخوة'],0,'الموصل يسمح بمرور التيار الكهربائي.'),
+ q('tf','الهواء خليط من غازات.',['صحيح','خطأ'],0,'الهواء يحتوي على عدة غازات.'),
+ q('mcq','الأسنان تساعدنا على:',['تقطيع وطحن الطعام','التنفس فقط','الرؤية','السماع'],0,'الأسنان بداية عملية الهضم الميكانيكي.'),
+ q('mcq','مصدر طاقة متجدد هو:',['الشمس','الفحم','النفط','الغاز الطبيعي'],0,'الشمس مصدر طاقة متجدد.'),
+ q('mcq','ينتقل الصوت عبر:',['وسط مادي كالهواء','الفراغ دائماً','الضوء فقط','الألوان'],0,'الصوت يحتاج وسطاً لينتقل.')
+],
+islamic:[
+ q('mcq','من أخلاق المسلم في القسم:',['الصدق واحترام الآخرين','السخرية من الزملاء','الغش','إتلاف الأدوات'],0,'الأخلاق الحسنة تظهر في التعامل اليومي.'),
+ q('mcq','الوضوء يكون قبل:',['الصلاة','اللعب فقط','الأكل دائماً','النوم فقط'],0,'الوضوء شرط لصحة الصلاة.'),
+ q('tf','بر الوالدين من القيم الإسلامية العظيمة.',['صحيح','خطأ'],0,'الإحسان إلى الوالدين قيمة مركزية.'),
+ q('mcq','عند الاختلاف مع صديق، الأفضل أن:',['نتحاور بهدوء','نصرخ','نقاطع الجميع','ننتقم'],0,'الحوار الهادئ يحل المشكلات.'),
+ q('mcq','الزكاة تعلّمنا قيمة:',['التضامن','التكبر','البخل','الكسل'],0,'الزكاة تقوي التضامن الاجتماعي.'),
+ q('mcq','من آداب تلاوة القرآن:',['الإنصات والخشوع','الضحك والاستهزاء','العبث','رفع الضجيج'],0,'تلاوة القرآن تحتاج احتراماً وخشوعاً.'),
+ q('tf','الأمانة تعني حفظ حقوق الناس وأشيائهم.',['صحيح','خطأ'],0,'الأمانة تشمل المال والكلام والواجب.'),
+ q('mcq','النبي محمد ﷺ كان يلقب بـ:',['الصادق الأمين','الشاعر فقط','الملك','التاجر فقط'],0,'اشتهر ﷺ قبل البعثة بالصادق الأمين.'),
+ q('arrange','رتب السلوك الحسن عند دخول القسم:', ['السلام','الجلوس بهدوء','إخراج الأدوات','الإنصات'], ['السلام','الجلوس بهدوء','إخراج الأدوات','الإنصات'], 'السلوك المنظم يبدأ بالسلام ثم الاستعداد والإنصات.'),
+ q('mcq','من مظاهر التعاون:',['مساعدة زميل يحتاج شرحاً','إخفاء الدفتر','التنمر','الضحك على الخطأ'],0,'التعاون يجعل القسم أسرة تعلم.'),
+ q('mcq','الصوم يعلم الإنسان:',['الصبر وضبط النفس','الغضب','الكذب','التبذير'],0,'الصوم مدرسة للصبر.'),
+ q('tf','الغش في الامتحان سلوك مقبول.',['خطأ','صحيح'],0,'الغش يناقض الصدق والأمانة.'),
+ q('mcq','عند سماع الأذان نستعد لـ:',['الصلاة','النزهة فقط','البيع فقط','النوم دائماً'],0,'الأذان نداء للصلاة.'),
+ q('mcq','من آداب الطريق:',['عدم رمي الأذى','إغلاق الطريق','إزعاج الناس','رمي النفايات'],0,'إماطة الأذى واحترام المارة من الآداب.'),
+ q('mcq','الرحمة تظهر في:',['الرفق بالصغير والضعيف','القسوة','الاستهزاء','الإهمال'],0,'الرحمة خلق جميل في التعامل.'),
+ q('mcq','شكر النعمة يكون بـ:',['استعمالها في الخير','تبذيرها','احتقارها','إفسادها'],0,'الشكر عمل وسلوك وليس قولاً فقط.')
+],
+social:[
+ q('mcq','الخريطة تساعدنا على معرفة:',['المواقع والاتجاهات','طعم الطعام','صوت الطيور','سرعة القراءة'],0,'الخريطة تمثل المكان وتساعد على تحديد المواقع.'),
+ q('mcq','الجهة في المغرب هي:',['تقسيم ترابي إداري','لعبة رياضية','نوع من الطعام','عملة نقدية'],0,'الجهة مستوى من مستويات التنظيم الترابي.'),
+ q('tf','المواطن الصالح يحافظ على الممتلكات العامة.',['صحيح','خطأ'],0,'المدرسة والحديقة والطريق ممتلكات للجميع.'),
+ q('mcq','الاتجاه الذي تشرق منه الشمس غالباً هو:',['الشرق','الغرب','الشمال','الجنوب'],0,'تشرق الشمس من جهة الشرق.'),
+ q('mcq','التراث يعني:',['ما ورثناه من عادات ومعالم وفنون','الألعاب الإلكترونية فقط','القمامة','الضجيج'],0,'التراث يشمل المادي واللامادي.'),
+ q('mcq','من حقوق الطفل:',['التعليم والحماية','العمل الشاق','الحرمان من اللعب','الإهمال'],0,'التعليم والحماية من حقوق الطفل الأساسية.'),
+ q('tf','رمي النفايات في الشارع سلوك مواطن.',['خطأ','صحيح'],0,'المواطنة تعني احترام الفضاء العام.'),
+ q('mcq','المقياس في الخريطة يساعد على:',['تقدير المسافات','معرفة لون الجبال فقط','تغيير الطقس','حساب العمر'],0,'المقياس يربط المسافة على الخريطة بالمسافة الحقيقية.'),
+ q('arrange','رتب من الأكبر إلى الأصغر:', ['جهة','إقليم','جماعة'], ['جهة','إقليم','جماعة'], 'الجهة أكبر من الإقليم، والجماعة أصغر مستوى هنا.'),
+ q('mcq','من واجبات التلميذ في المدرسة:',['احترام النظام والاجتهاد','تكسير الكراسي','إزعاج الزملاء','الغش'],0,'الحق في التعليم يقابله واجب الاجتهاد واحترام النظام.'),
+ q('mcq','وثيقة تثبت هوية الشخص هي:',['بطاقة التعريف أو عقد الازدياد','لائحة الطعام','قصة قصيرة','خريطة الطقس'],0,'وثائق الهوية تعرف بالشخص.'),
+ q('mcq','المجال الحضري يرتبط غالباً بـ:',['المدينة','الغابة فقط','البحر فقط','الصحراء دائماً'],0,'المجال الحضري هو مجال المدينة.'),
+ q('tf','التصويت والمسؤولية من مظاهر المشاركة المواطنة عند الكبار.',['صحيح','خطأ'],0,'المشاركة المواطنة تعني المساهمة في تدبير الشأن العام.'),
+ q('mcq','المؤسسة التي تقدم خدمات قريبة للسكان محلياً هي:',['الجماعة','المطار فقط','المسرح فقط','المتحف فقط'],0,'الجماعة تدبر شؤوناً محلية قريبة من السكان.'),
+ q('mcq','الرمز الذي يشرح ألوان وعلامات الخريطة يسمى:',['المفتاح','العنوان فقط','الإطار','الصورة'],0,'مفتاح الخريطة يشرح الرموز.'),
+ q('mcq','من السلوك البيئي المواطن:',['ترشيد الماء','ترك الصنبور مفتوحاً','حرق النفايات','تلويث الشاطئ'],0,'ترشيد الماء يحافظ على الموارد.')
+],
+final:[]
+};
+banks.final = [
+ ...banks.arabic.slice(0,5), ...banks.french.slice(0,5), ...banks.math.slice(0,5), ...banks.science.slice(0,5), ...banks.islamic.slice(0,4), ...banks.social.slice(0,5),
+ q('mcq','قبل تسليم ورقة الامتحان، الأفضل أن:',['أراجع الأجوبة والاسم','أخرج بسرعة','أترك الفراغات دون تفكير','أغير كل الأجوبة عشوائياً'],0,'المراجعة النهائية تساعد على اكتشاف الأخطاء البسيطة.'),
+ q('mcq','عند سؤال صعب، التصرف الأنسب هو:',['أتركه مؤقتاً وأعود إليه','أتوقف عن الامتحان','أغش','أبكي فقط'],0,'ترك السؤال الصعب مؤقتاً يحافظ على الوقت والثقة.'),
+ q('tf','النوم الجيد قبل الامتحان يساعد على التركيز.',['صحيح','خطأ'],0,'الراحة تقوي الانتباه والذاكرة.'),
+ q('mcq','كلمة السر قبل الامتحان هي:',['هدوء + قراءة + ثقة','خوف + سرعة + عشوائية','سهر + توتر','نسيان الأدوات'],0,'الهدوء والقراءة والثقة مفاتيح النجاح.')
+];
+let state = freshState();
+let currentStation = null;
+let sessionQuestions = [];
+let currentIndex = 0;
+let stationCorrect = 0;
+let stationScore = 0;
+let selectedOrder = [];
+let hiddenChoicesUsed = false;
+let answered = false;
+let currentChoices = [];
+let audioCtx = null;
+let soundEnabled = true;
+let voiceEnabled = true;
+
+function q(type, question, choices, answer, explain, hint){return {type, question, choices, answer, explain, hint:hint||explain};}
+function freshState(){return {name:'', className:'', avatar:'🧒', score:0, gems:0, streak:0, hearts:4, done:{}, stationStats:{}, mistakes:[], answered:0, correct:0, badges:[], startedAt:new Date().toISOString()};}
+function save(){try{localStorage.setItem(KEY, JSON.stringify(state));}catch(e){}}
+function load(){try{const raw=localStorage.getItem(KEY); if(!raw) return false; state=Object.assign(freshState(), JSON.parse(raw)); if(!state.done)state.done={}; if(!state.stationStats)state.stationStats={}; if(!state.mistakes)state.mistakes=[]; return true;}catch(e){return false;}}
+function shuffle(arr){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function sample(arr,n){return shuffle(arr).slice(0, Math.min(n, arr.length));}
+function show(id){$$('.screen').forEach(s=>s.classList.remove('active')); $('#'+id).classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); updateHud(); if(id==='map') renderMap(); if(id==='clinic') renderClinic(); if(id==='certificate') renderCertificate(); if(id==='result') renderResult();}
+function updateHud(){ $('#hudName').textContent = state.name || 'ضيف الرحلة'; $('#hudAvatar').textContent = state.avatar || '🧒'; $('#hudScore').textContent = state.score||0; $('#hudGems').textContent = state.gems||0; $('#hudStreak').textContent = state.streak||0; $('#hudHearts').textContent = state.hearts||4; $('#soundBtn').textContent = soundEnabled ? '🔊 الصوت' : '🔇 صامت'; }
+function initAvatars(){const row=$('#avatarRow'); row.innerHTML=''; avatars.forEach(a=>{const b=document.createElement('button'); b.className='avatar'+(a===state.avatar?' selected':''); b.type='button'; b.textContent=a; b.dataset.action='selectAvatar'; b.dataset.avatar=a; row.appendChild(b);});}
+function renderMap(){
+  const doneCount = stationData.filter(s=>state.done[s.id]).length;
+  $('#globalProgress').style.width = Math.round(doneCount/stationData.length*100)+'%';
+  $('#progressText').textContent = doneCount+' من '+stationData.length+' محطات منجزة';
+  const c = doneCount>=6 ? ['🏁','أنت قريب جداً من خط الوصول. التحدي النهائي ينتظرك!'] : doneCount>=3 ? ['🌟','جميل! نصف الطريق تقريباً صار وراءك. خذ نفساً وواصل.'] : ['🦉','ابدأ بمحطة مفتوحة، واجمع النقاط والجواهر بالتدريج.'];
+  $('#coachEmoji').textContent = c[0]; $('#coachText').textContent = c[1];
+  const wrap=$('#stations'); wrap.innerHTML='';
+  stationData.forEach((s,idx)=>{
+    const unlocked = idx===0 || state.done[stationData[idx-1].id] || state.done[s.id];
+    const done = !!state.done[s.id];
+    const card=document.createElement('article'); card.className='station '+(done?'done':unlocked?'open':'locked');
+    card.innerHTML = `<div class="big">${s.emoji}</div><h3>${s.name}</h3><p>${s.goal}</p><span class="tag">${done?'منجزة ✅':unlocked?'مفتوحة 🔓':'مغلقة 🔒'}</span><button class="btn small ${done?'mint':unlocked?'primary':'ghost'} start" data-action="openStation" data-station="${s.id}" ${unlocked?'':'disabled'}>${done?'أعد التدريب':'ابدأ المحطة'}</button>`;
+    wrap.appendChild(card);
+  });
+}
+function prepareStation(id){
+  currentStation = stationData.find(s=>s.id===id);
+  const count = id==='final' ? 10 : 8;
+  sessionQuestions = sample(banks[id], count);
+  currentIndex=0; stationCorrect=0; stationScore=0; hiddenChoicesUsed=false; answered=false;
+  $('#quizStation').textContent = currentStation.emoji+' '+currentStation.name;
+  showModal('قبل أن تبدأ محطة '+currentStation.name, `<div class="notice sun">${currentStation.tip}</div><p>ستجيب عن ${count} أسئلة. اجمع النقاط بهدوء، واستعمل أدوات المساعدة عند الحاجة.</p>`, ()=>{show('quiz'); renderQuestion(); speak('هيا نبدأ محطة '+currentStation.name);});
+}
+function typeLabel(q){ if(q.type==='arrange')return '🧩 لغز ترتيب'; if(q.type==='tf')return '✅ صحيح أم خطأ'; return currentIndex%3===0?'🎲 تحدي سريع':'❓ اختر الجواب'; }
+function renderQuestion(){
+  answered=false; selectedOrder=[];
+  const qn=sessionQuestions[currentIndex];
+  $('#qType').textContent=typeLabel(qn);
+  $('#questionText').textContent=qn.question;
+  $('#questionSub').classList.add('hidden'); $('#questionSub').textContent='';
+  $('#feedback').className='feedback'; $('#feedback').textContent='';
+  $('#nextBtn').disabled=true; $('#nextBtn').classList.remove('hidden'); $('#finishStationBtn').classList.add('hidden');
+  $('#missionStep').textContent=(currentIndex+1)+' / '+sessionQuestions.length;
+  $('#missionCorrect').textContent=stationCorrect;
+  $('#missionScore').textContent=stationScore;
+  $('#encourageBox').textContent=encouragements[Math.floor(Math.random()*encouragements.length)];
+  $('#miniRiddle').textContent=riddles[Math.floor(Math.random()*riddles.length)];
+  const area=$('#answerArea'); area.innerHTML=''; currentChoices=[];
+  if(qn.type==='arrange') renderArrange(qn, area); else renderChoices(qn, area);
+}
+function renderChoices(qn, area){
+  let pairs = qn.choices.map((text,idx)=>({text,correct:idx===qn.answer}));
+  currentChoices = shuffle(pairs);
+  currentChoices.forEach((c,i)=>{
+    const b=document.createElement('button'); b.className='choice'; b.dataset.action='chooseAnswer'; b.dataset.index=i; b.innerHTML=`<span class="letter">${letters[i]}</span><span>${escapeHtml(c.text)}</span>`; area.appendChild(b);
+  });
+}
+function renderArrange(qn, area){
+  const info=document.createElement('div'); info.className='subtext'; info.textContent='اضغط على الكلمات بالترتيب الصحيح. تستطيع البدء من جديد إذا أخطأت.'; area.appendChild(info);
+  const pool=document.createElement('div'); pool.className='arrange-pool'; pool.id='arrangePool';
+  const ans=document.createElement('div'); ans.className='arrange-answer'; ans.id='arrangeAnswer'; ans.setAttribute('aria-label','منطقة الترتيب');
+  const shuffled=shuffle(qn.choices);
+  shuffled.forEach((word,i)=>{const b=document.createElement('button'); b.className='chip'; b.dataset.action='pickArrange'; b.dataset.word=word; b.dataset.idx=i; b.textContent=word; pool.appendChild(b);});
+  const actions=document.createElement('div'); actions.className='cta'; actions.innerHTML='<button class="btn ghost small" data-action="resetArrange">🔄 أعد الترتيب</button><button class="btn primary small" data-action="checkArrange">تحقق ✅</button>';
+  area.appendChild(pool); area.appendChild(ans); area.appendChild(actions);
+}
+function chooseAnswer(btn){
+  if(answered) return;
+  const qn=sessionQuestions[currentIndex]; const i=Number(btn.dataset.index); const choice=currentChoices[i];
+  answered=true; state.answered++;
+  $$('.choice').forEach((b,idx)=>{b.disabled=true; if(currentChoices[idx].correct)b.classList.add('correct');});
+  if(choice.correct){btn.classList.add('correct'); onCorrect(qn);} else {btn.classList.add('wrong'); onWrong(qn, choice.text, currentChoices.find(c=>c.correct)?.text);}
+  afterAnswered();
+}
+function pickArrange(btn){ if(answered||btn.classList.contains('used'))return; btn.classList.add('used'); selectedOrder.push(btn.dataset.word); const chip=document.createElement('span'); chip.className='chip'; chip.textContent=btn.dataset.word; $('#arrangeAnswer').appendChild(chip); play('tick'); }
+function resetArrange(){ if(answered)return; selectedOrder=[]; $('#arrangeAnswer').innerHTML=''; $$('#arrangePool .chip').forEach(b=>b.classList.remove('used')); play('pop'); }
+function checkArrange(){
+  if(answered)return; const qn=sessionQuestions[currentIndex]; if(selectedOrder.length!==qn.answer.length){toast('رتب كل الكلمات أولاً.'); play('warn'); return;}
+  answered=true; state.answered++;
+  const ok=selectedOrder.join('|')===qn.answer.join('|');
+  $$('#arrangePool .chip').forEach(b=>b.disabled=true);
+  if(ok) onCorrect(qn); else onWrong(qn, selectedOrder.join(' / '), qn.answer.join(' / '));
+  afterAnswered();
+}
+function onCorrect(qn){
+  stationCorrect++; state.correct++; state.streak++; const bonus = 10 + Math.min(state.streak,5)*2; state.score += bonus; stationScore += bonus; state.gems += state.streak>0 && state.streak%3===0 ? 1 : 0;
+  showFeedback('good', 'أحسنت! ✅ '+qn.explain+'<br><span>ربحت '+bonus+' نقطة.</span>'); play('success'); if(state.streak%3===0){confetti(18); toast('سلسلة رائعة! ربحت جوهرة 💎');}
+}
+function onWrong(qn, chosen, correct){
+  state.streak=0; state.hearts=Math.max(0,(state.hearts||4)-1);
+  const item={station:currentStation.name, question:qn.question, chosen:chosen||'ترتيب غير صحيح', correct:correct||correctText(qn), explain:qn.explain, at:new Date().toLocaleString('ar-MA')};
+  state.mistakes.unshift(item); state.mistakes=state.mistakes.slice(0,40);
+  showFeedback('bad', 'لا بأس، هذه فرصة للتعلم 🌱<br><b>الصواب:</b> '+escapeHtml(item.correct)+'<br><b>لماذا؟</b> '+escapeHtml(qn.explain)); play('error');
+}
+function correctText(qn){ if(qn.type==='arrange')return qn.answer.join(' '); return qn.choices[qn.answer]; }
+function afterAnswered(){
+  $('#missionCorrect').textContent=stationCorrect; $('#missionScore').textContent=stationScore; updateHud(); save();
+  if(currentIndex===sessionQuestions.length-1){ $('#nextBtn').classList.add('hidden'); $('#finishStationBtn').classList.remove('hidden'); } else { $('#nextBtn').disabled=false; }
+}
+function showFeedback(kind, html){ const f=$('#feedback'); f.className='feedback show '+kind; f.innerHTML=html; }
+function nextQuestion(){ if(!answered)return; currentIndex++; renderQuestion(); }
+function finishStation(){
+  const needed = Math.ceil(sessionQuestions.length*0.55);
+  const passed = stationCorrect>=needed || currentStation.id==='final';
+  state.stationStats[currentStation.id]={correct:stationCorrect,total:sessionQuestions.length,score:stationScore,completedAt:new Date().toLocaleString('ar-MA')};
+  if(passed){ state.done[currentStation.id]=true; awardBadges(); confetti(36); play('win'); showModal('محطة منجزة! 🎉', `<div class="notice good">أجبت إجابات صحيحة: <b>${stationCorrect}/${sessionQuestions.length}</b><br>نقاط هذه المحطة: <b>${stationScore}</b></div><p>تذكر: النجاح الحقيقي هو أنك تعلمت شيئاً جديداً.</p>`, ()=>{ currentStation.id==='final'?show('result'):show('map'); }); }
+  else { play('warn'); showModal('محاولة جميلة 🌱', `<div class="notice rose">أجبت إجابات صحيحة: <b>${stationCorrect}/${sessionQuestions.length}</b>. تحتاج قليلاً من التدريب لإقفال المحطة.</div><p>راجع عيادة الأخطاء، ثم أعد المحطة. أنت قادر.</p>`, ()=>show('map')); }
+  save();
+}
+function awardBadges(){
+  const doneCount=stationData.filter(s=>state.done[s.id]).length;
+  const add=b=>{if(!state.badges.includes(b))state.badges.push(b);};
+  if(doneCount>=1)add('🌱 بداية موفقة'); if(doneCount>=3)add('🚀 مسافر مجتهد'); if(doneCount>=6)add('🌟 بطل المراجعة'); if(state.done.final)add('🏆 فارس الامتحان'); if((state.gems||0)>=5)add('💎 جامع الجواهر'); if((state.mistakes||[]).length===0 && state.answered>10)add('🛡️ تركيز عالٍ');
+}
+function renderResult(){ awardBadges(); const pct=state.answered?Math.round(state.correct/state.answered*100):0; $('#finalScore').textContent=state.score; $('#finalGems').textContent=state.gems; $('#finalPercent').textContent=pct+'%'; $('#resultMsg').textContent=(state.name||'بطل الرحلة')+'، لقد جمعت معرفة ونقاطاً. راجع أخطاءك لتصبح أقوى.'; renderBadges('#badges'); save(); }
+function renderBadges(sel){ const b=$(sel); b.innerHTML=''; (state.badges.length?state.badges:['🎒 متعلم شجاع']).forEach(x=>{const s=document.createElement('span');s.className='badge';s.textContent=x;b.appendChild(s);}); }
+function renderClinic(){
+  const list=$('#clinicList'); list.innerHTML='';
+  if(!state.mistakes.length){ list.innerHTML='<div class="notice good">لا توجد أخطاء مسجلة حالياً. رائع! أو ابدأ محطة جديدة لتظهر هنا الأخطاء التي تحتاج مراجعة.</div>'; return; }
+  state.mistakes.forEach((m,i)=>{const d=document.createElement('div'); d.className='mistake'; d.innerHTML=`<b>${i+1}. ${escapeHtml(m.station)}</b><p><b>السؤال:</b> ${escapeHtml(m.question)}</p><p><b>جوابك:</b> ${escapeHtml(m.chosen)}</p><p><b>الصواب:</b> ${escapeHtml(m.correct)}</p><p><b>الفهم:</b> ${escapeHtml(m.explain)}</p>`; list.appendChild(d);});
+}
+function renderCertificate(){ $('#certName').textContent=state.name||'بطل الرحلة'; renderBadges('#certBadges'); }
+function useHint(){ const qn=sessionQuestions[currentIndex]; if(!qn||answered)return; showFeedback('tip','💡 تلميح: '+escapeHtml(qn.hint||'ابحث عن الكلمة المفتاح في السؤال.')); play('hint'); }
+function useFifty(){
+  if(answered || hiddenChoicesUsed) {toast(hiddenChoicesUsed?'استعملت هذه الأداة في هذه المحطة.':'لا يمكن استعمالها الآن.'); return;}
+  const qn=sessionQuestions[currentIndex]; if(!qn || qn.type==='arrange'){toast('هذه الأداة لا تصلح مع سؤال الترتيب.'); return;}
+  hiddenChoicesUsed=true; let wrong=$$('.choice').filter((b,i)=>!currentChoices[i].correct); shuffle(wrong).slice(0,2).forEach(b=>{b.disabled=true;b.style.opacity='.25';b.style.transform='scale(.98)';}); play('pop'); toast('تم حذف اختيارين غير صحيحين ✂️');
+}
+function useCalm(){ showModal('تمرين نفس قصير 🫁','<div class="notice">خذ نفساً من الأنف 4 ثوانٍ... احبسه ثانيتين... أخرجه ببطء. كرر مرة واحدة ثم عد للسؤال.</div>'); speak('خذ نفساً بهدوء. أنت قادر.'); }
+function showTip(){ const t=tips[Math.floor(Math.random()*tips.length)]; $('#encourageBox').textContent=t; toast(t); play('hint'); }
+function readQuestion(){ const qn=sessionQuestions[currentIndex]; if(!qn)return; let txt=qn.question; if(qn.type!=='arrange') txt += '. الاختيارات: '+currentChoices.map(c=>c.text).join('، '); speak(txt); }
+function startNew(){
+  const name=$('#playerName').value.trim(); const cls=$('#className').value.trim(); const av=$('.avatar.selected')?.dataset.avatar || '🧒';
+  state=freshState(); state.name=name||'بطل الرحلة'; state.className=cls||'السادس ابتدائي'; state.avatar=av; save(); updateHud(); initAvatars(); play('start'); show('map'); toast('أهلاً بك في الرحلة يا '+state.name+'!'); speak('أهلا بك في رحلة الامتحان. هيا نبدأ بهدوء وثقة.');
+}
+function continueGame(){ if(load()){ $('#playerName').value=state.name||''; $('#className').value=state.className||''; initAvatars(); updateHud(); show('map'); toast('تم استرجاع آخر رحلة.'); } else { toast('لا توجد رحلة محفوظة بعد. ابدأ رحلة جديدة.'); }}
+function clearMistakes(){ state.mistakes=[]; save(); renderClinic(); toast('تم مسح عيادة الأخطاء.'); }
+function exportReport(){
+  const rows=[['الاسم','القسم','النقاط','الجواهر','إجابات صحيحة','مجموع الإجابات','الشارات'],[state.name,state.className,state.score,state.gems,state.correct,state.answered,state.badges.join(' | ')],[],['المحطة','صحيح','المجموع','النقاط','تاريخ الإنجاز']];
+  stationData.forEach(s=>{const st=state.stationStats[s.id]; if(st) rows.push([s.name,st.correct,st.total,st.score,st.completedAt]);});
+  rows.push([],['الأخطاء']); rows.push(['المحطة','السؤال','جواب التلميذ','الصواب','التفسير']); state.mistakes.forEach(m=>rows.push([m.station,m.question,m.chosen,m.correct,m.explain]));
+  const csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(',')).join('\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='تقرير-رحلة-السادس-ابتدائي.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href); toast('تم تصدير التقرير.');
+}
+function showGuide(){ showModal('كيف ألعب؟ 🧭', '<ol><li>اكتب اسمك واختر مرافق الرحلة.</li><li>افتح المحطات واحدة بعد أخرى.</li><li>استعمل التلميح أو حذف اختيارين عند الحاجة.</li><li>بعد الخطأ اذهب إلى عيادة الأخطاء لتفهم الصواب.</li><li>في النهاية اطبع شهادة التشجيع.</li></ol><div class="notice sun">الأهم: التعلم بهدوء لا جمع النقاط فقط.</div>'); }
+function openTeacher(){ showModal('وضع الأستاذ 👨‍🏫','<div class="notice">اقتراح للاستعمال في القسم: اعرض الخريطة، اختر محطة، ثم اجعل التلاميذ يجيبون جماعياً قبل الضغط. يمكن أيضاً إعطاء الهاتف للتلميذ كرحلة فردية.</div><p><b>كلمة مرور رمزية:</b> <span class="kbd">hanane</span></p><p>الملف يعمل بدون إنترنت، ويمكن رفعه كما هو على Netlify.</p>'); }
+function showHome(){ show('home'); }
+function backToMap(){ show('map'); }
+function showClinic(){ show('clinic'); }
+function showCertificate(){ show('certificate'); }
+function showModal(title, body, onClose){ $('#modalTitle').textContent=title; $('#modalBody').innerHTML=body; $('#modal').classList.add('show'); $('#modal').dataset.closeCallback = onClose ? '1' : ''; modalCallback=onClose||null; }
+let modalCallback=null;
+function closeModal(){ $('#modal').classList.remove('show'); const cb=modalCallback; modalCallback=null; if(cb) cb(); }
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toast._t); toast._t=setTimeout(()=>t.classList.remove('show'),2500); }
+function confetti(n=24){ for(let i=0;i<n;i++){const s=document.createElement('i'); s.className='spark'; s.style.right=Math.random()*100+'vw'; s.style.background=['#ffb703','#fb8500','#2ec4b6','#8b5cf6','#ff6b6b'][Math.floor(Math.random()*5)]; s.style.animationDelay=(Math.random()*.4)+'s'; s.style.transform='rotate('+Math.random()*180+'deg)'; document.body.appendChild(s); setTimeout(()=>s.remove(),2100);}}
+function getAudio(){ if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); return audioCtx; }
+function tone(freq=440,dur=.12,type='sine',vol=.05){ if(!soundEnabled)return; try{const ctx=getAudio(); const o=ctx.createOscillator(); const g=ctx.createGain(); o.type=type; o.frequency.value=freq; g.gain.value=vol; o.connect(g); g.connect(ctx.destination); o.start(); g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+dur); o.stop(ctx.currentTime+dur);}catch(e){} }
+function play(kind){ if(kind==='success'){tone(620,.10,'sine',.06);setTimeout(()=>tone(820,.14,'sine',.05),90);} else if(kind==='error'){tone(180,.16,'triangle',.06);setTimeout(()=>tone(130,.18,'triangle',.04),120);} else if(kind==='win'){tone(520,.12);setTimeout(()=>tone(660,.12),100);setTimeout(()=>tone(880,.18),210);} else if(kind==='warn'){tone(260,.12,'square',.04);} else if(kind==='hint'){tone(760,.10,'sine',.04);} else if(kind==='pop'){tone(420,.08,'triangle',.035);} else if(kind==='tick'){tone(560,.05,'sine',.025);} else {tone(500,.1);} }
+function toggleSound(){ soundEnabled=!soundEnabled; updateHud(); toast(soundEnabled?'تم تشغيل الصوت.':'تم إيقاف الصوت.'); if(soundEnabled)play('hint'); }
+function speak(text){ if(!soundEnabled || !voiceEnabled || !('speechSynthesis' in window)) return; try{window.speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text); u.lang = /[A-Za-z]/.test(text) && !/[\u0600-\u06FF]/.test(text) ? 'fr-FR' : 'ar-MA'; u.rate=.92; u.pitch=1.05; speechSynthesis.speak(u);}catch(e){} }
+function escapeHtml(x){return String(x??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function handleAction(e){ const el=e.target.closest('[data-action]'); if(!el)return; const a=el.dataset.action; const map={selectAvatar:()=>{$$('.avatar').forEach(x=>x.classList.remove('selected')); el.classList.add('selected'); state.avatar=el.dataset.avatar; updateHud(); play('pop');}, startNew, continueGame, showGuide, openTeacher, showHome, backToMap, showClinic, showCertificate, closeModal, toggleSound, openStation:()=>prepareStation(el.dataset.station), chooseAnswer:()=>chooseAnswer(el), nextQuestion, finishStation, useHint, useFifty, useCalm, showTip, readQuestion, pickArrange:()=>pickArrange(el), resetArrange, checkArrange, clearMistakes, exportReport}; if(map[a]) map[a](); }
+document.addEventListener('click', handleAction);
+document.addEventListener('keydown', e=>{ if(e.key==='Escape' && $('#modal').classList.contains('show')) closeModal(); });
+function boot(){ load(); $('#playerName').value=state.name||''; $('#className').value=state.className||''; initAvatars(); updateHud(); renderMap(); }
+boot();
+})();
+</script>
+</body>
+</html>
