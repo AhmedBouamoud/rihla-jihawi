@@ -1,11 +1,11 @@
-const CACHE_NAME = 'rihla-portal-v1';
+const CACHE_NAME = 'rihla-jihawi-app-v1';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.json',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './assets/logo-hanane.jpg'
+  '../icons/icon-192.png',
+  '../icons/icon-512.png',
+  '../assets/logo-hanane.jpg'
 ];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)));
