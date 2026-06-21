@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>رحلة إتقان الخط الزمني | ذ. أحمد بوعمود</title>
+<meta name="theme-color" content="#0f766e">
+<meta name="description" content="تطبيق تفاعلي لتعلم رسم الخط الزمني وقراءته — إعداد ذ. أحمد بوعمود — مؤسسة الحنان الخاصة">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff7ed; --paper:#fffdf7; --ink:#1f2937; --muted:#64748b; --primary:#92400e; --primary2:#f59e0b;
+  --accent:#0f766e; --accent2:#14b8a6; --blue:#2563eb; --red:#dc2626; --green:#16a34a; --purple:#7c3aed;
+  --line:#ead7b9; --card:#ffffff; --shadow:0 24px 60px rgba(120,72,0,.14); --soft:rgba(245,158,11,.12);
+  --radius:24px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; font-family:'Tajawal', system-ui, -apple-system, Segoe UI, sans-serif; color:var(--ink);
+  background:
+    radial-gradient(circle at 10% 5%, rgba(245,158,11,.18), transparent 30%),
+    radial-gradient(circle at 90% 10%, rgba(20,184,166,.13), transparent 28%),
+    linear-gradient(180deg,#fff7ed,#fffaf0 38%,#fef3c7 100%);
+  min-height:100vh;
+}
+a{color:inherit;text-decoration:none}.wrap{width:min(1180px,94vw);margin:auto}.hidden{display:none!important}
+.hero{
+  position:relative; overflow:hidden; padding:32px 0 26px; border-bottom:1px solid rgba(146,64,14,.12);
+}
+.hero:before{content:"";position:absolute;inset:-100px -80px auto auto;width:330px;height:330px;background:rgba(20,184,166,.15);border-radius:50%;filter:blur(2px)}
+.hero:after{content:"";position:absolute;left:-90px;bottom:-120px;width:350px;height:350px;background:rgba(245,158,11,.17);border-radius:50%}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;position:relative;z-index:1}
+.brand{display:flex;align-items:center;gap:12px}.logo{
+  width:62px;height:62px;border-radius:20px;display:grid;place-items:center;color:white;font-size:30px;font-weight:900;
+  background:linear-gradient(135deg,var(--primary),var(--primary2));box-shadow:0 16px 35px rgba(146,64,14,.25)
+}.brand h1{margin:0;font-size:clamp(23px,3vw,41px);font-weight:900;color:#78350f;line-height:1.1}.brand p{margin:4px 0 0;color:var(--muted);font-weight:700}
+.badge{background:rgba(255,255,255,.82);border:1px solid rgba(146,64,14,.13);box-shadow:var(--shadow);border-radius:999px;padding:10px 18px;font-weight:800;color:#854d0e;white-space:nowrap}.heroGrid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;position:relative;z-index:1;margin-top:28px}.heroCard{background:rgba(255,255,255,.82);border:1px solid rgba(146,64,14,.13);box-shadow:var(--shadow);border-radius:30px;padding:24px}.heroCard h2{font-size:clamp(24px,3.2vw,44px);margin:0 0 12px;color:#7c2d12;line-height:1.22}.heroCard p{font-size:18px;line-height:1.9;margin:0;color:#475569}.heroActions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}.btn{border:0;border-radius:16px;padding:12px 17px;font-family:inherit;font-weight:900;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:8px;box-shadow:0 12px 24px rgba(15,118,110,.12);background:white;color:var(--ink)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(15,118,110,.18)}.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white}.btn.gold{background:linear-gradient(135deg,var(--primary),var(--primary2));color:white}.btn.red{background:linear-gradient(135deg,#be123c,#fb7185);color:white}.btn.ghost{background:#fff;border:1px solid rgba(146,64,14,.17)}.btn.small{padding:8px 12px;border-radius:12px;font-size:14px}.miniTimeline{height:270px;background:linear-gradient(180deg,#fff,#fff7ed);border:1px solid rgba(146,64,14,.13);border-radius:24px;position:relative;overflow:hidden;padding:18px}.miniTimeline .axis{position:absolute;left:45px;right:45px;top:142px;height:8px;border-radius:10px;background:linear-gradient(90deg,#92400e,#f59e0b,#0f766e)}.miniTimeline .arrow{position:absolute;left:35px;top:134px;font-size:26px;color:#0f766e;transform:rotate(180deg)}.miniEvent{position:absolute;text-align:center;max-width:126px}.dot{width:20px;height:20px;background:white;border:6px solid var(--accent);border-radius:50%;margin:auto;box-shadow:0 0 0 7px rgba(20,184,166,.1)}.miniEvent .year{font-weight:900;color:#78350f;font-size:20px}.miniEvent .lab{font-weight:800;font-size:14px;color:#334155;background:white;border:1px solid #f1d4a8;border-radius:12px;padding:5px;box-shadow:0 8px 18px rgba(0,0,0,.06)}
+nav{position:sticky;top:0;z-index:20;background:rgba(255,247,237,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(146,64,14,.12)}.navIn{display:flex;gap:8px;overflow:auto;padding:10px 0}.navIn a{white-space:nowrap;padding:10px 13px;border-radius:999px;background:#fff;border:1px solid rgba(146,64,14,.1);font-weight:800;color:#7c2d12}.navIn a:hover{background:#fffbeb}
+main{padding:28px 0 60px}.section{margin:26px 0;background:rgba(255,255,255,.78);border:1px solid rgba(146,64,14,.12);box-shadow:var(--shadow);border-radius:32px;padding:24px}.sectionTitle{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:18px}.sectionTitle h2{margin:0;color:#78350f;font-size:clamp(22px,2.5vw,34px);font-weight:900}.sectionTitle p{margin:5px 0 0;color:var(--muted);font-weight:700}.pill{display:inline-flex;align-items:center;gap:8px;background:var(--soft);border:1px solid rgba(146,64,14,.16);color:#92400e;padding:8px 13px;border-radius:999px;font-weight:900}.grid{display:grid;gap:16px}.grid.cols2{grid-template-columns:repeat(2,1fr)}.grid.cols3{grid-template-columns:repeat(3,1fr)}.grid.cols4{grid-template-columns:repeat(4,1fr)}.card{background:#fff;border:1px solid rgba(146,64,14,.13);border-radius:22px;padding:18px;box-shadow:0 12px 25px rgba(120,72,0,.06)}.card h3{margin:0 0 9px;color:#7c2d12;font-size:21px;font-weight:900}.card p,.card li{color:#475569;line-height:1.85;font-weight:600}.card ul{padding-right:18px;margin:8px 0}.icon{width:43px;height:43px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,#fffbeb,#fed7aa);font-size:24px;margin-bottom:10px}.note{background:#fffbeb;border:1px dashed #f59e0b;border-radius:18px;padding:14px 16px;color:#713f12;font-weight:800;line-height:1.85}.success{background:#ecfdf5;border:1px dashed #10b981;color:#065f46}.danger{background:#fff1f2;border:1px dashed #fb7185;color:#9f1239}.blueNote{background:#eff6ff;border:1px dashed #60a5fa;color:#1d4ed8}.tabbar{display:flex;gap:8px;overflow:auto;margin-bottom:16px}.tab{padding:10px 14px;border-radius:999px;border:1px solid #ead7b9;background:white;font-weight:900;color:#854d0e;cursor:pointer;font-family:inherit;white-space:nowrap}.tab.active{background:linear-gradient(135deg,var(--primary),var(--primary2));color:white;border-color:transparent}table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:16px;border:1px solid #ead7b9;background:white}th,td{padding:11px 10px;border-bottom:1px solid #f1e0c8;text-align:right;vertical-align:top}th{background:#fffbeb;color:#78350f;font-weight:900}tr:last-child td{border-bottom:0}.tableWrap{overflow:auto;border-radius:16px}.toolGrid{display:grid;grid-template-columns:360px 1fr;gap:18px;align-items:start}.panel{background:#fff;border:1px solid rgba(146,64,14,.13);border-radius:24px;padding:17px;box-shadow:0 12px 26px rgba(120,72,0,.06)}label{display:block;margin:10px 0 6px;color:#78350f;font-weight:900}input,textarea,select{width:100%;padding:12px 13px;border:1px solid #e7cda3;border-radius:15px;background:#fffdf7;font-family:inherit;font-size:15px;color:#1f2937;outline:none}textarea{min-height:148px;resize:vertical;direction:rtl}input:focus,textarea:focus,select:focus{border-color:#f59e0b;box-shadow:0 0 0 4px rgba(245,158,11,.12)}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.timelineCanvas{background:#fff;border:1px solid #ead7b9;border-radius:22px;padding:10px;min-height:360px;overflow:auto}.timelineCanvas svg{min-width:900px;max-width:100%;height:auto;display:block;margin:auto}.feedback{display:grid;gap:10px;margin-top:14px}.feedItem{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid #ead7b9;border-radius:15px;padding:10px;font-weight:800;color:#475569}.feedItem .ok{color:#16a34a}.feedItem .bad{color:#dc2626}.scoreBox{display:flex;align-items:center;justify-content:space-between;gap:15px;background:linear-gradient(135deg,#fff7ed,#ecfeff);border:1px solid rgba(15,118,110,.14);border-radius:20px;padding:15px;margin-top:12px}.scoreNum{font-size:34px;font-weight:900;color:#0f766e}.steps{counter-reset:step;display:grid;gap:13px}.step{position:relative;background:#fff;border:1px solid #ead7b9;border-radius:22px;padding:16px 68px 16px 16px}.step:before{counter-increment:step;content:counter(step);position:absolute;right:16px;top:18px;width:38px;height:38px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;display:grid;place-items:center;font-weight:900}.step h3{margin:0 0 6px;color:#7c2d12}.step p{margin:0;color:#475569;font-weight:700;line-height:1.75}.rubric{display:grid;gap:10px}.rubricItem{display:grid;grid-template-columns:2fr 1fr 2fr;gap:10px;align-items:center;background:white;border:1px solid #ead7b9;border-radius:16px;padding:12px}.progress{height:12px;border-radius:999px;background:#f1e0c8;overflow:hidden}.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--primary2));width:0%}.canvasBox{background:#fff;border:1px solid #ead7b9;border-radius:22px;padding:12px;overflow:auto}.drawCanvas{background:#fffdf7;border:1px solid #ead7b9;border-radius:16px;display:block;touch-action:none;max-width:100%}.challengeHead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.level{display:inline-flex;align-items:center;gap:6px;border-radius:999px;background:#ecfeff;color:#0f766e;padding:7px 12px;font-weight:900;border:1px solid #99f6e4}.winnerBoard{display:flex;flex-wrap:wrap;gap:8px}.medal{border-radius:999px;background:#fff7ed;border:1px solid #fed7aa;color:#92400e;padding:8px 12px;font-weight:900}.imagePreview{max-width:100%;max-height:340px;border-radius:18px;border:1px solid #ead7b9;display:none;margin:auto}.metricGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}.metric{background:#fff;border:1px solid #ead7b9;border-radius:16px;padding:12px;text-align:center}.metric strong{display:block;color:#0f766e;font-size:22px}.footer{text-align:center;color:#7c2d12;font-weight:900;padding:28px}.printOnly{display:none}
+.kbd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:2px 6px;direction:ltr;display:inline-block}.sourceLinks a{text-decoration:underline;color:#0f766e;font-weight:900}.separator{height:1px;background:#ead7b9;margin:16px 0}.toast{position:fixed;bottom:18px;right:18px;z-index:100;background:#1f2937;color:white;padding:12px 16px;border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.2);font-weight:900;opacity:0;transform:translateY(20px);transition:.25s}.toast.show{opacity:1;transform:none}.modal{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;place-items:center;z-index:90;padding:18px}.modal.open{display:grid}.modalCard{background:#fffdf7;border-radius:28px;max-width:760px;max-height:86vh;overflow:auto;border:1px solid #ead7b9;box-shadow:0 30px 80px rgba(0,0,0,.25);padding:22px}.modalCard h3{color:#7c2d12;margin-top:0}.closeX{float:left;border:0;background:#fee2e2;color:#991b1b;border-radius:12px;padding:8px 12px;font-weight:900;cursor:pointer}
+@media (max-width:900px){.heroGrid,.toolGrid,.grid.cols2,.grid.cols3,.grid.cols4{grid-template-columns:1fr}.topbar{align-items:flex-start}.badge{display:none}.row,.metricGrid{grid-template-columns:1fr}.rubricItem{grid-template-columns:1fr}.section{padding:18px;border-radius:24px}.heroCard{padding:18px}.brand h1{font-size:25px}.logo{width:52px;height:52px}.timelineCanvas svg{min-width:720px}.navIn a{font-size:14px}.toolGrid{gap:12px}}
+@media print{nav,.heroActions,.btn,.tabbar,.noPrint,.toast,.modal{display:none!important}body{background:white}.section,.card,.panel{box-shadow:none!important}.printOnly{display:block}.wrap{width:100%}.timelineCanvas{border:0}.hero,.section{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <a href="../" title="العودة إلى البوابة الرئيسية" style="display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#fff7e8,#ffedb8);border:2px solid rgba(245,158,11,.3);text-decoration:none;font-size:1.5rem;box-shadow:0 4px 14px rgba(138,75,24,.15);flex-shrink:0;">🏠</a>
+        <div class="logo">⏳</div>
+        <img src="../assets/logo-hanane.jpg" alt="مؤسسة الحنان الخاصة" style="width:52px;height:52px;border-radius:14px;object-fit:cover;border:2px solid rgba(245,158,11,.3);box-shadow:0 4px 12px rgba(138,75,24,.15);">
+        <div>
+          <h1>رحلة إتقان الخط الزمني</h1>
+          <p>تطبيق تفاعلي لتعلم رسم الخط الزمني وقراءته في مادة الاجتماعيات</p>
+        </div>
+      </div>
+      <div class="badge">إعداد: الأستاذ أحمد بوعمود</div>
+    </div>
+    <div class="heroGrid">
+      <div class="heroCard">
+        <h2>من جدول أحداث إلى خط زمني واضح، جميل، ومنهجي</h2>
+        <p>هذا التطبيق يشرح كل عنصر من عناصر الخط الزمني، ثم يتيح للتلميذ أن يرسم بنفسه، يتحقق من عمله، يشارك في مسابقة أفضل خط زمني، ويرفع صورة خطه الزمني ليتلقى ملاحظات ذكية أولية.</p>
+        <div class="heroActions">
+          <a class="btn gold" href="#maker">✍️ ابدأ الرسم الآن</a>
+          <a class="btn primary" href="#competition">🏆 ادخل المسابقة</a>
+          <a class="btn ghost" href="#ai">📷 حلّل صورة خط زمني</a>
+          <button class="btn ghost" onclick="window.print()">🖨️ طباعة الدليل</button>
+        </div>
+      </div>
+      <div class="miniTimeline" aria-label="رسم توضيحي لخط زمني">
+        <div class="axis"></div><div class="arrow">➜</div>
+        <div class="miniEvent" style="right:52px;top:58px"><div class="year">1844</div><div class="dot"></div><div class="lab">معركة إيسلي</div></div>
+        <div class="miniEvent" style="right:215px;top:165px"><div class="lab">فرض الحماية</div><div class="dot"></div><div class="year">1912</div></div>
+        <div class="miniEvent" style="right:385px;top:54px"><div class="year">1956</div><div class="dot"></div><div class="lab">الاستقلال</div></div>
+        <div class="miniEvent" style="left:55px;top:165px"><div class="lab">استرجاع وادي الذهب</div><div class="dot"></div><div class="year">1979</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+<nav class="noPrint"><div class="wrap navIn">
+  <a href="../" style="background:linear-gradient(135deg,#fff7e8,#ffedb8);color:#92400e;border-color:rgba(245,158,11,.3);">🏠 البوابة</a><a href="#concept">المفهوم</a><a href="#elements">العناصر</a><a href="#steps">الخطوات</a><a href="#examples">أمثلة</a><a href="#scale">مساعد السلم</a><a href="#maker">المرسم</a><a href="#practice">دفتر الرسم</a><a href="#competition">المسابقة</a><a href="#ai">تحليل الصورة</a><a href="#rubric">شبكة التنقيط</a>
+</div></nav>
+<main class="wrap">
+<section class="section" id="concept">
+  <div class="sectionTitle"><div><h2>أولاً: ما هو الخط الزمني؟</h2><p>أداة بصرية لفهم التعاقب التاريخي والمسافة الزمنية بين الأحداث.</p></div><span class="pill">📌 من الترتيب إلى التفسير</span></div>
+  <div class="grid cols3">
+    <div class="card"><div class="icon">🧭</div><h3>تعريف مبسط</h3><p>الخط الزمني هو تمثيل بصري لأحداث مرتبة حسب الزمن، يساعدنا على معرفة ما وقع أولاً وما وقع بعده، وعلى رؤية الفترات الطويلة والقصيرة بين الأحداث.</p></div>
+    <div class="card"><div class="icon">📏</div><h3>لماذا السلم مهم؟</h3><p>السلم يجعل السنوات تتحول إلى مسافات. عندما يكون السلم مضبوطاً، يفهم التلميذ أن المسافة بين 1844 و1912 ليست مثل المسافة بين 1975 و1979.</p></div>
+    <div class="card"><div class="icon">🔎</div><h3>قراءة لا رسم فقط</h3><p>الهدف ليس وضع نقط على خط فقط، بل استخلاص المراحل: ما الحدث المؤسس؟ أين حدث التحول؟ هل هناك تسارع؟ ما النتيجة التاريخية؟</p></div>
+  </div>
+  <div class="note blueNote" style="margin-top:16px">خلاصة البحث التربوي: الخطوط الزمنية تساعد المتعلمين على بناء فهم للتعاقب التاريخي، ويفضل أن تكون واضحة وبسيطة وقابلة للبناء المشترك مع التلاميذ، مع الانتباه للسلم عندما نريد تمثيل المسافات الزمنية بدقة.</div>
+</section>
+<section class="section" id="elements">
+  <div class="sectionTitle"><div><h2>ثانياً: عناصر الخط الزمني بالتفصيل</h2><p>كل عنصر له وظيفة. غياب عنصر واحد قد يجعل الخط ناقصاً أو غامضاً.</p></div><span class="pill">🧩 بطاقة لكل عنصر</span></div>
+  <div class="grid cols3" id="elementCards"></div>
+</section>
+<section class="section" id="steps">
+  <div class="sectionTitle"><div><h2>ثالثاً: خطوات إنجاز خط زمني ناجح</h2><p>طريقة عملية تصلح للدفتر، للسبورة، وللإجابة في الفرض أو الامتحان.</p></div><span class="pill">✅ منهجية مختصرة</span></div>
+  <div class="steps">
+    <div class="step"><h3>قراءة الجدول أو النص</h3><p>استخرج السنوات والأحداث، وميز بين الحدث السياسي، العسكري، الاجتماعي، أو الاقتصادي. لا تبدأ الرسم قبل فهم المعطيات.</p></div>
+    <div class="step"><h3>ترتيب الأحداث زمنياً</h3><p>رتب من الأقدم إلى الأحدث. مثال: 1844 قبل 1912، و1956 قبل 1975. الخطأ في الترتيب يفسد المعنى التاريخي.</p></div>
+    <div class="step"><h3>تحديد البداية والنهاية</h3><p>اختر سنة بداية قبل أول حدث بقليل وسنة نهاية بعد آخر حدث بقليل. هذا يمنح الخط راحة بصرية.</p></div>
+    <div class="step"><h3>اختيار السلم المناسب</h3><p>مثلاً: 1 سم = 10 سنوات. إذا كانت الفترة طويلة استعمل سلماً أكبر، وإذا كانت قصيرة استعمل سلماً أدق.</p></div>
+    <div class="step"><h3>رسم المحور والتدرجات</h3><p>ارسم خطاً أفقياً بسهم نحو المستقبل، ثم ضع تدرجات منتظمة: 1840، 1860، 1880… أو حسب السلم المختار.</p></div>
+    <div class="step"><h3>وضع الأحداث فوق الخط أو تحته</h3><p>ضع كل حدث في موقعه الزمني الصحيح. يمكن التناوب فوق/تحت الخط حتى لا تتزاحم العبارات.</p></div>
+    <div class="step"><h3>إكمال العناصر الخارجية</h3><p>أضف العنوان، المفتاح إذا استعملت ألواناً، المصدر إذا كانت المعطيات من وثيقة، والإطار إذا طلبه الأستاذ.</p></div>
+    <div class="step"><h3>كتابة تعليق قصير</h3><p>لا تكتف بالرسم: استخلص مرحلة أو تحولاً. مثال: يبرز الخط انتقال المغرب من الضغط الاستعماري إلى استكمال الاستقلال الترابي.</p></div>
+  </div>
+</section>
+<section class="section" id="examples">
+  <div class="sectionTitle"><div><h2>رابعاً: أمثلة تطبيقية جاهزة</h2><p>اختر مثالاً، شاهد الجدول، ثم لاحظ كيف يتحول إلى خط زمني.</p></div><span class="pill">📚 أمثلة من الاجتماعيات</span></div>
+  <div class="tabbar" id="exampleTabs"></div>
+  <div class="grid cols2">
+    <div class="panel"><h3 id="exampleTitle">مثال</h3><p id="exampleDesc"></p><div class="tableWrap"><table id="exampleTable"></table></div><div class="note success" id="exampleReading" style="margin-top:12px"></div></div>
+    <div class="timelineCanvas"><div id="exampleTimeline"></div></div>
+  </div>
+</section>
+<section class="section" id="scale">
+  <div class="sectionTitle"><div><h2>خامساً: مساعد اختيار السلم</h2><p>احسب بسرعة هل يناسبك 1 سم = 5 سنوات أم 10 أم 20.</p></div><span class="pill">📐 آلة مساعدة</span></div>
+  <div class="grid cols2">
+    <div class="panel">
+      <div class="row"><div><label>سنة البداية</label><input type="number" id="scaleStart" value="1840"></div><div><label>سنة النهاية</label><input type="number" id="scaleEnd" value="1980"></div></div>
+      <div class="row"><div><label>طول الخط المتاح بالسنتيمتر</label><input type="number" id="scaleWidth" value="18"></div><div><label>تفضيل التدرج</label><select id="scalePref"><option value="auto">تلقائي</option><option value="5">كل 5 سنوات</option><option value="10">كل 10 سنوات</option><option value="20">كل 20 سنة</option><option value="25">كل 25 سنة</option><option value="50">كل 50 سنة</option></select></div></div>
+      <button class="btn gold" onclick="calcScale()">احسب السلم المناسب</button>
+      <div id="scaleResult" class="feedback"></div>
+    </div>
+    <div class="card"><h3>قاعدة ذهبية</h3><p>في الخط الزمني المتدرج، يجب أن تمثل المسافات نفس المدة الزمنية. إذا كان 1 سم = 10 سنوات، فلا يجوز أن تجعل 10 سنوات مرة طويلة ومرة قصيرة. أما إذا كان الهدف مجرد ترتيب سريع للأحداث فيمكن استعمال توزيع متساوٍ، لكن يجب أن تكتب أنه “ترتيب زمني غير متدرج”.</p><div class="note danger">أكثر خطأ شائع: تلميذ يضع 1844 و1912 و1956 بمسافات متساوية، ثم يقول إن الخط متدرج. هذا غير صحيح لأن الفترات الزمنية مختلفة.</div></div>
+  </div>
+</section>
+<section class="section" id="maker">
+  <div class="sectionTitle"><div><h2>سادساً: مرسم الخط الزمني</h2><p>أدخل الأحداث، اختر النمط، وارسم خطاً زمنياً قابلاً للتحميل.</p></div><span class="pill">🛠️ أداة رسم وتحقيق</span></div>
+  <div class="toolGrid">
+    <div class="panel">
+      <label>عنوان الخط الزمني</label><input id="tlTitle" value="خط زمني: مراحل استكمال استقلال المغرب 1844-1979">
+      <div class="row"><div><label>نمط التوزيع</label><select id="tlMode"><option value="proportional">متدرج حسب السنوات</option><option value="equal">توزيع متساوٍ للأحداث</option></select></div><div><label>الشكل</label><select id="tlLayout"><option value="horizontal">أفقي</option><option value="vertical">عمودي</option></select></div></div>
+      <div class="row"><div><label>سنة البداية اختيارية</label><input type="number" id="tlStart" placeholder="مثال: 1840"></div><div><label>سنة النهاية اختيارية</label><input type="number" id="tlEnd" placeholder="مثال: 1980"></div></div>
+      <label>المصدر</label><input id="tlSource" value="معطيات تدريبية من مقرر الاجتماعيات">
+      <label>الأحداث: السنة | الحدث | شرح قصير | الصنف</label>
+      <textarea id="tlData" spellcheck="false"></textarea>
+      <div class="heroActions">
+        <button class="btn gold" onclick="drawUserTimeline()">ارسم الخط</button>
+        <button class="btn primary" onclick="loadSample('morocco')">مثال المغرب</button>
+        <button class="btn ghost" onclick="loadSample('ww2')">الحرب العالمية الثانية</button>
+        <button class="btn ghost" onclick="loadSample('palestine')">القضية الفلسطينية</button>
+        <button class="btn red" onclick="clearMaker()">مسح</button>
+      </div>
+    </div>
+    <div>
+      <div class="timelineCanvas"><div id="userTimeline"></div></div>
+      <div class="scoreBox"><div><strong>مؤشر جودة الخط الزمني</strong><div id="qualityText">ارسم الخط للحصول على تقييم.</div></div><div class="scoreNum" id="qualityScore">--</div></div>
+      <div id="qualityFeedback" class="feedback"></div>
+      <div class="heroActions noPrint">
+        <button class="btn primary" onclick="downloadSVG('userTimeline','alkhat_azzamani.png')">تحميل كصورة PNG</button>
+        <button class="btn ghost" onclick="copyPromptFromTimeline()">نسخ تعليق مقترح</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section" id="practice">
+  <div class="sectionTitle"><div><h2>سابعاً: دفتر رسم يدوي للتدريب</h2><p>شبكة محاكاة للدفتر. ارسم عليها باليد أو بالقلم الرقمي.</p></div><span class="pill">✏️ تدريب حر</span></div>
+  <div class="grid cols2">
+    <div class="panel"><label>لون القلم</label><select id="penColor"><option value="#7c2d12">بني تاريخي</option><option value="#0f766e">أخضر</option><option value="#2563eb">أزرق</option><option value="#dc2626">أحمر</option><option value="#111827">أسود</option></select><label>سمك القلم</label><input id="penSize" type="range" min="1" max="12" value="3"><div class="heroActions"><button class="btn gold" onclick="prepareGrid()">إظهار الشبكة</button><button class="btn ghost" onclick="clearDrawing()">مسح الرسم</button><button class="btn primary" onclick="downloadDrawing()">تحميل التدريب</button></div><div class="note">نصيحة: ارسم أولاً محوراً أفقياً، حدد البداية والنهاية، ثم ضع السنوات بتدرج منتظم.</div></div>
+    <div class="canvasBox"><canvas id="drawCanvas" class="drawCanvas" width="860" height="430"></canvas></div>
+  </div>
+</section>
+<section class="section" id="competition">
+  <div class="sectionTitle"><div><h2>ثامناً: مسابقة أفضل خط زمني</h2><p>اختر تحدياً، اقرأ الجدول، ارسم في المرسم أو على الدفتر، ثم تحقق من جوابك.</p></div><span class="pill">🏆 تحديات وتحقق</span></div>
+  <div class="challengeHead"><div class="winnerBoard" id="winnerBoard"></div><div class="level">نقطتك الحالية: <span id="gameScore">0</span> / 60</div></div>
+  <div class="grid cols2" style="margin-top:14px">
+    <div class="panel">
+      <label>اختر التحدي</label><select id="challengeSelect" onchange="loadChallenge()"></select>
+      <h3 id="challengeTitle"></h3><p id="challengeInstruction"></p><div class="tableWrap"><table id="challengeTable"></table></div>
+      <div class="row"><div><label>ما النمط الأنسب؟</label><select id="answerMode"><option value="">اختر...</option><option value="proportional">متدرج حسب السنوات</option><option value="equal">توزيع متساوٍ</option></select></div><div><label>هل الأحداث مرتبة زمنياً في الجدول؟</label><select id="answerSorted"><option value="">اختر...</option><option value="yes">نعم</option><option value="no">لا</option></select></div></div>
+      <label>تعليقك التاريخي في جملة أو جملتين</label><textarea id="answerComment" placeholder="مثال: يبرز الخط انتقال المغرب من مرحلة الضغط الاستعماري إلى مرحلة الاستقلال واستكمال الوحدة الترابية..."></textarea>
+      <div class="heroActions"><button class="btn gold" onclick="verifyChallenge()">تحقق من الجواب</button><button class="btn primary" onclick="showChallengeAnswer()">إظهار الجواب النموذجي</button><button class="btn ghost" onclick="sendChallengeToMaker()">أرسل الجدول إلى المرسم</button></div>
+      <div id="challengeFeedback" class="feedback"></div>
+    </div>
+    <div class="timelineCanvas"><div id="challengeTimeline"></div><div class="note success" id="challengeAnswer" style="margin-top:12px;display:none"></div></div>
+  </div>
+</section>
+<section class="section" id="ai">
+  <div class="sectionTitle"><div><h2>تاسعاً: مساعد ذكي لقراءة صورة خط زمني</h2><p>ارفع صورة لخط زمني، وسيقدم التطبيق ملاحظات أولية. OCR يعمل عند توفر الإنترنت.</p></div><span class="pill">📷 تحليل تجريبي</span></div>
+  <div class="grid cols2">
+    <div class="panel">
+      <label>ارفع صورة الخط الزمني</label><input type="file" id="imageInput" accept="image/*" onchange="previewTimelineImage(event)">
+      <img id="previewImg" class="imagePreview" alt="معاينة الصورة">
+      <div class="metricGrid"><div class="metric"><strong id="imgW">--</strong><span>العرض</span></div><div class="metric"><strong id="imgH">--</strong><span>الطول</span></div><div class="metric"><strong id="imgLight">--</strong><span>الإضاءة</span></div><div class="metric"><strong id="imgContrast">--</strong><span>التباين</span></div></div>
+      <div class="heroActions"><button class="btn gold" onclick="analyzeImageQuality()">حلّل جودة الصورة</button><button class="btn primary" onclick="runOCR()">قراءة OCR تجريبية</button></div>
+      <div id="imageFeedback" class="feedback"></div>
+    </div>
+    <div class="panel">
+      <label>النص المقروء أو الذي كتبه التلميذ عن الخط</label><textarea id="ocrText" placeholder="سيظهر هنا النص المقروء من الصورة، أو اكتب أنت السنوات والأحداث التي تراها..."></textarea>
+      <div class="heroActions"><button class="btn gold" onclick="reviewTimelineText()">علّق على القراءة</button><button class="btn ghost" onclick="makeVisionPrompt()">أنشئ برومبت ChatGPT Vision</button></div>
+      <div id="aiReview" class="feedback"></div>
+      <label>برومبت جاهز للنسخ عند استعمال صورة في ChatGPT</label><textarea id="visionPrompt" readonly></textarea>
+    </div>
+  </div>
+  <div class="note danger" style="margin-top:14px">تنبيه صريح: الصفحة لا تحتوي على نموذج ذكاء اصطناعي كامل مثل ChatGPT Vision داخلها. هي تقدم تحليل جودة وOCR اختياري وتعليقاً إرشادياً. القراءة الدقيقة للصورة والتقويم العميق يحتاجان نموذج رؤية حاسوبية متصل بالإنترنت.</div>
+</section>
+<section class="section" id="rubric">
+  <div class="sectionTitle"><div><h2>عاشراً: شبكة تنقيط الخط الزمني</h2><p>استعملها التلميذ للتقويم الذاتي أو الأستاذ أثناء المسابقة.</p></div><span class="pill">🧾 20 نقطة</span></div>
+  <div class="rubric" id="rubricList"></div>
+</section>
+<section class="section sourceLinks">
+  <div class="sectionTitle"><div><h2>مصادر ومنطلقات تربوية</h2><p>اعتمد التطبيق على مبادئ تعليمية عامة في قراءة التمثيلات الزمنية وبناء الخطوط الزمنية.</p></div><span class="pill">🔗 للمعلم</span></div>
+  <div class="grid cols3">
+    <div class="card"><h3>التعاقب الزمني</h3><p>الخط الزمني يعرض الأحداث في ترتيب زمني، ويجعل العلاقة بين السابق واللاحق أكثر وضوحاً.</p></div>
+    <div class="card"><h3>السلم والمسافة</h3><p>عند استعمال خط متدرج، يجب أن تكون المسافات مرتبطة فعلاً بالفترات الزمنية، لا بمجرد توزيع جمالي.</p></div>
+    <div class="card"><h3>التعلم بالممارسة</h3><p>التلميذ يتعلم أكثر عندما يبني الخط بنفسه، يراجع اختياره، ثم يكتب قراءة قصيرة للأحداث.</p></div>
+  </div>
+</section>
+</main>
+<footer class="footer">
+  رحلة إتقان الخط الزمني — إعداد: <strong>ذ. أحمد بوعمود</strong> — مؤسسة الحنان الخاصة | أكادير | 2025-2026<br>
+  <a href="../" style="color:#0f766e;font-weight:900;text-decoration:none;">🏠 العودة إلى البوابة الرئيسية</a>
+</footer>
+<div class="toast" id="toast"></div>
+<div class="modal" id="modal"><div class="modalCard"><button class="closeX" onclick="closeModal()">إغلاق</button><div id="modalContent"></div></div></div>
+<script>
+const el = id => document.getElementById(id);
+const palette = {سياسي:'#0f766e', عسكري:'#dc2626', وطني:'#16a34a', دولي:'#2563eb', اقتصادي:'#f59e0b', اجتماعي:'#7c3aed', ثقافي:'#92400e', عام:'#64748b'};
+const elements = [
+  ['العنوان','يخبرنا بموضوع الخط والفترة الزمنية.','مثال: خط زمني لمراحل استكمال استقلال المغرب 1844-1979.','🏷️'],
+  ['الفترة الزمنية','تحدد سنة البداية وسنة النهاية، وتساعد على اختيار السلم.','مثال: من 1844 إلى 1979، أي 135 سنة تقريباً.','🗓️'],
+  ['المحور أو الخط','هو العمود الفقري للخط الزمني، ويكون غالباً أفقياً مع سهم نحو المستقبل.','في الدفتر: خط مستقيم واضح، لا مائل ولا قصير جداً.','➡️'],
+  ['السلم','قاعدة تحويل الزمن إلى مسافة.','مثال: 1 سم = 10 سنوات، أو 1 خانة = 5 سنوات.','📏'],
+  ['التدرجات','سنوات مرجعية منتظمة توضع على المحور.','مثال: 1840، 1860، 1880، 1900…','〽️'],
+  ['الأحداث','النقط أو العلامات التي تمثل وقائع تاريخية.','مثال: 1912 فرض الحماية، 1956 الاستقلال.','📍'],
+  ['الوصف القصير','كلمات قليلة تشرح الحدث دون إغراق الخط بالنص.','الأفضل: “فرض الحماية” بدل فقرة طويلة.','💬'],
+  ['الألوان والرموز','تساعد على التمييز بين أنواع الأحداث.','أحمر للأحداث العسكرية، أخضر للأحداث الوطنية، أزرق للدولية.','🎨'],
+  ['المفتاح','يفسر معنى الألوان أو الرموز.','مثال: ● سياسي، ▲ عسكري، ■ وطني.','🔑'],
+  ['المصدر','يبين أصل المعطيات إذا كانت من وثيقة أو جدول.','مثال: المصدر: مقرر الاجتماعيات، وثيقة 1.','📚'],
+  ['الإطار والجمالية','يجعلان العمل منظماً وقابلاً للقراءة.','خط نظيف، عبارات غير متداخلة، مسافات مناسبة.','🖼️'],
+  ['التعليق','قراءة تاريخية قصيرة تستخلص معنى الخط.','مثال: يبرز الخط تدرج الكفاح الوطني نحو الاستقلال.','🧠']
+];
+const examples = {
+ morocco:{title:'مراحل استكمال استقلال المغرب 1844-1979', desc:'مثال مناسب للثالثة إعدادي: يبرز انتقال المغرب من الضغوط الاستعمارية إلى الاستقلال واستكمال الوحدة الترابية.', reading:'قراءة نموذجية: نلاحظ أن الفترة بين 1844 و1912 اتسمت بتزايد الضغط الاستعماري، ثم جاءت مرحلة الحماية، وبعد 1956 دخل المغرب مرحلة بناء الدولة واستكمال الوحدة الترابية.', data:[
+  [1844,'معركة إيسلي','بداية ضغط عسكري فرنسي على المغرب','عسكري'],[1860,'حرب تطوان','تزايد الضغط الإسباني','عسكري'],[1906,'مؤتمر الجزيرة الخضراء','تدويل المسألة المغربية','دولي'],[1912,'فرض الحماية','تقسيم النفوذ الفرنسي والإسباني','سياسي'],[1944,'وثيقة المطالبة بالاستقلال','تصاعد العمل الوطني','وطني'],[1956,'استقلال المغرب','نهاية الحماية واسترجاع السيادة','وطني'],[1975,'المسيرة الخضراء','استرجاع الصحراء','وطني'],[1979,'استرجاع وادي الذهب','استكمال مهم للوحدة الترابية','وطني']]
+ },
+ ww2:{title:'أحداث كبرى في الحرب العالمية الثانية 1939-1945', desc:'مثال قصير المدة يحتاج سلماً دقيقاً نسبياً لأن الأحداث متقاربة.', reading:'قراءة نموذجية: يبرز الخط تسارع أحداث الحرب بين 1939 و1945، من اندلاعها في أوروبا إلى نهايتها بعد استسلام ألمانيا واليابان.', data:[
+  [1939,'غزو بولونيا','اندلاع الحرب العالمية الثانية','عسكري'],[1940,'سقوط فرنسا','توسع سريع لقوات المحور','عسكري'],[1941,'الهجوم على بيرل هاربر','دخول الولايات المتحدة الحرب','دولي'],[1942,'معركة العلمين','تحول في موازين الحرب','عسكري'],[1944,'إنزال النورماندي','فتح جبهة غربية ضد ألمانيا','عسكري'],[1945,'نهاية الحرب','استسلام ألمانيا واليابان','دولي']]
+ },
+ palestine:{title:'محطات في القضية الفلسطينية 1917-1993', desc:'مثال طويل يوضح كيف تتعاقب قرارات وأحداث مفصلية في تاريخ القضية الفلسطينية.', reading:'قراءة نموذجية: يكشف الخط أن القضية الفلسطينية مرت من وعد سياسي سنة 1917 إلى تقسيم واحتلال وحروب، ثم إلى مرحلة اتفاقيات سياسية في نهاية القرن العشرين.', data:[
+  [1917,'وعد بلفور','تعهد بإنشاء وطن قومي لليهود في فلسطين','سياسي'],[1947,'قرار التقسيم','مشروع تقسيم فلسطين','دولي'],[1948,'النكبة','قيام إسرائيل وتهجير الفلسطينيين','سياسي'],[1967,'حرب يونيو','احتلال الضفة وغزة والقدس الشرقية','عسكري'],[1973,'حرب أكتوبر','مرحلة جديدة في الصراع العربي الإسرائيلي','عسكري'],[1987,'الانتفاضة الأولى','نضال شعبي فلسطيني واسع','اجتماعي'],[1993,'اتفاق أوسلو','مرحلة تسوية سياسية','سياسي']]
+ },
+ geo:{title:'تطورات اقتصادية واجتماعية مختارة بالمغرب', desc:'مثال تدريبي لتلوين الأحداث حسب طبيعتها: اقتصادي، اجتماعي، سياسي.', reading:'قراءة نموذجية: يسمح الخط بتمييز الأحداث حسب طبيعتها وفهم أن التاريخ ليس سياسياً فقط؛ بل يتضمن تحولات اقتصادية واجتماعية أيضاً.', data:[[1912,'الحماية','بداية نظام سياسي جديد','سياسي'],[1930,'الظهير البربري','رد فعل وطني واجتماعي','سياسي'],[1956,'الاستقلال','تحول سياسي أساسي','وطني'],[1960,'بداية بناء مؤسسات الدولة','تنظيم إداري وسياسي','سياسي'],[1975,'المسيرة الخضراء','حدث وطني جامع','وطني'],[1999,'العهد الجديد','مرحلة سياسية واجتماعية جديدة','سياسي']]
+ }
+};
+const challenges = [
+ {title:'تحدي المغرب 1844-1979', level:'متوسط', instruction:'ارسم خطاً زمنياً متدرجاً يبرز الضغط الاستعماري ثم الاستقلال واستكمال الوحدة الترابية.', mode:'proportional', sorted:'yes', answer:'النمط الأفضل هو خط متدرج حسب السنوات لأن المسافات بين الأحداث مختلفة جداً. التعليق: يبرز الخط انتقال المغرب من مرحلة الضغط الاستعماري إلى الحماية، ثم إلى الاستقلال واستكمال الوحدة الترابية.', data:examples.morocco.data},
+ {title:'تحدي الحرب العالمية الثانية', level:'سهل', instruction:'الأحداث متقاربة بين 1939 و1945. اختر سلماً دقيقاً واكتب قراءة تبين تسارع الحرب.', mode:'proportional', sorted:'yes', answer:'الخط المتدرج مناسب، بسلم صغير مثل 1 سم = سنة واحدة أو سنتين. التعليق: تتسارع الأحداث من اندلاع الحرب إلى التحول العسكري ثم النهاية سنة 1945.', data:examples.ww2.data},
+ {title:'تحدي رتب الأحداث أولاً', level:'ممتع', instruction:'الجدول غير مرتب. صحح الترتيب قبل الرسم.', mode:'proportional', sorted:'no', answer:'الجدول الأصلي غير مرتب، ويجب البدء من 1917 ثم 1947 ثم 1948 ثم 1967 ثم 1973 ثم 1987 ثم 1993. الرسم المتدرج أفضل لأن الفترة طويلة.', data:[[1993,'اتفاق أوسلو','مرحلة تسوية سياسية','سياسي'],[1917,'وعد بلفور','بداية مسار سياسي للقضية','سياسي'],[1967,'حرب يونيو','احتلال أراض فلسطينية وعربية','عسكري'],[1948,'النكبة','قيام إسرائيل وتهجير الفلسطينيين','سياسي'],[1987,'الانتفاضة الأولى','نضال شعبي','اجتماعي'],[1947,'قرار التقسيم','تقسيم فلسطين','دولي'],[1973,'حرب أكتوبر','حرب عربية إسرائيلية','عسكري']]},
+ {title:'تحدي خط سريع للمراجعة', level:'سهل', instruction:'المطلوب هنا ترتيب سريع للأحداث لا تمثيل دقيق للمسافات. ما النمط الأنسب؟', mode:'equal', sorted:'yes', answer:'يمكن استعمال توزيع متساوٍ إذا كان الهدف بطاقة مراجعة سريعة، لكن يجب ألا نسميه خطاً متدرجاً دقيقاً. التعليق: يوضح الخط التعاقب العام دون إبراز الفوارق الزمنية.', data:[[1930,'حدث 1','تدريب على الترتيب','عام'],[1931,'حدث 2','تدريب على الترتيب','عام'],[1932,'حدث 3','تدريب على الترتيب','عام'],[1933,'حدث 4','تدريب على الترتيب','عام'],[1934,'حدث 5','تدريب على الترتيب','عام']]},
+ {title:'تحدي الألوان والمفتاح', level:'متقدم', instruction:'استعمل الألوان للتمييز بين سياسي وعسكري ووطني ودولي.', mode:'proportional', sorted:'yes', answer:'الألوان مهمة هنا لأن الأحداث متعددة الطبيعة. يجب إضافة مفتاح يشرح الأحمر للعسكري، الأخضر للوطني، الأزرق للدولي، والأخضر الداكن للسياسي.', data:[[1844,'معركة إيسلي','حدث عسكري','عسكري'],[1906,'مؤتمر الجزيرة الخضراء','حدث دولي','دولي'],[1912,'فرض الحماية','حدث سياسي','سياسي'],[1944,'وثيقة الاستقلال','حدث وطني','وطني'],[1956,'الاستقلال','حدث وطني','وطني']]},
+ {title:'تحدي القراءة التاريخية', level:'متقدم', instruction:'بعد الرسم، اكتب تعليقاً يذكر المرحلة والتحول والنتيجة.', mode:'proportional', sorted:'yes', answer:'التعليق الجيد يذكر: المرحلة الأولى ضغط استعماري، المرحلة الثانية الحماية والمقاومة، المرحلة الثالثة الاستقلال واستكمال الوحدة الترابية. لا يكفي أن تقول: هذا خط فيه تواريخ.', data:examples.morocco.data}
+];
+const rubric = [['ترتيب الأحداث زمنياً',4,'الأقدم في اليمين/البداية ثم الأحدث باتجاه السهم'],['اختيار السلم أو توضيح نمط التوزيع',4,'إذا كان متدرجاً يجب احترام المسافات الزمنية'],['وضوح العنوان والفترة',3,'عنوان دقيق يتضمن الموضوع والسنوات'],['دقة وضع الأحداث',3,'كل حدث في مكانه المناسب مع تاريخ واضح'],['المفتاح والمصدر والجمالية',3,'ألوان مفهومة، مصدر، خط نظيف، دون ازدحام'],['تعليق تاريخي قصير',3,'استخلاص مرحلة أو تحول أو نتيجة']];
+let currentExample='morocco', currentChallenge=0, gameScore=Number(localStorage.getItem('timelineGameScore')||0), lastTimelineComment='';
+function toast(msg){const t=el('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2400)}
+function init(){
+  el('elementCards').innerHTML = elements.map(([t,d,ex,ic])=>`<div class="card"><div class="icon">${ic}</div><h3>${t}</h3><p>${d}</p><div class="note">${ex}</div></div>`).join('');
+  el('exampleTabs').innerHTML = Object.keys(examples).map((k,i)=>`<button class="tab ${i===0?'active':''}" onclick="showExample('${k}',this)">${examples[k].title.split(' ')[0]} ${k==='morocco'?'المغرب':k==='ww2'?'الحرب الثانية':k==='palestine'?'فلسطين':'متنوع'}</button>`).join('');
+  el('challengeSelect').innerHTML = challenges.map((c,i)=>`<option value="${i}">${c.title} — ${c.level}</option>`).join('');
+  el('rubricList').innerHTML = rubric.map(([a,p,n])=>`<div class="rubricItem"><strong>${a}</strong><div><div class="progress"><span style="width:${p*5}%"></span></div><b>${p} نقط</b></div><span>${n}</span></div>`).join('');
+  el('gameScore').textContent=gameScore;
+  updateWinnerBoard(); showExample('morocco'); loadSample('morocco'); calcScale(); prepareGrid(); loadChallenge(); makeVisionPrompt();
+}
+function parseData(txt){
+  const lines = txt.split(/\n+/).map(s=>s.trim()).filter(Boolean);
+  const data=[];
+  for(const line of lines){
+    const parts = line.split(/\s*[|؛;،,\t]\s*/).filter(x=>x!=='' );
+    if(parts.length>=2){
+      const year = parseInt(String(parts[0]).match(/-?\d{1,4}/)?.[0]||'NaN');
+      if(!Number.isNaN(year)) data.push([year, parts[1]||'حدث', parts[2]||'', parts[3]||'عام']);
+    }
+  }
+  return data;
+}
+function dataToText(data){return data.map(r=>`${r[0]} | ${r[1]} | ${r[2]||''} | ${r[3]||'عام'}`).join('\n')}
+function tableHTML(data){return `<thead><tr><th>السنة</th><th>الحدث</th><th>شرح قصير</th><th>الصنف</th></tr></thead><tbody>${data.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]||''}</td><td>${r[3]||'عام'}</td></tr>`).join('')}</tbody>`}
+function niceStep(span){ if(span<=8) return 1; if(span<=20) return 2; if(span<=60) return 5; if(span<=120) return 10; if(span<=220) return 20; if(span<=500) return 50; return 100; }
+function esc(s){return String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function drawTimeline(targetId, data, opts={}){
+  if(!data.length){el(targetId).innerHTML='<div class="note danger">لا توجد أحداث صالحة للرسم.</div>'; return;}
+  const mode=opts.mode||'proportional', layout=opts.layout||'horizontal', title=opts.title||'خط زمني', source=opts.source||'', startOpt=opts.start, endOpt=opts.end;
+  let sorted=[...data].sort((a,b)=>a[0]-b[0]);
+  const minData=Math.min(...sorted.map(r=>r[0])), maxData=Math.max(...sorted.map(r=>r[0]));
+  let min = Number.isFinite(startOpt)? startOpt : Math.floor(minData/niceStep(maxData-minData))*niceStep(maxData-minData);
+  let max = Number.isFinite(endOpt)? endOpt : Math.ceil(maxData/niceStep(maxData-minData))*niceStep(maxData-minData);
+  if(min===max){min-=1;max+=1} if(min>minData) min=minData; if(max<maxData) max=maxData;
+  const span=max-min, step=niceStep(span), cats=[...new Set(sorted.map(r=>r[3]||'عام'))];
+  let svg='';
+  if(layout==='vertical'){
+    const w=900, top=88, bottom=60, h=Math.max(640, sorted.length*92+180), axisX=w/2;
+    const yFor=(year,i)=> mode==='equal' ? top + (sorted.length===1?0.5:i/(sorted.length-1))*(h-top-bottom) : top + ((year-min)/(max-min))*(h-top-bottom);
+    svg += `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(title)}"><defs><filter id="shadow"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-opacity="0.14"/></filter><marker id="arrow" markerWidth="10" markerHeight="10" refX="4" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#0f766e" /></marker></defs><rect width="100%" height="100%" rx="24" fill="#fffdf7"/><text x="${w/2}" y="38" text-anchor="middle" font-size="26" font-weight="900" fill="#78350f">${esc(title)}</text><line x1="${axisX}" y1="${top}" x2="${axisX}" y2="${h-bottom}" stroke="#0f766e" stroke-width="8" stroke-linecap="round" marker-end="url(#arrow)"/>`;
+    if(mode==='proportional'){
+      const first=Math.ceil(min/step)*step; for(let y=first;y<=max;y+=step){const py=yFor(y,0); svg+=`<line x1="${axisX-12}" x2="${axisX+12}" y1="${py}" y2="${py}" stroke="#92400e" stroke-width="2"/><text x="${axisX+42}" y="${py+5}" font-size="15" font-weight="800" fill="#78350f">${y}</text>`}
+    }
+    sorted.forEach((r,i)=>{const py=yFor(r[0],i), side=i%2===0?-1:1, x=axisX+side*170, c=palette[r[3]]||palette.عام; svg+=`<line x1="${axisX}" y1="${py}" x2="${x-side*70}" y2="${py}" stroke="${c}" stroke-width="2" stroke-dasharray="5 5"/><circle cx="${axisX}" cy="${py}" r="10" fill="#fff" stroke="${c}" stroke-width="6"/><rect x="${x-(side<0?210:0)}" y="${py-34}" width="210" height="68" rx="14" fill="#fff" stroke="#ead7b9" filter="url(#shadow)"/><text x="${x-(side<0?104:-104)}" y="${py-12}" text-anchor="middle" font-size="18" font-weight="900" fill="${c}">${r[0]}</text><text x="${x-(side<0?104:-104)}" y="${py+12}" text-anchor="middle" font-size="15" font-weight="800" fill="#1f2937">${esc(r[1]).slice(0,25)}</text><text x="${x-(side<0?104:-104)}" y="${py+31}" text-anchor="middle" font-size="12" fill="#64748b">${esc(r[3]||'عام')}</text>`});
+    svg += legendSVG(cats, 40, h-32) + `<text x="${w-35}" y="${h-22}" text-anchor="end" font-size="13" fill="#64748b">${esc(source)}</text></svg>`;
+  } else {
+    const w=1120, h=620, pad=80, axisY=306, topY=92, bottomY=380;
+    const xFor=(year,i)=> mode==='equal' ? pad + (sorted.length===1?0.5:i/(sorted.length-1))*(w-2*pad) : pad + ((year-min)/(max-min))*(w-2*pad);
+    svg += `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(title)}"><defs><filter id="shadow"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-opacity="0.14"/></filter><marker id="arrow" markerWidth="10" markerHeight="10" refX="4" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#0f766e" /></marker></defs><rect width="100%" height="100%" rx="24" fill="#fffdf7"/><text x="${w/2}" y="42" text-anchor="middle" font-size="28" font-weight="900" fill="#78350f">${esc(title)}</text><text x="${w/2}" y="70" text-anchor="middle" font-size="14" fill="#64748b">${mode==='proportional'?'خط متدرج حسب المسافة الزمنية':'توزيع متساوٍ للأحداث: مناسب للمراجعة السريعة لا لقياس المسافات'}</text><line x1="${w-pad}" y1="${axisY}" x2="${pad}" y2="${axisY}" stroke="#0f766e" stroke-width="9" stroke-linecap="round" marker-end="url(#arrow)"/>`;
+    if(mode==='proportional'){
+      const first=Math.ceil(min/step)*step; for(let y=first;y<=max;y+=step){const px=xFor(y,0); svg+=`<line x1="${px}" x2="${px}" y1="${axisY-14}" y2="${axisY+14}" stroke="#92400e" stroke-width="2"/><text x="${px}" y="${axisY+39}" text-anchor="middle" font-size="15" font-weight="800" fill="#78350f">${y}</text><line x1="${px}" x2="${px}" y1="96" y2="${axisY-24}" stroke="#f1e0c8" stroke-width="1" stroke-dasharray="4 8" opacity=".75"/>`}
+    }
+    sorted.forEach((r,i)=>{const px=xFor(r[0],i), above=i%2===0, y=above?topY:bottomY, connectorEnd=above?axisY-16:axisY+16, c=palette[r[3]]||palette.عام; const cardW=170, cardH=92; let cardX=Math.max(20, Math.min(w-cardW-20, px-cardW/2)); svg+=`<line x1="${px}" y1="${connectorEnd}" x2="${px}" y2="${above?y+cardH:y}" stroke="${c}" stroke-width="2" stroke-dasharray="5 5"/><circle cx="${px}" cy="${axisY}" r="11" fill="#fff" stroke="${c}" stroke-width="6"/><rect x="${cardX}" y="${y}" width="${cardW}" height="${cardH}" rx="16" fill="#fff" stroke="#ead7b9" filter="url(#shadow)"/><text x="${cardX+cardW/2}" y="${y+25}" text-anchor="middle" font-size="20" font-weight="900" fill="${c}">${r[0]}</text><text x="${cardX+cardW/2}" y="${y+50}" text-anchor="middle" font-size="15" font-weight="900" fill="#1f2937">${esc(r[1]).slice(0,26)}</text><text x="${cardX+cardW/2}" y="${y+72}" text-anchor="middle" font-size="12" fill="#64748b">${esc((r[2]||r[3]||'').slice(0,33))}</text>`});
+    svg += legendSVG(cats, 35, h-35) + `<text x="${w-35}" y="${h-23}" text-anchor="end" font-size="13" fill="#64748b">${esc(source)}</text></svg>`;
+  }
+  el(targetId).innerHTML=svg;
+}
+function legendSVG(cats,x,y){return `<g>${cats.map((cat,i)=>`<circle cx="${x+i*120}" cy="${y}" r="7" fill="${palette[cat]||palette.عام}"/><text x="${x+14+i*120}" y="${y+5}" font-size="13" fill="#475569" font-weight="800">${esc(cat)}</text>`).join('')}</g>`}
+function showExample(k,btn){currentExample=k; document.querySelectorAll('#exampleTabs .tab').forEach(b=>b.classList.remove('active')); if(btn)btn.classList.add('active'); const ex=examples[k]; el('exampleTitle').textContent=ex.title; el('exampleDesc').textContent=ex.desc; el('exampleTable').innerHTML=tableHTML(ex.data); el('exampleReading').textContent=ex.reading; drawTimeline('exampleTimeline', ex.data, {title:ex.title, source:'مثال تدريبي', mode:'proportional'});}
+function loadSample(k){const ex=examples[k]; el('tlTitle').value='خط زمني: '+ex.title; el('tlSource').value='معطيات تدريبية من مقرر الاجتماعيات'; el('tlMode').value='proportional'; el('tlLayout').value='horizontal'; el('tlStart').value=''; el('tlEnd').value=''; el('tlData').value=dataToText(ex.data); drawUserTimeline(); toast('تم تحميل المثال في المرسم')}
+function clearMaker(){el('tlTitle').value='';el('tlSource').value='';el('tlData').value='';el('userTimeline').innerHTML='';el('qualityScore').textContent='--';el('qualityText').textContent='ارسم الخط للحصول على تقييم.';el('qualityFeedback').innerHTML=''}
+function drawUserTimeline(){const data=parseData(el('tlData').value), title=el('tlTitle').value.trim(), source=el('tlSource').value.trim(), start=parseInt(el('tlStart').value), end=parseInt(el('tlEnd').value); drawTimeline('userTimeline', data, {title:title||'خط زمني', source, mode:el('tlMode').value, layout:el('tlLayout').value, start:Number.isNaN(start)?undefined:start, end:Number.isNaN(end)?undefined:end}); assessQuality(data,title,source);}
+function assessQuality(data,title,source){let score=0, f=[]; const years=data.map(r=>r[0]); const sorted=years.every((y,i)=>i===0||y>=years[i-1]); const hasDesc=data.every(r=>r[1]&&r[1].length>1); const span=data.length?Math.max(...years)-Math.min(...years):0; function add(ok,msg,pts){if(ok){score+=pts;f.push(`<div class="feedItem"><span class="ok">✅</span><span>${msg}</span></div>`)}else f.push(`<div class="feedItem"><span class="bad">⚠️</span><span>${msg}</span></div>`)}
+ add(title.length>=12,'عنوان واضح يتضمن موضوع الخط.',15); add(data.length>=3,'عدد الأحداث كافٍ لرسم خط زمني مفيد.',15); add(hasDesc,'كل حدث له تسمية مفهومة.',15); add(sorted,'الأحداث المدخلة مرتبة زمنياً في الجدول.',15); add(source.length>=4,'المصدر مذكور.',10); add(span>0,'الفترة الزمنية محددة وقابلة للقياس.',10); add(el('tlMode').value==='proportional'||data.length<=5,'اختيار النمط مناسب مبدئياً.',10); add(new Set(data.map(r=>r[3])).size>=2,'الأصناف/الألوان تساعد على القراءة.',10);
+ el('qualityScore').textContent=Math.min(score,100); el('qualityText').textContent=score>=80?'عمل قوي جداً، يحتاج فقط لمراجعة جمالية.':score>=55?'عمل مقبول، راجع التنبيهات لتحسينه.':'الخط يحتاج تحسينات أساسية قبل اعتماده.'; el('qualityFeedback').innerHTML=f.join('');
+ const sortedData=[...data].sort((a,b)=>a[0]-b[0]); lastTimelineComment = sortedData.length ? `يبرز هذا الخط الزمني تعاقب أحداث ${title||'الموضوع'} من سنة ${sortedData[0][0]} إلى سنة ${sortedData.at(-1)[0]}. ويمكن تقسيمه إلى مراحل حسب طبيعة الأحداث، مع الانتباه إلى التحولات الكبرى مثل: ${sortedData.map(r=>r[1]).slice(0,3).join('، ')}.` : '';
+}
+function calcScale(){const s=parseInt(el('scaleStart').value), e=parseInt(el('scaleEnd').value), w=parseFloat(el('scaleWidth').value); if(Number.isNaN(s)||Number.isNaN(e)||Number.isNaN(w)||e<=s||w<=0){el('scaleResult').innerHTML='<div class="feedItem"><span class="bad">⚠️</span><span>أدخل بداية ونهاية وطولاً صحيحاً.</span></div>';return} const span=e-s, yearsPerCm=span/w; const pref=el('scalePref').value; const steps=[1,2,5,10,20,25,50,100]; let suggested = pref==='auto'?steps.find(x=>x>=yearsPerCm)||100:Number(pref); const total=span/suggested; el('scaleResult').innerHTML=`<div class="feedItem"><span class="ok">📏</span><span>الفترة = <b>${span}</b> سنة. إذا اعتمدت <b>1 سم = ${suggested} سنة</b> فستحتاج تقريباً إلى <b>${total.toFixed(1)} سم</b>.</span></div><div class="feedItem"><span class="ok">✅</span><span>${total<=w?'هذا السلم مناسب للطول المتاح.':'هذا السلم طويل على الورقة؛ اختر 1 سم = مدة أكبر.'}</span></div><div class="feedItem"><span class="ok">💡</span><span>اقتراح تدرجات: ${Array.from({length:Math.min(8,Math.floor(span/suggested)+1)},(_,i)=>s+i*suggested).join('، ')}...</span></div>`}
+function downloadSVG(containerId, filename){const svg=el(containerId).querySelector('svg'); if(!svg){toast('لا يوجد رسم لتحميله'); return;} const data=new XMLSerializer().serializeToString(svg); const blob=new Blob([data],{type:'image/svg+xml;charset=utf-8'}); const url=URL.createObjectURL(blob); const img=new Image(); img.onload=function(){const canvas=document.createElement('canvas'); canvas.width=svg.viewBox.baseVal.width||1120; canvas.height=svg.viewBox.baseVal.height||620; const ctx=canvas.getContext('2d'); ctx.fillStyle='#fffdf7'; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.drawImage(img,0,0); URL.revokeObjectURL(url); const a=document.createElement('a'); a.download=filename; a.href=canvas.toDataURL('image/png'); a.click();}; img.src=url;}
+function copyPromptFromTimeline(){if(!lastTimelineComment){toast('ارسم خطاً أولاً'); return;} navigator.clipboard?.writeText(lastTimelineComment); toast('تم نسخ تعليق مقترح')}
+function loadChallenge(){currentChallenge=Number(el('challengeSelect').value||0); const c=challenges[currentChallenge]; el('challengeTitle').textContent=c.title; el('challengeInstruction').textContent=c.instruction; el('challengeTable').innerHTML=tableHTML(c.data); el('challengeFeedback').innerHTML=''; el('challengeAnswer').style.display='none'; el('answerMode').value=''; el('answerSorted').value=''; el('answerComment').value=''; drawTimeline('challengeTimeline', c.data, {title:c.title, source:'تحدي المسابقة', mode:c.mode});}
+function verifyChallenge(){const c=challenges[currentChallenge]; let pts=0, out=[]; const mode=el('answerMode').value, sorted=el('answerSorted').value, comment=el('answerComment').value.trim(); if(mode===c.mode){pts+=4;out.push('<div class="feedItem"><span class="ok">✅</span><span>اختيار النمط صحيح.</span></div>')}else out.push('<div class="feedItem"><span class="bad">❌</span><span>راجع النمط: هل المطلوب دقة المسافات أم ترتيب سريع؟</span></div>'); if(sorted===c.sorted){pts+=3;out.push('<div class="feedItem"><span class="ok">✅</span><span>حكمك على ترتيب الجدول صحيح.</span></div>')}else out.push('<div class="feedItem"><span class="bad">❌</span><span>راجع ترتيب السنوات في الجدول.</span></div>'); const words=['مرحلة','تحول','نتيجة','استقلال','ضغط','تسارع','ترتيب','الحماية','الحرب','القضية']; const rich=words.some(w=>comment.includes(w)) && comment.length>35; if(rich){pts+=3;out.push('<div class="feedItem"><span class="ok">✅</span><span>تعليقك يتضمن قراءة تاريخية مقبولة.</span></div>')}else out.push('<div class="feedItem"><span class="bad">⚠️</span><span>التعليق يحتاج معنى تاريخياً: مرحلة، تحول، نتيجة، أو علاقة بين الأحداث.</span></div>'); gameScore=Math.min(60,gameScore+pts); localStorage.setItem('timelineGameScore',gameScore); el('gameScore').textContent=gameScore; updateWinnerBoard(); out.unshift(`<div class="feedItem"><span class="ok">🏅</span><span>حصلت في هذا التحقق على <b>${pts}/10</b>.</span></div>`); el('challengeFeedback').innerHTML=out.join('');}
+function showChallengeAnswer(){const c=challenges[currentChallenge]; const ans=el('challengeAnswer'); ans.style.display='block'; ans.innerHTML=`<b>الجواب النموذجي:</b> ${c.answer}`; drawTimeline('challengeTimeline',[...c.data].sort((a,b)=>a[0]-b[0]),{title:c.title+' — جواب نموذجي', source:'المسابقة', mode:c.mode});}
+function sendChallengeToMaker(){const c=challenges[currentChallenge]; el('tlTitle').value='خط زمني: '+c.title; el('tlData').value=dataToText(c.data); el('tlMode').value=c.mode; el('tlSource').value='تحدي من مسابقة الخط الزمني'; location.hash='#maker'; drawUserTimeline();}
+function updateWinnerBoard(){let rank=gameScore>=50?'خبير الخط الزمني 🥇':gameScore>=30?'متمكن 🥈':gameScore>=10?'متدرب نشيط 🥉':'بداية الرحلة 🚀'; el('winnerBoard').innerHTML=`<span class="medal">${rank}</span><span class="medal">أفضل نتيجة محفوظة: ${gameScore}/60</span><button class="btn small ghost" onclick="resetScore()">تصفير النقاط</button>`}
+function resetScore(){gameScore=0;localStorage.setItem('timelineGameScore',0);el('gameScore').textContent=0;updateWinnerBoard();toast('تم تصفير نقاط المسابقة')}
+// Drawing canvas
+let drawing=false, ctx, canvas;
+function prepareGrid(){canvas=el('drawCanvas'); ctx=canvas.getContext('2d'); ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle='#fffdf7'; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.strokeStyle='#f1e0c8'; ctx.lineWidth=1; for(let x=20;x<canvas.width;x+=20){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,canvas.height);ctx.stroke()} for(let y=20;y<canvas.height;y+=20){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(canvas.width,y);ctx.stroke()} ctx.strokeStyle='#0f766e'; ctx.lineWidth=5; ctx.lineCap='round'; ctx.beginPath(); ctx.moveTo(760,220); ctx.lineTo(90,220); ctx.stroke(); ctx.fillStyle='#0f766e'; ctx.beginPath(); ctx.moveTo(90,220); ctx.lineTo(110,207); ctx.lineTo(110,233); ctx.closePath(); ctx.fill(); ctx.font='bold 18px Tajawal'; ctx.fillText('الماضي',730,250); ctx.fillText('المستقبل',80,250); setupDrawingEvents();}
+function setupDrawingEvents(){canvas=el('drawCanvas'); if(canvas.dataset.ready)return; canvas.dataset.ready='1'; const pos=e=>{const r=canvas.getBoundingClientRect(); const t=e.touches?e.touches[0]:e; return {x:(t.clientX-r.left)*canvas.width/r.width, y:(t.clientY-r.top)*canvas.height/r.height}}; const start=e=>{e.preventDefault(); drawing=true; const p=pos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y)}; const move=e=>{if(!drawing)return; e.preventDefault(); const p=pos(e); ctx.strokeStyle=el('penColor').value; ctx.lineWidth=Number(el('penSize').value); ctx.lineCap='round'; ctx.lineTo(p.x,p.y); ctx.stroke()}; const end=()=>drawing=false; ['mousedown','touchstart'].forEach(ev=>canvas.addEventListener(ev,start,{passive:false})); ['mousemove','touchmove'].forEach(ev=>canvas.addEventListener(ev,move,{passive:false})); ['mouseup','mouseleave','touchend'].forEach(ev=>canvas.addEventListener(ev,end));}
+function clearDrawing(){prepareGrid()} function downloadDrawing(){const a=document.createElement('a'); a.download='tadrib_khat_zamani.png'; a.href=el('drawCanvas').toDataURL('image/png'); a.click()}
+// Image AI helper
+let uploadedFile=null;
+function previewTimelineImage(e){uploadedFile=e.target.files[0]; if(!uploadedFile)return; const img=el('previewImg'); img.src=URL.createObjectURL(uploadedFile); img.style.display='block'; img.onload=()=>{el('imgW').textContent=img.naturalWidth;el('imgH').textContent=img.naturalHeight; analyzeImageQuality();}}
+function analyzeImageQuality(){const img=el('previewImg'); if(!img.src){toast('ارفع صورة أولاً');return} const c=document.createElement('canvas'), w=320, h=Math.max(1,Math.round(img.naturalHeight*(w/img.naturalWidth))); c.width=w;c.height=h; const cx=c.getContext('2d'); cx.drawImage(img,0,0,w,h); const d=cx.getImageData(0,0,w,h).data; let sum=0, vals=[]; for(let i=0;i<d.length;i+=16){const v=(d[i]+d[i+1]+d[i+2])/3;sum+=v;vals.push(v)} const avg=sum/vals.length; const variance=vals.reduce((a,v)=>a+(v-avg)*(v-avg),0)/vals.length; const contrast=Math.sqrt(variance); el('imgLight').textContent=Math.round(avg); el('imgContrast').textContent=Math.round(contrast); let f=[]; f.push(`<div class="feedItem"><span class="${img.naturalWidth>=900?'ok':'bad'}">${img.naturalWidth>=900?'✅':'⚠️'}</span><span>الدقة ${img.naturalWidth}×${img.naturalHeight}. ${img.naturalWidth>=900?'مناسبة للقراءة.':'يفضل صورة أوضح وأقرب.'}</span></div>`); f.push(`<div class="feedItem"><span class="${contrast>38?'ok':'bad'}">${contrast>38?'✅':'⚠️'}</span><span>التباين ${Math.round(contrast)}. ${contrast>38?'النص غالباً واضح.':'قد يصعب OCR بسبب ضعف التباين.'}</span></div>`); f.push(`<div class="feedItem"><span class="ok">💡</span><span>لأفضل نتيجة: صوّر من الأعلى، تجنب الظل، واجعل السنوات والأحداث واضحة.</span></div>`); el('imageFeedback').innerHTML=f.join('');}
+function loadScript(src){return new Promise((res,rej)=>{if(window.Tesseract)return res(); const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s)})}
+async function runOCR(){if(!uploadedFile){toast('ارفع صورة أولاً');return} el('imageFeedback').innerHTML='<div class="feedItem"><span class="ok">⏳</span><span>جاري تشغيل OCR... قد يستغرق الأمر بعض الوقت حسب الاتصال.</span></div>'; try{await loadScript('https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'); const result=await Tesseract.recognize(uploadedFile,'ara+fra+eng'); el('ocrText').value=result.data.text.trim(); reviewTimelineText(); toast('انتهت القراءة التجريبية')}catch(err){el('imageFeedback').innerHTML='<div class="feedItem"><span class="bad">⚠️</span><span>تعذر تشغيل OCR. قد يكون السبب ضعف الاتصال أو حظر تحميل المكتبة. يمكنك كتابة النص يدوياً في الخانة المقابلة.</span></div>'}}
+function reviewTimelineText(){const txt=el('ocrText').value.trim(); if(!txt){el('aiReview').innerHTML='<div class="feedItem"><span class="bad">⚠️</span><span>أدخل نصاً أو شغّل OCR أولاً.</span></div>'; return} const years=(txt.match(/\b(1[5-9]\d{2}|20\d{2})\b/g)||[]).map(Number); const hasTitle=/خط|زمني|Timeline|chronologie|تاريخ/i.test(txt); const hasSource=/مصدر|source|مقرر|وثيقة/i.test(txt); const sorted=years.every((y,i)=>i===0||y>=years[i-1]); const unique=[...new Set(years)]; let f=[]; f.push(`<div class="feedItem"><span class="${unique.length>=3?'ok':'bad'}">${unique.length>=3?'✅':'⚠️'}</span><span>تم التعرف على ${unique.length} سنة محتملة: ${unique.slice(0,10).join('، ')||'لا شيء'}.</span></div>`); f.push(`<div class="feedItem"><span class="${hasTitle?'ok':'bad'}">${hasTitle?'✅':'⚠️'}</span><span>${hasTitle?'يبدو أن هناك عنواناً أو إشارة إلى خط زمني.':'لا يظهر عنوان واضح في النص المقروء.'}</span></div>`); f.push(`<div class="feedItem"><span class="${hasSource?'ok':'bad'}">${hasSource?'✅':'⚠️'}</span><span>${hasSource?'المصدر مذكور أو محتمل.':'المصدر غير ظاهر، أضفه أسفل الخط.'}</span></div>`); f.push(`<div class="feedItem"><span class="${sorted?'ok':'bad'}">${sorted?'✅':'⚠️'}</span><span>${sorted?'السنوات الظاهرة مرتبة أو شبه مرتبة.':'يبدو أن ترتيب السنوات يحتاج مراجعة.'}</span></div>`); f.push(`<div class="feedItem"><span class="ok">🧠</span><span>تعليق مقترح: ركز على بداية الفترة ونهايتها، ثم استخرج المرحلة أو التحول التاريخي البارز.</span></div>`); el('aiReview').innerHTML=f.join('');}
+function makeVisionPrompt(){const p=`حلل هذه الصورة لخط زمني أنجزه تلميذ في مادة الاجتماعيات. أريد منك: 1) استخراج العنوان والسنوات والأحداث كما تظهر. 2) التحقق من ترتيب الأحداث زمنياً. 3) ملاحظة هل السلم محترم أم أن الأحداث موزعة فقط بشكل متساوٍ. 4) فحص وجود عناصر الخط الزمني: العنوان، المحور، السهم، التدرجات، الأحداث، المفتاح، المصدر، الجمالية. 5) أعط نقطة من 20 وفق شبكة: الترتيب 4، السلم 4، العنوان 3، دقة الأحداث 3، المفتاح/المصدر/الجمالية 3، التعليق 3. 6) اكتب ملاحظات قصيرة ومشجعة بالعربية لتلميذ في الإعدادي.`; el('visionPrompt').value=p; if(document.hasFocus&&document.hasFocus())navigator.clipboard?.writeText(p).catch(()=>{}); toast('تم تجهيز البرومبت')}
+function closeModal(){el('modal').classList.remove('open')}
+init();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').catch(()=>{});})}
+</script>
+</body>
+</html>
