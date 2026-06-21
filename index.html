@@ -40,10 +40,183 @@ main{max-width:920px; margin:0 auto; padding:24px 14px 90px; position:relative;}
 .splash-card .site-link-note{color:rgba(255,255,255,.75)}
 .site-link-btn.is-btn{border:none;cursor:pointer;font-size:1rem}
 .apk-link{background:linear-gradient(180deg,#3E8E5A,#2D6A4F);box-shadow:0 5px 0 #1F4A36,0 10px 20px rgba(31,74,54,.25)}
-.splash-logo{margin:4px auto 10px; max-width:230px;}.splash-logo img{width:100%; height:auto; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.25); background:#fff; padding:6px;}.cert-logo{margin:0 auto 10px; max-width:300px;}.cert-logo img{width:100%; height:auto; border-radius:8px;}.exam-regions{display:flex; flex-direction:column; gap:10px; max-height:60vh; overflow-y:auto; padding:4px;}.exam-reg{background:linear-gradient(135deg,#FFF8EC,#FFF); border:2px solid #F2D9A8; border-radius:14px; overflow:hidden; flex-shrink:0;}.exam-reg-head{display:flex; align-items:center; justify-content:space-between; padding:12px 14px; cursor:pointer; font-weight:900; color:#7A4E0E; user-select:none;}.exam-reg-head .cnt{background:var(--gold); color:#5A3A00; font-size:.72rem; padding:3px 10px; border-radius:999px;}.exam-reg-body{display:none; padding:0 12px 12px;}.exam-reg.open .exam-reg-body{display:block;}.exam-years{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;}.exam-year{display:inline-flex; align-items:center; gap:5px; background:linear-gradient(135deg,#1A6FA8,#2E8FCC); color:#fff; font-weight:800; font-size:.85rem; padding:8px 14px; border-radius:10px; text-decoration:none; box-shadow:0 3px 8px rgba(26,111,168,.3); transition:transform .15s;}.exam-year:active{transform:scale(.95);}.exam-src{display:block; text-align:center; background:#FFF3DE; border:1.5px dashed var(--gold); color:#7A4E0E; font-weight:800; font-size:.78rem; padding:8px; border-radius:10px; text-decoration:none;}.exam-note{font-size:.72rem; color:var(--muted); text-align:center; margin-top:8px; line-height:1.7;}</style>
+.splash-logo{margin:4px auto 10px; max-width:230px;}.splash-logo img{width:100%; height:auto; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.25); background:#fff; padding:6px;}.cert-logo{margin:0 auto 10px; max-width:300px;}.cert-logo img{width:100%; height:auto; border-radius:8px;}.exam-regions{display:flex; flex-direction:column; gap:10px; max-height:60vh; overflow-y:auto; padding:4px;}.exam-reg{background:linear-gradient(135deg,#FFF8EC,#FFF); border:2px solid #F2D9A8; border-radius:14px; overflow:hidden; flex-shrink:0;}.exam-reg-head{display:flex; align-items:center; justify-content:space-between; padding:12px 14px; cursor:pointer; font-weight:900; color:#7A4E0E; user-select:none;}.exam-reg-head .cnt{background:var(--gold); color:#5A3A00; font-size:.72rem; padding:3px 10px; border-radius:999px;}.exam-reg-body{display:none; padding:0 12px 12px;}.exam-reg.open .exam-reg-body{display:block;}.exam-years{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;}.exam-year{display:inline-flex; align-items:center; gap:5px; background:linear-gradient(135deg,#1A6FA8,#2E8FCC); color:#fff; font-weight:800; font-size:.85rem; padding:8px 14px; border-radius:10px; text-decoration:none; box-shadow:0 3px 8px rgba(26,111,168,.3); transition:transform .15s;}.exam-year:active{transform:scale(.95);}.exam-src{display:block; text-align:center; background:#FFF3DE; border:1.5px dashed var(--gold); color:#7A4E0E; font-weight:800; font-size:.78rem; padding:8px; border-radius:10px; text-decoration:none;}.exam-note{font-size:.72rem; color:var(--muted); text-align:center; margin-top:8px; line-height:1.7;}
+/* ══ PORTAL OVERLAY ══ */
+#portal{position:fixed;inset:0;z-index:300;overflow-y:auto;
+  background:radial-gradient(ellipse at 10% 0%,rgba(255,183,3,.28) 0%,transparent 45%),
+    radial-gradient(ellipse at 90% 100%,rgba(251,123,43,.2) 0%,transparent 45%),
+    linear-gradient(180deg,#fffaf0 0%,#fff7e8 50%,#fffdf8 100%);
+  font-family:"Tajawal","Cairo","Segoe UI",Tahoma,Arial,sans-serif;
+  transition:opacity .4s ease;
+}
+#portal.hiding{opacity:0;pointer-events:none}
+.por-particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.por-p{position:absolute;font-size:1.6rem;opacity:0;animation:porFloat var(--dur,12s) ease-in-out var(--delay,0s) infinite}
+@keyframes porFloat{0%{transform:translateY(110vh) rotate(0deg) scale(.6);opacity:0}10%{opacity:.5}90%{opacity:.3}100%{transform:translateY(-10vh) rotate(var(--rot,30deg)) scale(1);opacity:0}}
+.por-hero{position:relative;z-index:2;text-align:center;padding:44px 20px 28px;max-width:900px;margin:0 auto}
+.por-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#ffb703,#f59e0b);color:#6b3510;font-weight:900;font-size:.82rem;padding:7px 20px;border-radius:999px;margin-bottom:18px;box-shadow:0 4px 16px rgba(255,183,3,.4);letter-spacing:.4px;animation:porPop .6s ease both}
+@keyframes porPop{0%{transform:scale(0);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+@keyframes porFadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes porShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes porFloatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes porWiggle{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+.por-logo-wrap{display:inline-block;margin-bottom:18px;animation:porFloatY 4s ease-in-out infinite}
+.por-logo-wrap img{width:120px;height:120px;object-fit:cover;border-radius:50%;border:5px solid #fff;box-shadow:0 8px 32px rgba(138,75,24,.22),0 0 0 3px #f59e0b;background:#fff}
+.por-h1{font-size:clamp(1.75rem,5vw,2.6rem);font-weight:900;line-height:1.3;margin-bottom:10px;animation:porFadeUp .7s .2s both;color:#2d1a08}
+.por-h1 .por-shine{background:linear-gradient(90deg,#e8630f,#f59e0b,#fb7b2b);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:porShimmer 3s linear infinite}
+.por-sub{font-size:1rem;color:#8a4b18;line-height:1.8;margin-bottom:16px;animation:porFadeUp .7s .35s both}
+.por-teacher{display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;background:rgba(255,183,3,.12);border:2px solid rgba(255,183,3,.35);border-radius:18px;padding:12px 22px;animation:porFadeUp .7s .5s both}
+.por-teacher .pt-icon{font-size:1.9rem;animation:porWiggle 3s ease-in-out infinite}
+.por-teacher .pt-name{font-weight:900;font-size:.95rem;color:#6b3510}
+.por-teacher .pt-inst{font-size:.75rem;color:#a07040;margin-top:2px}
+.por-concept{max-width:900px;margin:0 auto 36px;padding:0 20px}
+.por-concept-inner{background:#fff;border-radius:22px;box-shadow:0 8px 32px rgba(138,75,24,.11);padding:20px 24px;border:2px solid rgba(255,183,3,.18);display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.por-feat{display:flex;align-items:flex-start;gap:10px}
+.por-feat .pf-icon{font-size:1.8rem;flex-shrink:0;background:linear-gradient(135deg,#fff7e8,#ffedb8);width:48px;height:48px;border-radius:12px;display:grid;place-items:center;box-shadow:0 3px 10px rgba(138,75,24,.1)}
+.por-feat h4{font-size:.88rem;font-weight:900;color:#6b3510;margin-bottom:2px}
+.por-feat p{font-size:.74rem;color:#a07040;line-height:1.65}
+.por-sec-title{text-align:center;max-width:900px;margin:0 auto 20px;padding:0 20px;font-size:1.25rem;font-weight:900;color:#6b3510}
+.por-sec-title::after{content:'';display:block;width:54px;height:4px;border-radius:2px;background:linear-gradient(90deg,#fb7b2b,#f59e0b);margin:8px auto 0}
+.por-cards{max-width:900px;margin:0 auto 40px;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:18px}
+.por-card{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 8px 28px rgba(138,75,24,.11);transition:transform .2s,box-shadow .2s;cursor:pointer;text-decoration:none;color:inherit;display:block;animation:porFadeUp .6s both}
+.por-card:hover{transform:translateY(-6px);box-shadow:0 16px 44px rgba(138,75,24,.18)}
+.por-card-bg{position:absolute;inset:0;opacity:.1;font-size:7rem;display:flex;align-items:center;justify-content:center;pointer-events:none;filter:blur(2px)}
+.por-card-inner{position:relative;z-index:1;padding:22px 20px 18px}
+.por-card .pc-badge{display:inline-flex;align-items:center;gap:5px;font-size:.7rem;font-weight:900;padding:4px 11px;border-radius:999px;margin-bottom:12px}
+.por-card .pc-icon{font-size:2.6rem;display:block;margin-bottom:10px;line-height:1;animation:porFloatY 3.5s ease-in-out infinite}
+.por-card h3{font-size:1.08rem;font-weight:900;line-height:1.5;margin-bottom:5px}
+.por-card p{font-size:.76rem;line-height:1.75;opacity:.85}
+.por-card .pc-arrow{display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-weight:900;font-size:.82rem;padding:8px 16px;border-radius:11px;background:rgba(255,255,255,.4);border:1.5px solid rgba(255,255,255,.45);transition:background .2s}
+.por-card:hover .pc-arrow{background:rgba(255,255,255,.65)}
+.por-card-gold{background:linear-gradient(135deg,#fffbf0,#fff3d0);border:2px solid rgba(255,183,3,.3)}
+.por-card-gold .pc-badge{background:linear-gradient(90deg,#f59e0b,#ffb703);color:#6b3510}
+.por-card-gold h3,.por-card-gold .pc-arrow{color:#6b3510}
+.por-card-gold .pc-arrow{border-color:rgba(138,75,24,.18);background:rgba(255,183,3,.12)}
+.por-card-gold:hover .pc-arrow{background:rgba(255,183,3,.28)}
+.por-card-orange{background:linear-gradient(135deg,#fff8f4,#ffe8d8);border:2px solid rgba(251,123,43,.28)}
+.por-card-orange .pc-badge{background:linear-gradient(90deg,#fb7b2b,#e8630f);color:#fff}
+.por-card-orange h3,.por-card-orange .pc-arrow{color:#7a2800}
+.por-card-orange .pc-arrow{border-color:rgba(251,123,43,.22);background:rgba(251,123,43,.08)}
+.por-card-orange:hover .pc-arrow{background:rgba(251,123,43,.22)}
+.por-card-blue{background:linear-gradient(135deg,#f0f7ff,#d8ecff);border:2px solid rgba(26,111,168,.22)}
+.por-card-blue .pc-badge{background:linear-gradient(90deg,#1a6fa8,#123f63);color:#fff}
+.por-card-blue h3,.por-card-blue .pc-arrow{color:#123f63}
+.por-card-blue .pc-arrow{border-color:rgba(26,111,168,.18);background:rgba(26,111,168,.06)}
+.por-card-blue:hover .pc-arrow{background:rgba(26,111,168,.16)}
+.por-card-green{background:linear-gradient(135deg,#f0fff8,#d0f5e8);border:2px solid rgba(33,166,122,.22)}
+.por-card-green .pc-badge{background:linear-gradient(90deg,#21a67a,#178a63);color:#fff}
+.por-card-green h3,.por-card-green .pc-arrow{color:#0d5c40}
+.por-card-green .pc-arrow{border-color:rgba(33,166,122,.18);background:rgba(33,166,122,.06)}
+.por-card-green:hover .pc-arrow{background:rgba(33,166,122,.16)}
+.por-card-red{background:linear-gradient(135deg,#fff5f5,#ffd8d8);border:2px solid rgba(226,85,85,.22)}
+.por-card-red .pc-badge{background:linear-gradient(90deg,#e25555,#c73e3e);color:#fff}
+.por-card-red h3,.por-card-red .pc-arrow{color:#7a1a1a}
+.por-card-red .pc-arrow{border-color:rgba(226,85,85,.18);background:rgba(226,85,85,.06)}
+.por-card-red:hover .pc-arrow{background:rgba(226,85,85,.18)}
+.por-card-future{background:linear-gradient(135deg,#f5f0ff,#e8d8ff);border:2px dashed rgba(123,77,184,.32);cursor:default}
+.por-card-future:hover{transform:none;box-shadow:0 8px 28px rgba(138,75,24,.11)}
+.por-card-future .pc-badge{background:linear-gradient(90deg,#7b4db8,#6030a0);color:#fff}
+.por-card-future h3,.por-card-future .pc-soon{color:#4a1880}
+.por-card-future .pc-soon{display:inline-block;margin-top:12px;padding:8px 18px;border-radius:11px;background:rgba(123,77,184,.1);border:1.5px dashed rgba(123,77,184,.28);font-weight:900;font-size:.82rem}
+.por-footer{text-align:center;padding:24px 20px 36px;color:#a07040;font-size:.76rem;line-height:2;border-top:2px solid rgba(255,183,3,.12)}
+.por-footer b{color:#e8630f}
+@media(max-width:600px){.por-cards{grid-template-columns:1fr}.por-concept-inner{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <div class="bg-blob b1"></div><div class="bg-blob b2"></div><div class="bg-blob b3"></div>
+
+<!-- ══ PORTAL OVERLAY ══ -->
+<div id="portal">
+<div class="por-particles" id="porParticles"></div>
+<div class="por-hero">
+  <div class="por-badge">🌟 بوابة التعليم التفاعلي</div>
+  <div class="por-logo-wrap"><img src="assets/logo-hanane.jpg" alt="مؤسسة الحنان الخاصة"></div>
+  <h1 class="por-h1">مرحباً بك في عالم<br><span class="por-shine">التعلّم باللعب</span> 🎓</h1>
+  <p class="por-sub">موارد تعليمية تفاعلية وتطبيقات مراجعة ذكية<br>تجمع المتعة والاحتراف في مكان واحد</p>
+  <div class="por-teacher">
+    <span class="pt-icon">👨‍🏫</span>
+    <div><div class="pt-name">✍️ ذ. أحمد بوعمود &nbsp;·&nbsp; ذ. الخضير</div><div class="pt-inst">مؤسسة الحنان الخاصة — أكادير | 2025-2026</div></div>
+  </div>
+</div>
+<div class="por-concept">
+  <div class="por-concept-inner">
+    <div class="por-feat"><div class="pf-icon">🎮</div><div><h4>تعلّم وأنت تلعب</h4><p>أسئلة تفاعلية ومحطات مشوّقة تحوّل المراجعة إلى مغامرة ممتعة</p></div></div>
+    <div class="por-feat"><div class="pf-icon">📶</div><div><h4>يعمل دون إنترنت</h4><p>بعد أول فتح، التطبيقات تعمل كاملاً بدون اتصال بالشبكة</p></div></div>
+    <div class="por-feat"><div class="pf-icon">🏆</div><div><h4>نجوم وشارات وشهادات</h4><p>نظام مكافآت يحفّز على المثابرة والوصول إلى القمة</p></div></div>
+    <div class="por-feat"><div class="pf-icon">📈</div><div><h4>تتبع تقدمك</h4><p>يُحفظ تقدمك تلقائياً وترى إلى أين وصلت في كل مرة</p></div></div>
+  </div>
+</div>
+<div class="por-sec-title">🗺️ اختر وجهتك التعليمية</div>
+<div class="por-cards">
+  <a class="por-card por-card-gold" href="#" onclick="enterApp(event)" style="animation-delay:.05s">
+    <div class="por-card-bg">🏆</div>
+    <div class="por-card-inner">
+      <span class="pc-badge">⚡ الأكثر شعبية</span>
+      <span class="pc-icon">🗺️</span>
+      <h3>رحلة الجهوي الذهبية</h3>
+      <p>مراجعة شاملة في الاجتماعيات للثالثة إعدادي — 20 محطة، 90+ سؤال، نجوم وشهادات</p>
+      <span class="pc-arrow">انطلق في الرحلة ←</span>
+    </div>
+  </a>
+  <a class="por-card por-card-orange" href="ibtidai/" style="animation-delay:.1s" onclick="porClick()">
+    <div class="por-card-bg">🎁</div>
+    <div class="por-card-inner">
+      <span class="pc-badge">🎁 هدية خاصة</span>
+      <span class="pc-icon">🏫</span>
+      <h3>رحلة الامتحان الإشهادي — السادسة ابتدائي</h3>
+      <p>مراجعة تفاعلية مرحة للتلاميذ الصغار تغطي 7 محطات ممتعة قبل الامتحان</p>
+      <span class="pc-arrow">ادخل المغامرة ←</span>
+    </div>
+  </a>
+  <a class="por-card por-card-blue" href="https://moraja3a.netlify.app/" target="_blank" rel="noopener" style="animation-delay:.15s" onclick="porClick()">
+    <div class="por-card-bg">🌐</div>
+    <div class="por-card-inner">
+      <span class="pc-badge">🌐 موقع خارجي</span>
+      <span class="pc-icon">📚</span>
+      <h3>موقع المراجعة الكامل</h3>
+      <p>دروس مراجعة شاملة، ملخصات، خرائط ذهنية، وموارد إضافية لمادة الاجتماعيات</p>
+      <span class="pc-arrow">افتح الموقع ←</span>
+    </div>
+  </a>
+  <a class="por-card por-card-green" href="https://ijtima3iyat-3ac-portal.netlify.app/" target="_blank" rel="noopener" style="animation-delay:.2s" onclick="porClick()">
+    <div class="por-card-bg">🎒</div>
+    <div class="por-card-inner">
+      <span class="pc-badge">🎒 بوابة شاملة</span>
+      <span class="pc-icon">🌍</span>
+      <h3>بوابة الاجتماعيات</h3>
+      <p>مركز متكامل لموارد مادة الاجتماعيات — الثالثة إعدادي — دروس وتمارين</p>
+      <span class="pc-arrow">اكتشف البوابة ←</span>
+    </div>
+  </a>
+  <a class="por-card por-card-red" href="https://moharibou-jihawi.netlify.app/" target="_blank" rel="noopener" style="animation-delay:.25s" onclick="porClick()">
+    <div class="por-card-bg">🛡️</div>
+    <div class="por-card-inner">
+      <span class="pc-badge">🛡️ تحدي وقتاح</span>
+      <span class="pc-icon">⚔️</span>
+      <h3>محاربو الجهوي</h3>
+      <p>تحدّ سريع وحماسي — أجب على أسئلة الجهوي بأسرع ما يمكن وانتزع اللقب!</p>
+      <span class="pc-arrow">خُض المعركة ←</span>
+    </div>
+  </a>
+  <div class="por-card por-card-future" style="animation-delay:.3s">
+    <div class="por-card-bg">🚀</div>
+    <div class="por-card-inner">
+      <span class="pc-badge">✨ قريبا</span>
+      <span class="pc-icon">🔭</span>
+      <h3>موقع المستقبل</h3>
+      <p>مشروع تعليمي ضخم قيد الإنشاء — سيجمع كل المراحل والمستويات في منظومة متكاملة</p>
+      <span class="pc-soon">⏳ سيُطلق قريباً إن شاء الله</span>
+    </div>
+  </div>
+</div>
+<div class="por-footer">
+  بوابة <b>ذ. أحمد بوعمود</b> — التعلّم باللعب ♥<br>
+  ✍️ الأستاذان: <b>أحمد بوعمود</b> و <b>الخضير</b> — أستاذا الاجتماعيات<br>
+  مؤسسة الحنان الخاصة | أكادير | 2025-2026
+</div>
+</div>
+<!-- ══ END PORTAL ══ -->
 <div id="splash"><div class="splash-card"><div class="mascot-wrap"><svg viewBox="0 0 120 120" id="mascotSplash"></svg></div><h1>رحلة الجهوي <span class="gd">الذهبية</span> 🏆</h1><p style="font-size:.9rem; opacity:.9; margin-top:4px;">مغامرة مراجعة شاملة في الاجتماعيات — الثالثة إعدادي</p><div class="splash-logo"><img src="assets/logo-hanane.jpg" alt="مؤسسة الحنان الخاصة"></div><div class="sig">✍️ من إعداد الأستاذين: <b>ذ. أحمد بوعمود</b> و <b>ذ. الخضير</b><br>مؤسسة الحنان الخاصة — أكادير | 2025-2026</div><div class="setup"><label>🙋 ما اسمك أيها البطل / البطلة؟</label><input id="inName" maxlength="24" placeholder="اكتب اسمك هنا..."><div class="avatars" id="avList"></div><button class="go-btn" onclick="startApp()">🚀 انطلق في الرحلة!</button><button class="go-btn" style="margin-top:8px; background:linear-gradient(135deg,#C0392B,#E55B4D); box-shadow:0 6px 0 #8B271C, 0 12px 26px rgba(192,57,43,.45);" onclick="openExams()">📂 أرشيف الامتحانات الجهوية (93 نموذجا)</button><button class="reset-btn" id="resetBtn" onclick="resetApp()">🗑️ مسح التقدم والبدء من جديد</button></div><div class="site-link-box"><a class="site-link-btn" href="https://moraja3a.netlify.app/" target="_blank" rel="noopener">🌐 موقع المراجعة</a> <a class="site-link-btn" href="https://ijtima3iyat-3ac-portal.netlify.app/" target="_blank" rel="noopener" style="background:linear-gradient(135deg,#176B87,#1F9D6A);">🎒 بوابة الاجتماعيات</a> <a class="site-link-btn" href="https://moharibou-jihawi.netlify.app/" target="_blank" rel="noopener" style="background:linear-gradient(135deg,#E8720C,#C25A00);">🛡️ محاربي الجهوي</a> <button class="site-link-btn is-btn" onclick="installApp()">📲 تثبيت التطبيق</button> <a class="site-link-btn" href="ibtidai/" style="background:linear-gradient(135deg,#F59E0B,#D97706);box-shadow:0 5px 0 #B45309,0 10px 20px rgba(180,83,9,.3);">🎁 هدية إلى أخي الصغير — السادسة ابتدائي</a> <a class="site-link-btn apk-link" href="apk/rihla-jihawi.apk" download onclick="return apkClick(event)">⬇️ تحميل APK لأندرويد</a><div class="site-link-note">يفتح الموقع عند توفر الإنترنت، أما هذا التطبيق فيعمل دون إنترنت بعد أول فتح.</div></div><div class="splash-foot">يعمل بدون إنترنت 100% — تقدمك يُحفظ تلقائيا في جهازك</div></div></div>
 <header id="hud" style="display:none;"><div class="hud"><div class="me"><span class="av" id="hudAv">🦁</span><span><span id="hudName">البطل</span><small>مرشح(ة) للامتحان الجهوي</small></span></div><div class="spacer"></div><div class="chip" title="نقاط الخبرة"><span class="ico">⚡</span><span id="hudXp">0</span> XP</div><div class="chip" title="النجوم"><span class="ico">⭐</span><span id="hudStars">0</span>/60</div><div class="chip" onclick="openBadges()" title="الشارات"><span class="ico">🎖️</span><span id="hudBadges">0</span>/6</div><div class="chip" onclick="openCert()" title="الشهادة"><span class="ico">📜</span></div><div class="chip" onclick="openCertExc()" title="شهادة التميز"><span class="ico">🏅</span></div><div class="chip" onclick="openExams()" title="أرشيف الامتحانات"><span class="ico">📂</span></div></div><div class="xpbar-wrap"><div class="xpbar"><i id="xpbar"></i></div><div class="xplabel"><span id="lvlLabel">المستوى 1: مبتدئ الرحلة</span><span id="lvlNext"></span></div></div></header>
 <main id="mapMain" style="display:none;"><div class="welcome-strip"><svg viewBox="0 0 120 120" id="mascotMap"></svg><div class="bubble" id="mascotSay">أهلا! أنا <b>حنّون 🦉</b> رفيقك في الرحلة. أكمل المحطات بالترتيب، اجمع النجوم والشارات، وفي النهاية... شهادة ذهبية باسمك! 🎓</div></div><div class="site-link-box"><a class="site-link-btn" href="https://moraja3a.netlify.app/" target="_blank" rel="noopener">🌐 افتح موقع المراجعة الكامل</a><a class="site-link-btn" href="https://moharibou-jihawi.netlify.app/" target="_blank" rel="noopener" style="background:linear-gradient(135deg,#E8720C,#C25A00);">🛡️ محاربي الجهوي</a><a class="site-link-btn" href="ibtidai/" style="background:linear-gradient(135deg,#F59E0B,#D97706);box-shadow:0 5px 0 #B45309,0 10px 20px rgba(180,83,9,.3);">🎁 هدية إلى أخي الصغير — السادسة ابتدائي</a><div class="site-link-note">للدروس والموارد الإضافية: https://moraja3a.netlify.app/</div></div><div id="map"></div></main>
@@ -100,6 +273,56 @@ const ccv=document.getElementById('confetti'),cctx=ccv.getContext('2d');let part
 </script>
 
 <script>
+
+/* ── PORTAL ── */
+(function(){
+  var emojis=['📚','⭐','🎯','🏆','✏️','🎮','📝','💡','🌟','🎓','🔑','📖'];
+  var cont=document.getElementById('porParticles');
+  for(var i=0;i<18;i++){
+    var el=document.createElement('span');
+    el.className='por-p';
+    el.textContent=emojis[i%emojis.length];
+    el.style.cssText='left:'+(Math.random()*100)+'%;--dur:'+(10+Math.random()*14)+'s;--delay:'+(-Math.random()*15)+'s;--rot:'+(Math.random()*60-30)+'deg';
+    cont.appendChild(el);
+  }
+})();
+
+/* Scroll reveal for portal cards */
+(function(){
+  var els=document.querySelectorAll('#portal .por-card,.por-concept,.por-sec-title');
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting)e.target.style.animation='porFadeUp .6s ease both';});
+  },{threshold:.1});
+  els.forEach(function(el){obs.observe(el);});
+})();
+
+/* Portal sounds */
+var porCtx=null;
+function getPorCtx(){if(!porCtx)porCtx=new(window.AudioContext||window.webkitAudioContext)();return porCtx;}
+function porWelcome(){
+  try{var c=getPorCtx();[[523,.0,.18],[659,.18,.18],[784,.36,.22],[1047,.6,.38]].forEach(function(n){var o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='sine';o.frequency.value=n[0];var t=c.currentTime+n[1];g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.2,t+.04);g.gain.exponentialRampToValueAtTime(.001,t+n[2]);o.start(t);o.stop(t+n[2]);});}catch(e){}
+}
+function porClick(){
+  try{var c=getPorCtx();[[523,.0,.12],[784,.08,.15],[1047,.2,.2]].forEach(function(n){var o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='sine';o.frequency.value=n[0];var t=c.currentTime+n[1];g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.16,t+.02);g.gain.exponentialRampToValueAtTime(.001,t+n[2]);o.start(t);o.stop(t+n[2]);});}catch(e){}
+}
+function porHover(){
+  try{var c=getPorCtx();var o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='sine';o.frequency.value=660;var t=c.currentTime;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.07,t+.02);g.gain.exponentialRampToValueAtTime(.001,t+.1);o.start(t);o.stop(t+.1);}catch(e){}
+}
+document.querySelectorAll('.por-card:not(.por-card-future)').forEach(function(c){c.addEventListener('mouseenter',porHover);});
+var porWelcomed=false;
+function onPorFirst(){if(porWelcomed)return;porWelcomed=true;porWelcome();document.removeEventListener('click',onPorFirst);document.removeEventListener('touchstart',onPorFirst);}
+document.addEventListener('click',onPorFirst);
+document.addEventListener('touchstart',onPorFirst);
+setTimeout(function(){if(!porWelcomed){try{var c=new(window.AudioContext||window.webkitAudioContext)();if(c.state==='running'){porWelcomed=true;porWelcome();}}catch(e){}}},1500);
+
+function enterApp(e){
+  e.preventDefault();
+  porClick();
+  var por=document.getElementById('portal');
+  por.classList.add('hiding');
+  setTimeout(function(){por.style.display='none';},420);
+}
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
     navigator.serviceWorker.register('./sw.js').catch(function(err){
