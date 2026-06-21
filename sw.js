@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rihla-jihawi-gold-v16';
+const CACHE_NAME = 'rihla-jihawi-gold-v17';
 const APP_SHELL = [
   './',
   './index.html',
