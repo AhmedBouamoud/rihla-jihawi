@@ -1,12 +1,5 @@
-const CACHE_NAME = 'rihla-jihawi-gold-v18';
-const APP_SHELL = [
-  './',
-  './index.html',
-  './manifest.json',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './assets/logo-hanane.jpg'
-];
+const CACHE_NAME = 'mibyan-v1';
+const APP_SHELL = ['./', './index.html', './manifest.json'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)));
   self.skipWaiting();
