@@ -159,9 +159,9 @@ body:before{content:"";position:fixed;inset:0;background-image:linear-gradient(9
 </div></section>
 
 <section id="ai" class="section ai-zone"><div class="container">
-  <div class="section-title"><h2>7) قراءة مبيان انطلاقاً من صورة محمّلة</h2><p>مساعد تجريبي: يرفع التلميذ صورة المبيان، فيحلل الوضوح والتباين، ويحاول استخراج الكلمات عبر OCR إذا توفر الإنترنت.</p></div>
+  <div class="section-title"><h2>7) قراءة مبيان انطلاقاً من صورة محمّلة</h2><p>رفع صورة المبيان — يحللها الذكاء الاصطناعي ويقرأ عناصرها تلقائياً بدون تثبيت أي برنامج.</p></div>
   <div class="grid two">
-    <div class="panel"><h3>ارفع صورة المبيان</h3><input type="file" id="imageUpload" accept="image/*" onchange="previewImage(event)"><img id="aiPreview" class="ai-preview" alt="صورة المبيان"><div class="controls"><button class="btn" onclick="analyzeImageBasic()">تحليل محلي سريع</button><button class="btn purple" onclick="runOCR()">تشغيل قراءة OCR</button><button class="btn secondary" onclick="copyVisionPrompt()">نسخ برومبت AI</button></div><p class="warn">ملاحظة صادقة: هذا التحليل لا يعوض تصحيح الأستاذ. قراءة الصور بذكاء عميق تحتاج نموذج رؤية مثل ChatGPT Vision أو خادماً خارجياً، لذلك أدرجنا هنا تحليلاً محلياً وOCR تجريبياً وبرومبت جاهزاً.</p></div>
+    <div class="panel"><h3>ارفع صورة المبيان</h3><input type="file" id="imageUpload" accept="image/*" onchange="previewImage(event)"><img id="aiPreview" class="ai-preview" alt="صورة المبيان"><div class="controls"><button class="btn" onclick="analyzeImageBasic()">تحليل محلي سريع</button><button class="btn purple" onclick="runOCR()">✨ تحليل الصورة بالذكاء الاصطناعي</button><button class="btn secondary" onclick="copyVisionPrompt()">نسخ برومبت AI</button></div><p class="warn">ملاحظة: يحتاج الاتصال بالإنترنت للتحليل الذكي. النتيجة تقريبية ولا تعوض تصحيح الأستاذ.</p></div>
     <div class="panel"><h3>نتيجة القراءة الذكية</h3><div id="imageAnalysis" class="feedback">لم يتم رفع صورة بعد.</div><label>نص OCR المستخرج</label><textarea id="ocrText" placeholder="سيظهر هنا النص المستخرج من الصورة إن نجح OCR..."></textarea><label>تعليق التلميذ على المبيان</label><textarea id="studentReading" placeholder="اكتب: يبين المبيان... نلاحظ... نستنتج..."></textarea><div class="controls"><button class="btn green" onclick="evaluateReading()">قيّم التعليق</button></div><div id="readingEval" class="feedback">اكتب تعليقاً للحصول على ملاحظات.</div></div>
   </div>
 </div></section>
@@ -247,8 +247,44 @@ function printCertificate(){const name=document.getElementById('studentName').va
 </body></html>`);w.document.close();}
 function previewImage(e){const file=e.target.files[0];if(!file)return;uploadedImage=file;const img=document.getElementById('aiPreview');img.src=URL.createObjectURL(file);img.style.display='block';document.getElementById('imageAnalysis').innerHTML='تم رفع الصورة. اضغط تحليل محلي سريع أو OCR.';}
 function analyzeImageBasic(){const img=document.getElementById('aiPreview');if(!img.src){alert('ارفع صورة أولاً');return}const c=document.createElement('canvas');const cx=c.getContext('2d');c.width=600;c.height=Math.round(600*(img.naturalHeight||img.height)/(img.naturalWidth||img.width));cx.drawImage(img,0,0,c.width,c.height);const data=cx.getImageData(0,0,c.width,c.height).data;let sum=0,sum2=0,dark=0,light=0;for(let i=0;i<data.length;i+=16){const lum=.2126*data[i]+.7152*data[i+1]+.0722*data[i+2];sum+=lum;sum2+=lum*lum;if(lum<70)dark++;if(lum>235)light++;}const n=data.length/16;const mean=sum/n;const sd=Math.sqrt(sum2/n-mean*mean);let notes=[];notes.push(sd>45?'✅ التباين جيد ويساعد على القراءة.':'⚠️ التباين ضعيف؛ استعمل قلماً أغمق أو صورة أوضح.');notes.push(dark/n>.015?'✅ توجد خطوط/نصوص داكنة كافية غالباً.':'⚠️ يبدو أن الخطوط قليلة أو باهتة.');notes.push(light/n>.35?'✅ الخلفية فاتحة نسبياً.':'ℹ️ الخلفية قد تكون مزدحمة؛ صوّر الورقة في إضاءة أفضل.');notes.push(c.width>c.height?'✅ الصورة أفقية مناسبة لمعظم المبيانات.':'ℹ️ الصورة عمودية؛ تأكد أن كامل المبيان ظاهر.');document.getElementById('imageAnalysis').innerHTML='<b>تحليل محلي للصورة:</b><br>'+notes.join('<br>')+'<br><br><b>مؤشر الوضوح:</b> '+Math.round(Math.min(100,sd*1.6))+'/100';}
-async function runOCR(){if(!uploadedImage){alert('ارفع صورة أولاً');return}const out=document.getElementById('imageAnalysis');out.innerHTML='جاري تحميل قارئ OCR من الإنترنت...';try{if(!window.Tesseract){await loadScript('https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js')}out.innerHTML='جاري استخراج النص من الصورة. قد يستغرق الأمر بعض الوقت...';const res=await Tesseract.recognize(uploadedImage,'ara+fra+eng',{logger:m=>{if(m.status)out.innerHTML='OCR: '+m.status+' '+Math.round((m.progress||0)*100)+'%';}});const text=res.data.text.trim();document.getElementById('ocrText').value=text;const checks=[];checks.push(/المصدر|source/i.test(text)?'✅ يبدو أن المصدر موجود.':'⚠️ لم أتعرف على كلمة المصدر.');checks.push(/%|٪|نسبة|pourcentage/i.test(text)?'✅ توجد إشارات إلى النسبة أو %.':'ℹ️ لم تظهر وحدة النسبة؛ تحقق من الوحدة.');checks.push(/تطور|بين|سنة|سنوات|20\d\d|19\d\d/.test(text)?'✅ توجد مؤشرات زمنية أو عنوان تطوري.':'ℹ️ لم تظهر سنوات واضحة في OCR.');checks.push(text.length>25?'✅ النص المستخرج كافٍ لبداية قراءة.':'⚠️ النص المستخرج قليل؛ قد تكون الصورة غير واضحة أو الخط صغيراً.');out.innerHTML='<b>نتيجة OCR:</b><br>'+checks.join('<br>');}catch(e){out.innerHTML='تعذر تشغيل OCR. تأكد من الاتصال بالإنترنت، أو استعمل زر نسخ برومبت AI.';}}
-function loadScript(src){return new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=reject;document.head.appendChild(s);});}
+async function runOCR(){
+  if(!uploadedImage){alert('ارفع صورة أولاً');return}
+  const out=document.getElementById('imageAnalysis');
+  out.innerHTML='<b>⏳ الذكاء الاصطناعي يحلل الصورة...</b><br><small style="opacity:.7">يرجى الانتظار لحظة</small>';
+  try{
+    const b64=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result.split(',')[1]);r.onerror=rej;r.readAsDataURL(uploadedImage);});
+    const mime=uploadedImage.type||'image/jpeg';
+    const resp=await fetch("https://text.pollinations.ai/",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"openai-large",
+        messages:[{
+          role:"user",
+          content:[
+            {type:"text",text:"أنت مصحح تربوي متخصص في مادة الاجتماعيات للسنة الثالثة إعدادي بالمغرب. حلّل هذا المبيان المرسوم من طرف تلميذ وأجب بالعربية الفصحى المبسطة عن النقاط التالية:
+1. نوع المبيان
+2. العنوان
+3. المحور الأفقي والمحور العمودي والوحدة
+4. المصدر
+5. ملاحظات على الجودة (السلم، الدقة، العنوان، المفتاح إن لزم)
+6. نقطة تقديرية من 10
+أجب بشكل منظم وإيجابي."},
+            {type:"image_url",image_url:{url:"data:"+mime+";base64,"+b64}}
+          ]
+        }]
+      })
+    });
+    if(!resp.ok)throw new Error('err');
+    const txt=await resp.text();
+    if(!txt||txt.length<10)throw new Error('empty');
+    document.getElementById('ocrText').value=txt;
+    out.innerHTML='<div style="border-right:4px solid #7c3aed;padding:10px 14px"><b>✨ تحليل الذكاء الاصطناعي:</b><br><span style="white-space:pre-wrap;line-height:1.9">'+txt.replace(/</g,'&lt;').replace(/
+/g,'<br>')+'</span></div>';
+  }catch(e){
+    out.innerHTML='<span style="color:#dc2626">⚠️ تعذر التحليل. تأكد من الاتصال بالإنترنت وحاول مجدداً.</span>';
+  }
+}
 function evaluateReading(){const t=document.getElementById('studentReading').value.trim();let score=0,notes=[];if(/يمثل|يبين|يعرض/.test(t)){score+=20;notes.push('✅ بدأت بتقديم موضوع المبيان.')}else notes.push('⚠️ ابدأ بعبارة: يمثل/يبين المبيان...');if(/نلاحظ|يتضح|يظهر/.test(t)){score+=20;notes.push('✅ استعملت لغة الوصف.')}else notes.push('⚠️ أضف جملة وصف: نلاحظ...');if(/أعلى|أدنى|ارتفاع|انخفاض|تزايد|تراجع/.test(t)){score+=25;notes.push('✅ ذكرت اتجاهاً أو مقارنة.')}else notes.push('⚠️ اذكر أعلى/أدنى قيمة أو اتجاه التطور.');if(/نستنتج|خلاصة|إذن/.test(t)){score+=20;notes.push('✅ ختمت بخلاصة.')}else notes.push('⚠️ اختم بجملة: نستنتج أن...');if(/\d/.test(t)){score+=15;notes.push('✅ دعمت القراءة بأرقام.')}else notes.push('ℹ️ حاول إدراج رقم أو مثال من المبيان.');document.getElementById('readingEval').innerHTML='<b>تقييم التعليق: '+score+'/100</b><br>'+notes.join('<br>');}
 function copyVisionPrompt(){const prompt=`أرفق مع هذا النص صورة المبيان، ثم حللها كأستاذ اجتماعيات. المطلوب: 1) تحديد نوع المبيان. 2) فحص العناصر: العنوان، المحاور، المقياس، الوحدة، المفتاح، المصدر، الإطار. 3) قراءة أعلى وأدنى قيمة والاتجاه العام. 4) إعطاء ملاحظات لتحسين الرسم. 5) منح نقطة من 100 مع تبرير تربوي مختصر. اجعل التعليق موجها لتلميذ بطريقة مشجعة.`;navigator.clipboard?.writeText(prompt);document.getElementById('imageAnalysis').innerHTML='<b>تم إعداد برومبت AI:</b><br>الصق البرومبت في ChatGPT وأرفق صورة المبيان للحصول على قراءة عميقة.';}
 function calcRubric(){let s=0;document.querySelectorAll('.rub:checked').forEach(x=>s+=parseInt(x.value));document.getElementById('rubricResult').innerHTML='<b>النقطة: '+s+'/100</b><br>'+(s>=80?'مبيان ممتاز أو قريب من الامتياز.':s>=60?'مبيان مقبول يحتاج تحسين بعض العناصر.':'يحتاج مراجعة العناصر الأساسية قبل التسليم.');}
