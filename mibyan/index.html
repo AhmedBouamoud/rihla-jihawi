@@ -250,40 +250,49 @@ function analyzeImageBasic(){const img=document.getElementById('aiPreview');if(!
 async function runOCR(){
   if(!uploadedImage){alert('ارفع صورة أولاً');return}
   const out=document.getElementById('imageAnalysis');
-  out.innerHTML='<b>⏳ الذكاء الاصطناعي يحلل الصورة...</b><br><small style="opacity:.7">يرجى الانتظار لحظة</small>';
+  out.innerHTML='<b>⏳ جاري تصغير الصورة وإرسالها...</b><br><small style="opacity:.7">قد يستغرق 15-30 ثانية</small>';
   try{
-    const b64=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result.split(',')[1]);r.onerror=rej;r.readAsDataURL(uploadedImage);});
-    const mime=uploadedImage.type||'image/jpeg';
-    const resp=await fetch("https://text.pollinations.ai/",{
+    const b64=await resizeAndEncode(uploadedImage,800);
+    const resp=await fetch("https://text.pollinations.ai/openai/chat/completions",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
-        model:"openai-large",
+        model:"openai",
         messages:[{
           role:"user",
           content:[
-            {type:"text",text:"أنت مصحح تربوي متخصص في مادة الاجتماعيات للسنة الثالثة إعدادي بالمغرب. حلّل هذا المبيان المرسوم من طرف تلميذ وأجب بالعربية الفصحى المبسطة عن النقاط التالية:
-1. نوع المبيان
-2. العنوان
-3. المحور الأفقي والمحور العمودي والوحدة
-4. المصدر
-5. ملاحظات على الجودة (السلم، الدقة، العنوان، المفتاح إن لزم)
-6. نقطة تقديرية من 10
-أجب بشكل منظم وإيجابي."},
-            {type:"image_url",image_url:{url:"data:"+mime+";base64,"+b64}}
+            {type:"text",text:"أنت مصحح تربوي متخصص في مادة الاجتماعيات للسنة الثالثة إعدادي بالمغرب. حلّل هذا المبيان وأجب بالعربية الفصحى:\n1. نوع المبيان\n2. العنوان\n3. المحاور والوحدة\n4. المصدر\n5. ملاحظات على الجودة (السلم، الدقة، المفتاح)\n6. نقطة تقديرية من 10"},
+            {type:"image_url",image_url:{url:"data:image/jpeg;base64,"+b64}}
           ]
-        }]
+        }],
+        max_tokens:600
       })
     });
-    if(!resp.ok)throw new Error('err');
-    const txt=await resp.text();
-    if(!txt||txt.length<10)throw new Error('empty');
+    if(!resp.ok)throw new Error('خطأ HTTP '+resp.status);
+    const json=await resp.json();
+    const txt=json.choices?.[0]?.message?.content||'';
+    if(!txt)throw new Error('الرد فارغ');
     document.getElementById('ocrText').value=txt;
-    out.innerHTML='<div style="border-right:4px solid #7c3aed;padding:10px 14px"><b>✨ تحليل الذكاء الاصطناعي:</b><br><span style="white-space:pre-wrap;line-height:1.9">'+txt.replace(/</g,'&lt;').replace(/
-/g,'<br>')+'</span></div>';
+    out.innerHTML='<div style="border-right:4px solid #7c3aed;padding:10px 14px"><b>✨ تحليل الذكاء الاصطناعي:</b><br><span style="white-space:pre-wrap;line-height:1.9">'+txt.replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</span></div>';
   }catch(e){
-    out.innerHTML='<span style="color:#dc2626">⚠️ تعذر التحليل. تأكد من الاتصال بالإنترنت وحاول مجدداً.</span>';
+    out.innerHTML='<span style="color:#dc2626">⚠️ '+e.message+' — تأكد من الاتصال وحاول مجدداً.</span>';
   }
+}
+function resizeAndEncode(file,maxSize){
+  return new Promise((resolve,reject)=>{
+    const img=new Image();
+    const url=URL.createObjectURL(file);
+    img.onload=()=>{
+      let w=img.width,h=img.height;
+      if(w>maxSize||h>maxSize){if(w>h){h=Math.round(h*maxSize/w);w=maxSize;}else{w=Math.round(w*maxSize/h);h=maxSize;}}
+      const c=document.createElement('canvas');c.width=w;c.height=h;
+      c.getContext('2d').drawImage(img,0,0,w,h);
+      URL.revokeObjectURL(url);
+      resolve(c.toDataURL('image/jpeg',0.85).split(',')[1]);
+    };
+    img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('خطأ في قراءة الصورة'));};
+    img.src=url;
+  });
 }
 function evaluateReading(){const t=document.getElementById('studentReading').value.trim();let score=0,notes=[];if(/يمثل|يبين|يعرض/.test(t)){score+=20;notes.push('✅ بدأت بتقديم موضوع المبيان.')}else notes.push('⚠️ ابدأ بعبارة: يمثل/يبين المبيان...');if(/نلاحظ|يتضح|يظهر/.test(t)){score+=20;notes.push('✅ استعملت لغة الوصف.')}else notes.push('⚠️ أضف جملة وصف: نلاحظ...');if(/أعلى|أدنى|ارتفاع|انخفاض|تزايد|تراجع/.test(t)){score+=25;notes.push('✅ ذكرت اتجاهاً أو مقارنة.')}else notes.push('⚠️ اذكر أعلى/أدنى قيمة أو اتجاه التطور.');if(/نستنتج|خلاصة|إذن/.test(t)){score+=20;notes.push('✅ ختمت بخلاصة.')}else notes.push('⚠️ اختم بجملة: نستنتج أن...');if(/\d/.test(t)){score+=15;notes.push('✅ دعمت القراءة بأرقام.')}else notes.push('ℹ️ حاول إدراج رقم أو مثال من المبيان.');document.getElementById('readingEval').innerHTML='<b>تقييم التعليق: '+score+'/100</b><br>'+notes.join('<br>');}
 function copyVisionPrompt(){const prompt=`أرفق مع هذا النص صورة المبيان، ثم حللها كأستاذ اجتماعيات. المطلوب: 1) تحديد نوع المبيان. 2) فحص العناصر: العنوان، المحاور، المقياس، الوحدة، المفتاح، المصدر، الإطار. 3) قراءة أعلى وأدنى قيمة والاتجاه العام. 4) إعطاء ملاحظات لتحسين الرسم. 5) منح نقطة من 100 مع تبرير تربوي مختصر. اجعل التعليق موجها لتلميذ بطريقة مشجعة.`;navigator.clipboard?.writeText(prompt);document.getElementById('imageAnalysis').innerHTML='<b>تم إعداد برومبت AI:</b><br>الصق البرومبت في ChatGPT وأرفق صورة المبيان للحصول على قراءة عميقة.';}
