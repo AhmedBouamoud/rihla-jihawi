@@ -291,6 +291,51 @@ img{max-width:100%;display:block}
 .btn-app:active{transform:translateY(1px)}
 .btn-app.disabled{background:#e8e0d6;color:#aaa9a8;cursor:default;box-shadow:none;pointer-events:none}
 
+/* ── Downloads / Resources ── */
+.dl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+.dl-card{
+  background:#fff;border-radius:var(--r-sm);border:1.5px solid var(--line);
+  box-shadow:var(--sh-sm);overflow:hidden;transition:.28s;display:flex;flex-direction:column;
+}
+.dl-card:hover{transform:translateY(-6px);box-shadow:var(--sh);border-color:rgba(138,75,24,.22)}
+.dl-card-head{
+  padding:26px 24px 20px;
+  background:linear-gradient(135deg,#432818 0%,#7a3e10 55%,#C9952B 100%);
+  color:#fff;position:relative;overflow:hidden;
+}
+.dl-card-head::before{
+  content:"";position:absolute;top:-28px;left:-28px;
+  width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.07);
+}
+.dl-card-head::after{
+  content:"";position:absolute;bottom:-20px;right:-16px;
+  width:85px;height:85px;border-radius:50%;background:rgba(255,255,255,.05);
+}
+.dl-icon{font-size:2.6rem;position:relative;z-index:1;display:block;margin-bottom:10px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.2))}
+.dl-card-head h3{font-size:1.12rem;font-weight:900;position:relative;z-index:1;line-height:1.35}
+.dl-meta{font-size:.76rem;opacity:.82;margin-top:4px;font-weight:700;position:relative;z-index:1}
+.dl-type-badge{
+  display:inline-block;padding:3px 12px;border-radius:999px;
+  font-size:11px;font-weight:900;background:rgba(255,255,255,.22);
+  border:1px solid rgba(255,255,255,.35);margin-bottom:12px;position:relative;z-index:1;align-self:flex-start;
+}
+.dl-card-body{padding:20px 24px 22px;flex:1;display:flex;flex-direction:column;gap:14px}
+.dl-desc{color:var(--muted);font-size:.9rem;line-height:1.9;font-weight:700;flex:1}
+.btn-dl{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  padding:14px;border-radius:var(--r-xs);border:none;cursor:pointer;
+  font-family:inherit;font-weight:900;font-size:.95rem;
+  background:linear-gradient(135deg,#432818,#8a4b18);color:#fff;
+  box-shadow:0 6px 18px rgba(67,40,24,.22);transition:.2s;text-decoration:none;
+}
+.btn-dl:hover{background:linear-gradient(135deg,#5c2d0a,#a05c20);transform:translateY(-2px);box-shadow:0 10px 26px rgba(67,40,24,.3)}
+.btn-dl:active{transform:translateY(1px)}
+.dl-tags{display:flex;flex-wrap:wrap;gap:7px}
+.dl-tag{
+  font-size:.73rem;font-weight:800;padding:3px 11px;border-radius:999px;
+  background:rgba(138,75,24,.08);border:1px solid rgba(138,75,24,.14);color:var(--brown);
+}
+
 /* ── About ── */
 .about-card{
   background:linear-gradient(135deg,#fffdf6,#fff7e8,#fff);
@@ -507,6 +552,41 @@ footer::before{
 
 <div class="sec-divider"></div>
 
+<!-- ── Downloads ── -->
+<div id="downloads">
+  <div class="section">
+    <div class="sec-head reveal">
+      <div class="sec-badge">📥 الموارد والملفات</div>
+      <h2 class="sec-title">ملفات جاهزة للتحميل والطباعة</h2>
+      <p class="sec-sub">وثائق ومراجع رقمية مُصدَّرة بعناية لمساعدتك في المراجعة خارج الشاشة</p>
+    </div>
+    <div class="dl-grid">
+      <div class="dl-card reveal">
+        <div class="dl-card-head">
+          <span class="dl-type-badge">PDF — 13 صفحة</span>
+          <span class="dl-icon">📖</span>
+          <h3>معجم المصطلحات الذهبي</h3>
+          <div class="dl-meta">80+ مصطلح | 4 فصول | قابل للطباعة</div>
+        </div>
+        <div class="dl-card-body">
+          <p class="dl-desc">جميع مصطلحات ومفاهيم مادة الاجتماعيات للثالثة إعدادي مُجمَّعة في ملف واحد — تاريخ، جغرافيا، تربية على المواطنة، ومنهجيات — مع تعريف دقيق لكل مصطلح.</p>
+          <div class="dl-tags">
+            <span class="dl-tag">📕 التاريخ</span>
+            <span class="dl-tag">📗 الجغرافيا</span>
+            <span class="dl-tag">📘 المواطنة</span>
+            <span class="dl-tag">🧭 المنهجيات</span>
+          </div>
+          <a class="btn-dl" href="./معجم-المصطلحات-الذهبي.pdf" download="معجم-المصطلحات-الذهبي.pdf">
+            ⬇️ تحميل PDF مجاناً
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-divider"></div>
+
 <!-- ── About ── -->
 <div id="about">
   <div class="section">
@@ -551,6 +631,7 @@ footer::before{
       <a href="https://moajam-mostalahat-dhahabi.netlify.app/" class="foot-link">📖 معجم المصطلحات</a>
       <a href="https://moraja3a.netlify.app/" class="foot-link">🌐 موقع المراجعة</a>
       <a href="https://ijtima3iyat-3ac-portal.netlify.app/" class="foot-link">🎒 بوابة الاجتماعيات</a>
+      <a href="./معجم-المصطلحات-الذهبي.pdf" download class="foot-link">📥 تحميل معجم المصطلحات PDF</a>
     </div>
     <div class="foot-sub">من إعداد ذ. أحمد بوعمود — مؤسسة الحنان الخاصة، أكادير</div>
     <div class="copy">© 2025-2026 — جميع الحقوق محفوظة</div>

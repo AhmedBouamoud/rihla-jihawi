@@ -5,6 +5,9 @@
   Cache-Control: no-cache
 /manifest.json
   Content-Type: application/manifest+json
+/*.pdf
+  Content-Type: application/pdf
+  Content-Disposition: attachment
 
 /.well-known/assetlinks.json
   Content-Type: application/json
