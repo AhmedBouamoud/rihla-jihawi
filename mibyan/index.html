@@ -159,13 +159,60 @@ body:before{content:"";position:fixed;inset:0;background-image:linear-gradient(9
 </div></section>
 
 <section id="ai" class="section ai-zone"><div class="container">
-  <div class="section-title"><h2>7) قراءة مبيان انطلاقاً من صورة محمّلة</h2><p>رفع صورة المبيان — يحللها الذكاء الاصطناعي ويقرأ عناصرها تلقائياً بدون تثبيت أي برنامج.</p></div>
+  <div class="section-title">
+    <h2>7) تحليل صورة المبيان بالذكاء الاصطناعي</h2>
+    <p>ارفع صورة مبيانك — سيقرأ الذكاء الاصطناعي عناصره ويعطيك تقييماً تربوياً كاملاً.</p>
+  </div>
+
+  <!-- مفتاح Gemini -->
+  <div class="card" id="keyBox" style="margin-bottom:18px;border:2px dashed var(--primary);background:var(--soft);display:none">
+    <h3 style="color:var(--primary)">🔑 مفتاح Gemini المجاني (مرة واحدة فقط)</h3>
+    <p style="margin:8px 0">احصل على مفتاح مجاني من <b>Google AI Studio</b> — مجاني تماماً، لا يتطلب بطاقة بنكية.</p>
+    <ol style="margin:8px 0 12px 0;padding-right:20px;line-height:2">
+      <li>اذهب إلى <b>aistudio.google.com</b></li>
+      <li>اضغط <b>Get API Key → Create API Key</b></li>
+      <li>انسخ المفتاح والصقه هنا:</li>
+    </ol>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <input type="password" id="geminiKeyInput" placeholder="AIzaSy..." style="flex:1;min-width:220px;padding:10px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:14px;direction:ltr">
+      <button class="btn" onclick="saveGeminiKey()" style="min-width:120px">💾 حفظ المفتاح</button>
+    </div>
+    <p id="keyStatus" style="margin-top:8px;font-size:13px;color:var(--muted)"></p>
+  </div>
+
   <div class="grid two">
-    <div class="panel"><h3>ارفع صورة المبيان</h3><input type="file" id="imageUpload" accept="image/*" onchange="previewImage(event)"><img id="aiPreview" class="ai-preview" alt="صورة المبيان"><div class="controls"><button class="btn" onclick="analyzeImageBasic()">تحليل محلي سريع</button><button class="btn purple" onclick="runOCR()">✨ تحليل الصورة بالذكاء الاصطناعي</button><button class="btn secondary" onclick="copyVisionPrompt()">نسخ برومبت AI</button></div><p class="warn">ملاحظة: يحتاج الاتصال بالإنترنت للتحليل الذكي. النتيجة تقريبية ولا تعوض تصحيح الأستاذ.</p></div>
-    <div class="panel"><h3>نتيجة القراءة الذكية</h3><div id="imageAnalysis" class="feedback">لم يتم رفع صورة بعد.</div><label>نص OCR المستخرج</label><textarea id="ocrText" placeholder="سيظهر هنا النص المستخرج من الصورة إن نجح OCR..."></textarea><label>تعليق التلميذ على المبيان</label><textarea id="studentReading" placeholder="اكتب: يبين المبيان... نلاحظ... نستنتج..."></textarea><div class="controls"><button class="btn green" onclick="evaluateReading()">قيّم التعليق</button></div><div id="readingEval" class="feedback">اكتب تعليقاً للحصول على ملاحظات.</div></div>
+    <!-- عمود الرفع -->
+    <div class="panel">
+      <h3>📸 ارفع صورة المبيان</h3>
+      <label id="dropZone" for="imageUpload" style="display:block;border:2.5px dashed var(--line);border-radius:14px;padding:28px 16px;text-align:center;cursor:pointer;background:var(--bg);transition:.2s">
+        <div style="font-size:2.5rem">📊</div>
+        <div style="font-weight:700;margin:8px 0 4px">اضغط لاختيار صورة</div>
+        <div style="font-size:13px;color:var(--muted)">صورة المبيان من الهاتف أو الكاميرا</div>
+      </label>
+      <input type="file" id="imageUpload" accept="image/*" onchange="previewImage(event)" style="display:none">
+      <img id="aiPreview" class="ai-preview" alt="معاينة" style="display:none;width:100%;border-radius:12px;margin-top:12px;max-height:280px;object-fit:contain;border:2px solid var(--line)">
+      <div class="controls" style="margin-top:14px">
+        <button class="btn purple" onclick="runOCR()" id="analyzeBtn" style="width:100%;font-size:1.05rem;padding:14px">✨ تحليل الصورة بالذكاء الاصطناعي</button>
+        <button class="btn" onclick="analyzeImageBasic()" style="width:100%">🔍 تحليل محلي سريع</button>
+      </div>
+      <p class="warn" style="margin-top:12px;font-size:12.5px">يحتاج الاتصال بالإنترنت — النتيجة تقريبية ولا تعوض تصحيح الأستاذ.</p>
+    </div>
+
+    <!-- عمود النتائج -->
+    <div class="panel">
+      <h3>📋 نتيجة التحليل</h3>
+      <div id="imageAnalysis" class="feedback" style="min-height:120px;line-height:1.9">
+        <span style="color:var(--muted)">ارفع صورة ثم اضغط تحليل.</span>
+      </div>
+      <div style="margin-top:14px">
+        <label style="font-weight:700;font-size:13px">تعليق التلميذ على المبيان</label>
+        <textarea id="studentReading" placeholder="اكتب: يبين المبيان... نلاحظ أن... نستنتج..." style="width:100%;min-height:90px;margin-top:6px;padding:10px;border:1.5px solid var(--line);border-radius:10px;font-family:inherit;font-size:14px;resize:vertical"></textarea>
+        <button class="btn green" onclick="evaluateReading()" style="width:100%;margin-top:8px">✅ قيّم تعليقي</button>
+        <div id="readingEval" class="feedback" style="margin-top:10px;display:none"></div>
+      </div>
+    </div>
   </div>
 </div></section>
-
 <section id="pad" class="section"><div class="container">
   <div class="section-title"><h2>8) دفتر الرسم اليدوي</h2><p>شبكة تدريب تحاكي ورقة المبيان. ارسم بالقلم، امسح، ثم حمّل عملك.</p></div>
   <div class="toolbox">
@@ -245,39 +292,106 @@ function saveScore(){const name=(document.getElementById('studentName').value||'
 function renderLeaderboard(){const arr=JSON.parse(localStorage.getItem('mibyanScores')||'[]');document.getElementById('leaderboard').innerHTML=arr.length?arr.map(x=>`<li><span>${escapeHtml(x.name)} <small>${x.date}</small></span><b>${x.score}/100</b></li>`).join(''):'<li>لا توجد نتائج محفوظة بعد.</li>';}
 function printCertificate(){const name=document.getElementById('studentName').value||'التلميذ/ة';const w=window.open('','cert','width=900,height=650');w.document.write(`<html dir="rtl" lang="ar"><head><title>شهادة تقدير</title><style>body{font-family:Arial;display:grid;place-items:center;height:100vh;background:#fff7ed}.cert{border:10px double #b45309;border-radius:28px;padding:50px;text-align:center;width:80%;color:#7c2d12}h1{font-size:44px}.name{font-size:36px;color:#0f766e;font-weight:bold}</style></head><body><div class="cert"><h1>شهادة خبير المبيان</h1><p>تمنح هذه الشهادة إلى</p><div class="name">${escapeHtml(name)}</div><p>تقديراً لمشاركته/ها في مسابقة أفضل مبيان</p><p>إعداد: الأستاذ أحمد بوعمود</p></div><script>print()<\/script><script>if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').catch(()=>{});})}</script>
 </body></html>`);w.document.close();}
-function previewImage(e){const file=e.target.files[0];if(!file)return;uploadedImage=file;const img=document.getElementById('aiPreview');img.src=URL.createObjectURL(file);img.style.display='block';document.getElementById('imageAnalysis').innerHTML='تم رفع الصورة. اضغط تحليل محلي سريع أو OCR.';}
-function analyzeImageBasic(){const img=document.getElementById('aiPreview');if(!img.src){alert('ارفع صورة أولاً');return}const c=document.createElement('canvas');const cx=c.getContext('2d');c.width=600;c.height=Math.round(600*(img.naturalHeight||img.height)/(img.naturalWidth||img.width));cx.drawImage(img,0,0,c.width,c.height);const data=cx.getImageData(0,0,c.width,c.height).data;let sum=0,sum2=0,dark=0,light=0;for(let i=0;i<data.length;i+=16){const lum=.2126*data[i]+.7152*data[i+1]+.0722*data[i+2];sum+=lum;sum2+=lum*lum;if(lum<70)dark++;if(lum>235)light++;}const n=data.length/16;const mean=sum/n;const sd=Math.sqrt(sum2/n-mean*mean);let notes=[];notes.push(sd>45?'✅ التباين جيد ويساعد على القراءة.':'⚠️ التباين ضعيف؛ استعمل قلماً أغمق أو صورة أوضح.');notes.push(dark/n>.015?'✅ توجد خطوط/نصوص داكنة كافية غالباً.':'⚠️ يبدو أن الخطوط قليلة أو باهتة.');notes.push(light/n>.35?'✅ الخلفية فاتحة نسبياً.':'ℹ️ الخلفية قد تكون مزدحمة؛ صوّر الورقة في إضاءة أفضل.');notes.push(c.width>c.height?'✅ الصورة أفقية مناسبة لمعظم المبيانات.':'ℹ️ الصورة عمودية؛ تأكد أن كامل المبيان ظاهر.');document.getElementById('imageAnalysis').innerHTML='<b>تحليل محلي للصورة:</b><br>'+notes.join('<br>')+'<br><br><b>مؤشر الوضوح:</b> '+Math.round(Math.min(100,sd*1.6))+'/100';}
+function previewImage(e){
+  const file=e.target.files[0];
+  if(!file)return;
+  uploadedImage=file;
+  const img=document.getElementById('aiPreview');
+  img.src=URL.createObjectURL(file);
+  img.style.display='block';
+  const dz=document.getElementById('dropZone');
+  dz.style.borderColor='var(--accent)';
+  dz.style.background='rgba(14,118,110,.07)';
+  dz.innerHTML='<div style="font-size:2rem">✅</div><div style="font-weight:700;color:var(--accent)">تم تحميل الصورة</div><div style="font-size:12px;color:var(--muted)">اضغط للتغيير</div>';
+  document.getElementById('imageAnalysis').innerHTML='<span style="color:var(--accent)">✅ الصورة جاهزة — اضغط "تحليل الصورة بالذكاء الاصطناعي".</span>';
+}
+
+function analyzeImageBasic(){
+  const img=document.getElementById('aiPreview');
+  if(!img.src||img.style.display==='none'){alert('ارفع صورة أولاً');return}
+  const c=document.createElement('canvas');const cx=c.getContext('2d');
+  c.width=400;c.height=Math.round(400*(img.naturalHeight||img.height)/(img.naturalWidth||img.width)||300);
+  cx.drawImage(img,0,0,c.width,c.height);
+  const data=cx.getImageData(0,0,c.width,c.height).data;
+  let sum=0,sum2=0,dark=0,light=0,n=0;
+  for(let i=0;i<data.length;i+=16){const lum=.2126*data[i]+.7152*data[i+1]+.0722*data[i+2];sum+=lum;sum2+=lum*lum;if(lum<70)dark++;if(lum>235)light++;n++;}
+  const mean=sum/n,sd=Math.sqrt(sum2/n-mean*mean);
+  const notes=[];
+  notes.push(sd>45?'✅ التباين جيد، الخطوط واضحة.':'⚠️ التباين ضعيف — صوّر في إضاءة أفضل أو استخدم قلماً أغمق.');
+  notes.push(dark/n>.01?'✅ توجد خطوط وكتابات داكنة.':'⚠️ يبدو أن الكتابة باهتة.');
+  notes.push(light/n>.4?'✅ الخلفية فاتحة — جيد للقراءة.':'ℹ️ الخلفية مزدحمة — صوّر الورقة على سطح أبيض.');
+  notes.push(c.width>c.height?'✅ الصورة أفقية — مناسبة للمبيانات.':'ℹ️ صورة عمودية — قد تكون أفقية أنسب.');
+  document.getElementById('imageAnalysis').innerHTML='<div style="border-right:4px solid var(--primary);padding:10px 14px"><b>🔍 تحليل محلي للجودة:</b><br>'+notes.join('<br>')+'</div>';
+}
+
 async function runOCR(){
   if(!uploadedImage){alert('ارفع صورة أولاً');return}
   const out=document.getElementById('imageAnalysis');
-  out.innerHTML='<b>⏳ جاري تصغير الصورة وإرسالها...</b><br><small style="opacity:.7">قد يستغرق 15-30 ثانية</small>';
+  const key=localStorage.getItem('geminiKey');
+
+  if(!key){
+    // Show key box and prompt
+    const kb=document.getElementById('keyBox');
+    kb.style.display='block';
+    kb.scrollIntoView({behavior:'smooth',block:'center'});
+    out.innerHTML='<span style="color:var(--primary)">⬆️ أدخل مفتاح Gemini المجاني أعلاه ثم اضغط تحليل مجدداً.</span>';
+    return;
+  }
+
+  out.innerHTML='<b>⏳ جاري تصغير الصورة وإرسالها...</b><br><small style="opacity:.7">15-30 ثانية</small>';
+  document.getElementById('analyzeBtn').disabled=true;
+
   try{
     const b64=await resizeAndEncode(uploadedImage,800);
-    const resp=await fetch("https://text.pollinations.ai/openai/chat/completions",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
+    const geminiURL='https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key='+key;
+    const resp=await fetchWithTimeout(geminiURL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:"openai",
-        messages:[{
-          role:"user",
-          content:[
-            {type:"text",text:"أنت مصحح تربوي متخصص في مادة الاجتماعيات للسنة الثالثة إعدادي بالمغرب. حلّل هذا المبيان وأجب بالعربية الفصحى:\n1. نوع المبيان\n2. العنوان\n3. المحاور والوحدة\n4. المصدر\n5. ملاحظات على الجودة (السلم، الدقة، المفتاح)\n6. نقطة تقديرية من 10"},
-            {type:"image_url",image_url:{url:"data:image/jpeg;base64,"+b64}}
-          ]
-        }],
-        max_tokens:600
+        contents:[{parts:[
+          {text:'أنت مصحح تربوي متخصص في مادة الاجتماعيات للسنة الثالثة إعدادي بالمغرب. حلّل هذا المبيان وأجب بالعربية الفصحى المبسطة عن:\n1. نوع المبيان (أعمدة/منحنى/دائرة/شريط)\n2. العنوان\n3. المحور الأفقي والمحور العمودي والوحدة\n4. المصدر\n5. ملاحظات على الجودة (السلم، الدقة، المفتاح، الجمالية)\n6. نقطة تقديرية من 10 مع التبرير\nأجب بأسلوب إيجابي ومشجع.'},
+          {inlineData:{mimeType:'image/jpeg',data:b64}}
+        ]}]
       })
-    });
-    if(!resp.ok)throw new Error('خطأ HTTP '+resp.status);
+    },25000);
+    if(!resp.ok){
+      const err=await resp.json().catch(()=>({}));
+      const msg=err.error?.message||'HTTP '+resp.status;
+      if(resp.status===400||resp.status===403){
+        localStorage.removeItem('geminiKey');
+        document.getElementById('keyBox').style.display='block';
+        document.getElementById('keyStatus').textContent='المفتاح غير صالح — أدخله مجدداً.';
+        throw new Error('مفتاح غير صالح');
+      }
+      throw new Error(msg);
+    }
     const json=await resp.json();
-    const txt=json.choices?.[0]?.message?.content||'';
+    const txt=json.candidates?.[0]?.content?.parts?.[0]?.text||'';
     if(!txt)throw new Error('الرد فارغ');
-    document.getElementById('ocrText').value=txt;
-    out.innerHTML='<div style="border-right:4px solid #7c3aed;padding:10px 14px"><b>✨ تحليل الذكاء الاصطناعي:</b><br><span style="white-space:pre-wrap;line-height:1.9">'+txt.replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</span></div>';
+    document.getElementById('ocrText')||null;
+    out.innerHTML='<div style="border-right:4px solid #7c3aed;padding:12px 16px;border-radius:0 10px 10px 0"><b>✨ تحليل الذكاء الاصطناعي:</b><br><span style="white-space:pre-wrap;line-height:2">'+txt.replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</span></div>';
+    out.scrollIntoView({behavior:'smooth',block:'nearest'});
   }catch(e){
-    out.innerHTML='<span style="color:#dc2626">⚠️ '+e.message+' — تأكد من الاتصال وحاول مجدداً.</span>';
+    out.innerHTML='<span style="color:#dc2626">⚠️ '+e.message+'<br>تأكد من صحة المفتاح والاتصال بالإنترنت.</span>';
+  }finally{
+    document.getElementById('analyzeBtn').disabled=false;
   }
 }
+
+function saveGeminiKey(){
+  const k=document.getElementById('geminiKeyInput').value.trim();
+  if(!k||!k.startsWith('AIza')){document.getElementById('keyStatus').textContent='⚠️ المفتاح يبدأ بـ AIza — تحقق منه.';return;}
+  localStorage.setItem('geminiKey',k);
+  document.getElementById('keyStatus').innerHTML='✅ تم الحفظ! <b>اضغط "✨ تحليل الصورة"</b>';
+  document.getElementById('geminiKeyInput').value='';
+}
+
+function fetchWithTimeout(url,opts,ms){
+  const ctrl=new AbortController();
+  const tid=setTimeout(()=>ctrl.abort(),ms);
+  return fetch(url,{...opts,signal:ctrl.signal}).finally(()=>clearTimeout(tid));
+}
+
 function resizeAndEncode(file,maxSize){
   return new Promise((resolve,reject)=>{
     const img=new Image();
@@ -294,8 +408,24 @@ function resizeAndEncode(file,maxSize){
     img.src=url;
   });
 }
-function evaluateReading(){const t=document.getElementById('studentReading').value.trim();let score=0,notes=[];if(/يمثل|يبين|يعرض/.test(t)){score+=20;notes.push('✅ بدأت بتقديم موضوع المبيان.')}else notes.push('⚠️ ابدأ بعبارة: يمثل/يبين المبيان...');if(/نلاحظ|يتضح|يظهر/.test(t)){score+=20;notes.push('✅ استعملت لغة الوصف.')}else notes.push('⚠️ أضف جملة وصف: نلاحظ...');if(/أعلى|أدنى|ارتفاع|انخفاض|تزايد|تراجع/.test(t)){score+=25;notes.push('✅ ذكرت اتجاهاً أو مقارنة.')}else notes.push('⚠️ اذكر أعلى/أدنى قيمة أو اتجاه التطور.');if(/نستنتج|خلاصة|إذن/.test(t)){score+=20;notes.push('✅ ختمت بخلاصة.')}else notes.push('⚠️ اختم بجملة: نستنتج أن...');if(/\d/.test(t)){score+=15;notes.push('✅ دعمت القراءة بأرقام.')}else notes.push('ℹ️ حاول إدراج رقم أو مثال من المبيان.');document.getElementById('readingEval').innerHTML='<b>تقييم التعليق: '+score+'/100</b><br>'+notes.join('<br>');}
-function copyVisionPrompt(){const prompt=`أرفق مع هذا النص صورة المبيان، ثم حللها كأستاذ اجتماعيات. المطلوب: 1) تحديد نوع المبيان. 2) فحص العناصر: العنوان، المحاور، المقياس، الوحدة، المفتاح، المصدر، الإطار. 3) قراءة أعلى وأدنى قيمة والاتجاه العام. 4) إعطاء ملاحظات لتحسين الرسم. 5) منح نقطة من 100 مع تبرير تربوي مختصر. اجعل التعليق موجها لتلميذ بطريقة مشجعة.`;navigator.clipboard?.writeText(prompt);document.getElementById('imageAnalysis').innerHTML='<b>تم إعداد برومبت AI:</b><br>الصق البرومبت في ChatGPT وأرفق صورة المبيان للحصول على قراءة عميقة.';}
+
+function copyVisionPrompt(){
+  const t='أنت مصحح تربوي في مادة الاجتماعيات للسنة الثالثة إعدادي بالمغرب. حلّل هذا المبيان وأذكر: النوع، العنوان، المحاور، المصدر، ملاحظات الجودة، ونقطة من 10.';
+  navigator.clipboard.writeText(t).then(()=>alert('تم نسخ البرومبت!')).catch(()=>alert(t));
+}
+
+function evaluateReading(){
+  const t=(document.getElementById('studentReading')||{}).value||'';
+  const evalDiv=document.getElementById('readingEval');
+  evalDiv.style.display='block';
+  if(t.trim().length<20){evalDiv.innerHTML='<span style="color:#dc2626">⚠️ اكتب جملة كاملة على الأقل تصف المبيان.</span>';return;}
+  const checks=[];
+  checks.push(/يبين|يوضح|يمثل/.test(t)?'✅ بدأت بجملة تعريفية جيدة.':'⚠️ ابدأ بـ "يبين المبيان..."');
+  checks.push(/نلاحظ|يظهر|يتضح/.test(t)?'✅ وصفت ما يظهر — ممتاز.':'ℹ️ أضف: "نلاحظ أن..."');
+  checks.push(/نستنتج|خلاصة|إذن/.test(t)?'✅ استخلصت نتيجة — عمل رائع!':'ℹ️ أضف: "نستنتج أن..."');
+  checks.push(/%|نسبة|٪/.test(t)?'✅ ذكرت أرقاماً/نسباً — دقيق.':'ℹ️ اذكر قيمة أو نسبة من المبيان.');
+  evalDiv.innerHTML='<div style="border-right:4px solid var(--green);padding:10px 14px;border-radius:0 10px 10px 0"><b>📝 تقييم تعليقك:</b><br>'+checks.join('<br>')+'</div>';
+}
 function calcRubric(){let s=0;document.querySelectorAll('.rub:checked').forEach(x=>s+=parseInt(x.value));document.getElementById('rubricResult').innerHTML='<b>النقطة: '+s+'/100</b><br>'+(s>=80?'مبيان ممتاز أو قريب من الامتياز.':s>=60?'مبيان مقبول يحتاج تحسين بعض العناصر.':'يحتاج مراجعة العناصر الأساسية قبل التسليم.');}
 // Drawing pad
 const pad=document.getElementById('drawPad');const pctx=pad.getContext('2d');let drawing=false;function initPad(){drawPadGrid();pad.addEventListener('pointerdown',e=>{drawing=true;const p=pos(e);pctx.beginPath();pctx.moveTo(p.x,p.y)});pad.addEventListener('pointermove',e=>{if(!drawing)return;const p=pos(e);pctx.lineWidth=document.getElementById('penSize').value;pctx.strokeStyle=document.getElementById('penColor').value;pctx.lineCap='round';pctx.lineTo(p.x,p.y);pctx.stroke()});window.addEventListener('pointerup',()=>drawing=false)}
