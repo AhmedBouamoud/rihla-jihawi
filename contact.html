@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تواصل مع الأستاذ — رحلة الجهوي</title>
+<meta name="theme-color" content="#123F63">
+<meta name="description" content="تواصل مع ذ. أحمد بوعمود — رحلة الجهوي التعليمية">
+<link rel="icon" href="icons/icon-192.png">
+<style>
+:root{
+  --blue:#1A6FA8;--blue-d:#123F63;--blue-xd:#0A2238;
+  --orange:#E8720C;--orange-d:#C25A00;--gold:#F2B33D;--gold-d:#D89A1E;
+  --paper:#FdF8F0;--card:#fff;--ink:#1E2A38;--muted:#6B7A8C;
+  --green:#2EB872;
+  --sh:0 8px 26px rgba(18,63,99,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:"Cairo","Segoe UI",Tahoma,sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;overflow-x:hidden;}
+.bg-blob{position:fixed;border-radius:50%;filter:blur(70px);opacity:.16;z-index:-1;animation:drift 18s ease-in-out infinite alternate;}
+.bg-blob.b1{width:420px;height:420px;background:var(--orange);top:-120px;right:-100px;}
+.bg-blob.b2{width:480px;height:480px;background:var(--blue);bottom:-160px;left:-140px;animation-delay:-6s;}
+.bg-blob.b3{width:300px;height:300px;background:var(--gold);top:40%;left:-80px;animation-delay:-12s;}
+@keyframes drift{from{transform:translate(0,0) scale(1);}to{transform:translate(40px,50px) scale(1.15);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
+@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+
+/* Header */
+.page-header{background:linear-gradient(135deg,var(--blue-xd),var(--blue-d) 60%,var(--blue));padding:14px 20px;box-shadow:0 4px 18px rgba(10,34,56,.35);}
+.ph-inner{max-width:680px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.ph-brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;}
+.ph-brand .ico{font-size:1.5rem;}
+.ph-brand .nm{font-weight:900;font-size:.95rem;line-height:1.3;}
+.ph-brand .nm small{display:block;font-size:.66rem;opacity:.8;font-weight:400;}
+.back-link{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.22);border-radius:12px;font-family:inherit;font-size:.84rem;font-weight:700;text-decoration:none;transition:background .2s;white-space:nowrap;}
+.back-link:hover{background:rgba(255,255,255,.28);}
+
+/* Main */
+main{max-width:680px;margin:0 auto;padding:28px 16px 64px;}
+
+/* Hero */
+.contact-hero{text-align:center;margin-bottom:28px;animation:fadeUp .5s;}
+.contact-hero .hero-ico{font-size:3.4rem;display:block;margin-bottom:10px;animation:floatY 3.5s ease-in-out infinite;}
+.contact-hero h1{font-size:1.65rem;font-weight:900;color:var(--blue-d);margin-bottom:10px;}
+.contact-hero p{font-size:.9rem;color:var(--muted);line-height:1.95;max-width:480px;margin:0 auto;}
+
+/* Form */
+.form-wrap{background:var(--card);border-radius:22px;box-shadow:var(--sh);padding:26px 24px;animation:fadeUp .55s;}
+.req-note{font-size:.74rem;color:var(--muted);margin-bottom:18px;}
+.req-note .req-star{color:var(--orange);font-weight:900;}
+.fg{margin-bottom:20px;}
+.fg label{display:block;font-weight:800;font-size:.86rem;color:var(--blue-d);margin-bottom:7px;}
+.fg label .req{color:var(--orange);}
+.fg input,.fg select,.fg textarea{
+  width:100%;padding:13px 15px;border:2px solid #E2D8C4;border-radius:13px;
+  font-family:inherit;font-size:.93rem;color:var(--ink);background:#fff;
+  outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(26,111,168,.1);}
+.fg select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath fill='%236B7A8C' d='M0 0l5 7 5-7z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 14px center;}
+.fg textarea{resize:vertical;min-height:125px;line-height:1.8;}
+
+/* Honeypot hidden */
+.hp-field{display:none!important;visibility:hidden;height:0;overflow:hidden;}
+
+/* Submit button */
+.submit-btn{
+  width:100%;padding:15px;font-size:1.05rem;font-weight:900;font-family:inherit;
+  color:var(--blue-xd);background:linear-gradient(180deg,#FFD97A,var(--gold));
+  border:none;border-radius:16px;cursor:pointer;
+  box-shadow:0 6px 0 var(--gold-d),0 12px 24px rgba(0,0,0,.13);
+  transition:all .12s;margin-top:6px;
+}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 0 var(--gold-d),0 16px 28px rgba(0,0,0,.16);}
+.submit-btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--gold-d);}
+
+/* Signature */
+.contact-sig{margin-top:26px;padding-top:18px;border-top:2px dashed #E8D9C0;text-align:center;color:var(--muted);font-size:.8rem;line-height:2.1;}
+.contact-sig .sig-main{font-size:1rem;font-weight:900;color:var(--blue-d);display:block;margin-bottom:2px;}
+.contact-sig b{color:var(--orange-d);}
+
+@media(max-width:520px){
+  .form-wrap{padding:18px 14px;}
+  .contact-hero h1{font-size:1.35rem;}
+}
+</style>
+</head>
+<body>
+<div class="bg-blob b1"></div>
+<div class="bg-blob b2"></div>
+<div class="bg-blob b3"></div>
+
+<header class="page-header">
+  <div class="ph-inner">
+    <a class="ph-brand" href="/">
+      <span class="ico">✉️</span>
+      <span class="nm">رحلة الجهوي<small>تواصل مع الأستاذ</small></span>
+    </a>
+    <a class="back-link" href="/">← الرئيسية</a>
+  </div>
+</header>
+
+<main>
+  <div class="contact-hero">
+    <span class="hero-ico">✉️</span>
+    <h1>تواصل مع الأستاذ</h1>
+    <p>هل لديك سؤال؟ اقتراح؟ أو واجهتك مشكلة؟<br>راسلنا وسنرد عليك في أقرب وقت إن شاء الله 😊</p>
+  </div>
+
+  <div class="form-wrap">
+    <p class="req-note"><span class="req-star">*</span> الحقول المطلوبة</p>
+
+    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/success.html">
+      <input type="hidden" name="form-name" value="contact">
+
+      <div class="hp-field" aria-hidden="true">
+        <label>لا تملأ هذا الحقل: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+      </div>
+
+      <div class="fg">
+        <label for="fullname"><span class="req">* </span>الاسم الكامل</label>
+        <input type="text" id="fullname" name="fullname" placeholder="مثال: سعاد المرابط" required maxlength="60" autocomplete="name">
+      </div>
+
+      <div class="fg">
+        <label for="email"><span class="req">* </span>البريد الإلكتروني</label>
+        <input type="email" id="email" name="email" placeholder="exemple@gmail.com" required autocomplete="email">
+      </div>
+
+      <div class="fg">
+        <label for="level">المستوى الدراسي</label>
+        <select id="level" name="level">
+          <option value="">— اختر مستواك —</option>
+          <option value="3ac">الثالثة إعدادي</option>
+          <option value="2ac">الثانية إعدادي</option>
+          <option value="1ac">الأولى إعدادي</option>
+          <option value="6ap">السادسة ابتدائي</option>
+          <option value="other-student">مستوى آخر</option>
+          <option value="parent">ولي أمر</option>
+          <option value="teacher">أستاذ / أستاذة</option>
+        </select>
+      </div>
+
+      <div class="fg">
+        <label for="msg-type"><span class="req">* </span>نوع الرسالة</label>
+        <select id="msg-type" name="msg-type" required>
+          <option value="">— اختر نوع رسالتك —</option>
+          <option value="question">❓ سؤال</option>
+          <option value="suggestion">💡 اقتراح</option>
+          <option value="bug">🔧 مشكلة تقنية</option>
+          <option value="help">🆘 طلب مساعدة</option>
+        </select>
+      </div>
+
+      <div class="fg">
+        <label for="message"><span class="req">* </span>نص الرسالة</label>
+        <textarea id="message" name="message" placeholder="اكتب رسالتك هنا... لا تتردد، نحن هنا للمساعدة 😊" required minlength="10"></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">📤 إرسال الرسالة</button>
+    </form>
+
+    <div class="contact-sig">
+      <span class="sig-main">ذ. أحمد بوعمود</span>
+      <b>رحلة الجهوي</b> — تعلم ممتع وهادف<br>
+      مؤسسة الحنان الخاصة — أكادير | 2025-2026
+    </div>
+  </div>
+</main>
+</body>
+</html>

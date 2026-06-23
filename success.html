@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تم الإرسال بنجاح — رحلة الجهوي</title>
+<meta name="theme-color" content="#123F63">
+<link rel="icon" href="icons/icon-192.png">
+<style>
+:root{
+  --blue:#1A6FA8;--blue-d:#123F63;--blue-xd:#0A2238;
+  --orange:#E8720C;--orange-d:#C25A00;--gold:#F2B33D;--gold-d:#D89A1E;
+  --paper:#FdF8F0;--card:#fff;--ink:#1E2A38;--muted:#6B7A8C;
+  --green:#2EB872;
+  --sh:0 8px 26px rgba(18,63,99,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:"Cairo","Segoe UI",Tahoma,sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;overflow-x:hidden;}
+.bg-blob{position:fixed;border-radius:50%;filter:blur(70px);opacity:.16;z-index:-1;}
+.bg-blob.b1{width:420px;height:420px;background:var(--orange);top:-120px;right:-100px;}
+.bg-blob.b2{width:480px;height:480px;background:var(--blue);bottom:-160px;left:-140px;}
+.bg-blob.b3{width:300px;height:300px;background:var(--gold);top:40%;left:-80px;}
+@keyframes pop{0%{transform:scale(0);opacity:0;}70%{transform:scale(1.1);}100%{transform:scale(1);opacity:1;}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+
+.success-card{
+  background:var(--card);border-radius:28px;box-shadow:var(--sh);
+  padding:40px 32px;max-width:480px;width:100%;text-align:center;
+  animation:pop .55s ease both;
+}
+.success-ico{font-size:5rem;display:block;margin-bottom:10px;animation:floatY 3s ease-in-out infinite;}
+.success-card h1{font-size:1.8rem;font-weight:900;color:var(--blue-d);margin-bottom:12px;}
+.success-card .msg{font-size:.93rem;color:var(--muted);line-height:2.1;margin-bottom:26px;}
+.success-card .msg b{color:var(--orange-d);}
+
+.btn-group{display:flex;flex-direction:column;gap:10px;}
+.btn-home{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:15px 24px;font-size:1rem;font-weight:900;font-family:inherit;
+  color:var(--blue-xd);background:linear-gradient(180deg,#FFD97A,var(--gold));
+  border:none;border-radius:16px;cursor:pointer;text-decoration:none;
+  box-shadow:0 5px 0 var(--gold-d),0 10px 20px rgba(0,0,0,.12);
+  transition:all .12s;animation:fadeUp .6s .15s both;
+}
+.btn-home:hover{transform:translateY(-2px);}
+.btn-home:active{transform:translateY(3px);box-shadow:0 2px 0 var(--gold-d);}
+.btn-contact{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:13px 24px;font-size:.95rem;font-weight:800;font-family:inherit;
+  color:#fff;background:linear-gradient(180deg,#3A8AC0,var(--blue));
+  border:none;border-radius:14px;cursor:pointer;text-decoration:none;
+  box-shadow:0 4px 0 var(--blue-d),0 8px 16px rgba(18,63,99,.2);
+  transition:all .12s;animation:fadeUp .6s .3s both;
+}
+.btn-contact:hover{transform:translateY(-2px);}
+.btn-contact:active{transform:translateY(3px);box-shadow:0 1px 0 var(--blue-d);}
+
+.success-sig{margin-top:24px;padding-top:16px;border-top:2px dashed #E8D9C0;color:var(--muted);font-size:.79rem;line-height:2;}
+.success-sig b{color:var(--orange-d);}
+
+@media(max-width:460px){
+  .success-card{padding:28px 18px;}
+  .success-card h1{font-size:1.45rem;}
+}
+</style>
+</head>
+<body>
+<div class="bg-blob b1"></div>
+<div class="bg-blob b2"></div>
+<div class="bg-blob b3"></div>
+
+<div class="success-card">
+  <span class="success-ico">🎉</span>
+  <h1>تم إرسال رسالتك بنجاح!</h1>
+  <p class="msg">
+    شكراً لك على تواصلك معنا 😊<br>
+    <b>ذ. أحمد بوعمود</b> سيطلع على رسالتك<br>
+    ويرد عليك في أقرب وقت إن شاء الله.
+  </p>
+  <div class="btn-group">
+    <a class="btn-home" href="/">🏠 العودة إلى الرئيسية</a>
+    <a class="btn-contact" href="/contact.html">✉️ إرسال رسالة أخرى</a>
+  </div>
+  <div class="success-sig">
+    <b>رحلة الجهوي</b> — تعلم ممتع وهادف<br>
+    ذ. أحمد بوعمود — مؤسسة الحنان الخاصة | أكادير
+  </div>
+</div>
+</body>
+</html>
