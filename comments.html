@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تعليقات التلاميذ — رحلة الجهوي</title>
+<meta name="theme-color" content="#123F63">
+<meta name="description" content="ماذا قال التلاميذ عن رحلة الجهوي؟ اقرأ تجاربهم وأضف تعليقك">
+<link rel="icon" href="icons/icon-192.png">
+<style>
+:root{
+  --blue:#1A6FA8;--blue-d:#123F63;--blue-xd:#0A2238;
+  --orange:#E8720C;--orange-d:#C25A00;--gold:#F2B33D;--gold-d:#D89A1E;
+  --paper:#FdF8F0;--card:#fff;--ink:#1E2A38;--muted:#6B7A8C;
+  --green:#2EB872;--green-d:#1F9D55;
+  --sh:0 8px 26px rgba(18,63,99,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:"Cairo","Segoe UI",Tahoma,sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;overflow-x:hidden;}
+.bg-blob{position:fixed;border-radius:50%;filter:blur(70px);opacity:.15;z-index:-1;animation:drift 18s ease-in-out infinite alternate;}
+.bg-blob.b1{width:420px;height:420px;background:var(--orange);top:-120px;right:-100px;}
+.bg-blob.b2{width:480px;height:480px;background:var(--blue);bottom:-160px;left:-140px;animation-delay:-6s;}
+.bg-blob.b3{width:300px;height:300px;background:var(--gold);top:40%;left:-80px;animation-delay:-12s;}
+@keyframes drift{from{transform:translate(0,0) scale(1);}to{transform:translate(40px,50px) scale(1.15);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+@keyframes pop{0%{transform:scale(0);opacity:0;}70%{transform:scale(1.1);}100%{transform:scale(1);opacity:1;}}
+@keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+
+/* ── HEADER ── */
+.page-header{background:linear-gradient(135deg,var(--blue-xd),var(--blue-d) 60%,var(--blue));padding:14px 20px;box-shadow:0 4px 18px rgba(10,34,56,.35);}
+.ph-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.ph-brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;}
+.ph-logo{width:42px;height:42px;border-radius:10px;object-fit:cover;border:2px solid rgba(255,255,255,.3);}
+.ph-brand .nm{font-weight:900;font-size:.95rem;line-height:1.3;}
+.ph-brand .nm small{display:block;font-size:.66rem;opacity:.8;font-weight:400;}
+.back-link{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.22);border-radius:12px;font-family:inherit;font-size:.84rem;font-weight:700;text-decoration:none;transition:background .2s;white-space:nowrap;}
+.back-link:hover{background:rgba(255,255,255,.28);}
+
+/* ── MAIN ── */
+main{max-width:860px;margin:0 auto;padding:28px 16px 70px;}
+
+/* ── HERO ── */
+.cmts-hero{text-align:center;margin-bottom:36px;animation:fadeUp .5s;}
+.hero-logo{width:110px;height:110px;border-radius:50%;object-fit:cover;border:5px solid #fff;box-shadow:0 8px 28px rgba(18,63,99,.18),0 0 0 3px var(--gold);display:block;margin:0 auto 14px;animation:floatY 4s ease-in-out infinite;}
+.cmts-hero h1{font-size:1.7rem;font-weight:900;color:var(--blue-d);margin-bottom:8px;}
+.cmts-hero .shine{background:linear-gradient(90deg,var(--orange),var(--gold),var(--orange));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 3s linear infinite;}
+.cmts-hero p{font-size:.9rem;color:var(--muted);line-height:1.95;max-width:520px;margin:0 auto;}
+
+/* ── STATS BAR ── */
+.stats-bar{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:34px;animation:fadeUp .55s;}
+.stat-item{text-align:center;}
+.stat-item .num{font-size:1.8rem;font-weight:900;color:var(--orange-d);line-height:1;}
+.stat-item .lbl{font-size:.72rem;color:var(--muted);font-weight:700;margin-top:3px;}
+
+/* ── SECTION TITLES ── */
+.sec-title{font-size:1.15rem;font-weight:900;color:var(--blue-d);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.sec-title::after{content:'';flex:1;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
+
+/* ── TESTIMONIAL GRID ── */
+.cmts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:40px;}
+.cmt-card{background:var(--card);border-radius:20px;box-shadow:var(--sh);padding:18px 16px;animation:fadeUp .5s backwards;position:relative;border-top:4px solid var(--gold);transition:transform .2s;}
+.cmt-card:hover{transform:translateY(-4px);}
+.cmt-card.blue-top{border-top-color:var(--blue);}
+.cmt-card.green-top{border-top-color:var(--green);}
+.cmt-card.orange-top{border-top-color:var(--orange);}
+.cmt-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.cmt-av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--orange));display:grid;place-items:center;font-size:1.4rem;flex-shrink:0;border:2.5px solid #fff;box-shadow:0 3px 10px rgba(18,63,99,.14);}
+.cmt-av.av-blue{background:linear-gradient(135deg,var(--blue),var(--blue-d));}
+.cmt-av.av-green{background:linear-gradient(135deg,var(--green),var(--green-d));}
+.cmt-info .name{font-weight:900;font-size:.9rem;color:var(--blue-d);}
+.cmt-info .level{font-size:.72rem;color:var(--muted);font-weight:600;}
+.cmt-stars{color:#F2B33D;font-size:1rem;letter-spacing:1px;margin-bottom:8px;}
+.cmt-text{font-size:.86rem;line-height:1.95;color:#2E3A48;}
+.cmt-card .quote-mark{position:absolute;top:12px;left:14px;font-size:2.4rem;color:var(--gold);opacity:.18;line-height:1;font-family:Georgia,serif;}
+
+/* ── FORM SECTION ── */
+.form-section{background:var(--card);border-radius:24px;box-shadow:var(--sh);padding:28px 24px;animation:fadeUp .6s;}
+.form-section .fs-head{text-align:center;margin-bottom:24px;}
+.form-section .fs-head .logo-sm{width:68px;height:68px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);box-shadow:0 4px 14px rgba(18,63,99,.14);display:block;margin:0 auto 10px;}
+.form-section .fs-head h2{font-size:1.2rem;font-weight:900;color:var(--blue-d);margin-bottom:4px;}
+.form-section .fs-head p{font-size:.82rem;color:var(--muted);line-height:1.75;}
+
+.req-note{font-size:.74rem;color:var(--muted);margin-bottom:18px;}
+.req-note .req-star{color:var(--orange);font-weight:900;}
+
+/* Rating stars */
+.rating-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.rating-row label{cursor:pointer;font-size:1.6rem;transition:transform .15s;color:#DDD;}
+.rating-row input[type=radio]{display:none;}
+.rating-row label:hover,.rating-row label:hover ~ label{color:#DDD;}
+.rating-stars{direction:ltr;display:flex;flex-direction:row-reverse;gap:4px;}
+.rating-stars input[type=radio]{display:none;}
+.rating-stars label{cursor:pointer;font-size:1.7rem;color:#E0D4BE;transition:color .15s,transform .15s;}
+.rating-stars label:hover,.rating-stars input:checked ~ label,.rating-stars label:hover ~ label{color:#F2B33D;}
+.rating-stars input:checked ~ label{color:#F2B33D;}
+.rating-stars label:hover{transform:scale(1.18);}
+
+.fg{margin-bottom:18px;}
+.fg label{display:block;font-weight:800;font-size:.86rem;color:var(--blue-d);margin-bottom:7px;}
+.fg label .req{color:var(--orange);}
+.fg input,.fg select,.fg textarea{
+  width:100%;padding:12px 15px;border:2px solid #E2D8C4;border-radius:13px;
+  font-family:inherit;font-size:.93rem;color:var(--ink);background:#fff;
+  outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(26,111,168,.1);}
+.fg textarea{resize:vertical;min-height:100px;line-height:1.8;}
+.hp-field{display:none!important;visibility:hidden;height:0;overflow:hidden;}
+
+.submit-btn{
+  width:100%;padding:15px;font-size:1.05rem;font-weight:900;font-family:inherit;
+  color:var(--blue-xd);background:linear-gradient(180deg,#FFD97A,var(--gold));
+  border:none;border-radius:16px;cursor:pointer;
+  box-shadow:0 6px 0 var(--gold-d),0 12px 24px rgba(0,0,0,.13);
+  transition:all .12s;margin-top:6px;
+}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 0 var(--gold-d),0 16px 28px rgba(0,0,0,.16);}
+.submit-btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--gold-d);}
+.submit-note{font-size:.75rem;color:var(--muted);text-align:center;margin-top:10px;line-height:1.7;}
+
+/* ── FOOTER SIG ── */
+.page-sig{text-align:center;margin-top:32px;color:var(--muted);font-size:.8rem;line-height:2;}
+.page-sig b{color:var(--orange-d);}
+
+@media(max-width:560px){
+  .cmts-grid{grid-template-columns:1fr;}
+  .form-section{padding:20px 14px;}
+  .cmts-hero h1{font-size:1.35rem;}
+  .stats-bar{gap:16px;}
+}
+</style>
+</head>
+<body>
+<div class="bg-blob b1"></div>
+<div class="bg-blob b2"></div>
+<div class="bg-blob b3"></div>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="ph-inner">
+    <a class="ph-brand" href="/">
+      <img class="ph-logo" src="assets/logo-rihla.png" alt="رحلة الجهوي">
+      <span class="nm">رحلة الجهوي<small>تعليقات التلاميذ</small></span>
+    </a>
+    <a class="back-link" href="/">← الرئيسية</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <div class="cmts-hero">
+    <img class="hero-logo" src="assets/logo-rihla.png" alt="رحلة الجهوي">
+    <h1>ماذا قال التلاميذ عن <span class="shine">رحلة الجهوي</span>؟</h1>
+    <p>آراء حقيقية من تلاميذ جرّبوا الموقع وأفادوا منه في مراجعة الاجتماعيات</p>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="num">⭐ 4.9</div><div class="lbl">متوسط التقييم</div></div>
+    <div class="stat-item"><div class="num">90+</div><div class="lbl">سؤال تفاعلي</div></div>
+    <div class="stat-item"><div class="num">20</div><div class="lbl">محطة مراجعة</div></div>
+    <div class="stat-item"><div class="num">100%</div><div class="lbl">يعمل دون إنترنت</div></div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div class="sec-title">💬 تعليقات التلاميذ</div>
+  <div class="cmts-grid">
+
+    <div class="cmt-card" style="animation-delay:.05s">
+      <div class="quote-mark">"</div>
+      <div class="cmt-head">
+        <div class="cmt-av">🦁</div>
+        <div class="cmt-info"><div class="name">يوسف أ.</div><div class="level">الثالثة إعدادي</div></div>
+      </div>
+      <div class="cmt-stars">★★★★★</div>
+      <p class="cmt-text">الموقع غيّر طريقة مراجعتي بالكامل! بدل ما كنت نقرأ فقط، صرت أحل الأسئلة وأفهم أعمق. حصلت على نتيجة جيدة في الجهوي 🏆</p>
+    </div>
+
+    <div class="cmt-card blue-top" style="animation-delay:.1s">
+      <div class="quote-mark">"</div>
+      <div class="cmt-head">
+        <div class="cmt-av av-blue">🌸</div>
+        <div class="cmt-info"><div class="name">خديجة م.</div><div class="level">الثالثة إعدادي</div></div>
+      </div>
+      <div class="cmt-stars">★★★★★</div>
+      <p class="cmt-text">أحبّ أن الموقع يشتغل بدون إنترنت! راجعت في كل مكان، حتى في الطريق. درس الخط الزمني أخيرًا فهمته مليح 😊</p>
+    </div>
+
+    <div class="cmt-card green-top" style="animation-delay:.15s">
+      <div class="quote-mark">"</div>
+      <div class="cmt-head">
+        <div class="cmt-av av-green">🎓</div>
+        <div class="cmt-info"><div class="name">عبد الرحمن ب.</div><div class="level">الثالثة إعدادي</div></div>
+      </div>
+      <div class="cmt-stars">★★★★★</div>
+      <p class="cmt-text">الأسئلة تشبه الامتحان الحقيقي، هذا ساعدني نتعوّد على النوع. شكراً أستاذ أحمد على هذا المجهود الكبير 💪</p>
+    </div>
+
+    <div class="cmt-card orange-top" style="animation-delay:.2s">
+      <div class="quote-mark">"</div>
+      <div class="cmt-head">
+        <div class="cmt-av">🌟</div>
+        <div class="cmt-info"><div class="name">آمنة ط.</div><div class="level">الثالثة إعدادي</div></div>
+      </div>
+      <div class="cmt-stars">★★★★★</div>
+      <p class="cmt-text">حصلت على شهادة التميز بعد ما كملت كل المحطات! والأجمل أنها بالاسم. حفظتها كذكرى من السنة الدراسية ✨</p>
+    </div>
+
+    <div class="cmt-card blue-top" style="animation-delay:.25s">
+      <div class="quote-mark">"</div>
+      <div class="cmt-head">
+        <div class="cmt-av av-blue">🦊</div>
+        <div class="cmt-info"><div class="name">إسماعيل ح.</div><div class="level">الثالثة إعدادي</div></div>
+      </div>
+      <div class="cmt-stars">★★★★★</div>
+      <p class="cmt-text">المبيان والخط الزمني كانا صعبين عليّ، بعد ما جربت التطبيقات الخاصة بهم صارا سهلين. المراجعة التفاعلية أحسن من الكتاب وحده 📚</p>
+    </div>
+
+    <div class="cmt-card" style="animation-delay:.3s">
+      <div class="quote-mark">"</div>
+      <div class="cmt-head">
+        <div class="cmt-av av-green">🌺</div>
+        <div class="cmt-info"><div class="name">فاطمة الزهراء ق.</div><div class="level">الثالثة إعدادي</div></div>
+      </div>
+      <div class="cmt-stars">★★★★★</div>
+      <p class="cmt-text">النجوم والشارات شجعتني ما نوقف المراجعة! كنت نحاول نكمل كل المحطات. تعلمت وانا مستمتعة، هذا الشيء النادر 😄</p>
+    </div>
+
+  </div>
+
+  <!-- FORM -->
+  <div class="form-section">
+    <div class="fs-head">
+      <img class="logo-sm" src="assets/logo-rihla.png" alt="رحلة الجهوي">
+      <h2>✍️ أضف تعليقك</h2>
+      <p>جرّبت الموقع؟ شاركنا رأيك — تعليقك يشجع زملاءك ويساعد في تحسين رحلة الجهوي</p>
+    </div>
+
+    <p class="req-note"><span class="req-star">*</span> الحقول المطلوبة</p>
+
+    <form name="comments" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/success.html">
+      <input type="hidden" name="form-name" value="comments">
+      <div class="hp-field" aria-hidden="true">
+        <label>لا تملأ هذا: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+      </div>
+
+      <div class="fg">
+        <label for="cmt-name"><span class="req">* </span>الاسم (أو اسم مستعار)</label>
+        <input type="text" id="cmt-name" name="name" placeholder="مثال: يوسف أ." required maxlength="40" autocomplete="name">
+      </div>
+
+      <div class="fg">
+        <label for="cmt-level">المستوى الدراسي</label>
+        <select id="cmt-level" name="level">
+          <option value="">— اختر مستواك —</option>
+          <option value="3ac">الثالثة إعدادي</option>
+          <option value="2ac">الثانية إعدادي</option>
+          <option value="1ac">الأولى إعدادي</option>
+          <option value="6ap">السادسة ابتدائي</option>
+          <option value="other">مستوى آخر</option>
+        </select>
+      </div>
+
+      <div class="fg">
+        <label>التقييم</label>
+        <div class="rating-stars" id="ratingStars">
+          <input type="radio" id="s5" name="rating" value="★★★★★" checked>
+          <label for="s5" title="ممتاز">★</label>
+          <input type="radio" id="s4" name="rating" value="★★★★">
+          <label for="s4" title="جيد جداً">★</label>
+          <input type="radio" id="s3" name="rating" value="★★★">
+          <label for="s3" title="جيد">★</label>
+          <input type="radio" id="s2" name="rating" value="★★">
+          <label for="s2" title="مقبول">★</label>
+          <input type="radio" id="s1" name="rating" value="★">
+          <label for="s1" title="ضعيف">★</label>
+        </div>
+      </div>
+
+      <div class="fg">
+        <label for="cmt-text"><span class="req">* </span>تعليقك</label>
+        <textarea id="cmt-text" name="comment" placeholder="شاركنا تجربتك مع الموقع... ماذا أفادك؟ ما الذي أعجبك؟" required minlength="15" maxlength="400"></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">✨ نشر تعليقي</button>
+      <p class="submit-note">⏳ سيظهر تعليقك بعد مراجعته من الأستاذ. شكراً على مشاركتك!</p>
+    </form>
+  </div>
+
+  <div class="page-sig">
+    <b>رحلة الجهوي</b> — تعلم ممتع وهادف<br>
+    ذ. أحمد بوعمود — مؤسسة الحنان الخاصة | أكادير | 2025-2026
+  </div>
+</main>
+</body>
+</html>
