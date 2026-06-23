@@ -203,5 +203,38 @@ main{max-width:680px;margin:0 auto;padding:28px 16px 64px;}
     </div>
   </div>
 </main>
+<script>
+(function(){
+  var form = document.querySelector('form[name="contact"]');
+  var btn  = document.querySelector('.submit-btn');
+  if (!form || !btn) return;
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = '⏳ جاري الإرسال...';
+
+    var body = new URLSearchParams(new FormData(form)).toString();
+
+    fetch('/contact.html', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: body
+    })
+    .then(function(r){
+      if (r.ok) {
+        window.location.href = '/success.html';
+      } else {
+        throw new Error(r.status);
+      }
+    })
+    .catch(function(){
+      btn.disabled = false;
+      btn.textContent = '📤 إرسال الرسالة';
+      alert('حدث خطأ أثناء الإرسال. يرجى المحاولة مجدداً أو التواصل عبر واتساب.');
+    });
+  });
+})();
+</script>
 </body>
 </html>
