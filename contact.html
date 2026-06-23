@@ -76,9 +76,22 @@ main{max-width:680px;margin:0 auto;padding:28px 16px 64px;}
 .submit-btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--gold-d);}
 
 /* Signature */
+/* Direct contact cards */
+.direct-contact{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
+.dc-card{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:16px;text-decoration:none;transition:transform .15s,box-shadow .15s;font-weight:800;}
+.dc-card:hover{transform:translateY(-3px);}
+.dc-card:active{transform:translateY(1px);}
+.dc-card.wa{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;box-shadow:0 5px 18px rgba(18,140,126,.3);}
+.dc-card.em{background:linear-gradient(135deg,#3A8AC0,var(--blue));color:#fff;box-shadow:0 5px 18px rgba(26,111,168,.28);}
+.dc-card .dc-ico{font-size:1.9rem;flex-shrink:0;background:rgba(255,255,255,.18);width:46px;height:46px;border-radius:12px;display:grid;place-items:center;}
+.dc-card .dc-text .dc-label{font-size:.72rem;opacity:.85;display:block;font-weight:700;margin-bottom:2px;}
+.dc-card .dc-text .dc-val{font-size:.84rem;font-weight:900;direction:ltr;display:block;}
+.dc-divider{display:flex;align-items:center;gap:10px;margin-bottom:20px;color:var(--muted);font-size:.78rem;font-weight:700;}
+.dc-divider::before,.dc-divider::after{content:'';flex:1;height:1.5px;background:#E2D8C4;}
 .contact-sig{margin-top:26px;padding-top:18px;border-top:2px dashed #E8D9C0;text-align:center;color:var(--muted);font-size:.8rem;line-height:2.1;}
 .contact-sig .sig-main{font-size:1rem;font-weight:900;color:var(--blue-d);display:block;margin-bottom:2px;}
 .contact-sig b{color:var(--orange-d);}
+@media(max-width:420px){.direct-contact{grid-template-columns:1fr;}.dc-card .dc-val{font-size:.78rem;}}
 
 @media(max-width:520px){
   .form-wrap{padding:18px 14px;}
@@ -109,6 +122,25 @@ main{max-width:680px;margin:0 auto;padding:28px 16px 64px;}
   </div>
 
   <div class="form-wrap">
+    <!-- تواصل مباشر -->
+    <div class="direct-contact">
+      <a class="dc-card wa" href="https://wa.me/212662087421" target="_blank" rel="noopener">
+        <div class="dc-ico">📱</div>
+        <div class="dc-text">
+          <span class="dc-label">واتساب</span>
+          <span class="dc-val" dir="ltr">+212 662 087 421</span>
+        </div>
+      </a>
+      <a class="dc-card em" href="mailto:ahmedbouamoud@gmail.com">
+        <div class="dc-ico">📧</div>
+        <div class="dc-text">
+          <span class="dc-label">البريد الإلكتروني</span>
+          <span class="dc-val">ahmedbouamoud@gmail.com</span>
+        </div>
+      </a>
+    </div>
+    <div class="dc-divider">أو أرسل رسالة عبر النموذج</div>
+
     <p class="req-note"><span class="req-star">*</span> الحقول المطلوبة</p>
 
     <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/success.html">
@@ -164,6 +196,9 @@ main{max-width:680px;margin:0 auto;padding:28px 16px 64px;}
     <div class="contact-sig">
       <span class="sig-main">ذ. أحمد بوعمود</span>
       <b>رحلة الجهوي</b> — تعلم ممتع وهادف<br>
+      📱 <a href="https://wa.me/212662087421" target="_blank" rel="noopener" style="color:var(--green);font-weight:900;text-decoration:none;">+212 662 087 421</a>
+      &nbsp;|&nbsp;
+      📧 <a href="mailto:ahmedbouamoud@gmail.com" style="color:var(--blue);font-weight:900;text-decoration:none;">ahmedbouamoud@gmail.com</a><br>
       مؤسسة الحنان الخاصة — أكادير | 2025-2026
     </div>
   </div>
