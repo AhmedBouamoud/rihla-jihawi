@@ -1,11 +1,14 @@
-const CACHE_NAME = 'rihla-jihawi-gold-v18';
+const CACHE_NAME = 'rihla-jihawi-gold-v19';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.json',
   './icons/icon-192.png',
   './icons/icon-512.png',
-  './assets/logo-hanane.jpg'
+  './assets/logo-rihla.png',
+  './contact.html',
+  './comments.html',
+  './success.html'
 ];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)));
@@ -19,6 +22,8 @@ self.addEventListener('activate', event => {
 });
 self.addEventListener('fetch', event => {
   const req = event.request;
+  // لا نعترض طلبات POST (نماذج Netlify)
+  if (req.method !== 'GET') return;
   if (req.mode === 'navigate') {
     event.respondWith(fetch(req).catch(() => caches.match('./index.html')));
     return;
