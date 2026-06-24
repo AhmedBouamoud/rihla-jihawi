@@ -391,6 +391,7 @@
     <div class="stat-pill"><span id="total-count">0</span> مشروع</div>
     <div class="stat-pill"><span id="active-count">0</span> نشط</div>
     <div class="stat-pill"><span id="progress-count">0</span> قيد الإنجاز</div>
+    <div class="stat-pill">على Netlify: <span>7</span></div>
     <div class="stat-pill">آخر تحديث: <span>24 يونيو 2026</span></div>
   </div>
 </header>
@@ -442,6 +443,84 @@ const PROJECTS = [
     site: "https://rihla-jihawi.netlify.app"
   },
   {
+    id: "moharibou-jihawi",
+    name: "محاربو الجهوي",
+    desc: "منصة مراجعة دينامية لمادة الاجتماعيات — السنة الثالثة إعدادي",
+    icon: "⚔️",
+    category: "education",
+    status: "active",
+    lang: "HTML",
+    updated: "19 يون 2026",
+    github: "https://github.com/AhmedBouamoud/moharibou-jihawi",
+    netlify: "https://app.netlify.com/sites/moharibou-jihawi",
+    site: "https://moharibou-jihawi.netlify.app"
+  },
+  {
+    id: "moraja3a-3ac",
+    name: "مراجعة الاجتماعيات",
+    desc: "مراجعة عامة اجتماعيات للجهوي الثالثة إعدادي",
+    icon: "📖",
+    category: "education",
+    status: "active",
+    lang: "HTML",
+    updated: "22 يون 2026",
+    github: "https://github.com/AhmedBouamoud/moraja3a-3ac",
+    netlify: "https://app.netlify.com/sites/moraja3a",
+    site: "https://moraja3a.netlify.app"
+  },
+  {
+    id: "farhat-reem",
+    name: "فرحة ريم",
+    desc: "موقع شخصي لمناسبة خاصة",
+    icon: "💛",
+    category: "personal",
+    status: "active",
+    lang: "JavaScript",
+    updated: "10 يون 2026",
+    github: "https://github.com/AhmedBouamoud/farhat-reem",
+    netlify: "https://app.netlify.com/sites/farhat-reem",
+    site: "https://farhat-reem.netlify.app"
+  },
+  {
+    id: "rihlate-alhanan",
+    name: "رحلة الحنان",
+    desc: "موقع رحلة الحنان",
+    icon: "❤️",
+    category: "personal",
+    status: "active",
+    lang: "HTML",
+    updated: "20 يون 2026",
+    github: null,
+    netlify: "https://app.netlify.com/sites/rihlate-alhanan",
+    site: "https://rihlate-alhanan.netlify.app"
+  },
+  {
+    id: "agencetalbourjte",
+    name: "وكالة تلبورجت",
+    desc: "موقع وكالة تلبورجت للسياحة والأسفار",
+    icon: "✈️",
+    category: "other",
+    status: "active",
+    lang: "HTML",
+    updated: "8 مايو 2026",
+    github: null,
+    netlify: "https://app.netlify.com/sites/agencetalbourjte",
+    site: "https://agencetalbourjte.com"
+  },
+  {
+    id: "moajam-mostalahat-dhahabi",
+    name: "معجم المصطلحات الذهبي",
+    desc: "معجم تعليمي للمصطلحات الذهبية",
+    icon: "📒",
+    category: "resource",
+    status: "active",
+    lang: "HTML",
+    updated: "19 يون 2026",
+    github: null,
+    netlify: "https://app.netlify.com/sites/moajam-mostalahat-dhahabi",
+    site: "https://moajam-mostalahat-dhahabi.netlify.app"
+  },
+  {
     id: "ijtima3iyat-3ac-platform",
     name: "منصة الاجتماعيات",
     desc: "منصة الاجتماعيات للجميع لمراجعة الجهوي الثالثة إعدادي",
@@ -464,32 +543,6 @@ const PROJECTS = [
     lang: "HTML",
     updated: "13 يون 2026",
     github: "https://github.com/AhmedBouamoud/ijtima3iyat-3ac-portal",
-    netlify: null,
-    site: null
-  },
-  {
-    id: "moharibou-jihawi",
-    name: "محاربو الجهوي",
-    desc: "منصة مراجعة دينامية لمادة الاجتماعيات — السنة الثالثة إعدادي",
-    icon: "⚔️",
-    category: "education",
-    status: "active",
-    lang: "HTML",
-    updated: "18 يون 2026",
-    github: "https://github.com/AhmedBouamoud/moharibou-jihawi",
-    netlify: null,
-    site: null
-  },
-  {
-    id: "moraja3a-3ac",
-    name: "مراجعة الاجتماعيات",
-    desc: "مراجعة عامة اجتماعيات للجهوي الثالثة إعدادي",
-    icon: "📖",
-    category: "education",
-    status: "progress",
-    lang: "HTML",
-    updated: "13 يون 2026",
-    github: "https://github.com/AhmedBouamoud/moraja3a-3ac",
     netlify: null,
     site: null
   },
@@ -546,23 +599,10 @@ const PROJECTS = [
     site: null
   },
   {
-    id: "farhat-reem",
-    name: "فرحة ريم",
-    desc: "موقع شخصي أو مناسبة خاصة",
-    icon: "💛",
-    category: "personal",
-    status: "active",
-    lang: "JavaScript",
-    updated: "10 يون 2026",
-    github: "https://github.com/AhmedBouamoud/farhat-reem",
-    netlify: null,
-    site: null
-  },
-  {
     id: "Al-Hanan-",
     name: "الحنان",
     desc: "مشروع شخصي",
-    icon: "❤️",
+    icon: "💚",
     category: "personal",
     status: "progress",
     lang: "HTML",
