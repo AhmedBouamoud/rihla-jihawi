@@ -11,6 +11,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="رحلة الجهوي">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -41,136 +44,199 @@ main{max-width:920px; margin:0 auto; padding:24px 14px 90px; position:relative;}
 .site-link-btn.is-btn{border:none;cursor:pointer;font-size:1rem}
 .apk-link{background:linear-gradient(180deg,#3E8E5A,#2D6A4F);box-shadow:0 5px 0 #1F4A36,0 10px 20px rgba(31,74,54,.25)}
 .splash-logo{margin:4px auto 10px; max-width:230px;}.splash-logo img{width:100%; height:auto; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.25); background:#fff; padding:6px;}.cert-logo{margin:0 auto 10px; max-width:300px;}.cert-logo img{width:100%; height:auto; border-radius:8px;}.exam-regions{display:flex; flex-direction:column; gap:10px; max-height:60vh; overflow-y:auto; padding:4px;}.exam-reg{background:linear-gradient(135deg,#FFF8EC,#FFF); border:2px solid #F2D9A8; border-radius:14px; overflow:hidden; flex-shrink:0;}.exam-reg-head{display:flex; align-items:center; justify-content:space-between; padding:12px 14px; cursor:pointer; font-weight:900; color:#7A4E0E; user-select:none;}.exam-reg-head .cnt{background:var(--gold); color:#5A3A00; font-size:.72rem; padding:3px 10px; border-radius:999px;}.exam-reg-body{display:none; padding:0 12px 12px;}.exam-reg.open .exam-reg-body{display:block;}.exam-years{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;}.exam-year{display:inline-flex; align-items:center; gap:5px; background:linear-gradient(135deg,#1A6FA8,#2E8FCC); color:#fff; font-weight:800; font-size:.85rem; padding:8px 14px; border-radius:10px; text-decoration:none; box-shadow:0 3px 8px rgba(26,111,168,.3); transition:transform .15s;}.exam-year:active{transform:scale(.95);}.exam-src{display:block; text-align:center; background:#FFF3DE; border:1.5px dashed var(--gold); color:#7A4E0E; font-weight:800; font-size:.78rem; padding:8px; border-radius:10px; text-decoration:none;}.exam-note{font-size:.72rem; color:var(--muted); text-align:center; margin-top:8px; line-height:1.7;}
-/* ══ PORTAL OVERLAY ══ */
-#portal{position:fixed;inset:0;z-index:300;overflow-y:auto;
-  background:radial-gradient(ellipse at 10% 0%,rgba(255,183,3,.28) 0%,transparent 45%),
-    radial-gradient(ellipse at 90% 100%,rgba(251,123,43,.2) 0%,transparent 45%),
-    linear-gradient(180deg,#fffaf0 0%,#fff7e8 50%,#fffdf8 100%);
+/* ══ PORTAL — واجهة محسّنة ══ */
+#portal{
+  position:fixed;inset:0;z-index:300;overflow-y:auto;
+  background:#FFF7ED;
   font-family:"Tajawal","Cairo","Segoe UI",Tahoma,Arial,sans-serif;
   transition:opacity .4s ease;
+  --pp-blue-d:#16213E;--pp-blue:#1D4ED8;--pp-gold:#F59E0B;
+  --pp-green:#10B981;--pp-bg:#FFF7ED;--pp-border:#E2E8F0;
+  --pp-text:#1E293B;--pp-muted:#64748B;
+  --pp-sh:0 4px 20px rgba(22,33,62,.10);
+  --pp-sh-lg:0 8px 40px rgba(22,33,62,.15);
 }
 #portal.hiding{opacity:0;pointer-events:none}
 .por-particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .por-p{position:absolute;font-size:1.6rem;opacity:0;animation:porFloat var(--dur,12s) ease-in-out var(--delay,0s) infinite}
-@keyframes porFloat{0%{transform:translateY(110vh) rotate(0deg) scale(.6);opacity:0}10%{opacity:.5}90%{opacity:.3}100%{transform:translateY(-10vh) rotate(var(--rot,30deg)) scale(1);opacity:0}}
-.por-hero{position:relative;z-index:2;text-align:center;padding:44px 20px 28px;max-width:900px;margin:0 auto}
-.por-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#ffb703,#f59e0b);color:#6b3510;font-weight:900;font-size:.82rem;padding:7px 20px;border-radius:999px;margin-bottom:18px;box-shadow:0 4px 16px rgba(255,183,3,.4);letter-spacing:.4px;animation:porPop .6s ease both}
-@keyframes porPop{0%{transform:scale(0);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
-@keyframes porFadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes porFloat{0%{transform:translateY(110vh) rotate(0deg) scale(.6);opacity:0}10%{opacity:.35}90%{opacity:.15}100%{transform:translateY(-10vh) rotate(var(--rot,30deg)) scale(1);opacity:0}}
 @keyframes porShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-@keyframes porFloatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-@keyframes porWiggle{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
-.por-logo-wrap{display:inline-block;margin-bottom:18px;animation:porFloatY 4s ease-in-out infinite}
-.por-logo-wrap img{width:120px;height:120px;object-fit:cover;border-radius:50%;border:5px solid #fff;box-shadow:0 8px 32px rgba(138,75,24,.22),0 0 0 3px #f59e0b;background:#fff}
-.por-h1{font-size:clamp(1.75rem,5vw,2.6rem);font-weight:900;line-height:1.3;margin-bottom:10px;animation:porFadeUp .7s .2s both;color:#2d1a08}
-.por-h1 .por-shine{background:linear-gradient(90deg,#e8630f,#f59e0b,#fb7b2b);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:porShimmer 3s linear infinite}
-.por-sub{font-size:1rem;color:#8a4b18;line-height:1.8;margin-bottom:16px;animation:porFadeUp .7s .35s both}
-.por-teacher{display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;background:rgba(255,183,3,.12);border:2px solid rgba(255,183,3,.35);border-radius:18px;padding:12px 22px;animation:porFadeUp .7s .5s both}
-.por-teacher .pt-icon{font-size:1.9rem;animation:porWiggle 3s ease-in-out infinite}
-.por-teacher .pt-name{font-weight:900;font-size:.95rem;color:#6b3510}
-.por-teacher .pt-inst{font-size:.75rem;color:#a07040;margin-top:2px}
-.por-concept{max-width:900px;margin:0 auto 36px;padding:0 20px}
-.por-concept-inner{background:#fff;border-radius:22px;box-shadow:0 8px 32px rgba(138,75,24,.11);padding:20px 24px;border:2px solid rgba(255,183,3,.18);display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
-.por-feat{display:flex;align-items:flex-start;gap:10px}
-.por-feat .pf-icon{font-size:1.8rem;flex-shrink:0;background:linear-gradient(135deg,#fff7e8,#ffedb8);width:48px;height:48px;border-radius:12px;display:grid;place-items:center;box-shadow:0 3px 10px rgba(138,75,24,.1)}
-.por-feat h4{font-size:.88rem;font-weight:900;color:#6b3510;margin-bottom:2px}
-.por-feat p{font-size:.74rem;color:#a07040;line-height:1.65}
-.por-sec-title{text-align:center;max-width:900px;margin:0 auto 20px;padding:0 20px;font-size:1.25rem;font-weight:900;color:#6b3510}
-.por-sec-title::after{content:'';display:block;width:54px;height:4px;border-radius:2px;background:linear-gradient(90deg,#fb7b2b,#f59e0b);margin:8px auto 0}
-.por-cards{max-width:900px;margin:0 auto 40px;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:18px}
-.por-card{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 8px 28px rgba(138,75,24,.11);transition:transform .2s,box-shadow .2s;cursor:pointer;text-decoration:none;color:inherit;display:block;animation:porFadeUp .6s both}
-.por-card:hover{transform:translateY(-6px);box-shadow:0 16px 44px rgba(138,75,24,.18)}
-.por-card-bg{position:absolute;inset:0;opacity:.1;font-size:7rem;display:flex;align-items:center;justify-content:center;pointer-events:none;filter:blur(2px)}
+@keyframes porFloatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes porFadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes porPop{0%{transform:scale(0);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+/* Nav */
+.por-nav{position:sticky;top:0;z-index:10;background:rgba(255,247,237,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--pp-border);padding:0 20px}
+.por-nav-inner{max-width:1100px;margin:0 auto;height:68px;display:flex;align-items:center;gap:14px}
+.por-nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;cursor:pointer}
+.por-nav-brand img{width:44px;height:44px;border-radius:11px;object-fit:cover;border:2.5px solid var(--pp-gold);box-shadow:0 2px 8px rgba(245,158,11,.25)}
+.por-nav-brand-text .por-nav-title{display:block;font-size:.98rem;font-weight:900;color:var(--pp-blue-d);line-height:1.2}
+.por-nav-brand-text .por-nav-tagline{display:block;font-size:.66rem;color:var(--pp-muted);font-weight:600}
+.por-nav-links{display:flex;gap:4px;flex:1;justify-content:center}
+.por-nav-link{padding:7px 13px;border-radius:10px;font-size:.87rem;font-weight:700;color:var(--pp-muted);text-decoration:none;transition:all .2s;white-space:nowrap}
+.por-nav-link:hover,.por-nav-link.active{color:var(--pp-blue);background:rgba(29,78,216,.08)}
+.por-nav-actions{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.por-nav-cta{background:linear-gradient(135deg,#1D4ED8,#1E40AF);color:#fff;border:none;border-radius:12px;padding:10px 17px;font-size:.87rem;font-weight:800;font-family:inherit;cursor:pointer;box-shadow:0 4px 14px rgba(29,78,216,.32);transition:all .2s;white-space:nowrap}
+.por-nav-cta:hover{transform:translateY(-2px);box-shadow:0 7px 20px rgba(29,78,216,.42)}
+.por-nav-cta:active{transform:translateY(0)}
+/* Identity */
+#portal #idGuestSection{display:flex;align-items:center;gap:6px;flex-wrap:nowrap}
+#portal #idUserSection{display:none;align-items:center;gap:8px}
+.id-welcome-txt{font-size:.7rem;color:var(--pp-muted);font-weight:700;white-space:nowrap}
+.id-btn{display:inline-flex;align-items:center;gap:4px;padding:7px 12px;border-radius:10px;font-family:inherit;font-size:.78rem;font-weight:800;cursor:pointer;border:none;transition:all .15s;white-space:nowrap}
+.id-btn-login{background:linear-gradient(135deg,#1D4ED8,#1E40AF);color:#fff}
+.id-btn-register{background:linear-gradient(135deg,#F59E0B,#D97706);color:#1a1a1a}
+.id-btn-logout{background:rgba(239,68,68,.1);color:#DC2626;border:1.5px solid rgba(239,68,68,.22);padding:6px 12px;border-radius:9px;font-family:inherit;font-size:.76rem;font-weight:700;cursor:pointer;transition:background .15s}
+.id-btn-logout:hover{background:rgba(239,68,68,.2)}
+.id-user-greet{font-weight:900;font-size:.85rem;color:var(--pp-blue-d)}
+#idGuestInvite{max-width:1100px;margin:0 auto;padding:8px 20px 0}
+#idGuestInvite .inv-inner{background:rgba(245,158,11,.07);border:1.5px dashed rgba(245,158,11,.32);border-radius:12px;padding:8px 16px;font-size:.75rem;color:#92400E;line-height:1.75;text-align:center}
+/* Hero */
+.por-hero{max-width:1100px;margin:0 auto;padding:56px 20px 36px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;position:relative;z-index:2}
+.por-hero-content{animation:porFadeUp .7s .1s both}
+.por-badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#FEF3C7,#FDE68A);color:#92400E;font-weight:900;font-size:.77rem;padding:6px 15px;border-radius:999px;margin-bottom:16px;border:1.5px solid rgba(245,158,11,.28);letter-spacing:.3px;animation:porPop .6s .3s both}
+.por-h1{font-size:clamp(1.75rem,3.8vw,2.7rem);font-weight:900;line-height:1.38;color:var(--pp-blue-d);margin-bottom:14px}
+.por-shine{background:linear-gradient(90deg,#1D4ED8,#F59E0B,#10B981);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:porShimmer 4s linear infinite}
+.por-hero-desc{font-size:.98rem;color:var(--pp-muted);line-height:1.88;margin-bottom:26px;max-width:480px}
+.por-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.por-btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#1D4ED8,#1E40AF);color:#fff;border:none;border-radius:15px;padding:14px 22px;font-size:.98rem;font-weight:900;font-family:inherit;cursor:pointer;box-shadow:0 6px 20px rgba(29,78,216,.34);transition:all .22s}
+.por-btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(29,78,216,.44)}
+.por-btn-primary:active{transform:translateY(0)}
+.por-btn-secondary{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--pp-blue-d);text-decoration:none;border:2px solid var(--pp-border);border-radius:15px;padding:14px 22px;font-size:.98rem;font-weight:800;transition:all .22s;box-shadow:0 2px 8px rgba(22,33,62,.05)}
+.por-btn-secondary:hover{border-color:var(--pp-blue);color:var(--pp-blue);transform:translateY(-2px)}
+.por-hero-visual{display:flex;flex-direction:column;align-items:center;animation:porFadeUp .7s .2s both}
+.por-logo-wrap{display:inline-block;animation:porFloatY 4s ease-in-out infinite}
+.por-logo-wrap img{width:210px;height:210px;object-fit:cover;border-radius:50%;border:6px solid #fff;background:#fff;box-shadow:var(--pp-sh-lg),0 0 0 3px var(--pp-gold)}
+/* Companion */
+.por-companion-section{max-width:1100px;margin:0 auto 44px;padding:0 20px;position:relative;z-index:2}
+.por-companion-card{background:linear-gradient(135deg,#16213E 0%,#1E3A6E 55%,#1D4ED8 100%);border-radius:24px;padding:28px 30px;display:flex;align-items:center;gap:26px;color:#fff;box-shadow:var(--pp-sh-lg);overflow:hidden;position:relative;animation:porFadeUp .65s .2s both}
+.por-companion-card::before{content:'';position:absolute;top:-50px;inset-inline-end:-30px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,.18) 0%,transparent 70%)}
+.por-companion-avatar{flex-shrink:0}
+.por-companion-avatar img{width:88px;height:88px;border-radius:50%;border:4px solid var(--pp-gold);object-fit:cover;box-shadow:0 4px 18px rgba(0,0,0,.3)}
+.por-companion-info{flex:1;min-width:0}
+.por-companion-name{font-size:1.05rem;font-weight:900;margin-bottom:14px;color:#FDE68A}
+.por-companion-stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.por-stat{display:flex;flex-direction:column;align-items:center;background:rgba(255,255,255,.1);border-radius:12px;padding:10px 14px;min-width:60px;border:1px solid rgba(255,255,255,.15);transition:background .2s}
+.por-stat:hover{background:rgba(255,255,255,.18)}
+.por-stat-icon{font-size:1.15rem;margin-bottom:2px}
+.por-stat-label{font-size:.62rem;opacity:.72;font-weight:700;margin-bottom:3px}
+.por-stat-value{font-size:1.2rem;font-weight:900;color:var(--pp-gold)}
+.por-progress-label{display:flex;justify-content:space-between;font-size:.76rem;opacity:.85;margin-bottom:6px;font-weight:700}
+.por-progress-bar{height:10px;background:rgba(255,255,255,.15);border-radius:999px;overflow:hidden}
+.por-progress-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#F59E0B,#FDE68A);transition:width .8s cubic-bezier(.2,.8,.2,1)}
+/* Features */
+.por-features{max-width:1100px;margin:0 auto 44px;padding:0 20px;position:relative;z-index:2}
+.por-features-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.por-feat-card{background:#fff;border-radius:18px;padding:22px 16px;text-align:center;border:1.5px solid var(--pp-border);box-shadow:var(--pp-sh);transition:all .25s;animation:porFadeUp .6s both}
+.por-feat-card:hover{transform:translateY(-4px);box-shadow:var(--pp-sh-lg);border-color:var(--pp-blue)}
+.por-feat-icon{font-size:2rem;margin-bottom:10px}
+.por-feat-card h4{font-size:.88rem;font-weight:900;color:var(--pp-blue-d);margin-bottom:6px}
+.por-feat-card p{font-size:.74rem;color:var(--pp-muted);line-height:1.7}
+/* Destinations */
+.por-destinations{max-width:1100px;margin:0 auto 56px;padding:0 20px;position:relative;z-index:2}
+.por-sec-title{text-align:center;font-size:1.28rem;font-weight:900;color:var(--pp-blue-d);margin-bottom:26px}
+.por-sec-title::after{content:'';display:block;width:54px;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--pp-blue),var(--pp-gold));margin:8px auto 0}
+.por-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:17px}
+.por-card{position:relative;border-radius:20px;overflow:hidden;box-shadow:var(--pp-sh);transition:transform .22s,box-shadow .22s;cursor:pointer;text-decoration:none;color:inherit;display:block;animation:porFadeUp .6s both;border:1.5px solid transparent}
+.por-card:hover{transform:translateY(-6px);box-shadow:var(--pp-sh-lg)}
+.por-card-bg{position:absolute;inset:0;opacity:.08;font-size:7rem;display:flex;align-items:center;justify-content:center;pointer-events:none;filter:blur(2px)}
 .por-card-inner{position:relative;z-index:1;padding:22px 20px 18px}
 .por-card .pc-badge{display:inline-flex;align-items:center;gap:5px;font-size:.7rem;font-weight:900;padding:4px 11px;border-radius:999px;margin-bottom:12px}
-.por-card .pc-icon{font-size:2.6rem;display:block;margin-bottom:10px;line-height:1;animation:porFloatY 3.5s ease-in-out infinite}
-.por-card h3{font-size:1.08rem;font-weight:900;line-height:1.5;margin-bottom:5px}
-.por-card p{font-size:.76rem;line-height:1.75;opacity:.85}
-.por-card .pc-arrow{display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-weight:900;font-size:.82rem;padding:8px 16px;border-radius:11px;background:rgba(255,255,255,.4);border:1.5px solid rgba(255,255,255,.45);transition:background .2s}
-.por-card:hover .pc-arrow{background:rgba(255,255,255,.65)}
-.por-card-gold{background:linear-gradient(135deg,#fffbf0,#fff3d0);border:2px solid rgba(255,183,3,.3)}
-.por-card-gold .pc-badge{background:linear-gradient(90deg,#f59e0b,#ffb703);color:#6b3510}
-.por-card-gold h3,.por-card-gold .pc-arrow{color:#6b3510}
-.por-card-gold .pc-arrow{border-color:rgba(138,75,24,.18);background:rgba(255,183,3,.12)}
-.por-card-gold:hover .pc-arrow{background:rgba(255,183,3,.28)}
-.por-card-orange{background:linear-gradient(135deg,#fff8f4,#ffe8d8);border:2px solid rgba(251,123,43,.28)}
-.por-card-orange .pc-badge{background:linear-gradient(90deg,#fb7b2b,#e8630f);color:#fff}
-.por-card-orange h3,.por-card-orange .pc-arrow{color:#7a2800}
-.por-card-orange .pc-arrow{border-color:rgba(251,123,43,.22);background:rgba(251,123,43,.08)}
-.por-card-orange:hover .pc-arrow{background:rgba(251,123,43,.22)}
-.por-card-blue{background:linear-gradient(135deg,#f0f7ff,#d8ecff);border:2px solid rgba(26,111,168,.22)}
-.por-card-blue .pc-badge{background:linear-gradient(90deg,#1a6fa8,#123f63);color:#fff}
-.por-card-blue h3,.por-card-blue .pc-arrow{color:#123f63}
-.por-card-blue .pc-arrow{border-color:rgba(26,111,168,.18);background:rgba(26,111,168,.06)}
-.por-card-blue:hover .pc-arrow{background:rgba(26,111,168,.16)}
-.por-card-green{background:linear-gradient(135deg,#f0fff8,#d0f5e8);border:2px solid rgba(33,166,122,.22)}
-.por-card-green .pc-badge{background:linear-gradient(90deg,#21a67a,#178a63);color:#fff}
-.por-card-green h3,.por-card-green .pc-arrow{color:#0d5c40}
-.por-card-green .pc-arrow{border-color:rgba(33,166,122,.18);background:rgba(33,166,122,.06)}
-.por-card-green:hover .pc-arrow{background:rgba(33,166,122,.16)}
-.por-card-red{background:linear-gradient(135deg,#fff5f5,#ffd8d8);border:2px solid rgba(226,85,85,.22)}
-.por-card-red .pc-badge{background:linear-gradient(90deg,#e25555,#c73e3e);color:#fff}
-.por-card-red h3,.por-card-red .pc-arrow{color:#7a1a1a}
-.por-card-red .pc-arrow{border-color:rgba(226,85,85,.18);background:rgba(226,85,85,.06)}
-.por-card-red:hover .pc-arrow{background:rgba(226,85,85,.18)}
-.por-card-teal{background:linear-gradient(135deg,#f0fffe,#ccfbf1);border:2px solid rgba(15,118,110,.22)}
-.por-card-teal .pc-badge{background:linear-gradient(90deg,#0f766e,#0d9488);color:#fff}
-.por-card-teal h3,.por-card-teal .pc-arrow{color:#0c4a42}
-.por-card-teal .pc-arrow{border-color:rgba(15,118,110,.18);background:rgba(15,118,110,.06)}
-.por-card-teal:hover .pc-arrow{background:rgba(15,118,110,.18)}
-.por-card-amber{background:linear-gradient(135deg,#fffbf0,#fef3c7);border:2px solid rgba(180,83,9,.22)}
-.por-card-amber .pc-badge{background:linear-gradient(90deg,#b45309,#d97706);color:#fff}
-.por-card-amber h3,.por-card-amber .pc-arrow{color:#78350f}
-.por-card-amber .pc-arrow{border-color:rgba(180,83,9,.18);background:rgba(180,83,9,.06)}
-.por-card-amber:hover .pc-arrow{background:rgba(180,83,9,.18)}
-.por-card-brown{background:linear-gradient(135deg,#fff8f0,#ffecd8);border:2px solid rgba(138,79,33,.22)}
-.por-card-brown .pc-badge{background:linear-gradient(90deg,#8a4f21,#cb7b1e);color:#fff}
-.por-card-brown h3,.por-card-brown .pc-arrow{color:#5a2d0c}
-.por-card-brown .pc-arrow{border-color:rgba(138,79,33,.18);background:rgba(138,79,33,.06)}
-.por-card-brown:hover .pc-arrow{background:rgba(138,79,33,.18)}
-.por-card-purple{background:linear-gradient(135deg,#f3f0ff,#e4d9ff);border:2px solid rgba(94,58,180,.22)}
-.por-card-purple .pc-badge{background:linear-gradient(90deg,#5e3ab4,#8b5cf6);color:#fff}
-.por-card-purple h3,.por-card-purple .pc-arrow{color:#3b1d8f}
-.por-card-purple .pc-arrow{border-color:rgba(94,58,180,.18);background:rgba(94,58,180,.06)}
-.por-card-purple:hover .pc-arrow{background:rgba(94,58,180,.18)}
-.por-card-future{background:linear-gradient(135deg,#f5f0ff,#e8d8ff);border:2px dashed rgba(123,77,184,.32);cursor:default}
-.por-card-future:hover{transform:none;box-shadow:0 8px 28px rgba(138,75,24,.11)}
-.por-card-future .pc-badge{background:linear-gradient(90deg,#7b4db8,#6030a0);color:#fff}
-.por-card-future h3,.por-card-future .pc-soon{color:#4a1880}
-.por-card-future .pc-soon{display:inline-block;margin-top:12px;padding:8px 18px;border-radius:11px;background:rgba(123,77,184,.1);border:1.5px dashed rgba(123,77,184,.28);font-weight:900;font-size:.82rem}
-.por-footer{text-align:center;padding:24px 20px 36px;color:#a07040;font-size:.76rem;line-height:2;border-top:2px solid rgba(255,183,3,.12)}
-.por-footer b{color:#e8630f}
-@media(max-width:600px){.por-cards{grid-template-columns:1fr}.por-concept-inner{grid-template-columns:1fr}}
-/* ══ IDENTITY BAR ══ */
-.por-identity-bar{position:relative;z-index:5;max-width:900px;margin:0 auto 4px;padding:12px 20px 0;display:flex;justify-content:flex-end;align-items:center;gap:10px;flex-wrap:wrap;}
-#idGuestSection{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-#idUserSection{display:none;align-items:center;gap:10px;}
-.id-welcome-txt{font-size:.75rem;color:#a07040;font-weight:700;}
-.id-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 15px;border-radius:12px;font-family:inherit;font-size:.8rem;font-weight:800;cursor:pointer;border:none;transition:all .15s;}
-.id-btn-login{background:linear-gradient(180deg,#3A8AC0,#1A6FA8);color:#fff;box-shadow:0 3px 0 #123F63;}
-.id-btn-login:active{transform:translateY(2px);box-shadow:0 1px 0 #123F63;}
-.id-btn-register{background:linear-gradient(180deg,#FFD97A,#F2B33D);color:#123F63;box-shadow:0 3px 0 #D89A1E;}
-.id-btn-register:active{transform:translateY(2px);box-shadow:0 1px 0 #D89A1E;}
-.id-btn-logout{background:rgba(226,85,85,.12);color:#C73E3E;border:1.5px solid rgba(226,85,85,.3);padding:6px 13px;border-radius:10px;font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer;transition:background .15s;}
-.id-btn-logout:hover{background:rgba(226,85,85,.22);}
-.id-user-greet{font-weight:900;font-size:.88rem;color:#6b3510;}
-#idGuestInvite{max-width:900px;margin:0 auto;padding:8px 20px 0;}
-#idGuestInvite .inv-inner{background:rgba(242,179,61,.1);border:1.5px dashed rgba(242,179,61,.4);border-radius:13px;padding:9px 16px;font-size:.77rem;color:#8a4b18;line-height:1.75;text-align:center;}
-/* ══ CONTACT CARD ══ */
-.por-card-contact{background:linear-gradient(135deg,#f0fffe,#cdfaf1);border:2px solid rgba(15,118,110,.22);}
-.por-card-contact .pc-badge{background:linear-gradient(90deg,#0f766e,#0d9488);color:#fff;}
-.por-card-contact h3,.por-card-contact .pc-arrow{color:#0c4a42;}
-.por-card-contact .pc-arrow{border-color:rgba(15,118,110,.18);background:rgba(15,118,110,.06);}
-.por-card-contact:hover .pc-arrow{background:rgba(15,118,110,.2);}
-.por-card-comments{background:linear-gradient(135deg,#fff8f0,#ffeedd);border:2px solid rgba(232,114,12,.22);}
-.por-card-comments .pc-badge{background:linear-gradient(90deg,#E8720C,#C25A00);color:#fff;}
-.por-card-comments h3,.por-card-comments .pc-arrow{color:#7a2800;}
-.por-card-comments .pc-arrow{border-color:rgba(232,114,12,.2);background:rgba(232,114,12,.07);}
-.por-card-comments:hover .pc-arrow{background:rgba(232,114,12,.2);}
-/* ══ HUD IDENTITY ══ */
-.hud-identity-chip{max-width:180px;}
-.hud-identity-chip #hudIdentityName{max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;vertical-align:middle;}
-@media(max-width:480px){.por-identity-bar{justify-content:center;}.id-welcome-txt{display:none;}}
+.por-card .pc-icon{font-size:2.4rem;display:block;margin-bottom:10px;line-height:1;animation:porFloatY 3.5s ease-in-out infinite}
+.por-card h3{font-size:1rem;font-weight:900;line-height:1.5;margin-bottom:6px}
+.por-card p{font-size:.75rem;line-height:1.75;opacity:.82}
+.por-card .pc-arrow{display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-weight:900;font-size:.81rem;padding:8px 15px;border-radius:11px;transition:background .2s}
+/* Card themes */
+.por-card-gold{background:linear-gradient(135deg,#FFFBF0,#FFF3D0);border-color:rgba(245,158,11,.25)}
+.por-card-gold .pc-badge{background:linear-gradient(90deg,#F59E0B,#D97706);color:#fff}
+.por-card-gold h3,.por-card-gold .pc-arrow{color:#78350F}
+.por-card-gold .pc-arrow{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.22)}
+.por-card-gold:hover .pc-arrow{background:rgba(245,158,11,.22)}
+.por-card-orange{background:linear-gradient(135deg,#FFF8F4,#FFE8D8);border-color:rgba(249,115,22,.22)}
+.por-card-orange .pc-badge{background:linear-gradient(90deg,#F97316,#EA580C);color:#fff}
+.por-card-orange h3,.por-card-orange .pc-arrow{color:#7C2D12}
+.por-card-orange .pc-arrow{background:rgba(249,115,22,.07);border:1px solid rgba(249,115,22,.18)}
+.por-card-orange:hover .pc-arrow{background:rgba(249,115,22,.18)}
+.por-card-blue{background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border-color:rgba(29,78,216,.18)}
+.por-card-blue .pc-badge{background:linear-gradient(90deg,#1D4ED8,#1E40AF);color:#fff}
+.por-card-blue h3,.por-card-blue .pc-arrow{color:#1E3A8A}
+.por-card-blue .pc-arrow{background:rgba(29,78,216,.05);border:1px solid rgba(29,78,216,.14)}
+.por-card-blue:hover .pc-arrow{background:rgba(29,78,216,.14)}
+.por-card-green{background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-color:rgba(16,185,129,.18)}
+.por-card-green .pc-badge{background:linear-gradient(90deg,#10B981,#059669);color:#fff}
+.por-card-green h3,.por-card-green .pc-arrow{color:#065F46}
+.por-card-green .pc-arrow{background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.14)}
+.por-card-green:hover .pc-arrow{background:rgba(16,185,129,.14)}
+.por-card-red{background:linear-gradient(135deg,#FFF5F5,#FFE4E6);border-color:rgba(239,68,68,.18)}
+.por-card-red .pc-badge{background:linear-gradient(90deg,#EF4444,#DC2626);color:#fff}
+.por-card-red h3,.por-card-red .pc-arrow{color:#7F1D1D}
+.por-card-red .pc-arrow{background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.14)}
+.por-card-red:hover .pc-arrow{background:rgba(239,68,68,.14)}
+.por-card-teal{background:linear-gradient(135deg,#F0FDFA,#CCFBF1);border-color:rgba(13,148,136,.18)}
+.por-card-teal .pc-badge{background:linear-gradient(90deg,#0D9488,#0F766E);color:#fff}
+.por-card-teal h3,.por-card-teal .pc-arrow{color:#134E4A}
+.por-card-teal .pc-arrow{background:rgba(13,148,136,.05);border:1px solid rgba(13,148,136,.14)}
+.por-card-teal:hover .pc-arrow{background:rgba(13,148,136,.14)}
+.por-card-amber{background:linear-gradient(135deg,#FFFBF0,#FEF3C7);border-color:rgba(180,83,9,.18)}
+.por-card-amber .pc-badge{background:linear-gradient(90deg,#B45309,#D97706);color:#fff}
+.por-card-amber h3,.por-card-amber .pc-arrow{color:#78350F}
+.por-card-amber .pc-arrow{background:rgba(180,83,9,.05);border:1px solid rgba(180,83,9,.14)}
+.por-card-amber:hover .pc-arrow{background:rgba(180,83,9,.14)}
+.por-card-brown{background:linear-gradient(135deg,#FFF8F0,#FFEDD5);border-color:rgba(154,52,18,.18)}
+.por-card-brown .pc-badge{background:linear-gradient(90deg,#9A3412,#C2410C);color:#fff}
+.por-card-brown h3,.por-card-brown .pc-arrow{color:#7C2D12}
+.por-card-brown .pc-arrow{background:rgba(154,52,18,.05);border:1px solid rgba(154,52,18,.14)}
+.por-card-brown:hover .pc-arrow{background:rgba(154,52,18,.14)}
+.por-card-purple{background:linear-gradient(135deg,#FAF5FF,#EDE9FE);border-color:rgba(124,58,237,.18)}
+.por-card-purple .pc-badge{background:linear-gradient(90deg,#7C3AED,#6D28D9);color:#fff}
+.por-card-purple h3,.por-card-purple .pc-arrow{color:#4C1D95}
+.por-card-purple .pc-arrow{background:rgba(124,58,237,.05);border:1px solid rgba(124,58,237,.14)}
+.por-card-purple:hover .pc-arrow{background:rgba(124,58,237,.14)}
+.por-card-contact{background:linear-gradient(135deg,#F0FDFA,#CCFBF1);border-color:rgba(13,148,136,.18)}
+.por-card-contact .pc-badge{background:linear-gradient(90deg,#0D9488,#0F766E);color:#fff}
+.por-card-contact h3,.por-card-contact .pc-arrow{color:#134E4A}
+.por-card-contact .pc-arrow{background:rgba(13,148,136,.05);border:1px solid rgba(13,148,136,.14)}
+.por-card-contact:hover .pc-arrow{background:rgba(13,148,136,.2)}
+.por-card-comments{background:linear-gradient(135deg,#FFF8F0,#FFEDD5);border-color:rgba(249,115,22,.2)}
+.por-card-comments .pc-badge{background:linear-gradient(90deg,#F97316,#EA580C);color:#fff}
+.por-card-comments h3,.por-card-comments .pc-arrow{color:#7C2D12}
+.por-card-comments .pc-arrow{background:rgba(249,115,22,.06);border:1px solid rgba(249,115,22,.17)}
+.por-card-comments:hover .pc-arrow{background:rgba(249,115,22,.17)}
+.por-card-future{background:linear-gradient(135deg,#FAF5FF,#EDE9FE);border:1.5px dashed rgba(124,58,237,.28);cursor:default}
+.por-card-future:hover{transform:none;box-shadow:var(--pp-sh)}
+.por-card-future .pc-badge{background:linear-gradient(90deg,#7C3AED,#6D28D9);color:#fff}
+.por-card-future h3,.por-card-future .pc-soon{color:#4C1D95}
+.por-card-future .pc-soon{display:inline-block;margin-top:12px;padding:8px 18px;border-radius:11px;background:rgba(124,58,237,.09);border:1.5px dashed rgba(124,58,237,.26);font-weight:900;font-size:.82rem}
+/* Footer */
+.por-footer{text-align:center;padding:28px 20px 44px;color:var(--pp-muted);font-size:.77rem;line-height:2.2;border-top:1.5px solid var(--pp-border);margin-top:16px}
+.por-footer b{color:#F97316}
+.por-footer a{color:var(--pp-blue);font-weight:800;text-decoration:none}
+.por-footer a:hover{text-decoration:underline}
+/* HUD identity (app) */
+.hud-identity-chip{max-width:180px}
+.hud-identity-chip #hudIdentityName{max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;vertical-align:middle}
+/* Responsive */
+@media(max-width:960px){
+  .por-hero{grid-template-columns:1fr;padding:40px 20px 30px;text-align:center}
+  .por-hero-visual{display:none}
+  .por-hero-btns{justify-content:center}
+  .por-features-grid{grid-template-columns:repeat(2,1fr)}
+  .por-nav-links{display:none}
+  .id-welcome-txt{display:none}
+}
+@media(max-width:600px){
+  .por-cards{grid-template-columns:1fr}
+  .por-companion-card{flex-direction:column;text-align:center;padding:22px 18px}
+  .por-companion-stats{justify-content:center}
+  .por-nav-actions .id-btn-register{display:none}
+  .por-h1{font-size:1.7rem}
+}
+@media(max-width:420px){
+  .por-features-grid{grid-template-columns:1fr 1fr}
+  .por-btn-primary,.por-btn-secondary{font-size:.88rem;padding:12px 16px}
+  .por-nav-cta{font-size:.8rem;padding:9px 14px}
+  .por-companion-avatar img{width:72px;height:72px}
+  .por-nav-actions .id-btn{display:none}
+}
 </style>
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
@@ -180,158 +246,202 @@ main{max-width:920px; margin:0 auto; padding:24px 14px 90px; position:relative;}
 <!-- ══ PORTAL OVERLAY ══ -->
 <div id="portal">
 <div class="por-particles" id="porParticles"></div>
-<div class="por-identity-bar">
-  <div id="idGuestSection">
-    <span class="id-welcome-txt">👋 سجل دخولك لحفظ تقدمك</span>
-    <button class="id-btn id-btn-login" onclick="netlifyIdentity&&netlifyIdentity.open('login')">🔑 تسجيل الدخول</button>
-    <button class="id-btn id-btn-register" onclick="netlifyIdentity&&netlifyIdentity.open('signup')">✨ إنشاء حساب</button>
+<nav class="por-nav">
+  <div class="por-nav-inner">
+    <div class="por-nav-brand" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      <img src="assets/logo-rihla.png" alt="رحلة الجهوي">
+      <div class="por-nav-brand-text">
+        <span class="por-nav-title">رحلة الجهوي</span>
+        <span class="por-nav-tagline">بوابة التعلّم باللعب</span>
+      </div>
+    </div>
+    <div class="por-nav-links">
+      <a href="#" class="por-nav-link active">الرئيسية</a>
+      <a href="#por-destinations" class="por-nav-link" onclick="event.preventDefault();document.getElementById('por-destinations').scrollIntoView({behavior:'smooth'})">الرحلات</a>
+      <a href="kanz-sanawat/" class="por-nav-link">الأرشيف</a>
+      <a href="#" class="por-nav-link" onclick="enterApp(event)">الشهادات</a>
+    </div>
+    <div class="por-nav-actions">
+      <div id="idGuestSection">
+        <span class="id-welcome-txt">👋 سجل دخولك لحفظ تقدمك</span>
+        <button class="id-btn id-btn-login" onclick="netlifyIdentity&&netlifyIdentity.open('login')">🔑 دخول</button>
+        <button class="id-btn id-btn-register" onclick="netlifyIdentity&&netlifyIdentity.open('signup')">✨ حساب</button>
+      </div>
+      <div id="idUserSection">
+        <span class="id-user-greet">مرحباً 👋 <b id="idUserName">...</b></span>
+        <button class="id-btn-logout" onclick="netlifyIdentity&&netlifyIdentity.logout()">خروج</button>
+      </div>
+      <button class="por-nav-cta" onclick="enterApp(event)">ابدأ الرحلة ←</button>
+    </div>
   </div>
-  <div id="idUserSection">
-    <span class="id-user-greet">مرحباً 👋 <b id="idUserName">...</b></span>
-    <button class="id-btn-logout" onclick="netlifyIdentity&&netlifyIdentity.logout()">تسجيل الخروج</button>
-  </div>
-</div>
+</nav>
 <div id="idGuestInvite">
   <div class="inv-inner">💡 يمكنك إنشاء حساب لحفظ تجربتك مستقبلاً، لكن يمكنك الاستمرار بدون تسجيل.</div>
 </div>
-<div class="por-hero">
-  <div class="por-badge">🌟 بوابة التعليم التفاعلي</div>
-  <div class="por-logo-wrap"><img src="assets/logo-rihla.png" alt="رحلة الجهوي — موقع رحلة الجهوي الرسمي"></div>
-  <h1 class="por-h1">مرحباً بك في عالم<br><span class="por-shine">التعلّم باللعب</span> 🎓</h1>
-  <p class="por-sub">موارد تعليمية تفاعلية وتطبيقات مراجعة ذكية<br>تجمع المتعة والاحتراف في مكان واحد</p>
-  <div class="por-teacher">
-    <span class="pt-icon">👨‍🏫</span>
-    <div><div class="pt-name">✍️ ذ. أحمد بوعمود &nbsp;·&nbsp; ذ. الخضير</div><div class="pt-inst">مؤسسة الحنان الخاصة — أكادير | 2025-2026</div></div>
+<section class="por-hero">
+  <div class="por-hero-content">
+    <div class="por-badge">🌟 بوابة التعليم التفاعلي</div>
+    <h1 class="por-h1">مرحباً بك في عالم<br><span class="por-shine">التعلّم باللعب</span> 🎓</h1>
+    <p class="por-hero-desc">موارد تعليمية تفاعلية وتطبيقات مراجعة ذكية تجمع المتعة والاحتراف، وتساعد التلميذ على الوصول إلى الامتحان بثقة.</p>
+    <div class="por-hero-btns">
+      <button class="por-btn-primary" onclick="enterApp(event)">🏆 انطلق في رحلة الجهوي الذهبية</button>
+      <a href="kanz-sanawat/" class="por-btn-secondary">📚 استكشف الأرشيف</a>
+    </div>
+  </div>
+  <div class="por-hero-visual">
+    <div class="por-logo-wrap">
+      <img src="assets/logo-rihla.png" alt="رحلة الجهوي — الموقع الرسمي">
+    </div>
+  </div>
+</section>
+<div class="por-companion-section">
+  <div class="por-companion-card">
+    <div class="por-companion-avatar">
+      <img src="assets/logo-hanane.jpg" alt="حنّون رفيق الرحلة">
+    </div>
+    <div class="por-companion-info">
+      <div class="por-companion-name">حنّون — رفيق الرحلة 🤝</div>
+      <div class="por-companion-stats">
+        <div class="por-stat"><span class="por-stat-icon">⚡</span><span class="por-stat-label">XP</span><span class="por-stat-value" id="porXP">0</span></div>
+        <div class="por-stat"><span class="por-stat-icon">⭐</span><span class="por-stat-label">النجوم</span><span class="por-stat-value" id="porStars">0</span></div>
+        <div class="por-stat"><span class="por-stat-icon">🏅</span><span class="por-stat-label">الشارات</span><span class="por-stat-value" id="porBadges">0</span></div>
+        <div class="por-stat"><span class="por-stat-icon">🎯</span><span class="por-stat-label">المستوى</span><span class="por-stat-value" id="porLevel">1</span></div>
+      </div>
+      <div class="por-progress-label"><span>تقدم الرحلة</span><span id="porProgressPct">0%</span></div>
+      <div class="por-progress-bar"><div class="por-progress-fill" id="porProgressFill" style="width:0%"></div></div>
+    </div>
   </div>
 </div>
-<div class="por-concept">
-  <div class="por-concept-inner">
-    <div class="por-feat"><div class="pf-icon">🎮</div><div><h4>تعلّم وأنت تلعب</h4><p>أسئلة تفاعلية ومحطات مشوّقة تحوّل المراجعة إلى مغامرة ممتعة</p></div></div>
-    <div class="por-feat"><div class="pf-icon">📶</div><div><h4>يعمل دون إنترنت</h4><p>بعد أول فتح، التطبيقات تعمل كاملاً بدون اتصال بالشبكة</p></div></div>
-    <div class="por-feat"><div class="pf-icon">🏆</div><div><h4>نجوم وشارات وشهادات</h4><p>نظام مكافآت يحفّز على المثابرة والوصول إلى القمة</p></div></div>
-    <div class="por-feat"><div class="pf-icon">📈</div><div><h4>تتبع تقدمك</h4><p>يُحفظ تقدمك تلقائياً وترى إلى أين وصلت في كل مرة</p></div></div>
+<div class="por-features">
+  <div class="por-features-grid">
+    <div class="por-feat-card" style="animation-delay:.05s"><div class="por-feat-icon">🎮</div><h4>تعلّم وأنت تلعب</h4><p>أسئلة تفاعلية ومحطات مشوّقة تحوّل المراجعة إلى مغامرة ممتعة</p></div>
+    <div class="por-feat-card" style="animation-delay:.1s"><div class="por-feat-icon">📶</div><h4>يعمل دون إنترنت</h4><p>بعد أول فتح، التطبيقات تعمل كاملاً بدون اتصال بالشبكة</p></div>
+    <div class="por-feat-card" style="animation-delay:.15s"><div class="por-feat-icon">🏆</div><h4>شارات وشهادات</h4><p>نظام مكافآت يحفّز على المثابرة والوصول إلى القمة</p></div>
+    <div class="por-feat-card" style="animation-delay:.2s"><div class="por-feat-icon">📈</div><h4>تتبع التقدم</h4><p>يُحفظ تقدمك تلقائياً وترى إلى أين وصلت في كل مرة</p></div>
   </div>
 </div>
-<div class="por-sec-title">🗺️ اختر وجهتك التعليمية</div>
-<div class="por-cards">
-  <a class="por-card por-card-gold" href="#" onclick="enterApp(event)" style="animation-delay:.05s">
-    <div class="por-card-bg">🏆</div>
-    <div class="por-card-inner">
-      <span class="pc-badge">⚡ الأكثر شعبية</span>
-      <span class="pc-icon">🗺️</span>
-      <h3>رحلة الجهوي الذهبية</h3>
-      <p>مراجعة شاملة في الاجتماعيات للثالثة إعدادي — 20 محطة، 90+ سؤال، نجوم وشهادات</p>
-      <span class="pc-arrow">انطلق في الرحلة ←</span>
-    </div>
-  </a>
-  <a class="por-card por-card-orange" href="ibtidai/" style="animation-delay:.1s" onclick="porClick()">
-    <div class="por-card-bg">🎁</div>
-    <div class="por-card-inner">
-      <span class="pc-badge">🎁 هدية خاصة</span>
-      <span class="pc-icon">🏫</span>
-      <h3>رحلة الامتحان الإشهادي — السادسة ابتدائي</h3>
-      <p>مراجعة تفاعلية مرحة للتلاميذ الصغار تغطي 7 محطات ممتعة قبل الامتحان</p>
-      <span class="pc-arrow">ادخل المغامرة ←</span>
-    </div>
-  </a>
-  <a class="por-card por-card-blue" href="https://moraja3a.netlify.app/" target="_blank" rel="noopener" style="animation-delay:.15s" onclick="porClick()">
-    <div class="por-card-bg">🌐</div>
-    <div class="por-card-inner">
-      <span class="pc-badge">🌐 موقع خارجي</span>
-      <span class="pc-icon">📚</span>
-      <h3>موقع المراجعة الكامل</h3>
-      <p>دروس مراجعة شاملة، ملخصات، خرائط ذهنية، وموارد إضافية لمادة الاجتماعيات</p>
-      <span class="pc-arrow">افتح الموقع ←</span>
-    </div>
-  </a>
-  <a class="por-card por-card-green" href="https://ijtima3iyat-3ac-portal.netlify.app/" target="_blank" rel="noopener" style="animation-delay:.2s" onclick="porClick()">
-    <div class="por-card-bg">🎒</div>
-    <div class="por-card-inner">
-      <span class="pc-badge">🎒 بوابة شاملة</span>
-      <span class="pc-icon">🌍</span>
-      <h3>بوابة الاجتماعيات</h3>
-      <p>مركز متكامل لموارد مادة الاجتماعيات — الثالثة إعدادي — دروس وتمارين</p>
-      <span class="pc-arrow">اكتشف البوابة ←</span>
-    </div>
-  </a>
-  <a class="por-card por-card-red" href="https://moharibou-jihawi.netlify.app/" target="_blank" rel="noopener" style="animation-delay:.25s" onclick="porClick()">
-    <div class="por-card-bg">🛡️</div>
-    <div class="por-card-inner">
-      <span class="pc-badge">🛡️ تحدي وقتاح</span>
-      <span class="pc-icon">⚔️</span>
-      <h3>محاربو الجهوي</h3>
-      <p>تحدّ سريع وحماسي — أجب على أسئلة الجهوي بأسرع ما يمكن وانتزع اللقب!</p>
-      <span class="pc-arrow">خُض المعركة ←</span>
-    </div>
-  </a>
-  <a class="por-card por-card-teal" href="khat-zamani/" style="animation-delay:.3s" onclick="porClick()">
-    <div class="por-card-bg">⏳</div>
-    <div class="por-card-inner">
-      <span class="pc-badge">📏 منهجية</span>
-      <span class="pc-icon">⏳</span>
-      <h3>رحلة إتقان الخط الزمني</h3>
-      <p>تطبيق تفاعلي لتعلم رسم وقراءة الخط الزمني — مرسم ذكي، تحديات، وتحليل الصور</p>
-      <span class="pc-arrow">ابدأ الرحلة ←</span>
-    </div>
-  </a>
-  <a class="por-card por-card-amber" href="mibyan/" style="animation-delay:.4s" onclick="porClick()">
-    <div class="por-card-bg">📊</div>
-    <div class="por-card-inner">
-      <span class="pc-badge">📊 منهجية</span>
-      <span class="pc-icon">📊</span>
-      <h3>رحلة إتقان المبيان</h3>
-      <p>تطبيق تفاعلي لتعلم رسم المبيان وقراءته — مرسم ذكي، تحديات، وتحليل الصور بالذكاء الاصطناعي</p>
-      <span class="pc-arrow">ابدأ الرحلة ←</span>
-    </div>
-  </a>
-  <a class="por-card por-card-brown" href="kanz-sanawat/" style="animation-delay:.42s" onclick="porClick()">
-    <div class="por-card-bg">🪙</div>
-    <div class="por-card-inner">
-      <span class="pc-badge">🪙 سنوات وتواريخ</span>
-      <span class="pc-icon">🪙</span>
-      <h3>كنز السنوات الذهبية</h3>
-      <p>لعبة خريطة ومسار لحفظ سنوات دروس الدورة الثانية — تاريخ وجغرافيا ومواطنة</p>
-      <span class="pc-arrow">ابدأ الرحلة ←</span>
-    </div>
-  </a>
-  <a class="por-card por-card-purple" href="https://moajam-mostalahat-dhahabi.netlify.app" target="_blank" rel="noopener" style="animation-delay:.44s" onclick="porClick()">
-    <div class="por-card-bg">📖</div>
-    <div class="por-card-inner">
-      <span class="pc-badge">📖 مصطلحات</span>
-      <span class="pc-icon">📖</span>
-      <h3>معجم المصطلحات الذهبية</h3>
-      <p>مرجع المصطلحات الأساسية لمادة الاجتماعيات — تعريفات واضحة لكل مفهوم تحتاجه</p>
-      <span class="pc-arrow">افتح المعجم ←</span>
-    </div>
-  </a>
-  <a class="por-card por-card-comments" href="comments.html" style="animation-delay:.43s" onclick="porClick&&porClick()">
-    <div class="por-card-bg">💬</div>
-    <div class="por-card-inner">
-      <span class="pc-badge">💬 آراء التلاميذ</span>
-      <span class="pc-icon">💬</span>
-      <h3>تعليقات التلاميذ</h3>
-      <p>اقرأ آراء زملائك الذين جرّبوا رحلة الجهوي وشاركنا تجربتك أنت أيضاً</p>
-      <span class="pc-arrow">اقرأ التعليقات ←</span>
-    </div>
-  </a>
-  <a class="por-card por-card-contact" href="contact.html" style="animation-delay:.45s" onclick="porClick&&porClick()">
-    <div class="por-card-bg">✉️</div>
-    <div class="por-card-inner">
-      <span class="pc-badge">📬 تواصل</span>
-      <span class="pc-icon">✉️</span>
-      <h3>تواصل مع الأستاذ</h3>
-      <p>هل لديك سؤال أو اقتراح؟ راسل ذ. أحمد بوعمود مباشرة وسيرد عليك في أقرب وقت</p>
-      <span class="pc-arrow">راسلنا ←</span>
-    </div>
-  </a>
-  <div class="por-card por-card-future" style="animation-delay:.5s">
-    <div class="por-card-bg">🚀</div>
-    <div class="por-card-inner">
-      <span class="pc-badge">✨ قريبا</span>
-      <span class="pc-icon">🔭</span>
-      <h3>موقع المستقبل</h3>
-      <p>مشروع تعليمي ضخم قيد الإنشاء — سيجمع كل المراحل والمستويات في منظومة متكاملة</p>
-      <span class="pc-soon">⏳ سيُطلق قريباً إن شاء الله</span>
+<div class="por-destinations" id="por-destinations">
+  <div class="por-sec-title">🗺️ اختر وجهتك التعليمية</div>
+  <div class="por-cards">
+    <a class="por-card por-card-gold" href="#" onclick="enterApp(event)" style="animation-delay:.05s">
+      <div class="por-card-bg">🏆</div>
+      <div class="por-card-inner">
+        <span class="pc-badge">⚡ الأكثر شعبية</span>
+        <span class="pc-icon">🗺️</span>
+        <h3>رحلة الجهوي الذهبية</h3>
+        <p>مراجعة شاملة في الاجتماعيات للثالثة إعدادي — 20 محطة، 90+ سؤال، نجوم وشهادات</p>
+        <span class="pc-arrow">انطلق في الرحلة ←</span>
+      </div>
+    </a>
+    <a class="por-card por-card-orange" href="ibtidai/" style="animation-delay:.1s" onclick="porClick()">
+      <div class="por-card-bg">🎁</div>
+      <div class="por-card-inner">
+        <span class="pc-badge">🎁 هدية خاصة</span>
+        <span class="pc-icon">🏫</span>
+        <h3>رحلة الامتحان الإشهادي — السادسة ابتدائي</h3>
+        <p>مراجعة تفاعلية مرحة للتلاميذ الصغار تغطي 7 محطات ممتعة قبل الامتحان</p>
+        <span class="pc-arrow">ادخل المغامرة ←</span>
+      </div>
+    </a>
+    <a class="por-card por-card-red" href="https://moharibou-jihawi.netlify.app/" target="_blank" rel="noopener" style="animation-delay:.15s" onclick="porClick()">
+      <div class="por-card-bg">🛡️</div>
+      <div class="por-card-inner">
+        <span class="pc-badge">🛡️ تحدي وقتاح</span>
+        <span class="pc-icon">⚔️</span>
+        <h3>محاربو الجهوي</h3>
+        <p>تحدّ سريع وحماسي — أجب على أسئلة الجهوي بأسرع ما يمكن وانتزع اللقب!</p>
+        <span class="pc-arrow">خُض المعركة ←</span>
+      </div>
+    </a>
+    <a class="por-card por-card-teal" href="khat-zamani/" style="animation-delay:.2s" onclick="porClick()">
+      <div class="por-card-bg">⏳</div>
+      <div class="por-card-inner">
+        <span class="pc-badge">📏 منهجية</span>
+        <span class="pc-icon">⏳</span>
+        <h3>رحلة إتقان الخط الزمني</h3>
+        <p>تطبيق تفاعلي لتعلم رسم وقراءة الخط الزمني — مرسم ذكي، تحديات، وتحليل الصور</p>
+        <span class="pc-arrow">ابدأ الرحلة ←</span>
+      </div>
+    </a>
+    <a class="por-card por-card-amber" href="mibyan/" style="animation-delay:.25s" onclick="porClick()">
+      <div class="por-card-bg">📊</div>
+      <div class="por-card-inner">
+        <span class="pc-badge">📊 منهجية</span>
+        <span class="pc-icon">📊</span>
+        <h3>رحلة إتقان المبيان</h3>
+        <p>تطبيق تفاعلي لتعلم رسم المبيان وقراءته — مرسم ذكي، تحديات، وتحليل الصور</p>
+        <span class="pc-arrow">ابدأ الرحلة ←</span>
+      </div>
+    </a>
+    <a class="por-card por-card-brown" href="kanz-sanawat/" style="animation-delay:.3s" onclick="porClick()">
+      <div class="por-card-bg">🪙</div>
+      <div class="por-card-inner">
+        <span class="pc-badge">📚 أرشيف الجهوي</span>
+        <span class="pc-icon">🪙</span>
+        <h3>أرشيف الجهوي — كنز السنوات الذهبية</h3>
+        <p>لعبة خريطة ومسار لحفظ سنوات دروس الدورة الثانية — تاريخ وجغرافيا ومواطنة</p>
+        <span class="pc-arrow">ابدأ الرحلة ←</span>
+      </div>
+    </a>
+    <a class="por-card por-card-blue" href="https://moraja3a.netlify.app/" target="_blank" rel="noopener" style="animation-delay:.35s" onclick="porClick()">
+      <div class="por-card-bg">🌐</div>
+      <div class="por-card-inner">
+        <span class="pc-badge">🌐 موقع خارجي</span>
+        <span class="pc-icon">📚</span>
+        <h3>موقع المراجعة الكامل</h3>
+        <p>دروس مراجعة شاملة، ملخصات، خرائط ذهنية، وموارد إضافية لمادة الاجتماعيات</p>
+        <span class="pc-arrow">افتح الموقع ←</span>
+      </div>
+    </a>
+    <a class="por-card por-card-green" href="https://ijtima3iyat-3ac-portal.netlify.app/" target="_blank" rel="noopener" style="animation-delay:.4s" onclick="porClick()">
+      <div class="por-card-bg">🎒</div>
+      <div class="por-card-inner">
+        <span class="pc-badge">🎒 بوابة شاملة</span>
+        <span class="pc-icon">🌍</span>
+        <h3>بوابة الاجتماعيات</h3>
+        <p>مركز متكامل لموارد مادة الاجتماعيات — الثالثة إعدادي — دروس وتمارين</p>
+        <span class="pc-arrow">اكتشف البوابة ←</span>
+      </div>
+    </a>
+    <a class="por-card por-card-purple" href="https://moajam-mostalahat-dhahabi.netlify.app" target="_blank" rel="noopener" style="animation-delay:.42s" onclick="porClick()">
+      <div class="por-card-bg">📖</div>
+      <div class="por-card-inner">
+        <span class="pc-badge">📖 مصطلحات</span>
+        <span class="pc-icon">📖</span>
+        <h3>معجم المصطلحات الذهبية</h3>
+        <p>مرجع المصطلحات الأساسية لمادة الاجتماعيات — تعريفات واضحة لكل مفهوم تحتاجه</p>
+        <span class="pc-arrow">افتح المعجم ←</span>
+      </div>
+    </a>
+    <a class="por-card por-card-comments" href="comments.html" style="animation-delay:.43s" onclick="porClick&&porClick()">
+      <div class="por-card-bg">💬</div>
+      <div class="por-card-inner">
+        <span class="pc-badge">💬 آراء التلاميذ</span>
+        <span class="pc-icon">💬</span>
+        <h3>تعليقات التلاميذ</h3>
+        <p>اقرأ آراء زملائك الذين جرّبوا رحلة الجهوي وشاركنا تجربتك أنت أيضاً</p>
+        <span class="pc-arrow">اقرأ التعليقات ←</span>
+      </div>
+    </a>
+    <a class="por-card por-card-contact" href="contact.html" style="animation-delay:.45s" onclick="porClick&&porClick()">
+      <div class="por-card-bg">✉️</div>
+      <div class="por-card-inner">
+        <span class="pc-badge">📬 تواصل</span>
+        <span class="pc-icon">✉️</span>
+        <h3>تواصل مع الأستاذ</h3>
+        <p>هل لديك سؤال أو اقتراح؟ راسل ذ. أحمد بوعمود مباشرة وسيرد عليك في أقرب وقت</p>
+        <span class="pc-arrow">راسلنا ←</span>
+      </div>
+    </a>
+    <div class="por-card por-card-future" style="animation-delay:.5s">
+      <div class="por-card-bg">🚀</div>
+      <div class="por-card-inner">
+        <span class="pc-badge">✨ قريبا</span>
+        <span class="pc-icon">🔭</span>
+        <h3>موقع المستقبل</h3>
+        <p>مشروع تعليمي ضخم قيد الإنشاء — سيجمع كل المراحل والمستويات في منظومة متكاملة</p>
+        <span class="pc-soon">⏳ سيُطلق قريباً إن شاء الله</span>
+      </div>
     </div>
   </div>
 </div>
@@ -339,9 +449,9 @@ main{max-width:920px; margin:0 auto; padding:24px 14px 90px; position:relative;}
   بوابة <b>ذ. أحمد بوعمود</b> — التعلّم باللعب ♥<br>
   ✍️ الأستاذان: <b>أحمد بوعمود</b> و <b>الخضير</b> — أستاذا الاجتماعيات<br>
   مؤسسة الحنان الخاصة | أكادير | 2025-2026<br>
-  <a href="comments.html" style="color:var(--blue);font-weight:900;text-decoration:none;font-size:.82rem;">💬 تعليقات التلاميذ</a>
+  <a href="comments.html">💬 تعليقات التلاميذ</a>
   &nbsp;·&nbsp;
-  <a href="contact.html" style="color:var(--orange-d);font-weight:900;text-decoration:none;font-size:.82rem;">✉️ تواصل مع الأستاذ</a>
+  <a href="contact.html">✉️ تواصل مع الأستاذ</a>
 </div>
 </div>
 <!-- ══ END PORTAL ══ -->
@@ -450,6 +560,31 @@ function enterApp(e){
   por.classList.add('hiding');
   setTimeout(function(){por.style.display='none';},420);
 }
+/* Load companion stats from localStorage */
+(function(){
+  try{
+    var sv=JSON.parse(localStorage.getItem('rj3acGold')||'null');
+    if(sv){
+      var xp=sv.xp||0;
+      var stars=Object.values(sv.stars||{}).reduce(function(a,b){return a+b;},0);
+      var bdg=Object.keys(sv.badges||{}).length;
+      var level=Math.max(1,Math.floor(xp/200)+1);
+      var nodes=Object.keys(sv.stars||{}).length;
+      var pct=Math.min(100,Math.round((nodes/20)*100));
+      var el=function(id){return document.getElementById(id);};
+      if(el('porXP'))el('porXP').textContent=xp;
+      if(el('porStars'))el('porStars').textContent=stars;
+      if(el('porBadges'))el('porBadges').textContent=bdg;
+      if(el('porLevel'))el('porLevel').textContent=level;
+      if(el('porProgressPct'))el('porProgressPct').textContent=pct+'%';
+      if(el('porProgressFill'))el('porProgressFill').style.width=pct+'%';
+      if(sv.name){
+        var nm=document.querySelector('.por-companion-name');
+        if(nm)nm.textContent='حنّون — رفيق '+sv.name+' 🤝';
+      }
+    }
+  }catch(e){}
+})();
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function(){
