@@ -404,7 +404,6 @@
   <div class="filters">
     <button class="filter-btn active" onclick="setFilter('all', this)">الكل</button>
     <button class="filter-btn" onclick="setFilter('education', this)">🎓 تعليمية</button>
-    <button class="filter-btn" onclick="setFilter('portal', this)">🌐 بوابات</button>
     <button class="filter-btn" onclick="setFilter('health', this)">🌿 صحة</button>
     <button class="filter-btn" onclick="setFilter('personal', this)">💛 شخصية</button>
     <button class="filter-btn" onclick="setFilter('resource', this)">📁 موارد</button>
@@ -484,9 +483,9 @@ const PROJECTS = [
   {
     id: "rihlate-alhanan",
     name: "رحلة الحنان",
-    desc: "موقع رحلة الحنان",
+    desc: "موقع تعليمي — رحلة الحنان",
     icon: "❤️",
-    category: "personal",
+    category: "education",
     status: "active",
     lang: "HTML",
     updated: "20 يون 2026",
@@ -495,24 +494,11 @@ const PROJECTS = [
     site: "https://rihlate-alhanan.netlify.app"
   },
   {
-    id: "agencetalbourjte",
-    name: "وكالة تلبورجت",
-    desc: "موقع وكالة تلبورجت للسياحة والأسفار",
-    icon: "✈️",
-    category: "other",
-    status: "active",
-    lang: "HTML",
-    updated: "8 مايو 2026",
-    github: null,
-    netlify: "https://app.netlify.com/sites/agencetalbourjte",
-    site: "https://agencetalbourjte.com"
-  },
-  {
     id: "moajam-mostalahat-dhahabi",
     name: "معجم المصطلحات الذهبي",
-    desc: "معجم تعليمي للمصطلحات الذهبية",
+    desc: "معجم تعليمي للمصطلحات — مرجع ذهبي للمفاهيم والمصطلحات",
     icon: "📒",
-    category: "resource",
+    category: "education",
     status: "active",
     lang: "HTML",
     updated: "19 يون 2026",
@@ -530,15 +516,15 @@ const PROJECTS = [
     lang: "HTML",
     updated: "6 يون 2026",
     github: "https://github.com/AhmedBouamoud/ijtima3iyat-3ac-platform",
-    netlify: null,
-    site: null
+    netlify: "https://app.netlify.com/sites/incomparable-fenglisu-2a006d",
+    site: "https://incomparable-fenglisu-2a006d.netlify.app"
   },
   {
     id: "ijtima3iyat-3ac-portal",
     name: "بوابة الاجتماعيات الذكية",
     desc: "بوابة ذكية لمراجعة الاجتماعيات — الثالثة إعدادي",
     icon: "🌐",
-    category: "portal",
+    category: "education",
     status: "active",
     lang: "HTML",
     updated: "13 يون 2026",
@@ -564,7 +550,7 @@ const PROJECTS = [
     name: "مدرستي",
     desc: "موقع أحمد بوعمود للتعليم — مرجع عام لكل المواد",
     icon: "🏫",
-    category: "portal",
+    category: "education",
     status: "active",
     lang: "HTML",
     updated: "17 يون 2026",
@@ -577,7 +563,7 @@ const PROJECTS = [
     name: "مدرستي الجديد",
     desc: "نسخة محسّنة من موقع مدرستي",
     icon: "🏫",
-    category: "portal",
+    category: "education",
     status: "progress",
     lang: "—",
     updated: "9 مايو 2026",
@@ -675,7 +661,7 @@ function renderCard(p) {
     ? `<div class="note-display">📌 ${note}</div>`
     : '';
   const linksHtml = [
-    `<a href="${p.github}" target="_blank" class="link-btn link-github">⚙ GitHub</a>`,
+    p.github ? `<a href="${p.github}" target="_blank" class="link-btn link-github">⚙ GitHub</a>` : '',
     p.netlify ? `<a href="${p.netlify}" target="_blank" class="link-btn link-netlify">▲ Netlify</a>` : '',
     p.site ? `<a href="${p.site}" target="_blank" class="link-btn link-site">🌐 الموقع</a>` : ''
   ].filter(Boolean).join('');
