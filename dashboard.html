@@ -163,6 +163,7 @@
     .card.cat-health::before { background: linear-gradient(90deg, #27ae60, #f5a623); }
     .card.cat-personal::before { background: linear-gradient(90deg, #e74c3c, #f5a623); }
     .card.cat-resource::before { background: linear-gradient(90deg, #f5a623, #e67e22); }
+    .card.cat-agency::before { background: linear-gradient(90deg, #c0392b, #e74c3c); }
     .card.cat-other::before { background: linear-gradient(90deg, #95a5a6, #7f8c8d); }
 
     .card-header {
@@ -186,6 +187,7 @@
     .cat-health .card-icon { background: #eafbf0; }
     .cat-personal .card-icon { background: #fbeaea; }
     .cat-resource .card-icon { background: #fbf4ea; }
+    .cat-agency .card-icon { background: #fdf0f0; }
     .cat-other .card-icon { background: #f4f4f4; }
 
     .card-badges {
@@ -404,6 +406,7 @@
   <div class="filters">
     <button class="filter-btn active" onclick="setFilter('all', this)">الكل</button>
     <button class="filter-btn" onclick="setFilter('education', this)">🎓 تعليمية</button>
+    <button class="filter-btn" onclick="setFilter('agency', this)">✈️ وكالتي</button>
     <button class="filter-btn" onclick="setFilter('health', this)">🌿 صحة</button>
     <button class="filter-btn" onclick="setFilter('personal', this)">💛 شخصية</button>
     <button class="filter-btn" onclick="setFilter('resource', this)">📁 موارد</button>
@@ -505,6 +508,19 @@ const PROJECTS = [
     github: null,
     netlify: "https://app.netlify.com/sites/moajam-mostalahat-dhahabi",
     site: "https://moajam-mostalahat-dhahabi.netlify.app"
+  },
+  {
+    id: "agencetalbourjte",
+    name: "وكالة تلبورجت",
+    desc: "موقع وكالة تلبورجت للسياحة والأسفار",
+    icon: "✈️",
+    category: "agency",
+    status: "active",
+    lang: "HTML",
+    updated: "8 مايو 2026",
+    github: null,
+    netlify: "https://app.netlify.com/sites/agencetalbourjte",
+    site: "https://agencetalbourjte.com"
   },
   {
     id: "ijtima3iyat-3ac-platform",
