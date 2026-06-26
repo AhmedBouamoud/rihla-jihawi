@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>دفتر الأستاذ الذكي V5 - التطبيق</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1b3535">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/styles.css">
+<script>(function(){var t=localStorage.getItem('daftar_theme')||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();</script>
+</head>
+<body>
+
+<!-- Mobile sidebar overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- Mobile top bar -->
+<div class="mobile-bar screen-only">
+  <button class="m-hamburger" onclick="openSidebar()">☰</button>
+  <span class="m-logo">دفتر الأستاذ الذكي V5</span>
+  <button class="m-print" onclick="printAll()">طباعة</button>
+</div>
+
+<div class="app-shell">
+
+  <!-- ========== SIDEBAR ========== -->
+  <aside class="sidebar" id="mainSidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">أ</div>
+      <div class="logo-text">
+        <strong>دفتر الأستاذ</strong>
+        <small>الذكي V5</small>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-tab="home"     onclick="switchTab('home',this)">
+        <span class="nav-icon">⊞</span><span>الرئيسية</span>
+      </button>
+      <button class="nav-item" data-tab="presets"  onclick="switchTab('presets',this)">
+        <span class="nav-icon">📚</span><span>المقررات</span>
+      </button>
+      <button class="nav-item" data-tab="journal"  onclick="switchTab('journal',this)">
+        <span class="nav-icon">📋</span><span>دفتر الحصص</span>
+      </button>
+      <button class="nav-item" data-tab="schedule" onclick="switchTab('schedule',this)">
+        <span class="nav-icon">📅</span><span>التوزيع الزمني</span>
+      </button>
+      <button class="nav-item" data-tab="holidays" onclick="switchTab('holidays',this)">
+        <span class="nav-icon">🗓</span><span>العطل</span>
+      </button>
+      <button class="nav-item" data-tab="docs"     onclick="switchTab('docs',this)">
+        <span class="nav-icon">🗂</span><span>الوثائق</span>
+      </button>
+      <button class="nav-item" data-tab="export"   onclick="switchTab('export',this)">
+        <span class="nav-icon">⬇</span><span>التصدير</span>
+      </button>
+      <button class="nav-item theme-toggle" id="themeToggle" onclick="toggleTheme()">
+        <span class="nav-icon" id="themeIcon">🌙</span><span id="themeLabel">الوضع الليلي</span>
+      </button>
+    </nav>
+
+    <hr class="sidebar-div">
+
+    <div class="sidebar-actions screen-only">
+      <button class="sb-print-all" onclick="printAll()">طباعة الكل</button>
+      <div class="sb-print-row">
+        <select id="oneSelect"></select>
+        <button class="sb-print-one" onclick="printOne()">طباعة درس</button>
+      </div>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sideAvatar">أ</div>
+      <div class="user-info">
+        <div id="sideTeacher">الأستاذ</div>
+        <div class="user-school" id="sideSchool">المؤسسة</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========== MAIN AREA ========== -->
+  <div class="main-area">
+
+    <!-- Hidden print elements -->
+    <div id="printCover" class="print-cover"></div>
+    <div class="print-header" id="printHeader"></div>
+    <section id="singlePrint" class="singleprint"></section>
+
+    <!-- ====== TAB: HOME ====== -->
+    <section id="tab-home" class="tab">
+
+      <!-- Hero: greeting + meta form -->
+      <div class="home-hero">
+        <div class="home-greeting">
+          <h1 id="greetingText">مرحباً بك</h1>
+          <p class="home-sub">منصة دفاتر النصوص الذكية — قوالب حسب السلك والمستوى والمادة مع توزيع زمني ومكتبة وثائق وتصدير ملفات.</p>
+          <div class="home-ctas">
+            <button class="cta-main" onclick="switchTab('presets',null)">اختر مقررًا</button>
+            <button class="cta-sec"  onclick="switchTab('journal',null)">دفتر الحصص</button>
+          </div>
+        </div>
+        <div class="meta-grid">
+          <div class="meta-field"><label>الأستاذ(ة)</label><input id="teacher" value="الأستاذ أحمد بوعمود" oninput="saveMeta();updateSidebar()"></div>
+          <div class="meta-field"><label>المؤسسة</label><input id="school" value="مؤسسة الحنان" oninput="saveMeta();updateSidebar()"></div>
+          <div class="meta-field"><label>الموسم</label><input id="year" value="2026 / 2027" oninput="saveMeta()"></div>
+          <div class="meta-field"><label>القسم</label><input id="classe" placeholder="مثال: 3AC-1" oninput="saveMeta();stats()"></div>
+          <div class="meta-field"><label>المستوى</label><input id="level" value="الثالثة إعدادي" oninput="saveMeta()"></div>
+          <div class="meta-field"><label>المادة</label><input id="subject" value="الاجتماعيات" oninput="saveMeta();renderSubjectMap()"></div>
+        </div>
+      </div>
+
+      <!-- Stats row -->
+      <div class="stats-row">
+        <div class="stat-card"><strong id="stU">0</strong><span>وحدات</span></div>
+        <div class="stat-card s-accent"><strong id="stL">0</strong><span>دروس</span></div>
+        <div class="stat-card"><strong id="stS">0</strong><span>حصص</span></div>
+        <div class="stat-card"><strong id="stE">0</strong><span>عناصر</span></div>
+        <div class="stat-card"><strong id="stD">0</strong><span>وثائق</span></div>
+        <div class="stat-card s-dark"><strong id="stC">—</strong><span>القسم</span></div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="progress-wrap screen-only">
+        <div class="progress-track"><div class="progress-fill" id="progressBar" style="width:0%"></div></div>
+        <span id="progressPct" class="progress-label">0% موزّع زمنياً</span>
+      </div>
+
+      <!-- Home grid: subject map + curriculum guard -->
+      <div class="home-grid">
+        <div class="home-card h-card-accent">
+          <h3>مخطط المادة الحالي</h3>
+          <div id="subjectMap"></div>
+        </div>
+        <div class="home-card h-card-teal">
+          <h3>حارس المقرر</h3>
+          <div id="curriculumGuard"><p class="guard-empty">اختر مقررًا لعرض تقدم التغطية.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== TAB: PRESETS ====== -->
+    <section id="tab-presets" class="tab hidden">
+      <div class="page-header"><h2>مكتبة المقررات والقوالب</h2></div>
+      <div class="panel">
+        <div class="filter-bar">
+          <div><label>السلك</label><select id="cycleFilter" onchange="renderPresets()"></select></div>
+          <div><label>المادة</label><select id="subFilter" onchange="renderPresets()"></select></div>
+          <div><label>بحث</label><input id="presetSearch" oninput="renderPresets()" placeholder="ابحث عن مادة أو مستوى"></div>
+        </div>
+        <div id="presetGrid" class="grid4"></div>
+      </div>
+    </section>
+
+    <!-- ====== TAB: JOURNAL ====== -->
+    <section id="tab-journal" class="tab hidden">
+      <div class="panel screen-only">
+        <h2 style="margin-bottom:12px">المساعد الذكي حسب المادة</h2>
+        <div class="grid3">
+          <div>
+            <label>الصق الدرس كاملاً</label>
+            <textarea id="smartText" placeholder="الصق الدرس هنا، وسيقترح التطبيق عناصر مناسبة لطبيعة المادة..."></textarea>
+          </div>
+          <div>
+            <label>عدد الحصص</label>
+            <select id="smartCount"><option>1</option><option selected>2</option><option>3</option><option>4</option></select>
+            <label style="margin-top:8px">الدرس الهدف</label>
+            <select id="smartLesson"></select>
+          </div>
+          <div>
+            <button class="t" onclick="previewSmart()">حلّل وقسّم</button>
+            <button class="g" style="margin-top:8px" onclick="applySmart()">طبّق على الدرس</button>
+            <div id="smartOut" class="output" style="margin-top:8px">المعاينة تظهر هنا.</div>
+          </div>
+        </div>
+      </div>
+      <div class="tablewrap panel printable">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:7%">التاريخ</th>
+              <th style="width:6%">القسم</th>
+              <th style="width:9%">الوحدة</th>
+              <th style="width:7%">الفترة</th>
+              <th style="width:14%">الدرس</th>
+              <th style="width:7%">الحصة</th>
+              <th style="width:8%">النوع</th>
+              <th style="width:29%">العناصر</th>
+              <th style="width:8%">الأنشطة</th>
+              <th style="width:7%">العمل</th>
+              <th style="width:7%">ملاحظات</th>
+              <th class="screen-only" style="width:8%">تدبير</th>
+            </tr>
+          </thead>
+          <tbody id="bodyRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ====== TAB: SCHEDULE ====== -->
+    <section id="tab-schedule" class="tab hidden">
+      <div class="page-header"><h2>التوزيع الزمني الذكي</h2></div>
+      <div class="panel">
+        <div class="grid4">
+          <div>
+            <label>تاريخ البداية</label><input id="schStart" type="date">
+            <label style="margin-top:8px">تاريخ النهاية</label><input id="schEnd" type="date">
+          </div>
+          <div>
+            <label>أيام التدريس</label>
+            <label><input type="checkbox" class="wd" value="1"> الإثنين</label>
+            <label><input type="checkbox" class="wd" value="2"> الثلاثاء</label>
+            <label><input type="checkbox" class="wd" value="3"> الأربعاء</label>
+            <label><input type="checkbox" class="wd" value="4"> الخميس</label>
+            <label><input type="checkbox" class="wd" value="5"> الجمعة</label>
+            <label><input type="checkbox" class="wd" value="6"> السبت</label>
+          </div>
+          <div>
+            <label>الفترة المستهدفة</label><select id="schPeriod"></select>
+            <label style="margin-top:8px">القسم</label>
+            <input id="schClass" placeholder="اتركه فارغاً لاعتماد القسم العام">
+          </div>
+          <div>
+            <label>طريقة التطبيق</label>
+            <select id="schMode">
+              <option value="empty">املأ الفارغ فقط</option>
+              <option value="replace">استبدل كل التواريخ</option>
+            </select>
+            <button class="t" style="margin-top:8px;width:100%" onclick="previewSchedule()">معاينة</button>
+            <button class="g" style="margin-top:6px;width:100%" onclick="applySchedule()">تطبيق</button>
+            <button class="y" style="margin-top:6px;width:100%" onclick="clearDates()">مسح التواريخ</button>
+          </div>
+        </div>
+        <div id="schOut" class="output" style="margin-top:12px"></div>
+      </div>
+    </section>
+
+    <!-- ====== TAB: HOLIDAYS ====== -->
+    <section id="tab-holidays" class="tab hidden">
+      <div class="page-header"><h2>مفكرة العطل</h2></div>
+      <div class="panel">
+        <div class="grid3">
+          <div>
+            <label>لائحة العطل</label>
+            <textarea id="holText" placeholder="2026-10-01 إلى 2026-10-05 - عطلة بينية&#10;2026-12-20 إلى 2027-01-03 - عطلة الشتاء"></textarea>
+          </div>
+          <div>
+            <button class="g" onclick="saveHolidays()">حفظ العطل</button>
+            <button class="t" style="margin-top:8px" onclick="scanHolidays()">فحص الحصص</button>
+            <button class="y" style="margin-top:8px" onclick="clearHolidaySessionDates()">مسح تواريخ العطل من الحصص</button>
+          </div>
+          <div>
+            <label>النتيجة</label>
+            <div id="holOut" class="output">لا توجد عطل بعد.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== TAB: DOCS ====== -->
+    <section id="tab-docs" class="tab hidden">
+      <div class="page-header"><h2>مكتبة الوثائق المحلية</h2></div>
+      <div class="panel">
+        <div class="grid4">
+          <div><label>العنوان</label><input id="docTitle"></div>
+          <div><label>الصنف</label><select id="docCat"></select></div>
+          <div><label>رابط أو وصف</label><input id="docLink"></div>
+          <div><label>وسوم</label><input id="docTags" placeholder="دعم، فرض، خريطة..."></div>
+        </div>
+        <button class="g" style="margin-top:9px" onclick="addDoc()">إضافة الوثيقة</button>
+        <div class="grid3" style="margin-top:12px">
+          <div><label>بحث</label><input id="docSearch" oninput="renderDocs()" placeholder="ابحث في الوثائق"></div>
+          <div><label>فلترة الصنف</label><select id="docFilter" onchange="renderDocs()"></select></div>
+          <div style="display:flex;align-items:flex-end"><button class="t" onclick="downloadDocsCSV()">تنزيل CSV للوثائق</button></div>
+        </div>
+        <div id="docList" style="margin-top:10px"></div>
+      </div>
+    </section>
+
+    <!-- ====== TAB: EXPORT ====== -->
+    <section id="tab-export" class="tab hidden">
+      <div class="page-header"><h2>التصدير والاستيراد</h2></div>
+      <div class="panel">
+        <div class="grid3">
+          <div class="card">
+            <h3>نسخة احتياطية كاملة</h3>
+            <p class="muted">تنزيل ملف JSON يحفظ الدفتر، العطل، الوثائق، والإعدادات.</p>
+            <button class="g" style="margin-top:10px" onclick="downloadBackup()">تنزيل JSON</button>
+          </div>
+          <div class="card">
+            <h3>استيراد نسخة</h3>
+            <p class="muted">اختر ملف JSON سبق تنزيله لاسترجاع العمل.</p>
+            <input type="file" id="importFile" accept=".json" style="margin-top:10px" onchange="importBackupFile(this.files[0])">
+          </div>
+          <div class="card">
+            <h3>تقرير وجدول</h3>
+            <p class="muted">تنزيل جدول CSV أو تقرير HTML قابل للأرشفة.</p>
+            <button class="t" style="margin-top:10px" onclick="downloadJournalCSV()">تنزيل CSV</button>
+            <button class="y" style="margin-top:8px" onclick="downloadReportHTML()">تنزيل تقرير HTML</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /main-area -->
+</div><!-- /app-shell -->
+
+<a class="back-link screen-only" href="index.html">◀ المنصة</a>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
