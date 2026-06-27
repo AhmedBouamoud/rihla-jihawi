@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>لوحة مشاريع أحمد بوعمود</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -22,7 +25,7 @@
     }
 
     body {
-      font-family: 'Segoe UI', 'Arial', sans-serif;
+      font-family: 'Cairo', 'Segoe UI', 'Arial', sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
@@ -165,7 +168,7 @@
     .card.cat-resource::before { background: linear-gradient(90deg, #f5a623, #e67e22); }
     .card.cat-agency::before { background: linear-gradient(90deg, #c0392b, #e74c3c); }
     .card.cat-other::before { background: linear-gradient(90deg, #95a5a6, #7f8c8d); }
-    .card.cat-cafe::before { background: linear-gradient(90deg, #6f3d1f, #b8782d); }
+    .card.cat-cafe::before { background: linear-gradient(90deg, #E8720C, #1A6FA8); }
 
     .card-header {
       display: flex;
@@ -190,7 +193,40 @@
     .cat-resource .card-icon { background: #fbf4ea; }
     .cat-agency .card-icon { background: #fdf0f0; }
     .cat-other .card-icon { background: #f4f4f4; }
-    .cat-cafe .card-icon { background: #fdf3e7; }
+    .cat-cafe .card-icon { background: #fef0e3; }
+
+    /* ===== CAFE EMPTY SECTION ===== */
+    .cafe-placeholder {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 56px 24px;
+      background: linear-gradient(135deg, rgba(232,114,12,0.06) 0%, rgba(26,111,168,0.06) 100%);
+      border: 2px dashed rgba(232,114,12,0.3);
+      border-radius: 16px;
+      gap: 14px;
+      text-align: center;
+    }
+    .cafe-placeholder .cp-icon { font-size: 3.2rem; }
+    .cafe-placeholder .cp-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #E8720C;
+    }
+    .cafe-placeholder .cp-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      max-width: 340px;
+      line-height: 1.7;
+    }
+    .cafe-placeholder .cp-bar {
+      width: 48px;
+      height: 3px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #E8720C, #1A6FA8);
+    }
 
     .card-badges {
       display: flex;
@@ -395,7 +431,7 @@
     <div class="stat-pill"><span id="total-count">0</span> مشروع</div>
     <div class="stat-pill"><span id="active-count">0</span> نشط</div>
     <div class="stat-pill"><span id="progress-count">0</span> قيد الإنجاز</div>
-    <div class="stat-pill">على Netlify: <span>10</span></div>
+    <div class="stat-pill">على Netlify: <span>7</span></div>
     <div class="stat-pill">آخر تحديث: <span>27 يونيو 2026</span></div>
   </div>
 </header>
@@ -412,7 +448,7 @@
     <button class="filter-btn" onclick="setFilter('health', this)">🌿 صحة</button>
     <button class="filter-btn" onclick="setFilter('personal', this)">💛 شخصية</button>
     <button class="filter-btn" onclick="setFilter('resource', this)">📁 موارد</button>
-    <button class="filter-btn" onclick="setFilter('cafe', this)">☕ مقاهي ومطاعم</button>
+    <button class="filter-btn" onclick="setFilter('cafe', this)">☕ مشاريع المقاهي</button>
     <button class="filter-btn" onclick="setFilter('other', this)">📌 أخرى</button>
   </div>
 </div>
@@ -655,45 +691,6 @@ const PROJECTS = [
     netlify: null,
     site: null
   },
-  {
-    id: "cafes-restaurants-ma",
-    name: "دليل المقاهي والمطاعم",
-    desc: "بوابة عرض مشاريع المقاهي والمطاعم المغربية — فهرس شامل للمواقع التجارية",
-    icon: "🍽️",
-    category: "cafe",
-    status: "active",
-    lang: "HTML",
-    updated: "27 يون 2026",
-    github: "https://github.com/AhmedBouamoud/rihla-jihawi",
-    netlify: "https://app.netlify.com/sites/cafes-restaurants-ma",
-    site: "https://cafes-restaurants-ma.netlify.app"
-  },
-  {
-    id: "cafe-empreinte24",
-    name: "Café L'Empreinte 24",
-    desc: "موقع كافيه L'Empreinte 24 بأكادير — مفتوح 24/24، واي فاي، فضاء عمل وأجواء دافئة",
-    icon: "☕",
-    category: "cafe",
-    status: "active",
-    lang: "HTML",
-    updated: "27 يون 2026",
-    github: "https://github.com/AhmedBouamoud/rihla-jihawi",
-    netlify: "https://app.netlify.com/sites/cafe-lempreinte24",
-    site: "https://cafe-lempreinte24.netlify.app"
-  },
-  {
-    id: "cafe-times-site",
-    name: "Café Times Agadir",
-    desc: "موقع كافيه Times بأكادير — لاونج راقٍ، قائمة طعام، معرض صور وتواصل عبر واتساب",
-    icon: "🫖",
-    category: "cafe",
-    status: "active",
-    lang: "HTML",
-    updated: "27 يون 2026",
-    github: "https://github.com/AhmedBouamoud/rihla-jihawi",
-    netlify: "https://app.netlify.com/sites/cafe-times-agadir",
-    site: "https://cafe-times-agadir.netlify.app"
-  }
 ];
 
 let currentFilter = 'all';
@@ -759,8 +756,10 @@ function filterProjects() {
     card.style.display = matchCat && matchSearch ? '' : 'none';
     if (matchCat && matchSearch) visible++;
   });
-  const empty = document.getElementById('empty-state');
-  if (empty) empty.style.display = visible === 0 ? '' : 'none';
+  const cafePh = document.getElementById('cafe-placeholder');
+  const empty   = document.getElementById('empty-state');
+  if (cafePh) cafePh.style.display = (visible === 0 && currentFilter === 'cafe') ? '' : 'none';
+  if (empty)  empty.style.display  = (visible === 0 && currentFilter !== 'cafe') ? '' : 'none';
 }
 
 function setFilter(cat, btn) {
@@ -804,7 +803,13 @@ function renderAll() {
 
   const grid = document.getElementById('grid');
   grid.innerHTML = PROJECTS.map(renderCard).join('') +
-    `<div class="empty" id="empty-state" style="display:none">
+    `<div class="cafe-placeholder" id="cafe-placeholder" style="display:none">
+      <div class="cp-icon">☕</div>
+      <div class="cp-bar"></div>
+      <div class="cp-title">مشاريع المقاهي والمطاعم</div>
+      <div class="cp-sub">هذا القسم جاهز لاستقبال مواقع المقاهي والمطاعم — ستُضاف البطاقات قريباً</div>
+    </div>
+    <div class="empty" id="empty-state" style="display:none">
       <div class="empty-icon">🔍</div>
       <p>لا توجد مشاريع تطابق بحثك</p>
     </div>`;
