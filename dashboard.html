@@ -165,6 +165,7 @@
     .card.cat-resource::before { background: linear-gradient(90deg, #f5a623, #e67e22); }
     .card.cat-agency::before { background: linear-gradient(90deg, #c0392b, #e74c3c); }
     .card.cat-other::before { background: linear-gradient(90deg, #95a5a6, #7f8c8d); }
+    .card.cat-cafe::before { background: linear-gradient(90deg, #6f3d1f, #b8782d); }
 
     .card-header {
       display: flex;
@@ -189,6 +190,7 @@
     .cat-resource .card-icon { background: #fbf4ea; }
     .cat-agency .card-icon { background: #fdf0f0; }
     .cat-other .card-icon { background: #f4f4f4; }
+    .cat-cafe .card-icon { background: #fdf3e7; }
 
     .card-badges {
       display: flex;
@@ -394,7 +396,7 @@
     <div class="stat-pill"><span id="active-count">0</span> نشط</div>
     <div class="stat-pill"><span id="progress-count">0</span> قيد الإنجاز</div>
     <div class="stat-pill">على Netlify: <span>7</span></div>
-    <div class="stat-pill">آخر تحديث: <span>24 يونيو 2026</span></div>
+    <div class="stat-pill">آخر تحديث: <span>27 يونيو 2026</span></div>
   </div>
 </header>
 
@@ -410,6 +412,7 @@
     <button class="filter-btn" onclick="setFilter('health', this)">🌿 صحة</button>
     <button class="filter-btn" onclick="setFilter('personal', this)">💛 شخصية</button>
     <button class="filter-btn" onclick="setFilter('resource', this)">📁 موارد</button>
+    <button class="filter-btn" onclick="setFilter('cafe', this)">☕ مقاهي ومطاعم</button>
     <button class="filter-btn" onclick="setFilter('other', this)">📌 أخرى</button>
   </div>
 </div>
@@ -651,6 +654,32 @@ const PROJECTS = [
     github: "https://github.com/AhmedBouamoud/-",
     netlify: null,
     site: null
+  },
+  {
+    id: "cafe-empreinte24",
+    name: "Café L'Empreinte 24",
+    desc: "موقع كافيه L'Empreinte 24 بأكادير — مفتوح 24/24، واي فاي، فضاء عمل وأجواء دافئة",
+    icon: "☕",
+    category: "cafe",
+    status: "active",
+    lang: "HTML",
+    updated: "27 يون 2026",
+    github: "https://github.com/AhmedBouamoud/rihla-jihawi",
+    netlify: "https://app.netlify.com/sites/rihla-jihawi",
+    site: "https://rihla-jihawi.netlify.app/cafe-empreinte24/"
+  },
+  {
+    id: "cafe-times-site",
+    name: "Café Times Agadir",
+    desc: "موقع كافيه Times بأكادير — لاونج راقٍ، قائمة طعام، معرض صور وتواصل عبر واتساب",
+    icon: "🫖",
+    category: "cafe",
+    status: "active",
+    lang: "HTML",
+    updated: "27 يون 2026",
+    github: "https://github.com/AhmedBouamoud/rihla-jihawi",
+    netlify: "https://app.netlify.com/sites/rihla-jihawi",
+    site: "https://rihla-jihawi.netlify.app/cafe-times-site/"
   }
 ];
 
