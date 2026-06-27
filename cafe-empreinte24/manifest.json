@@ -1,0 +1,51 @@
+{
+  "name": "Café L'Empreinte 24 — Agadir",
+  "short_name": "L'Empreinte 24",
+  "description": "Café ouvert 24h/24 à Agadir. Wi-Fi ultra rapide, prises électriques, espace de travail et café d'exception.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#24130b",
+  "theme_color": "#24130b",
+  "lang": "fr",
+  "categories": ["food", "lifestyle"],
+  "icons": [
+    {
+      "src": "assets/logo-pro.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/logo-pro.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/exterior-night-pro.png",
+      "sizes": "1920x1280",
+      "type": "image/png",
+      "label": "Café L'Empreinte 24 de nuit"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Appeler",
+      "short_name": "Appeler",
+      "description": "Appeler le café",
+      "url": "tel:+212699685610",
+      "icons": [{ "src": "assets/logo-pro.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Itinéraire",
+      "short_name": "Carte",
+      "description": "Voir l'itinéraire Google Maps",
+      "url": "https://maps.app.goo.gl/iEUNGLP7M42hYFTe9?g_st=ac",
+      "icons": [{ "src": "assets/logo-pro.png", "sizes": "96x96" }]
+    }
+  ]
+}
