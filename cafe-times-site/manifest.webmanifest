@@ -1,0 +1,27 @@
+{
+  "name": "Café Times Agadir",
+  "short_name": "Café Times",
+  "description": "Café Times Agadir — café, petit-déjeuner, jus frais. Menu bilingue AR/FR.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1b110b",
+  "theme_color": "#1b110b",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
