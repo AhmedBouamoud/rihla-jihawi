@@ -1,4 +1,0 @@
-#!/bin/sh
-GRADLE_HOME=/opt/gradle-8.14.3
-APP_HOME="$(cd "$(dirname "$0")" && pwd -P)"
-exec "$GRADLE_HOME/bin/gradle" "$@"
