@@ -29,10 +29,13 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x android-cafe-times/gradlew
 
+      - name: Create local.properties
+        run: echo "sdk.dir=$ANDROID_SDK_ROOT" > android-cafe-times/local.properties
+
       - name: Build Debug APK
         run: |
           cd android-cafe-times
-          ./gradlew assembleDebug --stacktrace
+          ./gradlew assembleDebug --stacktrace --info 2>&1 | tail -100
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
