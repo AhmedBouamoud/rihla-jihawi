@@ -1,32 +1,19 @@
-const CACHE_NAME = 'rihla-jihawi-gold-v19';
-const APP_SHELL = [
-  './',
-  './index.html',
-  './manifest.json',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './assets/logo-rihla.png',
-  './contact.html',
-  './comments.html',
-  './success.html'
-];
-self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)));
-  self.skipWaiting();
+// Café Times service worker — offline support
+const CACHE='cafe-times-v1';
+const ASSETS=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
+self.addEventListener('install',e=>{
+  e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()));
 });
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))))
+self.addEventListener('activate',e=>{
+  e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));
+});
+self.addEventListener('fetch',e=>{
+  if(e.request.method!=='GET')return;
+  e.respondWith(
+    caches.match(e.request).then(r=>r||fetch(e.request).then(resp=>{
+      const copy=resp.clone();
+      caches.open(CACHE).then(c=>{try{c.put(e.request,copy);}catch(_){}}); 
+      return resp;
+    }).catch(()=>caches.match('./index.html')))
   );
-  self.clients.claim();
-});
-self.addEventListener('fetch', event => {
-  const req = event.request;
-  // لا نعترض طلبات POST (نماذج Netlify)
-  if (req.method !== 'GET') return;
-  if (req.mode === 'navigate') {
-    event.respondWith(fetch(req).catch(() => caches.match('./index.html')));
-    return;
-  }
-  event.respondWith(caches.match(req).then(cached => cached || fetch(req)));
 });
