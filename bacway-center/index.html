@@ -116,9 +116,22 @@ ul { list-style: none; }
 .section-header p { font-size: 1.05rem; color: var(--muted); max-width: 580px; margin: 0 auto; }
 .section-dark .section-header p { color: rgba(255,255,255,.65); }
 
-/* Reveal animation */
-.reveal { opacity: 0; transform: translateY(30px); transition: opacity .65s ease, transform .65s ease; }
+/* Reveal animation — below the fold only */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Hero animations — always visible, no observer needed */
+@keyframes heroUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroRight {
+  from { opacity: 0; transform: translateX(36px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.hero-anim-up   { animation: heroUp   .8s ease both; }
+.hero-anim-up2  { animation: heroUp   .8s ease .2s both; }
+.hero-anim-side { animation: heroRight .8s ease .15s both; }
 
 /* ═══════════════════════════════════════════
    NAVBAR
@@ -814,7 +827,7 @@ ul { list-style: none; }
 <section id="accueil" class="hero">
   <div class="container">
     <div class="hero-grid">
-      <div class="reveal">
+      <div class="hero-anim-up">
         <div class="hero-kicker">BAC WAY CENTER · أكادير</div>
         <h2>طريقك نحو <span>النجاح</span><br>يبدأ من هنا</h2>
         <p class="hero-lead">
@@ -850,7 +863,7 @@ ul { list-style: none; }
         </div>
       </div>
 
-      <div class="hero-img-wrap reveal" style="animation-delay:.2s">
+      <div class="hero-img-wrap hero-anim-side">
         <div class="hero-badge2">
           <i class="fa-solid fa-trophy"></i>
           <div>
@@ -1555,8 +1568,16 @@ const revealObserver = new IntersectionObserver((entries) => {
       revealObserver.unobserve(e.target);
     }
   });
-}, { threshold: 0.12 });
+}, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
 reveals.forEach(el => revealObserver.observe(el));
+
+/* Fallback: if any .reveal element is still invisible after 600ms, force-show it */
+setTimeout(() => {
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight + 100) el.classList.add('visible');
+  });
+}, 600);
 
 /* Counter animation */
 function animateCounter(el, target, suffix) {
