@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مكتبة الإنفوغرافيا التعليمية | أحمد بوعمود</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   RESET & VARIABLES
+═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --orange:      #F97316;
+  --orange-dark: #EA6A0A;
+  --orange-glow: rgba(249,115,22,0.18);
+  --blue:        #2563EB;
+  --blue-light:  #3B82F6;
+  --blue-glow:   rgba(37,99,235,0.15);
+  --gold:        #FBBF24;
+
+  --bg:          #0D1117;
+  --bg2:         #161B22;
+  --bg3:         #1C2230;
+  --border:      rgba(255,255,255,0.07);
+  --border2:     rgba(249,115,22,0.25);
+
+  --text:        #E6EDF3;
+  --text-muted:  #8B949E;
+  --text-dim:    #4B5563;
+
+  --radius:      14px;
+  --radius-sm:   8px;
+  --shadow:      0 4px 24px rgba(0,0,0,0.4);
+  --shadow-lg:   0 12px 48px rgba(0,0,0,0.6);
+
+  --font:        'Cairo', 'Tajawal', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════
+   BACKGROUND TEXTURE
+═══════════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(249,115,22,0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(37,99,235,0.06) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ═══════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════ */
+header {
+  position: relative;
+  z-index: 10;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(13,17,23,0.95);
+  backdrop-filter: blur(20px);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 0 20px var(--orange-glow);
+  flex-shrink: 0;
+}
+
+.logo-text h1 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.logo-text span {
+  font-size: 12px;
+  color: var(--orange);
+  font-weight: 600;
+}
+
+.header-stats {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-num {
+  display: block;
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--orange);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════
+   HERO SECTION
+═══════════════════════════════════════════ */
+.hero {
+  position: relative;
+  z-index: 5;
+  padding: 52px 20px 36px;
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: clamp(26px, 5vw, 44px);
+  font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+
+.hero h2 .hl {
+  background: linear-gradient(90deg, var(--orange), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  color: var(--text-muted);
+  font-size: 15px;
+  max-width: 520px;
+  margin: 0 auto 32px;
+}
+
+/* ═══════════════════════════════════════════
+   SEARCH BAR
+═══════════════════════════════════════════ */
+.search-wrap {
+  max-width: 500px;
+  margin: 0 auto 40px;
+  position: relative;
+}
+
+.search-wrap input {
+  width: 100%;
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  padding: 14px 52px 14px 20px;
+  font-family: var(--font);
+  font-size: 15px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  text-align: right;
+}
+
+.search-wrap input:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px var(--orange-glow);
+}
+
+.search-wrap input::placeholder { color: var(--text-dim); }
+
+.search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 17px;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════
+   FILTER TABS
+═══════════════════════════════════════════ */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 0 20px;
+  margin-bottom: 44px;
+}
+
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: var(--font);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: all 0.25s;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.filter-btn:hover {
+  border-color: var(--orange);
+  color: var(--text);
+}
+
+.filter-btn.active {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+  box-shadow: 0 0 16px var(--orange-glow);
+}
+
+.filter-btn .count {
+  background: rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 1px 7px;
+  font-size: 11px;
+}
+
+.filter-btn.active .count {
+  background: rgba(0,0,0,0.2);
+}
+
+/* ═══════════════════════════════════════════
+   SECTION HEADERS
+═══════════════════════════════════════════ */
+.section-header {
+  max-width: 1200px;
+  margin: 0 auto 20px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-header.hidden { display: none; }
+
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg2);
+  border: 1.5px solid var(--border2);
+  border-radius: 50px;
+  padding: 7px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--orange);
+}
+
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to left, transparent, var(--border2) 50%, transparent);
+}
+
+.section-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+
+/* ═══════════════════════════════════════════
+   GRID
+═══════════════════════════════════════════ */
+.grid-container {
+  max-width: 1200px;
+  margin: 0 auto 56px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+/* ═══════════════════════════════════════════
+   CARDS
+═══════════════════════════════════════════ */
+.card {
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.28s cubic-bezier(.34,1.56,.64,1), border-color 0.25s, box-shadow 0.28s;
+  position: relative;
+  animation: fadeUp 0.5s both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.015);
+  border-color: var(--orange);
+  box-shadow: 0 12px 32px rgba(249,115,22,0.15);
+}
+
+.card-img-wrap {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--bg3);
+}
+
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+  padding: 8px;
+}
+
+.card:hover .card-img-wrap img {
+  transform: scale(1.04);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(13,17,23,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.card:hover .card-overlay { opacity: 1; }
+
+.overlay-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+  font-family: var(--font);
+}
+
+.overlay-btn:hover { transform: scale(1.15); }
+
+.overlay-btn.view {
+  background: var(--orange);
+  color: #fff;
+}
+
+.overlay-btn.dl {
+  background: var(--bg2);
+  color: var(--text);
+  border: 1.5px solid var(--border);
+  text-decoration: none;
+}
+
+.card-cat-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.badge-1bac  { background: rgba(249,115,22,0.85); color: #fff; }
+.badge-3ac   { background: rgba(37,99,235,0.85);  color: #fff; }
+.badge-maroc { background: rgba(220,38,38,0.85);  color: #fff; }
+.badge-meth  { background: rgba(22,163,74,0.85);  color: #fff; }
+
+.card-body {
+  padding: 12px 14px 10px;
+}
+
+.card-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 8px;
+  min-height: 38px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+
+.card-section-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dl-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--orange);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s;
+}
+
+.dl-link:hover { color: var(--gold); }
+
+/* hidden / no results */
+.card.hidden { display: none; }
+
+.no-results {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  display: none;
+}
+
+.no-results.show { display: block; }
+
+/* ═══════════════════════════════════════════
+   LIGHTBOX
+═══════════════════════════════════════════ */
+.lb-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  backdrop-filter: blur(8px);
+}
+
+.lb-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.lb-toolbar {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lb-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lb-cat-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.lb-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.lb-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.lb-btn.dl-btn {
+  background: var(--orange);
+  color: #fff;
+}
+
+.lb-btn.dl-btn:hover { background: var(--orange-dark); }
+
+.lb-btn.close-btn {
+  background: var(--bg2);
+  color: var(--text);
+  border: 1.5px solid var(--border);
+}
+
+.lb-btn.close-btn:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.lb-img-area {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  max-height: calc(100vh - 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lb-img-area img {
+  max-width: 100%;
+  max-height: calc(100vh - 140px);
+  object-fit: contain;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.lb-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(13,17,23,0.8);
+  border: 1.5px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--text);
+  transition: all 0.2s;
+  z-index: 2;
+}
+
+.lb-nav:hover {
+  background: var(--orange);
+  border-color: var(--orange);
+}
+
+.lb-prev { right: -56px; }
+.lb-next { left: -56px; }
+
+.lb-counter {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════
+   EMPTY STATE
+═══════════════════════════════════════════ */
+.empty-section {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer {
+  position: relative;
+  z-index: 5;
+  border-top: 1px solid var(--border);
+  padding: 28px 20px;
+  text-align: center;
+}
+
+.footer-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+footer p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 2;
+}
+
+footer strong {
+  color: var(--orange);
+  font-weight: 700;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  font-size: 12px;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--orange); }
+
+/* ═══════════════════════════════════════════
+   SCROLL TO TOP
+═══════════════════════════════════════════ */
+.scroll-top {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  width: 44px;
+  height: 44px;
+  background: var(--orange);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  color: #fff;
+  box-shadow: 0 4px 16px var(--orange-glow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 100;
+  border: none;
+}
+
+.scroll-top.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.scroll-top:hover { transform: scale(1.1); }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 600px) {
+  .header-inner { justify-content: center; text-align: center; }
+  .header-stats { justify-content: center; }
+  .hero h2 { font-size: 24px; }
+  .lb-prev { right: -48px; }
+  .lb-next { left: -48px; }
+  .lb-prev, .lb-next { display: none; }
+  .grid-container { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+}
+
+@media (max-width: 360px) {
+  .grid-container { grid-template-columns: 1fr 1fr; }
+}
+
+/* stagger animation */
+.card:nth-child(1)  { animation-delay:.03s }
+.card:nth-child(2)  { animation-delay:.06s }
+.card:nth-child(3)  { animation-delay:.09s }
+.card:nth-child(4)  { animation-delay:.12s }
+.card:nth-child(5)  { animation-delay:.15s }
+.card:nth-child(6)  { animation-delay:.18s }
+.card:nth-child(7)  { animation-delay:.21s }
+.card:nth-child(8)  { animation-delay:.24s }
+.card:nth-child(n+9){ animation-delay:.27s }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo-area">
+      <div class="logo-icon">📚</div>
+      <div class="logo-text">
+        <h1>مكتبة الإنفوغرافيا التعليمية</h1>
+        <span>الأستاذ أحمد بوعمود</span>
+      </div>
+    </div>
+    <div class="header-stats">
+      <div class="stat"><span class="stat-num" id="totalCount">49</span><span class="stat-label">إنفوغرافيا</span></div>
+      <div class="stat"><span class="stat-num">4</span><span class="stat-label">أقسام</span></div>
+      <div class="stat"><span class="stat-num">2025</span><span class="stat-label">–2026</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" style="position:relative;z-index:5;">
+  <h2>مكتبة <span class="hl">الإنفوغرافيا</span> التعليمية الشاملة</h2>
+  <p>موارد بصرية تعليمية للتاريخ والجغرافيا والتربية المدنية — مناهج المغرب 2025-2026</p>
+
+  <!-- SEARCH -->
+  <div class="search-wrap">
+    <input type="search" id="searchInput" placeholder="ابحث عن إنفوغرافيا..." autocomplete="off">
+    <span class="search-icon">🔍</span>
+  </div>
+</section>
+
+<!-- FILTERS -->
+<div class="filters" id="filters">
+  <button class="filter-btn active" data-cat="all">
+    🌐 الكل <span class="count" id="cnt-all">49</span>
+  </button>
+  <button class="filter-btn" data-cat="1bac">
+    🎓 الأولى باك <span class="count" id="cnt-1bac">7</span>
+  </button>
+  <button class="filter-btn" data-cat="3ac">
+    📚 الثالثة إعدادي <span class="count" id="cnt-3ac">24</span>
+  </button>
+  <button class="filter-btn" data-cat="maroc">
+    🇲🇦 تاريخ المغرب <span class="count" id="cnt-maroc">7</span>
+  </button>
+  <button class="filter-btn" data-cat="meth">
+    📐 المنهجية <span class="count" id="cnt-meth">11</span>
+  </button>
+</div>
+
+<!-- ═══════════ SECTION: 1ÈRE BAC ═══════════ -->
+<div class="section-header" id="hdr-1bac">
+  <div class="section-badge">🎓 الأولى باكالوريا</div>
+  <div class="section-line"></div>
+  <div class="section-count">7 إنفوغرافيا</div>
+</div>
+
+<div class="grid-container" id="grid-1bac">
+  <!-- cards inserted by JS -->
+</div>
+
+<!-- ═══════════ SECTION: 3AC ═══════════ -->
+<div class="section-header" id="hdr-3ac">
+  <div class="section-badge">📚 الثالثة إعدادي</div>
+  <div class="section-line"></div>
+  <div class="section-count">24 إنفوغرافيا</div>
+</div>
+
+<div class="grid-container" id="grid-3ac">
+</div>
+
+<!-- ═══════════ SECTION: MAROC ═══════════ -->
+<div class="section-header" id="hdr-maroc">
+  <div class="section-badge">🇲🇦 تاريخ المغرب</div>
+  <div class="section-line"></div>
+  <div class="section-count">7 إنفوغرافيا</div>
+</div>
+
+<div class="grid-container" id="grid-maroc">
+</div>
+
+<!-- ═══════════ SECTION: METH ═══════════ -->
+<div class="section-header" id="hdr-meth">
+  <div class="section-badge">📐 المنهجية والدعم</div>
+  <div class="section-line"></div>
+  <div class="section-count">11 إنفوغرافيا</div>
+</div>
+
+<div class="grid-container" id="grid-meth">
+</div>
+
+<!-- No Results -->
+<div class="no-results" id="noResults">
+  <p style="font-size:40px">🔍</p>
+  <p style="font-size:18px;font-weight:700;margin-top:12px">لا توجد نتائج</p>
+  <p style="font-size:14px;color:var(--text-dim);margin-top:8px">جرّب البحث بكلمات مختلفة</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p>
+      جميع الحقوق محفوظة © 2026 — <strong>مدرستي.ma</strong><br>
+      الأستاذ <strong>أحمد بوعمود</strong> — مؤسسة الحنان الخاصة
+    </p>
+    <div class="footer-links">
+      <a href="https://rihla-jihawi.netlify.app">رحلة الجهوي</a>
+      <a href="#">الأولى باك</a>
+      <a href="#">الثالثة إعدادي</a>
+      <a href="https://rihla-jihawi.netlify.app/dashboard.html">لوحة المشاريع</a>
+    </div>
+  </div>
+</footer>
+
+<!-- SCROLL TOP -->
+<button class="scroll-top" id="scrollTop" title="العودة للأعلى">↑</button>
+
+<!-- LIGHTBOX -->
+<div class="lb-overlay" id="lb">
+  <div class="lb-toolbar">
+    <div class="lb-title-wrap">
+      <span class="lb-cat-badge badge-1bac" id="lb-badge">الأولى باك</span>
+      <span class="lb-title" id="lb-title">العنوان</span>
+    </div>
+    <div class="lb-actions">
+      <a href="#" class="lb-btn dl-btn" id="lb-dl" download>⬇ حفظ الصورة</a>
+      <button class="lb-btn close-btn" id="lb-close">✕ إغلاق</button>
+    </div>
+  </div>
+  <div class="lb-img-area">
+    <button class="lb-nav lb-prev" id="lb-prev">›</button>
+    <img src="" alt="" id="lb-img">
+    <button class="lb-nav lb-next" id="lb-next">‹</button>
+  </div>
+  <div class="lb-counter" id="lb-counter">1 / 49</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════
+const BASE = 'https://ahmedbouamoud.com/';
+
+const DATA = {
+  '1bac': [
+    { id:'inf01', title:'نضال المغرب من أجل الاستقلال' },
+    { id:'inf03', title:'دليل المنهجية الشاملة — الجغرافيا' },
+    { id:'inf06', title:'دروس التاريخ — التحولات الكبرى' },
+    { id:'inf12', title:'خريطة الصناعة بالولايات المتحدة' },
+    { id:'inf18', title:'خريطة الفلاحة في الولايات المتحدة' },
+    { id:'inf19', title:'خريطة التنمية البشرية في العالم' },
+    { id:'inf44', title:'السياق التاريخي — الأولى باكالوريا' },
+  ],
+  '3ac': [
+    { id:'inf04', title:'المغرب والسلم العالمي' },
+    { id:'inf11', title:'الاتحاد الأوروبي نحو اندماج شامل' },
+    { id:'inf21', title:'الحرب العالمية الثانية' },
+    { id:'inf22', title:'النازية: الصعود والانهيار' },
+    { id:'inf23', title:'القضية الفلسطينية' },
+    { id:'inf24', title:'اليابان: القوة التكنولوجية' },
+    { id:'inf25', title:'نيجيريا: الضعف التنموي' },
+    { id:'inf26', title:'روسيا: رهانات التحول' },
+    { id:'inf07', title:'التجارة مرآة للاقتصاد المغربي' },
+    { id:'inf10', title:'الثورة الفرنسية وليدة الأنوار' },
+    { id:'inf31', title:'كفاح المغرب واستكمال الوحدة الترابية (التفصيلية)' },
+    { id:'inf32', title:'كفاح المغرب واستكمال الوحدة الترابية (المبسطة)' },
+    { id:'inf33', title:'ظاهرة الأنظمة الديكتاتورية: دراسة حالة النازية' },
+    { id:'inf34', title:'الاتحاد الأوروبي نحو اندماج شامل (المفصّلة)' },
+    { id:'inf35', title:'تقييم في التاريخ: الحرب العالمية الثانية' },
+    { id:'inf36', title:'اليابان: قوة تكنولوجية رائدة' },
+    { id:'inf37', title:'الحفاظ على التراث وتطويره' },
+    { id:'inf38', title:'مصر: نموذج تنموي عربي' },
+    { id:'inf39', title:'مكون الجغرافيا: موضوع مقالي 20ن' },
+    { id:'inf45', title:'تطبيقات الرسوم البيانية: الأقطاب الاقتصادية الكبرى' },
+    { id:'inf46', title:'تطبيقات الرسوم البيانية: المغرب والتنمية' },
+    { id:'inf47', title:'تطبيقات الرسوم البيانية: تمارين (بدون إجابات)' },
+    { id:'inf48', title:'تطبيقات الرسوم البيانية: تمارين (مع رسوم ناقصة)' },
+    { id:'inf49', title:'تطبيقات الرسوم البيانية: تمارين (مع الإجابات النموذجية)' },
+  ],
+  'maroc': [
+    { id:'inf08', title:'كرونولوجيا تاريخ المغرب' },
+    { id:'inf27', title:'مراحل الحماية بالمغرب' },
+    { id:'inf28', title:'المقاومة المسلحة' },
+    { id:'inf13', title:'الموارد البحرية بالمغرب' },
+    { id:'inf14', title:'الموارد البحرية (تفصيلية)' },
+    { id:'inf15', title:'الغطاء النباتي بالمغرب' },
+    { id:'inf16', title:'الأحواض المائية بالمغرب' },
+  ],
+  'meth': [
+    { id:'inf02', title:'طريقة رسم المبيان' },
+    { id:'inf29', title:'كيف تكتب موضوعاً مقالياً؟' },
+    { id:'inf30', title:'منهجية تحليل الوثيقة' },
+    { id:'inf20', title:'عناصر الإجابة (نموذج 2012)' },
+    { id:'inf05', title:'المسابقة الثقافية الكبرى' },
+    { id:'inf09', title:'قصة التحولات الكبرى' },
+    { id:'inf40', title:'ترسيخ مهارات وقدرات إنجاز المبيانات' },
+    { id:'inf41', title:'منهجية رسم ووصف الرسوم البيانية' },
+    { id:'inf42', title:'دليل المنهجية الشاملة — مادة التاريخ' },
+    { id:'inf43', title:'كيف أحدد السياق التاريخي؟' },
+    { id:'inf44', title:'السياق التاريخي — الأولى باكالوريا' }, // shared
+  ],
+};
+
+const CAT_LABELS = {
+  '1bac':  { label: 'الأولى باك',    badge: 'badge-1bac' },
+  '3ac':   { label: 'الثالثة إعدادي', badge: 'badge-3ac' },
+  'maroc': { label: 'تاريخ المغرب',  badge: 'badge-maroc' },
+  'meth':  { label: 'المنهجية',       badge: 'badge-meth' },
+};
+
+// ═══════════════════════════════════════════
+// BUILD CARDS
+// ═══════════════════════════════════════════
+let allCards = []; // {el, cat, title}
+
+function buildGrid() {
+  for (const [cat, items] of Object.entries(DATA)) {
+    // skip meth inf44 duplicate already in 1bac
+    const filtered = cat === 'meth' ? items.filter(x => x.id !== 'inf44') : items;
+    const grid = document.getElementById('grid-' + cat);
+    for (const item of filtered) {
+      const imgUrl  = BASE + item.id + '.png';
+      const { label, badge } = CAT_LABELS[cat];
+
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.dataset.cat   = cat;
+      card.dataset.title = item.title;
+      card.dataset.img   = imgUrl;
+      card.dataset.id    = item.id;
+
+      card.innerHTML = `
+        <div class="card-img-wrap">
+          <img src="${imgUrl}" alt="${item.title}" loading="lazy">
+          <span class="card-cat-badge ${badge}">${label}</span>
+          <div class="card-overlay">
+            <button class="overlay-btn view" title="عرض">🔍</button>
+            <a class="overlay-btn dl" href="${BASE + item.id + '.png'}" download="${item.id}.png" title="حفظ">⬇</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">${item.title}</div>
+          <div class="card-footer">
+            <span class="card-section-label">${label}</span>
+            <a class="dl-link" href="${BASE + item.id + '.png'}" download="${item.id}.png">⬇ حفظ</a>
+          </div>
+        </div>`;
+
+      card.querySelector('.overlay-btn.view').addEventListener('click', e => {
+        e.stopPropagation();
+        openLightbox(card);
+      });
+      card.addEventListener('click', () => openLightbox(card));
+
+      grid.appendChild(card);
+      allCards.push({ el: card, cat, title: item.title });
+    }
+  }
+  updateCounts();
+}
+
+// ═══════════════════════════════════════════
+// COUNTS
+// ═══════════════════════════════════════════
+function updateCounts() {
+  const visible = allCards.filter(c => !c.el.classList.contains('hidden'));
+  document.getElementById('cnt-all').textContent   = visible.length;
+  document.getElementById('cnt-1bac').textContent  = visible.filter(c=>c.cat==='1bac').length;
+  document.getElementById('cnt-3ac').textContent   = visible.filter(c=>c.cat==='3ac').length;
+  document.getElementById('cnt-maroc').textContent = visible.filter(c=>c.cat==='maroc').length;
+  document.getElementById('cnt-meth').textContent  = visible.filter(c=>c.cat==='meth').length;
+}
+
+// ═══════════════════════════════════════════
+// FILTER
+// ═══════════════════════════════════════════
+let activeCat = 'all';
+let searchVal = '';
+
+function applyFilters() {
+  let anyVisible = false;
+  for (const { el, cat, title } of allCards) {
+    const catOk   = activeCat === 'all' || cat === activeCat;
+    const searchOk = searchVal === '' || title.includes(searchVal);
+    const show     = catOk && searchOk;
+    el.classList.toggle('hidden', !show);
+    if (show) anyVisible = true;
+  }
+
+  // Show/hide section headers
+  const cats = ['1bac','3ac','maroc','meth'];
+  for (const c of cats) {
+    const hdr  = document.getElementById('hdr-' + c);
+    const grid = document.getElementById('grid-' + c);
+    const hasVisible = [...grid.querySelectorAll('.card')].some(el => !el.classList.contains('hidden'));
+    hdr.classList.toggle('hidden', !hasVisible);
+  }
+
+  document.getElementById('noResults').classList.toggle('show', !anyVisible);
+  updateCounts();
+}
+
+// FILTER BUTTONS
+document.getElementById('filters').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeCat = btn.dataset.cat;
+  applyFilters();
+});
+
+// SEARCH
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchVal = e.target.value.trim();
+  applyFilters();
+});
+
+// ═══════════════════════════════════════════
+// LIGHTBOX
+// ═══════════════════════════════════════════
+let lbIndex = 0;
+let lbList  = [];
+
+function getVisibleCards() {
+  return allCards.filter(c => !c.el.classList.contains('hidden'));
+}
+
+function openLightbox(cardEl) {
+  lbList  = getVisibleCards();
+  lbIndex = lbList.findIndex(c => c.el === cardEl);
+  renderLb();
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderLb() {
+  const { el, cat, title } = lbList[lbIndex];
+  const imgUrl = el.dataset.img;
+  document.getElementById('lb-img').src = imgUrl;
+  document.getElementById('lb-img').alt = title;
+  document.getElementById('lb-title').textContent = title;
+  document.getElementById('lb-dl').href = BASE + el.dataset.id + '.png';
+  document.getElementById('lb-dl').download = el.dataset.id + '.png';
+  const { label, badge } = CAT_LABELS[cat];
+  const badgeEl = document.getElementById('lb-badge');
+  badgeEl.textContent = label;
+  badgeEl.className = 'lb-cat-badge ' + badge;
+  document.getElementById('lb-counter').textContent = `${lbIndex+1} / ${lbList.length}`;
+}
+
+function closeLb() {
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('lb-close').addEventListener('click', closeLb);
+document.getElementById('lb').addEventListener('click', e => {
+  if (e.target === document.getElementById('lb')) closeLb();
+});
+document.getElementById('lb-prev').addEventListener('click', () => {
+  lbIndex = (lbIndex + 1) % lbList.length;
+  renderLb();
+});
+document.getElementById('lb-next').addEventListener('click', () => {
+  lbIndex = (lbIndex - 1 + lbList.length) % lbList.length;
+  renderLb();
+});
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lb').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowRight') { lbIndex=(lbIndex+1)%lbList.length; renderLb(); }
+  if (e.key === 'ArrowLeft')  { lbIndex=(lbIndex-1+lbList.length)%lbList.length; renderLb(); }
+});
+
+// Touch swipe
+let touchX = null;
+document.getElementById('lb').addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+document.getElementById('lb').addEventListener('touchend', e => {
+  if (touchX === null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 50) {
+    lbIndex = dx > 0 ? (lbIndex+1)%lbList.length : (lbIndex-1+lbList.length)%lbList.length;
+    renderLb();
+  }
+  touchX = null;
+});
+
+// ═══════════════════════════════════════════
+// SCROLL TOP
+// ═══════════════════════════════════════════
+const scrollBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => {
+  scrollBtn.classList.toggle('show', window.scrollY > 300);
+});
+scrollBtn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+buildGrid();
+</script>
+</body>
+</html>

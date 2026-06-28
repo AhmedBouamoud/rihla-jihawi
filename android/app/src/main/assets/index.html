@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دفتر النصوص V7 الذكي - طباعة درس واحد فقط</title>
+<style>
+:root{--paper:#fff;--ink:#1f2937;--muted:#64748b;--primary:#7c2d12;--primary2:#b45309;--accent:#f59e0b;--line:#fed7aa;--history:#fee2e2;--historyInk:#991b1b;--geo:#dbeafe;--geoInk:#1d4ed8;--support:#dcfce7;--supportInk:#166534;--exam:#fef3c7;--examInk:#92400e;--corr:#ede9fe;--corrInk:#5b21b6;--shadow:0 12px 32px rgba(124,45,18,.12)}
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:radial-gradient(circle at top right,rgba(251,191,36,.24),transparent 34%),linear-gradient(135deg,#fff7ed,#fffbeb);color:var(--ink);line-height:1.62}
+.app{max-width:1580px;margin:22px auto;padding:18px}
+.hero{background:var(--paper);border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:var(--shadow)}
+h1{margin:0;text-align:center;color:var(--primary);font-size:31px}
+.subtitle{text-align:center;color:var(--muted);margin-top:8px;font-size:16px}
+.meta-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:20px}
+.meta-card{background:#fffaf0;border:1px dashed var(--accent);border-radius:15px;padding:10px}
+.meta-card label{display:block;color:var(--primary);font-weight:bold;margin-bottom:4px;font-size:13px}
+input,select,textarea{width:100%;background:#fff;border:1px solid #f3d19c;border-radius:10px;padding:7px 8px;min-height:34px;outline:none;font-family:inherit;font-size:13px}
+textarea{resize:vertical;min-height:56px;line-height:1.5}
+input:focus,select:focus,textarea:focus{border-color:var(--primary2);box-shadow:0 0 0 3px rgba(245,158,11,.16)}
+.toolbar{position:sticky;top:0;z-index:25;background:rgba(255,247,237,.95);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:18px;margin:16px 0;padding:12px;display:grid;grid-template-columns:repeat(10,minmax(120px,1fr));gap:9px;box-shadow:0 6px 20px rgba(124,45,18,.08)}
+button{border:none;border-radius:12px;padding:10px 11px;color:#fff;background:var(--primary);font-weight:bold;cursor:pointer;font-family:inherit;font-size:13px;min-height:38px}
+button:hover{filter:brightness(1.07);transform:translateY(-1px)}
+button.secondary{background:var(--primary2)}button.blue{background:#1d4ed8}button.green{background:#15803d}button.yellow{background:#b45309}button.light{background:#475569}button.danger{background:#b91c1c}
+button.small{padding:6px 8px;font-size:11.5px;min-height:28px;border-radius:8px}
+.notice{background:#fff;border:1px solid var(--line);border-right:6px solid var(--accent);border-radius:18px;padding:13px 15px;color:#374151;margin-bottom:16px;box-shadow:0 4px 14px rgba(124,45,18,.06)}
+.notice strong{color:var(--primary)}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:16px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:10px;text-align:center}
+.stat strong{display:block;font-size:23px;color:var(--primary);line-height:1.1}
+.stat span{color:var(--muted);font-size:12px}
+.print-header{display:none;text-align:center;margin:0 0 8px;border:1px solid #999;padding:7px;font-size:13px}
+.print-value{display:none}
+.table-wrap{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+th,td{border:1px solid #f1cda3;padding:7px;vertical-align:top;font-size:12.6px}
+th{background:#8a2f11;color:#fff;text-align:center;position:sticky;top:72px;z-index:8}
+.section-row td{background:linear-gradient(90deg,#7c2d12,#b45309);color:#fff;font-weight:bold;font-size:15px;padding:11px 13px}
+.section-row.geo td{background:linear-gradient(90deg,#1e3a8a,#2563eb)}
+.lesson-row td{background:#fff7ed;border-top:3px solid var(--accent);padding:9px 11px}.lesson-row.geo td{background:#eff6ff;border-top-color:#3b82f6}
+.lesson-title{font-weight:bold;color:#111827;font-size:13.5px}.domain{color:var(--muted);font-size:12px;margin-top:2px}
+.lesson-actions,.element-actions{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+.pill{display:inline-block;border-radius:999px;padding:3px 8px;font-weight:bold;white-space:nowrap;font-size:11.5px}
+.pill.history{background:var(--history);color:var(--historyInk)}.pill.geo{background:var(--geo);color:var(--geoInk)}.pill.normal{background:#e0f2fe;color:#075985}.pill.support{background:var(--support);color:var(--supportInk)}.pill.exam{background:var(--exam);color:var(--examInk)}.pill.correction{background:var(--corr);color:var(--corrInk)}
+tr.history:not(.section-row):not(.lesson-row){background:linear-gradient(90deg,rgba(254,226,226,.45),transparent 35%)}tr.geo:not(.section-row):not(.lesson-row){background:linear-gradient(90deg,rgba(219,234,254,.45),transparent 35%)}
+tr.support-row{background:linear-gradient(90deg,rgba(220,252,231,.58),transparent 38%)!important}tr.exam-row{background:linear-gradient(90deg,rgba(254,243,199,.68),transparent 38%)!important}tr.correction-row{background:linear-gradient(90deg,rgba(237,233,254,.68),transparent 38%)!important}
+.elements-box{display:flex;flex-direction:column;gap:6px}
+.element-line{display:grid;grid-template-columns:50px 1fr 58px;gap:5px;align-items:start;border:1px solid #fde3bd;border-radius:10px;padding:5px;background:#fff}
+.element-label{font-weight:bold;color:var(--primary);text-align:center;background:#fff7ed;border-radius:8px;padding:6px 3px;min-height:31px}
+.element-line.major{border-right:5px solid var(--primary2);background:#fff7ed}.element-line.minor{border-right:5px solid #2563eb}.element-line.letter{border-right:5px solid #16a34a}
+.element-tools{display:flex;flex-direction:column;gap:4px}.level-select{min-height:28px;padding:4px;font-size:11px}
+.date-col{width:7%}.class-col{width:6%}.comp-col{width:6%}.sem-col{width:6%}.lesson-col{width:14%}.session-col{width:7%}.type-col{width:7%}.elements-col{width:32%}.tools-col{width:8%}.note-col{width:8%}.actions-col{width:6%}
+.actions{display:flex;flex-direction:column;gap:5px}.hidden{display:none!important}
+.smart-panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px;margin-bottom:16px;box-shadow:0 6px 20px rgba(124,45,18,.08)}
+.smart-panel h2{margin:0 0 8px;color:var(--primary);font-size:19px}
+.smart-grid{display:grid;grid-template-columns:1.3fr .7fr .7fr .8fr .8fr;gap:10px;align-items:end}
+.smart-output{margin-top:10px;background:#fff7ed;border:1px solid var(--line);border-radius:14px;padding:10px;max-height:300px;overflow:auto}
+.smart-output .major-preview{font-weight:bold;color:var(--primary);margin-top:6px}
+.smart-output .minor-preview{margin-right:18px;color:#1d4ed8}
+.smart-output .letter-preview{margin-right:36px;color:#166534}
+
+.single-print{
+  display:none;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  overflow:hidden;
+  margin-bottom:14px;
+}
+.single-print-title{
+  background:linear-gradient(90deg,#7c2d12,#b45309);
+  color:#fff;
+  padding:12px 14px;
+  font-weight:bold;
+}
+.single-print-subtitle{
+  padding:8px 12px;
+  background:#fff7ed;
+  border-bottom:1px solid var(--line);
+  color:#374151;
+}
+
+.footer{display:flex;justify-content:space-between;gap:12px;margin:16px 0;color:var(--muted);font-size:12px;flex-wrap:wrap}
+@media(max-width:1100px){.app{padding:10px;margin:8px auto}h1{font-size:23px}.meta-grid,.stats,.smart-grid{grid-template-columns:1fr 1fr}.toolbar{position:static;grid-template-columns:1fr 1fr}.table-wrap{overflow:auto}table{min-width:1600px}th{position:static}}
+@media print{
+body{background:#fff}
+tr.print-hide{display:none!important}
+body.print-one-lesson .table-wrap{
+  display:none!important;
+}
+body.print-one-lesson .single-print{
+  display:block!important;
+  border:none;
+  border-radius:0;
+  box-shadow:none;
+}
+body:not(.print-one-lesson) .single-print{
+  display:none!important;
+}
+body.print-one-lesson .section-row td{
+  background:#7c2d12!important;
+  color:#fff!important;
+}
+body.print-one-lesson .lesson-row td{
+  font-size:11px;
+  font-weight:bold;
+}.app{max-width:none;margin:0;padding:0}.toolbar,.screen-only,.actions-col,.actions,.lesson-actions,.element-actions,.element-tools,.screen-control,.smart-panel{display:none!important}
+.print-header{display:block}.hero{box-shadow:none;border:none;border-radius:0;padding:0 0 7px}h1{font-size:17px}.subtitle{font-size:11px;margin-top:2px}
+.meta-grid{grid-template-columns:repeat(6,1fr);gap:4px;margin-top:6px}.meta-card{min-height:auto;padding:4px;border:1px solid #999;border-radius:0}.meta-card label{font-size:9.5px;margin:0}.meta-card input{border:none;padding:0;min-height:0;font-size:10.5px}.stats,.notice{display:none}
+.table-wrap{box-shadow:none;border:none;border-radius:0}th,td{font-size:9.6px;padding:3.5px;line-height:1.38}th{position:static;background:#8a2f11!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.section-row td{background:#7c2d12!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:11px}.section-row.geo td{background:#1e3a8a!important}.lesson-row td{background:#fff7ed!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.lesson-row.geo td{background:#eff6ff!important}
+.print-value{display:block!important;color:#000;font-size:9.6px;min-height:10px;white-space:normal}.print-value.multiline{white-space:pre-wrap}.pill{padding:1px 4px;border:1px solid #777;color:#000!important;background:#fff!important}
+.elements-box{gap:2px}.element-line{display:grid;grid-template-columns:40px 1fr;border:none;border-radius:0;padding:1px 0;background:transparent!important}.element-label{background:transparent;padding:0;text-align:right;color:#000}.element-line.major .print-value{font-weight:bold}.element-line.major,.element-line.minor,.element-line.letter{border-right:none}
+tr,td,th{page-break-inside:avoid}.footer{font-size:9.5px;margin:5px 0}@page{size:A4 landscape;margin:6mm}
+}
+</style>
+</head>
+<body>
+<main class="app">
+<section class="hero">
+<h1>دفتر النصوص V7 الذكي لمادة الاجتماعيات</h1>
+<div class="subtitle">الجذع المشترك العلمي | تلصق الدرس كاملاً، يقسمه على الحصص، ويمكنك طباعة درس واحد فقط دون ظهور باقي الدروس</div>
+<div class="meta-grid">
+<div class="meta-card"><label>الأستاذ</label><input id="teacherName" value="أحمد بوعمود" oninput="saveMeta()"></div>
+<div class="meta-card"><label>المؤسسة</label><input id="schoolName" value="مؤسسة الحنان" oninput="saveMeta()"></div>
+<div class="meta-card"><label>الموسم الدراسي</label><input id="schoolYear" value="2026 / 2027" oninput="saveMeta()"></div>
+<div class="meta-card"><label>القسم المراد طباعته</label><input id="globalClass" placeholder="مثال: TCS 1" oninput="saveMeta();updatePrintHeader()"></div>
+<div class="meta-card"><label>المستوى</label><input id="levelName" value="الجذع المشترك العلمي" oninput="saveMeta()"></div>
+<div class="meta-card"><label>المادة</label><input id="subjectName" value="التاريخ والجغرافيا" oninput="saveMeta()"></div>
+</div>
+<div class="stats">
+<div class="stat"><strong id="statLessons">0</strong><span>دروس</span></div>
+<div class="stat"><strong id="statSessions">0</strong><span>حصص</span></div>
+<div class="stat"><strong id="statElements">0</strong><span>عناصر</span></div>
+<div class="stat"><strong id="statSpecial">0</strong><span>دعم/فروض</span></div>
+<div class="stat"><strong id="statPrintedClass">—</strong><span>القسم</span></div>
+</div>
+</section>
+
+<div class="toolbar screen-only">
+<button onclick="printFullJournal()">طباعة الدفتر كاملاً</button>
+<select id="printLessonSelect"></select>
+<button class="blue" onclick="printSelectedLesson()">طباعة الدرس المختار</button>
+<select id="filterComponent" onchange="render()"><option value="all">كل المكونات</option><option value="التاريخ">التاريخ فقط</option><option value="الجغرافيا">الجغرافيا فقط</option></select>
+<select id="filterSemester" onchange="render()"><option value="all">كل الأسدوسين</option><option value="الأسدوس الأول">الأسدوس الأول</option><option value="الأسدوس الثاني">الأسدوس الثاني</option></select>
+<select id="targetSessionCount"><option value="2">حصتان لكل درس</option><option value="3">3 حصص لكل درس</option><option value="4">4 حصص لكل درس</option></select>
+<button class="blue" onclick="ensureNormalSessionsForAll()">تطبيق الحصص</button>
+<button class="green" onclick="fillClassAll(false)">تعميم القسم</button>
+<button class="secondary" onclick="fillClassAll(true)">استبدال الأقسام</button>
+<button class="yellow" onclick="exportBackup()">نسخ احتياطي</button>
+<button class="light" onclick="importBackup()">استرجاع</button>
+<button class="danger" onclick="resetAll()">إرجاع الأصل</button>
+</div>
+
+<section class="smart-panel screen-only">
+<h2>المساعد الذكي للدرس الكامل وتقسيم الحصص</h2>
+<div class="notice" style="margin-bottom:10px"><strong>كيف يعمل؟</strong> ألصق الدرس كاملاً كما هو: مقدمة، فقرات، عناوين، شرح، أمثلة، وخلاصة. سيستخرج المساعد عناصره الأساسية ثم يقسمها على حصتين أو ثلاث أو أربع حصص. هذا ذكاء محلي يعمل بدون إنترنت أو مفتاح API.</div>
+<div class="smart-grid">
+<div>
+<label>الصق الدرس كاملاً هنا</label>
+<textarea id="smartInput" placeholder="مثال: الصق هنا الدرس كاملاً كما كتبته في الجذاذة أو الملخص: المقدمة، الشرح، العناوين، الفقرات، والخلاصة..."></textarea>
+</div>
+<div>
+<label>نمط التحليل</label>
+<select id="smartMode">
+<option value="full">درس كامل: استخراج وتقسيم</option>
+<option value="auto">عناصر خام/مختصرة</option>
+<option value="2">عنصران كبيران</option>
+<option value="3">ثلاثة عناصر كبرى</option>
+<option value="lessonTitle">من عنوان الدرس فقط</option>
+</select>
+</div>
+<div>
+<label>عدد الحصص</label>
+<select id="smartSessionCount">
+<option value="2">حصتان</option>
+<option value="3">ثلاث حصص</option>
+<option value="4">أربع حصص</option>
+</select>
+</div>
+<div>
+<label>تطبيق على درس</label>
+<select id="smartLessonTarget"></select>
+</div>
+<div>
+<label>أو إدراج في حصة واحدة</label>
+<select id="smartTarget"></select>
+</div>
+<div>
+<button class="blue" onclick="previewSmart()">حلّل وقسّم</button>
+<button class="green" style="margin-top:8px" onclick="applySmartToLesson()">طبّق على الدرس</button>
+<button class="secondary" style="margin-top:8px" onclick="applySmart()">أدرج في حصة واحدة</button>
+</div>
+</div>
+<div id="smartOutput" class="smart-output">سيظهر هنا التقسيم المقترح حسب عدد الحصص.</div>
+</section>
+
+<div class="print-header" id="printHeader"></div>
+<section id="singleLessonPrint" class="single-print"></section>
+
+<section class="table-wrap">
+<table id="journalTable">
+<thead><tr>
+<th class="date-col">تاريخ الحصة</th><th class="class-col">القسم</th><th class="comp-col">المكون</th><th class="sem-col">الأسدوس</th><th class="lesson-col">الدرس</th><th class="session-col">الحصة</th><th class="type-col">النوع</th><th class="elements-col">عناصر الدرس</th><th class="tools-col">الوسائل والأنشطة</th><th class="note-col">ملاحظات</th><th class="actions-col screen-only">تدبير</th>
+</tr></thead>
+<tbody id="journalBody"></tbody>
+</table>
+</section>
+<div class="footer"><div>إعداد: الأستاذ أحمد بوعمود</div><div>V7: طباعة الدرس المختار فقط عبر جدول مستقل للطباعة، دون ظهور باقي الدروس.</div></div>
+</main>
+
+<script>
+const INITIAL_PROGRAM = [{"semester": "الأسدوس الأول", "component": "التاريخ", "domain": "العالم المتوسطي خلال القرنين 15م و16م", "lessons": [{"title": "العالم المتوسطي في القرنين 15م و18م", "sessions": ["تحديد الإطار الزمني والمجالي للعالم المتوسطي وقراءة خريطة المجال المتوسطي وخط زمني عام.", "استخلاص خصائص التفاعل والتحول بين ضفتي المتوسط وبناء تركيب حول مقدمات التحولات الكبرى."]}, {"title": "التحولات الفكرية والعلمية والفنية: الحركة الإنسية", "sessions": ["تعرف مفهوم الحركة الإنسية وظروف ظهورها وانتشارها ومبادئها الأساسية وروادها.", "استخلاص مظاهر التحولات العلمية والفنية وأثرها في تطور الفكر الأوروبي الحديث."]}, {"title": "التحولات السياسية والاجتماعية في أوربا خلال القرنين 15 و16م", "sessions": ["رصد التحولات الاجتماعية بأوربا: تراجع الإقطاع، نمو المدن، وبروز البورجوازية.", "تعرف التحولات السياسية: تشكل الدولة الحديثة، الدولة الأمة، والميثاق السياسي."]}, {"title": "الاكتشافات الجغرافية وظاهرة الميركانتيلية", "sessions": ["تحديد دوافع الاكتشافات الجغرافية ووسائلها ومراحلها الكبرى اعتماداً على خريطة ووثائق.", "استخلاص نتائج الاكتشافات الجغرافية وشرح مبادئ الفكر الميركانتيلي وآثاره الاقتصادية."]}, {"title": "المد الإسلامي: امتداد النفوذ العثماني وبداية التدخل الأوربي", "sessions": ["تعرف عوامل ومراحل امتداد النفوذ العثماني في حوض البحر المتوسط.", "رصد بدايات التدخل الأوربي في العالم الإسلامي ومظاهره ونتائجه الأولى."]}, {"title": "التطورات السياسية والاجتماعية في العالم الإسلامي", "sessions": ["دراسة التنظيم السياسي والاجتماعي بالإمبراطورية العثمانية خلال القرنين 15 و16م.", "دراسة الأوضاع السياسية والاجتماعية بالمغرب السعدي ومقارنتها بالسياق الإسلامي العام."]}, {"title": "التطورات الاقتصادية في العالم الإسلامي", "sessions": ["رصد مظاهر النشاط الاقتصادي في الإمبراطورية العثمانية والمغرب: الفلاحة، الصناعة، التجارة.", "تفسير أثر تحولات التجارة العالمية والاكتشافات الجغرافية في اقتصاد العالم الإسلامي."]}]}, {"semester": "الأسدوس الأول", "component": "الجغرافيا", "domain": "المجال الطبيعي والبشري: مفاهيم وأدوات أولية", "lessons": [{"title": "الجغرافيا: الموضوع، الوظيفة، الأدوات", "sessions": ["تعرف موضوع الجغرافيا ومجالات اهتمامها ووظائفها في فهم تنظيم المجال.", "تعرف أدوات الجغرافي وخطوات النهج الجغرافي من خلال وثائق: خريطة، مبيان، صورة، نص."]}, {"title": "المجموعات البنيوية الكبرى وأشكال التضاريس", "sessions": ["تعرف البنية الجيولوجية للأرض والمجموعات البنيوية الكبرى وتوزيعها المجالي.", "ربط البنيات الجيولوجية بأشكال التضاريس الكبرى: الجبال، الهضاب، السهول، الأحواض."]}, {"title": "النطاقات المناخية والغطاء النباتي في العالم: مقابلة بين خريطتين", "sessions": ["تعرف عناصر المناخ وعوامله وقراءة خريطة النطاقات المناخية في العالم.", "مقابلة خريطة المناخ بخريطة الغطاء النباتي واستخلاص العلاقة بين المناخ والنبات."]}, {"title": "السكان: التوزع", "sessions": ["وصف توزيع السكان في العالم باستعمال خريطة الكثافات السكانية ومؤشرات عامة.", "تفسير تفاوت التوزيع السكاني بالعوامل الطبيعية والاقتصادية والتاريخية واستخلاص النتائج."]}, {"title": "أشكال استغلال الإنسان للمجال في الأرياف", "sessions": ["تعرف خصائص المجال الريفي وأهم أشكال استغلاله: الفلاحة، الرعي، الغابة، الماء.", "تحليل تحولات الأرياف وإكراهاتها البيئية والاقتصادية والاجتماعية من خلال وثائق."]}, {"title": "أشكال استغلال الإنسان للمجال في المدن", "sessions": ["تعرف المجال الحضري ووظائف المدينة وبنيتها ومؤشرات التمدين.", "تحليل أشكال استغلال المجال الحضري ومشكلاته: السكن، النقل، التلوث، التوسع."]}, {"title": "تقنيات رسم خرائط المجال الريفي والحضري: تمثيل المعطيات النوعية والكمية", "sessions": ["تعرف قواعد قراءة وإنجاز الخريطة واختيار الرموز المناسبة للمعطيات النوعية.", "إنجاز تمثيل خرائطي لمعطيات كمية حول مجال ريفي أو حضري مع احترام عناصر الخريطة."]}]}, {"semester": "الأسدوس الثاني", "component": "التاريخ", "domain": "العالم خلال القرنين 17م و18م", "lessons": [{"title": "عصر الأنوار: الفكر الإنجليزي والفكر الفرنسي", "sessions": ["تعرف مفهوم عصر الأنوار وسياقه التاريخي ومبادئه الفكرية والسياسية العامة.", "دراسة نماذج من رواد الفكر الإنجليزي والفرنسي وأثر أفكارهم في التحولات السياسية."]}, {"title": "الثورات الاجتماعية والسياسية: الثورة الفرنسية", "sessions": ["رصد أسباب الثورة الفرنسية السياسية والاقتصادية والاجتماعية والفكرية.", "تتبع مراحل الثورة الفرنسية واستخلاص نتائجها السياسية والاجتماعية والفكرية."]}, {"title": "انطلاقة الثورة الصناعية: التطور التقني والانعكاسات على البنية الاجتماعية", "sessions": ["تعرف عوامل انطلاق الثورة الصناعية ومظاهر التطور التقني في إنجلترا وأوربا.", "تحليل الانعكاسات الاقتصادية والاجتماعية للثورة الصناعية على الإنتاج والمجتمع."]}, {"title": "الأوضاع العامة في العالم الإسلامي خلال القرنين 17 و18م", "sessions": ["رصد مظاهر التراجع السياسي والعسكري والاقتصادي في الإمبراطورية العثمانية.", "تعرف أوضاع المغرب والعالم الإسلامي خلال القرنين 17 و18م وربطها بمظاهر الضعف العام."]}, {"title": "تصاعد الضغوط الأوربية على العالم الإسلامي", "sessions": ["تعرف أشكال الضغوط الأوربية: تجارية، دبلوماسية، عسكرية، وامتيازات قنصلية.", "تفسير نتائج الضغوط الأوربية ومؤشرات اختلال موازين القوى بين أوربا والعالم الإسلامي."]}, {"title": "بداية محاولات الإصلاح وحدودها", "sessions": ["تعرف دوافع محاولات الإصلاح ومجالاتها في الدولة العثمانية والمغرب.", "استخلاص حدود الإصلاح ومعيقاته وربطها بتصاعد التدخل الأوربي."]}]}, {"semester": "الأسدوس الثاني", "component": "الجغرافيا", "domain": "البيئة: الاختلالات والتدابير", "lessons": [{"title": "المنظومة البيئية: مفهومها، أسس توازنها والتعريف بأنواعها", "sessions": ["تعرف مفهوم المنظومة البيئية ومكوناتها الحية وغير الحية والعلاقات بينها.", "استخلاص أسس توازن المنظومات البيئية وأنواعها والعوامل المؤدية إلى اختلالها."]}, {"title": "ملف حول كارثة طبيعية: الزلازل في المغرب", "sessions": ["بناء ملف حول الزلازل: المفهوم، التوزيع المجالي، الأسباب الطبيعية، ومناطق الخطر.", "تحليل آثار الزلازل بالمغرب وإبراز إجراءات الوقاية والتدبير قبل وأثناء وبعد الكارثة."]}, {"title": "ملف حول كارثة بيئية: الاحتباس الحراري", "sessions": ["تعرف مفهوم الاحتباس الحراري وأسبابه البشرية والطبيعية ومؤشراته المناخية.", "تحليل آثار الاحتباس الحراري واقتراح تدابير للحد منه والتكيف مع نتائجه."]}, {"title": "الإجراءات والتدابير التشريعية والتقنية", "sessions": ["تعرف الحاجة إلى التشريع البيئي وأمثلة من القوانين والمؤسسات المعنية بحماية البيئة.", "رصد تدابير تقنية لحماية البيئة: معالجة النفايات، الطاقات المتجددة، مراقبة التلوث."]}, {"title": "الإجراءات والتدابير التربوية", "sessions": ["إبراز دور التربية البيئية والمدرسة والأسرة والإعلام في ترسيخ السلوك البيئي.", "إنجاز نشاط تحسيسي أو ميثاق بيئي للقسم حول ترشيد الماء والطاقة وحماية المحيط."]}, {"title": "الإجراءات والتدابير على مستوى تنظيم المجال", "sessions": ["تعرف علاقة تنظيم المجال بالحد من الاختلالات البيئية والمخاطر الطبيعية والبشرية.", "دراسة أمثلة: التخطيط الحضري، المناطق المحمية، تدبير النفايات، وتهيئة المجالات الهشة."]}, {"title": "دور الجمعيات والمنظمات غير الحكومية في حماية البيئة", "sessions": ["تعرف أدوار الجمعيات والمنظمات غير الحكومية في التوعية والترافع والمراقبة والمبادرة.", "دراسة مبادرات بيئية واقتراح مشروع محلي قابل للإنجاز داخل المؤسسة أو محيطها."]}]}];
+const STORAGE_STATE="journal_tcs_hg_v5_full_lesson_sessions_state";
+const STORAGE_META="journal_tcs_hg_v5_full_lesson_sessions_meta";
+let state=[], lastSmartElements=[];
+const ORDINALS=["أولاً","ثانياً","ثالثاً","رابعاً","خامساً","سادساً","سابعاً","ثامناً","تاسعاً","عاشراً"];
+const LETTERS=["أ","ب","ج","د","هـ","و","ز","ح","ط","ي"];
+function uid(){return Math.random().toString(36).slice(2)+Date.now().toString(36)}
+function esc(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;")}
+function attr(v){return esc(v).replaceAll("'","&#39;")}
+function defaultElements(text,i){return[{id:uid(),level:"major",text:i===0?"بناء التعلمات الأساسية":"تعميق التعلمات والتركيب"},{id:uid(),level:"minor",text:text},{id:uid(),level:"letter",text:"استثمار الوثائق الداعمة للدرس."},{id:uid(),level:"letter",text:i===0?"صياغة خلاصة مرحلية.":"إنجاز تركيب أو تقويم قصير."}]}
+function makeState(){let n=1;return INITIAL_PROGRAM.map(b=>({semester:b.semester,component:b.component,domain:b.domain,lessons:b.lessons.map(l=>({id:uid(),number:n++,title:l.title,sessions:l.sessions.map((t,i)=>({id:uid(),date:"",className:"",kind:"normal",label:"الحصة "+(i+1),type:"حصة عادية",elements:defaultElements(t,i),tools:"وثائق متنوعة، خريطة/نص/مبيان، أسئلة موجهة، تركيب مرحلي.",note:""}))}))}))}
+function loadState(){let s=localStorage.getItem(STORAGE_STATE);if(s){try{state=JSON.parse(s);return}catch(e){}}state=makeState()}
+function saveState(){localStorage.setItem(STORAGE_STATE,JSON.stringify(state));updateStats();updateSmartTargets()}
+function saveMeta(){localStorage.setItem(STORAGE_META,JSON.stringify({teacherName:teacherName.value,schoolName:schoolName.value,schoolYear:schoolYear.value,globalClass:globalClass.value,levelName:levelName.value,subjectName:subjectName.value}));updateStats();updatePrintHeader()}
+function loadMeta(){let s=localStorage.getItem(STORAGE_META);if(!s)return;try{let m=JSON.parse(s);Object.keys(m).forEach(k=>{let el=document.getElementById(k);if(el)el.value=m[k]})}catch(e){}}
+function findLesson(id){for(const b of state)for(const l of b.lessons)if(l.id===id)return{block:b,lesson:l};return null}
+function findSession(id){for(const b of state)for(const l of b.lessons){const s=l.sessions.find(x=>x.id===id);if(s)return{block:b,lesson:l,session:s}}return null}
+function findElement(id){for(const b of state)for(const l of b.lessons)for(const s of l.sessions){const e=s.elements.find(x=>x.id===id);if(e)return{block:b,lesson:l,session:s,element:e}}return null}
+function labelFor(level,c){if(level==="major"){c.major++;c.minor=0;c.letter=0;return(ORDINALS[c.major-1]||c.major+"-")+":"}if(level==="minor"){c.minor++;c.letter=0;return c.minor+"-"}c.letter++;return(LETTERS[c.letter-1]||c.letter)+"-"}
+function renderElements(s){let c={major:0,minor:0,letter:0};let h='<div class="elements-box">';s.elements.forEach(e=>{let lab=labelFor(e.level,c);h+=`<div class="element-line ${e.level}"><div class="element-label">${esc(lab)}</div><div><textarea class="screen-control" oninput="updateElement('${e.id}','text',this.value)">${esc(e.text)}</textarea><span class="print-value multiline">${esc(e.text)}</span></div><div class="element-tools screen-only"><select class="level-select" onchange="updateElement('${e.id}','level',this.value)"><option value="major" ${e.level==="major"?"selected":""}>كبير</option><option value="minor" ${e.level==="minor"?"selected":""}>فرعي</option><option value="letter" ${e.level==="letter"?"selected":""}>أ ب ج</option></select><button class="small danger" onclick="deleteElement('${e.id}')">حذف</button></div></div>`});h+=`<div class="element-actions screen-only"><button class="small secondary" onclick="addElement('${s.id}','major')">+ أولاً كبير</button><button class="small blue" onclick="addElement('${s.id}','minor')">+ 1 فرعي</button><button class="small green" onclick="addElement('${s.id}','letter')">+ أ ب ج</button><button class="small yellow" onclick="smartFromSession('${s.id}')">رتب بذكاء</button></div></div>`;return h}
+function kindClass(k){return k==="support"?"support":k==="exam"?"exam":k==="correction"?"correction":"normal"}
+function rowClass(comp,k){let c=comp==="التاريخ"?"history":"geo";if(k==="support")c+=" support-row";if(k==="exam")c+=" exam-row";if(k==="correction")c+=" correction-row";return c}
+function nextNormal(l){return"الحصة "+(l.sessions.filter(s=>s.kind==="normal").length+1)}
+function addElement(sid,level){let f=findSession(sid);if(!f)return;f.session.elements.push({id:uid(),level,text:level==="major"?"عنصر كبير جديد":level==="minor"?"عنصر فرعي جديد":"تفريع جديد"});saveState();render()}
+function updateElement(id,key,val){let f=findElement(id);if(!f)return;f.element[key]=val;saveState()}
+function deleteElement(id){let f=findElement(id);if(!f)return;if(f.session.elements.length<=1){alert("يجب أن يبقى عنصر واحد على الأقل.");return}f.session.elements=f.session.elements.filter(e=>e.id!==id);saveState();render()}
+function updateSession(id,key,val){let f=findSession(id);if(!f)return;f.session[key]=val;saveState()}
+function addSession(lessonId,kind){let f=findLesson(lessonId);if(!f)return;let l=f.lesson,label=nextNormal(l),type="حصة عادية",elements=[{id:uid(),level:"major",text:"امتداد أو تعميق عناصر الدرس"},{id:uid(),level:"minor",text:"تحديد موضوع الحصة ومقاطعها حسب تقدم التعلمات."},{id:uid(),level:"letter",text:"استثمار وثائق أو تطبيقات داعمة."}],tools="وثائق إضافية، تمارين تطبيقية، عمل جماعي، تقويم مرحلي.";if(kind==="support"){label="دعم ومعالجة";type="حصة دعم";elements=[{id:uid(),level:"major",text:"دعم ومعالجة التعثرات"},{id:uid(),level:"minor",text:"رصد التعثرات المرتبطة بمفاهيم الدرس ومنهجيته."},{id:uid(),level:"letter",text:"تمارين تطبيقية قصيرة."},{id:uid(),level:"letter",text:"تصحيح جماعي وتثبيت التعلمات."}];tools="روائز قصيرة، تمارين تطبيقية، عمل فردي/جماعي، شبكة تتبع."}if(kind==="exam"){label="فرض محروس";type="فرض محروس";elements=[{id:uid(),level:"major",text:"إنجاز فرض محروس"},{id:uid(),level:"minor",text:"تقويم مكتسبات المتعلمين في مكون التاريخ أو الجغرافيا."},{id:uid(),level:"letter",text:"احترام مدة الإنجاز والتعليمات."}];tools="موضوع الفرض، أوراق التحرير، سلم التنقيط."}if(kind==="correction"){label="تصحيح الفرض";type="تصحيح ودعم";elements=[{id:uid(),level:"major",text:"تصحيح الفرض ومعالجة الأخطاء"},{id:uid(),level:"minor",text:"عرض عناصر الإجابة ومعايير التنقيط."},{id:uid(),level:"letter",text:"تحليل الأخطاء الشائعة."},{id:uid(),level:"letter",text:"تقديم توجيهات منهجية للدعم."}];tools="عناصر التصحيح، نماذج أجوبة، شبكة الأخطاء المتكررة."}l.sessions.push({id:uid(),date:"",className:globalClass.value.trim(),kind,label,type,elements,tools,note:""});saveState();render()}
+function duplicateSession(id){let f=findSession(id);if(!f)return;let c=JSON.parse(JSON.stringify(f.session));c.id=uid();c.date="";c.elements=c.elements.map(e=>({...e,id:uid()}));c.label=f.session.kind==="normal"?nextNormal(f.lesson):f.session.label+" إضافية";f.lesson.sessions.push(c);saveState();render()}
+function deleteSession(id){let f=findSession(id);if(!f)return;if(f.lesson.sessions.length<=1){alert("لا يمكن حذف كل حصص الدرس.");return}if(!confirm("هل تريد حذف هذه الحصة؟"))return;f.lesson.sessions=f.lesson.sessions.filter(s=>s.id!==id);saveState();render()}
+function changeKind(id,k){let f=findSession(id);if(!f)return;f.session.kind=k;if(k==="normal")f.session.type="حصة عادية";else if(k==="support"){f.session.type="حصة دعم";f.session.label="دعم ومعالجة"}else if(k==="exam"){f.session.type="فرض محروس";f.session.label="فرض محروس"}else{f.session.type="تصحيح ودعم";f.session.label="تصحيح الفرض"}saveState();render()}
+function render(){let body=journalBody,cf=filterComponent.value,sf=filterSemester.value,h="";for(const b of state){let visible=(cf==="all"||b.component===cf)&&(sf==="all"||b.semester===sf);if(!visible)continue;let sc=b.component==="التاريخ"?"history":"geo";h+=`<tr class="section-row ${sc}" data-section="${esc(b.component+'|'+b.semester)}"><td colspan="11"><strong>${esc(b.semester)}</strong> | ${esc(b.component)} | ${esc(b.domain)}</td></tr>`;for(const l of b.lessons){h+=`<tr class="lesson-row ${sc}" data-lesson="${l.id}" data-section="${esc(b.component+'|'+b.semester)}"><td colspan="11"><div class="lesson-title">الدرس ${l.number}: ${esc(l.title)}</div><div class="domain">${esc(b.domain)}</div><div class="lesson-actions screen-only"><button class="small blue" onclick="addSession('${l.id}','normal')">+ حصة عادية</button><button class="small green" onclick="addSession('${l.id}','support')">+ دعم</button><button class="small yellow" onclick="addSession('${l.id}','exam')">+ فرض</button><button class="small light" onclick="addSession('${l.id}','correction')">+ تصحيح</button></div></td></tr>`;for(const s of l.sessions){let rc=rowClass(b.component,s.kind),kp=kindClass(s.kind),cp=b.component==="التاريخ"?"history":"geo";h+=`<tr class="${rc}" data-lesson="${l.id}" data-section="${esc(b.component+'|'+b.semester)}"><td><input class="screen-control" type="date" value="${attr(s.date)}" onchange="updateSession('${s.id}','date',this.value)"><span class="print-value">${esc(s.date)}</span></td><td><input class="screen-control" value="${attr(s.className)}" placeholder="القسم" oninput="updateSession('${s.id}','className',this.value)"><span class="print-value">${esc(s.className)}</span></td><td><span class="pill ${cp}">${esc(b.component)}</span></td><td>${esc(b.semester)}</td><td>${esc(l.title)}</td><td><input class="screen-control" value="${attr(s.label)}" oninput="updateSession('${s.id}','label',this.value)"><span class="print-value">${esc(s.label)}</span></td><td><span class="pill ${kp}">${esc(s.type)}</span><select class="screen-only" style="margin-top:5px" onchange="changeKind('${s.id}',this.value)"><option value="normal" ${s.kind==="normal"?"selected":""}>عادية</option><option value="support" ${s.kind==="support"?"selected":""}>دعم</option><option value="exam" ${s.kind==="exam"?"selected":""}>فرض</option><option value="correction" ${s.kind==="correction"?"selected":""}>تصحيح</option></select></td><td>${renderElements(s)}</td><td><textarea class="screen-control" oninput="updateSession('${s.id}','tools',this.value)">${esc(s.tools)}</textarea><span class="print-value multiline">${esc(s.tools)}</span></td><td><textarea class="screen-control" oninput="updateSession('${s.id}','note',this.value)">${esc(s.note)}</textarea><span class="print-value multiline">${esc(s.note)}</span></td><td class="actions-col screen-only"><div class="actions"><button class="small light" onclick="duplicateSession('${s.id}')">نسخ</button><button class="small danger" onclick="deleteSession('${s.id}')">حذف</button></div></td></tr>`}}}body.innerHTML=h;updateStats();updateSmartTargets();updatePrintHeader()}
+function ensureNormalSessionsForAll(){let target=Number(targetSessionCount.value),cls=globalClass.value.trim();state.forEach(b=>b.lessons.forEach(l=>{let n=l.sessions.filter(s=>s.kind==="normal").length;while(n<target){n++;l.sessions.push({id:uid(),date:"",className:cls,kind:"normal",label:"الحصة "+n,type:"حصة عادية",elements:[{id:uid(),level:"major",text:n===3?"تعميق عناصر الدرس":"تقويم وتركيب إضافي"},{id:uid(),level:"minor",text:n===3?"إنجاز تطبيقات ووثائق مركبة.":"تقويم تركيبي حسب إيقاع التعلمات وحاجات القسم."},{id:uid(),level:"letter",text:"صياغة خلاصة أو تركيب."}],tools:"وثائق إضافية، تمارين تطبيقية، عمل جماعي، تقويم مرحلي.",note:""})}}));saveState();render()}
+function fillClassAll(replace){let cls=globalClass.value.trim();if(!cls){alert("اكتب اسم القسم أولاً.");return}state.forEach(b=>b.lessons.forEach(l=>l.sessions.forEach(s=>{if(replace||!s.className.trim())s.className=cls})));saveState();render()}
+function updateStats(){let lessons=0,sessions=0,elements=0,special=0;state.forEach(b=>b.lessons.forEach(l=>{lessons++;l.sessions.forEach(s=>{sessions++;elements+=s.elements.length;if(s.kind!=="normal")special++})}));statLessons.textContent=lessons;statSessions.textContent=sessions;statElements.textContent=elements;statSpecial.textContent=special;statPrintedClass.textContent=globalClass.value.trim()||"—"}
+function updatePrintHeader(){printHeader.innerHTML=`<strong>دفتر النصوص</strong> | المؤسسة: ${esc(schoolName.value)} | الأستاذ: ${esc(teacherName.value)} | المستوى: ${esc(levelName.value)} | القسم: <strong>${esc(globalClass.value||"حسب الجدول")}</strong> | المادة: ${esc(subjectName.value)} | الموسم: ${esc(schoolYear.value)}`}
+
+function splitClean(text){
+  return (text||"")
+    .replaceAll("•","\n")
+    .replaceAll("▪","\n")
+    .replaceAll("◦","\n")
+    .replace(/[؛;]/g,"\n")
+    .replace(/<br\s*\/?>/gi,"\n")
+    .split(/\n+|(?<=\.)\s+|(?<=؟)\s+|(?<=!)\s+/)
+    .map(x=>x
+      .replace(/^\s*(?:[-–—*]+|[0-9٠-٩]+[\)\.\-]|[IVX]+[\)\.\-]|[أابتثجحخدذرزسشصضطظعغفقكلمنهوي]\s*[-ـ\.\)]|أولاً|ثانياً|ثالثاً|رابعاً|خامساً|سادساً|سابعاً|ثامناً|تاسعاً|عاشراً)\s*/,"")
+      .replace(/\s+/g," ")
+      .trim())
+    .filter(x=>x.length>2);
+}
+
+function normalizeArabic(s){
+  return (s||"")
+    .replace(/[إأآا]/g,"ا")
+    .replace(/ى/g,"ي")
+    .replace(/ة/g,"ه")
+    .replace(/[ًٌٍَُِّْـ]/g,"")
+    .toLowerCase();
+}
+
+function isLikelyHeading(line){
+  const raw = (line||"").trim();
+  const n = normalizeArabic(raw);
+  if(raw.length < 70 && /:/.test(raw)) return true;
+  if(raw.length < 58 && /(مفهوم|تعريف|اسباب|عوامل|دوافع|مظاهر|خصائص|نتائج|انعكاسات|اثار|خلاصه|استنتاج|توزيع|امتداد|تحولات|تطور|مراحل|تدابير|اجراءات|دور|اشكال|ازمه|كارثه|عصر|ثوره|منظومه)/.test(n)) return true;
+  return false;
+}
+
+function classifyMajor(text, idx){
+  const n = normalizeArabic(text);
+  if(/مفهوم|تعريف|اطار|زمني|مجالي|سياق|موضوع|تمهيد/.test(n)) return "تحديد المفاهيم والإطار العام";
+  if(/سبب|اسباب|دوافع|عامل|عوامل|شروط|ظروف/.test(n)) return "أسباب وعوامل الظاهرة";
+  if(/مظهر|مظاهر|تجليات|خصائص|سمات|اشكال|انواع|امتداد|توزيع|توطين/.test(n)) return "مظاهر وخصائص الظاهرة";
+  if(/مرحله|مراحل|تطور|تطورات|تحولات|مسار/.test(n)) return "مراحل التطور والتحول";
+  if(/نتيجه|نتائج|اثر|اثار|انعكاس|انعكاسات/.test(n)) return "نتائج وآثار الظاهرة";
+  if(/تدبير|تدابير|اجراء|اجراءات|حلول|وقايه|حمايه|اصلاح/.test(n)) return "التدابير والحلول المقترحة";
+  if(/خلاصه|استنتاج|تركيب|تقويم/.test(n)) return "التركيب والتقويم";
+  return ["تحديد موضوع الدرس وإطاره العام","تحليل العناصر الأساسية للدرس","استخلاص النتائج وبناء التركيب","تقويم التعلمات وتمديدها"][idx] || "عنصر كبير";
+}
+
+function scoreSentence(s){
+  const n = normalizeArabic(s);
+  let score = 0;
+  if(/سبب|اسباب|دوافع|مظهر|مظاهر|نتائج|اثر|اثار|خصائص|تحولات|تطور|تدابير|اجراءات|تعريف|مفهوم|توزيع|امتداد|مراحل|عوامل/.test(n)) score += 3;
+  if(s.length >= 25 && s.length <= 160) score += 2;
+  if(s.length > 220) score -= 2;
+  if(/مثال|من ذلك|حيث|كما|وقد|إذ|لأن|لان/.test(n)) score += 1;
+  return score;
+}
+
+function extractFullLesson(raw){
+  raw = (raw||"").trim();
+  if(!raw) return [];
+  let lines = splitClean(raw).filter(x => !/^(مقدمة|تمهيد|خاتمة|خلاصة عامة|اسئلة|أسئلة|نشاط|وثيقة)\s*$/i.test(x));
+  if(lines.length === 0) return [];
+
+  let blocks = [];
+  let current = null;
+
+  lines.forEach((line, i) => {
+    if(isLikelyHeading(line) || !current){
+      if(current) blocks.push(current);
+      current = {title: classifyMajor(line, blocks.length), seed: line, items: []};
+      if(!isLikelyHeading(line)) current.items.push(line);
+    } else {
+      current.items.push(line);
+    }
+  });
+  if(current) blocks.push(current);
+
+  if(blocks.length === 1 && lines.length >= 5){
+    const target = Math.min(3, Math.ceil(lines.length / 4));
+    blocks = [];
+    for(let i=0;i<target;i++) blocks.push({title: classifyMajor(lines[Math.floor(i*lines.length/target)] || "", i), seed:"", items:[]});
+    lines.forEach((line,i)=>blocks[Math.min(target-1, Math.floor(i*target/lines.length))].items.push(line));
+  }
+
+  // Limit to 4 major axes for a practical دفتر النصوص entry
+  if(blocks.length > 4){
+    const merged = blocks.slice(0,3);
+    const rest = blocks.slice(3).flatMap(b => [b.seed, ...b.items].filter(Boolean));
+    merged.push({title:"التركيب والتقويم", seed:"", items:rest});
+    blocks = merged;
+  }
+
+  let out = [];
+  blocks.forEach((block, idx) => {
+    const items = (block.items.length ? block.items : [block.seed]).filter(Boolean)
+      .sort((a,b)=>scoreSentence(b)-scoreSentence(a))
+      .slice(0,5);
+    out.push({id:uid(), level:"major", text:block.title});
+    if(block.seed && !items.includes(block.seed) && block.seed.length > 5){
+      out.push({id:uid(), level:"minor", text:block.seed.replace(/[:：]$/,"")});
+    }
+    items.forEach((item, j) => {
+      out.push({id:uid(), level:j===0 ? "minor" : "letter", text:item});
+    });
+  });
+
+  if(!out.some(e => /تركيب|تقويم|خلاصه|استنتاج/.test(normalizeArabic(e.text)))){
+    out.push({id:uid(), level:"major", text:"التركيب والتقويم"});
+    out.push({id:uid(), level:"minor", text:"صياغة خلاصة مركزة حول الدرس."});
+    out.push({id:uid(), level:"letter", text:"إنجاز تقويم قصير للتأكد من تحقق التعلمات."});
+  }
+  return out;
+}
+
+function smartAnalyze(raw,mode){
+  raw=(raw||"").trim();
+  if(!raw) return [];
+  if(mode==="full") return extractFullLesson(raw);
+  let lines=splitClean(raw);
+  if(mode==="lessonTitle"||lines.length<2){return buildFromTitle(raw)}
+  let target=mode==="2"?2:mode==="3"?3:Math.min(3,Math.max(1,Math.ceil(lines.length/3)));
+  let groups=[];
+  for(let i=0;i<target;i++)groups.push([]);
+  lines.forEach((line,i)=>groups[Math.min(target-1,Math.floor(i*target/lines.length))].push(line));
+  let out=[];
+  groups.forEach((g,idx)=>{
+    if(!g.length)return;
+    out.push({id:uid(),level:"major",text:classifyMajor(g[0],idx)});
+    g.forEach((x,j)=>{out.push({id:uid(),level:j===0?"minor":"letter",text:x})});
+  });
+  return out;
+}
+
+function inferMajor(text,idx){
+  return classifyMajor(text, idx);
+}
+
+function buildFromTitle(title){
+  let t=title.trim();
+  let out=[
+    {id:uid(),level:"major",text:"تحديد موضوع الدرس ومفاهيمه الأساسية"},
+    {id:uid(),level:"minor",text:"تعرف موضوع: "+t},
+    {id:uid(),level:"letter",text:"تحديد الإطار الزمني والمجالي أو المفاهيمي للدرس."}
+  ];
+  if(/التحولات|تطور|تطورات|الثورة|الاكتشافات|المد|الضغوط|السكان|النطاقات|المجموعات|المنظومة|كارثة|البيئة/.test(t)){
+    out.push({id:uid(),level:"major",text:"تحليل أسباب ومظاهر الموضوع"});
+    out.push({id:uid(),level:"minor",text:"استخراج العوامل أو الشروط المفسرة للموضوع."});
+    out.push({id:uid(),level:"letter",text:"رصد المظاهر أو الخصائص اعتماداً على وثائق داعمة."});
+  }
+  out.push({id:uid(),level:"major",text:"استخلاص النتائج وبناء تركيب"});
+  out.push({id:uid(),level:"minor",text:"صياغة خلاصة مركزة حول الدرس."});
+  out.push({id:uid(),level:"letter",text:"إنجاز تقويم قصير أو تطبيق منهجي."});
+  return out;
+}
+
+function splitElementsBySessions(elements, count){
+  count = Number(count) || 2;
+  const majors = [];
+  let current = null;
+  elements.forEach(e => {
+    if(e.level === "major" || !current){
+      current = {major: e.level === "major" ? e : {id:uid(),level:"major",text:"عناصر الدرس"}, children: []};
+      majors.push(current);
+      if(e.level !== "major") current.children.push(e);
+    } else {
+      current.children.push(e);
+    }
+  });
+
+  const buckets = [];
+  for(let i=0;i<count;i++) buckets.push([]);
+  majors.forEach((m,i)=>buckets[Math.min(count-1, Math.floor(i*count/majors.length))].push(m));
+
+  return buckets.map((bucket, idx) => {
+    let arr = [];
+    if(bucket.length === 0){
+      arr = [
+        {id:uid(), level:"major", text: idx===count-1 ? "التقويم والتركيب" : "استثمار عناصر الدرس"},
+        {id:uid(), level:"minor", text: idx===count-1 ? "صياغة خلاصة وتقويم التعلمات." : "إنجاز أنشطة تطبيقية داعمة."}
+      ];
+    } else {
+      bucket.forEach(group => {
+        arr.push({id:uid(), level:"major", text:group.major.text});
+        group.children.forEach((child, j) => {
+          arr.push({id:uid(), level:j===0 ? "minor" : child.level, text:child.text});
+        });
+      });
+    }
+    if(idx === count-1 && !arr.some(e => /تقويم|تركيب|خلاصه|استنتاج/.test(normalizeArabic(e.text)))){
+      arr.push({id:uid(), level:"major", text:"التركيب والتقويم"});
+      arr.push({id:uid(), level:"minor", text:"صياغة خلاصة مركزة وتقويم التعلمات."});
+    }
+    return arr;
+  });
+}
+
+function previewSmart(){
+  lastSmartElements=smartAnalyze(smartInput.value,smartMode.value);
+  const plans = splitElementsBySessions(lastSmartElements, smartSessionCount.value);
+  smartOutput.innerHTML=previewPlanHtml(plans);
+}
+
+function previewHtml(elements){
+  if(!elements.length)return"لم يتم استخراج عناصر بعد.";
+  let c={major:0,minor:0,letter:0},h="";
+  elements.forEach(e=>{
+    let lab=labelFor(e.level,c),cl=e.level==="major"?"major-preview":e.level==="minor"?"minor-preview":"letter-preview";
+    h+=`<div class="${cl}">${esc(lab)} ${esc(e.text)}</div>`;
+  });
+  return h;
+}
+
+function previewPlanHtml(plans){
+  if(!plans.length)return"لم يتم استخراج عناصر بعد.";
+  let h="";
+  plans.forEach((elements, idx) => {
+    h += `<div style="font-weight:bold;color:#7c2d12;margin:8px 0 4px">الحصة ${idx+1}</div>`;
+    h += previewHtml(elements);
+  });
+  return h;
+}
+
+function applySmart(){
+  if(!lastSmartElements.length)previewSmart();
+  let sid=smartTarget.value;
+  if(!sid){alert("اختر الحصة التي تريد إدراج العناصر فيها.");return}
+  let f=findSession(sid);
+  if(!f)return;
+  f.session.elements=lastSmartElements.map(e=>({id:uid(),level:e.level,text:e.text}));
+  saveState();
+  render();
+  alert("تم إدراج العناصر المرتبة في الحصة المختارة.");
+}
+
+function applySmartToLesson(){
+  if(!lastSmartElements.length)previewSmart();
+  const lessonId = smartLessonTarget.value;
+  const found = findLesson(lessonId);
+  if(!found){alert("اختر الدرس الذي تريد تطبيق التقسيم عليه.");return;}
+  const count = Number(smartSessionCount.value) || 2;
+  const lesson = found.lesson;
+  const plans = splitElementsBySessions(lastSmartElements, count);
+  const cls = globalClass.value.trim();
+
+  let normalSessions = lesson.sessions.filter(s => s.kind === "normal");
+  while(normalSessions.length < count){
+    const num = normalSessions.length + 1;
+    const s = {
+      id:uid(),
+      date:"",
+      className:cls,
+      kind:"normal",
+      label:"الحصة "+num,
+      type:"حصة عادية",
+      elements:[],
+      tools:"وثائق داعمة، أسئلة موجهة، إنجاز تطبيقي، تركيب مرحلي.",
+      note:""
+    };
+    lesson.sessions.push(s);
+    normalSessions.push(s);
+  }
+
+  normalSessions.slice(0,count).forEach((s, idx) => {
+    s.label = "الحصة " + (idx+1);
+    if(!s.className && cls) s.className = cls;
+    s.elements = plans[idx].map(e => ({id:uid(), level:e.level, text:e.text}));
+  });
+
+  saveState();
+  render();
+  alert("تم استخراج عناصر الدرس وتقسيمها على " + count + " حصص.");
+}
+
+function smartFromSession(sid){
+  let f=findSession(sid);
+  if(!f)return;
+  smartTarget.value=sid;
+  smartLessonTarget.value=f.lesson.id;
+  smartInput.value=f.lesson.title+"\n"+f.session.elements.map(e=>e.text).join("\n");
+  previewSmart();
+  window.scrollTo({top:document.querySelector(".smart-panel").offsetTop-20,behavior:"smooth"});
+}
+
+
+function updateSmartTargets(){
+  if(!smartTarget)return;
+  let currentSession=smartTarget.value;
+  let currentLesson=smartLessonTarget ? smartLessonTarget.value : "";
+  let currentPrint = printLessonSelect ? printLessonSelect.value : "";
+  let hSessions="", hLessons="", hPrint="";
+  state.forEach(b=>b.lessons.forEach(l=>{
+    const label = l.number+"- "+l.title+" | "+b.component+" | "+b.semester;
+    hLessons += `<option value="${l.id}" ${l.id===currentLesson?"selected":""}>${esc(l.number+"- "+l.title)}</option>`;
+    hPrint += `<option value="${l.id}" ${l.id===currentPrint?"selected":""}>${esc(label)}</option>`;
+    l.sessions.forEach(s=>{
+      hSessions+=`<option value="${s.id}" ${s.id===currentSession?"selected":""}>${esc(l.number+"- "+l.title+" | "+s.label)}</option>`;
+    });
+  }));
+  smartTarget.innerHTML=hSessions;
+  if(smartLessonTarget) smartLessonTarget.innerHTML=hLessons;
+  if(printLessonSelect) printLessonSelect.innerHTML=hPrint;
+}
+
+
+let pendingPrintLessonId = null;
+
+function clearPrintSelection(){
+  document.body.classList.remove("print-one-lesson");
+  document.querySelectorAll("#journalBody tr").forEach(row => row.classList.remove("print-hide"));
+  const single = document.getElementById("singleLessonPrint");
+  if(single) single.innerHTML = "";
+}
+
+function getLessonContext(lessonId){
+  for(const b of state){
+    for(const l of b.lessons){
+      if(l.id === lessonId) return {block:b, lesson:l};
+    }
+  }
+  return null;
+}
+
+function printableElements(elements){
+  let c={major:0,minor:0,letter:0};
+  let html="";
+  elements.forEach(e=>{
+    const lab=labelFor(e.level,c);
+    const indent=e.level==="major"?"font-weight:bold;margin-top:3px":e.level==="minor"?"margin-right:14px":"margin-right:28px";
+    html += `<div style="${indent}">${esc(lab)} ${esc(e.text)}</div>`;
+  });
+  return html;
+}
+
+function buildSingleLessonPrint(lessonId){
+  const ctx = getLessonContext(lessonId);
+  const single = document.getElementById("singleLessonPrint");
+  if(!single || !ctx) return;
+
+  const b = ctx.block;
+  const l = ctx.lesson;
+
+  let rows = "";
+  l.sessions.forEach(s=>{
+    rows += `
+      <tr>
+        <td>${esc(s.date || "")}</td>
+        <td>${esc(s.className || globalClass.value || "")}</td>
+        <td><span class="pill ${b.component==="التاريخ"?"history":"geo"}">${esc(b.component)}</span></td>
+        <td>${esc(s.label || "")}</td>
+        <td><span class="pill ${kindClass(s.kind)}">${esc(s.type || "")}</span></td>
+        <td>${printableElements(s.elements || [])}</td>
+        <td>${esc(s.tools || "")}</td>
+        <td>${esc(s.note || "")}</td>
+      </tr>
+    `;
+  });
+
+  single.innerHTML = `
+    <div class="single-print-title">الدرس ${esc(l.number)}: ${esc(l.title)}</div>
+    <div class="single-print-subtitle">
+      ${esc(b.semester)} | ${esc(b.component)} | ${esc(b.domain)}
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:9%">تاريخ الحصة</th>
+          <th style="width:7%">القسم</th>
+          <th style="width:7%">المكون</th>
+          <th style="width:8%">الحصة</th>
+          <th style="width:8%">النوع</th>
+          <th style="width:39%">عناصر الدرس</th>
+          <th style="width:12%">الوسائل والأنشطة</th>
+          <th style="width:10%">ملاحظات</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+  `;
+}
+
+function applyPrintLessonSelection(lessonId){
+  clearPrintSelection();
+  if(!lessonId) return;
+  document.body.classList.add("print-one-lesson");
+  buildSingleLessonPrint(lessonId);
+}
+
+function printSelectedLesson(){
+  const lessonId = printLessonSelect.value;
+  if(!lessonId){
+    alert("اختر الدرس المراد طباعته أولاً.");
+    return;
+  }
+  pendingPrintLessonId = lessonId;
+
+  const cls = globalClass.value.trim();
+  if(cls){
+    state.forEach(b=>b.lessons.forEach(l=>l.sessions.forEach(s=>{
+      if(!s.className.trim()) s.className = cls;
+    })));
+    saveState();
+  }
+
+  render();
+  pendingPrintLessonId = lessonId;
+  applyPrintLessonSelection(lessonId);
+  updatePrintHeader();
+
+  setTimeout(()=>window.print(), 80);
+}
+
+function printFullJournal(){
+  pendingPrintLessonId = null;
+  clearPrintSelection();
+  updatePrintHeader();
+  setTimeout(()=>window.print(), 50);
+}
+
+function exportBackup(){let payload={meta:JSON.parse(localStorage.getItem(STORAGE_META)||"{}"),state};let text=JSON.stringify(payload,null,2);navigator.clipboard.writeText(text).then(()=>alert("تم نسخ النسخة الاحتياطية.")).catch(()=>prompt("انسخ النسخة الاحتياطية:",text))}
+function importBackup(){let text=prompt("ألصق النسخة الاحتياطية هنا:");if(!text)return;try{let p=JSON.parse(text);if(p.state){state=p.state;localStorage.setItem(STORAGE_STATE,JSON.stringify(state))}if(p.meta){localStorage.setItem(STORAGE_META,JSON.stringify(p.meta));loadMeta()}render();alert("تم الاسترجاع بنجاح.")}catch(e){alert("تعذر الاسترجاع. تأكد من النص.")}}
+function resetAll(){if(!confirm("سيتم حذف كل التعديلات والعودة إلى الأصل. هل أنت متأكد؟"))return;localStorage.removeItem(STORAGE_STATE);state=makeState();saveState();render()}
+
+window.addEventListener("beforeprint",()=>{
+  let cls=globalClass.value.trim();
+  if(cls){
+    state.forEach(b=>b.lessons.forEach(l=>l.sessions.forEach(s=>{
+      if(!s.className.trim())s.className=cls;
+    })));
+    saveState();
+  }
+  if(pendingPrintLessonId){
+    document.body.classList.add("print-one-lesson");
+    buildSingleLessonPrint(pendingPrintLessonId);
+  }else{
+    document.body.classList.remove("print-one-lesson");
+  }
+  updatePrintHeader();
+});
+
+window.addEventListener("afterprint",()=>{
+  pendingPrintLessonId = null;
+  clearPrintSelection();
+});
+loadState();loadMeta();render();
+</script>
+</body>
+</html>

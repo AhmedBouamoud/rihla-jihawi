@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="theme-color" content="#b45309">
+<meta name="description" content="تطبيق تعليمي تفاعلي لتعلم رسم المبيان وقراءته في مادة الاجتماعيات — إعداد ذ. أحمد بوعمود — مؤسسة الحنان الخاصة">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="https://rihla-jihawi.netlify.app/icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>رحلة إتقان المبيان | ذ. أحمد بوعمود</title>
+<style>
+:root{
+  --bg:#fff7ec;--paper:#fffdf7;--ink:#1f2937;--muted:#6b7280;--primary:#b45309;--primary2:#f59e0b;--accent:#0f766e;--accent2:#14b8a6;--blue:#2563eb;--red:#dc2626;--green:#16a34a;--purple:#7c3aed;--line:#ead7b9;--card:#ffffff;--shadow:0 22px 55px rgba(120,72,0,.13);--soft:rgba(245,158,11,.12);
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:"Tajawal","Noto Kufi Arabic","Segoe UI",Arial,sans-serif;background:radial-gradient(circle at 10% 0%,#fff1cb 0,#fff7ec 35%,#f8fafc 100%);color:var(--ink);line-height:1.8;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;background-image:linear-gradient(90deg,rgba(180,83,9,.055) 1px,transparent 1px),linear-gradient(0deg,rgba(180,83,9,.055) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;z-index:-1}.container{width:min(1220px,94vw);margin:auto}.hero{padding:38px 0 26px;position:relative}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:14px}.logo{width:62px;height:62px;border-radius:22px;background:linear-gradient(135deg,#f59e0b,#f97316,#0f766e);display:grid;place-items:center;color:white;font-weight:900;font-size:27px;box-shadow:var(--shadow);border:4px solid rgba(255,255,255,.8)}.brand small{display:block;color:var(--muted);margin-top:2px}.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.84);border:1px solid var(--line);box-shadow:0 10px 28px rgba(120,72,0,.08);padding:9px 13px;border-radius:999px;color:#78350f;font-weight:800}.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:stretch}.hero-card{background:linear-gradient(160deg,rgba(255,253,247,.96),rgba(255,246,224,.92));border:1px solid var(--line);border-radius:32px;padding:34px;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero-card:after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:rgba(20,184,166,.12);left:-70px;top:-80px}.hero h1{font-size:clamp(2.1rem,5vw,4.5rem);line-height:1.15;margin:0 0 16px;color:#7c2d12;letter-spacing:-1.5px}.hero p.lead{font-size:1.22rem;color:#374151;margin:0 0 22px;max-width:770px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn{border:0;border-radius:16px;padding:12px 17px;font-weight:900;cursor:pointer;background:var(--primary);color:white;box-shadow:0 14px 26px rgba(180,83,9,.22);transition:.25s;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;font-family:inherit}.btn:hover{transform:translateY(-2px);filter:saturate(1.08)}.btn.secondary{background:#fff;color:#7c2d12;border:1px solid var(--line);box-shadow:0 8px 18px rgba(120,72,0,.08)}.btn.green{background:var(--accent)}.btn.blue{background:var(--blue)}.btn.purple{background:var(--purple)}.btn.danger{background:var(--red)}.btn.small{padding:8px 11px;border-radius:12px;font-size:.88rem}.dashboard{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.stat{background:white;border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 14px 35px rgba(120,72,0,.07)}.stat b{font-size:2rem;color:#b45309;display:block}.nav{position:sticky;top:0;z-index:20;background:rgba(255,250,240,.86);backdrop-filter:blur(14px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);box-shadow:0 10px 35px rgba(120,72,0,.08)}.nav-inner{display:flex;gap:8px;overflow:auto;padding:10px 0}.nav a{white-space:nowrap;text-decoration:none;color:#78350f;background:white;border:1px solid var(--line);border-radius:999px;padding:8px 13px;font-weight:900}.section{padding:34px 0}.section-title{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:16px}.section-title h2{font-size:clamp(1.5rem,3.4vw,2.5rem);margin:0;color:#7c2d12}.section-title p{margin:0;color:var(--muted);max-width:700px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.grid.two{grid-template-columns:repeat(2,1fr)}.card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:0 14px 35px rgba(120,72,0,.08)}.card h3{margin:0 0 10px;color:#92400e;font-size:1.25rem}.card h4{margin:12px 0 7px;color:#0f766e}.tag{display:inline-block;padding:4px 10px;border-radius:999px;background:var(--soft);color:#92400e;font-weight:900;font-size:.83rem;margin:4px 2px}.note{padding:14px 16px;border-radius:18px;background:#ecfeff;border:1px solid #99f6e4;color:#134e4a}.warn{padding:14px 16px;border-radius:18px;background:#fff7ed;border:1px solid #fed7aa;color:#7c2d12}.danger-note{padding:14px 16px;border-radius:18px;background:#fef2f2;border:1px solid #fecaca;color:#7f1d1d}.mini-list{padding:0;margin:10px 0;list-style:none}.mini-list li{padding:7px 0;border-bottom:1px dashed #ead7b9}.mini-list li:last-child{border-bottom:0}.steps{counter-reset:s}.step{position:relative;padding:14px 54px 14px 14px;border-radius:18px;background:#fff;border:1px solid var(--line);margin:10px 0}.step:before{counter-increment:s;content:counter(s);position:absolute;right:14px;top:14px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#f59e0b,#f97316);color:#fff;font-weight:900}.matrix{overflow:auto}.matrix table,.data-table{width:100%;border-collapse:collapse;background:white;border-radius:18px;overflow:hidden}.matrix th,.matrix td,.data-table th,.data-table td{border:1px solid #f0dfc5;padding:10px;text-align:center}.matrix th,.data-table th{background:#fff7ed;color:#7c2d12}.toolbox{display:grid;grid-template-columns:360px 1fr;gap:16px;align-items:start}.panel{background:white;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 14px 35px rgba(120,72,0,.08)}label{font-weight:900;color:#7c2d12;display:block;margin:10px 0 5px}input,select,textarea{width:100%;border:1px solid #e7cfae;border-radius:14px;padding:10px 12px;font:inherit;background:#fff;color:var(--ink)}textarea{min-height:92px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.canvas-wrap{background:#fff;border:1px solid var(--line);border-radius:24px;padding:10px;box-shadow:0 14px 35px rgba(120,72,0,.08);position:relative}.canvas-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.chart-canvas{display:block;width:100%;height:auto;background:#fff;border-radius:18px;border:1px solid #f0dfc5}.feedback{margin-top:12px;padding:13px;border-radius:18px;background:#f8fafc;border:1px solid #e5e7eb}.score-meter{height:16px;background:#ffedd5;border-radius:999px;overflow:hidden;border:1px solid #fed7aa}.score-meter span{display:block;height:100%;width:0;background:linear-gradient(90deg,#ef4444,#f59e0b,#22c55e);transition:.4s}.badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 10px;background:#dcfce7;color:#166534;font-weight:900;margin:4px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.tab{padding:9px 12px;border-radius:999px;border:1px solid var(--line);background:white;color:#7c2d12;font-weight:900;cursor:pointer}.tab.active{background:#b45309;color:#fff}.lesson-page{display:none}.lesson-page.active{display:block}.example-box{background:linear-gradient(135deg,#fff,#fff7ed);border:1px dashed #f59e0b;border-radius:20px;padding:14px}.formula{direction:ltr;text-align:center;background:#111827;color:#fff;padding:12px;border-radius:16px;font-weight:900;letter-spacing:.4px}.challenge-card{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px;margin:10px 0}.difficulty{font-size:.82rem;color:#6b7280}.leaderboard li{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px dashed #e7cfae}.ai-preview{max-height:320px;max-width:100%;display:none;border-radius:18px;border:1px solid var(--line);margin-top:10px}.writing-pad{position:relative;background:white;border-radius:24px;border:1px solid var(--line);overflow:hidden}.draw-canvas{touch-action:none;display:block;width:100%;height:430px;background:#fff}.rubric{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.rubric label{margin:0;background:#fff7ed;border:1px solid #fed7aa;border-radius:16px;padding:10px;color:#7c2d12;display:flex;gap:8px;align-items:center}.rubric input{width:auto}.footer{padding:28px 0 40px;text-align:center;color:#7c2d12}.print-only{display:none}
+@media(max-width:980px){.hero-grid,.toolbox,.grid,.grid.two{grid-template-columns:1fr}.dashboard{grid-template-columns:1fr 1fr}.rubric{grid-template-columns:1fr 1fr}.row{grid-template-columns:1fr}.hero-card{padding:22px}.section-title{display:block}.topbar{align-items:flex-start;flex-direction:column}}
+@media(max-width:560px){.dashboard{grid-template-columns:1fr}.rubric{grid-template-columns:1fr}.challenge-card{grid-template-columns:1fr}.hero h1{font-size:2.15rem}.btn{width:100%}.nav a{font-size:.9rem}.draw-canvas{height:360px}}
+@media print{.nav,.actions,.canvas-toolbar,.controls,.btn,.ai-zone,.no-print{display:none!important}.print-only{display:block}.card,.panel,.canvas-wrap,.hero-card{box-shadow:none}.section{page-break-inside:avoid}body{background:#fff}.container{width:100%;padding:0 12px}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <a href="https://rihla-jihawi.netlify.app/" title="العودة إلى البوابة الرئيسية" style="display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#fff7e8,#ffedb8);border:2px solid rgba(245,158,11,.3);text-decoration:none;font-size:1.5rem;box-shadow:0 4px 14px rgba(138,75,24,.15);flex-shrink:0;">🏠</a>
+        <div class="logo">م</div>
+        <img src="https://rihla-jihawi.netlify.app/assets/logo-hanane.jpg" alt="مؤسسة الحنان الخاصة" style="width:52px;height:52px;border-radius:14px;object-fit:cover;border:2px solid rgba(245,158,11,.3);box-shadow:0 4px 12px rgba(138,75,24,.15);">
+        <div><b>رحلة إتقان المبيان</b><small>تعلم، ارسم، افحص، نافس، ثم فسّر</small></div>
+      </div>
+      <div class="pill">إعداد وتطوير: الأستاذ أحمد بوعمود</div>
+    </div>
+    <div class="hero-grid">
+      <div class="hero-card">
+        <span class="tag">مادة الاجتماعيات / الجغرافيا</span><span class="tag">مناسب للإعدادي والثانوي</span><span class="tag">قابل للرفع على Netlify</span>
+        <h1>من جدول صامت إلى مبيان ناطق</h1>
+        <p class="lead">تطبيق تعليمي مفصل يشرح عناصر المبيان، يدرّب التلميذ على اختيار النوع المناسب، يرسم المبيان تلقائياً، يفحص الأخطاء، ويقترح قراءة منهجية للنتائج.</p>
+        <div class="actions">
+          <a class="btn" href="#studio">ابدأ الرسم الآن</a>
+          <a class="btn secondary" href="#lessons">ادرس العناصر</a>
+          <a class="btn green" href="#competition">ادخل المسابقة</a>
+          <a class="btn purple" href="#ai">حلّل صورة مبيان</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="dashboard">
+          <div class="stat"><b>12</b>عنصراً يراجع جودة المبيان</div>
+          <div class="stat"><b>4</b>أنواع أساسية: أعمدة، منحنى، دائرة، شريط</div>
+          <div class="stat"><b>6</b>تحديات في مسابقة أفضل مبيان</div>
+          <div class="stat"><b>AI</b>مساعد قراءة صورة وتجربة OCR</div>
+        </div>
+        <div class="note" style="margin-top:14px">قاعدة ذهبية: المبيان الجيد لا يكتفي بالجمال؛ يجب أن يكون دقيقاً، مقروءاً، ومناسباً لطبيعة المعطيات.</div>
+      </div>
+    </div>
+  </div>
+</header>
+<nav class="nav"><div class="container nav-inner">
+  <a href="https://rihla-jihawi.netlify.app/" style="background:linear-gradient(135deg,#fff7e8,#ffedb8);color:#92400e;border-color:rgba(245,158,11,.3);">🏠 البوابة</a><a href="#lessons">الدروس</a><a href="#choice">اختيار النوع</a><a href="#elements">عناصر المبيان</a><a href="#studio">مرسم المبيانات</a><a href="#competition">المسابقة</a><a href="#ai">قراءة صورة</a><a href="#pad">دفتر الرسم</a><a href="#rubric">شبكة التنقيط</a>
+</div></nav>
+
+<main>
+<section id="lessons" class="section"><div class="container">
+  <div class="section-title"><h2>1) الدرس الكبير: ما المبيان؟ ولماذا نرسمه؟</h2><p>المبيان وسيلة لتحويل جدول إحصائي إلى شكل بصري يساعد على المقارنة، رصد التطور، وإبراز الحصص النسبية.</p></div>
+  <div class="grid">
+    <div class="card"><h3>المبيان ليس زخرفة</h3><p>هو لغة بصرية. عندما نقول إن نسبة التمدن ارتفعت، فالمبيان يجعل الارتفاع مرئياً؛ وعندما نقارن بين دول أو قطاعات، يجعل الفرق واضحاً في لحظة.</p><div class="example-box"><b>مثال:</b> جدول إنتاج الحبوب في أربع دول يمكن قراءته، لكن مبيان الأعمدة يكشف فوراً الدولة الأعلى والأدنى.</div></div>
+    <div class="card"><h3>ثلاثة أسئلة قبل الرسم</h3><ul class="mini-list"><li>هل المعطيات زمنية؟ اختر غالباً منحنى.</li><li>هل هي فئات للمقارنة؟ اختر أعمدة.</li><li>هل تمثل أجزاء من مجموع؟ اختر دائرة أو نصف دائرة.</li></ul><p class="warn">أكبر خطأ هو اختيار مبيان جميل لكنه غير مناسب لطبيعة الجدول.</p></div>
+    <div class="card"><h3>القراءة المنهجية بعد الرسم</h3><p>بعد إنجاز المبيان، نقرأه بثلاث خطوات: وصف ما يظهر، تفسير دلالته، ثم استخلاص خلاصة قصيرة.</p><ul class="mini-list"><li><b>وصف:</b> أعلى قيمة، أدنى قيمة، اتجاه عام.</li><li><b>تفسير:</b> لماذا يمكن أن يحدث ذلك؟</li><li><b>استخلاص:</b> ماذا نستنتج؟</li></ul></div>
+  </div>
+</div></section>
+
+<section id="choice" class="section"><div class="container">
+  <div class="section-title"><h2>2) كيف أختار نوع المبيان؟</h2><p>اختيار النوع المناسب هو نصف النجاح. استعمل الجدول الآتي كمرشد سريع.</p></div>
+  <div class="matrix card">
+    <table>
+      <thead><tr><th>طبيعة المعطيات</th><th>أفضل مبيان</th><th>لماذا؟</th><th>مثال تطبيقي</th><th>خطأ شائع</th></tr></thead>
+      <tbody>
+        <tr><td>سلسلة زمنية: سنوات متتابعة أو متقاربة</td><td>منحنى</td><td>يبرز التطور: ارتفاع، انخفاض، تذبذب</td><td>تطور نسبة التمدن بين 2004 و2024</td><td>رسم أعمدة كثيرة تجعل التطور أقل وضوحاً</td></tr>
+        <tr><td>فئات منفصلة للمقارنة</td><td>أعمدة</td><td>يوضح الفروق بين فئات أو دول أو قطاعات</td><td>إنتاج القمح في دول مختلفة</td><td>ربط رؤوس الأعمدة بخط كأنه تطور زمني</td></tr>
+        <tr><td>نسب مئوية مجموعها 100%</td><td>دائرة / نصف دائرة</td><td>يوضح حصة كل جزء من المجموع</td><td>بنية السكان حسب الفئات العمرية</td><td>استعمال الدائرة لمعطيات لا تمثل مجموعاً واحداً</td></tr>
+        <tr><td>متغيران أو أكثر عبر الزمن</td><td>منحنيان أو أعمدة مزدوجة</td><td>يقارن تطور ظاهرتين في نفس الزمن</td><td>تطور الأمية والفقر</td><td>غياب المفتاح فيضيع القارئ</td></tr>
+        <tr><td>قيم موجبة وسالبة</td><td>أعمدة حول خط الصفر</td><td>يبين الربح والخسارة أو الزيادة والنقصان</td><td>نسبة النمو الاقتصادي السنوية</td><td>إخفاء الصفر يضخم الفروق</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grid two" style="margin-top:16px">
+    <div class="card"><h3>مفتاح سريع للاختيار</h3><p><span class="tag">زمن = منحنى</span><span class="tag">مقارنة = أعمدة</span><span class="tag">أجزاء من 100% = دائرة</span><span class="tag">ظاهرتان = مفتاح ضروري</span></p></div>
+    <div class="card"><h3>تدريب ذهني</h3><p>قبل الرسم قل: “سأختار هذا النوع لأنه يخدم طبيعة الجدول”. هذه الجملة وحدها تمنع نصف الأخطاء في الفروض والامتحانات.</p></div>
+  </div>
+</div></section>
+
+<section id="elements" class="section"><div class="container">
+  <div class="section-title"><h2>3) عناصر المبيان بالتفصيل</h2><p>كل عنصر له وظيفة. حذف عنصر واحد قد يجعل المبيان ناقصاً أو غامضاً.</p></div>
+  <div class="tabs no-print">
+    <button class="tab active" onclick="showLesson('title',this)">العنوان</button><button class="tab" onclick="showLesson('axes',this)">المحاور</button><button class="tab" onclick="showLesson('scale',this)">المقياس</button><button class="tab" onclick="showLesson('unit',this)">الوحدة</button><button class="tab" onclick="showLesson('legend',this)">المفتاح</button><button class="tab" onclick="showLesson('source',this)">المصدر</button><button class="tab" onclick="showLesson('frame',this)">الإطار والجمالية</button><button class="tab" onclick="showLesson('reading',this)">قراءة المبيان</button>
+  </div>
+  <div id="lesson-title" class="lesson-page active card"><h3>العنوان: ماذا؟ أين؟ متى؟</h3><p>العنوان الجيد يجيب عن ثلاثة أسئلة: ما الظاهرة؟ ما المجال؟ ما الزمن؟</p><div class="example-box"><b>ضعيف:</b> السكان<br><b>أفضل:</b> تطور عدد سكان المغرب بين 2004 و2024<br><b>أفضل في الجغرافيا:</b> تطور نسبة التمدن بالمغرب بين 2004 و2024</div><p class="warn">العنوان لا يكتب هكذا: “مبيان بالأعمدة”. نوع المبيان ليس هو موضوعه.</p></div>
+  <div id="lesson-axes" class="lesson-page card"><h3>المحاور: أين أضع الفئات والقيم؟</h3><p>المحور الأفقي غالباً للفئات أو السنوات، والمحور العمودي للقيم الرقمية. في الأعمدة نضع أسماء الفئات أسفل كل عمود، وفي المنحنى نضع السنوات على المحور الأفقي.</p><ul class="mini-list"><li>اكتب اسم المحور الأفقي: السنوات، الدول، القطاعات...</li><li>اكتب اسم المحور العمودي: النسبة، عدد السكان، الإنتاج...</li><li>لا تجعل الكلمات متداخلة؛ اختصر أو أدر الملصقات عند الحاجة.</li></ul></div>
+  <div id="lesson-scale" class="lesson-page card"><h3>المقياس/السلم: كيف أحول الرقم إلى طول؟</h3><p>المقياس هو العلاقة بين قيمة عددية ومسافة على الورقة. في الرسم اليدوي نختار مقياساً مريحاً ومقروءاً.</p><div class="formula">المقياس التقريبي = أكبر قيمة ÷ عدد خانات المحور العمودي</div><div class="example-box"><b>مثال:</b> أكبر قيمة 83، وعدد الخانات 10، إذن 83÷10=8.3. نختار سلماً سهلاً: كل خانة = 10.</div><p class="danger-note">في مبيان الأعمدة يجب غالباً البدء من الصفر حتى لا نضخم الفروق بصرياً.</p></div>
+  <div id="lesson-unit" class="lesson-page card"><h3>الوحدة: ماذا تعني الأرقام؟</h3><p>الرقم وحده لا يكفي. 50 قد تعني 50%، أو 50 مليون نسمة، أو 50 ألف طن. لذلك تكتب الوحدة قرب المحور أو في العنوان.</p><div class="example-box"><b>مثال:</b> المحور العمودي: نسبة التمدن (%)، أو الإنتاج (مليون طن).</div></div>
+  <div id="lesson-legend" class="lesson-page card"><h3>المفتاح: عندما تتعدد الألوان أو المتغيرات</h3><p>إذا كان في المبيان أكثر من لون أو أكثر من خط، يجب وضع مفتاح يشرح معنى كل لون أو رمز.</p><div class="example-box"><b>مثال:</b> خط أزرق = الفقر، خط برتقالي = الأمية. دون مفتاح، لا يعرف القارئ أي خط يمثل أي ظاهرة.</div></div>
+  <div id="lesson-source" class="lesson-page card"><h3>المصدر: من أين جاءت المعطيات؟</h3><p>المصدر يزيد مصداقية المبيان. في التمارين يمكن أن يكون: “المصدر: الوثيقة 1”، أو “معطيات تدريبية”، أو اسم تقرير/موقع.</p><p class="warn">لا تكتب مصدراً وهمياً. إن لم يوجد، اكتب: المصدر: معطيات التمرين.</p></div>
+  <div id="lesson-frame" class="lesson-page card"><h3>الإطار والجمالية: تنظيم لا تزويق زائد</h3><p>الإطار يجمع عناصر المبيان بصرياً، والجمالية تعني الوضوح: ألوان محدودة، كتابة مقروءة، فراغ مناسب، وأعمدة متساوية العرض.</p><ul class="mini-list"><li>استعمل لوناً واضحاً لا يختفي عند الطبع.</li><li>لا تملأ المبيان بزخارف تشتت الانتباه.</li><li>احترم التناسب بين القيم والأطوال.</li></ul></div>
+  <div id="lesson-reading" class="lesson-page card"><h3>قراءة المبيان: من الملاحظة إلى الخلاصة</h3><p>لا تنته المهمة عند الرسم. يجب أن يعرف التلميذ كيف يعلّق على المبيان.</p><div class="steps"><div class="step"><b>أصف:</b> أحدد الموضوع، المجال، الزمن، أعلى/أدنى قيمة، والاتجاه العام.</div><div class="step"><b>أفسر:</b> أربط الظاهرة بعوامل ممكنة من الدرس أو السياق.</div><div class="step"><b>أستخلص:</b> أكتب خلاصة قصيرة لا تكرر الأرقام فقط.</div></div></div>
+</div></section>
+
+<section class="section"><div class="container">
+  <div class="section-title"><h2>4) طرق الإنجاز خطوة بخطوة</h2><p>شرح عملي لكل نوع مع العمليات الضرورية.</p></div>
+  <div class="grid">
+    <div class="card"><h3>أ) المبيان بالأعمدة</h3><div class="steps"><div class="step">أرسم محورين متعامدين.</div><div class="step">أضع الفئات على المحور الأفقي.</div><div class="step">أختار سلماً مناسباً للقيم.</div><div class="step">أرسم الأعمدة بعرض متساو ومسافات متساوية.</div><div class="step">أضيف العنوان، الوحدة، المصدر، المفتاح عند الحاجة.</div></div></div>
+    <div class="card"><h3>ب) المبيان بالمنحنى</h3><div class="steps"><div class="step">أضع السنوات زمنياً على المحور الأفقي.</div><div class="step">أضع القيم على المحور العمودي بسلم مناسب.</div><div class="step">أحدد نقطة كل سنة مع قيمتها.</div><div class="step">أربط النقط بخط واضح دون تكسير غير مبرر.</div><div class="step">أقرأ الاتجاه: ارتفاع، انخفاض، تذبذب.</div></div></div>
+    <div class="card"><h3>ج) المبيان الدائري</h3><p>نستعمله عندما تمثل المعطيات أجزاء من مجموع واحد.</p><div class="formula">النسبة = الجزء ÷ المجموع × 100</div><div class="formula" style="margin-top:8px">زاوية القطاع = النسبة × 3.6</div><p>في نصف الدائرة نستعمل: زاوية القطاع = النسبة × 1.8.</p></div>
+  </div>
+</div></section>
+
+<section id="studio" class="section"><div class="container">
+  <div class="section-title"><h2>5) مرسم المبيانات الذكي</h2><p>أدخل الجدول، اختر النوع، ثم دع التطبيق يرسم ويفحص جودة المبيان.</p></div>
+  <div class="toolbox">
+    <div class="panel">
+      <h3>إعدادات الرسم</h3>
+      <div class="row"><div><label>نوع المبيان</label><select id="chartType"><option value="bar">أعمدة</option><option value="line">منحنى</option><option value="pie">دائرة</option><option value="hbar">أعمدة أفقية</option></select></div><div><label>المقياس</label><select id="scaleMode"><option value="auto">تلقائي</option><option value="manual">يدوي</option></select></div></div>
+      <div class="row"><div><label>أكبر قيمة يدوية</label><input id="maxValue" type="number" value="100"></div><div><label>عدد التقسيمات</label><input id="ticks" type="number" value="10" min="3" max="20"></div></div>
+      <label>عنوان المبيان</label><input id="chartTitle" value="تطور نسبة التمدن بالمغرب بين 2004 و2024">
+      <div class="row"><div><label>المحور الأفقي</label><input id="xLabel" value="السنوات"></div><div><label>المحور العمودي</label><input id="yLabel" value="النسبة (%)"></div></div>
+      <div class="row"><div><label>الوحدة</label><input id="unit" value="%"></div><div><label>المصدر</label><input id="source" value="معطيات تدريبية مبسطة"></div></div>
+      <label>جدول المعطيات: كل سطر = اسم,قيمة</label><textarea id="dataInput">2004,55.1
+2014,60.4
+2024,62.8</textarea>
+      <div class="controls"><button class="btn" onclick="drawChart()">ارسم المبيان</button><button class="btn secondary" onclick="addRowExample()">مثال آخر</button><button class="btn green" onclick="generateCommentary()">علّق عليه</button><button class="btn blue" onclick="downloadChart()">تحميل PNG</button></div>
+      <div id="tableView" class="matrix" style="margin-top:12px"></div>
+    </div>
+    <div>
+      <div class="canvas-wrap">
+        <div class="canvas-toolbar"><button class="btn small secondary" onclick="loadPreset('urban')">تمدن</button><button class="btn small secondary" onclick="loadPreset('sectors')">قطاعات</button><button class="btn small secondary" onclick="loadPreset('compare')">مقارنة دول</button><button class="btn small secondary" onclick="loadPreset('climate')">حرارة شهرية</button></div>
+        <canvas id="chartCanvas" width="980" height="620" class="chart-canvas"></canvas>
+      </div>
+      <div class="feedback" id="qualityFeedback"><b>فاحص الجودة:</b> ارسم المبيان أولاً للحصول على ملاحظات.</div>
+      <div class="feedback" id="commentaryBox"><b>التعليق:</b> اضغط “علّق عليه” بعد الرسم.</div>
+    </div>
+  </div>
+</div></section>
+
+<section id="competition" class="section"><div class="container">
+  <div class="section-title"><h2>6) مسابقة أفضل مبيان</h2><p>يختار التلميذ التحدي، يرسم المبيان، ثم يتحقق من الجواب ويحصل على نقطة وشارة.</p></div>
+  <div class="toolbox">
+    <div class="panel">
+      <h3>لوحة المسابقة</h3>
+      <label>اسم المتسابق</label><input id="studentName" placeholder="اكتب اسمك">
+      <div id="challengeList"></div>
+      <div class="score-meter"><span id="contestBar"></span></div>
+      <div id="contestResult" class="feedback">اختر تحدياً وابدأ.</div>
+      <div class="controls"><button class="btn green" onclick="checkContest()">تحقق من عملي</button><button class="btn secondary" onclick="showModelAnswer()">إظهار الجواب النموذجي</button><button class="btn blue" onclick="saveScore()">حفظ النقطة</button><button class="btn purple" onclick="printCertificate()">شهادة تقدير</button></div>
+    </div>
+    <div class="panel"><h3>قاعة المتفوقين</h3><ol id="leaderboard" class="leaderboard"></ol><div id="modelAnswer" class="feedback">سيظهر الجواب النموذجي هنا بعد اختيار تحدي.</div></div>
+  </div>
+</div></section>
+
+<section id="ai" class="section ai-zone"><div class="container">
+  <div class="section-title">
+    <h2>7) تحليل صورة المبيان بالذكاء الاصطناعي</h2>
+    <p>ارفع صورة مبيانك — يستخرج النظام النص تلقائياً ثم يحلله ويعطيك تقييماً تربوياً كاملاً بدون أي تسجيل.</p>
+  </div>
+  <div class="grid two">
+
+    <!-- عمود الرفع -->
+    <div class="panel">
+      <h3>📸 ارفع صورة المبيان</h3>
+      <label id="dropZone" for="imageUpload" style="display:block;border:2.5px dashed var(--line);border-radius:14px;padding:28px 16px;text-align:center;cursor:pointer;background:var(--bg);transition:.2s">
+        <div style="font-size:2.5rem">📊</div>
+        <div style="font-weight:700;margin:8px 0 4px">اضغط لاختيار صورة</div>
+        <div style="font-size:13px;color:var(--muted)">JPG أو PNG من الهاتف أو الكاميرا</div>
+      </label>
+      <input type="file" id="imageUpload" accept="image/*" onchange="previewImage(event)" style="display:none">
+      <img id="aiPreview" alt="معاينة" style="display:none;width:100%;border-radius:12px;margin-top:12px;max-height:260px;object-fit:contain;border:2px solid var(--line)">
+      <div style="margin-top:14px;display:flex;flex-direction:column;gap:8px">
+        <button class="btn purple" onclick="runOCR()" id="analyzeBtn" style="font-size:1rem;padding:13px">✨ تحليل الصورة بالذكاء الاصطناعي</button>
+        <button class="btn" onclick="analyzeImageBasic()">🔍 تحليل جودة الصورة محلياً</button>
+      </div>
+      <div style="margin-top:16px;border-top:1px solid var(--line);padding-top:14px">
+        <h4 style="margin:0 0 8px;color:var(--muted);font-size:13px">أو صف مبيانك يدوياً إذا تعذّر رفع الصورة:</h4>
+        <textarea id="chartDesc" placeholder="مثال: مبيان أعمدة عنوانه إنتاج الحبوب 2010-2020، المحور الأفقي السنوات، المحور العمودي بالطن، أعلى قيمة 850 طن سنة 2018..." style="width:100%;min-height:80px;padding:10px;border:1.5px solid var(--line);border-radius:10px;font-family:inherit;font-size:13px;resize:vertical"></textarea>
+        <button class="btn secondary" onclick="analyzeFromDesc()" style="width:100%;margin-top:6px">📝 تحليل من الوصف</button>
+      </div>
+      <p class="warn" style="margin-top:10px;font-size:12px">النتيجة تقريبية ولا تعوض تصحيح الأستاذ.</p>
+    </div>
+
+    <!-- عمود النتائج -->
+    <div class="panel">
+      <h3>📋 نتيجة التحليل</h3>
+      <div id="imageAnalysis" class="feedback" style="min-height:140px;line-height:1.9">
+        <span style="color:var(--muted)">ارفع صورة واضغط تحليل، أو صف مبيانك يدوياً.</span>
+      </div>
+      <details style="margin-top:12px">
+        <summary style="cursor:pointer;font-size:13px;color:var(--muted);user-select:none">نص OCR المستخرج (للمراجعة)</summary>
+        <textarea id="ocrText" readonly placeholder="سيظهر هنا النص المستخرج من الصورة..." style="width:100%;min-height:70px;margin-top:6px;padding:8px;border:1.5px solid var(--line);border-radius:8px;font-size:12px;direction:ltr;resize:vertical"></textarea>
+      </details>
+      <div style="margin-top:16px;border-top:1px solid var(--line);padding-top:14px">
+        <h4 style="margin:0 0 6px;font-size:14px">تعليق التلميذ على المبيان</h4>
+        <textarea id="studentReading" placeholder="اكتب: يبين المبيان... نلاحظ أن... نستنتج..." style="width:100%;min-height:90px;padding:10px;border:1.5px solid var(--line);border-radius:10px;font-family:inherit;font-size:13px;resize:vertical"></textarea>
+        <button class="btn green" onclick="evaluateReading()" style="width:100%;margin-top:8px">✅ قيّم تعليقي</button>
+        <div id="readingEval" class="feedback" style="margin-top:10px;display:none"></div>
+      </div>
+    </div>
+
+  </div>
+</div></section>
+<section id="pad" class="section"><div class="container">
+  <div class="section-title"><h2>8) دفتر الرسم اليدوي</h2><p>شبكة تدريب تحاكي ورقة المبيان. ارسم بالقلم، امسح، ثم حمّل عملك.</p></div>
+  <div class="toolbox">
+    <div class="panel"><h3>أدوات الرسم</h3><div class="row"><div><label>لون القلم</label><input type="color" id="penColor" value="#0f766e"></div><div><label>سمك القلم</label><input type="range" id="penSize" min="1" max="12" value="3"></div></div><div class="controls"><button class="btn" onclick="toggleGrid()">إظهار/إخفاء الشبكة</button><button class="btn danger" onclick="clearPad()">مسح</button><button class="btn blue" onclick="downloadPad()">تحميل الرسم</button></div><p class="note">هذا الدفتر مفيد للتلاميذ الذين يحتاجون التدريب على احترام السلم والمسافات قبل الرسم في الدفتر الحقيقي.</p></div>
+    <div class="writing-pad"><canvas id="drawPad" width="900" height="480" class="draw-canvas"></canvas></div>
+  </div>
+</div></section>
+
+<section id="rubric" class="section"><div class="container">
+  <div class="section-title"><h2>9) شبكة تنقيط المبيان</h2><p>استعملها الأستاذ أو التلميذ للتحقق من جودة الإنجاز.</p></div>
+  <div class="card"><div class="rubric">
+    <label><input type="checkbox" class="rub" value="10"> نوع مناسب</label><label><input type="checkbox" class="rub" value="10"> عنوان واضح</label><label><input type="checkbox" class="rub" value="10"> محاور مسماة</label><label><input type="checkbox" class="rub" value="10"> سلم مناسب</label><label><input type="checkbox" class="rub" value="10"> وحدة مكتوبة</label><label><input type="checkbox" class="rub" value="10"> مصدر</label><label><input type="checkbox" class="rub" value="10"> مفتاح عند الحاجة</label><label><input type="checkbox" class="rub" value="10"> دقة في التمثيل</label><label><input type="checkbox" class="rub" value="10"> جمالية ووضوح</label><label><input type="checkbox" class="rub" value="10"> تعليق صحيح</label>
+  </div><div class="controls"><button class="btn" onclick="calcRubric()">احسب النقطة</button><button class="btn secondary" onclick="window.print()">طباعة الصفحة</button></div><div id="rubricResult" class="feedback">النقطة ستظهر هنا.</div></div>
+</div></section>
+</main>
+
+<footer class="footer"><div class="container"><b>رحلة إتقان المبيان</b> — إعداد وتطوير: الأستاذ أحمد بوعمود — مؤسسة الحنان الخاصة | أكادير | 2025-2026<br><a href="https://rihla-jihawi.netlify.app/" style="color:#0f766e;font-weight:900;text-decoration:none;">🏠 العودة إلى البوابة الرئيسية</a></div></footer>
+
+<script>
+const canvas=document.getElementById('chartCanvas');
+const ctx=canvas.getContext('2d');
+let lastData=[];let lastChartType='bar';let currentChallenge=null;let padGrid=true;let uploadedImage=null;
+function parseData(){
+  const lines=document.getElementById('dataInput').value.split(/\n+/).map(x=>x.trim()).filter(Boolean);
+  const data=[];
+  for(const line of lines){
+    const parts=line.split(/[,؛;،\t]+/).map(x=>x.trim());
+    if(parts.length>=2){const label=parts[0];const value=parseFloat(String(parts[1]).replace('%','').replace(',','.')); if(!isNaN(value))data.push({label,value});}
+  }
+  return data;
+}
+function niceMax(max){if(max<=0)return 10;const pow=Math.pow(10,Math.floor(Math.log10(max)));const n=max/pow;let nice=1;if(n<=1)nice=1;else if(n<=2)nice=2;else if(n<=5)nice=5;else nice=10;return nice*pow;}
+function clearCanvas(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height)}
+function drawText(text,x,y,size=18,color='#1f2937',align='center',bold=false){ctx.fillStyle=color;ctx.font=(bold?'800 ':'500 ')+size+'px Tajawal, Arial';ctx.textAlign=align;ctx.direction='rtl';ctx.fillText(text,x,y)}
+function drawChart(){
+  const data=parseData();lastData=data;lastChartType=document.getElementById('chartType').value;if(!data.length){alert('أدخل معطيات صحيحة: اسم,قيمة');return}
+  renderTable(data);clearCanvas();
+  if(lastChartType==='pie')drawPie(data);else if(lastChartType==='line')drawLine(data);else if(lastChartType==='hbar')drawHBar(data);else drawBar(data);
+  qualityCheck(data);
+}
+function commonHeader(){
+  const title=document.getElementById('chartTitle').value.trim()||'بدون عنوان';
+  drawText(title,canvas.width/2,42,24,'#7c2d12','center',true);
+  ctx.strokeStyle='#ead7b9';ctx.lineWidth=2;ctx.strokeRect(18,18,canvas.width-36,canvas.height-36);
+}
+function getMax(data){const raw=Math.max(...data.map(d=>d.value));if(document.getElementById('scaleMode').value==='manual')return parseFloat(document.getElementById('maxValue').value)||raw;return niceMax(raw)}
+function drawGrid(plot,ticks,max){ctx.strokeStyle='#f1e2c9';ctx.lineWidth=1;ctx.fillStyle='#6b7280';ctx.font='14px Arial';ctx.textAlign='right';for(let i=0;i<=ticks;i++){const y=plot.b-(plot.h*i/ticks);ctx.beginPath();ctx.moveTo(plot.r,y);ctx.lineTo(plot.r+plot.w,y);ctx.stroke();ctx.fillText(Math.round(max*i/ticks),plot.r-8,y+4)}}
+function drawAxes(plot){ctx.strokeStyle='#1f2937';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(plot.r,plot.t);ctx.lineTo(plot.r,plot.b);ctx.lineTo(plot.r+plot.w,plot.b);ctx.stroke();}
+function drawBar(data){commonHeader();const plot={r:98,t:82,w:790,h:390};plot.b=plot.t+plot.h;const ticks=parseInt(document.getElementById('ticks').value)||10;const max=getMax(data);drawGrid(plot,ticks,max);drawAxes(plot);const barSpace=plot.w/data.length;const barW=Math.min(62,barSpace*.55);data.forEach((d,i)=>{const x=plot.r+barSpace*i+barSpace/2-barW/2;const h=plot.h*(d.value/max);const y=plot.b-h;const grad=ctx.createLinearGradient(0,y,0,plot.b);grad.addColorStop(0,'#f59e0b');grad.addColorStop(1,'#0f766e');ctx.fillStyle=grad;roundRect(ctx,x,y,barW,h,10,true,false);drawText(String(d.value),x+barW/2,y-8,15,'#1f2937');drawText(d.label,x+barW/2,plot.b+28,15,'#374151');});labelsAndSource(plot);}
+function drawLine(data){commonHeader();const plot={r:98,t:82,w:790,h:390};plot.b=plot.t+plot.h;const ticks=parseInt(document.getElementById('ticks').value)||10;const max=getMax(data);drawGrid(plot,ticks,max);drawAxes(plot);const step=data.length>1?plot.w/(data.length-1):plot.w;const pts=data.map((d,i)=>({x:plot.r+step*i,y:plot.b-plot.h*(d.value/max),d}));ctx.strokeStyle='#0f766e';ctx.lineWidth=4;ctx.beginPath();pts.forEach((p,i)=>{if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y)});ctx.stroke();pts.forEach(p=>{ctx.fillStyle='#f97316';ctx.beginPath();ctx.arc(p.x,p.y,7,0,Math.PI*2);ctx.fill();drawText(String(p.d.value),p.x,p.y-14,15,'#1f2937');drawText(p.d.label,p.x,plot.b+28,15,'#374151');});labelsAndSource(plot);}
+function drawHBar(data){commonHeader();const plot={r:190,t:82,w:690,h:390};plot.b=plot.t+plot.h;const max=getMax(data);const ticks=parseInt(document.getElementById('ticks').value)||10;ctx.strokeStyle='#f1e2c9';ctx.lineWidth=1;ctx.fillStyle='#6b7280';ctx.font='14px Arial';ctx.textAlign='center';for(let i=0;i<=ticks;i++){const x=plot.r+plot.w*i/ticks;ctx.beginPath();ctx.moveTo(x,plot.t);ctx.lineTo(x,plot.b);ctx.stroke();ctx.fillText(Math.round(max*i/ticks),x,plot.b+24)}ctx.strokeStyle='#1f2937';ctx.lineWidth=2.5;ctx.strokeRect(plot.r,plot.t,plot.w,plot.h);const space=plot.h/data.length;const barH=Math.min(46,space*.55);data.forEach((d,i)=>{const y=plot.t+space*i+space/2-barH/2;const w=plot.w*d.value/max;ctx.fillStyle=i%2?'#0f766e':'#f59e0b';roundRect(ctx,plot.r,y,w,barH,10,true,false);drawText(d.label,plot.r-12,y+barH/2+5,15,'#374151','right');drawText(String(d.value),plot.r+w+22,y+barH/2+5,15,'#1f2937','center')});labelsAndSource(plot);}
+function drawPie(data){commonHeader();const total=data.reduce((s,d)=>s+d.value,0);const cx=canvas.width/2,cy=310,r=165;let start=-Math.PI/2;const colors=['#f59e0b','#0f766e','#2563eb','#dc2626','#7c3aed','#16a34a','#ea580c','#0891b2'];data.forEach((d,i)=>{const angle=(d.value/total)*Math.PI*2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,start+angle);ctx.closePath();ctx.fillStyle=colors[i%colors.length];ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=4;ctx.stroke();const mid=start+angle/2;const tx=cx+Math.cos(mid)*(r*.68);const ty=cy+Math.sin(mid)*(r*.68);drawText(Math.round(d.value/total*1000)/10+'%',tx,ty,16,'#fff','center',true);start+=angle;});let lx=95,ly=130;data.forEach((d,i)=>{ctx.fillStyle=colors[i%colors.length];ctx.fillRect(lx,ly+i*30,18,18);drawText(d.label+' = '+d.value,lx+28,ly+15+i*30,15,'#374151','left')});drawText('المصدر: '+(document.getElementById('source').value||'معطيات التمرين'),canvas.width/2,570,15,'#6b7280');}
+function labelsAndSource(plot){drawText(document.getElementById('xLabel').value||'المحور الأفقي',plot.r+plot.w/2,plot.b+64,17,'#7c2d12','center',true);ctx.save();ctx.translate(38,plot.t+plot.h/2);ctx.rotate(-Math.PI/2);ctx.direction='rtl';ctx.fillStyle='#7c2d12';ctx.font='800 17px Tajawal, Arial';ctx.textAlign='center';ctx.fillText(document.getElementById('yLabel').value||'المحور العمودي',0,0);ctx.restore();drawText('المصدر: '+(document.getElementById('source').value||'معطيات التمرين'),canvas.width/2,canvas.height-25,15,'#6b7280');}
+function roundRect(ctx,x,y,w,h,r,fill,stroke){if(h<0){y+=h;h=-h}ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();if(fill)ctx.fill();if(stroke)ctx.stroke();}
+function renderTable(data){document.getElementById('tableView').innerHTML='<table class="data-table"><tr><th>الفئة</th><th>القيمة</th></tr>'+data.map(d=>`<tr><td>${escapeHtml(d.label)}</td><td>${d.value}</td></tr>`).join('')+'</table>';}
+function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\'':'&#39;','"':'&quot;'}[c]));}
+function qualityCheck(data){let score=0,notes=[];const title=document.getElementById('chartTitle').value.trim();const source=document.getElementById('source').value.trim();const x=document.getElementById('xLabel').value.trim();const y=document.getElementById('yLabel').value.trim();const unit=document.getElementById('unit').value.trim();if(title.length>8){score+=18;notes.push('✅ عنوان واضح.')}else notes.push('⚠️ العنوان قصير أو غائب.');if(x&&y){score+=18;notes.push('✅ المحاور مسماة.')}else notes.push('⚠️ اكتب أسماء المحاور.');if(unit){score+=12;notes.push('✅ الوحدة موجودة.')}else notes.push('⚠️ أضف الوحدة.');if(source){score+=12;notes.push('✅ المصدر موجود.')}else notes.push('⚠️ أضف المصدر.');if(data.length>=2){score+=12;notes.push('✅ جدول صالح.')}if(lastChartType==='pie'){const total=data.reduce((s,d)=>s+d.value,0);if(Math.abs(total-100)<1){score+=16;notes.push('✅ مجموع النسب قريب من 100%.')}else{score+=8;notes.push('ℹ️ في الدائرة سيحوّل التطبيق القيم إلى نسب من المجموع؛ إن كان المطلوب نسباً فتأكد أن المجموع 100%.')}}else{score+=16;notes.push('✅ السلم مرئي والمحاور واضحة.')}if(data.every(d=>d.value>=0)){score+=12;notes.push('✅ القيم غير سالبة.')}else notes.push('⚠️ توجد قيم سالبة؛ تحتاج محور صفر واضح.');document.getElementById('qualityFeedback').innerHTML='<b>فاحص الجودة: '+score+'/100</b><br>'+notes.join('<br>');return score;}
+function generateCommentary(){const data=lastData.length?lastData:parseData();if(!data.length){alert('ارسم المبيان أولاً');return}const vals=data.map(d=>d.value);const max=Math.max(...vals),min=Math.min(...vals);const maxD=data.find(d=>d.value===max),minD=data.find(d=>d.value===min);let trend='';if(data.length>=3){const diff=data[data.length-1].value-data[0].value;if(diff>0)trend='يتجه عموماً نحو الارتفاع';else if(diff<0)trend='يتجه عموماً نحو الانخفاض';else trend='يبدو مستقراً نسبياً';}
+const typeName={bar:'مبيان بالأعمدة',line:'مبيان بالمنحنى',pie:'مبيان دائري',hbar:'مبيان بالأعمدة الأفقية'}[lastChartType];document.getElementById('commentaryBox').innerHTML=`<b>تعليق مقترح:</b><br>يمثل هذا ${typeName} ${escapeHtml(document.getElementById('chartTitle').value)}. نلاحظ أن أعلى قيمة سجلت عند <b>${escapeHtml(maxD.label)}</b> بقيمة <b>${max}</b>، بينما أدنى قيمة سجلت عند <b>${escapeHtml(minD.label)}</b> بقيمة <b>${min}</b>. ${trend?('كما أن المعطيات '+trend+'.'):''} نستنتج أن المبيان يساعد على إبراز الفروق أو التطور بطريقة أوضح من الجدول.`;}
+function downloadChart(){drawChart();const a=document.createElement('a');a.download='mibyan-ahmed-bouamoud.png';a.href=canvas.toDataURL('image/png');a.click();}
+function loadPreset(p){const presets={urban:{type:'line',title:'تطور نسبة التمدن بالمغرب بين 2004 و2024',x:'السنوات',y:'نسبة التمدن (%)',unit:'%',source:'معطيات تدريبية مبسطة',data:'2004,55.1\n2014,60.4\n2024,62.8'},sectors:{type:'pie',title:'توزيع الأنشطة الاقتصادية حسب القطاعات',x:'القطاعات',y:'النسبة (%)',unit:'%',source:'معطيات تدريبية مبسطة',data:'الفلاحة,33\nالصناعة,22\nالخدمات,45'},compare:{type:'bar',title:'مقارنة إنتاج الحبوب بين دول مختارة',x:'الدول',y:'الإنتاج (مليون طن)',unit:'مليون طن',source:'معطيات تدريبية مبسطة',data:'مصر,24\nنيجيريا,28\nالمغرب,10\nتونس,2'},climate:{type:'line',title:'تغير متوسط الحرارة الشهرية في محطة افتراضية',x:'الشهور',y:'الحرارة (°C)',unit:'°C',source:'معطيات تدريبية مبسطة',data:'يناير,12\nمارس,16\nماي,22\nيوليوز,30\nشتنبر,25\nنونبر,17'}};const pr=presets[p];document.getElementById('chartType').value=pr.type;document.getElementById('chartTitle').value=pr.title;document.getElementById('xLabel').value=pr.x;document.getElementById('yLabel').value=pr.y;document.getElementById('unit').value=pr.unit;document.getElementById('source').value=pr.source;document.getElementById('dataInput').value=pr.data;drawChart();}
+let exIndex=0;function addRowExample(){['urban','sectors','compare','climate'].forEach((p,i)=>{if(i===exIndex%4)loadPreset(p)});exIndex++;}
+function showLesson(id,btn){document.querySelectorAll('.lesson-page').forEach(x=>x.classList.remove('active'));document.getElementById('lesson-'+id).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');}
+const challenges=[
+ {id:1,name:'تحدي المنحنى الذهبي',level:'سهل',type:'line',title:'تطور عدد السياح في مدينة افتراضية بين 2020 و2024',x:'السنوات',y:'عدد السياح (ألف)',unit:'ألف',source:'معطيات تدريبية',data:'2020,120\n2021,90\n2022,150\n2023,210\n2024,260',answer:'النوع الأنسب هو المنحنى لأن الجدول يمثل سلسلة زمنية. القراءة: انخفاض في 2021 ثم ارتفاع متواصل إلى 2024.'},
+ {id:2,name:'تحدي أعمدة المقارنة',level:'سهل',type:'bar',title:'مقارنة إنتاج الزيتون في أربع مناطق',x:'المناطق',y:'الإنتاج (ألف طن)',unit:'ألف طن',source:'معطيات تدريبية',data:'سوس,75\nفاس مكناس,140\nمراكش آسفي,95\nالشرق,45',answer:'النوع الأنسب هو الأعمدة لأن المطلوب مقارنة فئات/مناطق منفصلة. أعلى قيمة فاس مكناس، وأدناها الشرق.'},
+ {id:3,name:'تحدي الدائرة المتوازنة',level:'متوسط',type:'pie',title:'توزيع استعمال الزمن اليومي لتلميذ',x:'الأنشطة',y:'الحصة (%)',unit:'%',source:'معطيات تدريبية',data:'الدراسة,35\nالنوم,33\nاللعب,17\nالمساعدة في البيت,15',answer:'النوع الأنسب هو الدائرة لأن القيم نسب مئوية مجموعها 100%. أكبر حصة للدراسة ثم النوم.'},
+ {id:4,name:'تحدي السلم المناسب',level:'متوسط',type:'bar',title:'مقارنة كثافة السكان في مجالات مختلفة',x:'المجالات',y:'الكثافة (نسمة/كلم²)',unit:'نسمة/كلم²',source:'معطيات تدريبية',data:'مجال جبلي,45\nسهل فلاحي,130\nمدينة كبرى,850\nواحة,70',answer:'أعمدة مع سلم يصل على الأقل إلى 900 أو 1000. يجب ألا نضغط الأعمدة الصغيرة حتى تختفي؛ يمكن استعمال سلم واضح وعدد تقسيمات مناسب.'},
+ {id:5,name:'تحدي قراءة تطور',level:'متوسط',type:'line',title:'تطور نسبة التمدرس في جماعة افتراضية',x:'السنوات',y:'نسبة التمدرس (%)',unit:'%',source:'معطيات تدريبية',data:'2010,62\n2014,69\n2018,76\n2022,83\n2026,88',answer:'منحنى لأنه تطور عبر الزمن. الاتجاه العام ارتفاع متواصل، ويستنتج تحسن التمدرس.'},
+ {id:6,name:'تحدي الخبير',level:'صعب',type:'hbar',title:'مؤشرات اجتماعية مقارنة بين أربع جماعات',x:'القيمة',y:'الجماعات',unit:'نقطة من 100',source:'معطيات تدريبية',data:'الجماعة أ,55\nالجماعة ب,72\nالجماعة ج,43\nالجماعة د,88',answer:'الأعمدة الأفقية مناسبة عندما تكون أسماء الفئات طويلة أو نريد قراءة مقارنة مريحة. الأعلى الجماعة د والأدنى الجماعة ج.'}
+];
+function initChallenges(){const box=document.getElementById('challengeList');box.innerHTML=challenges.map(c=>`<div class="challenge-card"><div><b>${c.name}</b><div class="difficulty">${c.level} — المطلوب: اختر النوع المناسب وارسم بدقة</div></div><button class="btn small" onclick="loadChallenge(${c.id})">ابدأ</button></div>`).join('');renderLeaderboard();}
+function loadChallenge(id){currentChallenge=challenges.find(c=>c.id===id);document.getElementById('chartType').value=currentChallenge.type;document.getElementById('chartTitle').value=currentChallenge.title;document.getElementById('xLabel').value=currentChallenge.x;document.getElementById('yLabel').value=currentChallenge.y;document.getElementById('unit').value=currentChallenge.unit;document.getElementById('source').value=currentChallenge.source;document.getElementById('dataInput').value=currentChallenge.data;document.getElementById('modelAnswer').innerHTML='تم تحميل التحدي. ارسم ثم تحقق.';drawChart();document.getElementById('contestResult').innerHTML='تحدي نشيط: <b>'+currentChallenge.name+'</b>';}
+function checkContest(){if(!currentChallenge){alert('اختر تحدياً أولاً');return}const quality=qualityCheck(parseData());let score=quality;if(document.getElementById('chartType').value===currentChallenge.type)score+=10;else score-=15;score=Math.max(0,Math.min(100,score));document.getElementById('contestBar').style.width=score+'%';let badge=score>=90?'🏆 خبير المبيان':score>=75?'⭐ متمكن':score>=55?'👍 في الطريق الصحيح':'🔁 يحتاج مراجعة';document.getElementById('contestResult').innerHTML=`<b>النقطة: ${score}/100</b> <span class="badge">${badge}</span><br>${score>=75?'عمل جيد. راجع الجواب النموذجي لتقوية التعليق.':'راجع العنوان والمحاور والسلم والنوع المناسب.'}`;}
+function showModelAnswer(){if(!currentChallenge){alert('اختر تحدياً');return}document.getElementById('modelAnswer').innerHTML='<b>الجواب النموذجي:</b><br>'+currentChallenge.answer;}
+function saveScore(){const name=(document.getElementById('studentName').value||'متسابق').trim();const text=document.getElementById('contestResult').innerText;const m=text.match(/(\d+)\/100/);const score=m?parseInt(m[1]):0;const arr=JSON.parse(localStorage.getItem('mibyanScores')||'[]');arr.push({name,score,date:new Date().toLocaleDateString('ar-MA')});arr.sort((a,b)=>b.score-a.score);localStorage.setItem('mibyanScores',JSON.stringify(arr.slice(0,10)));renderLeaderboard();}
+function renderLeaderboard(){const arr=JSON.parse(localStorage.getItem('mibyanScores')||'[]');document.getElementById('leaderboard').innerHTML=arr.length?arr.map(x=>`<li><span>${escapeHtml(x.name)} <small>${x.date}</small></span><b>${x.score}/100</b></li>`).join(''):'<li>لا توجد نتائج محفوظة بعد.</li>';}
+function printCertificate(){const name=document.getElementById('studentName').value||'التلميذ/ة';const w=window.open('','cert','width=900,height=650');w.document.write(`<html dir="rtl" lang="ar"><head><title>شهادة تقدير</title><style>body{font-family:Arial;display:grid;place-items:center;height:100vh;background:#fff7ed}.cert{border:10px double #b45309;border-radius:28px;padding:50px;text-align:center;width:80%;color:#7c2d12}h1{font-size:44px}.name{font-size:36px;color:#0f766e;font-weight:bold}</style></head><body><div class="cert"><h1>شهادة خبير المبيان</h1><p>تمنح هذه الشهادة إلى</p><div class="name">${escapeHtml(name)}</div><p>تقديراً لمشاركته/ها في مسابقة أفضل مبيان</p><p>إعداد: الأستاذ أحمد بوعمود</p></div><script>print()<\/script><script>if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').catch(()=>{});})}</script>
+</body></html>`);w.document.close();}
+function previewImage(e){
+  const file=e.target.files[0];
+  if(!file)return;
+  uploadedImage=file;
+  const img=document.getElementById('aiPreview');
+  img.src=URL.createObjectURL(file);
+  img.style.display='block';
+  const dz=document.getElementById('dropZone');
+  dz.style.borderColor='var(--accent)';dz.style.background='rgba(14,118,110,.08)';
+  dz.innerHTML='<div style="font-size:2rem">✅</div><div style="font-weight:700;color:var(--accent)">الصورة محمّلة</div><div style="font-size:12px;color:var(--muted)">اضغط للتغيير</div>';
+  document.getElementById('imageAnalysis').innerHTML='<span style="color:var(--accent)">✅ جاهز — اضغط “✨ تحليل الصورة”.</span>';
+}
+
+function analyzeImageBasic(){
+  const img=document.getElementById('aiPreview');
+  if(!img.src||img.style.display==='none'){alert('ارفع صورة أولاً');return}
+  const c=document.createElement('canvas'),cx=c.getContext('2d');
+  c.width=400;c.height=Math.round(400*(img.naturalHeight||300)/(img.naturalWidth||400));
+  cx.drawImage(img,0,0,c.width,c.height);
+  const d=cx.getImageData(0,0,c.width,c.height).data;
+  let sum=0,sum2=0,dark=0,light=0,n=0;
+  for(let i=0;i<d.length;i+=12){const l=.2126*d[i]+.7152*d[i+1]+.0722*d[i+2];sum+=l;sum2+=l*l;if(l<70)dark++;if(l>235)light++;n++;}
+  const mean=sum/n,sd=Math.sqrt(sum2/n-mean*mean);
+  const notes=[];
+  notes.push(sd>40?'✅ التباين جيد — الصورة واضحة.':'⚠️ التباين ضعيف — صوّر في إضاءة أفضل أو استخدم قلماً أغمق.');
+  notes.push(dark/n>.012?'✅ توجد خطوط وكتابة داكنة كافية.':'⚠️ يبدو أن الكتابة باهتة أو رفيعة.');
+  notes.push(light/n>.38?'✅ الخلفية فاتحة — مناسبة للقراءة.':'ℹ️ ضع الورقة على سطح أبيض.');
+  notes.push(c.width>c.height?'✅ صورة أفقية — مناسبة.':'ℹ️ يُنصح بالتصوير أفقياً.');
+  document.getElementById('imageAnalysis').innerHTML='<div style="border-right:4px solid var(--primary);padding:10px 14px;border-radius:0 10px 10px 0"><b>🔍 جودة الصورة:</b><br>'+notes.join('<br>')+'</div>';
+}
+
+async function runOCR(){
+  if(!uploadedImage){alert('ارفع صورة أولاً');return}
+  const out=document.getElementById('imageAnalysis');
+  const btn=document.getElementById('analyzeBtn');
+  btn.disabled=true;
+  out.innerHTML='<b>⏳ المرحلة 1/2: استخراج النص من الصورة...</b>';
+  let extractedText='';
+  try{
+    const fd=new FormData();
+    fd.append('file',uploadedImage);
+    fd.append('apikey','helloworld');
+    fd.append('language','ara+fre+eng');
+    fd.append('OCREngine','2');
+    fd.append('scale','true');
+    fd.append('isOverlayRequired','false');
+    const ctrl=new AbortController();
+    setTimeout(function(){ctrl.abort();},18000);
+    const ocrResp=await fetch('https://api2.ocr.space/parse/image',{method:'POST',body:fd,signal:ctrl.signal});
+    const ocrData=await ocrResp.json();
+    extractedText=(ocrData.ParsedResults&&ocrData.ParsedResults[0]&&ocrData.ParsedResults[0].ParsedText||'').trim();
+    if(extractedText)document.getElementById('ocrText').value=extractedText;
+  }catch(ocrErr){/* OCR failed silently, continue with empty text */}
+  out.innerHTML=extractedText
+    ?'<b>⏳ المرحلة 2/2: الذكاء الاصطناعي يحلّل النص...</b>'
+    :'<b>⏳ المرحلة 2/2: إرشادات عامة من الذكاء الاصطناعي...</b>';
+  var aiPrompt=extractedText
+    ?'أنت مصحح تربوي في مادة الاجتماعيات للسنة الثالثة إعدادي بالمغرب.\nنص OCR المستخرج من صورة مبيان التلميذ:\n"""\n'+extractedText.slice(0,600)+'\n"""\n\nحلّل المبيان وأجب بالعربية الفصحى المبسطة عن:\n1. نوع المبيان\n2. العنوان\n3. المحاور والوحدة\n4. المصدر\n5. ملاحظات على الجودة\n6. نقطة من 10 مع التبرير\nأجب بأسلوب إيجابي ومشجّع.'
+    :'أنت مصحح تربوي في مادة الاجتماعيات للسنة الثالثة إعدادي بالمغرب.\nتلميذ أرسل صورة مبيانه لكن لم يتمكن النظام من استخراج النص منها (ربما كتابة يدوية).\nقدّم له:\n1. قائمة بالعناصر الإلزامية في المبيان\n2. الأخطاء الشائعة\n3. خطوات القراءة المنهجية\nأجب بالعربية الفصحى وبأسلوب مشجّع.';
+  try{
+    const ctrl2=new AbortController();
+    setTimeout(function(){ctrl2.abort();},22000);
+    const aiResp=await fetch('https://text.pollinations.ai/',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'openai-large',messages:[{role:'user',content:aiPrompt}]}),
+      signal:ctrl2.signal
+    });
+    if(!aiResp.ok)throw new Error('HTTP '+aiResp.status);
+    const txt=await aiResp.text();
+    if(!txt||txt.length<15)throw new Error('رد فارغ');
+    var ocrNote=extractedText
+      ?'<small style="color:var(--muted);display:block;margin-bottom:8px">📖 نص OCR: "'+extractedText.slice(0,80)+'..."</small>'
+      :'<small style="color:var(--muted);display:block;margin-bottom:8px">⚠️ لم ينجح استخراج النص — إرشادات عامة</small>';
+    out.innerHTML='<div style="border-right:4px solid #7c3aed;padding:12px 16px;border-radius:0 10px 10px 0"><b>✨ تحليل الذكاء الاصطناعي:</b><br>'+ocrNote+'<span style="white-space:pre-wrap;line-height:2">'+txt.replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</span></div>';
+    out.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }catch(e){
+    out.innerHTML='<span style="color:#dc2626">⚠️ '+e.message+' — تأكد من الاتصال وحاول مجدداً.</span>';
+  }
+  btn.disabled=false;
+}
+
+async function analyzeFromDesc(){
+  const el=document.getElementById('chartDesc');
+  const desc=el?el.value.trim():'';
+  if(!desc||desc.length<20){alert('اكتب وصفاً كافياً للمبيان.');return}
+  const out=document.getElementById('imageAnalysis');
+  out.innerHTML='<b>⏳ الذكاء الاصطناعي يحلّل وصفك...</b>';
+  var p='أنت مصحح تربوي في مادة الاجتماعيات للسنة الثالثة إعدادي.\nوصف التلميذ لمبيانه: "'+desc+'"\n\nحلّل وأجب بالعربية:\n1. تقييم نوع المبيان\n2. العنوان والمحاور\n3. ملاحظات الجودة\n4. نقطة من 10\n5. اقتراحات للتحسين\nأجب بإيجابية.';
+  try{
+    const ctrl=new AbortController();
+    setTimeout(function(){ctrl.abort();},22000);
+    const r=await fetch('https://text.pollinations.ai/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'openai-large',messages:[{role:'user',content:p}]}),signal:ctrl.signal});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const txt=await r.text();
+    if(!txt||txt.length<15)throw new Error('رد فارغ');
+    out.innerHTML='<div style="border-right:4px solid var(--accent);padding:12px 16px;border-radius:0 10px 10px 0"><b>✨ تحليل الوصف:</b><br><span style="white-space:pre-wrap;line-height:2">'+txt.replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</span></div>';
+    out.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }catch(e){
+    out.innerHTML='<span style="color:#dc2626">⚠️ '+e.message+'</span>';
+  }
+}
+
+function resizeAndEncode(file,maxSize){
+  return new Promise(function(resolve,reject){
+    const img=new Image(),url=URL.createObjectURL(file);
+    img.onload=function(){
+      let w=img.width,h=img.height;
+      if(w>maxSize||h>maxSize){if(w>h){h=Math.round(h*maxSize/w);w=maxSize;}else{w=Math.round(w*maxSize/h);h=maxSize;}}
+      const c=document.createElement('canvas');c.width=w;c.height=h;
+      c.getContext('2d').drawImage(img,0,0,w,h);
+      URL.revokeObjectURL(url);resolve(c.toDataURL('image/jpeg',0.85).split(',')[1]);
+    };
+    img.onerror=function(){URL.revokeObjectURL(url);reject(new Error('خطأ في الصورة'));};
+    img.src=url;
+  });
+}
+
+function copyVisionPrompt(){
+  const t='أنت مصحح تربوي في مادة الاجتماعيات للثالثة إعدادي بالمغرب. حلّل هذا المبيان وأذكر: النوع، العنوان، المحاور، المصدر، ملاحظات الجودة، ونقطة من 10.';
+  navigator.clipboard.writeText(t).then(function(){alert('تم نسخ البرومبت!');}).catch(function(){alert(t);});
+}
+
+function evaluateReading(){
+  const el=document.getElementById('studentReading');
+  const t=el?el.value:'';
+  const evalDiv=document.getElementById('readingEval');
+  evalDiv.style.display='block';
+  if(!t||t.trim().length<20){evalDiv.innerHTML='<span style="color:#dc2626">⚠️ اكتب جملة كاملة على الأقل.</span>';return}
+  const checks=[];
+  checks.push(/يبين|يوضح|يمثل|يُظهر/.test(t)?'✅ بدأت بجملة تعريفية جيدة.':'⚠️ ابدأ بـ "يبين المبيان..."');
+  checks.push(/نلاحظ|يظهر|يتضح|نرى/.test(t)?'✅ وصفت ما يظهر في المبيان.':'ℹ️ أضف: "نلاحظ أن..."');
+  checks.push(/نستنتج|خلاصة|إذن|يتبين/.test(t)?'✅ استخلصت نتيجة — ممتاز!':'ℹ️ أضف: "نستنتج أن..."');
+  checks.push(/%|نسبة|٠|\d/.test(t)?'✅ ذكرت أرقاماً أو نسباً — دقيق.':'ℹ️ اذكر قيمة أو نسبة من المبيان.');
+  evalDiv.innerHTML='<div style="border-right:4px solid var(--green);padding:10px 14px;border-radius:0 10px 10px 0"><b>📝 تقييم تعليقك:</b><br>'+checks.join('<br>')+'</div>';
+}
+
+function calcRubric(){let s=0;document.querySelectorAll('.rub:checked').forEach(x=>s+=parseInt(x.value));document.getElementById('rubricResult').innerHTML='<b>النقطة: '+s+'/100</b><br>'+(s>=80?'مبيان ممتاز أو قريب من الامتياز.':s>=60?'مبيان مقبول يحتاج تحسين بعض العناصر.':'يحتاج مراجعة العناصر الأساسية قبل التسليم.');}
+// Drawing pad
+const pad=document.getElementById('drawPad');const pctx=pad.getContext('2d');let drawing=false;function initPad(){drawPadGrid();pad.addEventListener('pointerdown',e=>{drawing=true;const p=pos(e);pctx.beginPath();pctx.moveTo(p.x,p.y)});pad.addEventListener('pointermove',e=>{if(!drawing)return;const p=pos(e);pctx.lineWidth=document.getElementById('penSize').value;pctx.strokeStyle=document.getElementById('penColor').value;pctx.lineCap='round';pctx.lineTo(p.x,p.y);pctx.stroke()});window.addEventListener('pointerup',()=>drawing=false)}
+function pos(e){const r=pad.getBoundingClientRect();return{x:(e.clientX-r.left)*pad.width/r.width,y:(e.clientY-r.top)*pad.height/r.height}}
+function drawPadGrid(){pctx.fillStyle='#fff';pctx.fillRect(0,0,pad.width,pad.height);if(!padGrid)return;pctx.strokeStyle='#f1e2c9';pctx.lineWidth=1;for(let x=0;x<pad.width;x+=30){pctx.beginPath();pctx.moveTo(x,0);pctx.lineTo(x,pad.height);pctx.stroke()}for(let y=0;y<pad.height;y+=30){pctx.beginPath();pctx.moveTo(0,y);pctx.lineTo(pad.width,y);pctx.stroke()}pctx.strokeStyle='#111827';pctx.lineWidth=2;pctx.beginPath();pctx.moveTo(70,50);pctx.lineTo(70,pad.height-60);pctx.lineTo(pad.width-40,pad.height-60);pctx.stroke();}
+function toggleGrid(){padGrid=!padGrid;drawPadGrid()}function clearPad(){drawPadGrid()}function downloadPad(){const a=document.createElement('a');a.download='tadrib-mibyan.png';a.href=pad.toDataURL('image/png');a.click()}
+window.addEventListener('load',()=>{loadPreset('urban');initChallenges();initPad();});
+</script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').catch(()=>{});})}</script>
+</body>
+</html>
