@@ -3,3 +3,8 @@
 
 # Claude Code local settings (contains secrets)
 .claude/settings.local.json
+
+# Node
+node_modules/
+package-lock.json
+package.json
