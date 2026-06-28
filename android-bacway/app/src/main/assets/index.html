@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BAC WAY CENTER | مركز باك واي — أكادير</title>
+<meta name="description" content="مركز باك واي للتكوين والتوجيه ودروس الدعم بأكادير. تحضير لمباريات ما بعد الباك: طب، هندسة، تجارة، معمار. +10 سنوات من النجاح." />
+<meta name="theme-color" content="#061a3a" />
+<meta property="og:title" content="BAC WAY CENTER | مركز باك واي" />
+<meta property="og:description" content="تكوين · توجيه · دروس الدعم — أكادير" />
+<meta property="og:image" content="images/hero-banner.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════════════ */
+:root {
+  --navy:   #061a3a;
+  --deep:   #031126;
+  --royal:  #0757c9;
+  --sky:    #2a89ff;
+  --gold:   #ffd23c;
+  --orange: #ff5a2a;
+  --white:  #ffffff;
+  --off:    #f4f7ff;
+  --muted:  #64748b;
+  --ink:    #0f172a;
+  --card:   rgba(255,255,255,0.06);
+  --radius: 18px;
+  --shadow: 0 8px 40px rgba(7,87,201,0.18);
+  --trans:  0.35s cubic-bezier(.4,0,.2,1);
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Cairo', system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--white);
+  overflow-x: hidden;
+}
+body.lock { overflow: hidden; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+
+/* Progress bar */
+.progress-bar {
+  position: fixed; top: 0; right: 0; height: 3px; width: 0;
+  background: linear-gradient(90deg, var(--gold), var(--orange), var(--sky));
+  z-index: 9999; transition: width .1s;
+}
+
+/* Container */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 28px; border-radius: 50px; font-family: 'Cairo', sans-serif;
+  font-size: 1rem; font-weight: 700; cursor: pointer; border: none;
+  transition: var(--trans); white-space: nowrap;
+}
+.btn-gold {
+  background: var(--gold); color: var(--navy);
+  box-shadow: 0 4px 20px rgba(255,210,60,.4);
+}
+.btn-gold:hover { background: #ffe566; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,210,60,.5); }
+.btn-ghost {
+  background: transparent; color: var(--white);
+  border: 2px solid rgba(255,255,255,.5);
+}
+.btn-ghost:hover { background: rgba(255,255,255,.1); border-color: var(--white); transform: translateY(-2px); }
+.btn-blue {
+  background: var(--royal); color: var(--white);
+  box-shadow: 0 4px 20px rgba(7,87,201,.35);
+}
+.btn-blue:hover { background: var(--sky); transform: translateY(-2px); }
+.btn-outline {
+  background: transparent; color: var(--royal);
+  border: 2px solid var(--royal);
+}
+.btn-outline:hover { background: var(--royal); color: var(--white); transform: translateY(-2px); }
+
+/* Section wrapper */
+.section { padding: 90px 0; }
+.section-dark { background: var(--navy); color: var(--white); }
+.section-light { background: var(--off); }
+
+/* Section header */
+.section-header { text-align: center; margin-bottom: 60px; }
+.section-header .tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(7,87,201,.1); color: var(--royal);
+  padding: 6px 16px; border-radius: 50px; font-size: .85rem; font-weight: 700;
+  margin-bottom: 16px; border: 1px solid rgba(7,87,201,.2);
+}
+.section-dark .section-header .tag {
+  background: rgba(255,210,60,.12); color: var(--gold);
+  border-color: rgba(255,210,60,.25);
+}
+.section-header h2 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900;
+  line-height: 1.25; margin-bottom: 14px;
+}
+.section-header h2 span { color: var(--royal); }
+.section-dark .section-header h2 span { color: var(--gold); }
+.section-header p { font-size: 1.05rem; color: var(--muted); max-width: 580px; margin: 0 auto; }
+.section-dark .section-header p { color: rgba(255,255,255,.65); }
+
+/* Reveal animation — CSS fallback guarantees content never stays blank */
+@keyframes autoReveal {
+  to { opacity: 1; transform: none; }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+  /* Fallback: auto-reveal after 700ms even if JS scroll/observer fails */
+  animation: autoReveal .5s 700ms ease forwards;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: none; /* JS handled it — cancel CSS fallback */
+}
+
+/* Hero animations — always visible, no observer needed */
+@keyframes heroUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroRight {
+  from { opacity: 0; transform: translateX(36px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.hero-anim-up   { animation: heroUp   .8s ease both; }
+.hero-anim-up2  { animation: heroUp   .8s ease .2s both; }
+.hero-anim-side { animation: heroRight .8s ease .15s both; }
+
+/* ═══════════════════════════════════════════
+   NAVBAR
+══════════════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; right: 0; left: 0; z-index: 1000;
+  padding: 12px 0;
+  transition: var(--trans);
+}
+.nav.scrolled {
+  background: rgba(6,26,58,.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 2px 30px rgba(0,0,0,.3);
+  padding: 8px 0;
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px;
+}
+.brand {
+  display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+}
+.brand img {
+  height: 52px; width: auto; object-fit: contain; border-radius: 10px;
+}
+.brand-text h1 {
+  font-size: 1.1rem; font-weight: 900; color: var(--white); line-height: 1.2;
+}
+.brand-text p {
+  font-size: .72rem; color: var(--gold); font-weight: 600;
+}
+.nav-links {
+  display: flex; align-items: center; gap: 6px;
+}
+.nav-links a {
+  color: rgba(255,255,255,.85); font-weight: 600; font-size: .9rem;
+  padding: 7px 14px; border-radius: 8px;
+  transition: var(--trans);
+}
+.nav-links a:hover { color: var(--white); background: rgba(255,255,255,.1); }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.menu-btn {
+  display: none; background: rgba(255,255,255,.1); border: none; color: var(--white);
+  width: 42px; height: 42px; border-radius: 10px; font-size: 1.2rem;
+  cursor: pointer; transition: var(--trans);
+}
+.menu-btn:hover { background: rgba(255,255,255,.2); }
+
+/* Mobile menu */
+.mobile-menu {
+  display: none; position: fixed; top: 0; right: 0; left: 0; bottom: 0;
+  background: rgba(6,26,58,.97); backdrop-filter: blur(20px);
+  z-index: 999; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  color: var(--white); font-size: 1.3rem; font-weight: 700;
+  padding: 14px 40px; border-radius: 14px; transition: var(--trans);
+  width: 80%; text-align: center;
+}
+.mobile-menu a:hover { background: rgba(255,210,60,.15); color: var(--gold); }
+.mobile-close {
+  position: absolute; top: 20px; left: 20px;
+  background: rgba(255,255,255,.1); border: none; color: var(--white);
+  width: 44px; height: 44px; border-radius: 50%; font-size: 1.3rem;
+  cursor: pointer; transition: var(--trans);
+}
+.mobile-close:hover { background: rgba(255,80,60,.3); }
+
+/* ═══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(6,26,58,.92) 0%, rgba(7,87,201,.75) 50%, rgba(6,26,58,.92) 100%),
+    url('images/hero-banner.png') center/cover no-repeat;
+  display: flex; align-items: center;
+  position: relative; overflow: hidden; padding: 120px 0 80px;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(255,210,60,.08), transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(42,137,255,.12), transparent 50%);
+  pointer-events: none;
+}
+.hero-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.hero-kicker {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,210,60,.15); border: 1px solid rgba(255,210,60,.3);
+  color: var(--gold); padding: 7px 18px; border-radius: 50px;
+  font-size: .85rem; font-weight: 700; margin-bottom: 22px;
+}
+.hero-kicker::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--gold); animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .5; transform: scale(1.3); }
+}
+.hero h2 {
+  font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 900; color: var(--white);
+  line-height: 1.2; margin-bottom: 20px;
+}
+.hero h2 span { color: var(--gold); }
+.hero-lead {
+  font-size: 1.1rem; color: rgba(255,255,255,.8); line-height: 1.7;
+  margin-bottom: 14px;
+}
+.hero-tagline {
+  display: flex; align-items: center; gap: 10px;
+  font-size: .95rem; color: rgba(255,255,255,.6); margin-bottom: 32px;
+}
+.hero-tagline span { color: var(--gold); font-weight: 700; }
+.hero-tagline .sep { color: rgba(255,255,255,.3); }
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
+.hero-stats {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 16px;
+}
+.stat-card {
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 14px; padding: 16px 10px; text-align: center;
+  backdrop-filter: blur(10px);
+}
+.stat-card strong {
+  display: block; font-size: 1.6rem; font-weight: 900; color: var(--gold);
+  line-height: 1;
+}
+.stat-card span { font-size: .75rem; color: rgba(255,255,255,.65); margin-top: 4px; display: block; }
+
+/* Hero image side */
+.hero-img-wrap {
+  position: relative;
+}
+.hero-img-main {
+  border-radius: 24px; overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,.45);
+  border: 2px solid rgba(255,255,255,.1);
+}
+.hero-img-main img { width: 100%; height: 420px; object-fit: cover; }
+.hero-badge {
+  position: absolute; bottom: -20px; right: -20px;
+  background: var(--gold); color: var(--navy);
+  border-radius: 16px; padding: 14px 20px;
+  box-shadow: 0 8px 30px rgba(255,210,60,.4);
+  font-weight: 900; font-size: .9rem; text-align: center;
+}
+.hero-badge strong { display: block; font-size: 1.5rem; }
+.hero-badge2 {
+  position: absolute; top: -16px; left: -16px;
+  background: var(--royal); color: var(--white);
+  border-radius: 14px; padding: 12px 18px;
+  box-shadow: 0 8px 30px rgba(7,87,201,.5);
+  font-weight: 700; font-size: .82rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-badge2 i { color: var(--gold); font-size: 1.1rem; }
+
+/* ═══════════════════════════════════════════
+   ABOUT
+══════════════════════════════════════════ */
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center;
+}
+.about-img-wrap { position: relative; }
+.about-img-main {
+  border-radius: 24px; overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.about-img-main img { width: 100%; height: 480px; object-fit: cover; }
+.about-img-badge {
+  position: absolute; bottom: 24px; right: 24px;
+  background: var(--navy); color: var(--white);
+  border-radius: 14px; padding: 16px 20px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.3);
+  font-weight: 700; text-align: center;
+}
+.about-img-badge .num { font-size: 2rem; font-weight: 900; color: var(--gold); display: block; }
+.about-img-badge .lbl { font-size: .78rem; color: rgba(255,255,255,.7); }
+.about-content .subtitle {
+  color: var(--royal); font-weight: 700; font-size: .9rem;
+  text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.about-content .subtitle::before {
+  content: ''; width: 32px; height: 3px;
+  background: var(--gold); border-radius: 2px;
+}
+.about-content h2 {
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem); font-weight: 900;
+  line-height: 1.3; margin-bottom: 18px;
+}
+.about-content h2 span { color: var(--royal); }
+.about-content p { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 28px; }
+.about-features { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+.about-feat {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: var(--off); border-radius: 14px; padding: 16px;
+  border-right: 4px solid var(--royal);
+  transition: var(--trans);
+}
+.about-feat:hover { transform: translateX(-4px); box-shadow: var(--shadow); }
+.about-feat-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--royal), var(--sky));
+  display: flex; align-items: center; justify-content: center;
+  color: var(--white); font-size: 1.1rem; flex-shrink: 0;
+}
+.about-feat-text h4 { font-size: .95rem; font-weight: 800; margin-bottom: 2px; }
+.about-feat-text p { font-size: .83rem; color: var(--muted); }
+.about-services {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 12px;
+}
+.svc-chip {
+  background: linear-gradient(135deg, var(--navy), var(--royal));
+  color: var(--white); border-radius: 12px; padding: 12px 10px;
+  text-align: center; font-size: .82rem; font-weight: 700;
+}
+.svc-chip i { display: block; font-size: 1.3rem; color: var(--gold); margin-bottom: 6px; }
+
+/* ═══════════════════════════════════════════
+   PROGRAMS (LEVELS)
+══════════════════════════════════════════ */
+.levels-grid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 24px;
+}
+.level-card {
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,.08);
+  transition: var(--trans); cursor: pointer;
+  border: 2px solid transparent;
+}
+.level-card:hover { transform: translateY(-8px); box-shadow: 0 16px 50px rgba(7,87,201,.2); border-color: var(--royal); }
+.level-card-header {
+  padding: 28px 24px;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.level-icon {
+  width: 70px; height: 70px; border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; color: var(--white); margin-bottom: 16px;
+}
+.level-card-header h3 { font-size: 1.1rem; font-weight: 900; color: var(--white); }
+.level-card-header .level-label {
+  font-size: .78rem; color: rgba(255,255,255,.7); margin-top: 4px;
+}
+.level-card-body { background: var(--white); padding: 20px 24px; }
+.level-card-body ul { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+.level-card-body li {
+  display: flex; align-items: center; gap: 8px;
+  font-size: .87rem; color: var(--muted);
+}
+.level-card-body li::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--royal); flex-shrink: 0;
+}
+.level-card-body .btn { width: 100%; justify-content: center; font-size: .88rem; padding: 10px; }
+
+/* Level color themes */
+.level-tc .level-card-header { background: linear-gradient(135deg,#1a3a6b,#2a5dba); }
+.level-tc .level-icon { background: rgba(255,255,255,.2); }
+.level-1bac .level-card-header { background: linear-gradient(135deg,#0a4f3a,#1a9472); }
+.level-1bac .level-icon { background: rgba(255,255,255,.2); }
+.level-2bac .level-card-header { background: linear-gradient(135deg,#6b1a1a,#c04040); }
+.level-2bac .level-icon { background: rgba(255,255,255,.2); }
+.level-post .level-card-header { background: linear-gradient(135deg,#3a2a00,#c47e00); }
+.level-post .level-icon { background: rgba(255,255,255,.2); }
+
+/* ═══════════════════════════════════════════
+   POST-BAC COMPETITIONS
+══════════════════════════════════════════ */
+.competitions-section { background: var(--navy); }
+.competitions-grid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 20px;
+}
+.comp-card {
+  background: var(--card); border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--radius); padding: 28px 20px; text-align: center;
+  transition: var(--trans); cursor: default;
+}
+.comp-card:hover {
+  background: rgba(255,255,255,.1); border-color: var(--gold);
+  transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,.3);
+}
+.comp-icon {
+  width: 64px; height: 64px; border-radius: 18px; margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; color: var(--white);
+}
+.comp-card h3 { font-size: .92rem; font-weight: 800; color: var(--white); margin-bottom: 8px; line-height: 1.3; }
+.comp-card p { font-size: .78rem; color: rgba(255,255,255,.55); line-height: 1.5; }
+.comp-tag {
+  display: inline-block; margin-top: 12px;
+  background: rgba(255,210,60,.15); color: var(--gold);
+  border: 1px solid rgba(255,210,60,.25); border-radius: 6px;
+  font-size: .72rem; font-weight: 700; padding: 4px 10px;
+}
+
+/* Competition icon colors */
+.ci-med  { background: linear-gradient(135deg,#b91c1c,#ef4444); }
+.ci-arch { background: linear-gradient(135deg,#92400e,#d97706); }
+.ci-com  { background: linear-gradient(135deg,#065f46,#10b981); }
+.ci-iscae{ background: linear-gradient(135deg,#1e3a8a,#3b82f6); }
+.ci-sci  { background: linear-gradient(135deg,#312e81,#7c3aed); }
+.ci-eng  { background: linear-gradient(135deg,#1e40af,#0ea5e9); }
+.ci-agro { background: linear-gradient(135deg,#14532d,#16a34a); }
+.ci-sante{ background: linear-gradient(135deg,#831843,#db2777); }
+
+/* Sectors strip */
+.sectors-strip {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 0;
+  border-radius: var(--radius); overflow: hidden; margin-top: 50px;
+}
+.sector {
+  padding: 28px 20px; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  transition: var(--trans);
+}
+.sector:hover { filter: brightness(1.1); }
+.sector i { font-size: 2rem; color: var(--white); }
+.sector h4 { font-size: .9rem; font-weight: 800; color: var(--white); }
+.sector p { font-size: .75rem; color: rgba(255,255,255,.7); }
+.s1 { background: linear-gradient(135deg,#7f1d1d,#dc2626); }
+.s2 { background: linear-gradient(135deg,#1e3a8a,#3b82f6); }
+.s3 { background: linear-gradient(135deg,#14532d,#15803d); }
+.s4 { background: linear-gradient(135deg,#92400e,#f59e0b); }
+
+/* ═══════════════════════════════════════════
+   WHY BAC WAY
+══════════════════════════════════════════ */
+.why-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 70px; align-items: center; }
+.stats-wall {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+.stat-big {
+  background: linear-gradient(135deg, var(--navy), var(--royal));
+  border-radius: 20px; padding: 30px 24px; text-align: center; color: var(--white);
+  box-shadow: 0 8px 30px rgba(7,87,201,.25);
+  transition: var(--trans);
+}
+.stat-big:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(7,87,201,.35); }
+.stat-big .num {
+  font-size: 2.8rem; font-weight: 900; color: var(--gold);
+  line-height: 1; display: block;
+}
+.stat-big .unit { font-size: 1.3rem; }
+.stat-big .lbl { font-size: .82rem; color: rgba(255,255,255,.7); margin-top: 6px; display: block; }
+.stat-big.accent {
+  background: linear-gradient(135deg, var(--gold), #ffb800);
+  color: var(--navy);
+}
+.stat-big.accent .num { color: var(--navy); }
+.stat-big.accent .lbl { color: rgba(0,0,0,.6); }
+
+.why-features { display: flex; flex-direction: column; gap: 24px; }
+.why-feat {
+  display: flex; gap: 18px; align-items: flex-start;
+  padding: 20px; background: var(--off); border-radius: 16px;
+  transition: var(--trans);
+}
+.why-feat:hover { box-shadow: var(--shadow); transform: translateX(-4px); }
+.why-feat-icon {
+  width: 56px; height: 56px; border-radius: 16px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--navy), var(--royal));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; color: var(--gold);
+}
+.why-feat-text h4 { font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
+.why-feat-text p { font-size: .85rem; color: var(--muted); line-height: 1.6; }
+
+/* ═══════════════════════════════════════════
+   SUBJECTS
+══════════════════════════════════════════ */
+.subjects-grid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 24px;
+}
+.subj-card {
+  border-radius: 20px; padding: 36px 24px; text-align: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,.08);
+  transition: var(--trans); position: relative; overflow: hidden;
+}
+.subj-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,.15); }
+.subj-card::before {
+  content: ''; position: absolute; bottom: -30px; right: -30px;
+  width: 100px; height: 100px; border-radius: 50%;
+  background: rgba(255,255,255,.1); pointer-events: none;
+}
+.subj-card i { font-size: 2.8rem; margin-bottom: 16px; display: block; }
+.subj-card h3 { font-size: 1rem; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+.subj-card p { font-size: .8rem; color: rgba(255,255,255,.75); line-height: 1.5; }
+.subj-math  { background: linear-gradient(135deg,#1e3a8a,#2563eb); }
+.subj-phys  { background: linear-gradient(135deg,#312e81,#7c3aed); }
+.subj-svt   { background: linear-gradient(135deg,#14532d,#16a34a); }
+.subj-eco   { background: linear-gradient(135deg,#7c2d12,#ea580c); }
+
+/* ═══════════════════════════════════════════
+   GALLERY
+══════════════════════════════════════════ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 280px 280px;
+  gap: 16px;
+}
+.gallery-item {
+  border-radius: 16px; overflow: hidden; position: relative; cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,0,0,.12);
+  transition: var(--trans);
+}
+.gallery-item:hover { transform: scale(1.02); box-shadow: 0 12px 40px rgba(0,0,0,.25); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: var(--trans); }
+.gallery-item:hover img { transform: scale(1.05); }
+.gallery-item.span2 { grid-column: span 2; }
+.gallery-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(6,26,58,.8), transparent 50%);
+  display: flex; align-items: flex-end; padding: 18px;
+  opacity: 0; transition: var(--trans);
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-overlay span { color: var(--white); font-weight: 700; font-size: .9rem; }
+
+/* Lightbox */
+.lightbox {
+  position: fixed; inset: 0; z-index: 9000;
+  background: rgba(0,0,0,.93); display: none;
+  align-items: center; justify-content: center;
+}
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 12px; object-fit: contain; }
+.lb-close {
+  position: absolute; top: 20px; right: 20px;
+  background: rgba(255,255,255,.15); border: none; color: var(--white);
+  width: 48px; height: 48px; border-radius: 50%; font-size: 1.3rem;
+  cursor: pointer; transition: var(--trans);
+}
+.lb-close:hover { background: rgba(255,80,60,.5); }
+
+/* ═══════════════════════════════════════════
+   CONTACT
+══════════════════════════════════════════ */
+.contact-section { background: var(--off); }
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1.2fr; gap: 50px;
+}
+.contact-info { display: flex; flex-direction: column; gap: 20px; }
+.contact-info h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; line-height: 1.3;
+  margin-bottom: 6px;
+}
+.contact-info h2 span { color: var(--royal); }
+.contact-info > p { font-size: 1rem; color: var(--muted); line-height: 1.7; }
+.contact-link {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--white); border-radius: 14px; padding: 16px 20px;
+  box-shadow: 0 2px 16px rgba(0,0,0,.06); transition: var(--trans);
+  border: 1px solid transparent;
+}
+.contact-link:hover { border-color: var(--royal); box-shadow: var(--shadow); transform: translateX(-4px); }
+.contact-link-icon {
+  width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+}
+.cl-phone .contact-link-icon { background: #dbeafe; color: var(--royal); }
+.cl-wa .contact-link-icon { background: #dcfce7; color: #16a34a; }
+.cl-map .contact-link-icon { background: #fee2e2; color: #dc2626; }
+.contact-link-text strong { display: block; font-size: .9rem; font-weight: 800; color: var(--ink); }
+.contact-link-text span { font-size: .82rem; color: var(--muted); }
+.schedule-card {
+  background: linear-gradient(135deg, var(--navy), var(--royal));
+  border-radius: 16px; padding: 20px 24px; color: var(--white);
+}
+.schedule-card h4 { font-weight: 800; font-size: .95rem; color: var(--gold); margin-bottom: 12px; }
+.schedule-card p { font-size: .85rem; color: rgba(255,255,255,.75); line-height: 1.7; }
+
+/* Form */
+.form-card {
+  background: var(--white); border-radius: 20px; padding: 36px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.08);
+}
+.form-card h3 { font-size: 1.4rem; font-weight: 900; margin-bottom: 6px; }
+.form-card > p { font-size: .88rem; color: var(--muted); margin-bottom: 24px; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: .85rem; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.form-input {
+  width: 100%; padding: 12px 16px;
+  border: 2px solid #e2e8f0; border-radius: 12px;
+  font-family: 'Cairo', sans-serif; font-size: .9rem; color: var(--ink);
+  transition: var(--trans); outline: none; background: var(--white);
+}
+.form-input:focus { border-color: var(--royal); box-shadow: 0 0 0 3px rgba(7,87,201,.1); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-card .btn { width: 100%; justify-content: center; margin-top: 8px; padding: 14px; font-size: 1rem; }
+.form-note { text-align: center; font-size: .78rem; color: var(--muted); margin-top: 12px; }
+.form-note i { color: var(--gold); margin-left: 4px; }
+
+/* Map embed */
+.map-wrap {
+  border-radius: 16px; overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,.1);
+  margin-top: 20px; height: 200px;
+}
+.map-wrap iframe { width: 100%; height: 100%; border: none; }
+
+/* ═══════════════════════════════════════════
+   TESTIMONIALS STRIP
+══════════════════════════════════════════ */
+.testi-section { background: var(--navy); padding: 70px 0; }
+.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.testi-card {
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 18px; padding: 28px 24px; position: relative;
+  transition: var(--trans);
+}
+.testi-card:hover { background: rgba(255,255,255,.1); border-color: rgba(255,210,60,.3); transform: translateY(-4px); }
+.testi-card::before {
+  content: '"'; position: absolute; top: 16px; left: 20px;
+  font-size: 4rem; color: rgba(255,210,60,.2); font-family: Georgia, serif;
+  line-height: 1;
+}
+.testi-text { font-size: .9rem; color: rgba(255,255,255,.8); line-height: 1.7; margin-bottom: 20px; }
+.testi-stars { color: var(--gold); font-size: .9rem; margin-bottom: 14px; }
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--royal), var(--sky));
+  display: flex; align-items: center; justify-content: center;
+  color: var(--white); font-size: 1rem; font-weight: 800; flex-shrink: 0;
+}
+.testi-author-info strong { display: block; color: var(--white); font-size: .9rem; }
+.testi-author-info span { color: var(--gold); font-size: .78rem; }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+.footer {
+  background: var(--deep); color: var(--white); padding: 60px 0 0;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.footer-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.footer-brand img { height: 50px; border-radius: 10px; }
+.footer-brand-text h3 { font-size: 1rem; font-weight: 900; }
+.footer-brand-text p { font-size: .75rem; color: var(--gold); }
+.footer-col > p { font-size: .85rem; color: rgba(255,255,255,.55); line-height: 1.8; }
+.footer-col h4 { font-size: .95rem; font-weight: 800; color: var(--gold); margin-bottom: 16px; }
+.footer-links { display: flex; flex-direction: column; gap: 8px; }
+.footer-links a { font-size: .85rem; color: rgba(255,255,255,.65); transition: var(--trans); }
+.footer-links a:hover { color: var(--white); padding-right: 4px; }
+.socials { display: flex; gap: 10px; margin-top: 20px; }
+.socials a {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.1);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,.7); font-size: 1rem; transition: var(--trans);
+}
+.socials a:hover { background: var(--royal); color: var(--white); border-color: var(--royal); transform: translateY(-2px); }
+.footer-contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.footer-contact-item i { color: var(--gold); width: 16px; text-align: center; }
+.footer-contact-item span { font-size: .82rem; color: rgba(255,255,255,.65); }
+.footer-bottom {
+  text-align: center; padding: 20px;
+  font-size: .8rem; color: rgba(255,255,255,.4);
+}
+.footer-bottom span { color: var(--gold); }
+
+/* ═══════════════════════════════════════════
+   WHATSAPP FLOAT
+══════════════════════════════════════════ */
+.wa-float {
+  position: fixed; bottom: 28px; left: 28px; z-index: 800;
+  width: 60px; height: 60px; border-radius: 50%;
+  background: #25d366;
+  box-shadow: 0 6px 30px rgba(37,211,102,.5);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; color: var(--white);
+  transition: var(--trans); animation: waFloat 3s ease-in-out infinite;
+}
+.wa-float:hover { transform: scale(1.12); box-shadow: 0 10px 40px rgba(37,211,102,.6); }
+@keyframes waFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.wa-float:hover { animation: none; transform: scale(1.12); }
+.wa-tooltip {
+  position: absolute; left: 70px; top: 50%; transform: translateY(-50%);
+  background: var(--white); color: var(--ink); border-radius: 10px;
+  padding: 8px 14px; font-size: .8rem; font-weight: 700;
+  box-shadow: 0 4px 20px rgba(0,0,0,.15); white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: var(--trans);
+}
+.wa-float:hover .wa-tooltip { opacity: 1; }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-img-wrap { display: none; }
+  .hero-stats { grid-template-columns: repeat(4,1fr); }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-img-wrap { order: -1; }
+  .about-img-main img { height: 340px; }
+  .levels-grid { grid-template-columns: repeat(2,1fr); }
+  .competitions-grid { grid-template-columns: repeat(2,1fr); }
+  .sectors-strip { grid-template-columns: repeat(2,1fr); }
+  .subjects-grid { grid-template-columns: repeat(2,1fr); }
+  .why-grid { grid-template-columns: 1fr; gap: 40px; }
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 220px 220px 220px;
+  }
+  .gallery-item.span2 { grid-column: span 1; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .testi-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .nav-links, .nav-actions .desktop-cta { display: none; }
+  .menu-btn { display: flex; align-items: center; justify-content: center; }
+  .about-services { grid-template-columns: repeat(3,1fr); }
+}
+@media (max-width: 640px) {
+  .section { padding: 60px 0; }
+  .levels-grid { grid-template-columns: 1fr; }
+  .competitions-grid { grid-template-columns: 1fr 1fr; }
+  .sectors-strip { grid-template-columns: 1fr 1fr; }
+  .subjects-grid { grid-template-columns: 1fr 1fr; }
+  .stats-wall { grid-template-columns: 1fr 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .gallery-item { height: 220px; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .hero-btns { flex-direction: column; }
+  .hero-btns .btn { width: 100%; justify-content: center; }
+  .about-services { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ═══════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════ -->
+<header class="nav" id="navbar">
+  <div class="container nav-inner">
+    <a href="#accueil" class="brand">
+      <img src="images/logo.jpg" alt="BAC WAY CENTER">
+      <div class="brand-text">
+        <h1>BAC WAY CENTER</h1>
+        <p>مركز باك واي · أكادير</p>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="#about">عن المركز</a>
+      <a href="#programs">برامجنا</a>
+      <a href="#postbac">ما بعد الباك</a>
+      <a href="#gallery">الأجواء</a>
+      <a href="#contact">تواصل</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#contact" class="btn btn-gold desktop-cta"><i class="fa-solid fa-bolt"></i> سجّل الآن</a>
+      <button class="menu-btn" id="menuBtn" aria-label="القائمة"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose"><i class="fa-solid fa-xmark"></i></button>
+  <a href="#about" class="mobile-link">عن المركز</a>
+  <a href="#programs" class="mobile-link">برامجنا</a>
+  <a href="#postbac" class="mobile-link">ما بعد الباك</a>
+  <a href="#subjects" class="mobile-link">المواد</a>
+  <a href="#gallery" class="mobile-link">الأجواء</a>
+  <a href="#contact" class="mobile-link">التسجيل والتواصل</a>
+  <a href="#contact" class="btn btn-gold" style="margin-top:10px"><i class="fa-solid fa-bolt"></i> سجّل الآن</a>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section id="accueil" class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-anim-up">
+        <div class="hero-kicker">BAC WAY CENTER · أكادير</div>
+        <h2>طريقك نحو <span>النجاح</span><br>يبدأ من هنا</h2>
+        <p class="hero-lead">
+          مركز متخصص في التكوين، التوجيه ودروس الدعم المدرسي.
+          من الجذع المشترك إلى مباريات ما بعد الباك، نرافقك في كل خطوة.
+        </p>
+        <div class="hero-tagline" dir="ltr" style="justify-content:flex-start">
+          <span>Formation</span><span class="sep">·</span>
+          <span>Orientation</span><span class="sep">·</span>
+          <span>Cours de Soutien</span>
+        </div>
+        <div class="hero-btns">
+          <a href="#contact" class="btn btn-gold"><i class="fa-solid fa-paper-plane"></i> سجّل الآن</a>
+          <a href="#programs" class="btn btn-ghost"><i class="fa-solid fa-compass"></i> اكتشف برامجنا</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-card">
+            <strong>+10</strong>
+            <span>سنوات خبرة</span>
+          </div>
+          <div class="stat-card">
+            <strong>4</strong>
+            <span>مستويات دراسية</span>
+          </div>
+          <div class="stat-card">
+            <strong>8</strong>
+            <span>مسارات ما بعد الباك</span>
+          </div>
+          <div class="stat-card">
+            <strong>100%</strong>
+            <span>التزام بالنتائج</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-img-wrap hero-anim-side">
+        <div class="hero-badge2">
+          <i class="fa-solid fa-trophy"></i>
+          <div>
+            <strong style="display:block;font-size:.95rem">فريق خبير</strong>
+            <span style="color:rgba(255,255,255,.7);font-size:.75rem">أساتذة متخصصون</span>
+          </div>
+        </div>
+        <div class="hero-img-main">
+          <img src="images/hero-banner.png" alt="BAC WAY CENTER - مركز باك واي أكادير">
+        </div>
+        <div class="hero-badge">
+          <strong>+10</strong>
+          سنوات نجاح
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     ABOUT
+══════════════════════════════════════════ -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap reveal">
+        <div class="about-img-main">
+          <img src="images/building-pro.png" alt="مقر مركز باك واي بأكادير">
+        </div>
+        <div class="about-img-badge">
+          <span class="num">+10</span>
+          <span class="lbl">سنوات من النجاح<br>في مباريات ما بعد الباك</span>
+        </div>
+      </div>
+
+      <div class="about-content reveal" style="animation-delay:.15s">
+        <div class="subtitle">من نحن</div>
+        <h2>مركز <span>BAC WAY</span><br>شريكك في التفوق</h2>
+        <p>
+          مركز باك واي سنتر هو مؤسسة تربوية متخصصة تأسست في أكادير منذ أكثر من عقد.
+          نقدم دروس دعم وتقوية في المواد الأساسية، توجيهاً أكاديمياً للطلاب، وتحضيراً
+          مكثفاً لمباريات الولوج إلى الكليات والمعاهد العليا بالمغرب.
+        </p>
+
+        <div class="about-features">
+          <div class="about-feat">
+            <div class="about-feat-icon"><i class="fa-solid fa-users-gear"></i></div>
+            <div class="about-feat-text">
+              <h4>فريق تربوي متخصص ومتجرب</h4>
+              <p>أساتذة ذوو كفاءة عالية ومسيرة حافلة بالنجاحات الأكاديمية.</p>
+            </div>
+          </div>
+          <div class="about-feat">
+            <div class="about-feat-icon"><i class="fa-solid fa-chart-line"></i></div>
+            <div class="about-feat-text">
+              <h4>منهجية تدريبية مثبتة النتائج</h4>
+              <p>تمارين مكثفة، نماذج المباريات، وتصحيح شامل لضمان أعلى النتائج.</p>
+            </div>
+          </div>
+          <div class="about-feat">
+            <div class="about-feat-icon"><i class="fa-solid fa-compass"></i></div>
+            <div class="about-feat-text">
+              <h4>توجيه شخصي لكل تلميذ</h4>
+              <p>نساعد كل طالب على تحديد مساره الدراسي المثالي وفق قدراته وطموحاته.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-services">
+          <div class="svc-chip"><i class="fa-solid fa-book-open-reader"></i>دروس الدعم</div>
+          <div class="svc-chip"><i class="fa-solid fa-compass"></i>التوجيه</div>
+          <div class="svc-chip"><i class="fa-solid fa-graduation-cap"></i>ما بعد الباك</div>
+          <div class="svc-chip"><i class="fa-solid fa-flask"></i>العلوم</div>
+          <div class="svc-chip"><i class="fa-solid fa-calculator"></i>الرياضيات</div>
+          <div class="svc-chip"><i class="fa-solid fa-briefcase"></i>الاقتصاد</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PROGRAMS / LEVELS
+══════════════════════════════════════════ -->
+<section id="programs" class="section section-light">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag"><i class="fa-solid fa-layer-group"></i> برامجنا</span>
+      <h2>لكل مستوى <span>برنامجه</span></h2>
+      <p>من الجذع المشترك حتى الولوج للمعاهد العليا، لدينا الحل التربوي المناسب لك.</p>
+    </div>
+
+    <div class="levels-grid">
+      <!-- TC -->
+      <div class="level-card level-tc reveal">
+        <div class="level-card-header">
+          <div class="level-icon"><i class="fa-solid fa-seedling"></i></div>
+          <h3>الجذع المشترك</h3>
+          <div class="level-label">Tronc Commun · TC</div>
+        </div>
+        <div class="level-card-body">
+          <ul>
+            <li>الرياضيات</li>
+            <li>الفيزياء والكيمياء</li>
+            <li>علوم الحياة والأرض</li>
+            <li>بناء قواعد دراسية متينة</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline">تسجيل <i class="fa-solid fa-arrow-left"></i></a>
+        </div>
+      </div>
+
+      <!-- 1BAC -->
+      <div class="level-card level-1bac reveal" style="animation-delay:.1s">
+        <div class="level-card-header">
+          <div class="level-icon"><i class="fa-solid fa-arrow-trend-up"></i></div>
+          <h3>الأولى باك</h3>
+          <div class="level-label">1ère BAC · 1BAC</div>
+        </div>
+        <div class="level-card-body">
+          <ul>
+            <li>مراجعة شاملة للمواد</li>
+            <li>تمارين متدرجة</li>
+            <li>تحضير للفروض والامتحانات</li>
+            <li>متابعة شخصية للتقدم</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline">تسجيل <i class="fa-solid fa-arrow-left"></i></a>
+        </div>
+      </div>
+
+      <!-- 2BAC -->
+      <div class="level-card level-2bac reveal" style="animation-delay:.2s">
+        <div class="level-card-header">
+          <div class="level-icon"><i class="fa-solid fa-fire"></i></div>
+          <h3>الثانية باك</h3>
+          <div class="level-label">2ème BAC · 2BAC</div>
+        </div>
+        <div class="level-card-body">
+          <ul>
+            <li>تحضير مكثف للباكالوريا</li>
+            <li>نماذج الامتحانات الجهوية والوطنية</li>
+            <li>تدريب على إدارة الوقت</li>
+            <li>جلسات توجيه ما بعد الباك</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline">تسجيل <i class="fa-solid fa-arrow-left"></i></a>
+        </div>
+      </div>
+
+      <!-- Post-BAC -->
+      <div class="level-card level-post reveal" style="animation-delay:.3s">
+        <div class="level-card-header">
+          <div class="level-icon"><i class="fa-solid fa-trophy"></i></div>
+          <h3>ما بعد الباك</h3>
+          <div class="level-label">Concours Post-BAC</div>
+        </div>
+        <div class="level-card-body">
+          <ul>
+            <li>تحضير مباريات الكليات والمعاهد</li>
+            <li>نماذج المباريات السابقة</li>
+            <li>فريق أساتذة متخصصين</li>
+            <li>8 مسارات متاحة</li>
+          </ul>
+          <a href="#postbac" class="btn btn-outline">اكتشف المسارات <i class="fa-solid fa-arrow-left"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     POST-BAC COMPETITIONS
+══════════════════════════════════════════ -->
+<section id="postbac" class="section competitions-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag"><i class="fa-solid fa-trophy"></i> مباريات ما بعد الباك</span>
+      <h2>8 مسارات نحو <span>مستقبلك</span></h2>
+      <p>حضّرنا آلاف الطلاب لاجتياز مباريات أبرز الكليات والمعاهد العليا في المغرب بنجاح.</p>
+    </div>
+
+    <div class="competitions-grid">
+      <div class="comp-card reveal">
+        <div class="comp-icon ci-med"><i class="fa-solid fa-stethoscope"></i></div>
+        <h3>الطب العام، طب الأسنان والصيدلة</h3>
+        <p>Médecine Générale, Dentaire & Pharmacie</p>
+        <span class="comp-tag">FMPM · FMD · Pharmacie</span>
+      </div>
+      <div class="comp-card reveal" style="animation-delay:.05s">
+        <div class="comp-icon ci-arch"><i class="fa-solid fa-drafting-compass"></i></div>
+        <h3>المدرسة الوطنية للعمارة</h3>
+        <p>École Nationale d'Architecture</p>
+        <span class="comp-tag">ENA</span>
+      </div>
+      <div class="comp-card reveal" style="animation-delay:.1s">
+        <div class="comp-icon ci-com"><i class="fa-solid fa-briefcase"></i></div>
+        <h3>المدرسة الوطنية للتجارة والتسيير</h3>
+        <p>École Nationale de Commerce et de Gestion</p>
+        <span class="comp-tag">ENCG</span>
+      </div>
+      <div class="comp-card reveal" style="animation-delay:.15s">
+        <div class="comp-icon ci-iscae"><i class="fa-solid fa-building-columns"></i></div>
+        <h3>المعهد العالي للتجارة وإدارة المقاولات</h3>
+        <p>Institut Supérieur de Commerce & Administration</p>
+        <span class="comp-tag">ISCAE</span>
+      </div>
+      <div class="comp-card reveal" style="animation-delay:.2s">
+        <div class="comp-icon ci-sci"><i class="fa-solid fa-flask-vial"></i></div>
+        <h3>المدرسة الوطنية للعلوم التطبيقية</h3>
+        <p>École Nationale des Sciences Appliquées</p>
+        <span class="comp-tag">ENSA</span>
+      </div>
+      <div class="comp-card reveal" style="animation-delay:.25s">
+        <div class="comp-icon ci-eng"><i class="fa-solid fa-gears"></i></div>
+        <h3>المدرسة الوطنية للفنون والمهن</h3>
+        <p>École Nationale Supérieure des Arts et Métiers</p>
+        <span class="comp-tag">ENSAM</span>
+      </div>
+      <div class="comp-card reveal" style="animation-delay:.3s">
+        <div class="comp-icon ci-agro"><i class="fa-solid fa-leaf"></i></div>
+        <h3>المعهد الزراعي والبيطري</h3>
+        <p>Institut Agronomique et Vétérinaire</p>
+        <span class="comp-tag">APESA · ENAM</span>
+      </div>
+      <div class="comp-card reveal" style="animation-delay:.35s">
+        <div class="comp-icon ci-sante"><i class="fa-solid fa-hospital-user"></i></div>
+        <h3>معاهد مهن التمريض والتقنيات الصحية</h3>
+        <p>Inst. Supérieurs Professions Infirmières & Santé</p>
+        <span class="comp-tag">ISPITS</span>
+      </div>
+    </div>
+
+    <!-- Sectors strip -->
+    <div class="sectors-strip reveal" style="margin-top:50px">
+      <div class="sector s1">
+        <i class="fa-solid fa-stethoscope"></i>
+        <h4>Médecine & Science</h4>
+        <p>طب · صيدلة · بيولوجيا</p>
+      </div>
+      <div class="sector s2">
+        <i class="fa-solid fa-microchip"></i>
+        <h4>Engineering & Tech</h4>
+        <p>ENSA · ENSAM · ENCI</p>
+      </div>
+      <div class="sector s3">
+        <i class="fa-solid fa-chart-bar"></i>
+        <h4>Business & TAFEM</h4>
+        <p>ENCG · ISCAE · TAFEM</p>
+      </div>
+      <div class="sector s4">
+        <i class="fa-solid fa-ruler-combined"></i>
+        <h4>Architecture & Design</h4>
+        <p>ENA · ISBA · UMEP</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     WHY BAC WAY
+══════════════════════════════════════════ -->
+<section class="section section-light" id="why">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag"><i class="fa-solid fa-star"></i> لماذا تختار BAC WAY</span>
+      <h2>فرقنا يصنعه <span>التزامنا</span></h2>
+      <p>أرقام وحقائق تتحدث عن نفسها.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="stats-wall reveal">
+        <div class="stat-big">
+          <span class="num" data-target="10">0</span><span class="unit">+</span>
+          <span class="lbl">سنوات من النجاح المتواصل</span>
+        </div>
+        <div class="stat-big accent">
+          <span class="num" data-target="4">0</span>
+          <span class="lbl">مستويات دراسية مغطاة</span>
+        </div>
+        <div class="stat-big accent">
+          <span class="num" data-target="8">0</span>
+          <span class="lbl">مسارات مباريات ما بعد الباك</span>
+        </div>
+        <div class="stat-big">
+          <span class="num" data-target="100">0</span><span class="unit">%</span>
+          <span class="lbl">التزام بجودة التكوين</span>
+        </div>
+      </div>
+
+      <div class="why-features reveal" style="animation-delay:.15s">
+        <div class="why-feat">
+          <div class="why-feat-icon"><i class="fa-solid fa-users-gear"></i></div>
+          <div class="why-feat-text">
+            <h4>فريق تربوي خبير</h4>
+            <p>أساتذة متخصصون بخبرة تتجاوز عشر سنوات في مرافقة الطلاب لاجتياز أصعب المباريات الوطنية.</p>
+          </div>
+        </div>
+        <div class="why-feat">
+          <div class="why-feat-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+          <div class="why-feat-text">
+            <h4>منهجية تدريبية فعّالة</h4>
+            <p>تمارين مكثفة على نماذج المباريات، تصحيح شامل، ودروس توجيهية لتعزيز الثقة بالنفس.</p>
+          </div>
+        </div>
+        <div class="why-feat">
+          <div class="why-feat-icon"><i class="fa-solid fa-compass"></i></div>
+          <div class="why-feat-text">
+            <h4>توجيه شخصي ومتكامل</h4>
+            <p>نساعد كل تلميذ على اكتشاف مساره المثالي وبناء خطة دراسية واضحة تناسب طموحاته.</p>
+          </div>
+        </div>
+        <div class="why-feat">
+          <div class="why-feat-icon"><i class="fa-solid fa-house-chimney-user"></i></div>
+          <div class="why-feat-text">
+            <h4>بيئة دراسية محفزة</h4>
+            <p>قاعات مجهزة وأجواء منظمة تشجع الطالب على التركيز والاجتهاد اليومي.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SUBJECTS
+══════════════════════════════════════════ -->
+<section id="subjects" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag"><i class="fa-solid fa-book"></i> المواد الدراسية</span>
+      <h2>مواد <span>أساسية</span>، تدريب متواصل</h2>
+      <p>لا يكفي الحفظ، بل يجب الفهم والتطبيق. عندنا التدريب المنظم الذي يصنع الفرق.</p>
+    </div>
+
+    <div class="subjects-grid">
+      <div class="subj-card subj-math reveal">
+        <i class="fa-solid fa-square-root-variable"></i>
+        <h3>الرياضيات</h3>
+        <p>Mathématiques</p>
+      </div>
+      <div class="subj-card subj-phys reveal" style="animation-delay:.1s">
+        <i class="fa-solid fa-atom"></i>
+        <h3>الفيزياء والكيمياء</h3>
+        <p>Physique · Chimie</p>
+      </div>
+      <div class="subj-card subj-svt reveal" style="animation-delay:.2s">
+        <i class="fa-solid fa-dna"></i>
+        <h3>علوم الحياة والأرض</h3>
+        <p>Sciences de la Vie et de la Terre</p>
+      </div>
+      <div class="subj-card subj-eco reveal" style="animation-delay:.3s">
+        <i class="fa-solid fa-chart-pie"></i>
+        <h3>الاقتصاد والمحاسبة</h3>
+        <p>Économie · Comptabilité</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     GALLERY
+══════════════════════════════════════════ -->
+<section id="gallery" class="section section-light">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag"><i class="fa-solid fa-images"></i> الأجواء</span>
+      <h2>داخل مركز <span>BAC WAY</span></h2>
+      <p>اكتشف البيئة التربوية التي يعيشها طلابنا كل يوم.</p>
+    </div>
+
+    <div class="gallery-grid reveal">
+      <div class="gallery-item span2" data-src="images/students-study.png">
+        <img src="images/students-study.png" alt="طلاب يدرسون في مركز باك واي">
+        <div class="gallery-overlay"><span><i class="fa-solid fa-users"></i> طلاب المركز</span></div>
+      </div>
+      <div class="gallery-item" data-src="images/building-pro.png">
+        <img src="images/building-pro.png" alt="مبنى مركز باك واي">
+        <div class="gallery-overlay"><span><i class="fa-solid fa-building"></i> مقر المركز</span></div>
+      </div>
+      <div class="gallery-item" data-src="images/classroom.png">
+        <img src="images/classroom.png" alt="قاعة دراسة مركز باك واي">
+        <div class="gallery-overlay"><span><i class="fa-solid fa-chalkboard-user"></i> قاعة الدراسة</span></div>
+      </div>
+      <div class="gallery-item" data-src="images/building-students.png">
+        <img src="images/building-students.png" alt="طلاب أمام مبنى المركز">
+        <div class="gallery-overlay"><span><i class="fa-solid fa-door-open"></i> عند المركز</span></div>
+      </div>
+      <div class="gallery-item" data-src="images/counseling.png">
+        <img src="images/counseling.png" alt="جلسة توجيه مع مدير المركز">
+        <div class="gallery-overlay"><span><i class="fa-solid fa-handshake"></i> جلسة توجيه</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose"><i class="fa-solid fa-xmark"></i></button>
+  <img id="lbImg" src="" alt="صورة المركز">
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════════════ -->
+<section class="testi-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag"><i class="fa-solid fa-comment-dots"></i> شهادات الطلاب</span>
+      <h2 style="color:var(--white)">قالوا عن <span style="color:var(--gold)">BAC WAY</span></h2>
+      <p>نجاحات طلابنا هي خير شاهد على جودة تكويننا.</p>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p class="testi-text">بفضل المركز استطعت النجاح في مباراة الطب. المنهجية والأساتذة الرائعون جعلوا ما كان يبدو مستحيلاً ممكناً.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">ي</div>
+          <div class="testi-author-info">
+            <strong>ياسين م.</strong>
+            <span>طالب طب · ولج كلية الطب بمراكش</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="animation-delay:.1s">
+        <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p class="testi-text">التوجيه الذي تلقيته في BAC WAY غيّر مساري كلياً. الأستاذ أعانني على اختيار التخصص المناسب لشخصيتي.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">س</div>
+          <div class="testi-author-info">
+            <strong>سلمى ب.</strong>
+            <span>طالبة ENCG · متفوقة في السنة الأولى</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="animation-delay:.2s">
+        <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p class="testi-text">دروس الدعم في الرياضيات رفعت نقطتي من 6 إلى 17 خلال ثلاثة أشهر. لم أصدق أن هذا ممكن!</p>
+        <div class="testi-author">
+          <div class="testi-avatar">أ</div>
+          <div class="testi-author-info">
+            <strong>أنس ك.</strong>
+            <span>طالب ENSA · السنة الثانية باك</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CONTACT
+══════════════════════════════════════════ -->
+<section id="contact" class="section contact-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag"><i class="fa-solid fa-paper-plane"></i> تواصل وتسجيل</span>
+      <h2>ابدأ <span>رحلتك</span> اليوم</h2>
+      <p>اتصل بنا أو سجّل الآن وسيتواصل معك فريقنا لتحديد البرنامج المناسب لك.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div>
+          <h2><span>تواصل</span> معنا</h2>
+          <p style="margin-top:10px">فريقنا جاهز للإجابة على جميع أسئلتك ومساعدتك في التسجيل.</p>
+        </div>
+
+        <a href="tel:+212528382115" class="contact-link cl-phone">
+          <div class="contact-link-icon"><i class="fa-solid fa-phone"></i></div>
+          <div class="contact-link-text">
+            <strong>الهاتف الأول</strong>
+            <span>+212 5 28 38 21 15</span>
+          </div>
+        </a>
+        <a href="tel:+212668962600" class="contact-link cl-phone">
+          <div class="contact-link-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+          <div class="contact-link-text">
+            <strong>الهاتف الثاني</strong>
+            <span>+212 6 68 96 26 00</span>
+          </div>
+        </a>
+        <a href="https://wa.me/212672499557" target="_blank" rel="noopener" class="contact-link cl-wa">
+          <div class="contact-link-icon"><i class="fa-brands fa-whatsapp"></i></div>
+          <div class="contact-link-text">
+            <strong>واتساب</strong>
+            <span>+212 6 72 49 95 57</span>
+          </div>
+        </a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Bac+Way+Center+Hay+El+Houda+Agadir" target="_blank" rel="noopener" class="contact-link cl-map">
+          <div class="contact-link-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div class="contact-link-text">
+            <strong>العنوان</strong>
+            <span>حي الهدى، أكادير · Hay ELHOUDA, Av. Abdellah Guerssifi, Agadir</span>
+          </div>
+        </a>
+
+        <div class="schedule-card">
+          <h4><i class="fa-regular fa-clock"></i> أوقات العمل</h4>
+          <p>
+            الإثنين — السبت: 8:00 — 21:00<br>
+            الأحد: 9:00 — 18:00<br>
+            <br>
+            <strong style="color:var(--gold)">الحصة الأولى التشخيصية مجانية!</strong>
+          </p>
+        </div>
+
+        <div class="map-wrap">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3448.5!2d-9.57!3d30.42!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDI1JzEyLjAiTiA5wrAzNCcxMi4wIlc!5e0!3m2!1sfr!2sma!4v1700000000000!5m2!1sfr!2sma"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="موقع مركز باك واي على الخريطة">
+          </iframe>
+        </div>
+      </div>
+
+      <div class="form-card reveal" style="animation-delay:.15s">
+        <h3>سجّل الآن</h3>
+        <p>أرسل لنا طلبك وسيتواصل معك أحد أساتذتنا في أقرب وقت.</p>
+        <form id="regForm" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">الاسم الكامل *</label>
+              <input class="form-input" id="fname" type="text" placeholder="محمد أمين..." required>
+            </div>
+            <div class="form-group">
+              <label for="fphone">رقم الهاتف *</label>
+              <input class="form-input" id="fphone" type="tel" placeholder="06XXXXXXXX" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="flevel">المستوى الدراسي *</label>
+            <select class="form-input" id="flevel" required>
+              <option value="">اختر مستواك</option>
+              <option>الجذع المشترك (TC)</option>
+              <option>الأولى باك (1BAC)</option>
+              <option>الثانية باك (2BAC)</option>
+              <option>ما بعد الباك (Post-BAC)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="fpath">المسار أو المادة المطلوبة</label>
+            <select class="form-input" id="fpath">
+              <option value="">اختر المسار أو المادة</option>
+              <optgroup label="دروس الدعم">
+                <option>الرياضيات</option>
+                <option>الفيزياء والكيمياء</option>
+                <option>علوم الحياة والأرض (SVT)</option>
+                <option>الاقتصاد والمحاسبة</option>
+              </optgroup>
+              <optgroup label="مباريات ما بعد الباك">
+                <option>الطب (FMPM / FMD / Pharmacie)</option>
+                <option>المعمار (ENA)</option>
+                <option>التجارة (ENCG / ISCAE)</option>
+                <option>العلوم التطبيقية (ENSA)</option>
+                <option>الفنون والمهن (ENSAM)</option>
+                <option>الزراعة والبيطرة (APESA / ENAM)</option>
+                <option>التمريض والصحة (ISPITS)</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="fmsg">ملاحظات إضافية</label>
+            <textarea class="form-input" id="fmsg" rows="3" placeholder="أخبرنا أكثر عن وضعك الدراسي وهدفك..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-gold"><i class="fa-solid fa-paper-plane"></i> إرسال الطلب</button>
+          <p class="form-note"><i class="fa-solid fa-shield-halved"></i> معلوماتك محفوظة ولن تُشارك مع أي طرف آخر</p>
+        </form>
+        <!-- Success message -->
+        <div id="formSuccess" style="display:none;text-align:center;padding:40px 20px">
+          <div style="font-size:3rem;color:#16a34a;margin-bottom:16px"><i class="fa-solid fa-circle-check"></i></div>
+          <h3 style="margin-bottom:8px">تم إرسال طلبك بنجاح!</h3>
+          <p style="color:var(--muted);margin-bottom:24px">سيتواصل معك فريقنا قريباً على رقم الهاتف المدخل.</p>
+          <a href="https://wa.me/212672499557" target="_blank" rel="noopener" class="btn btn-blue"><i class="fa-brands fa-whatsapp"></i> تواصل عبر واتساب الآن</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container footer-grid">
+    <div class="footer-col">
+      <div class="footer-brand">
+        <img src="images/logo.jpg" alt="BAC WAY CENTER">
+        <div class="footer-brand-text">
+          <h3>BAC WAY CENTER</h3>
+          <p>مركز باك واي</p>
+        </div>
+      </div>
+      <p>مركز متخصص في التكوين والتوجيه ودروس الدعم المدرسي بأكادير. شريكك في النجاح من الجذع المشترك إلى مباريات ما بعد الباك.</p>
+      <div class="socials">
+        <a href="https://www.instagram.com/bac_way_center/" target="_blank" rel="noopener" title="إنستغرام"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.facebook.com/bacwayleader/" target="_blank" rel="noopener" title="فيسبوك"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://wa.me/212672499557" target="_blank" rel="noopener" title="واتساب"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://www.tiktok.com/@bacwaycenter" target="_blank" rel="noopener" title="تيك توك"><i class="fa-brands fa-tiktok"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>روابط سريعة</h4>
+      <div class="footer-links">
+        <a href="#about">عن المركز</a>
+        <a href="#programs">برامجنا</a>
+        <a href="#postbac">مباريات ما بعد الباك</a>
+        <a href="#subjects">المواد الدراسية</a>
+        <a href="#gallery">الأجواء</a>
+        <a href="#contact">التسجيل</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>مباريات ما بعد الباك</h4>
+      <div class="footer-links">
+        <a href="#postbac">الطب · FMPM</a>
+        <a href="#postbac">المعمار · ENA</a>
+        <a href="#postbac">التجارة · ENCG</a>
+        <a href="#postbac">ISCAE</a>
+        <a href="#postbac">ENSA · ENSAM</a>
+        <a href="#postbac">ISPITS</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>تواصل معنا</h4>
+      <div class="footer-contact-item">
+        <i class="fa-solid fa-phone"></i>
+        <span>0528-382115</span>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fa-solid fa-mobile-screen"></i>
+        <span>0668-962600</span>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span>+212 672 499 557</span>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fa-solid fa-location-dot"></i>
+        <span>حي الهدى، أكادير</span>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fa-regular fa-clock"></i>
+        <span>ن — س: 8:00 — 21:00</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2024 <span>BAC WAY CENTER</span> · جميع الحقوق محفوظة · صُنع بـ ❤️ في أكادير</p>
+  </div>
+</footer>
+
+<!-- WhatsApp float -->
+<a href="https://wa.me/212672499557" target="_blank" rel="noopener" class="wa-float" title="تواصل عبر واتساب">
+  <i class="fa-brands fa-whatsapp"></i>
+  <span class="wa-tooltip">تواصل عبر واتساب</span>
+</a>
+
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ */
+<script>
+/* Progress bar */
+const progressBar = document.getElementById('progressBar');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.body.scrollHeight - window.innerHeight;
+  progressBar.style.width = (scrolled / total * 100) + '%';
+});
+
+/* Navbar scroll effect */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* Mobile menu */
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileClose = document.getElementById('mobileClose');
+menuBtn.addEventListener('click', () => {
+  mobileMenu.classList.add('open');
+  document.body.classList.add('lock');
+});
+mobileClose.addEventListener('click', closeMenu);
+mobileMenu.querySelectorAll('.mobile-link, .btn').forEach(a => {
+  a.addEventListener('click', closeMenu);
+});
+function closeMenu() {
+  mobileMenu.classList.remove('open');
+  document.body.classList.remove('lock');
+}
+
+/* Reveal system — 3-layer approach: IO + scroll + CSS-animation fallback */
+function revealInView() {
+  const vh = window.innerHeight;
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+    if (el.getBoundingClientRect().top < vh + 60) {
+      el.classList.add('visible');
+    }
+  });
+}
+/* Layer 1: IntersectionObserver */
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+}, { threshold: 0, rootMargin: '0px 0px 60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+/* Layer 2: Scroll + resize events */
+window.addEventListener('scroll', revealInView, { passive: true });
+window.addEventListener('resize', revealInView, { passive: true });
+window.addEventListener('touchmove', revealInView, { passive: true });
+/* Layer 3: Timed checks (handles initial viewport + slow devices) */
+revealInView();
+setTimeout(revealInView, 100);
+setTimeout(revealInView, 400);
+setTimeout(revealInView, 900);
+/* Nuclear fallback: CSS auto-reveal at 700ms handles anything JS misses */
+
+/* Counter animation — scroll-based trigger */
+let countersDone = false;
+function checkCounters() {
+  if (countersDone) return;
+  const wall = document.querySelector('.stats-wall');
+  if (!wall) return;
+  if (wall.getBoundingClientRect().top < window.innerHeight * 0.95) {
+    countersDone = true;
+    wall.querySelectorAll('.num[data-target]').forEach(num => {
+      const target = parseInt(num.dataset.target);
+      let cur = 0; const step = target / 60;
+      const t = setInterval(() => {
+        cur += step;
+        if (cur >= target) { cur = target; clearInterval(t); }
+        num.textContent = Math.floor(cur);
+      }, 25);
+    });
+  }
+}
+window.addEventListener('scroll', checkCounters, { passive: true });
+checkCounters();
+
+/* Gallery lightbox */
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbClose = document.getElementById('lbClose');
+document.querySelectorAll('.gallery-item').forEach(item => {
+  item.addEventListener('click', () => {
+    lbImg.src = item.dataset.src;
+    lbImg.alt = item.querySelector('img').alt;
+    lightbox.classList.add('open');
+    document.body.classList.add('lock');
+  });
+});
+lbClose.addEventListener('click', () => {
+  lightbox.classList.remove('open');
+  document.body.classList.remove('lock');
+});
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox) {
+    lightbox.classList.remove('open');
+    document.body.classList.remove('lock');
+  }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    lightbox.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.classList.remove('lock');
+  }
+});
+
+/* Form submission */
+function handleSubmit(e) {
+  e.preventDefault();
+  const form = document.getElementById('regForm');
+  const success = document.getElementById('formSuccess');
+  const name = document.getElementById('fname').value.trim();
+  const phone = document.getElementById('fphone').value.trim();
+  const level = document.getElementById('flevel').value;
+  if (!name || !phone || !level) return;
+
+  /* Build WhatsApp message and open */
+  const path = document.getElementById('fpath').value;
+  const msg = document.getElementById('fmsg').value.trim();
+  const text = `مرحباً، أريد التسجيل في مركز BAC WAY CENTER.\n\nالاسم: ${name}\nالهاتف: ${phone}\nالمستوى: ${level}${path ? '\nالمسار/المادة: ' + path : ''}${msg ? '\nملاحظات: ' + msg : ''}`;
+
+  form.style.display = 'none';
+  success.style.display = 'block';
+
+  /* Open WhatsApp */
+  setTimeout(() => {
+    window.open('https://wa.me/212672499557?text=' + encodeURIComponent(text), '_blank');
+  }, 800);
+}
+
+/* Smooth scroll for all anchor links */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
