@@ -116,9 +116,22 @@ ul { list-style: none; }
 .section-header p { font-size: 1.05rem; color: var(--muted); max-width: 580px; margin: 0 auto; }
 .section-dark .section-header p { color: rgba(255,255,255,.65); }
 
-/* Reveal animation — below the fold only */
-.reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+/* Reveal animation — CSS fallback guarantees content never stays blank */
+@keyframes autoReveal {
+  to { opacity: 1; transform: none; }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+  /* Fallback: auto-reveal after 700ms even if JS scroll/observer fails */
+  animation: autoReveal .5s 700ms ease forwards;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: none; /* JS handled it — cancel CSS fallback */
+}
 
 /* Hero animations — always visible, no observer needed */
 @keyframes heroUp {
@@ -834,7 +847,7 @@ ul { list-style: none; }
           مركز متخصص في التكوين، التوجيه ودروس الدعم المدرسي.
           من الجذع المشترك إلى مباريات ما بعد الباك، نرافقك في كل خطوة.
         </p>
-        <div class="hero-tagline">
+        <div class="hero-tagline" dir="ltr" style="justify-content:flex-start">
           <span>Formation</span><span class="sep">·</span>
           <span>Orientation</span><span class="sep">·</span>
           <span>Cours de Soutien</span>
@@ -1559,49 +1572,52 @@ function closeMenu() {
   document.body.classList.remove('lock');
 }
 
-/* Scroll reveal */
-const reveals = document.querySelectorAll('.reveal');
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      revealObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-reveals.forEach(el => revealObserver.observe(el));
-
-/* Fallback: if any .reveal element is still invisible after 600ms, force-show it */
-setTimeout(() => {
+/* Reveal system — 3-layer approach: IO + scroll + CSS-animation fallback */
+function revealInView() {
+  const vh = window.innerHeight;
   document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight + 100) el.classList.add('visible');
-  });
-}, 600);
-
-/* Counter animation */
-function animateCounter(el, target, suffix) {
-  let current = 0;
-  const step = target / 60;
-  const timer = setInterval(() => {
-    current += step;
-    if (current >= target) { current = target; clearInterval(timer); }
-    el.textContent = Math.floor(current);
-  }, 25);
-}
-const counterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const nums = e.target.querySelectorAll('.num[data-target]');
-      nums.forEach(num => {
-        const target = parseInt(num.dataset.target);
-        animateCounter(num, target);
-      });
-      counterObserver.unobserve(e.target);
+    if (el.getBoundingClientRect().top < vh + 60) {
+      el.classList.add('visible');
     }
   });
-}, { threshold: 0.3 });
-document.querySelectorAll('.stats-wall').forEach(el => counterObserver.observe(el));
+}
+/* Layer 1: IntersectionObserver */
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+}, { threshold: 0, rootMargin: '0px 0px 60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+/* Layer 2: Scroll + resize events */
+window.addEventListener('scroll', revealInView, { passive: true });
+window.addEventListener('resize', revealInView, { passive: true });
+window.addEventListener('touchmove', revealInView, { passive: true });
+/* Layer 3: Timed checks (handles initial viewport + slow devices) */
+revealInView();
+setTimeout(revealInView, 100);
+setTimeout(revealInView, 400);
+setTimeout(revealInView, 900);
+/* Nuclear fallback: CSS auto-reveal at 700ms handles anything JS misses */
+
+/* Counter animation — scroll-based trigger */
+let countersDone = false;
+function checkCounters() {
+  if (countersDone) return;
+  const wall = document.querySelector('.stats-wall');
+  if (!wall) return;
+  if (wall.getBoundingClientRect().top < window.innerHeight * 0.95) {
+    countersDone = true;
+    wall.querySelectorAll('.num[data-target]').forEach(num => {
+      const target = parseInt(num.dataset.target);
+      let cur = 0; const step = target / 60;
+      const t = setInterval(() => {
+        cur += step;
+        if (cur >= target) { cur = target; clearInterval(t); }
+        num.textContent = Math.floor(cur);
+      }, 25);
+    });
+  }
+}
+window.addEventListener('scroll', checkCounters, { passive: true });
+checkCounters();
 
 /* Gallery lightbox */
 const lightbox = document.getElementById('lightbox');
