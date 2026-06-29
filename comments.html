@@ -167,7 +167,15 @@ main{max-width:860px;margin:0 auto;padding:28px 16px 70px;}
 
   <!-- TESTIMONIALS -->
   <div class="sec-title">💬 تعليقات التلاميذ</div>
-  <div class="cmts-grid">
+
+  <!-- حاوية التعليقات الحقيقية (تُجلب من قاعدة البيانات) -->
+  <div class="cmts-grid" id="liveComments" style="display:none"></div>
+
+  <!-- حالة التحميل -->
+  <div id="cmtsLoading" style="text-align:center;padding:30px 0;color:var(--muted);font-size:.9rem">⏳ جارٍ تحميل التعليقات...</div>
+
+  <!-- يظهر فقط إذا لم توجد تعليقات بعد: نماذج ترحيبية -->
+  <div class="cmts-grid" id="fallbackComments" style="display:none">
 
     <div class="cmt-card" style="animation-delay:.05s">
       <div class="quote-mark">"</div>
@@ -241,10 +249,9 @@ main{max-width:860px;margin:0 auto;padding:28px 16px 70px;}
 
     <p class="req-note"><span class="req-star">*</span> الحقول المطلوبة</p>
 
-    <form name="comments" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/success.html">
-      <input type="hidden" name="form-name" value="comments">
+    <form name="comments" id="commentForm">
       <div class="hp-field" aria-hidden="true">
-        <label>لا تملأ هذا: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+        <label>لا تملأ هذا: <input name="bot-field" id="botField" tabindex="-1" autocomplete="off"></label>
       </div>
 
       <div class="fg">
@@ -295,37 +302,124 @@ main{max-width:860px;margin:0 auto;padding:28px 16px 70px;}
     ذ. أحمد بوعمود — مؤسسة الحنان الخاصة | أكادير | 2025-2026
   </div>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function(){
-  var form = document.querySelector('form[name="comments"]');
+  // ════════════════════════════════════════════════════════
+  //  ⚙️ إعدادات Supabase — املأ القيمتين بعد إنشاء المشروع
+  // ════════════════════════════════════════════════════════
+  var SUPABASE_URL  = "https://jopnayatdtcnqwdkylmy.supabase.co";   // مثال: https://xxxx.supabase.co
+  var SUPABASE_KEY  = "sb_publishable_QHsNes0wHuh0clK_iVlieA_ylS8tzJd"; // المفتاح الطويل eyJ...
+  // ════════════════════════════════════════════════════════
+
+  var avatars = ['🦁','🌸','🎓','🌟','🦊','🌺','📚','😄','🚀','💪','✨','🌷','🐱','🦋'];
+  var topCls  = ['', 'blue-top', 'green-top', 'orange-top'];
+  var avCls   = ['', 'av-blue', 'av-green'];
+  var levels  = {'3ac':'الثالثة إعدادي','2ac':'الثانية إعدادي','1ac':'الأولى إعدادي','6ap':'السادسة ابتدائي','other':'مستوى آخر'};
+
+  var loading  = document.getElementById('cmtsLoading');
+  var liveBox  = document.getElementById('liveComments');
+  var fallback = document.getElementById('fallbackComments');
+
+  var notConfigured = (SUPABASE_URL.indexOf('http') !== 0);
+
+  function esc(s){var d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML;}
+
+  function renderCard(c, i){
+    var t = topCls[i % topCls.length];
+    var a = avCls[i % avCls.length];
+    var av = avatars[i % avatars.length];
+    var lvl = c.level && levels[c.level] ? levels[c.level] : 'الثالثة إعدادي';
+    var stars = c.rating ? esc(c.rating) : '★★★★★';
+    return '<div class="cmt-card '+t+'" style="animation-delay:'+(0.05*(i+1)).toFixed(2)+'s">'
+      + '<div class="quote-mark">"</div>'
+      + '<div class="cmt-head">'
+      +   '<div class="cmt-av '+a+'">'+av+'</div>'
+      +   '<div class="cmt-info"><div class="name">'+esc(c.name)+'</div><div class="level">'+esc(lvl)+'</div></div>'
+      + '</div>'
+      + '<div class="cmt-stars">'+stars+'</div>'
+      + '<p class="cmt-text">'+esc(c.message)+'</p>'
+      + '</div>';
+  }
+
+  // ── جلب التعليقات الموافق عليها ──
+  var sb = null;
+  if(!notConfigured && window.supabase){
+    sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  }
+
+  function loadComments(){
+    if(!sb){ // غير مُهيّأ بعد → أظهر النماذج الترحيبية
+      if(loading) loading.style.display='none';
+      if(fallback) fallback.style.display='grid';
+      return;
+    }
+    sb.from('comments')
+      .select('name,level,rating,message,created_at')
+      .eq('status','approved')
+      .order('created_at',{ascending:false})
+      .then(function(res){
+        if(loading) loading.style.display='none';
+        var rows = res.data || [];
+        if(rows.length === 0){
+          if(fallback) fallback.style.display='grid';
+          return;
+        }
+        liveBox.innerHTML = rows.map(renderCard).join('');
+        liveBox.style.display='grid';
+      })
+      .catch(function(){
+        if(loading) loading.style.display='none';
+        if(fallback) fallback.style.display='grid';
+      });
+  }
+  loadComments();
+
+  // ── إرسال تعليق جديد ──
+  var form = document.getElementById('commentForm');
   var btn  = document.querySelector('.submit-btn');
-  if (!form || !btn) return;
+  if(form && btn){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
 
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    btn.disabled = true;
-    btn.textContent = '⏳ جاري الإرسال...';
+      // فحص مكافحة الـ bots
+      var hp = document.getElementById('botField');
+      if(hp && hp.value){ return; }
 
-    var body = new URLSearchParams(new FormData(form)).toString();
-
-    fetch('/comments.html', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: body
-    })
-    .then(function(r){
-      if (r.ok) {
-        window.location.href = '/success.html';
-      } else {
-        throw new Error(r.status);
+      if(!sb){
+        alert('نظام التعليقات قيد الإعداد. يرجى المحاولة لاحقاً.');
+        return;
       }
-    })
-    .catch(function(){
-      btn.disabled = false;
-      btn.textContent = '✨ نشر تعليقي';
-      alert('حدث خطأ أثناء الإرسال. يرجى المحاولة مجدداً.');
+
+      var name = (document.getElementById('cmt-name')||{}).value || '';
+      var level= (document.getElementById('cmt-level')||{}).value || '';
+      var text = (document.getElementById('cmt-text')||{}).value || '';
+      var ratingEl = document.querySelector('input[name="rating"]:checked');
+      var rating = ratingEl ? ratingEl.value : '★★★★★';
+
+      name = name.trim(); text = text.trim();
+      if(name.length < 2){ alert('يرجى إدخال اسمك.'); return; }
+      if(text.length < 15){ alert('التعليق قصير جداً (15 حرفاً على الأقل).'); return; }
+
+      btn.disabled = true;
+      btn.textContent = '⏳ جاري الإرسال...';
+
+      sb.from('comments').insert([{
+        name: name.slice(0,40),
+        level: level || null,
+        rating: rating,
+        message: text.slice(0,400),
+        status: 'pending'
+      }]).then(function(res){
+        if(res.error){ throw res.error; }
+        window.location.href = '/success.html';
+      }).catch(function(err){
+        btn.disabled = false;
+        btn.textContent = '✨ نشر تعليقي';
+        alert('حدث خطأ أثناء الإرسال. يرجى المحاولة مجدداً.');
+      });
     });
-  });
+  }
 })();
 </script>
 </body>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة التحكم — تعليقات رحلة الجهوي</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#123F63">
+<link rel="icon" href="icons/icon-192.png">
+<style>
+:root{
+  --blue:#1A6FA8;--blue-d:#123F63;--blue-xd:#0A2238;
+  --orange:#E8720C;--orange-d:#C25A00;--gold:#F2B33D;--gold-d:#D89A1E;
+  --paper:#FdF8F0;--card:#fff;--ink:#1E2A38;--muted:#6B7A8C;
+  --green:#2EB872;--green-d:#1F9D55;--red:#E53E3E;--red-d:#C53030;
+  --sh:0 8px 26px rgba(18,63,99,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:"Cairo","Segoe UI",Tahoma,sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;}
+.topbar{background:linear-gradient(135deg,var(--blue-xd),var(--blue-d) 60%,var(--blue));padding:16px 20px;box-shadow:0 4px 18px rgba(10,34,56,.35);color:#fff;}
+.topbar .inner{max-width:880px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.topbar h1{font-size:1.1rem;font-weight:900;}
+.topbar a{color:#fff;text-decoration:none;font-size:.82rem;padding:7px 14px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.22);border-radius:11px;font-weight:700;}
+main{max-width:880px;margin:0 auto;padding:24px 16px 70px;}
+
+/* بوابة الدخول */
+.gate{background:var(--card);border-radius:22px;box-shadow:var(--sh);padding:30px 24px;max-width:480px;margin:30px auto;text-align:center;}
+.gate h2{color:var(--blue-d);font-size:1.2rem;margin-bottom:6px;font-weight:900;}
+.gate p{color:var(--muted);font-size:.84rem;line-height:1.8;margin-bottom:18px;}
+.gate label{display:block;text-align:right;font-weight:800;font-size:.82rem;color:var(--blue-d);margin:14px 0 6px;}
+.gate input{width:100%;padding:12px 14px;border:2px solid #E2D8C4;border-radius:12px;font-family:inherit;font-size:.9rem;outline:none;transition:border-color .2s;}
+.gate input:focus{border-color:var(--blue);}
+.gate .hint{font-size:.72rem;color:var(--muted);margin-top:6px;text-align:right;line-height:1.7;}
+.btn{padding:13px 20px;font-size:.95rem;font-weight:900;font-family:inherit;border:none;border-radius:14px;cursor:pointer;transition:all .12s;}
+.btn-main{width:100%;color:var(--blue-xd);background:linear-gradient(180deg,#FFD97A,var(--gold));box-shadow:0 5px 0 var(--gold-d);margin-top:20px;}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--gold-d);}
+.btn-main:active{transform:translateY(3px);box-shadow:0 2px 0 var(--gold-d);}
+
+/* تبويبات */
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.tab{padding:9px 18px;border-radius:12px;font-weight:800;font-size:.84rem;cursor:pointer;border:2px solid #E2D8C4;background:#fff;color:var(--muted);transition:all .15s;}
+.tab.active{background:var(--blue-d);color:#fff;border-color:var(--blue-d);}
+.tab .badge{display:inline-block;min-width:20px;padding:1px 6px;border-radius:10px;background:var(--orange);color:#fff;font-size:.72rem;margin-right:5px;}
+
+/* بطاقة تعليق في اللوحة */
+.row{background:var(--card);border-radius:18px;box-shadow:var(--sh);padding:16px 16px 14px;margin-bottom:14px;border-right:5px solid var(--gold);}
+.row.approved{border-right-color:var(--green);}
+.row .meta{display:flex;align-items:center;gap:10px;margin-bottom:9px;flex-wrap:wrap;}
+.row .nm{font-weight:900;color:var(--blue-d);font-size:.95rem;}
+.row .lv{font-size:.72rem;color:var(--muted);background:#F0EAdc;padding:2px 9px;border-radius:8px;font-weight:700;}
+.row .rt{color:var(--gold);font-size:.9rem;}
+.row .dt{font-size:.7rem;color:var(--muted);margin-right:auto;}
+.row .msg{font-size:.9rem;line-height:1.9;color:#2E3A48;margin-bottom:12px;}
+.row .acts{display:flex;gap:8px;flex-wrap:wrap;}
+.btn-sm{padding:8px 16px;font-size:.8rem;font-weight:800;border:none;border-radius:10px;cursor:pointer;font-family:inherit;transition:all .12s;}
+.btn-ok{background:var(--green);color:#fff;}
+.btn-ok:hover{background:var(--green-d);}
+.btn-del{background:#FCEAEA;color:var(--red-d);}
+.btn-del:hover{background:var(--red);color:#fff;}
+.btn-hide{background:#EEE7d8;color:var(--muted);}
+.btn-hide:hover{background:#E0D8C8;}
+
+.empty{text-align:center;color:var(--muted);padding:40px 0;font-size:.92rem;}
+.loading{text-align:center;color:var(--muted);padding:40px 0;}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--blue-d);color:#fff;padding:12px 22px;border-radius:12px;font-size:.86rem;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;transition:opacity .25s;z-index:99;}
+.toast.show{opacity:1;}
+.hidden{display:none!important;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="inner">
+    <h1>🛠️ لوحة تحكم التعليقات</h1>
+    <a href="/">← الرئيسية</a>
+  </div>
+</div>
+
+<main>
+
+  <!-- بوابة المفتاح -->
+  <div class="gate" id="gate">
+    <h2>🔑 الدخول للوحة التحكم</h2>
+    <p>الصق مفتاح الإدارة (service_role) للوصول إلى التعليقات. يُحفظ في متصفحك فقط ولا يُرسل لأي مكان آخر.</p>
+    <label for="keyInput">مفتاح الإدارة (service_role)</label>
+    <input type="password" id="keyInput" placeholder="eyJhbGciOi..." autocomplete="off">
+    <p class="hint">تجده في: Supabase → Project Settings → API → service_role. ⚠️ سرّي — لا تشاركه.</p>
+    <button class="btn btn-main" id="enterBtn">دخول</button>
+  </div>
+
+  <!-- اللوحة -->
+  <div id="panel" class="hidden">
+    <div class="tabs">
+      <div class="tab active" data-tab="pending">⏳ قيد المراجعة <span class="badge" id="cntPending">0</span></div>
+      <div class="tab" data-tab="approved">✅ منشورة <span class="badge" id="cntApproved" style="background:var(--green)">0</span></div>
+    </div>
+    <div id="list"><div class="loading">⏳ جارٍ التحميل...</div></div>
+  </div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+  // ⚙️ رابط مشروع Supabase — املأه (نفس الرابط في comments.html)
+  var SUPABASE_URL = "https://jopnayatdtcnqwdkylmy.supabase.co";
+
+  var sb = null, curTab = 'pending';
+  var gate = document.getElementById('gate');
+  var panel = document.getElementById('panel');
+  var listEl = document.getElementById('list');
+  var keyInput = document.getElementById('keyInput');
+
+  function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2200);}
+  function esc(s){var d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML;}
+  var levels={'3ac':'الثالثة إعدادي','2ac':'الثانية إعدادي','1ac':'الأولى إعدادي','6ap':'السادسة ابتدائي','other':'مستوى آخر'};
+
+  function fmtDate(s){try{var d=new Date(s);return d.toLocaleDateString('ar-MA')+' · '+d.toLocaleTimeString('ar-MA',{hour:'2-digit',minute:'2-digit'});}catch(e){return '';}}
+
+  function connect(key){
+    if(SUPABASE_URL.indexOf('http')!==0){ toast('⚠️ لم يُضبط رابط Supabase في الكود'); return; }
+    sb = window.supabase.createClient(SUPABASE_URL, key);
+    try{ sessionStorage.setItem('rj_admin_key', key); }catch(e){}
+    gate.classList.add('hidden');
+    panel.classList.remove('hidden');
+    load();
+  }
+
+  document.getElementById('enterBtn').addEventListener('click',function(){
+    var k=keyInput.value.trim();
+    if(k.length<20){ toast('المفتاح غير صحيح'); return; }
+    connect(k);
+  });
+  keyInput.addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('enterBtn').click();});
+
+  // استرجاع المفتاح إن كان محفوظاً بالجلسة
+  try{var saved=sessionStorage.getItem('rj_admin_key');if(saved){keyInput.value=saved;connect(saved);}}catch(e){}
+
+  // تبديل التبويبات
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click',function(){
+      document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});
+      t.classList.add('active');
+      curTab=t.getAttribute('data-tab');
+      render();
+    });
+  });
+
+  var allRows=[];
+  function load(){
+    listEl.innerHTML='<div class="loading">⏳ جارٍ التحميل...</div>';
+    sb.from('comments').select('*').order('created_at',{ascending:false})
+      .then(function(res){
+        if(res.error){ listEl.innerHTML='<div class="empty">تعذّر الاتصال. تأكد من المفتاح.</div>'; return; }
+        allRows=res.data||[];
+        var p=allRows.filter(function(r){return r.status==='pending';}).length;
+        var a=allRows.filter(function(r){return r.status==='approved';}).length;
+        document.getElementById('cntPending').textContent=p;
+        document.getElementById('cntApproved').textContent=a;
+        render();
+      });
+  }
+
+  function render(){
+    var rows=allRows.filter(function(r){return r.status===curTab;});
+    if(rows.length===0){ listEl.innerHTML='<div class="empty">'+(curTab==='pending'?'لا توجد تعليقات قيد المراجعة 🎉':'لا توجد تعليقات منشورة بعد')+'</div>'; return; }
+    listEl.innerHTML=rows.map(function(r){
+      var lvl=r.level&&levels[r.level]?levels[r.level]:'';
+      var acts = curTab==='pending'
+        ? '<button class="btn-sm btn-ok" data-act="approve" data-id="'+r.id+'">✅ نشر</button>'
+        : '<button class="btn-sm btn-hide" data-act="hide" data-id="'+r.id+'">↩ إخفاء</button>';
+      acts += '<button class="btn-sm btn-del" data-act="delete" data-id="'+r.id+'">🗑 حذف</button>';
+      return '<div class="row '+(r.status==='approved'?'approved':'')+'">'
+        + '<div class="meta">'
+        +   '<span class="nm">'+esc(r.name)+'</span>'
+        +   (lvl?'<span class="lv">'+esc(lvl)+'</span>':'')
+        +   (r.rating?'<span class="rt">'+esc(r.rating)+'</span>':'')
+        +   '<span class="dt">'+fmtDate(r.created_at)+'</span>'
+        + '</div>'
+        + '<div class="msg">'+esc(r.message)+'</div>'
+        + '<div class="acts">'+acts+'</div>'
+        + '</div>';
+    }).join('');
+
+    listEl.querySelectorAll('button[data-act]').forEach(function(b){
+      b.addEventListener('click',function(){
+        var id=b.getAttribute('data-id'), act=b.getAttribute('data-act');
+        if(act==='approve') setStatus(id,'approved','✅ تم النشر');
+        else if(act==='hide') setStatus(id,'pending','↩ تم الإخفاء');
+        else if(act==='delete'){ if(confirm('حذف هذا التعليق نهائياً؟')) del(id); }
+      });
+    });
+  }
+
+  function setStatus(id,status,msg){
+    sb.from('comments').update({status:status}).eq('id',id).then(function(res){
+      if(res.error){ toast('خطأ في التحديث'); return; }
+      toast(msg); load();
+    });
+  }
+  function del(id){
+    sb.from('comments').delete().eq('id',id).then(function(res){
+      if(res.error){ toast('خطأ في الحذف'); return; }
+      toast('🗑 تم الحذف'); load();
+    });
+  }
+})();
+</script>
+</body>
+</html>
