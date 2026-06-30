@@ -167,7 +167,11 @@ main{max-width:880px;margin:0 auto;padding:24px 16px 70px;}
     listEl.innerHTML='<div class="loading">⏳ جارٍ التحميل...</div>';
     sb.from('comments').select('*').order('created_at',{ascending:false})
       .then(function(res){
-        if(res.error){ listEl.innerHTML='<div class="empty">تعذّر الاتصال. تأكد من المفتاح.</div>'; return; }
+        if(res.error){
+          var msg=(res.error && (res.error.message||res.error.toString()))||'خطأ غير معروف';
+          listEl.innerHTML='<div class="empty">تعذّر الاتصال. تأكد من المفتاح.<br><span style="font-size:.72rem;direction:ltr;display:inline-block;margin-top:8px;word-break:break-all;">'+esc(msg)+'</span></div>';
+          return;
+        }
         allRows=res.data||[];
         var p=allRows.filter(function(r){return r.status==='pending';}).length;
         var a=allRows.filter(function(r){return r.status==='approved';}).length;
