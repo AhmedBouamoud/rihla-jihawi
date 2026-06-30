@@ -1,0 +1,1960 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>رحلة المحلي الذهبية 🏆 — الثالثة إعدادي | ذ. أحمد بوعمود</title>
+<meta name="theme-color" content="#0f766e">
+<meta name="description" content="تطبيق مراجعة تفاعلي لمادة الاجتماعيات الثالثة إعدادي — 20 محطة بين التاريخ والجغرافيا والتربية على المواطنة والمنهجية.">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="رحلة المحلي">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f6fbff;
+  --paper: #fffdfa;
+  --ink: #132238;
+  --muted: #64748b;
+  --primary: #0f766e;
+  --primary-2: #0ea5a4;
+  --gold: #f59e0b;
+  --gold-2: #fb923c;
+  --sky: #0ea5e9;
+  --blue: #2563eb;
+  --green: #22c55e;
+  --pink: #ec4899;
+  --danger: #ef4444;
+  --card: rgba(255,255,255,.88);
+  --shadow: 0 18px 50px rgba(15,23,42,.12);
+  --radius: 28px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: "Cairo", "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 8% 10%, rgba(14,165,233,.18), transparent 28%),
+    radial-gradient(circle at 94% 12%, rgba(245,158,11,.18), transparent 25%),
+    linear-gradient(180deg, #ecfeff 0%, #ffffff 32%, #f8fafc 100%);
+  overflow-x: hidden;
+}
+button, input, textarea, select { font: inherit; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; border: 0; }
+:focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; border-radius: 6px; }
+.hidden { display:none !important; }
+.app { max-width: 1280px; margin: 0 auto; padding: 18px; }
+.topbar {
+  position: sticky; top:0; z-index: 90; backdrop-filter: blur(16px);
+  background: rgba(255,255,255,.72); border-bottom: 1px solid rgba(14,165,233,.14);
+}
+.nav { max-width: 1280px; margin: 0 auto; padding: 12px 18px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.brand { display:flex; align-items:center; gap:12px; }
+.brand-mark { width:56px; height:56px; border-radius:20px; overflow:hidden; box-shadow: 0 10px 24px rgba(14,165,233,.18); border:3px solid rgba(255,255,255,.75); background:white; }
+.brand-mark img { width:100%; height:100%; object-fit:cover; display:block; }
+.brand strong { display:block; font-size:20px; }
+.brand small { color:var(--muted); font-weight:700; }
+.nav-actions { display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end; }
+.btn {
+  border-radius:999px; padding:11px 17px; font-weight:900; background:white; color:var(--primary);
+  box-shadow: 0 8px 22px rgba(15,23,42,.08); transition: transform .15s, box-shadow .15s;
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(15,23,42,.13); }
+.btn:active { transform: translateY(0); box-shadow: 0 4px 12px rgba(15,23,42,.08); }
+.btn.primary { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color:white; }
+.btn.primary:hover { box-shadow: 0 14px 32px rgba(15,118,110,.35); }
+.btn.gold { background: linear-gradient(135deg, var(--gold), var(--gold-2)); color:white; }
+.btn.gold:hover { box-shadow: 0 14px 32px rgba(245,158,11,.38); }
+.btn.ghost { background: rgba(255,255,255,.65); border:1px solid rgba(14,165,233,.18); }
+.btn.sound-off { background: linear-gradient(135deg, #ef4444, #f97316); color:white; }
+.btn.info { background: linear-gradient(135deg, #2563eb, #0ea5e9); color:white; }
+.hero { display:grid; grid-template-columns: 1.05fr .95fr; gap:24px; padding: 28px 0 10px; align-items:start; }
+.hero-card {
+  background: var(--card); border:1px solid rgba(14,165,233,.12); border-radius: var(--radius);
+  padding: clamp(22px, 4vw, 38px); box-shadow: var(--shadow); position: relative; overflow:hidden;
+}
+.hero-card::before { content:""; position:absolute; width:260px; height:260px; border-radius:50%; top:-90px; right:-90px; background: radial-gradient(circle, rgba(245,158,11,.2), transparent 62%); }
+.hero-card::after { content:""; position:absolute; width:260px; height:260px; border-radius:50%; bottom:-120px; left:-90px; background: radial-gradient(circle, rgba(14,165,233,.18), transparent 62%); }
+.kicker { display:inline-flex; align-items:center; gap:8px; padding:8px 14px; border-radius:999px; background:#ecfeff; color:#0f766e; font-weight:900; margin-bottom:16px; }
+h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5px; margin:0; font-family:"Cairo","Tajawal",sans-serif; }
+.gradient { background: linear-gradient(135deg, var(--blue), var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.lead { font-size: clamp(16px, 2vw, 21px); color:#334155; line-height:1.9; margin: 16px 0 18px; max-width: 90%; }
+.theme-chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom: 18px; }
+.theme-chips span { padding:7px 11px; border-radius:999px; background:white; border:1px solid rgba(14,165,233,.14); font-weight:800; color:#0f4c81; font-size:13px; }
+.hero-controls { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+.name-input { min-width:220px; flex: 1; border:2px solid rgba(14,165,233,.18); border-radius:999px; padding: 14px 18px; outline:none; background:white; font-weight:700; transition: border-color .2s, box-shadow .2s; font-family:"Cairo","Tajawal",sans-serif; }
+.name-input:focus { border-color: var(--sky); box-shadow: 0 0 0 4px rgba(14,165,233,.14); }
+.progress-wrap { background: rgba(14,165,233,.12); border-radius:999px; height: 16px; overflow:hidden; margin:16px 0 4px; }
+.progress-bar { height:100%; width:0%; border-radius:999px; background: linear-gradient(90deg, var(--sky), var(--gold)); transition: width .6s ease; }
+.hero-visuals { display:grid; grid-template-rows: 1fr auto; gap:18px; }
+.panorama-card {
+  position:relative; overflow:hidden; min-height: 360px; border-radius: var(--radius); box-shadow: var(--shadow);
+  border:1px solid rgba(14,165,233,.16); background:#dbeafe;
+}
+.panorama-card img { width:100%; height:100%; object-fit:cover; display:block; }
+.panorama-overlay { position:absolute; inset:auto 16px 16px 16px; color:white; padding:18px; border-radius:24px; background:linear-gradient(135deg, rgba(8,47,73,.92), rgba(14,116,144,.75)); backdrop-filter:blur(10px); }
+.panorama-overlay b { display:block; font-size:24px; margin-bottom:8px; }
+.panorama-overlay span { display:block; line-height:1.8; color:rgba(255,255,255,.92); }
+.guide-card {
+  background: linear-gradient(155deg, rgba(8,47,73,.96), rgba(14,116,144,.96)); color:white; border-radius: var(--radius); box-shadow: var(--shadow); overflow:hidden; position:relative; padding:18px;
+}
+.guide-card::after { content:"ابن بطوطة"; position:absolute; left:14px; bottom:-8px; font-size:60px; font-weight:900; opacity:.08; }
+.guide-head { display:flex; gap:14px; align-items:center; }
+.guide-avatar { width:86px; height:86px; border-radius:26px; overflow:hidden; border:4px solid rgba(255,255,255,.3); box-shadow: 0 10px 28px rgba(0,0,0,.2); flex: 0 0 86px; }
+.guide-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
+.guide-card p { margin: 12px 0 0; line-height:1.9; color: rgba(255,255,255,.94); }
+.quote-box { margin-top:14px; padding:12px 14px; border-radius:18px; background: rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.14); font-weight:800; line-height:1.8; }
+.stats { display:grid; grid-template-columns: repeat(6, 1fr); gap:12px; margin:20px 0; }
+.stat { background: rgba(255,255,255,.88); border:1px solid rgba(14,165,233,.12); border-radius: 22px; padding: 15px 14px; box-shadow: 0 10px 24px rgba(15,23,42,.06); transition: transform .2s, box-shadow .2s; }
+.stat:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(15,23,42,.1); }
+.stat b { display:block; font-size: 22px; margin-top: 4px; }
+.panel { background: rgba(255,255,255,.88); border:1px solid rgba(14,165,233,.12); border-radius: var(--radius); box-shadow: var(--shadow); margin: 18px 0; padding: 22px; position:relative; overflow:hidden; }
+.panel.water::before { content:""; position:absolute; inset:0; background: radial-gradient(circle at 12% 12%, rgba(14,165,233,.12), transparent 22%), radial-gradient(circle at 90% 20%, rgba(245,158,11,.12), transparent 20%); pointer-events:none; }
+.section-title { display:flex; justify-content:space-between; align-items:end; gap:12px; margin-bottom:16px; position:relative; z-index:1; }
+.section-title h2 { margin:0; font-size: clamp(26px, 3vw, 38px); }
+.section-title p { margin:5px 0 0; color:var(--muted); }
+.story-alert { background:#fffbeb; border:1px solid #fde68a; border-radius:18px; padding:14px 16px; line-height:1.9; color:#7c2d12; position:relative; z-index:1; }
+.legend { display:flex; gap:8px; flex-wrap:wrap; margin:14px 0 18px; position:relative; z-index:1; }
+.legend span { padding:6px 10px; border-radius:999px; background:white; border:1px solid rgba(14,165,233,.13); font-size:12px; font-weight:800; }
+.route-layout { display:grid; grid-template-columns: 1fr 350px; gap:20px; align-items:start; position:relative; z-index:1; }
+.route-board {
+  position:relative; min-height: 1900px; border-radius: 34px; overflow:hidden; background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.16)), url('assets/panorama.webp') center/cover no-repeat;
+  box-shadow: inset 0 0 0 2000px rgba(255,255,255,.15), 0 12px 30px rgba(15,23,42,.08); border:1px solid rgba(255,255,255,.4);
+}
+.route-board::before { content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(6,78,59,.08), rgba(255,255,255,.15) 22%, rgba(255,255,255,.18) 76%, rgba(245,158,11,.12)); pointer-events:none; }
+.route-board::after { content:""; position:absolute; inset:0; background: radial-gradient(circle at 20% 18%, rgba(255,255,255,.36), transparent 18%), radial-gradient(circle at 82% 8%, rgba(255,255,255,.34), transparent 16%), radial-gradient(circle at 88% 46%, rgba(255,255,255,.22), transparent 10%), radial-gradient(circle at 18% 66%, rgba(255,255,255,.24), transparent 12%); pointer-events:none; mix-blend-mode: screen; }
+.route-svg { position:absolute; inset:0; width:100%; height:100%; }
+.route-shadow { fill:none; stroke: rgba(255,255,255,.28); stroke-width: 24; stroke-linecap: round; stroke-linejoin: round; filter: blur(10px); }
+.route-main { fill:none; stroke: rgba(255,255,255,.96); stroke-width: 20; stroke-linecap: round; stroke-linejoin: round; }
+.route-dash { fill:none; stroke: rgba(14,165,233,.85); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 8 18; animation: dashFlow 18s linear infinite; }
+@keyframes dashFlow { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -400; } }
+.route-node { position:absolute; transform: translate(-50%, -50%); width: 110px; z-index:2; text-align:center; }
+.node-btn { width:80px; height:80px; margin:0 auto; border-radius: 50%; border:5px solid white; display:grid; place-items:center; font-size:30px; font-weight:900; color:white; box-shadow: 0 16px 35px rgba(15,23,42,.2); transition: transform .18s ease, box-shadow .18s ease; position:relative; overflow:hidden; }
+.node-btn::after { content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(255,255,255,.22), transparent); }
+.route-node:hover .node-btn { transform: translateY(-4px) scale(1.03); box-shadow: 0 22px 42px rgba(15,23,42,.22); }
+.route-node.locked .node-btn { background: linear-gradient(135deg, #94a3b8, #64748b); filter: grayscale(.2); }
+.route-node.done .node-btn { background: linear-gradient(135deg, #22c55e, #16a34a); }
+.route-node.current .node-btn { background: linear-gradient(135deg, #f59e0b, #f97316); animation: pulseNode 1.6s ease-in-out infinite; }
+.route-node.open .node-btn { background: linear-gradient(135deg, #2563eb, #0ea5e9); }
+/* Component color accents for open/current nodes */
+.route-node[data-comp="التاريخ"].open .node-btn,
+.route-node[data-comp="التاريخ"].current .node-btn { background: linear-gradient(135deg, #dc2626, #ea580c) !important; }
+.route-node[data-comp="الجغرافيا"].open .node-btn { background: linear-gradient(135deg, #059669, #10b981); }
+.route-node[data-comp="التربية على المواطنة"].open .node-btn { background: linear-gradient(135deg, #7c3aed, #a855f7); }
+.route-node[data-comp="منهجية"].open .node-btn { background: linear-gradient(135deg, #0369a1, #0ea5e9); }
+@keyframes pulseNode { 0%,100% { box-shadow: 0 0 0 0 rgba(245,158,11,.32), 0 16px 35px rgba(15,23,42,.18); } 50% { box-shadow: 0 0 0 18px rgba(245,158,11,0), 0 16px 35px rgba(15,23,42,.18); } }
+.node-label { margin-top:8px; background: rgba(255,255,255,.92); padding:8px 10px; border-radius:16px; box-shadow: 0 10px 22px rgba(15,23,42,.08); font-size:12px; font-weight:800; line-height:1.5; }
+.node-stars { margin-top:5px; color:#d97706; letter-spacing:2px; font-size: 14px; }
+.node-badge { position:absolute; inset:auto 0 auto 0; top:-10px; margin:auto; width:34px; height:34px; border-radius:50%; background:white; color:#0f172a; display:grid; place-items:center; font-size:15px; font-weight:900; box-shadow: 0 6px 16px rgba(15,23,42,.12); }
+.boat-marker { position:absolute; width:74px; text-align:center; transform: translate(-50%, -90%); z-index:4; transition: left .4s ease, top .4s ease; }
+.boat-marker .ship { font-size:38px; filter: drop-shadow(0 10px 14px rgba(15,23,42,.22)); animation: bob 2.2s ease-in-out infinite; }
+.boat-marker small { display:inline-block; margin-top:4px; background: rgba(255,255,255,.96); border-radius:999px; padding:5px 8px; font-size:11px; font-weight:900; box-shadow: 0 8px 16px rgba(15,23,42,.08); }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.chapter-card { position:absolute; width: 240px; background: rgba(255,255,255,.92); border:1px solid rgba(14,165,233,.14); border-radius: 24px; padding: 14px; box-shadow: 0 14px 34px rgba(15,23,42,.08); z-index: 2; }
+.chapter-card strong { display:block; margin-bottom:6px; font-size:18px; }
+.chapter-card p { margin:0; color:var(--muted); line-height:1.7; font-size:13px; }
+.chapter-card.left { right:auto; }
+.route-side { display:grid; gap:18px; position:sticky; top:86px; }
+.side-card { background: rgba(255,255,255,.94); border:1px solid rgba(14,165,233,.12); border-radius:28px; overflow:hidden; box-shadow: 0 12px 28px rgba(15,23,42,.06); }
+.side-card img { width:100%; display:block; }
+.side-card .body { padding:15px 16px 18px; }
+.side-card h3 { margin:0 0 6px; font-size:20px; }
+.side-card p { margin:0; line-height:1.8; color:var(--muted); }
+.meter { display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; padding:16px; }
+.meter div { background:#f8fafc; border-radius:18px; padding:12px; border:1px solid rgba(14,165,233,.12); font-weight:800; }
+.chapter-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap:16px; }
+.chapter-panel { background: linear-gradient(135deg, rgba(255,255,255,.96), rgba(239,246,255,.96)); border:1px solid rgba(14,165,233,.14); border-radius: 26px; overflow:hidden; box-shadow: 0 10px 24px rgba(15,23,42,.05); transition: transform .2s, box-shadow .2s; }
+.chapter-panel:hover { transform: translateY(-4px); box-shadow: 0 18px 42px rgba(15,23,42,.1); }
+.chapter-panel .top { padding:18px 18px 12px; }
+.chapter-panel .top .icon { width:52px; height:52px; border-radius:18px; display:grid; place-items:center; font-size:28px; margin-bottom:10px; background: linear-gradient(135deg, rgba(37,99,235,.12), rgba(14,165,233,.18)); }
+.chapter-panel h3 { margin:0 0 6px; font-size:20px; }
+.chapter-panel p { margin:0; color:var(--muted); line-height:1.8; }
+.chapter-panel ul { margin:0; padding: 0 30px 16px 12px; color:#334155; line-height:1.9; font-size:14px; }
+.reward-grid, .badge-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap:14px; }
+.reward-card, .badge-card { background: linear-gradient(135deg, #fff7ed, #ffffff); border:1px solid rgba(245,158,11,.18); border-radius: 22px; padding: 16px; text-align:center; box-shadow: 0 10px 22px rgba(15,23,42,.05); transition: transform .2s, box-shadow .2s; }
+.reward-card:not(.dim):hover, .badge-card:not(.dim):hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(245,158,11,.18); }
+.reward-card.dim, .badge-card.dim { opacity:.45; filter: grayscale(1); }
+.reward-card .icon, .badge-card .icon { font-size:34px; margin-bottom:8px; }
+.reward-card strong, .badge-card strong { display:block; margin-bottom:6px; }
+.reward-card small, .badge-card small { display:block; color:var(--muted); line-height:1.6; }
+.asset-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; }
+.asset-card { background:white; border:1px solid rgba(14,165,233,.12); border-radius:26px; overflow:hidden; box-shadow: 0 10px 24px rgba(15,23,42,.05); }
+.asset-card img { width:100%; height: 260px; object-fit:cover; display:block; }
+.asset-card .body { padding:14px 16px 18px; }
+.asset-card h3 { margin:0 0 6px; font-size:19px; }
+.asset-card p { margin:0; color:var(--muted); line-height:1.8; }
+.footer { text-align:center; color:var(--muted); padding: 30px 10px 56px; line-height:1.9; font-size:14px; }
+.footer a { color:var(--primary); font-weight:800; text-decoration:underline; text-decoration-color: rgba(15,118,110,.35); text-underline-offset: 3px; }
+.modal { position: fixed; inset:0; z-index: 140; background: rgba(15,23,42,.64); display:grid; place-items:center; padding: 16px; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); animation: modalBgIn .2s ease; }
+@keyframes modalBgIn { from { opacity:0; } to { opacity:1; } }
+.modal-card { width:min(920px, 100%); max-height: 92vh; overflow:auto; background: #fffdf8; border-radius: 30px; box-shadow: 0 32px 100px rgba(0,0,0,.34), 0 1px 0 rgba(255,255,255,.5); border:1px solid rgba(245,158,11,.22); animation: modalCardIn .25s cubic-bezier(.2,.8,.2,1); }
+@keyframes modalCardIn { from { opacity:0; transform: translateY(18px) scale(.98); } to { opacity:1; transform: none; } }
+.modal-head { position:sticky; top:0; z-index:2; background: rgba(255,253,248,.97); backdrop-filter: blur(14px); -webkit-backdrop-filter:blur(14px); padding: 16px 18px; border-bottom:1px solid rgba(245,158,11,.18); display:flex; justify-content:space-between; align-items:center; gap:8px; }
+.close { width:42px; height:42px; border-radius:50%; background:#fee2e2; color:#991b1b; font-weight:900; font-size:20px; transition: background .15s, transform .15s; }
+.close:hover { background:#fecaca; transform: scale(1.08); }
+.modal-body { padding: 18px; }
+.quiz-hero { display:grid; grid-template-columns: 1fr 280px; gap:16px; margin-bottom: 12px; }
+.quiz-card { background:#f8fafc; border:1px solid #e5e7eb; border-radius:24px; padding:16px; }
+.quiz-meta { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+.tag { display:inline-flex; align-items:center; gap:5px; padding:6px 10px; border-radius:999px; background:#eef2ff; color:#3730a3; font-size:12px; font-weight:900; }
+.question { font-size: clamp(20px, 2.8vw, 28px); line-height:1.7; font-weight:900; margin:0 0 14px; }
+.options { display:grid; gap:10px; }
+.option { text-align:right; background:white; border:2px solid #e5e7eb; border-radius:18px; padding:14px 16px; font-weight:800; color:var(--ink); transition: border-color .18s, background .18s, transform .12s, box-shadow .18s; line-height:1.65; }
+.option:not([disabled]):hover { border-color: rgba(14,165,233,.5); transform: translateX(-3px); box-shadow: 0 6px 18px rgba(14,165,233,.1); }
+.option.selected { border-color: var(--sky); box-shadow:0 0 0 4px rgba(14,165,233,.14); background:#ecfeff; }
+.option.correct { border-color: var(--green); background:#dcfce7; box-shadow: 0 0 0 3px rgba(34,197,94,.2); }
+.option.wrong { border-color: var(--danger); background:#fee2e2; box-shadow: 0 0 0 3px rgba(239,68,68,.2); }
+.option[disabled] { cursor: default; }
+.feedback { margin-top:12px; padding:14px 16px; border-radius:18px; display:none; line-height:1.85; font-weight:700; animation: feedbackIn .3s ease; }
+@keyframes feedbackIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform:none; } }
+.feedback.good { display:block; background:linear-gradient(135deg,#dcfce7,#f0fdf4); color:#14532d; border:1.5px solid rgba(34,197,94,.25); }
+.feedback.bad { display:block; background:linear-gradient(135deg,#fee2e2,#fff1f2); color:#7f1d1d; border:1.5px solid rgba(239,68,68,.25); }
+.actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+.info-card { background: linear-gradient(135deg, rgba(14,165,233,.1), rgba(14,165,233,.02)); border:1px solid rgba(14,165,233,.14); border-radius:24px; overflow:hidden; }
+.info-card img { width:100%; height:180px; object-fit:cover; display:block; }
+.info-card .body { padding:14px 16px; }
+.info-card h4 { margin:0 0 6px; font-size:18px; }
+.info-card p { margin:0; color:#334155; line-height:1.8; font-size:14px; }
+.form-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field { display:flex; flex-direction:column; gap:6px; }
+.field label { font-weight:900; color:#334155; }
+.field input, .field textarea, .field select { border:1px solid #d1d5db; border-radius:15px; padding:12px; background:white; outline:none; }
+.field textarea { min-height: 110px; resize: vertical; line-height: 1.7; }
+.alert { padding: 12px; border-radius: 16px; background: #fffbeb; border:1px solid #fde68a; color:#78350f; line-height:1.8; }
+.cert {
+  background: linear-gradient(160deg, #fffdf6, #fff7ed);
+  border: 10px double #d97706; border-radius: 26px; padding: 32px;
+  text-align:center; position:relative; overflow:hidden;
+}
+.cert::before { content:"🏆"; position:absolute; font-size:11rem; opacity:.04; top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none; }
+.cert h2 { font-size: clamp(24px,4vw,38px); margin: 8px 0; color:#92400e; font-family:"Cairo","Tajawal",sans-serif; }
+.cert .student { font-size: clamp(26px,4.5vw,34px); font-weight:900; margin: 20px 0; color: var(--primary); }
+.cert p { line-height:2; font-size: clamp(15px,2vw,17px); color:#374151; }
+.toast { position: fixed; bottom: 24px; right: 24px; left: auto; background:#111827; color:white; padding:13px 18px; border-radius:18px; z-index:500; box-shadow: 0 16px 48px rgba(0,0,0,.26); opacity:0; transform:translateY(18px) scale(.97); transition: opacity .25s, transform .25s; max-width: 340px; font-weight:800; font-size:14px; line-height:1.6; }
+.toast.show { opacity:1; transform:translateY(0) scale(1); }
+@media (max-width: 480px) { .toast { left:16px; right:16px; bottom:16px; } }
+
+.luxury-splash {
+  position: fixed; inset: 0; z-index: 300;
+  display: grid; place-items: center; padding: 18px; overflow-y: auto;
+  background:
+    linear-gradient(155deg, rgba(8,47,73,.92) 0%, rgba(15,118,110,.82) 55%, rgba(8,47,73,.88) 100%),
+    var(--splash-img, none) center/cover no-repeat;
+  animation: splashFadeIn .4s ease;
+}
+@keyframes splashFadeIn { from { opacity:0; } to { opacity:1; } }
+.splash-card {
+  width:min(680px, 100%); color:white; text-align:center;
+  background: rgba(8,47,73,.52); border:1px solid rgba(255,255,255,.2);
+  box-shadow: 0 40px 120px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.12);
+  border-radius: 40px; padding: clamp(24px, 5vw, 48px); backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  animation: splashCardIn .6s .1s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes splashCardIn { from { opacity:0; transform: translateY(28px) scale(.97); } to { opacity:1; transform: none; } }
+.splash-card img {
+  width:124px; height:124px; object-fit:cover; border-radius:36px;
+  border:4px solid rgba(255,255,255,.36);
+  box-shadow: 0 20px 50px rgba(0,0,0,.28), 0 0 0 8px rgba(255,255,255,.06);
+  margin-bottom: 14px; animation: avatarPop .7s .3s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes avatarPop { from { opacity:0; transform: scale(.6) rotate(-8deg); } to { opacity:1; transform: none; } }
+.splash-card h2 { font-size: clamp(26px, 4.5vw, 52px); margin: 8px 0; line-height:1.15; font-family:"Cairo","Tajawal",sans-serif; font-weight:900; }
+.splash-card p { line-height:2; color:rgba(255,255,255,.9); font-size:clamp(15px,2.2vw,18px); margin: 0 auto 18px; max-width: 560px; }
+
+.splash-start { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; align-items:center; margin-top:18px; }
+.splash-start input {
+  min-width: min(340px, 100%); flex: 1 1 240px; max-width: 400px;
+  border:2px solid rgba(255,255,255,.38); background: rgba(255,255,255,.96); color:#0f172a;
+  border-radius:999px; padding:15px 20px; outline:none; font-weight:800; text-align:center;
+  box-shadow: 0 14px 32px rgba(0,0,0,.14); font-family:"Cairo","Tajawal",sans-serif; font-size:16px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.splash-start input:focus { border-color:#f59e0b; box-shadow: 0 0 0 5px rgba(245,158,11,.2), 0 14px 32px rgba(0,0,0,.14); }
+.panorama-card { display:flex; flex-direction:column; min-height: 0; }
+.panorama-card img { height: 320px; object-fit:cover; flex:0 0 auto; }
+.panorama-overlay {
+  position: static !important; inset:auto !important; margin: 0; border-radius: 0 0 var(--radius) var(--radius);
+  background: linear-gradient(135deg, rgba(255,255,255,.96), rgba(236,254,255,.96)) !important;
+  color:#0f172a !important; backdrop-filter:none !important; border-top:1px solid rgba(14,165,233,.12);
+}
+.panorama-overlay b { color:#0f766e; }
+.panorama-overlay span { color:#334155 !important; }
+.chapter-card {
+  width: auto !important; max-width: 210px; padding: 9px 12px !important; border-radius:999px !important;
+  background: rgba(255,255,255,.68) !important; backdrop-filter: blur(6px);
+  box-shadow: 0 8px 18px rgba(15,23,42,.08) !important;
+}
+.chapter-card strong { font-size:14px !important; margin:0 !important; white-space:nowrap; }
+.chapter-card p { display:none !important; }
+.chapter-card:hover { background: rgba(255,255,255,.94) !important; max-width: 280px; border-radius:20px !important; }
+.chapter-card:hover p { display:block !important; font-size:12px; margin-top:6px; }
+.route-board::before { background: linear-gradient(180deg, rgba(6,78,59,.02), rgba(255,255,255,.04) 22%, rgba(255,255,255,.08) 76%, rgba(245,158,11,.06)); }
+.route-board { box-shadow: inset 0 0 0 2000px rgba(255,255,255,.04), 0 12px 30px rgba(15,23,42,.08); }
+@media (max-width: 760px) {
+  .splash-start { flex-direction:column; }
+  .splash-start input, .splash-start button { width:100%; max-width:100%; }
+  .panorama-card img { height: 240px; }
+  .chapter-card { max-width: 150px; }
+  .chapter-card strong { font-size:12px !important; }
+}
+.luxury-title {
+  display:inline-flex; align-items:center; gap:8px; padding:8px 13px; border-radius:999px;
+  background: rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.18); font-weight:900;
+}
+.mission-strip {
+  display:grid; grid-template-columns: 1.1fr .9fr .9fr; gap:14px; margin: 18px 0;
+}
+.mission-card {
+  background: rgba(255,255,255,.9); border:1px solid rgba(14,165,233,.12); border-radius:26px;
+  padding:16px; box-shadow: 0 12px 28px rgba(15,23,42,.06); position:relative; overflow:hidden;
+}
+.mission-card::after {
+  content:""; position:absolute; width:120px; height:120px; border-radius:50%; left:-38px; bottom:-42px;
+  background: radial-gradient(circle, rgba(14,165,233,.14), transparent 68%);
+}
+.mission-card strong { display:block; font-size:20px; margin-bottom:6px; }
+.mission-card p { margin:0; color:var(--muted); line-height:1.8; }
+.mission-pill { display:inline-flex; gap:6px; align-items:center; margin-bottom:8px; border-radius:999px; padding:6px 10px; background:#ecfeff; color:#0f766e; font-weight:900; font-size:12px; }
+.route-board .decor-bubble {
+  position:absolute; width:56px; height:56px; border-radius:50%; background:rgba(255,255,255,.34);
+  box-shadow: inset 0 0 18px rgba(255,255,255,.38); animation: floatBubble 6s ease-in-out infinite; z-index:1;
+}
+@keyframes floatBubble { 0%,100% { transform: translateY(0) scale(1); opacity:.42; } 50% { transform: translateY(-18px) scale(1.05); opacity:.7; } }
+.route-node.current .node-label {
+  background: linear-gradient(135deg, #fff7ed, #ffffff);
+  border: 1px solid rgba(245,158,11,.36);
+}
+.route-node.done .node-label { border:1px solid rgba(34,197,94,.28); }
+.final-note {
+  display:flex; gap:14px; align-items:center; background: linear-gradient(135deg,#fff7ed,#ffffff);
+  border:1px solid rgba(245,158,11,.22); border-radius:26px; padding:16px; box-shadow:0 10px 24px rgba(15,23,42,.05);
+}
+.final-note .medal { width:62px; height:62px; border-radius:20px; display:grid; place-items:center; font-size:34px; background:linear-gradient(135deg,var(--gold),var(--gold-2)); color:white; flex:0 0 62px; }
+.final-note p { margin:0; line-height:1.8; color:#334155; }
+@media (max-width: 1100px) { .mission-strip { grid-template-columns: 1fr; } }
+.confetti { position: fixed; top:-20px; width:10px; height:18px; background: var(--gold); z-index:220; animation: fall 1.6s linear forwards; }
+@keyframes fall { to { transform: translateY(110vh) rotate(720deg); opacity:0; } }
+@media (max-width: 1100px) {
+  .hero { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(3, 1fr); }
+  .route-layout { grid-template-columns: 1fr; }
+  .route-side { position:static; grid-template-columns: repeat(3, 1fr); }
+  .chapter-grid { grid-template-columns: repeat(2, 1fr); }
+  .reward-grid, .badge-grid { grid-template-columns: repeat(2, 1fr); }
+  .asset-grid { grid-template-columns: 1fr; }
+  .quiz-hero { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .app { padding: 10px; }
+  .nav { align-items:flex-start; flex-wrap:wrap; gap:8px; }
+  .nav-actions { gap:6px; }
+  .brand-mark { width:44px; height:44px; border-radius:14px; }
+  .brand strong { font-size:16px; }
+  .brand small { font-size:11px; }
+  .lead { max-width:100%; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .route-board { min-height: 2400px; }
+  .route-node { width: 88px; }
+  .node-btn { width: 64px; height: 64px; font-size: 22px; border-width: 3px; }
+  .node-label { font-size:11px !important; padding:3px 4px; }
+  .chapter-card { max-width: 160px !important; padding:8px 10px !important; }
+  .chapter-card strong { font-size:12px !important; }
+  .chapter-card p { font-size:11px; }
+  .route-side { grid-template-columns: 1fr; }
+  .chapter-grid { grid-template-columns: 1fr; }
+  .reward-grid, .badge-grid, .asset-grid { grid-template-columns: repeat(2,1fr); }
+  .form-grid { grid-template-columns: 1fr; }
+  .hero-controls .btn, .nav-actions .btn { font-size:12px; padding:9px 12px; }
+  .panorama-card img { height:220px !important; }
+  .quiz-hero { grid-template-columns: 1fr; }
+  .question { font-size:clamp(17px, 4vw, 24px); }
+  .modal-card { border-radius: 22px; }
+  .splash-card { border-radius: 28px; padding: 22px 18px; }
+}
+@media print {
+  body * { visibility:hidden; }
+  #certificateContent, #certificateContent * { visibility:visible; }
+  #certificateContent { position:absolute; inset:0; margin:20px; }
+  .modal-head, .cert-actions { display:none !important; }
+}
+</style>
+</head>
+<body>
+<div id="luxurySplash" class="luxury-splash" style="--splash-img:url('assets/panorama.webp')">
+  <div class="splash-card">
+    <span class="luxury-title">🧭 رحلة محلية فاخرة</span>
+    <img src="assets/ibn-battuta.webp" alt="ابن بطوطة" />
+    <h2>أهلاً بك في رحلة المحلي الذهبية</h2>
+    <p>مسار متعرّج بين الجزر، أسئلة مناسبة للثالثة إعدادي، أصوات، مفاجآت، جوائز مرحلية، وشهادة في النهاية.</p>
+    <div class="splash-start">
+      <input id="splashName" placeholder="اكتب اسم البطل / البطلة هنا" onkeydown="if(event.key==='Enter') startFromSplash()" />
+      <button class="btn gold" onclick="startFromSplash()">ابدأ الرحلة الآن</button>
+      <button class="btn ghost" onclick="hideSplash()">تصفح أولاً</button>
+    </div>
+  </div>
+</div>
+<header class="topbar">
+  <nav class="nav">
+    <div class="brand">
+      <div class="brand-mark"><img src="assets/ibn-battuta.webp" alt="ابن بطوطة" /></div>
+      <div>
+        <strong>رحلة المحلي الذهبية</strong>
+        <small>الثالثة إعدادي — الاجتماعيات — الأسدس الأول</small>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button class="btn ghost" onclick="scrollToRoute()">الخريطة</button>
+      <button id="soundBtn" class="btn ghost" onclick="toggleSound()">🔊 الصوت: شغّال</button>
+      <button class="btn info" onclick="openSurprise()">🎁 بوصلة المفاجآت</button>
+      <button class="btn ghost" onclick="openAdmin()">لوحة الأستاذ</button>
+    </div>
+  </nav>
+</header>
+
+<main class="app">
+  <section class="hero">
+    <div class="hero-card">
+      <span class="kicker">✨ منصة مراجعة ممتعة وذكية</span>
+      <h1>استعدّ للامتحان <span class="gradient">المحلي</span> في رحلة لا تُنسى</h1>
+      <p class="lead">من ميناء الانطلاق إلى مغارة التتويج، يرافقك <strong>ابن بطوطة</strong> عبر مسار بحري متعرّج بين جزر التاريخ والجغرافيا والتربية على المواطنة والمنهجية. في كل محطة سؤال وتحدٍّ وصوت ومفاجأة وجائزة، وفي النهاية تنتظرك شهادة الاستعداد.</p>
+      <div class="theme-chips">
+        <span>🏝️ جزر المعرفة</span>
+        <span>🧭 مسار متعرّج تفاعلي</span>
+        <span>🔊 أصوات ومؤثرات</span>
+        <span>🎁 جوائز مرحلية</span>
+        <span>🏆 شهادة نهائية</span>
+      </div>
+      <div class="hero-controls">
+        <input id="studentName" class="name-input" placeholder="اكتب اسمك أيها البطل / البطلة" />
+        <button class="btn primary" onclick="startJourney()">ابدأ الرحلة ←</button>
+        <button class="btn gold" onclick="openCertificateIfReady()">الشهادة</button>
+        <button class="btn ghost" onclick="resetProgressConfirm()">مسح التقدم</button>
+      </div>
+      <div class="progress-wrap"><div id="progressBar" class="progress-bar"></div></div>
+      <small id="progressText">تقدم الرحلة 0%</small>
+    </div>
+
+    <div class="hero-visuals">
+      <section class="panorama-card">
+        <img src="assets/panorama.webp" alt="مشهد الرحلة البحرية" />
+        <div class="panorama-overlay">
+          <b>المغامرة تبدأ من هنا</b>
+          <span>اختر اسمك، انطلق على متن الرحلة، وافتح المحطات واحدة بعد الأخرى حتى تصل إلى الكنز الأكبر: الثقة في النفس والنجاح في المحلي.</span>
+        </div>
+      </section>
+      <section class="guide-card">
+        <div class="guide-head">
+          <div class="guide-avatar"><img src="assets/ibn-battuta.webp" alt="ابن بطوطة" /></div>
+          <div><h2 style="margin:0">ابن بطوطة — رفيق الرحلة</h2><small>الرحالة الحكيم والمرشد</small></div>
+        </div>
+        <p id="guideText">يا صاحب الهمة، في كل جزيرة علماً جديداً، وفي كل محطة خطوة نحو التتويج. لا تتعجل؛ افهم ثم أجب، فالفهم هو الزاد الحقيقي في الطريق.</p>
+        <div id="mascotQuote" class="quote-box">💬 رسالة ابن بطوطة: «من صبر على التعلم، وصل إلى كنز النجاح.»</div>
+      </section>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="إحصائيات الرحلة">
+    <div class="stat">⚡ الخبرة <b id="xpStat">0 XP</b></div>
+    <div class="stat">⭐ النجوم <b id="starsStat">0/60</b></div>
+    <div class="stat">🏅 الشارات <b id="badgesStat">0/6</b></div>
+    <div class="stat">🎁 الجوائز <b id="rewardsStat">0/4</b></div>
+    <div class="stat">📍 المستوى <b id="levelStat">مبتدئ</b></div>
+    <div class="stat">🗺️ المحطات المنجزة <b id="doneStat">0/20</b></div>
+  </section>
+
+  <section class="mission-strip" aria-label="مهمة الرحلة الحالية">
+    <article class="mission-card">
+      <span class="mission-pill">🎯 المهمة الحالية</span>
+      <strong id="missionTitle">الاستعداد للمحطة الأولى</strong>
+      <p id="missionText">اكتب اسمك وابدأ الرحلة. ابن بطوطة ينتظرك عند ميناء الانطلاق.</p>
+    </article>
+    <article class="mission-card">
+      <span class="mission-pill">🎁 الكنز القادم</span>
+      <strong id="nextRewardTitle">كنز جزيرة الزمن</strong>
+      <p id="nextRewardText">أكمل 5 محطات لفتح أول جائزة مرحلية.</p>
+    </article>
+    <article class="mission-card">
+      <span class="mission-pill">🧠 نصيحة ذكية</span>
+      <strong>اقرأ، فكر، ثم أجب</strong>
+      <p>كل سؤال يمنحك فرصة لفهم الفكرة، وليس فقط اختيار جواب سريع.</p>
+    </article>
+  </section>
+
+  <section id="routeSection" class="panel water">
+    <div class="section-title">
+      <div>
+        <h2>لوحة الرحلة الكبرى</h2>
+        <p>مسار بصري متعرّج يربط 20 محطة عبر أربع جزر معرفية وصولاً إلى مغارة التتويج.</p>
+      </div>
+      <button class="btn primary" onclick="scrollToRoute(true)">انطلق إلى المحطة الحالية</button>
+    </div>
+    <div class="story-alert">🗺️ <strong>قصة الرحلة:</strong> تبدأ السفينة من <strong>ميناء الانطلاق</strong>، ثم تعبر <strong>جزيرة الزمن</strong> (التاريخ)، فـ<strong>أرخبيل الخرائط</strong> (الجغرافيا)، ثم <strong>جزر المواطنة</strong>، وتنتهي في <strong>مغارة التتويج</strong> حيث الشهادة والكنز. بعد كل مجموعة من المحطات ستحصل على جائزة مرحلية أو مفاجأة جديدة.</div>
+    <div class="legend">
+      <span>📚 التاريخ</span>
+      <span>🌍 الجغرافيا</span>
+      <span>🤝 المواطنة</span>
+      <span>🛠️ المنهجية</span>
+      <span>🔵 متاحة</span>
+      <span>🟠 الحالية</span>
+      <span>🟢 منجزة</span>
+      <span>⚪ مغلقة</span>
+    </div>
+    <div class="route-layout">
+      <div class="route-board" id="routeBoard">
+        <svg class="route-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <path id="routeShadow" class="route-shadow" d="" />
+          <path id="routeMain" class="route-main" d="" />
+          <path id="routeDash" class="route-dash" d="" />
+        </svg>
+        <div id="boatMarker" class="boat-marker"><div class="ship">⛵</div><small>أنت هنا</small></div>
+        <span class="decor-bubble" style="left:12%; top:14%; animation-delay:.2s"></span>
+        <span class="decor-bubble" style="left:86%; top:22%; width:38px; height:38px; animation-delay:1.2s"></span>
+        <span class="decor-bubble" style="left:18%; top:48%; width:44px; height:44px; animation-delay:2s"></span>
+        <span class="decor-bubble" style="left:82%; top:72%; width:50px; height:50px; animation-delay:2.8s"></span>
+        <div class="chapter-card" style="top:78%; left:4%;">
+          <strong>⏳ جزيرة الزمن</strong>
+          <p>أول 6 محطات: الرأسمالية، الإمبريالية، الضغط الاستعماري، الحرب العالمية الأولى، المشرق العربي، وأزمة 1929.</p>
+        </div>
+        <div class="chapter-card" style="top:52%; right:4%;">
+          <strong>🗺️ أرخبيل الخرائط</strong>
+          <p>6 محطات جغرافية عن المغرب العربي والاتحاد الأوروبي والتكتلات والتحديات.</p>
+        </div>
+        <div class="chapter-card" style="top:25%; left:4%;">
+          <strong>🤝 جزر المواطنة</strong>
+          <p>6 محطات حول المشاركة، القيم، تخليق الحياة العامة، الرشوة والحقوق.</p>
+        </div>
+        <div class="chapter-card" style="top:4%; right:4%;">
+          <strong>💎 مغارة التتويج</strong>
+          <p>محطتان منهجيتان قبل فتح الشهادة: قراءة الوثيقة والاستعداد الجيد للمحلي.</p>
+        </div>
+      </div>
+      <aside class="route-side">
+        <div class="side-card">
+          <img src="assets/treasure-map.webp" alt="خريطة كنز عمودية" />
+          <div class="body">
+            <h3>مرجع بصري للمسار</h3>
+            <p>هذه الخريطة تذكّر التلميذ بفكرة التطبيق: انطلاق، منعطفات، محطات متتالية، ثم الوصول إلى الكنز النهائي.</p>
+          </div>
+        </div>
+        <div class="side-card">
+          <img src="assets/panorama.webp" alt="بانوراما الرحلة" />
+          <div class="body">
+            <h3>ألوان البحر والجزر</h3>
+            <p>اعتمدنا هذه اللوحة لتوحيد الهوية البصرية للتطبيق: بحر مشرق، جزر معرفية، وميناء انطلاق ملهم.</p>
+          </div>
+        </div>
+        <div class="side-card">
+          <div class="body">
+            <h3>عداد الرحلة</h3>
+            <div class="meter">
+              <div>المحطة الحالية<br><b id="currentStationText">1</b></div>
+              <div>أفضل نتيجة<br><b id="bestScoreText">0 نجمة</b></div>
+              <div>آخر جائزة<br><b id="lastRewardText">لم تُفتح بعد</b></div>
+              <div>حالة الشهادة<br><b id="certificateState">مغلقة</b></div>
+            </div>
+            <div class="actions" style="padding: 0 16px 18px; margin-top: 0;">
+              <button class="btn primary" onclick="openRandomStation()">🎯 تحدٍّ سريع</button>
+              <button class="btn gold" onclick="openSurprise()">🧭 تلميحة مفاجئة</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="section-title"><div><h2>جزر الرحلة</h2><p>تنظيم المضمون حسب المكونات والمحاور المعرفية.</p></div></div>
+    <div class="chapter-grid">
+      <article class="chapter-panel">
+        <div class="top"><div class="icon">🏭</div><h3>جزيرة الزمن — التاريخ</h3><p>6 محطات تراجع التحولات السياسية والاقتصادية والعسكرية في القرن 19 وبداية القرن 20.</p></div>
+        <ul>
+          <li>ازدهار الرأسمالية والإمبريالية</li>
+          <li>الضغط الاستعماري على المغرب</li>
+          <li>الحرب العالمية الأولى</li>
+          <li>المشرق العربي وأزمة 1929</li>
+        </ul>
+      </article>
+      <article class="chapter-panel">
+        <div class="top"><div class="icon">🌍</div><h3>أرخبيل الخرائط — الجغرافيا</h3><p>6 محطات في التكتلات الإقليمية وعناصر القوة والتنوع والتحديات.</p></div>
+        <ul>
+          <li>المغرب العربي: الوحدة والتنوع</li>
+          <li>التكامل والتحديات</li>
+          <li>الاتحاد الأوروبي ومكانته</li>
+          <li>معيقات التكتلات الجهوية</li>
+        </ul>
+      </article>
+      <article class="chapter-panel">
+        <div class="top"><div class="icon">🤲</div><h3>جزر المواطنة</h3><p>6 محطات تنمّي قيم المشاركة والمسؤولية وحل المشكلات الاجتماعية والحقوق.</p></div>
+        <ul>
+          <li>المشاركة حق وواجب</li>
+          <li>المشاكل الاجتماعية ومعالجتها</li>
+          <li>مؤسسة محمد الخامس للتضامن</li>
+          <li>تخليق الحياة العامة والحقوق</li>
+        </ul>
+      </article>
+      <article class="chapter-panel">
+        <div class="top"><div class="icon">📜</div><h3>مغارة التتويج — المنهجية</h3><p>محطتان أخيرتان لتدريب التلميذ على الوثائق والاستعداد الذكي للورقة.</p></div>
+        <ul>
+          <li>كيف أتعامل مع وثيقة تاريخية؟</li>
+          <li>كيف أستعد للامتحان المحلي؟</li>
+          <li>تنظيم الوقت والورقة والجواب</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="section-title"><div><h2>الشارات والجوائز</h2><p>كل إنجاز يفتح شارة أو مكافأة ويقربك من الشهادة.</p></div></div>
+    <div class="badge-grid" id="badgesBox"></div>
+    <div style="height:16px"></div>
+    <div class="reward-grid" id="rewardsBox"></div>
+  </section>
+
+  <section class="panel">
+    <div class="section-title"><div><h2>المعرض البصري</h2><p>صور منجزة خصيصاً لهذا التطبيق لتجميل التجربة وتقوية هوية الرحلة.</p></div></div>
+    <div class="asset-grid">
+      <article class="asset-card"><img src="assets/panorama.webp" alt="مشهد الرحلة" /><div class="body"><h3>بانوراما الجزر</h3><p>تعطي للتلميذ إحساس المغامرة وتدعم مسار الرحلة المتعرج بين المحطات.</p></div></article>
+      <article class="asset-card"><img src="assets/ibn-battuta.webp" alt="ابن بطوطة" /><div class="body"><h3>الماسكوت: ابن بطوطة</h3><p>رفيق الرحلة الذي يقدّم التشجيع والنصائح ويمنح التطبيق روحاً إنسانية محببة.</p></div></article>
+      <article class="asset-card"><img src="assets/treasure-map.webp" alt="خريطة كنز" /><div class="body"><h3>خريطة الكنز</h3><p>مرجع بصري للمسار، يساعد على تخيل تقدّم التلميذ من البداية إلى مغارة الشهادة.</p></div></article>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="final-note">
+      <div class="medal">✨</div>
+      <p><strong>اللمسة النهائية:</strong> هذه النسخة صممت لتكون ممتعة للتلميذ ومفيدة للأستاذ في الوقت نفسه: رحلة مرئية، مسار واضح، محتوى قابل للتعديل، ومكافآت تشجع على الاستمرار دون فقدان الجدية التربوية.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    ✍️ إعداد وتصور: الأستاذ أحمد بوعمود — أستاذ الاجتماعيات<br />
+    مؤسسة الحنان الخاصة | أكادير | رحلة المحلي الذهبية — نسخة مطوّرة تفاعلية
+  </footer>
+</main>
+
+<div id="quizModal" class="modal hidden">
+  <div class="modal-card">
+    <div class="modal-head"><strong id="quizTitle">المحطة</strong><button class="close" onclick="closeQuiz()">×</button></div>
+    <div class="modal-body">
+      <div class="quiz-hero">
+        <div class="quiz-card">
+          <div class="quiz-meta"><span class="tag" id="quizComponent"></span><span class="tag" id="quizCounter"></span><span class="tag" id="quizScore"></span></div>
+          <div class="alert" id="stationBrief"></div>
+          <div style="height:12px"></div>
+          <p class="question" id="questionText"></p>
+          <div id="optionsBox" class="options"></div>
+          <div id="feedback" class="feedback"></div>
+          <div class="actions">
+            <button id="submitBtn" class="btn primary" onclick="submitAnswer()" aria-label="تحقق من الجواب المحدد">تحقق من الجواب</button>
+            <button id="nextBtn" class="btn gold hidden" onclick="nextQuestion()" aria-label="الانتقال للسؤال الموالي">السؤال الموالي ←</button>
+          </div>
+        </div>
+        <aside class="info-card">
+          <img id="quizSideImage" src="assets/treasure-map.webp" alt="صورة مرافقة" />
+          <div class="body">
+            <h4 id="quizSideTitle">جزيرة جديدة</h4>
+            <p id="quizSideText">ستساعدك هذه المحطة على تثبيت الأفكار الأساسية بلغة بسيطة ومناسبة لمستوى الثالثة إعدادي.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="rewardModal" class="modal hidden">
+  <div class="modal-card">
+    <div class="modal-head"><strong>🎁 مفاجأة جديدة</strong><button class="close" onclick="closeRewardModal()">×</button></div>
+    <div class="modal-body">
+      <div id="rewardContent"></div>
+      <div class="actions"><button class="btn gold" onclick="closeRewardModal()">مواصلة الرحلة</button></div>
+    </div>
+  </div>
+</div>
+
+<div id="surpriseModal" class="modal hidden">
+  <div class="modal-card">
+    <div class="modal-head"><strong>🧭 بوصلة المفاجآت</strong><button class="close" onclick="closeSurprise()">×</button></div>
+    <div class="modal-body">
+      <div id="surpriseContent" class="quiz-card" style="text-align:center;"></div>
+      <div class="actions" style="justify-content:center;"><button class="btn primary" onclick="openSurprise(true)">مفاجأة أخرى</button></div>
+    </div>
+  </div>
+</div>
+
+<div id="adminModal" class="modal hidden">
+  <div class="modal-card">
+    <div class="modal-head"><strong>لوحة الأستاذ — تعديل الأسئلة وعناصر الإجابة</strong><button class="close" onclick="closeAdmin()">×</button></div>
+    <div class="modal-body">
+      <div class="alert">كلمة المرور الافتراضية: 1234. يمكن عبر هذه اللوحة تعديل عنوان المحطة والبطاقة الموجزة والأسئلة والاختيارات والجواب الصحيح وعناصر الإجابة. التعديلات تُحفظ في نفس المتصفح ويمكن تصديرها واستيرادها.</div>
+      <div id="adminLogin" style="margin-top:12px">
+        <div class="form-grid">
+          <div class="field"><label>كلمة المرور</label><input id="adminPin" type="password" placeholder="1234" /></div>
+          <div class="field" style="justify-content:end"><button class="btn primary" onclick="checkAdminPin()">دخول لوحة الأستاذ</button></div>
+        </div>
+      </div>
+      <div id="adminEditor" class="hidden" style="margin-top:14px">
+        <div class="form-grid">
+          <div class="field"><label>اختر المحطة</label><select id="adminStation" onchange="loadAdminQuestion()"></select></div>
+          <div class="field"><label>اختر السؤال</label><select id="adminQuestion" onchange="loadAdminQuestion()"></select></div>
+          <div class="field"><label>عنوان المحطة</label><input id="adminTitle" /></div>
+          <div class="field"><label>المكون</label><select id="adminComponent"><option>التاريخ</option><option>الجغرافيا</option><option>التربية على المواطنة</option><option>منهجية</option></select></div>
+          <div class="field" style="grid-column:1/-1"><label>بطاقة قصيرة قبل السؤال</label><textarea id="adminBrief"></textarea></div>
+          <div class="field" style="grid-column:1/-1"><label>نص السؤال</label><textarea id="adminQuestionText"></textarea></div>
+          <div class="field" style="grid-column:1/-1"><label>الاختيارات — كل اختيار في سطر</label><textarea id="adminOptions"></textarea></div>
+          <div class="field"><label>رقم الجواب الصحيح</label><select id="adminCorrect"></select></div>
+          <div class="field"><label>أيقونة المحطة</label><input id="adminIcon" /></div>
+          <div class="field" style="grid-column:1/-1"><label>تفسير الجواب / عنصر الإجابة</label><textarea id="adminExplanation"></textarea></div>
+        </div>
+        <div class="actions">
+          <button class="btn primary" onclick="saveAdminQuestion()">حفظ التعديل</button>
+          <button class="btn gold" onclick="exportBank()">تصدير بنك الأسئلة JSON</button>
+          <button class="btn ghost" onclick="document.getElementById('importBox').classList.toggle('hidden')">استيراد JSON</button>
+          <button class="btn ghost" onclick="resetQuestionBank()">استرجاع النسخة الأصلية</button>
+        </div>
+        <div id="importBox" class="hidden" style="margin-top:12px">
+          <div class="field"><label>الصق هنا بنك الأسئلة بصيغة JSON</label><textarea id="importText" style="min-height:180px"></textarea></div>
+          <button class="btn primary" onclick="importBank()" style="margin-top:8px">استيراد وحفظ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="certificateModal" class="modal hidden">
+  <div class="modal-card">
+    <div class="modal-head"><strong>شهادة إتمام رحلة المحلي</strong><button class="close" onclick="closeCertificate()">×</button></div>
+    <div class="modal-body">
+      <div id="certificateContent" class="cert">
+        <div style="font-size:54px">🏆</div>
+        <h2>شهادة إتمام رحلة المحلي الذهبية</h2>
+        <p>مادة الاجتماعيات — الثالثة إعدادي — الأسدس الأول</p>
+        <p>تُمنح هذه الشهادة للتلميذ(ة):</p>
+        <div id="certName" class="student">................</div>
+        <p>بعد إتمام رحلة مراجعة دروس التاريخ والجغرافيا والتربية على المواطنة والمنهجية الخاصة بالامتحان المحلي، وإظهار روح المثابرة والمراجعة الذكية.</p>
+        <p id="certStats">⭐ النجوم: 0/60 — ⚡ الخبرة: 0 XP — 🏅 الشارات: 0/6 — 🎁 الجوائز: 0/4</p>
+        <p>✍️ الأستاذ أحمد بوعمود — أستاذ الاجتماعيات<br />مؤسسة الحنان الخاصة — أكادير</p>
+        <p id="certDate"></p>
+      </div>
+      <div class="actions cert-actions"><button class="btn primary" onclick="window.print()">طباعة / حفظ PDF</button></div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const DEFAULT_STATIONS = [
+  {
+    "id": 1,
+    "component": "التاريخ",
+    "icon": "🏭",
+    "title": "ازدهار الرأسمالية الأوروبية خلال القرن 19م",
+    "brief": "نتعرف في هذه المحطة كيف ساهمت الثورة الصناعية وظهور المصانع والبنوك والشركات في تقوية الرأسمالية الأوروبية خلال القرن 19م.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "ما المقصود بالرأسمالية في أبسط تعريف؟",
+        "options": [
+          "نظام اقتصادي يقوم على الملكية الخاصة وحرية المبادرة",
+          "نظام يمنع التجارة الخارجية",
+          "نظام يعتمد على الاكتفاء الذاتي فقط",
+          "نظام سياسي يقوم على حكم العسكر"
+        ],
+        "correct": 0,
+        "explanation": "الرأسمالية نظام اقتصادي يقوم على الملكية الخاصة وحرية الاستثمار والمنافسة."
+      },
+      {
+        "type": "mcq",
+        "question": "أي عامل ساعد أكثر على ازدهار الرأسمالية الأوروبية في القرن 19م؟",
+        "options": [
+          "تراجع استعمال الآلات",
+          "انتشار الصناعة وتطور وسائل النقل",
+          "إلغاء التجارة بين الدول",
+          "ضعف الأبناك والشركات"
+        ],
+        "correct": 1,
+        "explanation": "الثورة الصناعية، السكك الحديدية، الأبناك، والشركات الكبرى ساعدت على نمو الرأسمالية."
+      },
+      {
+        "type": "mcq",
+        "question": "ما النتيجة الاجتماعية المهمة لتوسع الصناعة في أوروبا؟",
+        "options": [
+          "اختفاء المدن",
+          "ظهور طبقة عاملة واسعة في المصانع",
+          "توقف الهجرة نحو المدن",
+          "انتهاء الحاجة إلى رؤوس الأموال"
+        ],
+        "correct": 1,
+        "explanation": "توسع المصانع أدى إلى ظهور طبقة عاملة كبيرة عاشت غالباً ظروفاً صعبة."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "component": "التاريخ",
+    "icon": "🌍",
+    "title": "الإمبريالية وليدة الرأسمالية",
+    "brief": "نكتشف لماذا دفعت الرأسمالية الدول الأوروبية إلى البحث عن أسواق ومواد أولية ومستعمرات في إفريقيا وآسيا.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "ما معنى الإمبريالية؟",
+        "options": [
+          "تعاون ثقافي بين الشعوب",
+          "سياسة توسع وسيطرة تمارسها دولة قوية على مناطق أخرى",
+          "نظام انتخابي محلي",
+          "طريقة لتنظيم الفلاحة"
+        ],
+        "correct": 1,
+        "explanation": "الإمبريالية تعني التوسع والسيطرة السياسية والاقتصادية والعسكرية على مناطق أخرى."
+      },
+      {
+        "type": "mcq",
+        "question": "لماذا احتاجت الدول الصناعية إلى المستعمرات؟",
+        "options": [
+          "للحصول على المواد الأولية والأسواق",
+          "لمنع التجارة نهائياً",
+          "لإيقاف الإنتاج الصناعي",
+          "لإغلاق الطرق البحرية"
+        ],
+        "correct": 0,
+        "explanation": "الدول الصناعية بحثت عن مواد أولية رخيصة وأسواق لتصريف المنتجات ومناطق لاستثمار الأموال."
+      },
+      {
+        "type": "mcq",
+        "question": "أي قارة تعرضت بقوة للتنافس الإمبريالي الأوروبي في أواخر القرن 19م؟",
+        "options": [
+          "أستراليا فقط",
+          "إفريقيا",
+          "القارة القطبية الجنوبية",
+          "أمريكا الشمالية فقط"
+        ],
+        "correct": 1,
+        "explanation": "إفريقيا كانت مجالاً رئيسياً للتنافس الاستعماري بين القوى الأوروبية."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "component": "التاريخ",
+    "icon": "🛡️",
+    "title": "الضغط الاستعماري على المغرب",
+    "brief": "نتعرف مظاهر الضغط العسكري والاقتصادي والدبلوماسي الذي مهد لفرض الحماية على المغرب سنة 1912.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "أي حدث كشف ضعف المغرب عسكرياً أمام فرنسا سنة 1844؟",
+        "options": [
+          "معركة إيسلي",
+          "مؤتمر الجزيرة الخضراء",
+          "الحرب العالمية الأولى",
+          "أزمة 1929"
+        ],
+        "correct": 0,
+        "explanation": "معركة إيسلي سنة 1844 أظهرت ضعف الجيش المغربي أمام فرنسا."
+      },
+      {
+        "type": "mcq",
+        "question": "ما المقصود بالحماية الأجنبية التي مُنحت لبعض الأفراد في المغرب؟",
+        "options": [
+          "إعفاء بعض المغاربة أو الأجانب من سلطة المخزن بتدخل قناصل الدول",
+          "منع كل الأجانب من دخول المغرب",
+          "توحيد الضرائب داخل المغرب",
+          "إلغاء التجارة الخارجية"
+        ],
+        "correct": 0,
+        "explanation": "الحماية القنصلية جعلت بعض الأشخاص خارج سلطة المخزن، مما أضعف سيادة الدولة."
+      },
+      {
+        "type": "mcq",
+        "question": "ما النتيجة النهائية لتزايد الضغط الاستعماري على المغرب؟",
+        "options": [
+          "تقوية استقلال المغرب مباشرة",
+          "فرض نظام الحماية سنة 1912",
+          "إلغاء الأطماع الأوروبية",
+          "تأسيس اتحاد المغرب العربي"
+        ],
+        "correct": 1,
+        "explanation": "الضغوط انتهت بفرض الحماية الفرنسية والإسبانية على المغرب سنة 1912."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "component": "التاريخ",
+    "icon": "💥",
+    "title": "الحرب العالمية الأولى: الأسباب والنتائج",
+    "brief": "نميز بين الأسباب العميقة والمباشرة للحرب العالمية الأولى، ونفهم نتائجها السياسية والبشرية والاقتصادية.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "ما السبب المباشر لاندلاع الحرب العالمية الأولى؟",
+        "options": [
+          "اغتيال ولي عهد النمسا في سراييفو",
+          "أزمة 1929 الاقتصادية",
+          "ظهور الاتحاد الأوروبي",
+          "تأسيس عصبة الأمم"
+        ],
+        "correct": 0,
+        "explanation": "اغتيال ولي عهد النمسا في سراييفو سنة 1914 كان الشرارة المباشرة للحرب."
+      },
+      {
+        "type": "mcq",
+        "question": "أي عامل يعد من الأسباب العميقة للحرب العالمية الأولى؟",
+        "options": [
+          "التنافس الإمبريالي والتحالفات العسكرية",
+          "اكتشاف أمريكا",
+          "نهاية الحرب الباردة",
+          "اختفاء القومية في أوروبا"
+        ],
+        "correct": 0,
+        "explanation": "التنافس بين الدول الأوروبية والتحالفات والتسابق نحو التسلح من أهم الأسباب العميقة."
+      },
+      {
+        "type": "mcq",
+        "question": "أي منظمة ظهرت بعد الحرب العالمية الأولى للحفاظ على السلم؟",
+        "options": [
+          "الأمم المتحدة",
+          "عصبة الأمم",
+          "الاتحاد المغاربي",
+          "منظمة التجارة العالمية"
+        ],
+        "correct": 1,
+        "explanation": "أنشئت عصبة الأمم بعد الحرب العالمية الأولى، أما الأمم المتحدة فجاءت بعد الحرب العالمية الثانية."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "component": "التاريخ",
+    "icon": "🕌",
+    "title": "انهيار الإمبراطورية العثمانية والتدخل الاستعماري في المشرق العربي",
+    "brief": "نحلل أسباب ضعف الدولة العثمانية وكيف استغلت القوى الأوروبية ذلك للتدخل في المشرق العربي.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "بماذا وصفت الدولة العثمانية في القرن 19م بسبب ضعفها؟",
+        "options": [
+          "رجل أوروبا المريض",
+          "قوة العالم الأولى",
+          "مصنع أوروبا",
+          "قلب الثورة الصناعية"
+        ],
+        "correct": 0,
+        "explanation": "لقبت الدولة العثمانية برجل أوروبا المريض بسبب أزماتها وضعفها وتدخل الدول الأوروبية في شؤونها."
+      },
+      {
+        "type": "mcq",
+        "question": "ما العامل الذي شجع الدول الأوروبية على التدخل في المشرق العربي؟",
+        "options": [
+          "قوة الدولة العثمانية الشديدة",
+          "الموقع الاستراتيجي للمنطقة وضعف الحكم العثماني",
+          "اختفاء الطرق التجارية",
+          "رفض أوروبا للنفوذ الخارجي"
+        ],
+        "correct": 1,
+        "explanation": "المشرق العربي كان مهماً بموقعه وموارده، وضعف العثمانيين سهل التدخل الأوروبي."
+      },
+      {
+        "type": "mcq",
+        "question": "أي نتيجة ارتبطت بانهيار الدولة العثمانية بعد الحرب العالمية الأولى؟",
+        "options": [
+          "تقسيم مناطق عربية بين قوى منتصرة",
+          "توحيد العالم العربي في دولة واحدة",
+          "إلغاء الاستعمار نهائياً",
+          "بداية الرأسمالية الأوروبية"
+        ],
+        "correct": 0,
+        "explanation": "بعد الحرب، خضعت مناطق عربية للانتداب والنفوذ البريطاني والفرنسي."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "component": "التاريخ",
+    "icon": "📉",
+    "title": "أزمة 1929: الأسباب والمظاهر والنتائج",
+    "brief": "نفهم كيف بدأت الأزمة في الولايات المتحدة ثم انتقلت إلى العالم، وما مظاهرها الاقتصادية والاجتماعية.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "أين بدأت أزمة 1929 الاقتصادية؟",
+        "options": [
+          "في اليابان",
+          "في بورصة وول ستريت بالولايات المتحدة",
+          "في المغرب العربي",
+          "في الإمبراطورية العثمانية"
+        ],
+        "correct": 1,
+        "explanation": "انطلقت الأزمة من بورصة وول ستريت في نيويورك ثم انتشرت عالمياً."
+      },
+      {
+        "type": "mcq",
+        "question": "أي مظهر يدل على الأزمة الاقتصادية؟",
+        "options": [
+          "ارتفاع الإنتاج مع انخفاض البطالة",
+          "إفلاس الأبناك والشركات وانتشار البطالة",
+          "ازدياد الأجور دائماً",
+          "اختفاء الفقر في المدن"
+        ],
+        "correct": 1,
+        "explanation": "الأزمة أدت إلى إفلاس مؤسسات كثيرة وارتفاع البطالة وانخفاض المبادلات التجارية."
+      },
+      {
+        "type": "mcq",
+        "question": "لماذا انتقلت الأزمة من الولايات المتحدة إلى دول أخرى؟",
+        "options": [
+          "بسبب الترابط الاقتصادي والمالي بين الدول",
+          "لأن الدول كانت معزولة تماماً",
+          "لأن التجارة العالمية توقفت قبل الأزمة",
+          "بسبب اتحاد المغرب العربي"
+        ],
+        "correct": 0,
+        "explanation": "ترابط الأسواق والبنوك والتجارة ساهم في انتشار الأزمة خارج الولايات المتحدة."
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "component": "الجغرافيا",
+    "icon": "🧭",
+    "title": "المغرب العربي: عناصر الوحدة والتنوع",
+    "brief": "نستكشف عناصر الوحدة بين بلدان المغرب العربي مثل الدين واللغة والتاريخ، وعناصر التنوع الطبيعي والبشري.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "أي عنصر يعد من عناصر الوحدة بين بلدان المغرب العربي؟",
+        "options": [
+          "اختلاف الموقع القاري كلياً",
+          "الدين الإسلامي واللغة العربية والتاريخ المشترك",
+          "انعدام الروابط الثقافية",
+          "تباعد المجال الجغرافي تماماً"
+        ],
+        "correct": 1,
+        "explanation": "تتقاسم بلدان المغرب العربي روابط دينية ولغوية وتاريخية وجغرافية قوية."
+      },
+      {
+        "type": "mcq",
+        "question": "أي مثال يعبر عن التنوع الطبيعي في المغرب العربي؟",
+        "options": [
+          "وجود جبال وسهول وصحارى ومناخات مختلفة",
+          "تشابه كل التضاريس تماماً",
+          "غياب الصحراء",
+          "انعدام السواحل"
+        ],
+        "correct": 0,
+        "explanation": "يتنوع المجال الطبيعي بين جبال الأطلس والسهول والسواحل والصحراء."
+      },
+      {
+        "type": "mcq",
+        "question": "ما أهمية دراسة عناصر الوحدة والتنوع؟",
+        "options": [
+          "لفهم إمكانيات التكامل والتعاون بين البلدان",
+          "لإثبات أن التعاون مستحيل دائماً",
+          "لإلغاء الخصوصيات المحلية",
+          "لرفض التبادل التجاري"
+        ],
+        "correct": 0,
+        "explanation": "معرفة الوحدة والتنوع تساعد على فهم فرص التعاون والتكامل."
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "component": "الجغرافيا",
+    "icon": "🤝",
+    "title": "المغرب العربي بين التكامل والتحديات",
+    "brief": "نميز بين إمكانيات التكامل الاقتصادي والبشري وبين التحديات التي تعيق التعاون بين بلدان المغرب العربي.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "ما معنى التكامل الاقتصادي بين بلدان المغرب العربي؟",
+        "options": [
+          "أن يتعاون كل بلد مع الآخرين باستثمار موارده لخدمة الجميع",
+          "أن يغلق كل بلد حدوده التجارية",
+          "أن تتشابه كل البلدان في الموارد",
+          "أن تختفي كل الأنشطة الاقتصادية"
+        ],
+        "correct": 0,
+        "explanation": "التكامل يعني التعاون وتبادل المنافع حسب إمكانيات كل بلد."
+      },
+      {
+        "type": "mcq",
+        "question": "أي مورد يمكن أن يساعد على التكامل في المغرب العربي؟",
+        "options": [
+          "الموقع الاستراتيجي والموارد الفلاحية والمعدنية والطاقية",
+          "انعدام السكان",
+          "غياب السواحل",
+          "عدم وجود طرق تجارية"
+        ],
+        "correct": 0,
+        "explanation": "المغرب العربي يتوفر على موقع مهم وموارد مختلفة يمكن أن تدعم التكامل."
+      },
+      {
+        "type": "mcq",
+        "question": "أي عامل يعد من تحديات التكامل المغاربي؟",
+        "options": [
+          "التعاون الدائم بين كل المؤسسات",
+          "الخلافات السياسية وضعف المبادلات البينية",
+          "تشابه المشاريع التنموية بشكل كامل",
+          "وفرة الاتفاقيات المفعلة دائماً"
+        ],
+        "correct": 1,
+        "explanation": "الخلافات السياسية وضعف المبادلات بين الدول من أبرز معيقات التكامل."
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "component": "الجغرافيا",
+    "icon": "🏛️",
+    "title": "اتحاد المغرب العربي خيار استراتيجي للتكتل الإقليمي",
+    "brief": "نتعرف اتحاد المغرب العربي وأهدافه، ونفهم لماذا يعد التكتل الإقليمي خياراً مهماً في عالم التنافس الاقتصادي.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "متى تأسس اتحاد المغرب العربي؟",
+        "options": [
+          "1956",
+          "1989",
+          "1912",
+          "2002"
+        ],
+        "correct": 1,
+        "explanation": "تأسس اتحاد المغرب العربي سنة 1989 بمراكش."
+      },
+      {
+        "type": "mcq",
+        "question": "ما الهدف العام من اتحاد المغرب العربي؟",
+        "options": [
+          "تعزيز التعاون والتكامل بين دوله",
+          "إلغاء كل العلاقات الاقتصادية",
+          "منع تنقل الأفكار والسلع",
+          "الابتعاد عن التكتلات الإقليمية"
+        ],
+        "correct": 0,
+        "explanation": "يروم الاتحاد تحقيق التعاون والتكامل الاقتصادي والاجتماعي والثقافي بين دوله."
+      },
+      {
+        "type": "mcq",
+        "question": "لماذا يعد التكتل الإقليمي مهماً اليوم؟",
+        "options": [
+          "لأنه يقوي القدرة على المنافسة والتفاوض",
+          "لأنه يمنع التنمية",
+          "لأنه يضعف السوق الداخلية",
+          "لأنه يلغي الحاجة للتخطيط"
+        ],
+        "correct": 0,
+        "explanation": "التكتل يوسع السوق ويقوي الموقف الاقتصادي والسياسي للدول."
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "component": "الجغرافيا",
+    "icon": "🇪🇺",
+    "title": "الاتحاد الأوروبي: إمكانياته ومكانته الاقتصادية في العالم",
+    "brief": "نكتشف إمكانيات الاتحاد الأوروبي الطبيعية والبشرية والاقتصادية التي جعلته قوة كبرى في العالم.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "ما الذي يجعل الاتحاد الأوروبي قوة اقتصادية عالمية؟",
+        "options": [
+          "ضعف الصناعة والتجارة",
+          "قوة الصناعة والخدمات والتجارة وارتفاع التأهيل البشري",
+          "انعدام البحث العلمي",
+          "اعتماده على الفلاحة التقليدية فقط"
+        ],
+        "correct": 1,
+        "explanation": "الاتحاد الأوروبي قوة كبرى بفضل الصناعة والخدمات والتجارة والتكنولوجيا والموارد البشرية المؤهلة."
+      },
+      {
+        "type": "mcq",
+        "question": "أي قطاع يحتل مكانة مهمة في اقتصاد الاتحاد الأوروبي؟",
+        "options": [
+          "الخدمات والصناعة",
+          "الصيد التقليدي فقط",
+          "الزراعة المعيشية فقط",
+          "غياب المبادلات التجارية"
+        ],
+        "correct": 0,
+        "explanation": "الخدمات والصناعة والتجارة من ركائز الاقتصاد الأوروبي."
+      },
+      {
+        "type": "mcq",
+        "question": "ما المقصود بالمكانة الاقتصادية العالمية؟",
+        "options": [
+          "قدرة مجال ما على التأثير في الإنتاج والتجارة والأسواق العالمية",
+          "عدد الجبال فقط",
+          "مساحة الغابات فقط",
+          "عدد اللغات الرسمية فقط"
+        ],
+        "correct": 0,
+        "explanation": "المكانة الاقتصادية تعني قوة التأثير في الاقتصاد العالمي إنتاجاً وتجارة واستثماراً."
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "component": "الجغرافيا",
+    "icon": "🔗",
+    "title": "الاتحاد الأوروبي بين الاندماج والمنافسة",
+    "brief": "نفهم مظاهر الاندماج بين دول الاتحاد الأوروبي، ومظاهر المنافسة الاقتصادية داخله ومع باقي القوى العالمية.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "أي مظهر يدل على الاندماج داخل الاتحاد الأوروبي؟",
+        "options": [
+          "السوق الموحدة وحرية تنقل السلع والأشخاص بين دول عديدة",
+          "إلغاء كل المؤسسات الأوروبية",
+          "منع التبادل التجاري بين الدول الأعضاء",
+          "غياب أي تنسيق اقتصادي"
+        ],
+        "correct": 0,
+        "explanation": "السوق الموحدة وحرية التنقل والتنسيق بين السياسات من مظاهر الاندماج."
+      },
+      {
+        "type": "mcq",
+        "question": "ما معنى المنافسة داخل الاتحاد الأوروبي؟",
+        "options": [
+          "تنافس الشركات والمجالات لجذب الاستثمار وتحسين الإنتاج",
+          "إلغاء كل الشركات",
+          "منع الابتكار",
+          "تساوي كل المناطق في القوة الاقتصادية دائماً"
+        ],
+        "correct": 0,
+        "explanation": "رغم الاندماج، تستمر المنافسة بين الشركات والمناطق والدول لجذب الاستثمار والأسواق."
+      },
+      {
+        "type": "mcq",
+        "question": "ما العملة الموحدة التي تستعملها دول كثيرة داخل الاتحاد الأوروبي؟",
+        "options": [
+          "الدولار",
+          "اليورو",
+          "الدرهم المغربي",
+          "الين الياباني"
+        ],
+        "correct": 1,
+        "explanation": "اليورو عملة موحدة تستعملها دول كثيرة من الاتحاد الأوروبي، لكنها ليست عملة جميع دوله."
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "component": "الجغرافيا",
+    "icon": "⚖️",
+    "title": "معيقات التكتلات الجهوية: مقارنة بين الاتحاد الأوروبي والمغرب العربي",
+    "brief": "نقارن بين تكتل ناجح نسبياً هو الاتحاد الأوروبي وتكتل يواجه صعوبات هو المغرب العربي، لاستخلاص معيقات التكتل.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "أي عامل ساعد الاتحاد الأوروبي على الاندماج أكثر؟",
+        "options": [
+          "وجود مؤسسات مشتركة واتفاقيات مفعلة",
+          "غياب التنسيق بين الدول",
+          "إغلاق الحدود الداخلية دائماً",
+          "انعدام المصالح الاقتصادية"
+        ],
+        "correct": 0,
+        "explanation": "المؤسسات المشتركة والسوق الموحدة والتنسيق السياسي والاقتصادي ساعدت على الاندماج."
+      },
+      {
+        "type": "mcq",
+        "question": "أي عامل يعيق بناء تكتل مغاربي قوي؟",
+        "options": [
+          "تقارب الشعوب ثقافياً",
+          "الخلافات السياسية وضعف تنفيذ الاتفاقيات",
+          "وجود موارد متنوعة",
+          "الموقع الجغرافي المتقارب"
+        ],
+        "correct": 1,
+        "explanation": "الخلافات السياسية وضعف تفعيل المؤسسات يعرقلان التكامل المغاربي."
+      },
+      {
+        "type": "mcq",
+        "question": "ما الفكرة الأساسية من المقارنة بين الاتحاد الأوروبي والمغرب العربي؟",
+        "options": [
+          "فهم شروط نجاح التكتل ومعيقاته",
+          "إثبات أن كل التكتلات متشابهة",
+          "حفظ أسماء الدول فقط",
+          "إلغاء دور الاقتصاد في التكتل"
+        ],
+        "correct": 0,
+        "explanation": "المقارنة تساعد التلميذ على فهم لماذا ينجح تكتل ويتعثر آخر."
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "component": "التربية على المواطنة",
+    "icon": "🗳️",
+    "title": "المشاركة حق وواجب",
+    "brief": "نتعلم أن المشاركة في الحياة المدرسية والعامة حق للتلميذ والمواطن، وهي أيضاً واجب لبناء مجتمع مسؤول.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "ما المقصود بالمشاركة في الحياة المدرسية؟",
+        "options": [
+          "المساهمة في أنشطة المؤسسة وانتخاب الممثلين واحترام القوانين",
+          "الغياب عن الأنشطة دائماً",
+          "رفض الحوار مع الزملاء",
+          "تخريب ممتلكات المؤسسة"
+        ],
+        "correct": 0,
+        "explanation": "المشاركة المدرسية تعني الانخراط الإيجابي في حياة المؤسسة وتحمل المسؤولية."
+      },
+      {
+        "type": "mcq",
+        "question": "لماذا يعد التصويت لاختيار ممثلي القسم ممارسة مواطنة؟",
+        "options": [
+          "لأنه تدريب على الاختيار والمسؤولية واحترام رأي الأغلبية",
+          "لأنه يمنع الحوار",
+          "لأنه يلغي دور التلميذ",
+          "لأنه مجرد لعبة بلا معنى"
+        ],
+        "correct": 0,
+        "explanation": "الانتخاب داخل المؤسسة يربي على الديمقراطية والمسؤولية."
+      },
+      {
+        "type": "mcq",
+        "question": "أي سلوك يعبر عن مشاركة إيجابية؟",
+        "options": [
+          "اللامبالاة",
+          "اقتراح حل لمشكل في القسم بطريقة محترمة",
+          "مقاطعة كل الأنشطة",
+          "رفض التعاون"
+        ],
+        "correct": 1,
+        "explanation": "المشاركة الإيجابية تقوم على الاقتراح والحوار والتعاون واحترام القواعد."
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "component": "التربية على المواطنة",
+    "icon": "🔎",
+    "title": "كيف نعالج مشكلاً اجتماعياً انطلاقاً من أمثلة محلية؟",
+    "brief": "نتدرب على خطوات دراسة مشكل اجتماعي محلي: الملاحظة، جمع المعطيات، تحديد الأسباب، اقتراح الحلول.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "ما أول خطوة مناسبة لمعالجة مشكل اجتماعي محلي؟",
+        "options": [
+          "إصدار حكم سريع دون معلومات",
+          "تشخيص المشكل وجمع معطيات عنه",
+          "اتهام السكان فقط",
+          "ترك المشكل كما هو"
+        ],
+        "correct": 1,
+        "explanation": "قبل اقتراح الحلول يجب فهم المشكل وجمع معطيات دقيقة عنه."
+      },
+      {
+        "type": "mcq",
+        "question": "أي مثال يعد مشكلاً اجتماعياً محلياً؟",
+        "options": [
+          "الهدر المدرسي في حي معين",
+          "دوران الأرض حول الشمس",
+          "تكون السحب",
+          "اختلاف فصول السنة"
+        ],
+        "correct": 0,
+        "explanation": "الهدر المدرسي مشكل اجتماعي يمكن دراسته محلياً والبحث عن أسبابه وحلوله."
+      },
+      {
+        "type": "mcq",
+        "question": "ما الذي يجعل الحل المقترح لمشكل اجتماعي جيداً؟",
+        "options": [
+          "أن يكون واقعياً ويشارك فيه المعنيون",
+          "أن يكون غامضاً وصعب التطبيق",
+          "أن يتجاهل الأسباب",
+          "أن يعتمد على شخص واحد فقط"
+        ],
+        "correct": 0,
+        "explanation": "الحلول الجيدة تكون واقعية، قابلة للتنفيذ، وتشارك فيها الأطراف المعنية."
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "component": "التربية على المواطنة",
+    "icon": "🧩",
+    "title": "مسؤولية الدولة والأفراد والجماعات في حل المشاكل الاجتماعية",
+    "brief": "نفهم أن معالجة المشاكل الاجتماعية لا تتحملها جهة واحدة فقط، بل تتقاسمها الدولة والجماعات والأفراد والمجتمع المدني.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "من المسؤول عن حل المشاكل الاجتماعية؟",
+        "options": [
+          "الدولة وحدها فقط",
+          "الأفراد وحدهم فقط",
+          "الدولة والجماعات والأفراد والمجتمع المدني كل حسب دوره",
+          "لا أحد"
+        ],
+        "correct": 2,
+        "explanation": "حل المشاكل الاجتماعية مسؤولية مشتركة بين عدة فاعلين."
+      },
+      {
+        "type": "mcq",
+        "question": "ما دور المواطن في مواجهة مشكل اجتماعي؟",
+        "options": [
+          "التبليغ والمشاركة والتطوع واحترام القانون",
+          "نشر الإشاعات",
+          "تعميق المشكل",
+          "رفض التعاون"
+        ],
+        "correct": 0,
+        "explanation": "المواطن يساهم بالتبليغ والمشاركة والتطوع والسلوك المسؤول."
+      },
+      {
+        "type": "mcq",
+        "question": "أي جهة يمكن أن تنجز مشاريع اجتماعية محلية؟",
+        "options": [
+          "الجماعات الترابية وجمعيات المجتمع المدني",
+          "الكواكب البعيدة",
+          "الأفراد دون تنظيم دائماً",
+          "لا توجد أي جهة"
+        ],
+        "correct": 0,
+        "explanation": "الجماعات والجمعيات يمكن أن تساهم في مشاريع القرب والدعم الاجتماعي."
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "component": "التربية على المواطنة",
+    "icon": "🤲",
+    "title": "ملف حول مؤسسة محمد الخامس للتضامن",
+    "brief": "نتعرف مؤسسة محمد الخامس للتضامن كمثال لمؤسسة اجتماعية تعمل على محاربة الفقر والهشاشة ودعم الفئات المحتاجة.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "ما المجال الرئيسي لعمل مؤسسة محمد الخامس للتضامن؟",
+        "options": [
+          "الدعم الاجتماعي والتضامن مع الفئات المحتاجة",
+          "تنظيم البطولات الرياضية فقط",
+          "إنتاج السيارات",
+          "تدبير الطقس"
+        ],
+        "correct": 0,
+        "explanation": "تعمل المؤسسة في مجال التضامن ومحاربة الفقر والهشاشة ودعم الفئات المحتاجة."
+      },
+      {
+        "type": "mcq",
+        "question": "أي نشاط يمكن أن يدخل ضمن العمل التضامني؟",
+        "options": [
+          "تقديم دعم صحي أو غذائي أو اجتماعي للفئات الهشة",
+          "احتكار السلع",
+          "منع التمدرس",
+          "تخريب المرافق"
+        ],
+        "correct": 0,
+        "explanation": "الدعم الصحي والاجتماعي والغذائي والتربوي من صور العمل التضامني."
+      },
+      {
+        "type": "mcq",
+        "question": "لماذا ندرس ملف مؤسسة محمد الخامس للتضامن؟",
+        "options": [
+          "لفهم دور المؤسسات في حل المشاكل الاجتماعية",
+          "لحفظ الاسم فقط دون فهم",
+          "لإلغاء دور المواطن",
+          "لربط التضامن بالمناسبات فقط"
+        ],
+        "correct": 0,
+        "explanation": "الدرس يساعد على فهم عمل المؤسسات الاجتماعية وقيمة التضامن."
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "component": "التربية على المواطنة",
+    "icon": "⚔️",
+    "title": "تخليق الحياة العامة ومحاربة الرشوة",
+    "brief": "نتعلم معنى تخليق الحياة العامة، وخطورة الرشوة، ووسائل محاربتها بالقانون والتربية والمراقبة والشفافية.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "ما معنى تخليق الحياة العامة؟",
+        "options": [
+          "نشر قيم النزاهة والشفافية وربط المسؤولية بالمحاسبة",
+          "تشجيع الرشوة",
+          "استعمال المنصب للمصلحة الخاصة",
+          "إخفاء المعلومات عن المواطنين"
+        ],
+        "correct": 0,
+        "explanation": "تخليق الحياة العامة يعني ترسيخ النزاهة والشفافية والمحاسبة في تدبير الشأن العام."
+      },
+      {
+        "type": "mcq",
+        "question": "أي سلوك يعد رشوة؟",
+        "options": [
+          "احترام الدور",
+          "تقديم مال أو هدية للحصول على خدمة بغير حق",
+          "طلب وصل إداري قانوني",
+          "التبليغ عن فساد"
+        ],
+        "correct": 1,
+        "explanation": "الرشوة هي تقديم أو طلب منفعة للحصول على حق بغير وجه قانوني أو لتجاوز القانون."
+      },
+      {
+        "type": "mcq",
+        "question": "أي إجراء يساعد على محاربة الرشوة؟",
+        "options": [
+          "الشفافية والتبليغ وتطبيق القانون",
+          "الصمت دائماً",
+          "تطبيع الفساد",
+          "غياب المراقبة"
+        ],
+        "correct": 0,
+        "explanation": "محاربة الرشوة تحتاج إلى تربية على النزاهة وشفافية وتبليغ ومحاسبة."
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "component": "التربية على المواطنة",
+    "icon": "⚖️",
+    "title": "إلى أين ألجأ في حالة خرق حق من حقوقي أو حقوق غيري؟",
+    "brief": "نتعرف سبل حماية الحقوق، والجهات التي يمكن اللجوء إليها عند خرق حق من الحقوق داخل المدرسة أو خارجها.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "ماذا أفعل أولاً عند تعرض حقي أو حق غيري للخرق؟",
+        "options": [
+          "أستعمل العنف فوراً",
+          "أبحث عن مساعدة قانونية أو إدارية وأقدم شكاية عند الحاجة",
+          "أسكت دائماً",
+          "أنشر الإشاعات فقط"
+        ],
+        "correct": 1,
+        "explanation": "الدفاع عن الحقوق يكون بطرق قانونية وسلمية: الحوار، التبليغ، الشكاية، طلب المساعدة."
+      },
+      {
+        "type": "mcq",
+        "question": "داخل المؤسسة، إلى من يمكن أن يلجأ التلميذ عند مشكل يمس حقه؟",
+        "options": [
+          "الإدارة التربوية أو الأستاذ أو الحارس العام أو جمعية الآباء حسب الحالة",
+          "إلى الشارع فقط",
+          "إلى العنف",
+          "إلى تجاهل المشكل"
+        ],
+        "correct": 0,
+        "explanation": "داخل المؤسسة توجد قنوات تربوية وإدارية للمساعدة وحماية الحقوق."
+      },
+      {
+        "type": "mcq",
+        "question": "ما القاعدة الأساسية في الدفاع عن الحقوق؟",
+        "options": [
+          "الدفاع عنها بطريقة قانونية ومسؤولة مع احترام حقوق الآخرين",
+          "خرق حقوق الآخرين للانتقام",
+          "رفض كل حوار",
+          "استعمال القوة دائماً"
+        ],
+        "correct": 0,
+        "explanation": "حقوقي تنتهي حيث تبدأ حقوق الآخرين، والدفاع عنها يكون بالقانون والحوار."
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "component": "منهجية",
+    "icon": "📜",
+    "title": "كيف أتعامل مع وثيقة في التاريخ؟",
+    "brief": "محطة منهجية تساعدك على قراءة الوثيقة التاريخية: التعريف، الفهم، استخراج المعلومات، والربط بالسياق.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "ما أول ما أبحث عنه عند قراءة وثيقة تاريخية؟",
+        "options": [
+          "مصدرها وتاريخها وصاحبها وموضوعها إن وجد",
+          "لون الورقة فقط",
+          "عدد الكلمات فقط",
+          "حجم الخط فقط"
+        ],
+        "correct": 0,
+        "explanation": "التعريف بالوثيقة خطوة أساسية: نوعها، مصدرها، تاريخها، صاحبها، وموضوعها."
+      },
+      {
+        "type": "mcq",
+        "question": "عندما أستخرج فكرة من وثيقة، ماذا يجب أن أفعل؟",
+        "options": [
+          "أن أنقل كل النص دون فهم",
+          "أن أختار المعلومة المرتبطة بالسؤال وأصوغها بوضوح",
+          "أن أكتب رأياً بعيداً عن الوثيقة",
+          "أن أترك الجواب فارغاً"
+        ],
+        "correct": 1,
+        "explanation": "المطلوب استخراج المعلومة المناسبة للسؤال لا نقل الوثيقة كاملة."
+      },
+      {
+        "type": "mcq",
+        "question": "ما معنى ربط الوثيقة بالسياق التاريخي؟",
+        "options": [
+          "شرح علاقتها بالدرس والمرحلة التاريخية التي تنتمي إليها",
+          "حفظها دون فهم",
+          "تجاهل تاريخها",
+          "استعمالها في الجغرافيا فقط"
+        ],
+        "correct": 0,
+        "explanation": "السياق يساعد على فهم الوثيقة داخل زمنها وأحداثها."
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "component": "منهجية",
+    "icon": "🎯",
+    "title": "كيف أستعد للامتحان المحلي؟",
+    "brief": "المحطة الأخيرة تجمع نصائح عملية: فهم السؤال، تنظيم الوقت، مراجعة الدروس، واستعمال المصطلحات بدقة.",
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "ما أول خطوة عند قراءة سؤال في الامتحان؟",
+        "options": [
+          "تحديد المطلوب بدقة مثل: عرف، اذكر، فسر، قارن",
+          "البدء بالكتابة دون فهم",
+          "اختيار جواب عشوائي",
+          "ترك السؤال إلى النهاية دائماً"
+        ],
+        "correct": 0,
+        "explanation": "فهم فعل السؤال يساعدك على اختيار نوع الجواب المناسب."
+      },
+      {
+        "type": "mcq",
+        "question": "كيف أراجع دروس الاجتماعيات بطريقة جيدة؟",
+        "options": [
+          "أحفظ العناوين فقط",
+          "أفهم الأفكار الكبرى، المصطلحات، التواريخ، وأتدرب على أسئلة قصيرة",
+          "أقرأ الدرس مرة واحدة فقط",
+          "أراجع ليلة الامتحان فقط"
+        ],
+        "correct": 1,
+        "explanation": "المراجعة الجيدة تجمع الفهم والحفظ المنظم والتدريب على الأسئلة."
+      },
+      {
+        "type": "mcq",
+        "question": "ما السلوك الأفضل داخل الامتحان؟",
+        "options": [
+          "تنظيم الوقت وترك هامش للمراجعة النهائية",
+          "كتابة جواب طويل غير منظم دائماً",
+          "التركيز على سؤال واحد فقط",
+          "عدم قراءة التعليمات"
+        ],
+        "correct": 0,
+        "explanation": "تنظيم الوقت وقراءة التعليمات ومراجعة الأجوبة يحسن النتيجة."
+      }
+    ]
+  }
+];
+const ROUTE_POINTS = [{"x": 50, "y": 96}, {"x": 24, "y": 91}, {"x": 70, "y": 86}, {"x": 34, "y": 81}, {"x": 78, "y": 76}, {"x": 28, "y": 71}, {"x": 66, "y": 66}, {"x": 22, "y": 61}, {"x": 73, "y": 56}, {"x": 35, "y": 51}, {"x": 78, "y": 46}, {"x": 30, "y": 41}, {"x": 67, "y": 36}, {"x": 23, "y": 31}, {"x": 72, "y": 26}, {"x": 36, "y": 21}, {"x": 78, "y": 16}, {"x": 30, "y": 11}, {"x": 64, "y": 7}, {"x": 50, "y": 4}];
+const DATA_KEY = 'rihla_mahali_deluxe_question_bank_v1';
+const PROGRESS_KEY = 'rihla_mahali_deluxe_progress_v1';
+const SOUND_KEY = 'rihla_mahali_deluxe_sound_v1';
+const IMAGES = { panorama: 'assets/panorama.webp', mascot: 'assets/ibn-battuta.webp', treasure: 'assets/treasure-map.webp' };
+const COMPONENT_THEMES = {
+  "التاريخ": { icon: "🏭", title: "جزيرة الزمن", image: IMAGES.panorama, note: "في التاريخ نفهم الأسباب والنتائج ونرتب الأحداث بشكل منطقي." },
+  "الجغرافيا": { icon: "🌍", title: "أرخبيل الخرائط", image: IMAGES.treasure, note: "في الجغرافيا نحدد الإمكانيات والتحديات والعلاقات بين المجال والإنسان." },
+  "التربية على المواطنة": { icon: "🤝", title: "جزر المواطنة", image: IMAGES.panorama, note: "في المواطنة نتدرّب على الحقوق والمسؤوليات والمشاركة الإيجابية." },
+  "منهجية": { icon: "📜", title: "مغارة التتويج", image: IMAGES.mascot, note: "في المنهجية نتعلّم كيف نفهم الوثيقة وننظم الجواب والوقت جيداً." }
+};
+const MILESTONES = [
+  { id:'m1', count:5, label:'كنز جزيرة الزمن', icon:'📜', desc:'أنجزت خمس محطات وفتحت أول كنز في الرحلة.' },
+  { id:'m2', count:10, label:'جوهرة أرخبيل الخرائط', icon:'🧭', desc:'وصلت إلى منتصف الطريق بثبات وفتحت الجوهرة الثانية.' },
+  { id:'m3', count:15, label:'وسام جزر المواطنة', icon:'🤝', desc:'تجاوزت جزر المواطنة بنجاح وحصلت على وسام جديد.' },
+  { id:'m4', count:20, label:'تاج مغارة التتويج', icon:'👑', desc:'أكملت الرحلة كلها وفتحت تاج التتويج والشهادة.' }
+];
+const BADGES = [
+  { id:'start', label:'بداية الرحلة', icon:'🚀', desc:'أنجز أول محطة.', test: () => Object.keys(progress.completed).length >= 1 },
+  { id:'history', label:'المؤرخ الصغير', icon:'🏭', desc:'أكمل محطات التاريخ الست.', test: () => completedRange(1,6) },
+  { id:'geo', label:'الجغرافي الذكي', icon:'🗺️', desc:'أكمل محطات الجغرافيا الست.', test: () => completedRange(7,12) },
+  { id:'citizen', label:'المواطن المسؤول', icon:'🤲', desc:'أكمل محطات المواطنة الست.', test: () => completedRange(13,18) },
+  { id:'method', label:'سيد المنهجية', icon:'📜', desc:'أكمل المحطتين 19 و20.', test: () => completedRange(19,20) },
+  { id:'gold', label:'بطل المحلي', icon:'🏆', desc:'احصل على 45 نجمة أو أكثر.', test: () => totalStars() >= 45 }
+];
+const SURPRISES = [
+  '🌟 السر الأول: اقرأ السؤال مرتين قبل أن تختار الجواب، فالتسرع عدو النجاح.',
+  '🧭 تلميحة اليوم: إذا احتجت إلى تحسين النتيجة، أعد المحطة ولا تخف من التكرار.',
+  '📚 حقيقة تربوية: الفهم أهم من الحفظ؛ حاول الربط بين الفكرة والمثال.',
+  '🎁 مفاجأة: كل محطة منجزة تفتح لك طريقاً جديداً وشعوراً أكبر بالثقة.',
+  '⏳ نصيحة ذكية: في الامتحان المحلي ابدأ بما تعرفه جيداً ثم عد إلى الصعب بهدوء.',
+  '🏝️ يقول ابن بطوطة: المسافر الحكيم يراجع خريطته كثيراً؛ وأنت أيضاً راجع دروسك بذكاء.'
+];
+const MASCOT_MESSAGES = [
+  '💬 يقول ابن بطوطة: «ابدأ من السهل، وثبّت الفهم، ثم انتقل إلى التحدي.»',
+  '💬 يقول ابن بطوطة: «كل سؤال صحيح هو زاد جديد في حقيبة الرحلة.»',
+  '💬 يقول ابن بطوطة: «لا تخشَ إعادة المحطة؛ فالمسافر الحكيم يراجع طريقه.»',
+  '💬 يقول ابن بطوطة: «حين تجمع النجوم، فأنت لا تجمع نقاطاً فقط، بل تبني ثقتك بنفسك.»'
+];
+
+function clone(obj) { return JSON.parse(JSON.stringify(obj)); }
+function loadQuestionBank() {
+  try { return JSON.parse(localStorage.getItem(DATA_KEY) || JSON.stringify(DEFAULT_STATIONS)); }
+  catch(e) { return clone(DEFAULT_STATIONS); }
+}
+function saveQuestionBank() { localStorage.setItem(DATA_KEY, JSON.stringify(stations)); }
+function loadProgress() {
+  const base = { name:'', completed:{}, rewards:{}, bestStars:0 };
+  try {
+    const stored = JSON.parse(localStorage.getItem(PROGRESS_KEY) || 'null');
+    return Object.assign(base, stored || {}, { completed: Object.assign({}, (stored||{}).completed || {}), rewards: Object.assign({}, (stored||{}).rewards || {}) });
+  } catch(e) { return base; }
+}
+function saveProgress() { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); }
+function loadSoundPref() { const s = localStorage.getItem(SOUND_KEY); return s === null ? true : s === '1'; }
+let stations = loadQuestionBank();
+let progress = loadProgress();
+let soundEnabled = loadSoundPref();
+let currentStation = null, currentQuestionIndex = 0, currentScore = 0, selectedOption = null, answered = false;
+
+function totalStars() { return Object.values(progress.completed || {}).reduce((a,b)=>a+Number(b||0),0); }
+function xp() { return totalStars() * 20; }
+function progressPct() { return Math.round(Object.keys(progress.completed || {}).length / stations.length * 100); }
+function completedRange(a,b) { for(let i=a;i<=b;i++) if(progress.completed[i] === undefined) return false; return true; }
+function currentBadges() { return BADGES.filter(b=>b.test()); }
+function currentStepId() { return stations.find(st => isUnlocked(st.id) && progress.completed[st.id] === undefined)?.id || stations.length; }
+function isUnlocked(id) { return id === 1 || progress.completed[id-1] !== undefined; }
+function stationStars(id) { return Number(progress.completed[id] ?? 0); }
+function levelLabel() { const s=totalStars(); if(s>=55) return 'أسطورة المحلي'; if(s>=45) return 'ممتاز'; if(s>=30) return 'متقدم'; if(s>=15) return 'مجتهد'; return 'مبتدئ'; }
+function unlockedRewardsCount() { return MILESTONES.filter(m => progress.rewards && progress.rewards[m.id]).length; }
+function lastRewardLabel() { const found = MILESTONES.filter(m => progress.rewards && progress.rewards[m.id]); return found.length ? found[found.length-1].label : 'لم تُفتح بعد'; }
+function showToast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
+function updateSoundButton() { const btn = document.getElementById('soundBtn'); btn.textContent = soundEnabled ? '🔊 الصوت: شغّال' : '🔇 الصوت: متوقف'; btn.classList.toggle('sound-off', !soundEnabled); }
+function saveSoundPref() { localStorage.setItem(SOUND_KEY, soundEnabled ? '1' : '0'); }
+function toggleSound() { soundEnabled = !soundEnabled; saveSoundPref(); updateSoundButton(); if(soundEnabled) playTone('good'); showToast(soundEnabled ? 'تم تشغيل الأصوات' : 'تم إيقاف الأصوات'); }
+function playPattern(notes=[440], step=120, type='sine', gainValue=.06) {
+  if(!soundEnabled) return;
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const gain = ctx.createGain(); gain.gain.value = gainValue; gain.connect(ctx.destination);
+    notes.forEach((freq,i)=>{ const osc = ctx.createOscillator(); osc.type = type; osc.frequency.value = freq; osc.connect(gain); osc.start(ctx.currentTime + i*step/1000); osc.stop(ctx.currentTime + i*step/1000 + 0.11); });
+    setTimeout(()=>ctx.close(), notes.length*step + 250);
+  } catch(e) {}
+}
+function playTone(kind='click') {
+  if(kind==='good') return playPattern([660, 820], 120, 'triangle', .05);
+  if(kind==='bad') return playPattern([220, 170], 140, 'sawtooth', .045);
+  if(kind==='finish') return playPattern([392, 523, 659], 120, 'triangle', .06);
+  if(kind==='reward') return playPattern([523, 659, 784, 1046], 100, 'triangle', .065);
+  return playPattern([360], 100, 'sine', .04);
+}
+function confetti() {
+  for(let i=0;i<42;i++) {
+    const c=document.createElement('div'); c.className='confetti';
+    c.style.left=Math.random()*100+'vw'; c.style.background=['#f59e0b','#0f766e','#fb923c','#22c55e','#2563eb','#ec4899'][i%6];
+    c.style.animationDelay=(Math.random()*.4)+'s'; c.style.transform='rotate('+Math.random()*180+'deg)';
+    document.body.appendChild(c); setTimeout(()=>c.remove(),1900);
+  }
+}
+function pathD() {
+  const pts = ROUTE_POINTS;
+  let d = `M ${pts[0].x} ${pts[0].y}`;
+  for(let i=1;i<pts.length;i++) {
+    const prev = pts[i-1], cur = pts[i];
+    const midY = (prev.y + cur.y) / 2;
+    d += ` C ${prev.x} ${midY}, ${cur.x} ${midY}, ${cur.x} ${cur.y}`;
+  }
+  return d;
+}
+function renderRoutePath() { const d = pathD(); ['routeShadow','routeMain','routeDash'].forEach(id=>document.getElementById(id).setAttribute('d', d)); }
+function componentIcon(name) { return COMPONENT_THEMES[name]?.icon || '⭐'; }
+function renderRouteNodes() {
+  const board = document.getElementById('routeBoard');
+  board.querySelectorAll('.route-node').forEach(n=>n.remove());
+  const currentId = currentStepId();
+  stations.forEach((st, idx)=>{
+    const point = ROUTE_POINTS[idx];
+    const unlocked = isUnlocked(st.id); const done = progress.completed[st.id] !== undefined; const current = currentId === st.id && !done;
+    const div = document.createElement('div');
+    div.className = `route-node ${done?'done': current?'current': unlocked?'open':'locked'}`;
+    div.dataset.comp = st.component;
+    div.style.left = point.x + '%'; div.style.top = point.y + '%';
+    div.innerHTML = `
+      <div class="node-badge">${st.id}</div>
+      <button class="node-btn" onclick="openStation(${st.id})" title="${st.title}">${done ? '✅' : (st.icon || componentIcon(st.component))}</button>
+      <div class="node-label">${st.title}</div>
+      <div class="node-stars">${'★'.repeat(stationStars(st.id))}${'☆'.repeat(3-stationStars(st.id))}</div>`;
+    board.appendChild(div);
+  });
+  updateBoatMarker(currentId);
+}
+function updateBoatMarker(id) { const p = ROUTE_POINTS[(id||1)-1] || ROUTE_POINTS[0]; const marker = document.getElementById('boatMarker'); marker.style.left = p.x + '%'; marker.style.top = p.y + '%'; }
+function updateMascot() { const done = Object.keys(progress.completed || {}).length; let msg = MASCOT_MESSAGES[Math.min(done, MASCOT_MESSAGES.length-1) % MASCOT_MESSAGES.length]; if(done>=15) msg='💬 يقول ابن بطوطة: «لم يبق إلا القليل. شدّ الهمة، فالكنز قريب!»'; if(done>=20) msg='💬 يقول ابن بطوطة: «أحسنت! أتممت الرحلة وبلغت مغارة التتويج.»'; document.getElementById('mascotQuote').textContent = msg; }
+function renderBadges() {
+  const box = document.getElementById('badgesBox'); box.innerHTML='';
+  BADGES.forEach(b=>{ const ok=b.test(); const el=document.createElement('div'); el.className='badge-card'+(ok?'':' dim'); el.innerHTML=`<div class="icon">${b.icon}</div><strong>${b.label}</strong><small>${b.desc}</small>`; box.appendChild(el); });
+}
+function renderRewards() {
+  const box=document.getElementById('rewardsBox'); box.innerHTML='';
+  MILESTONES.forEach(m=>{ const ok=!!(progress.rewards && progress.rewards[m.id]); const el=document.createElement('div'); el.className='reward-card'+(ok?'':' dim'); el.innerHTML=`<div class="icon">${m.icon}</div><strong>${m.label}</strong><small>${m.desc}</small>`; box.appendChild(el); });
+}
+
+function hideSplash() {
+  const s = document.getElementById('luxurySplash');
+  if(s) s.classList.add('hidden');
+  sessionStorage.setItem('rihla_mahali_splash_seen','1');
+  playTone('finish');
+}
+
+function startFromSplash() {
+  const splashInput = document.getElementById('splashName');
+  const mainInput = document.getElementById('studentName');
+  const name = (splashInput && splashInput.value ? splashInput.value : '').trim();
+  if(!name) { showToast('اكتب اسم البطل أولاً لبدء الرحلة'); if(splashInput) splashInput.focus(); return; }
+  if(mainInput) mainInput.value = name;
+  hideSplash();
+  setTimeout(startJourney, 80);
+}
+if(sessionStorage.getItem('rihla_mahali_splash_seen') === '1') {
+  setTimeout(()=>{ const s=document.getElementById('luxurySplash'); if(s) s.classList.add('hidden'); }, 50);
+}
+function nextRewardInfo() {
+  const done = Object.keys(progress.completed || {}).length;
+  return MILESTONES.find(m => done < m.count) || MILESTONES[MILESTONES.length-1];
+}
+function updateMissionCards() {
+  const current = currentStepId();
+  const st = stations[current-1] || stations[stations.length-1];
+  const done = Object.keys(progress.completed || {}).length;
+  document.getElementById('missionTitle').textContent = done >= stations.length ? 'الرحلة مكتملة — افتح الشهادة' : 'المحطة ' + st.id + ': ' + st.title;
+  document.getElementById('missionText').textContent = done >= stations.length ? 'أحسنت. لقد أتممت كل المحطات، يمكنك الآن طباعة شهادة رحلة المحلي.' : 'المكون: ' + st.component + ' — افتح المحطة، أجب عن الأسئلة، واجمع النجوم.';
+  const nr = nextRewardInfo();
+  document.getElementById('nextRewardTitle').textContent = done >= stations.length ? 'تاج مغارة التتويج' : nr.label;
+  document.getElementById('nextRewardText').textContent = done >= stations.length ? 'كل الجوائز مفتوحة. بقيت الشهادة النهائية أو الطباعة.' : 'أكمل ' + nr.count + ' محطات لفتح هذه الجائزة.';
+}
+function renderStats() {
+  document.getElementById('studentName').value = progress.name || ''; const splashName = document.getElementById('splashName'); if(splashName && progress.name) splashName.value = progress.name;
+  document.getElementById('xpStat').textContent = xp() + ' XP';
+  document.getElementById('starsStat').textContent = totalStars() + '/60';
+  document.getElementById('badgesStat').textContent = currentBadges().length + '/6';
+  document.getElementById('rewardsStat').textContent = unlockedRewardsCount() + '/4';
+  document.getElementById('levelStat').textContent = levelLabel();
+  document.getElementById('doneStat').textContent = Object.keys(progress.completed).length + '/20';
+  document.getElementById('progressBar').style.width = progressPct() + '%';
+  document.getElementById('progressText').textContent = 'تقدم الرحلة ' + progressPct() + '%';
+  document.getElementById('currentStationText').textContent = currentStepId();
+  document.getElementById('bestScoreText').textContent = (progress.bestStars || 0) + ' نجمة';
+  document.getElementById('lastRewardText').textContent = lastRewardLabel();
+  document.getElementById('certificateState').textContent = Object.keys(progress.completed).length === stations.length ? 'مفتوحة' : 'مغلقة';
+  updateSoundButton(); updateMascot(); updateMissionCards();
+}
+function renderAll() { renderStats(); renderRoutePath(); renderRouteNodes(); renderBadges(); renderRewards(); }
+function startJourney() { const name = document.getElementById('studentName').value.trim(); if(name) { progress.name = name; saveProgress(); } if(!progress.name) { showToast('اكتب اسمك أولاً أيها البطل'); return; } renderAll(); scrollToRoute(true); playTone('finish'); showToast('أشرعت السفينة يا ' + progress.name + '، وبدأت الرحلة!'); }
+function scrollToRoute(centerCurrent=false) { const board = document.getElementById('routeBoard'); document.getElementById('routeSection').scrollIntoView({behavior:'smooth', block:'start'}); if(centerCurrent) setTimeout(()=>board.scrollIntoView({behavior:'smooth', block:'center'}), 200); }
+function randomUnlockedStation() { const arr = stations.filter(st => isUnlocked(st.id)); return arr[Math.floor(Math.random()*arr.length)]; }
+function openRandomStation() { const st = randomUnlockedStation(); if(st) openStation(st.id); }
+function openSurprise(reshuffle=false) { const modal = document.getElementById('surpriseModal'); const txt = SURPRISES[Math.floor(Math.random()*SURPRISES.length)]; document.getElementById('surpriseContent').innerHTML = `<div style="font-size:48px">🧭</div><h2 style="margin:8px 0 10px">رسالة من البوصلة</h2><p style="margin:0; line-height:2; color:#334155; font-weight:800">${txt}</p>`; modal.classList.remove('hidden'); if(!reshuffle) playTone('reward'); }
+function closeSurprise() { document.getElementById('surpriseModal').classList.add('hidden'); }
+function openStation(id) { if(!progress.name) { showToast('اكتب اسمك أولاً قبل الانطلاق'); return; } if(!isUnlocked(id)) { showToast('هذه المحطة مغلقة الآن'); return; } currentStation = stations.find(s=>s.id===id); currentQuestionIndex=0; currentScore=0; selectedOption=null; answered=false; document.getElementById('quizModal').classList.remove('hidden'); showQuestion(); playTone(); }
+function closeQuiz() { document.getElementById('quizModal').classList.add('hidden'); }
+function showQuestion() {
+  const q = currentStation.questions[currentQuestionIndex]; selectedOption=null; answered=false;
+  const theme = COMPONENT_THEMES[currentStation.component] || COMPONENT_THEMES['التاريخ'];
+  document.getElementById('quizTitle').textContent = 'المحطة ' + currentStation.id + ': ' + currentStation.title;
+  document.getElementById('quizComponent').textContent = theme.icon + ' ' + currentStation.component;
+  document.getElementById('quizCounter').textContent = 'السؤال ' + (currentQuestionIndex+1) + ' / ' + currentStation.questions.length;
+  document.getElementById('quizScore').textContent = 'نقاط المحطة: ' + currentScore;
+  document.getElementById('stationBrief').textContent = currentStation.brief;
+  document.getElementById('questionText').textContent = q.question;
+  document.getElementById('quizSideImage').src = theme.image;
+  document.getElementById('quizSideTitle').textContent = theme.title;
+  document.getElementById('quizSideText').textContent = theme.note;
+  const optionsBox = document.getElementById('optionsBox'); optionsBox.innerHTML='';
+  q.options.forEach((opt,idx)=>{ const btn=document.createElement('button'); btn.className='option'; btn.setAttribute('type','button'); btn.textContent = String.fromCharCode(0x0041+idx) + ' — ' + opt; btn.onclick=()=>selectOption(idx, btn); optionsBox.appendChild(btn); });
+  const fb=document.getElementById('feedback'); fb.className='feedback'; fb.textContent='';
+  document.getElementById('submitBtn').classList.remove('hidden'); document.getElementById('nextBtn').classList.add('hidden');
+}
+function selectOption(idx, btn) { if(answered) return; selectedOption=idx; document.querySelectorAll('.option').forEach(o=>o.classList.remove('selected')); btn.classList.add('selected'); playTone('click'); }
+function submitAnswer() {
+  if(selectedOption===null) { showToast('اختر جواباً أولاً'); return; } if(answered) return; answered=true;
+  const q=currentStation.questions[currentQuestionIndex];
+  document.querySelectorAll('.option').forEach((b,idx)=>{ b.disabled = true; if(idx===q.correct) b.classList.add('correct'); if(idx===selectedOption && idx!==q.correct) b.classList.add('wrong'); });
+  const fb=document.getElementById('feedback');
+  if(selectedOption===q.correct) { currentScore++; fb.className='feedback good'; fb.innerHTML='<strong>✅ أحسنت!</strong> ' + q.explanation; playTone('good'); }
+  else { fb.className='feedback bad'; fb.innerHTML='<strong>❌ ليس تماماً.</strong> الجواب الصحيح: <em>' + q.options[q.correct] + '</em>. ' + q.explanation; playTone('bad'); }
+  document.getElementById('quizScore').textContent = 'نقاط المحطة: ' + currentScore;
+  document.getElementById('submitBtn').classList.add('hidden'); document.getElementById('nextBtn').classList.remove('hidden');
+}
+function nextQuestion() { if(currentQuestionIndex < currentStation.questions.length-1) { currentQuestionIndex++; showQuestion(); return; } finishStation(); }
+function openRewardModal(m) { document.getElementById('rewardContent').innerHTML = `<div class="quiz-card" style="text-align:center"><div style="font-size:56px">${m.icon}</div><h2 style="margin:8px 0 10px">${m.label}</h2><p style="margin:0; line-height:2; color:#334155">${m.desc}</p><div style="height:12px"></div><img src="${IMAGES.treasure}" alt="خريطة الكنز" style="width:100%; max-width:420px; border-radius:24px; box-shadow:0 16px 32px rgba(15,23,42,.1)" /></div>`; document.getElementById('rewardModal').classList.remove('hidden'); confetti(); playTone('reward'); }
+function closeRewardModal() { document.getElementById('rewardModal').classList.add('hidden'); }
+function checkMilestones() { const done = Object.keys(progress.completed || {}).length; progress.rewards = progress.rewards || {}; const newly = MILESTONES.find(m => done >= m.count && !progress.rewards[m.id]); if(newly) { progress.rewards[newly.id] = true; saveProgress(); renderAll(); setTimeout(()=>openRewardModal(newly),250); } }
+function finishStation() {
+  const prev = Number(progress.completed[currentStation.id] ?? -1);
+  progress.completed[currentStation.id] = Math.max(prev, currentScore);
+  progress.bestStars = Math.max(progress.bestStars || 0, currentScore);
+  saveProgress(); renderAll(); closeQuiz();
+  const done = Object.keys(progress.completed).length;
+  const msg = currentScore===3 ? 'ممتاز! حصلت على 3 نجوم في هذه المحطة.' : currentScore===2 ? 'عمل جيد! نجمتان، ويمكنك إعادة المحطة لاحقاً.' : 'أكملت المحطة. أعدها لاحقاً لتحسين نتيجتك.';
+  showToast(msg + ' — أنجزت ' + done + ' من 20 محطة.'); playTone('finish'); if(currentScore===3) confetti(); checkMilestones(); if(done === stations.length) setTimeout(openCertificate, 900);
+}
+function resetProgressConfirm() { if(confirm('هل تريد فعلاً مسح تقدم التلميذ والبدء من جديد؟')) { progress={name:progress.name||'', completed:{}, rewards:{}, bestStars:0}; saveProgress(); renderAll(); showToast('تم مسح التقدم'); } }
+function openCertificateIfReady() { if(Object.keys(progress.completed).length < stations.length) { showToast('أكمل كل المحطات أولاً لفتح الشهادة'); return; } openCertificate(); }
+function openCertificate() { document.getElementById('certName').textContent = progress.name || '................'; document.getElementById('certStats').textContent = `⭐ النجوم: ${totalStars()}/60 — ⚡ الخبرة: ${xp()} XP — 🏅 الشارات: ${currentBadges().length}/6 — 🎁 الجوائز: ${unlockedRewardsCount()}/4`; document.getElementById('certDate').textContent = 'تاريخ الإتمام: ' + new Date().toLocaleDateString('ar-MA'); document.getElementById('certificateModal').classList.remove('hidden'); playTone('reward'); confetti(); }
+function closeCertificate() { document.getElementById('certificateModal').classList.add('hidden'); }
+function openAdmin() { document.getElementById('adminModal').classList.remove('hidden'); document.getElementById('adminPin').focus(); }
+function closeAdmin() { document.getElementById('adminModal').classList.add('hidden'); }
+function checkAdminPin() { if(document.getElementById('adminPin').value.trim() !== '1234') { showToast('كلمة المرور غير صحيحة'); return; } document.getElementById('adminLogin').classList.add('hidden'); document.getElementById('adminEditor').classList.remove('hidden'); setupAdmin(); }
+function setupAdmin() { const s=document.getElementById('adminStation'); s.innerHTML=''; stations.forEach(st=>{ const o=document.createElement('option'); o.value=st.id; o.textContent=st.id+' — '+st.title; s.appendChild(o); }); const q=document.getElementById('adminQuestion'); q.innerHTML=''; for(let i=0;i<3;i++) { const o=document.createElement('option'); o.value=i; o.textContent='السؤال '+(i+1); q.appendChild(o); } loadAdminQuestion(); }
+function loadAdminQuestion() { const st = stations.find(x=>x.id===Number(document.getElementById('adminStation').value)) || stations[0]; const qi = Number(document.getElementById('adminQuestion').value || 0); const q = st.questions[qi]; document.getElementById('adminTitle').value=st.title; document.getElementById('adminComponent').value=st.component; document.getElementById('adminBrief').value=st.brief; document.getElementById('adminIcon').value=st.icon || '⭐'; document.getElementById('adminQuestionText').value=q.question; document.getElementById('adminOptions').value=q.options.join('\n'); document.getElementById('adminExplanation').value=q.explanation; refreshCorrectSelect(q.options.length, q.correct); }
+function refreshCorrectSelect(n, selected) { const c=document.getElementById('adminCorrect'); c.innerHTML=''; for(let i=0;i<n;i++) { const o=document.createElement('option'); o.value=i; o.textContent=(i+1)+' — الاختيار '+(i+1); c.appendChild(o); } c.value=selected; }
+document.addEventListener('input', (e)=>{ if(e.target && e.target.id==='adminOptions') { const n=e.target.value.split('\n').filter(x=>x.trim()).length; refreshCorrectSelect(Math.max(2,n), Number(document.getElementById('adminCorrect').value || 0)); } });
+function saveAdminQuestion() { const st = stations.find(x=>x.id===Number(document.getElementById('adminStation').value)); const qi = Number(document.getElementById('adminQuestion').value || 0); const opts = document.getElementById('adminOptions').value.split('\n').map(x=>x.trim()).filter(Boolean); if(opts.length < 2) { showToast('يجب إدخال اختيارين على الأقل'); return; } const correct = Number(document.getElementById('adminCorrect').value || 0); if(correct >= opts.length) { showToast('رقم الجواب الصحيح غير مناسب'); return; } st.title=document.getElementById('adminTitle').value.trim(); st.component=document.getElementById('adminComponent').value; st.brief=document.getElementById('adminBrief').value.trim(); st.icon=document.getElementById('adminIcon').value.trim() || componentIcon(st.component); st.questions[qi]={ type:'mcq', question:document.getElementById('adminQuestionText').value.trim(), options:opts, correct, explanation:document.getElementById('adminExplanation').value.trim() }; saveQuestionBank(); renderAll(); setupAdmin(); showToast('تم حفظ التعديل بنجاح'); }
+function exportBank() { const blob = new Blob([JSON.stringify(stations, null, 2)], {type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='rihla-mahali-question-bank.json'; a.click(); URL.revokeObjectURL(a.href); }
+function importBank() { try { const imported=JSON.parse(document.getElementById('importText').value); if(!Array.isArray(imported) || imported.length!==20) throw new Error('bad'); stations=imported; saveQuestionBank(); renderAll(); setupAdmin(); showToast('تم استيراد بنك الأسئلة'); } catch(e) { showToast('صيغة JSON غير صحيحة أو لا تحتوي 20 محطة'); } }
+function resetQuestionBank() { if(confirm('سيتم حذف تعديلات الأسئلة والعودة إلى النسخة الأصلية. هل توافق؟')) { stations=clone(DEFAULT_STATIONS); saveQuestionBank(); renderAll(); setupAdmin(); showToast('تمت استعادة الأسئلة الأصلية'); } }
+
+renderAll();
+
+/* ── PWA Service Worker ── */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('SW registered', reg.scope))
+      .catch(err => console.warn('SW error', err));
+  });
+}
+
+/* ── Keyboard navigation ── */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const openModals = ['quizModal','rewardModal','surpriseModal','adminModal','certificateModal'];
+    openModals.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && !el.classList.contains('hidden')) el.classList.add('hidden');
+    });
+  }
+  if (e.key === 'Enter' && !e.shiftKey) {
+    const submitBtn = document.getElementById('submitBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    if (submitBtn && !submitBtn.classList.contains('hidden') &&
+        document.getElementById('quizModal') && !document.getElementById('quizModal').classList.contains('hidden')) {
+      e.preventDefault();
+      submitAnswer();
+    } else if (nextBtn && !nextBtn.classList.contains('hidden')) {
+      e.preventDefault();
+      nextQuestion();
+    }
+  }
+});
+
+/* ── Intersection Observer: fade-in sections ── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='none'; } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.panel, .mission-card, .stat').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(22px)';
+  el.style.transition = 'opacity .5s ease, transform .5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
