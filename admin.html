@@ -86,13 +86,14 @@ main{max-width:880px;margin:0 auto;padding:24px 16px 70px;}
     <h2>🔑 الدخول للوحة التحكم</h2>
     <p>الصق مفتاح الإدارة (service_role) للوصول إلى التعليقات. يُحفظ في متصفحك فقط ولا يُرسل لأي مكان آخر.</p>
     <label for="keyInput">مفتاح الإدارة (service_role)</label>
-    <input type="password" id="keyInput" placeholder="eyJhbGciOi..." autocomplete="off">
+    <input type="text" id="keyInput" name="rj-admin-secret" placeholder="eyJhbGciOi..." autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
     <p class="hint">تجده في: Supabase → Project Settings → API → service_role. ⚠️ سرّي — لا تشاركه.</p>
     <button class="btn btn-main" id="enterBtn">دخول</button>
   </div>
 
   <!-- اللوحة -->
   <div id="panel" class="hidden">
+    <p class="hint" id="connInfo" style="margin-bottom:10px;"></p>
     <div class="tabs">
       <div class="tab active" data-tab="pending">⏳ قيد المراجعة <span class="badge" id="cntPending">0</span></div>
       <div class="tab" data-tab="approved">✅ منشورة <span class="badge" id="cntApproved" style="background:var(--green)">0</span></div>
@@ -126,6 +127,8 @@ main{max-width:880px;margin:0 auto;padding:24px 16px 70px;}
     if(SUPABASE_URL.indexOf('http')!==0){ toast('⚠️ لم يُضبط رابط Supabase في الكود'); return; }
     sb = window.supabase.createClient(SUPABASE_URL, key);
     try{ sessionStorage.setItem('rj_admin_key', key); }catch(e){}
+    var info=document.getElementById('connInfo');
+    if(info){ info.textContent='🔑 المفتاح المتصل ينتهي بـ: …'+key.slice(-6); info.style.display='block'; }
     gate.classList.add('hidden');
     panel.classList.remove('hidden');
     load();
@@ -170,6 +173,8 @@ main{max-width:880px;margin:0 auto;padding:24px 16px 70px;}
         var a=allRows.filter(function(r){return r.status==='approved';}).length;
         document.getElementById('cntPending').textContent=p;
         document.getElementById('cntApproved').textContent=a;
+        var info=document.getElementById('connInfo');
+        if(info && allRows.length===0){ info.textContent+=' — ⚠️ صفر نتائج كلياً: على الأغلب المفتاح المستخدم ليس مفتاح secret/service_role الصحيح.'; }
         render();
       });
   }
