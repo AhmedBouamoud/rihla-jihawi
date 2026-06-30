@@ -72,7 +72,10 @@ main{max-width:880px;margin:0 auto;padding:24px 16px 70px;}
 <div class="topbar">
   <div class="inner">
     <h1>🛠️ لوحة تحكم التعليقات</h1>
-    <a href="/">← الرئيسية</a>
+    <div style="display:flex;gap:8px;">
+      <a href="#" id="logoutBtn">🔄 تغيير المفتاح</a>
+      <a href="/">← الرئيسية</a>
+    </div>
   </div>
 </div>
 
@@ -137,6 +140,14 @@ main{max-width:880px;margin:0 auto;padding:24px 16px 70px;}
 
   // استرجاع المفتاح إن كان محفوظاً بالجلسة
   try{var saved=sessionStorage.getItem('rj_admin_key');if(saved){keyInput.value=saved;connect(saved);}}catch(e){}
+
+  document.getElementById('logoutBtn').addEventListener('click',function(e){
+    e.preventDefault();
+    try{ sessionStorage.removeItem('rj_admin_key'); }catch(e){}
+    sb=null; keyInput.value='';
+    panel.classList.add('hidden');
+    gate.classList.remove('hidden');
+  });
 
   // تبديل التبويبات
   document.querySelectorAll('.tab').forEach(function(t){
