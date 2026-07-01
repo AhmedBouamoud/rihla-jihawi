@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rihla-mahali-gold-v5';
+const CACHE_NAME = 'rihla-mahali-gold-v6';
 
 const APP_SHELL = [
   './',
