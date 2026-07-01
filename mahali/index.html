@@ -147,11 +147,13 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 .route-board::after { content:""; position:absolute; inset:0; pointer-events:none; z-index:0;
   background: linear-gradient(180deg, rgba(186,230,253,.22) 0%, transparent 12%, transparent 88%, rgba(30,64,175,.18) 100%);
 }
-.route-svg { position:absolute; inset:0; width:100%; height:100%; z-index:1; }
-.route-shadow { fill:none; stroke: rgba(0,0,0,.3); stroke-width: 28; stroke-linecap: round; stroke-linejoin: round; filter: blur(4px); }
-.route-main { fill:none; stroke: #fbbf24; stroke-width: 22; stroke-linecap: round; stroke-linejoin: round; }
-.route-dash { fill:none; stroke: rgba(255,255,255,.6); stroke-width: 5; stroke-linecap: square; stroke-linejoin: round; stroke-dasharray: 9 20; animation: dashFlow 14s linear infinite; }
-@keyframes dashFlow { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -400; } }
+.route-svg { position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; overflow:visible; }
+/* vector-effect:non-scaling-stroke keeps stroke in screen-pixels despite non-square viewBox scaling */
+.route-shadow { fill:none; stroke:#3b1a08; stroke-width:32; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; opacity:.55; }
+.route-main { fill:none; stroke:#fbbf24; stroke-width:22; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+.route-edge { fill:none; stroke:#92400e; stroke-width:26; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+.route-dash { fill:none; stroke:rgba(255,255,255,.7); stroke-width:5; stroke-linecap:square; stroke-dasharray:14 30; vector-effect:non-scaling-stroke; animation:dashFlow 16s linear infinite; }
+@keyframes dashFlow { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -440; } }
 /* ══ STATION NODES — game island buttons ══ */
 .route-node { position:absolute; transform: translate(-50%, -50%); width: 140px; z-index:2; text-align:center; }
 .node-platform { position:relative; width:94px; height:94px; margin:0 auto; }
@@ -635,6 +637,7 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
       <div class="route-board" id="routeBoard">
         <svg class="route-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
           <path id="routeShadow" class="route-shadow" d="" />
+          <path id="routeEdge" class="route-edge" d="" />
           <path id="routeMain" class="route-main" d="" />
           <path id="routeDash" class="route-dash" d="" />
         </svg>
@@ -1893,17 +1896,33 @@ function confetti() {
     document.body.appendChild(c); setTimeout(()=>c.remove(),1900);
   }
 }
-function pathD() {
-  const pts = ROUTE_POINTS;
-  let d = `M ${pts[0].x} ${pts[0].y}`;
-  for(let i=1;i<pts.length;i++) {
+function buildPathD(pts) {
+  let d = 'M ' + pts[0].x.toFixed(2) + ' ' + pts[0].y.toFixed(2);
+  for(let i = 1; i < pts.length; i++) {
     const prev = pts[i-1], cur = pts[i];
-    const midY = (prev.y + cur.y) / 2;
-    d += ` C ${prev.x} ${midY}, ${cur.x} ${midY}, ${cur.x} ${cur.y}`;
+    const midY = ((prev.y + cur.y) / 2).toFixed(2);
+    d += ' C ' + prev.x.toFixed(2) + ' ' + midY + ',' + cur.x.toFixed(2) + ' ' + midY + ',' + cur.x.toFixed(2) + ' ' + cur.y.toFixed(2);
   }
   return d;
 }
-function renderRoutePath() { const d = pathD(); ['routeShadow','routeMain','routeDash'].forEach(id=>document.getElementById(id).setAttribute('d', d)); }
+function renderRoutePath() {
+  const board = document.getElementById('routeBoard');
+  const svg = board.querySelector('.route-svg');
+  function draw() {
+    const W = board.offsetWidth || 400;
+    const H = board.offsetHeight || 2100;
+    /* Set viewBox to actual pixel dimensions so stroke-width is in px */
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    const pts = ROUTE_POINTS.map(function(p) { return { x: p.x / 100 * W, y: p.y / 100 * H }; });
+    const d = buildPathD(pts);
+    ['routeShadow','routeEdge','routeMain','routeDash'].forEach(function(id) {
+      const el = document.getElementById(id);
+      if(el) el.setAttribute('d', d);
+    });
+  }
+  if(document.readyState === 'complete') { draw(); } else { window.addEventListener('load', draw); }
+  requestAnimationFrame(draw);
+}
 function componentIcon(name) { return COMPONENT_THEMES[name]?.icon || '⭐'; }
 function renderRouteNodes() {
   const board = document.getElementById('routeBoard');
@@ -1958,10 +1977,13 @@ function startFromSplash() {
   const splashInput = document.getElementById('splashName');
   const mainInput = document.getElementById('studentName');
   const name = (splashInput && splashInput.value ? splashInput.value : '').trim();
-  if(!name) { showToast('اكتب اسم البطل أولاً لبدء الرحلة'); if(splashInput) splashInput.focus(); return; }
-  if(mainInput) mainInput.value = name;
+  if(name) { progress.name = name; saveProgress(); if(mainInput) mainInput.value = name; }
   hideSplash();
-  setTimeout(startJourney, 80);
+  renderAll();
+  scrollToRoute(true);
+  playTone('finish');
+  if(name) showToast('أشرعت السفينة يا ' + name + '، وبدأت الرحلة!');
+  else showToast('انطلق! يمكنك كتابة اسمك في أي وقت.');
 }
 if(sessionStorage.getItem('rihla_mahali_splash_seen') === '1') {
   setTimeout(()=>{ const s=document.getElementById('luxurySplash'); if(s) s.classList.add('hidden'); }, 50);
@@ -2224,6 +2246,9 @@ function importBank() { try { const imported=JSON.parse(document.getElementById(
 function resetQuestionBank() { if(confirm('سيتم حذف تعديلات الأسئلة والعودة إلى النسخة الأصلية. هل توافق؟')) { stations=clone(DEFAULT_STATIONS); saveQuestionBank(); renderAll(); setupAdmin(); showToast('تمت استعادة الأسئلة الأصلية'); } }
 
 renderAll();
+
+/* ── Redraw path on resize ── */
+window.addEventListener('resize', function() { renderRoutePath(); });
 
 /* ── PWA Service Worker ── */
 if ('serviceWorker' in navigator) {
