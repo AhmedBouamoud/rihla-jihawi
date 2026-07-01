@@ -125,42 +125,80 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 .legend { display:flex; gap:8px; flex-wrap:wrap; margin:14px 0 18px; position:relative; z-index:1; }
 .legend span { padding:6px 10px; border-radius:999px; background:white; border:1px solid rgba(14,165,233,.13); font-size:12px; font-weight:800; }
 .route-layout { display:grid; grid-template-columns: 1fr 350px; gap:20px; align-items:start; position:relative; z-index:1; }
+/* ══ ROUTE BOARD — ocean island style ══ */
 .route-board {
-  position:relative; min-height: 1900px; border-radius: 34px; overflow:hidden; background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.16)), url('assets/panorama.webp') center/cover no-repeat;
-  box-shadow: inset 0 0 0 2000px rgba(255,255,255,.15), 0 12px 30px rgba(15,23,42,.08); border:1px solid rgba(255,255,255,.4);
+  position:relative; min-height: 2100px; border-radius: 34px; overflow:hidden;
+  background: linear-gradient(180deg,
+    #bae6fd 0%, #7dd3fc 6%, #38bdf8 18%, #0ea5e9 34%,
+    #0284c7 52%, #0369a1 70%, #1e40af 88%, #1d4ed8 100%
+  );
+  box-shadow: 0 16px 48px rgba(15,23,42,.14); border:3px solid rgba(255,255,255,.38);
 }
-.route-board::before { content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(6,78,59,.08), rgba(255,255,255,.15) 22%, rgba(255,255,255,.18) 76%, rgba(245,158,11,.12)); pointer-events:none; }
-.route-board::after { content:""; position:absolute; inset:0; background: radial-gradient(circle at 20% 18%, rgba(255,255,255,.36), transparent 18%), radial-gradient(circle at 82% 8%, rgba(255,255,255,.34), transparent 16%), radial-gradient(circle at 88% 46%, rgba(255,255,255,.22), transparent 10%), radial-gradient(circle at 18% 66%, rgba(255,255,255,.24), transparent 12%); pointer-events:none; mix-blend-mode: screen; }
-.route-svg { position:absolute; inset:0; width:100%; height:100%; }
-.route-shadow { fill:none; stroke: rgba(255,255,255,.28); stroke-width: 24; stroke-linecap: round; stroke-linejoin: round; filter: blur(10px); }
-.route-main { fill:none; stroke: rgba(255,255,255,.96); stroke-width: 20; stroke-linecap: round; stroke-linejoin: round; }
-.route-dash { fill:none; stroke: rgba(14,165,233,.85); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 8 18; animation: dashFlow 18s linear infinite; }
+.route-board::before {
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 88px, rgba(255,255,255,.04) 88px, rgba(255,255,255,.04) 90px),
+    radial-gradient(ellipse at 10% 8%, rgba(255,255,255,.16) 0%, transparent 20%),
+    radial-gradient(ellipse at 88% 18%, rgba(255,255,255,.12) 0%, transparent 16%),
+    radial-gradient(ellipse at 22% 46%, rgba(255,255,255,.10) 0%, transparent 14%),
+    radial-gradient(ellipse at 80% 64%, rgba(255,255,255,.10) 0%, transparent 14%),
+    radial-gradient(ellipse at 14% 82%, rgba(255,255,255,.14) 0%, transparent 18%);
+}
+.route-board::after { content:""; position:absolute; inset:0; pointer-events:none; z-index:0;
+  background: linear-gradient(180deg, rgba(186,230,253,.22) 0%, transparent 12%, transparent 88%, rgba(30,64,175,.18) 100%);
+}
+.route-svg { position:absolute; inset:0; width:100%; height:100%; z-index:1; }
+.route-shadow { fill:none; stroke: rgba(0,0,0,.3); stroke-width: 28; stroke-linecap: round; stroke-linejoin: round; filter: blur(4px); }
+.route-main { fill:none; stroke: #fbbf24; stroke-width: 22; stroke-linecap: round; stroke-linejoin: round; }
+.route-dash { fill:none; stroke: rgba(255,255,255,.6); stroke-width: 5; stroke-linecap: square; stroke-linejoin: round; stroke-dasharray: 9 20; animation: dashFlow 14s linear infinite; }
 @keyframes dashFlow { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -400; } }
-.route-node { position:absolute; transform: translate(-50%, -50%); width: 110px; z-index:2; text-align:center; }
-.node-btn { width:80px; height:80px; margin:0 auto; border-radius: 50%; border:5px solid white; display:grid; place-items:center; font-size:30px; font-weight:900; color:white; box-shadow: 0 16px 35px rgba(15,23,42,.2); transition: transform .18s ease, box-shadow .18s ease; position:relative; overflow:hidden; }
-.node-btn::after { content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(255,255,255,.22), transparent); }
-.route-node:hover .node-btn { transform: translateY(-4px) scale(1.03); box-shadow: 0 22px 42px rgba(15,23,42,.22); }
-.route-node.locked .node-btn { background: linear-gradient(135deg, #94a3b8, #64748b); filter: grayscale(.2); }
-.route-node.done .node-btn { background: linear-gradient(135deg, #22c55e, #16a34a); }
-.route-node.current .node-btn { background: linear-gradient(135deg, #f59e0b, #f97316); animation: pulseNode 1.6s ease-in-out infinite; }
-.route-node.open .node-btn { background: linear-gradient(135deg, #2563eb, #0ea5e9); }
-/* Component color accents for open/current nodes */
-.route-node[data-comp="التاريخ"].open .node-btn,
-.route-node[data-comp="التاريخ"].current .node-btn { background: linear-gradient(135deg, #dc2626, #ea580c) !important; }
-.route-node[data-comp="الجغرافيا"].open .node-btn { background: linear-gradient(135deg, #059669, #10b981); }
-.route-node[data-comp="التربية على المواطنة"].open .node-btn { background: linear-gradient(135deg, #7c3aed, #a855f7); }
-.route-node[data-comp="منهجية"].open .node-btn { background: linear-gradient(135deg, #0369a1, #0ea5e9); }
-@keyframes pulseNode { 0%,100% { box-shadow: 0 0 0 0 rgba(245,158,11,.32), 0 16px 35px rgba(15,23,42,.18); } 50% { box-shadow: 0 0 0 18px rgba(245,158,11,0), 0 16px 35px rgba(15,23,42,.18); } }
-.node-label { margin-top:8px; background: rgba(255,255,255,.92); padding:8px 10px; border-radius:16px; box-shadow: 0 10px 22px rgba(15,23,42,.08); font-size:12px; font-weight:800; line-height:1.5; }
-.node-stars { margin-top:5px; color:#d97706; letter-spacing:2px; font-size: 14px; }
-.node-badge { position:absolute; inset:auto 0 auto 0; top:-10px; margin:auto; width:34px; height:34px; border-radius:50%; background:white; color:#0f172a; display:grid; place-items:center; font-size:15px; font-weight:900; box-shadow: 0 6px 16px rgba(15,23,42,.12); }
-.boat-marker { position:absolute; width:74px; text-align:center; transform: translate(-50%, -90%); z-index:4; transition: left .4s ease, top .4s ease; }
-.boat-marker .ship { font-size:38px; filter: drop-shadow(0 10px 14px rgba(15,23,42,.22)); animation: bob 2.2s ease-in-out infinite; }
-.boat-marker small { display:inline-block; margin-top:4px; background: rgba(255,255,255,.96); border-radius:999px; padding:5px 8px; font-size:11px; font-weight:900; box-shadow: 0 8px 16px rgba(15,23,42,.08); }
-@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-.chapter-card { position:absolute; width: 240px; background: rgba(255,255,255,.92); border:1px solid rgba(14,165,233,.14); border-radius: 24px; padding: 14px; box-shadow: 0 14px 34px rgba(15,23,42,.08); z-index: 2; }
-.chapter-card strong { display:block; margin-bottom:6px; font-size:18px; }
-.chapter-card p { margin:0; color:var(--muted); line-height:1.7; font-size:13px; }
+/* ══ STATION NODES — game island buttons ══ */
+.route-node { position:absolute; transform: translate(-50%, -50%); width: 140px; z-index:2; text-align:center; }
+.node-platform { position:relative; width:94px; height:94px; margin:0 auto; }
+.node-btn {
+  width:94px; height:94px; border-radius:50%; border:5px solid rgba(255,255,255,.95);
+  display:grid; place-items:center; font-size:34px; color:white;
+  transition: transform .18s ease, box-shadow .18s ease;
+  position:relative; overflow:hidden; cursor:pointer;
+  background: linear-gradient(160deg, #60a5fa, #2563eb);
+  box-shadow: 0 7px 0 #1e40af, 0 14px 28px rgba(37,99,235,.35);
+}
+.node-btn::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(255,255,255,.24) 0%, transparent 52%); pointer-events:none; border-radius:50%; }
+.route-node:not(.locked):hover .node-btn { transform:translateY(-6px); }
+.route-node:not(.locked):active .node-btn { transform:translateY(3px) !important; }
+/* Locked */
+.route-node.locked .node-btn { background:linear-gradient(160deg,#94a3b8,#475569); box-shadow:0 7px 0 #1e293b, 0 14px 28px rgba(0,0,0,.22); cursor:default; }
+/* Done */
+.route-node.done .node-btn { background:linear-gradient(160deg,#4ade80,#16a34a); box-shadow:0 7px 0 #064e3b, 0 14px 28px rgba(22,163,74,.3); }
+/* Current — gold override (must come after done) */
+.route-node.current .node-btn { background:linear-gradient(160deg,#fde68a,#f59e0b) !important; box-shadow:0 7px 0 #92400e, 0 14px 28px rgba(245,158,11,.42) !important; animation:pulseNode 1.8s ease-in-out infinite; }
+/* Component colors for open + done nodes */
+.route-node[data-comp="التاريخ"]:not(.locked):not(.current) .node-btn { background:linear-gradient(160deg,#fb923c,#dc2626); box-shadow:0 7px 0 #7f1d1d, 0 14px 28px rgba(220,38,38,.32); }
+.route-node[data-comp="الجغرافيا"]:not(.locked):not(.current) .node-btn { background:linear-gradient(160deg,#4ade80,#059669); box-shadow:0 7px 0 #064e3b, 0 14px 28px rgba(5,150,105,.32); }
+.route-node[data-comp="التربية على المواطنة"]:not(.locked):not(.current) .node-btn { background:linear-gradient(160deg,#c084fc,#7c3aed); box-shadow:0 7px 0 #3b0764, 0 14px 28px rgba(124,58,237,.32); }
+.route-node[data-comp="منهجية"]:not(.locked):not(.current) .node-btn { background:linear-gradient(160deg,#38bdf8,#0369a1); box-shadow:0 7px 0 #0c4a6e, 0 14px 28px rgba(3,105,161,.32); }
+@keyframes pulseNode { 0%,100% { box-shadow:0 7px 0 #92400e, 0 0 0 0 rgba(245,158,11,.5), 0 14px 28px rgba(245,158,11,.4); } 50% { box-shadow:0 7px 0 #92400e, 0 0 0 16px rgba(245,158,11,0), 0 14px 28px rgba(245,158,11,.4); } }
+/* Number badge */
+.node-badge { position:absolute; top:-8px; right:-8px; width:30px; height:30px; border-radius:50%; background:white; color:#0f172a; display:grid; place-items:center; font-size:12px; font-weight:900; box-shadow:0 4px 10px rgba(0,0,0,.24); z-index:3; border:2px solid rgba(0,0,0,.06); }
+.route-node.locked .node-badge { background:#e2e8f0; color:#64748b; }
+/* Island grass base */
+.node-island { width:76px; height:20px; background:linear-gradient(to bottom,#4ade80,#15803d); border-radius:50%; margin:-4px auto 0; box-shadow:0 5px 0 #14532d, 0 10px 16px rgba(0,0,0,.2); }
+.route-node.locked .node-island { background:linear-gradient(to bottom,#94a3b8,#334155); box-shadow:0 5px 0 #0f172a, 0 10px 16px rgba(0,0,0,.2); }
+.route-node.done .node-island { background:linear-gradient(to bottom,#86efac,#16a34a); }
+/* Node label */
+.node-label { margin-top:10px; background:rgba(255,255,255,.95); padding:5px 7px; border-radius:10px; font-size:10px; font-weight:800; line-height:1.45; color:#0f172a; box-shadow:0 4px 10px rgba(0,0,0,.14); max-width:136px; margin-left:auto; margin-right:auto; }
+.route-node.locked .node-label { opacity:.6; }
+/* Stars */
+.node-stars { margin-top:4px; font-size:13px; letter-spacing:2px; color:rgba(255,255,255,.55); text-shadow:0 1px 4px rgba(0,0,0,.25); }
+.route-node.done .node-stars { color:#fbbf24; text-shadow:0 1px 6px rgba(251,191,36,.55); }
+.boat-marker { position:absolute; width:68px; text-align:center; transform: translate(-50%,-130%); z-index:5; transition: left .4s ease, top .4s ease; filter:drop-shadow(0 8px 14px rgba(0,0,0,.3)); }
+.boat-marker .ship { font-size:36px; animation: bob 2.2s ease-in-out infinite; display:block; }
+.boat-marker small { display:inline-block; margin-top:2px; background:rgba(255,255,255,.96); border-radius:999px; padding:4px 8px; font-size:10px; font-weight:900; box-shadow:0 6px 14px rgba(0,0,0,.1); }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+/* Chapter island labels */
+.chapter-card { position:absolute; max-width:130px; padding:8px 11px; background:rgba(255,255,255,.88); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:2px solid rgba(255,255,255,.75); border-radius:16px; font-size:11px; font-weight:800; color:#0f172a; box-shadow:0 8px 20px rgba(0,0,0,.18); z-index:3; line-height:1.5; }
+.chapter-card strong { font-size:11px; margin:0; display:block; white-space:normal; }
+.chapter-card p { display:none; }
 .chapter-card.left { right:auto; }
 .route-side { display:grid; gap:18px; position:sticky; top:86px; }
 .side-card { background: rgba(255,255,255,.94); border:1px solid rgba(14,165,233,.12); border-radius:28px; overflow:hidden; box-shadow: 0 12px 28px rgba(15,23,42,.06); }
@@ -288,17 +326,7 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 }
 .panorama-overlay b { color:#0f766e; }
 .panorama-overlay span { color:#334155 !important; }
-.chapter-card {
-  width: auto !important; max-width: 210px; padding: 9px 12px !important; border-radius:999px !important;
-  background: rgba(255,255,255,.68) !important; backdrop-filter: blur(6px);
-  box-shadow: 0 8px 18px rgba(15,23,42,.08) !important;
-}
-.chapter-card strong { font-size:14px !important; margin:0 !important; white-space:nowrap; }
-.chapter-card p { display:none !important; }
-.chapter-card:hover { background: rgba(255,255,255,.94) !important; max-width: 280px; border-radius:20px !important; }
-.chapter-card:hover p { display:block !important; font-size:12px; margin-top:6px; }
-.route-board::before { background: linear-gradient(180deg, rgba(6,78,59,.02), rgba(255,255,255,.04) 22%, rgba(255,255,255,.08) 76%, rgba(245,158,11,.06)); }
-.route-board { box-shadow: inset 0 0 0 2000px rgba(255,255,255,.04), 0 12px 30px rgba(15,23,42,.08); }
+/* chapter-card overrides: use the island-label style defined above */
 @media (max-width: 760px) {
   .splash-start { flex-direction:column; }
   .splash-start input, .splash-start button { width:100%; max-width:100%; }
@@ -343,6 +371,13 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 @media (max-width: 1100px) { .mission-strip { grid-template-columns: 1fr; } }
 .confetti { position: fixed; top:-20px; width:10px; height:18px; background: var(--gold); z-index:220; animation: fall 1.6s linear forwards; }
 @keyframes fall { to { transform: translateY(110vh) rotate(720deg); opacity:0; } }
+/* Ocean decorative elements */
+.map-deco { position:absolute; z-index:1; user-select:none; pointer-events:none; animation:mapFloat 4s ease-in-out infinite; line-height:1; }
+@keyframes mapFloat { 0%,100% { transform:translateY(0) rotate(-3deg); } 50% { transform:translateY(-10px) rotate(3deg); } }
+.ship-deco { animation:shipFloat 5s ease-in-out infinite !important; }
+@keyframes shipFloat { 0%,100% { transform:translateX(0); } 50% { transform:translateX(10px); } }
+/* Remove old decor-bubble (replaced by map-deco) */
+.decor-bubble { display:none; }
 @media (max-width: 1100px) {
   .hero { grid-template-columns: 1fr; }
   .stats { grid-template-columns: repeat(3, 1fr); }
@@ -362,13 +397,14 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
   .brand small { font-size:11px; }
   .lead { max-width:100%; }
   .stats { grid-template-columns: repeat(2, 1fr); }
-  .route-board { min-height: 2400px; }
-  .route-node { width: 88px; }
-  .node-btn { width: 64px; height: 64px; font-size: 22px; border-width: 3px; }
-  .node-label { font-size:11px !important; padding:3px 4px; }
-  .chapter-card { max-width: 160px !important; padding:8px 10px !important; }
-  .chapter-card strong { font-size:12px !important; }
-  .chapter-card p { font-size:11px; }
+  .route-board { min-height: 2500px; }
+  .route-node { width: 104px; }
+  .node-platform { width:68px; height:68px; }
+  .node-btn { width:68px; height:68px; font-size:24px; border-width:4px; }
+  .node-island { width:58px; height:16px; }
+  .node-label { font-size:9px; padding:4px 5px; max-width:100px; }
+  .node-badge { width:24px; height:24px; font-size:10px; }
+  .chapter-card { max-width:100px; font-size:9px; padding:6px 8px !important; }
   .route-side { grid-template-columns: 1fr; }
   .chapter-grid { grid-template-columns: 1fr; }
   .reward-grid, .badge-grid, .asset-grid { grid-template-columns: repeat(2,1fr); }
@@ -602,26 +638,28 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
           <path id="routeMain" class="route-main" d="" />
           <path id="routeDash" class="route-dash" d="" />
         </svg>
-        <div id="boatMarker" class="boat-marker"><div class="ship">⛵</div><small>أنت هنا</small></div>
-        <span class="decor-bubble" style="left:12%; top:14%; animation-delay:.2s"></span>
-        <span class="decor-bubble" style="left:86%; top:22%; width:38px; height:38px; animation-delay:1.2s"></span>
-        <span class="decor-bubble" style="left:18%; top:48%; width:44px; height:44px; animation-delay:2s"></span>
-        <span class="decor-bubble" style="left:82%; top:72%; width:50px; height:50px; animation-delay:2.8s"></span>
-        <div class="chapter-card" style="top:78%; left:4%;">
-          <strong>⏳ جزيرة الزمن</strong>
-          <p>أول 6 محطات: الرأسمالية، الإمبريالية، الضغط الاستعماري، الحرب العالمية الأولى، المشرق العربي، وأزمة 1929.</p>
+        <div id="boatMarker" class="boat-marker"><span class="ship">⛵</span><small>أنت هنا</small></div>
+        <!-- ocean decorations -->
+        <span class="map-deco" style="left:6%;top:88%;font-size:28px;animation-delay:.3s">🌴</span>
+        <span class="map-deco" style="left:88%;top:80%;font-size:24px;animation-delay:1s">🦜</span>
+        <span class="map-deco" style="left:4%;top:62%;font-size:22px;animation-delay:1.8s">🐋</span>
+        <span class="map-deco" style="left:90%;top:42%;font-size:26px;animation-delay:.7s">🌴</span>
+        <span class="map-deco" style="left:7%;top:32%;font-size:20px;animation-delay:2.2s">⚓</span>
+        <span class="map-deco" style="left:86%;top:10%;font-size:24px;animation-delay:1.4s">🦅</span>
+        <span class="map-deco ship-deco" style="left:14%;top:75%;font-size:32px;animation-delay:.5s">🚢</span>
+        <span class="map-deco" style="left:82%;top:58%;font-size:18px;animation-delay:3s">🐬</span>
+        <!-- zone labels -->
+        <div class="chapter-card" style="top:79%; left:3%;">
+          <strong>⏳ جزيرة الزمن — التاريخ</strong>
         </div>
-        <div class="chapter-card" style="top:52%; right:4%;">
-          <strong>🗺️ أرخبيل الخرائط</strong>
-          <p>6 محطات جغرافية عن المغرب العربي والاتحاد الأوروبي والتكتلات والتحديات.</p>
+        <div class="chapter-card" style="top:53%; right:3%;">
+          <strong>🗺️ أرخبيل الخرائط — الجغرافيا</strong>
         </div>
-        <div class="chapter-card" style="top:25%; left:4%;">
+        <div class="chapter-card" style="top:26%; left:3%;">
           <strong>🤝 جزر المواطنة</strong>
-          <p>6 محطات حول المشاركة، القيم، تخليق الحياة العامة، الرشوة والحقوق.</p>
         </div>
-        <div class="chapter-card" style="top:4%; right:4%;">
+        <div class="chapter-card" style="top:3%; right:3%;">
           <strong>💎 مغارة التتويج</strong>
-          <p>محطتان منهجيتان قبل فتح الشهادة: قراءة الوثيقة والاستعداد الجيد للمحلي.</p>
         </div>
       </div>
       <aside class="route-side">
@@ -1871,18 +1909,29 @@ function renderRouteNodes() {
   const board = document.getElementById('routeBoard');
   board.querySelectorAll('.route-node').forEach(n=>n.remove());
   const currentId = currentStepId();
-  stations.forEach((st, idx)=>{
+  stations.forEach(function(st, idx) {
     const point = ROUTE_POINTS[idx];
-    const unlocked = isUnlocked(st.id); const done = progress.completed[st.id] !== undefined; const current = currentId === st.id && !done;
+    const unlocked = isUnlocked(st.id);
+    const done = progress.completed[st.id] !== undefined;
+    const current = currentId === st.id && !done;
+    const s = stationStars(st.id);
+    let starsHtml = '';
+    for(let i=0;i<3;i++) starsHtml += (i < s) ? '★' : '☆';
+    const icon = done ? '✅' : (unlocked ? (st.icon || componentIcon(st.component)) : '🔒');
+    const stateClass = done ? 'done' : current ? 'current' : unlocked ? 'open' : 'locked';
     const div = document.createElement('div');
-    div.className = `route-node ${done?'done': current?'current': unlocked?'open':'locked'}`;
+    div.className = 'route-node ' + stateClass;
     div.dataset.comp = st.component;
-    div.style.left = point.x + '%'; div.style.top = point.y + '%';
-    div.innerHTML = `
-      <div class="node-badge">${st.id}</div>
-      <button class="node-btn" onclick="openStation(${st.id})" title="${st.title}">${done ? '✅' : (st.icon || componentIcon(st.component))}</button>
-      <div class="node-label">${st.title}</div>
-      <div class="node-stars">${'★'.repeat(stationStars(st.id))}${'☆'.repeat(3-stationStars(st.id))}</div>`;
+    div.style.left = point.x + '%';
+    div.style.top = point.y + '%';
+    div.innerHTML =
+      '<div class="node-platform">' +
+        '<span class="node-badge">' + st.id + '</span>' +
+        '<button class="node-btn" onclick="openStation(' + st.id + ')" title="' + st.title.replace(/"/g,'&quot;') + '">' + icon + '</button>' +
+      '</div>' +
+      '<div class="node-island"></div>' +
+      '<div class="node-label">' + st.title + '</div>' +
+      '<div class="node-stars">' + starsHtml + '</div>';
     board.appendChild(div);
   });
   updateBoatMarker(currentId);
