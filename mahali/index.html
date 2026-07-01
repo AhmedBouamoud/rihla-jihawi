@@ -516,14 +516,24 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 <body>
 <div id="luxurySplash" class="luxury-splash" style="--splash-img:url('assets/panorama.webp')">
   <div class="splash-card">
-    <span class="luxury-title">🧭 رحلة محلية فاخرة</span>
+    <span class="luxury-title">🧭 رحلة المحلي الذهبية</span>
     <img src="assets/ibn-battuta.webp" alt="ابن بطوطة" />
-    <h2>أهلاً بك في رحلة المحلي الذهبية</h2>
-    <p>مسار متعرّج بين الجزر، أسئلة مناسبة للثالثة إعدادي، أصوات، مفاجآت، جوائز مرحلية، وشهادة في النهاية.</p>
+    <h2>أهلاً أيها الرحّالة!</h2>
+    <p>رحلة من <strong>20 محطة</strong> في التاريخ والجغرافيا والمواطنة والمنهجية — اجمع النجوم واكسب الشهادة!</p>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:10px 0 16px; font-size:13px; opacity:0.88;">
+      <span>⭐ 60 نجمة كحد أقصى</span>
+      <span>•</span>
+      <span>🏅 شارات وجوائز</span>
+      <span>•</span>
+      <span>🏆 شهادة إتمام</span>
+    </div>
     <div class="splash-start">
-      <input id="splashName" placeholder="اكتب اسم البطل / البطلة هنا" onkeydown="if(event.key==='Enter') startFromSplash()" />
-      <button class="btn gold" onclick="startFromSplash()">ابدأ الرحلة الآن</button>
-      <button class="btn ghost" onclick="hideSplash()">تصفح أولاً</button>
+      <input id="splashName" placeholder="اكتب اسمك أيها البطل / البطلة" onkeydown="if(event.key==='Enter') startFromSplash()" />
+      <button class="btn gold" onclick="startFromSplash()">🚀 انطلق في الرحلة</button>
+      <button class="btn ghost" onclick="resumeJourney()">▶️ تابع من حيث توقفت</button>
+    </div>
+    <div style="margin-top:14px; opacity:0.55; font-size:11px;">
+      <button onclick="openAdmin()" style="background:transparent; border:none; cursor:pointer; color:inherit; font-size:11px; text-decoration:underline; font-family:inherit;">دخول الأستاذ</button>
     </div>
   </div>
 </div>
@@ -540,7 +550,6 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
       <button class="btn ghost" onclick="scrollToRoute()">الخريطة</button>
       <button id="soundBtn" class="btn ghost" onclick="toggleSound()">🔊 الصوت: شغّال</button>
       <button class="btn info" onclick="openSurprise()">🎁 بوصلة المفاجآت</button>
-      <button class="btn ghost" onclick="openAdmin()">لوحة الأستاذ</button>
     </div>
   </nav>
 </header>
@@ -560,9 +569,8 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
       </div>
       <div class="hero-controls">
         <input id="studentName" class="name-input" placeholder="اكتب اسمك أيها البطل / البطلة" />
-        <button class="btn primary" onclick="startJourney()">ابدأ الرحلة ←</button>
-        <button class="btn gold" onclick="openCertificateIfReady()">الشهادة</button>
-        <button class="btn ghost" onclick="resetProgressConfirm()">مسح التقدم</button>
+        <button class="btn primary" onclick="startJourney()">انطلق في الرحلة ←</button>
+        <button class="btn gold" id="certBtn" onclick="openCertificateIfReady()">🏆 الشهادة 🔒</button>
       </div>
       <div class="progress-wrap"><div id="progressBar" class="progress-bar"></div></div>
       <small id="progressText">تقدم الرحلة 0%</small>
@@ -581,7 +589,7 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
           <div class="guide-avatar"><img src="assets/ibn-battuta.webp" alt="ابن بطوطة" /></div>
           <div><h2 style="margin:0">ابن بطوطة — رفيق الرحلة</h2><small>الرحالة الحكيم والمرشد</small></div>
         </div>
-        <p id="guideText">يا صاحب الهمة، في كل جزيرة علماً جديداً، وفي كل محطة خطوة نحو التتويج. لا تتعجل؛ افهم ثم أجب، فالفهم هو الزاد الحقيقي في الطريق.</p>
+        <p id="guideText">يا صاحب الهمة، في كل جزيرة علمٌ جديد، وفي كل محطة خطوة نحو التتويج. لا تتعجل؛ افهم ثم أجب، فالفهم هو الزاد الحقيقي في الطريق.</p>
         <div id="mascotQuote" class="quote-box">💬 رسالة ابن بطوطة: «من صبر على التعلم، وصل إلى كنز النجاح.»</div>
       </section>
     </div>
@@ -708,33 +716,39 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
           <li>ازدهار الرأسمالية والإمبريالية</li>
           <li>الضغط الاستعماري على المغرب</li>
           <li>الحرب العالمية الأولى</li>
-          <li>المشرق العربي وأزمة 1929</li>
+          <li>انهيار الدولة العثمانية والمشرق العربي</li>
+          <li>أزمة 1929: الأسباب والنتائج</li>
         </ul>
       </article>
       <article class="chapter-panel">
-        <div class="top"><div class="icon">🌍</div><h3>أرخبيل الخرائط — الجغرافيا</h3><p>6 محطات في التكتلات الإقليمية وعناصر القوة والتنوع والتحديات.</p></div>
+        <div class="top"><div class="icon">🌍</div><h3>أرخبيل الخرائط — الجغرافيا</h3><p>6 محطات في المغرب العربي والتكتلات الإقليمية وعناصر القوة والتحديات.</p></div>
         <ul>
-          <li>المغرب العربي: الوحدة والتنوع</li>
-          <li>التكامل والتحديات</li>
-          <li>الاتحاد الأوروبي ومكانته</li>
+          <li>المغرب العربي: عناصر الوحدة والتنوع</li>
+          <li>المغرب العربي: التكامل والتحديات</li>
+          <li>اتحاد المغرب العربي: خيار استراتيجي</li>
+          <li>الاتحاد الأوروبي: إمكانياته ومكانته</li>
+          <li>الاتحاد الأوروبي: الاندماج والمنافسة</li>
           <li>معيقات التكتلات الجهوية</li>
         </ul>
       </article>
       <article class="chapter-panel">
         <div class="top"><div class="icon">🤲</div><h3>جزر المواطنة</h3><p>6 محطات تنمّي قيم المشاركة والمسؤولية وحل المشكلات الاجتماعية والحقوق.</p></div>
         <ul>
-          <li>المشاركة حق وواجب</li>
-          <li>المشاكل الاجتماعية ومعالجتها</li>
+          <li>المشاركة حق وواجب: ننتخب ممثلينا</li>
+          <li>كيف نعالج مشكلاً اجتماعياً محلياً؟</li>
+          <li>مسؤولية الدولة والأفراد والجماعات</li>
           <li>مؤسسة محمد الخامس للتضامن</li>
-          <li>تخليق الحياة العامة والحقوق</li>
+          <li>تخليق الحياة العامة ومحاربة الرشوة</li>
+          <li>إلى أين ألجأ عند خرق حق من حقوقي؟</li>
         </ul>
       </article>
       <article class="chapter-panel">
-        <div class="top"><div class="icon">📜</div><h3>مغارة التتويج — المنهجية</h3><p>محطتان أخيرتان لتدريب التلميذ على الوثائق والاستعداد الذكي للورقة.</p></div>
+        <div class="top"><div class="icon">📜</div><h3>مغارة التتويج — المنهجية</h3><p>محطتان أخيرتان لتدريب التلميذ على الوثائق والاستعداد الذكي للامتحان.</p></div>
         <ul>
-          <li>كيف أتعامل مع وثيقة تاريخية؟</li>
+          <li>كيف أقرأ وثيقة تاريخية؟</li>
+          <li>كيف أصف خريطة أو مبياناً؟</li>
           <li>كيف أستعد للامتحان المحلي؟</li>
-          <li>تنظيم الوقت والورقة والجواب</li>
+          <li>تنظيم الوقت والجواب المنظم</li>
         </ul>
       </article>
     </div>
@@ -759,13 +773,16 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
   <section class="panel">
     <div class="final-note">
       <div class="medal">✨</div>
-      <p><strong>اللمسة النهائية:</strong> هذه النسخة صممت لتكون ممتعة للتلميذ ومفيدة للأستاذ في الوقت نفسه: رحلة مرئية، مسار واضح، محتوى قابل للتعديل، ومكافآت تشجع على الاستمرار دون فقدان الجدية التربوية.</p>
+      <p><strong>رسالة ابن بطوطة:</strong> صُممت هذه الرحلة لتجمع بين المتعة والمراجعة الجادة. كل محطة تقربك من كنز النجاح. تعلم، أخطئ، صحح، ثم تقدم — فالطريق للنجاح مبني على الفهم والمثابرة.</p>
     </div>
   </section>
 
   <footer class="footer">
     ✍️ إعداد وتصور: الأستاذ أحمد بوعمود — أستاذ الاجتماعيات<br />
-    مؤسسة الحنان الخاصة | أكادير | رحلة المحلي الذهبية — نسخة مطوّرة تفاعلية
+    مؤسسة الحنان الخاصة | أكادير | رحلة المحلي الذهبية<br /><br />
+    <button onclick="openAdmin()" style="background:transparent;border:1px solid rgba(100,116,139,.25);color:var(--muted);cursor:pointer;font-size:12px;padding:6px 14px;border-radius:999px;font-family:inherit;">دخول الأستاذ</button>
+    &nbsp;
+    <button onclick="resetProgressConfirm()" style="background:transparent;border:1px solid rgba(100,116,139,.25);color:var(--muted);cursor:pointer;font-size:12px;padding:6px 14px;border-radius:999px;font-family:inherit;">إعادة الرحلة من الصفر</button>
   </footer>
 </main>
 
@@ -835,13 +852,12 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 
 <div id="adminModal" class="modal hidden">
   <div class="modal-card">
-    <div class="modal-head"><strong>لوحة الأستاذ — تعديل الأسئلة وعناصر الإجابة</strong><button class="close" onclick="closeAdmin()">×</button></div>
+    <div class="modal-head"><strong>🔐 دخول الأستاذ</strong><button class="close" onclick="closeAdmin()">×</button></div>
     <div class="modal-body">
-      <div class="alert">كلمة المرور الافتراضية: 1234. يمكن عبر هذه اللوحة تعديل عنوان المحطة والبطاقة الموجزة والأسئلة والاختيارات والجواب الصحيح وعناصر الإجابة. التعديلات تُحفظ في نفس المتصفح ويمكن تصديرها واستيرادها.</div>
       <div id="adminLogin" style="margin-top:12px">
         <div class="form-grid">
-          <div class="field"><label>كلمة المرور</label><input id="adminPin" type="password" placeholder="1234" /></div>
-          <div class="field" style="justify-content:end"><button class="btn primary" onclick="checkAdminPin()">دخول لوحة الأستاذ</button></div>
+          <div class="field"><label>كلمة المرور</label><input id="adminPin" type="password" placeholder="أدخل كلمة المرور" /></div>
+          <div class="field" style="justify-content:end"><button class="btn primary" onclick="checkAdminPin()">دخول</button></div>
         </div>
       </div>
       <div id="adminEditor" class="hidden" style="margin-top:14px">
@@ -859,9 +875,10 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
         </div>
         <div class="actions">
           <button class="btn primary" onclick="saveAdminQuestion()">حفظ التعديل</button>
-          <button class="btn gold" onclick="exportBank()">تصدير بنك الأسئلة JSON</button>
+          <button class="btn gold" onclick="exportBank()">تصدير بنك الأسئلة</button>
           <button class="btn ghost" onclick="document.getElementById('importBox').classList.toggle('hidden')">استيراد JSON</button>
-          <button class="btn ghost" onclick="resetQuestionBank()">استرجاع النسخة الأصلية</button>
+          <button class="btn ghost" onclick="resetQuestionBank()">استرجاع الأسئلة الأصلية</button>
+          <button class="btn ghost" style="border-color:#fee2e2; color:#991b1b;" onclick="resetProgressConfirm()">🗑️ مسح تقدم التلميذ</button>
         </div>
         <div id="importBox" class="hidden" style="margin-top:12px">
           <div class="field"><label>الصق هنا بنك الأسئلة بصيغة JSON</label><textarea id="importText" style="min-height:180px"></textarea></div>
@@ -1834,7 +1851,11 @@ const MASCOT_MESSAGES = [
   '💬 يقول ابن بطوطة: «ابدأ من السهل، وثبّت الفهم، ثم انتقل إلى التحدي.»',
   '💬 يقول ابن بطوطة: «كل سؤال صحيح هو زاد جديد في حقيبة الرحلة.»',
   '💬 يقول ابن بطوطة: «لا تخشَ إعادة المحطة؛ فالمسافر الحكيم يراجع طريقه.»',
-  '💬 يقول ابن بطوطة: «حين تجمع النجوم، فأنت لا تجمع نقاطاً فقط، بل تبني ثقتك بنفسك.»'
+  '💬 يقول ابن بطوطة: «حين تجمع النجوم، فأنت لا تجمع نقاطاً فقط، بل تبني ثقتك بنفسك.»',
+  '💬 يقول ابن بطوطة: «أحسنت يا رحّالة! لقد اقتربت من الكنز الأكبر.»',
+  '💬 يقول ابن بطوطة: «جواب موفق — هذه نجمة جديدة في رحلتك!»',
+  '💬 يقول ابن بطوطة: «لا تقلق من الخطأ؛ الخطأ خطوة في طريق التعلم.»',
+  '💬 يقول ابن بطوطة: «ركز جيداً، المحطة القادمة تحتاج انتباهك كله.»'
 ];
 
 function clone(obj) { return JSON.parse(JSON.stringify(obj)); }
@@ -1985,6 +2006,18 @@ function startFromSplash() {
   if(name) showToast('أشرعت السفينة يا ' + name + '، وبدأت الرحلة!');
   else showToast('انطلق! يمكنك كتابة اسمك في أي وقت.');
 }
+
+function resumeJourney() {
+  hideSplash();
+  renderAll();
+  const done = Object.keys(progress.completed || {}).length;
+  if(done > 0) {
+    scrollToRoute(true);
+    showToast('مرحباً مجدداً! تقدمك محفوظ — استمر في رحلتك.');
+  } else {
+    showToast('لم تبدأ الرحلة بعد. اكتب اسمك واضغط انطلق!');
+  }
+}
 if(sessionStorage.getItem('rihla_mahali_splash_seen') === '1') {
   setTimeout(()=>{ const s=document.getElementById('luxurySplash'); if(s) s.classList.add('hidden'); }, 50);
 }
@@ -2015,7 +2048,10 @@ function renderStats() {
   document.getElementById('currentStationText').textContent = currentStepId();
   document.getElementById('bestScoreText').textContent = (progress.bestStars || 0) + ' نجمة';
   document.getElementById('lastRewardText').textContent = lastRewardLabel();
-  document.getElementById('certificateState').textContent = Object.keys(progress.completed).length === stations.length ? 'مفتوحة' : 'مغلقة';
+  const allDone = Object.keys(progress.completed).length === stations.length;
+  document.getElementById('certificateState').textContent = allDone ? 'مفتوحة ✅' : 'مغلقة 🔒';
+  const certBtn = document.getElementById('certBtn');
+  if(certBtn) { certBtn.textContent = allDone ? '🏆 افتح الشهادة ✅' : '🏆 الشهادة 🔒'; certBtn.className = allDone ? 'btn gold' : 'btn ghost'; }
   updateSoundButton(); updateMascot(); updateMissionCards();
 }
 function renderAll() { renderStats(); renderRoutePath(); renderRouteNodes(); renderBadges(); renderRewards(); }
