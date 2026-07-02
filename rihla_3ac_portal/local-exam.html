@@ -1,0 +1,42 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0b1224"><link rel="manifest" href="./manifest.webmanifest"><link rel="stylesheet" href="./style.css"><title>الاختبار المحلي</title></head><body><main class="wrap"><div class="top"><div class="brand"><div class="mark">📝</div><div><h1>الاختبار المحلي</h1><small>الأسدس الأول - الثالثة إعدادي</small></div></div><div class="top-actions"><span class="pill">👤 <span data-student>تلميذ مستكشف</span></span><span class="pill hide-sm">⭐ <span data-score>0</span> نقطة</span><a class="pill" href="./teacher.html">⚙️ الأستاذ</a></div></div>
+
+<section class="section"><h2>أنشئ ورقة مراجعة للامتحان المحلي</h2><p>اختر الدروس التي تريد مراجعتها من بين الدروس الثمانية عشر، ثم اضغط "إنشاء ورقة المراجعة" للحصول على أسئلة تدريبية جاهزة للطباعة.</p><div class="notice">هذه أسئلة تدريبية للمراجعة الذاتية، وليست أسئلة الاختبار الرسمي.</div></section>
+
+<section class="section">
+<div class="exam-picker" id="examList">
+
+<h3 class="exam-subject-title">📜 التاريخ</h3>
+<div class="exam-row"><input type="checkbox" id="ex-h1" data-lesson-id="h1"><label for="ex-h1">1. ازدهار الرأسمالية الأوربية خلال القرن 19م</label></div>
+<div class="exam-row"><input type="checkbox" id="ex-h2" data-lesson-id="h2"><label for="ex-h2">2. الإمبريالية وليدة الرأسمالية</label></div>
+<div class="exam-row"><input type="checkbox" id="ex-h3" data-lesson-id="h3"><label for="ex-h3">3. الضغط الاستعماري على المغرب</label></div>
+<div class="exam-row"><input type="checkbox" id="ex-h4" data-lesson-id="h4"><label for="ex-h4">4. الحرب العالمية الأولى: الأسباب والنتائج</label></div>
+<div class="exam-row"><input type="checkbox" id="ex-h5" data-lesson-id="h5"><label for="ex-h5">5. انهيار الإمبراطورية العثمانية والتدخل الاستعماري في المشرق العربي</label></div>
+<div class="exam-row"><input type="checkbox" id="ex-h6" data-lesson-id="h6"><label for="ex-h6">6. أزمة 1929: الأسباب والمظاهر والنتائج</label></div>
+
+<h3 class="exam-subject-title">🌍 الجغرافيا</h3>
+<div class="exam-row"><input type="checkbox" id="ex-g1" data-lesson-id="g1"><label for="ex-g1">1. المغرب العربي: عناصر الوحدة والتنوع</label></div>
+<div class="exam-row"><input type="checkbox" id="ex-g2" data-lesson-id="g2"><label for="ex-g2">2. المغرب العربي بين التكامل والتحديات</label></div>
+<div class="exam-row"><input type="checkbox" id="ex-g3" data-lesson-id="g3"><label for="ex-g3">3. اتحاد المغرب العربي: خيار استراتيجي للتكتل الإقليمي</label></div>
+<div class="exam-row"><input type="checkbox" id="ex-g4" data-lesson-id="g4"><label for="ex-g4">4. الاتحاد الأوربي: إمكانياته ومكانته الاقتصادية في العالم</label></div>
+<div class="exam-row"><input type="checkbox" id="ex-g5" data-lesson-id="g5"><label for="ex-g5">5. الاتحاد الأوربي بين الاندماج والمنافسة</label></div>
+<div class="exam-row"><input type="checkbox" id="ex-g6" data-lesson-id="g6"><label for="ex-g6">6. معيقات التكتلات الجهوية: مقارنة بين الاتحاد الأوربي والمغرب العربي</label></div>
+
+<h3 class="exam-subject-title">🤝 التربية على المواطنة</h3>
+<div class="exam-row"><input type="checkbox" id="ex-c1" data-lesson-id="c1"><label for="ex-c1">1. المشاركة حق وواجب: ننتخب ممثلينا في مجلس المؤسسة</label></div>
+<div class="exam-row"><input type="checkbox" id="ex-c2" data-lesson-id="c2"><label for="ex-c2">2. كيف نعالج مشكلاً اجتماعياً انطلاقاً من أمثلة محلية</label></div>
+<div class="exam-row"><input type="checkbox" id="ex-c3" data-lesson-id="c3"><label for="ex-c3">3. مسؤولية الدول والأفراد والجماعات في حل المشاكل الاجتماعية ومسؤوليتنا نحن</label></div>
+<div class="exam-row"><input type="checkbox" id="ex-c4" data-lesson-id="c4"><label for="ex-c4">4. ملف حول مؤسسة محمد الخامس للتضامن</label></div>
+<div class="exam-row"><input type="checkbox" id="ex-c5" data-lesson-id="c5"><label for="ex-c5">5. تخليق الحياة العامة: المفهوم والآليات، واقتراح خطة لمحاربة الرشوة</label></div>
+<div class="exam-row"><input type="checkbox" id="ex-c6" data-lesson-id="c6"><label for="ex-c6">6. إلى أين ألجأ في حالة خرق حق من حقوقي الدستورية أو حقوق غيري؟</label></div>
+
+</div>
+<div class="exam-actions">
+<button class="btn btn-light" id="examSelectAll">تحديد الكل</button>
+<button class="btn btn-light" id="examClearAll">إلغاء التحديد</button>
+<button class="btn btn-primary" id="examGenerate">إنشاء ورقة المراجعة 📝</button>
+<button class="btn btn-blue" onclick="window.print()">طباعة 🖨️</button>
+</div>
+<div class="exam-output" id="examOutput"></div>
+</section>
+
+<p class="footer-note">بوابة تعليمية تجريبية — الأستاذ أحمد بوعمود — تعمل من الهاتف وتقبل التوسع درساً بعد درس.</p></main><nav class="bottom-nav"><a href="./index.html" class=""><span>🏠</span>الرئيسية</a><a href="./history.html" class=""><span>📜</span>التاريخ</a><a href="./geography.html" class=""><span>🌍</span>الجغرافيا</a><a href="./citizenship.html" class=""><span>🤝</span>المواطنة</a><a href="./local-exam.html" class="active"><span>📝</span>اختبار محلي</a></nav><div id="toast" class="toast"></div><script src="./app.js"></script></body></html>
