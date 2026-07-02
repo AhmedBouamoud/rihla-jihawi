@@ -13,7 +13,7 @@ const subjects={
 
 // خطة الدروس الرسمية للأسدس الأول - الثالثة إعدادي اجتماعيات (الاستعداد للامتحان المحلي)
 const LESSONS=[
-  {id:'h1',subject:'history',order:1,title:'ازدهار الرأسمالية الأوربية خلال القرن 19م',status:'live',href:'./lessons/capitalisme/index.html',desc:'تطبيق جاهز: آلة زمن، مبيانات، أبناك، تركيز رأسمالي، وثائق وشهادة.'},
+  {id:'h1',subject:'history',order:1,title:'ازدهار الرأسمالية الأوربية خلال القرن 19م',status:'live',href:'./lessons/capitalisme/index.html',desc:'محطة جاهزة: آلة زمن، مبيانات، أبناك، تركيز رأسمالي، وثائق وشهادة.'},
   {id:'h2',subject:'history',order:2,title:'الإمبريالية وليدة الرأسمالية',status:'soon',desc:'دوافع التوسع الاستعماري وعلاقته بازدهار الرأسمالية.'},
   {id:'h3',subject:'history',order:3,title:'الضغط الاستعماري على المغرب',status:'soon',desc:'الأطماع، المعاهدات، الامتيازات، والأزمات قبل الحماية.'},
   {id:'h4',subject:'history',order:4,title:'الحرب العالمية الأولى: الأسباب والنتائج',status:'soon',desc:'أسباب الحرب، أطرافها، وأهم نتائجها السياسية والبشرية.'},
@@ -63,7 +63,7 @@ function patchPortal(fn){const s=getPortal();fn(s);savePortal(s);renderCommon();
 function getLessonState(){try{return JSON.parse(localStorage.getItem(LESSON_KEY))||{}}catch(e){return {}}}
 function toast(msg){const t=document.getElementById('toast'); if(!t){alert(msg);return} t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2600)}
 function setName(){const el=document.getElementById('studentName'); const name=(el?.value||'').trim(); if(!name){toast('اكتب اسم التلميذ أولاً.');return} patchPortal(s=>s.name=name); toast('تم حفظ الاسم داخل البوابة.');}
-function resetPortal(){if(confirm('تصفير تقدم البوابة؟ لن يحذف تقدم تطبيق درس الرأسمالية إلا إذا اخترت ذلك من داخله.')){localStorage.removeItem(PORTAL_KEY);toast('تم تصفير البوابة.');setTimeout(()=>location.reload(),700)}}
+function resetPortal(){if(confirm('تصفير تقدم البوابة؟ لن يحذف تقدم محطة درس الرأسمالية إلا إذا اخترت ذلك من داخله.')){localStorage.removeItem(PORTAL_KEY);toast('تم تصفير البوابة.');setTimeout(()=>location.reload(),700)}}
 function markVisited(id){patchPortal(s=>{s.visited[id]=true})}
 
 function renderCommon(){
@@ -105,12 +105,28 @@ function setupFilters(){
     filterLessons(search?.value||'',c.dataset.filter||'')
   }))
 }
-function soon(title){toast('محطة "'+title+'" مهيأة داخل البوابة وسنضيف تطبيقها التفاعلي لاحقاً.');}
+function soon(title){toast('محطة "'+title+'" مهيأة داخل البوابة وسنضيف نشاطها التفاعلي لاحقاً.');}
 
 function exportPlan(){
   const content=`مشروع بوابة الاستعداد للامتحان المحلي - الثالثة إعدادي (الأسدس الأول)\n\nالأستاذ: ${getPortal().teacher}\n\nعدد الدروس: 18 درساً (6 تاريخ + 6 جغرافيا + 6 تربية على المواطنة).\n\nالمحطة الجاهزة الآن: ازدهار الرأسمالية الأوربية خلال القرن 19م.\n\nملاحظات الأستاذ:\n${getPortal().notes||'لا توجد ملاحظات بعد.'}`;
   const blob=new Blob([content],{type:'text/plain;charset=utf-8'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='rihla-3ac-plan.txt';a.click();URL.revokeObjectURL(a.href)
+}
+
+// ---- نسخة العمل دون إنترنت (خاصة بالأستاذ فقط) ----
+const OFFLINE_CACHE='rihla-3ac-portal-v3';
+const OFFLINE_ASSETS=['./','./index.html','./history.html','./geography.html','./citizenship.html','./local-exam.html','./teacher.html','./style.css','./app.js','./manifest.webmanifest','./icon.svg',
+'./lessons/capitalisme/index.html','./lessons/capitalisme/map.html','./lessons/capitalisme/lesson1.html','./lessons/capitalisme/graph.html','./lessons/capitalisme/banks.html','./lessons/capitalisme/concentration.html','./lessons/capitalisme/society.html','./lessons/capitalisme/documents.html','./lessons/capitalisme/final.html','./lessons/capitalisme/certificate.html','./lessons/capitalisme/report.html','./lessons/capitalisme/style.css','./lessons/capitalisme/app.js'];
+async function prepareOfflineCopy(){
+  if(!('caches' in window)){toast('هذا المتصفح لا يدعم العمل دون إنترنت.');return}
+  toast('جارٍ تجهيز نسخة العمل دون إنترنت...');
+  try{
+    const cache=await caches.open(OFFLINE_CACHE);
+    await cache.addAll(OFFLINE_ASSETS);
+    toast('تم تجهيز نسخة العمل دون إنترنت على هذا الجهاز.');
+  }catch(e){
+    toast('تعذر تجهيز النسخة. تأكد من الاتصال بالإنترنت مرة واحدة ثم أعد المحاولة.');
+  }
 }
 
 // ---- منشئ الاختبار المحلي ----

@@ -28,10 +28,16 @@ const BADGE_ICONS = {
   'سيد الرحلة التاريخية':'🏆'
 };
 
+function getPortalName(){
+  try{ return JSON.parse(localStorage.getItem('rihla_3ac_portal_v2') || '{}').name || ''; }catch(e){ return ''; }
+}
 function getState(){
+  let s;
   try{
-    return {...DEFAULT_STATE, ...(JSON.parse(localStorage.getItem(APP_KEY)) || {})};
-  }catch(e){ return {...DEFAULT_STATE}; }
+    s={...DEFAULT_STATE, ...(JSON.parse(localStorage.getItem(APP_KEY)) || {})};
+  }catch(e){ s={...DEFAULT_STATE}; }
+  if(!s.name) s.name=getPortalName();
+  return s;
 }
 function saveState(state){ localStorage.setItem(APP_KEY, JSON.stringify(state)); }
 function updateState(mutator){ const s=getState(); mutator(s); saveState(s); return s; }
@@ -62,7 +68,7 @@ function unlockAll(){
 function resetApp(){
   if(confirm('هل تريد تصفير التقدم والنقاط؟')){
     localStorage.removeItem(APP_KEY);
-    toast('تم تصفير التطبيق.');
+    toast('تم تصفير تقدم المحطة.');
     setTimeout(()=>location.href='index.html',700);
   }
 }
@@ -167,10 +173,5 @@ function tinyQuiz(containerId, questions, successMessage){
   };
   draw();
 }
-function registerSW(){
-  if('serviceWorker' in navigator && location.protocol !== 'file:'){
-    navigator.serviceWorker.register('sw.js').catch(()=>{});
-  }
-}
-function boot(){ renderHeader(); renderStageMap(); createModal(); registerSW(); }
+function boot(){ renderHeader(); renderStageMap(); createModal(); }
 document.addEventListener('DOMContentLoaded', boot);
