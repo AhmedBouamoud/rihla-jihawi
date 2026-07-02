@@ -1,0 +1,14 @@
+{
+  "name": "رحلة إلى أوروبا الصناعية",
+  "short_name": "أوروبا الصناعية",
+  "description": "تطبيق تعليمي تفاعلي لدرس ازدهار الرأسمالية الأوربية خلال القرن 19 - الثالثة إعدادي",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "dir": "rtl",
+  "lang": "ar",
+  "icons": [
+    {"src":"./icon.svg","sizes":"any","type":"image/svg+xml"}
+  ]
+}

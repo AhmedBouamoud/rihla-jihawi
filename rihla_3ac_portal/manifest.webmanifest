@@ -1,0 +1,17 @@
+{
+  "name": "بوابة رحلة الثالثة إعدادي",
+  "short_name": "رحلة 3AC",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1224",
+  "theme_color": "#0b1224",
+  "dir": "rtl",
+  "lang": "ar",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

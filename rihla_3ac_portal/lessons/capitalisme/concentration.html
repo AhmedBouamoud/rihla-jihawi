@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0f172a"><title>لعبة التركيز الرأسمالي</title><link rel="manifest" href="./manifest.webmanifest"><link rel="stylesheet" href="./style.css"></head>
+<body>
+  <div class="topbar"><div class="brand"><div class="logo-mark">🧩</div><div><h1>المرحلة 4: لغز التركيز الرأسمالي</h1><small>النقاط: <span data-score></span></small></div></div><div class="top-actions"><a class="pill" href="../../index.html">🏠 البوابة</a><a class="pill" href="./map.html">🗺️ الخريطة</a></div></div>
+  <main class="app-shell"><section class="page">
+    <div class="page-head"><div><h2 class="page-title">إمبراطورية المصانع</h2><p class="page-sub">لعبة مبسطة لفهم التركيز الرأسمالي: أفقي، عمودي، كارتل، تراست، هولدينغ.</p></div><button class="btn btn-light" onclick="openModal('قاعدة اللعبة','<p>اقرأ المهمة، ثم اختر القرار الاقتصادي الصحيح. كل جواب صحيح يضيف نجمة في بطاقة اللعبة.</p>')">كيف ألعب؟</button></div>
+    <div class="guide-bubble"><div class="guide-avatar">🧭</div><p>كلما اشتدت المنافسة احتاجت الشركات إلى الاتحاد أو الاندماج أو السيطرة المالية. ساعدني لأفهم الشكل المناسب.</p></div>
+    <div class="grid two">
+      <div class="card">
+        <h3>لوحة المهمة</h3>
+        <p id="missionText" class="notice">المهمة 1: لديك ثلاثة مصانع نسيج تنتج المنتوج نفسه. ماذا يحدث إذا تجمعت لتقليل المنافسة؟</p>
+        <div id="choices" class="tiles"></div>
+        <div class="divider"></div>
+        <p><strong>نجوم اللعبة:</strong> <span id="gameStars">0</span>/5 ⭐</p>
+        <button class="btn btn-light full" onclick="restartGame()">إعادة اللعبة</button>
+      </div>
+      <div class="card">
+        <h3>قاموس التركيز الرأسمالي</h3>
+        <div class="popup-list">
+          <div class="popup-card" onclick="openModal('التركيز الرأسمالي','<p>تجمع الأنشطة الاقتصادية في يد عدد محدود من الشركات الكبرى بسبب المنافسة والحاجة إلى الرساميل.</p>')"><strong>💰 التركيز الرأسمالي</strong><span class="mini">التعريف العام</span></div>
+          <div class="popup-card" onclick="openModal('الكارتل','<p>اتفاق بين شركات تنتج نفس المادة للحد من المنافسة، مع احتفاظ كل شركة باستقلالها القانوني.</p>')"><strong>🤝 الكارتل</strong><span class="mini">اتفاق دون اندماج كامل</span></div>
+          <div class="popup-card" onclick="openModal('التراست','<p>اندماج عدة شركات في شركة واحدة كبرى، فتفقد الشركات السابقة استقلالها.</p>')"><strong>🏭 التراست</strong><span class="mini">اندماج كامل</span></div>
+          <div class="popup-card" onclick="openModal('الهولدينغ','<p>شركة مالية كبرى تملك أسهماً في شركات متعددة وتتحكم في قراراتها الاقتصادية.</p>')"><strong>🏦 الهولدينغ</strong><span class="mini">سيطرة مالية عبر الأسهم</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h3>مشهد بصري: من الورشة إلى العملاق</h3>
+      <div class="factory-chain" id="chainView"><span class="chain-item">مصنع نسيج</span><span>+</span><span class="chain-item">مصنع نسيج</span><span>+</span><span class="chain-item">مصنع نسيج</span><span>→</span><span class="chain-item">شركة كبرى</span></div>
+    </div>
+    <div class="cta-row"><button class="btn btn-primary" id="nextBtn" disabled onclick="completeLevel(4,'society.html','الخبير الاقتصادي الصغير',30)">أنهيت اللعبة — إلى المدينة الصناعية 🏙️</button><a class="btn btn-light" href="./banks.html">رجوع</a></div>
+  </section></main>
+  <nav class="bottom-nav"><a href="./map.html"><span>🗺️</span>الخريطة</a><a href="./lesson1.html"><span>📜</span>الدرس</a><a class="active" href="./concentration.html"><span>🧩</span>اللعبة</a><a href="./final.html"><span>🏆</span>التحدي</a><a href="./report.html"><span>📘</span>التقرير</a></nav>
+  <div id="toast" class="toast"></div><script src="./app.js"></script>
+  <script>
+    guardLevel(4);
+    const missions=[
+      {text:'المهمة 1: لديك ثلاثة مصانع نسيج تنتج المنتوج نفسه. ماذا يسمى تجمعها؟',answer:'تركيز أفقي',choices:['تركيز أفقي','تركيز عمودي','هجرة قروية'],view:['مصنع نسيج','مصنع نسيج','مصنع نسيج','شركة نسيج كبرى'],explain:'لأن المؤسسات تنتج المنتوج نفسه.'},
+      {text:'المهمة 2: منجم فحم + مصنع صلب + شركة سكك حديدية. ما نوع هذا التجمع؟',answer:'تركيز عمودي',choices:['تركيز أفقي','تركيز عمودي','بورجوازية'],view:['منجم فحم','مصنع صلب','قضبان حديدية','سكك حديدية'],explain:'لأن المؤسسات متكاملة في سلسلة إنتاج واحدة.'},
+      {text:'المهمة 3: شركات صلب مستقلة اتفقت على الأسعار لتقليل المنافسة. ما الشكل؟',answer:'كارتل',choices:['كارتل','تراست','هولدينغ'],view:['شركة صلب أ','اتفاق أسعار','شركة صلب ب','شركة صلب ج'],explain:'الكارتل اتفاق مع بقاء الاستقلال القانوني.'},
+      {text:'المهمة 4: أربع شركات اندمجت في شركة واحدة وفقدت استقلالها. ما الشكل؟',answer:'تراست',choices:['تراست','كارتل','نقابة عمالية'],view:['شركة 1','شركة 2','شركة 3','شركة عملاقة واحدة'],explain:'التراست اندماج كامل في مؤسسة واحدة.'},
+      {text:'المهمة 5: بنك ضخم يشتري أسهماً في شركات مختلفة ويتحكم فيها. ما الشكل؟',answer:'هولدينغ',choices:['هولدينغ','تركيز أفقي','تمدين'],view:['بنك ضخم','أسهم النسيج','أسهم الصلب','أسهم النقل'],explain:'الهولدينغ سيطرة مالية عبر امتلاك الأسهم.'}
+    ];
+    let m=0,stars=0;
+    function renderMission(){const mission=missions[m]; document.getElementById('missionText').textContent=mission.text; document.getElementById('choices').innerHTML=mission.choices.map(c=>`<button class="tile" onclick="chooseMission('${c.replace(/'/g,"\\'")}')">${c}</button>`).join(''); drawChain(mission.view); document.getElementById('gameStars').textContent=stars;}
+    function drawChain(items){document.getElementById('chainView').innerHTML=items.map((it,i)=>`<span class="chain-item">${it}</span>${i<items.length-1?'<span>→</span>':''}`).join('');}
+    function chooseMission(choice){const mission=missions[m]; if(choice===mission.answer){stars++; toast('صحيح: '+mission.explain); m++; if(m>=missions.length){document.getElementById('missionText').textContent='أحسنت! فهمت أشكال التركيز الرأسمالي الخمسة.'; document.getElementById('choices').innerHTML='<p class="notice">يمكنك الآن الانتقال إلى المدينة الصناعية لفهم الانعكاسات الاجتماعية.</p>'; document.getElementById('gameStars').textContent=stars; document.getElementById('nextBtn').disabled=false; drawChain(['رأسمال','أبناك','شركات كبرى','منافسة عالمية']); return;} setTimeout(renderMission,700);}else{toast('ليس هذا هو الجواب. اقرأ التعريف ثم حاول من جديد.');}}
+    function restartGame(){m=0;stars=0;document.getElementById('nextBtn').disabled=true;renderMission();}
+    renderMission();
+  </script>
+</body></html>

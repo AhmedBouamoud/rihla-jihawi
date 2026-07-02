@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a"><title>خريطة الرحلة | أوروبا الصناعية</title>
+  <link rel="manifest" href="./manifest.webmanifest"><link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand"><div class="logo-mark">🧭</div><div><h1>خريطة رحلة الرأسمالية</h1><small>التلميذ: <span data-name></span></small></div></div>
+    <div class="top-actions"><a class="pill" href="../../index.html">🏠 البوابة</a><span class="pill">⭐ <span data-score>0</span></span><span class="pill">🔓 مرحلة <span data-level>1</span></span></div>
+  </div>
+  <main class="app-shell">
+    <section class="page">
+      <div class="page-head">
+        <div>
+          <h2 class="page-title">خريطة المراحل</h2>
+          <p class="page-sub">أكمل كل مرحلة لفتح المرحلة التالية. يمكن للأستاذ فتح جميع المراحل عند العرض داخل القسم.</p>
+        </div>
+        <a class="btn btn-dark" href="./index.html">الصفحة الأولى</a>
+      </div>
+      <div class="progress-wrap" aria-label="شريط التقدم"><div class="progress-bar" data-progress></div></div>
+      <div class="guide-bubble"><div class="guide-avatar">🧭</div><p>الرحلة قصيرة في كل صفحة، لكنها غنية: اقرأ، جرّب، اربح النقاط، ثم انتقل إلى المرحلة التالية.</p></div>
+      <div class="notice"><strong>جديد:</strong> في نهاية الدرس ستجد <a href="./report.html" style="text-decoration:underline;font-weight:1000">التقرير الكامل القابل للطباعة</a>، وليس ملخصاً قصيراً. يصلح للمراجعة والتوزيع على التلاميذ.</div>
+      <div class="stage-map" id="stageMap"></div>
+      <div class="teacher-tools">
+        <button class="btn btn-light" onclick="unlockAll()">فتح جميع المراحل للأستاذ</button>
+        <button class="btn btn-light" onclick="resetApp()">تصفير التقدم</button>
+      </div>
+      <div class="divider"></div>
+      <h3>الأوسمة المحصل عليها</h3>
+      <div class="badge-row" data-badges></div>
+    </section>
+  </main>
+  <nav class="bottom-nav"><a class="active" href="./map.html"><span>🗺️</span>الخريطة</a><a href="./lesson1.html"><span>📜</span>الدرس</a><a href="./concentration.html"><span>🧩</span>اللعبة</a><a href="./final.html"><span>🏆</span>التحدي</a><a href="./report.html"><span>📘</span>التقرير</a></nav>
+  <div id="toast" class="toast"></div><script src="./app.js"></script>
+</body>
+</html>

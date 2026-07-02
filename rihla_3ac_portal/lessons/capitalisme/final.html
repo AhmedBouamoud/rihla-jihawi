@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0f172a"><title>التحدي النهائي | أوروبا الصناعية</title><link rel="manifest" href="./manifest.webmanifest"><link rel="stylesheet" href="./style.css"></head>
+<body>
+  <div class="topbar"><div class="brand"><div class="logo-mark">🏆</div><div><h1>المرحلة 7: التحدي النهائي</h1><small>النقاط: <span data-score></span></small></div></div><div class="top-actions"><a class="pill" href="../../index.html">🏠 البوابة</a><a class="pill" href="./map.html">🗺️ الخريطة</a></div></div>
+  <main class="app-shell"><section class="page">
+    <div class="page-head"><div><h2 class="page-title">اختبار شامل: هل فهمت الدرس؟</h2><p class="page-sub">أجب عن الأسئلة العشرة. عند النجاح ستحصل على وسام النهاية وشهادة باسمك.</p></div></div>
+    <div class="guide-bubble"><div class="guide-avatar">🧭</div><p>لا تقلق من الخطأ. الهدف أن تتعلم: اقرأ السؤال جيداً واختر الجواب الأنسب.</p></div>
+    <div id="finalQuiz" class="final-quiz"></div>
+    <div class="card" id="resultBox" style="display:none;margin-top:14px"></div>
+    <div class="cta-row"><button class="btn btn-primary" onclick="submitFinal()">تصحيح الاختبار ✅</button><a class="btn btn-light" href="./documents.html">رجوع</a><a class="btn btn-dark" href="./certificate.html">الشهادة</a><a class="btn btn-success" href="./report.html">التقرير الكامل 📘</a></div>
+  </section></main>
+  <nav class="bottom-nav"><a href="./map.html"><span>🗺️</span>الخريطة</a><a href="./lesson1.html"><span>📜</span>الدرس</a><a href="./concentration.html"><span>🧩</span>اللعبة</a><a class="active" href="./final.html"><span>🏆</span>التحدي</a><a href="./report.html"><span>📘</span>التقرير</a></nav>
+  <div id="toast" class="toast"></div><script src="./app.js"></script>
+  <script>
+    guardLevel(7);
+    const qs=[
+      {q:'ما معنى الرأسمالية؟',o:['نظام اقتصادي يقوم على الربح والمبادرة الفردية','نظام يمنع الملكية الفردية','مجموعة خرائط فقط'],a:0},
+      {q:'أي عنصر ساعد على تطور الصناعة في القرن 19؟',o:['الفحم والآلة البخارية','اختفاء الأبناك','تراجع النقل'],a:0},
+      {q:'ما دور السكك الحديدية؟',o:['تسريع نقل السلع والمواد الأولية','منع التجارة','إغلاق المصانع'],a:0},
+      {q:'ما المقصود بالشركة المجهولة الاسم؟',o:['شركة رأسمالها أسهم يملكها مساهمون','شركة بدون عمال','شركة تابعة للفلاحين فقط'],a:0},
+      {q:'التركيز الأفقي هو...',o:['تجمع مؤسسات تنتج المنتوج نفسه','تجمع مراحل إنتاج مختلفة','هجرة سكان المدن'],a:0},
+      {q:'التركيز العمودي هو...',o:['اندماج مؤسسات متكاملة في سلسلة إنتاج واحدة','اتفاق عمال فقط','صورة وثائقية'],a:0},
+      {q:'الكارتل يعني...',o:['اتفاق شركات للحد من المنافسة مع بقاء استقلالها','اندماج كامل لشركات في شركة واحدة','شركة مالية تملك أسهماً فقط'],a:0},
+      {q:'التراست يعني...',o:['اندماج عدة شركات في مؤسسة واحدة','اتفاق مؤقت فقط','طبقة اجتماعية فقيرة'],a:0},
+      {q:'الهولدينغ هو...',o:['شركة مالية تسيطر عبر امتلاك الأسهم','عامل مصنع','وسيلة نقل'],a:0},
+      {q:'ما الطبقة التي عانت من ظروف العمل القاسية؟',o:['البروليتاريا','البورجوازية','أصحاب الأبناك'],a:0}
+    ];
+    function renderFinal(){document.getElementById('finalQuiz').innerHTML=qs.map((q,idx)=>`<article class="question-card" id="q${idx}"><h3>${idx+1}. ${q.q}</h3>${q.o.map((op,i)=>`<label class="option"><input type="radio" name="q${idx}" value="${i}"> <b>${op}</b></label>`).join('')}</article>`).join('');}
+    function submitFinal(){let right=0,unanswered=0; qs.forEach((q,idx)=>{const chosen=document.querySelector(`input[name="q${idx}"]:checked`); const card=document.getElementById('q'+idx); card.querySelectorAll('.option').forEach((el,i)=>{el.classList.remove('correct','wrong'); if(i===q.a) el.classList.add('correct');}); if(!chosen){unanswered++; return;} if(Number(chosen.value)===q.a) right++; else chosen.closest('.option').classList.add('wrong');}); if(unanswered){toast('أجب عن كل الأسئلة أولاً.'); return;} const percent=Math.round(right/qs.length*100); const box=document.getElementById('resultBox'); box.style.display='block'; box.innerHTML=`<h3>نتيجتك: ${right}/${qs.length} — ${percent}%</h3><p>${percent>=70?'ممتاز! يمكنك الحصول على الشهادة.':'جيد، راجع المراحل ثم حاول من جديد.'}</p>`; if(percent>=70){const s=getState(); if(!s.completed[7]){s.completed[7]=true; s.score=(s.score||0)+40; if(!s.badges.includes('سيد الرحلة التاريخية')) s.badges.push('سيد الرحلة التاريخية'); saveState(s); renderHeader();} toast('مبروك! فتحت شهادة الإنجاز.'); setTimeout(()=>location.href='certificate.html',1200);} }
+    renderFinal();
+  </script>
+</body></html>

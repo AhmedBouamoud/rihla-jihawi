@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0f172a"><title>المبيانات والخريطة | أوروبا الصناعية</title><link rel="manifest" href="./manifest.webmanifest"><link rel="stylesheet" href="./style.css"></head>
+<body>
+  <div class="topbar"><div class="brand"><div class="logo-mark">📊</div><div><h1>المرحلة 2: المصانع والمبيانات</h1><small>النقاط: <span data-score></span></small></div></div><div class="top-actions"><a class="pill" href="../../index.html">🏠 البوابة</a><a class="pill" href="./map.html">🗺️ الخريطة</a></div></div>
+  <main class="app-shell">
+    <section class="page">
+      <div class="page-head"><div><h2 class="page-title">كيف نلاحظ الازدهار الصناعي؟</h2><p class="page-sub">اسحب شريط الزمن ولاحظ ارتفاع إنتاج الفحم والصلب والقطن، ثم اكتشف مناطق الصناعة على خريطة أوروبا.</p></div></div>
+      <div class="guide-bubble"><div class="guide-avatar">🧭</div><p>المؤرخ لا يكتفي بالحفظ؛ إنه يقرأ الأرقام والخرائط ليستنتج التحولات.</p></div>
+      <div class="grid two">
+        <div class="timeline">
+          <h3>مبيان تفاعلي: تطور الإنتاج</h3>
+          <div class="slider-row">
+            <label for="yearRange">السنة: <strong id="yearLabel">1800</strong></label>
+            <input type="range" id="yearRange" min="1800" max="1900" value="1800" step="25" oninput="updateBars()">
+          </div>
+          <div class="bars" aria-label="أعمدة مبيان الإنتاج">
+            <div class="bar-wrap"><span class="value-chip" id="coalVal">20</span><div class="bar" id="coalBar" style="height:40px"></div><span class="bar-label">الفحم</span></div>
+            <div class="bar-wrap"><span class="value-chip" id="steelVal">12</span><div class="bar b2" id="steelBar" style="height:30px"></div><span class="bar-label">الصلب</span></div>
+            <div class="bar-wrap"><span class="value-chip" id="cottonVal">18</span><div class="bar b3" id="cottonBar" style="height:36px"></div><span class="bar-label">القطن</span></div>
+          </div>
+          <p class="notice" id="graphNote">في بداية القرن 19 كانت الصناعة في طور التوسع، وستلاحظ ارتفاعاً قوياً مع نهاية القرن.</p>
+        </div>
+        <div class="timeline">
+          <h3>خريطة أوروبا الصناعية</h3>
+          <div class="europe-map">
+            <div class="map-shape m1"></div><div class="map-shape m2"></div><div class="map-shape m3"></div>
+            <button class="map-pin pin1" onclick="mapInfo('بريطانيا','انطلقت منها الثورة الصناعية بقوة، وتطورت فيها صناعة النسيج والفحم والحديد.')">بريطانيا</button>
+            <button class="map-pin pin2" onclick="mapInfo('فرنسا','عرفت تطوراً صناعياً وحضرياً، وبرزت فيها الأبناك والمشاريع الكبرى.')">فرنسا</button>
+            <button class="map-pin pin3" onclick="mapInfo('ألمانيا','برزت بقوة في الصناعات الثقيلة والصلب والكيمياء، خاصة في أواخر القرن 19.')">ألمانيا</button>
+            <button class="map-pin pin4" onclick="mapInfo('بلجيكا','كانت من المناطق الصناعية المهمة بفضل الفحم والمعادن وموقعها الأوروبي.')">بلجيكا</button>
+            <div class="pin-info" id="pinInfo"><strong>اضغط على دولة</strong><br>لاكتشاف المناطق الصناعية الكبرى وخطوط التوسع الاقتصادي.</div>
+          </div>
+        </div>
+      </div>
+      <div class="quiz-box" id="miniQuiz"></div>
+      <div class="cta-row"><button class="btn btn-primary" onclick="completeLevel(2,'banks.html','قارئ المبيانات',25)">أكملت المبيان والخريطة — إلى الأبناك 🏦</button><a class="btn btn-light" href="./lesson1.html">رجوع</a></div>
+    </section>
+  </main>
+  <nav class="bottom-nav"><a href="./map.html"><span>🗺️</span>الخريطة</a><a class="active" href="./graph.html"><span>📊</span>مبيان</a><a href="./concentration.html"><span>🧩</span>اللعبة</a><a href="./final.html"><span>🏆</span>التحدي</a><a href="./report.html"><span>📘</span>التقرير</a></nav>
+  <div id="toast" class="toast"></div><script src="./app.js"></script>
+  <script>
+    guardLevel(2);
+    const data={1800:[20,12,18,'بداية التوسع الصناعي مع الاعتماد الكبير على الفحم والآلة البخارية.'],1825:[35,24,33,'تتوسع السكك الحديدية وتزداد الحاجة إلى الفحم والحديد.'],1850:[60,42,58,'منتصف القرن: المصانع والمدن الصناعية تكبر بسرعة.'],1875:[95,80,78,'ظهور صناعات ثقيلة قوية وتوسع الأبناك والشركات.'],1900:[135,125,105,'نهاية القرن: إنتاج ضخم وشركات كبرى ومنافسة اقتصادية شديدة.']};
+    function updateBars(){const y=document.getElementById('yearRange').value; const v=data[y]; document.getElementById('yearLabel').textContent=y; ['coal','steel','cotton'].forEach((id,i)=>{document.getElementById(id+'Val').textContent=v[i]; document.getElementById(id+'Bar').style.height=(v[i]*1.55)+'px';}); document.getElementById('graphNote').textContent=v[3];}
+    function mapInfo(title,text){document.getElementById('pinInfo').innerHTML='<strong>'+title+'</strong><br>'+text; toast('اكتشفت منطقة صناعية: '+title);}
+    tinyQuiz('miniQuiz',[
+      {q:'ما الوثيقة المناسبة لإظهار تطور الإنتاج عبر الزمن؟',options:['المبيان','الخريطة الصماء','الصورة الشخصية'],a:0},
+      {q:'ماذا يدل ارتفاع أعمدة الفحم والصلب؟',options:['تراجع الصناعة','تطور الإنتاج الصناعي','انخفاض النقل'],a:1}
+    ],'أحسنت قراءة المبيان.');
+    updateBars();
+  </script>
+</body></html>

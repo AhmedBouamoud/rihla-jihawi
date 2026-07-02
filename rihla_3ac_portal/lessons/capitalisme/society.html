@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0f172a"><title>المدينة الصناعية | الانعكاسات الاجتماعية</title><link rel="manifest" href="./manifest.webmanifest"><link rel="stylesheet" href="./style.css"></head>
+<body>
+  <div class="topbar"><div class="brand"><div class="logo-mark">🏙️</div><div><h1>المرحلة 5: المدينة الصناعية</h1><small>النقاط: <span data-score></span></small></div></div><div class="top-actions"><a class="pill" href="../../index.html">🏠 البوابة</a><a class="pill" href="./map.html">🗺️ الخريطة</a></div></div>
+  <main class="app-shell"><section class="page">
+    <div class="page-head"><div><h2 class="page-title">من استفاد؟ ومن عانى؟</h2><p class="page-sub">ازدهار الرأسمالية خلق مدناً كبرى وطبقات اجتماعية جديدة: البورجوازية والبروليتاريا.</p></div></div>
+    <div class="guide-bubble"><div class="guide-avatar">🧭</div><p>الدرس ليس مصانع وأرقاماً فقط. خلف الدخان يوجد بشر: ملاك مصانع، عمال، نساء، أطفال، وسكان هاجروا إلى المدن.</p></div>
+    <div class="city">
+      <section class="district bourgeois"><h3>🏛️ حي البورجوازية</h3><p>طبقة غنية امتلكت المصانع والأبناك والشركات، واستفادت من الأرباح.</p><div class="person-card" onclick="openModal('البورجوازية','<p>هي الطبقة المالكة لوسائل الإنتاج: مصانع، أبناك، شركات، أراضٍ وتجارات كبرى.</p>')">👔 صاحب مصنع</div><div class="person-card" onclick="openModal('البنك والصناعة','<p>ساهمت الأبناك في تمويل المشاريع الكبرى، مما عزز قوة الرأسماليين.</p>')">🏦 مصرفي</div><div class="person-card" onclick="openModal('نمط العيش','<p>تمتعت البورجوازية بسكن أفضل وتعليم ورفاهية أكبر مقارنة بالعمال.</p>')">🏰 منزل فاخر</div></section>
+      <section class="district workers"><h3>🏚️ حي العمال</h3><p>البروليتاريا طبقة عاملة اشتغلت في المصانع بأجور ضعيفة وظروف قاسية.</p><div class="person-card" onclick="openModal('البروليتاريا','<p>هي الطبقة العاملة التي لا تملك وسائل الإنتاج، وتعيش من بيع قوة عملها مقابل أجر.</p>')">🧑‍🏭 عامل مصنع</div><div class="person-card" onclick="openModal('ظروف العمل','<p>طول ساعات العمل، ضعف الأجور، تشغيل النساء والأطفال، وحوادث الشغل.</p>')">⏰ يوم عمل طويل</div><div class="person-card" onclick="openModal('النضال العمالي','<p>دفعت المعاناة العمال إلى تأسيس نقابات وتنظيم إضرابات للمطالبة بتحسين الأجور وتقليص ساعات العمل.</p>')">✊ إضراب ونقابة</div></section>
+    </div>
+    <div class="grid two" style="margin-top:14px">
+      <article class="card concept"><div class="icon">👥</div><div><h3>النمو الديموغرافي</h3><p>ارتفع عدد سكان أوروبا بسبب تحسن التغذية والطب والنقل، مما وفر يداً عاملة وأسواقاً واسعة.</p></div></article>
+      <article class="card concept"><div class="icon">🏘️</div><div><h3>التمدين</h3><p>هاجر كثير من القرويين إلى المدن الصناعية بحثاً عن العمل، فكبرت المدن بسرعة.</p></div></article>
+    </div>
+    <div class="quiz-box" id="miniQuiz"></div>
+    <div class="cta-row"><button class="btn btn-primary" onclick="completeLevel(5,'documents.html','مستكشف المدينة الصناعية',25)">أكملت المدينة — إلى مختبر الوثائق 🔎</button><a class="btn btn-light" href="./concentration.html">رجوع</a></div>
+  </section></main>
+  <nav class="bottom-nav"><a href="./map.html"><span>🗺️</span>الخريطة</a><a href="./lesson1.html"><span>📜</span>الدرس</a><a href="./concentration.html"><span>🧩</span>اللعبة</a><a href="./final.html"><span>🏆</span>التحدي</a><a href="./report.html"><span>📘</span>التقرير</a></nav>
+  <div id="toast" class="toast"></div><script src="./app.js"></script>
+  <script>
+    guardLevel(5);
+    tinyQuiz('miniQuiz',[
+      {q:'ما الطبقة التي امتلكت المصانع والأبناك؟',options:['البورجوازية','البروليتاريا','الفلاحون فقط'],a:0},
+      {q:'ما معنى البروليتاريا؟',options:['طبقة العمال','أصحاب الأبناك','مالكو الشركات'],a:0},
+      {q:'ما المقصود بالتمدين؟',options:['نمو المدن وانتقال السكان إليها','اختفاء المصانع','انخفاض عدد السكان'],a:0}
+    ],'أصبحت قادراً على تفسير الانعكاسات الاجتماعية.');
+  </script>
+</body></html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0f172a"><title>الأبناك والشركات | أوروبا الصناعية</title><link rel="manifest" href="./manifest.webmanifest"><link rel="stylesheet" href="./style.css"></head>
+<body>
+  <div class="topbar"><div class="brand"><div class="logo-mark">🏦</div><div><h1>المرحلة 3: الأبناك والشركات</h1><small>النقاط: <span data-score></span></small></div></div><div class="top-actions"><a class="pill" href="../../index.html">🏠 البوابة</a><a class="pill" href="./map.html">🗺️ الخريطة</a></div></div>
+  <main class="app-shell"><section class="page">
+    <div class="page-head"><div><h2 class="page-title">كيف موّلت الأبناك ازدهار الرأسمالية؟</h2><p class="page-sub">جرّب بناء مشروع صناعي: ستحتاج إلى بنك، أسهم، عمال، وآلات.</p></div></div>
+    <div class="guide-bubble"><div class="guide-avatar">🧭</div><p>المصنع الكبير يحتاج أموالاً ضخمة. هنا يظهر دور الأبناك والشركات المجهولة الاسم في جمع الرساميل.</p></div>
+    <div class="grid two">
+      <div class="card sim-panel">
+        <h3>محاكاة: ابنِ مصنعك</h3>
+        <div class="money"><span id="money">100</span> 💰</div>
+        <div class="resource-row"><div class="resource"><strong id="machines">0</strong>آلات</div><div class="resource"><strong id="workers">0</strong>عمال</div><div class="resource"><strong id="shares">0</strong>أسهم</div></div>
+        <button class="btn btn-light" onclick="takeLoan()">اطلب قرضاً من البنك +80</button>
+        <button class="btn btn-light" onclick="sellShares()">بع أسهماً واجمع رأسمال +60</button>
+        <button class="btn btn-light" onclick="buyMachine()">اشتر آلة -70</button>
+        <button class="btn btn-light" onclick="hireWorkers()">شغّل عمالاً -40</button>
+        <button class="btn btn-success" onclick="runFactory()">شغّل المصنع</button>
+        <p class="notice" id="simNote">ابدأ بجمع رأس المال، ثم اشتر آلة وشغّل عمالاً.</p>
+      </div>
+      <div class="grid">
+        <article class="card concept"><div class="icon">🏦</div><div><h3>الأبناك</h3><p>تقدم القروض للصناعيين والتجار، وتساهم في تمويل المشاريع الكبرى كالسكك الحديدية والمصانع.</p></div></article>
+        <article class="card concept"><div class="icon">📈</div><div><h3>الأسهم</h3><p>السهم جزء من رأسمال الشركة. ببيع الأسهم تجمع الشركة أموالاً من عدة مساهمين.</p></div></article>
+        <article class="card concept"><div class="icon">🏢</div><div><h3>الشركة المجهولة الاسم</h3><p>شركة يتكون رأسمالها من أسهم، مما يسمح بجمع أموال كثيرة وإنجاز مشاريع لا يقدر عليها فرد واحد.</p></div></article>
+      </div>
+    </div>
+    <div class="quiz-box" id="miniQuiz"></div>
+    <div class="cta-row"><button class="btn btn-primary" onclick="completeLevel(3,'concentration.html','ممول المشاريع',25)">فهمت دور الأبناك — إلى لعبة التركيز 🧩</button><a class="btn btn-light" href="./graph.html">رجوع</a></div>
+  </section></main>
+  <nav class="bottom-nav"><a href="./map.html"><span>🗺️</span>الخريطة</a><a class="active" href="./banks.html"><span>🏦</span>الأبناك</a><a href="./concentration.html"><span>🧩</span>اللعبة</a><a href="./final.html"><span>🏆</span>التحدي</a><a href="./report.html"><span>📘</span>التقرير</a></nav>
+  <div id="toast" class="toast"></div><script src="./app.js"></script>
+  <script>
+    guardLevel(3);
+    let money=100,machines=0,workers=0,shares=0;
+    function drawSim(){moneyEl=document.getElementById('money'); moneyEl.textContent=money; document.getElementById('machines').textContent=machines; document.getElementById('workers').textContent=workers; document.getElementById('shares').textContent=shares;}
+    function note(t){document.getElementById('simNote').textContent=t; toast(t);}
+    function takeLoan(){money+=80; note('البنك قدم قرضاً: زاد رأس المال، لكن المشروع أصبح مطالباً بالربح.'); drawSim();}
+    function sellShares(){money+=60; shares++; note('بعت أسهماً: ساهم أشخاص متعددون في تمويل الشركة.'); drawSim();}
+    function buyMachine(){if(money<70){note('تحتاج إلى مال أكثر. اطلب قرضاً أو بع أسهماً.');return;} money-=70; machines++; note('اشتريت آلة: الإنتاج سيصبح أسرع.'); drawSim();}
+    function hireWorkers(){if(money<40){note('تحتاج إلى مال لتشغيل العمال.');return;} money-=40; workers+=5; note('شغلت عمالاً: المصنع يحتاج قوة عمل.'); drawSim();}
+    function runFactory(){if(machines>=1 && workers>=5){money+=130; note('نجح المصنع! لاحظ كيف اجتمع البنك والأسهم والعمال والآلات لصناعة الربح.');}else{note('المصنع غير جاهز: تحتاج آلة واحدة و5 عمال على الأقل.');} drawSim();}
+    drawSim();
+    tinyQuiz('miniQuiz',[
+      {q:'لماذا احتاجت الشركات الصناعية إلى الأبناك؟',options:['لتمويل المشاريع الكبرى','لمنع استعمال الآلات','لإغلاق المصانع'],a:0},
+      {q:'ما معنى السهم؟',options:['جزء من رأسمال الشركة','آلة بخارية','نوع من الفحم'],a:0},
+      {q:'ماذا تسمح به الشركة المجهولة الاسم؟',options:['جمع أموال كثيرة من مساهمين','إلغاء الإنتاج','منع التجارة'],a:0}
+    ],'أصبحت جاهزاً لفهم التركيز الرأسمالي.');
+  </script>
+</body></html>
