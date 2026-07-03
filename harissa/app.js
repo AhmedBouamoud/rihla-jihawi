@@ -919,6 +919,34 @@ document.getElementById('btnMsgCopy').addEventListener('click', async ()=>{
   try{ await navigator.clipboard.writeText(text); toast('تم نسخ النص'); }
   catch(e){ toast('تعذر النسخ التلقائي — انسخ النص يدوياً'); }
 });
+document.getElementById('btnMsgAI').addEventListener('click', async ()=>{
+  const btn = document.getElementById('btnMsgAI');
+  const student = currentMsgStudent();
+  const draftText = document.getElementById('msgPreview').value.trim();
+  if(!draftText){ toast('لا يوجد نص لتحسينه'); return; }
+  const originalLabel = btn.textContent;
+  btn.disabled = true; btn.textContent = '⏳ جارٍ التحسين...';
+  try{
+    const resp = await fetch('/.netlify/functions/draft-message', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        draftText,
+        studentName: student ? student.fullName : '',
+        section: student ? student.section : '',
+        caseType: state._msgCaseType || '',
+        institution: state.settings.institution
+      })
+    });
+    const data = await resp.json().catch(()=>({}));
+    if(!resp.ok || !data.text){ toast(data.error || 'تعذر الاتصال بخدمة الذكاء الاصطناعي'); return; }
+    document.getElementById('msgPreview').value = data.text;
+    toast('تم تحسين الصياغة — راجع النص قبل الإرسال');
+  }catch(e){
+    toast('تعذر الاتصال بخدمة الذكاء الاصطناعي — تحقق من الاتصال بالإنترنت');
+  }finally{
+    btn.disabled = false; btn.textContent = originalLabel;
+  }
+});
 function renderMsgLog(){
   const rows = state.msglog.slice(0,20);
   document.getElementById('msgLogTbody').innerHTML = rows.length ? rows.map(m=>{
