@@ -53,6 +53,7 @@
     transition:.15s;
   }
   .icon-btn:hover{background:rgba(255,255,255,.22)}
+  .icon-btn.lang-btn{background:rgba(180,130,12,.35);border-color:rgba(244,226,179,.5);font-weight:800}
 
   .letterhead-bar{
     background:#fff; border-bottom:1px solid var(--line); padding:10px 16px; font-size:.82rem; color:var(--muted);
@@ -176,7 +177,7 @@
   /* Log */
   .log-table-wrap{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
   table.log-table{width:100%;border-collapse:collapse;min-width:640px}
-  table.log-table th,table.log-table td{padding:10px 12px;font-size:.85rem;border-bottom:1px solid var(--line);text-align:right}
+  table.log-table th,table.log-table td{padding:10px 12px;font-size:.85rem;border-bottom:1px solid var(--line);text-align:start}
   table.log-table th{background:#f2f5f8;color:var(--navy-2)}
   table.log-table tr:hover td{background:#f9fbfd}
 
@@ -215,15 +216,16 @@
     <div class="brand">
       <span class="emoji">🛡️</span>
       <div>
-        <h1>الحراسة العامة</h1>
-        <div class="sub">نماذج تقارير مرنة — قابلة للتخصيص والطباعة</div>
+        <h1 id="appTitleEl">الحراسة العامة</h1>
+        <div class="sub" id="appSubtitleEl">نماذج تقارير مرنة — قابلة للتخصيص والطباعة</div>
       </div>
     </div>
     <div class="header-actions">
-      <button class="icon-btn" id="btnHome">🏠 الرئيسية</button>
-      <button class="icon-btn" id="btnLog">🗂️ سجل التقارير</button>
-      <button class="icon-btn" id="btnNewTpl">➕ قالب جديد</button>
-      <button class="icon-btn" id="btnSettings">⚙️ إعدادات المؤسسة</button>
+      <button class="icon-btn" id="btnHome">🏠 <span id="lblHome"></span></button>
+      <button class="icon-btn" id="btnLog">🗂️ <span id="lblLog"></span></button>
+      <button class="icon-btn" id="btnNewTpl">➕ <span id="lblNewTpl"></span></button>
+      <button class="icon-btn" id="btnSettings">⚙️ <span id="lblSettings"></span></button>
+      <button class="icon-btn lang-btn" id="btnLangToggle">🌐 <span id="lblLangToggle"></span></button>
     </div>
   </div>
 </header>
@@ -231,7 +233,7 @@
 <div class="letterhead-bar no-print">
   <div class="inner">
     <span><b id="lhInst">—</b> · <span id="lhNiaba">—</span> · <span id="lhAcad">—</span></span>
-    <span>السنة الدراسية: <b id="lhYear">—</b></span>
+    <span><span id="lhYearLabel"></span> <b id="lhYear">—</b></span>
   </div>
 </div>
 
@@ -240,10 +242,10 @@
   <!-- ============ HOME VIEW ============ -->
   <section class="view" id="view-home">
     <div class="view-title">
-      <h2>نماذج التقارير</h2>
+      <h2 id="homeTitleEl">نماذج التقارير</h2>
     </div>
     <div class="search-row">
-      <input type="text" id="searchInput" placeholder="ابحث عن نموذج (مثال: غياب، تأخر، حادثة...)">
+      <input type="text" id="searchInput" placeholder="">
       <select id="categoryFilter"><option value="">كل الفئات</option></select>
     </div>
     <div id="templatesContainer"></div>
@@ -254,24 +256,24 @@
     <div class="view-title">
       <h2 id="fillTitle">تعبئة نموذج</h2>
       <div class="toolbar no-print">
-        <button class="btn btn-light" id="btnBackFromFill">↩ رجوع</button>
-        <button class="btn btn-light" id="btnClearForm">🧹 تفريغ الحقول</button>
-        <button class="btn btn-primary" id="btnSaveReport">💾 حفظ في السجل</button>
-        <button class="btn btn-gold" id="btnPrintReport">🖨️ طباعة / PDF</button>
+        <button class="btn btn-light" id="btnBackFromFill"><span id="lblBackFill"></span></button>
+        <button class="btn btn-light" id="btnClearForm">🧹 <span id="lblClearForm"></span></button>
+        <button class="btn btn-primary" id="btnSaveReport">💾 <span id="lblSaveReport"></span></button>
+        <button class="btn btn-gold" id="btnPrintReport">🖨️ <span id="lblPrintReport"></span></button>
       </div>
     </div>
     <div class="fill-layout">
       <div class="panel no-print" id="formPanel">
-        <h3>📝 بيانات النموذج</h3>
+        <h3>📝 <span id="formPanelTitleEl"></span></h3>
         <div id="formFields"></div>
         <div id="extraFieldsWrap">
-          <h3 style="margin-top:18px">➕ حقول إضافية لهذا التقرير</h3>
+          <h3 style="margin-top:18px">➕ <span id="extraFieldsTitleEl"></span></h3>
           <div id="extraFieldsList"></div>
-          <button class="btn btn-light btn-sm" id="btnAddExtraField">➕ إضافة حقل إضافي</button>
+          <button class="btn btn-light btn-sm" id="btnAddExtraField">➕ <span id="lblAddExtraField"></span></button>
         </div>
       </div>
       <div class="panel" id="printArea">
-        <h3 class="no-print">🖨️ معاينة الطباعة</h3>
+        <h3 class="no-print">🖨️ <span id="printAreaTitleEl"></span></h3>
         <div class="doc" id="docPreview"></div>
       </div>
     </div>
@@ -282,46 +284,46 @@
     <div class="view-title">
       <h2 id="builderTitle">قالب جديد</h2>
       <div class="toolbar">
-        <button class="btn btn-light" id="btnBackFromBuilder">↩ رجوع</button>
-        <button class="btn btn-primary" id="btnSaveTemplate">💾 حفظ القالب</button>
+        <button class="btn btn-light" id="btnBackFromBuilder"><span id="lblBackBuilder"></span></button>
+        <button class="btn btn-primary" id="btnSaveTemplate">💾 <span id="lblSaveTemplate"></span></button>
       </div>
     </div>
     <div class="panel" style="margin-bottom:14px">
       <div class="field-group">
-        <label>اسم النموذج <span class="req">*</span></label>
-        <input type="text" id="tplName" placeholder="مثال: تقرير غياب مخصص">
+        <label id="tplNameLabelEl">اسم النموذج <span class="req">*</span></label>
+        <input type="text" id="tplName" placeholder="">
       </div>
       <div class="field-group">
-        <label>الفئة</label>
-        <input type="text" id="tplCategory" list="catList" placeholder="مثال: الغياب والتأخر">
+        <label id="tplCategoryLabelEl">الفئة</label>
+        <input type="text" id="tplCategory" list="catList" placeholder="">
         <datalist id="catList"></datalist>
       </div>
     </div>
     <div class="panel">
-      <h3>حقول النموذج</h3>
+      <h3 id="builderFieldsTitleEl">حقول النموذج</h3>
       <div id="builderFields"></div>
-      <button class="btn btn-light btn-sm" id="btnAddField">➕ إضافة حقل</button>
+      <button class="btn btn-light btn-sm" id="btnAddField">➕ <span id="lblAddFieldBtn"></span></button>
     </div>
   </section>
 
   <!-- ============ LOG VIEW ============ -->
   <section class="view hidden" id="view-log">
     <div class="view-title">
-      <h2>سجل التقارير المحفوظة</h2>
+      <h2 id="logTitleEl">سجل التقارير المحفوظة</h2>
       <div class="toolbar">
-        <button class="btn btn-light" id="btnExportAll">⬇️ تصدير نسخة احتياطية</button>
+        <button class="btn btn-light" id="btnExportAll">⬇️ <span id="lblExportAll"></span></button>
         <label class="btn btn-light" style="position:relative;overflow:hidden">
-          ⬆️ استيراد
+          ⬆️ <span id="lblImportFile"></span>
           <input type="file" id="importFile" accept="application/json" style="position:absolute;inset:0;opacity:0;cursor:pointer">
         </label>
       </div>
     </div>
     <div class="search-row">
-      <input type="text" id="logSearch" placeholder="ابحث في السجل...">
+      <input type="text" id="logSearch" placeholder="">
     </div>
     <div class="log-table-wrap">
       <table class="log-table">
-        <thead><tr><th>النموذج</th><th>الفئة</th><th>تاريخ الحفظ</th><th>إجراءات</th></tr></thead>
+        <thead><tr><th id="thName"></th><th id="thCategory"></th><th id="thDate"></th><th id="thActions"></th></tr></thead>
         <tbody id="logTbody"></tbody>
       </table>
     </div>
@@ -330,7 +332,7 @@
 </div>
 
 <footer class="app-footer no-print">
-  تطبيق الحراسة العامة — جميع البيانات محفوظة محلياً في متصفحك فقط (لا يوجد اتصال بخادم خارجي).
+  <span id="footerTextEl"></span>
 </footer>
 
 <div class="toast" id="toast"></div>
@@ -339,26 +341,144 @@
 (function(){
 "use strict";
 
-/* ============================= ثوابت وتخزين ============================= */
+/* ============================= ثوابت وتخزين / Constantes et stockage ============================= */
 const K_SETTINGS = 'harissa_settings_v1';
 const K_TEMPLATES = 'harissa_templates_v1';
 const K_REPORTS = 'harissa_reports_v1';
+const K_LANG = 'harissa_lang_v1';
 
-const CATEGORY_ICONS = {
-  'الغياب والتأخر':'📋',
-  'السلوك والانضباط':'⚖️',
-  'الحوادث والوقائع':'🚨',
-  'المراسلات':'✉️',
-  'المجالس والمحاضر':'🏛️',
-  'الامتحانات':'📝',
-  'أخرى':'🗂️'
+/* ============================= الترجمة / i18n ============================= */
+const STRINGS = {
+  ar: {
+    pageTitle:'الحراسة العامة — نماذج التقارير',
+    appTitle:'الحراسة العامة', appSubtitle:'نماذج تقارير مرنة — قابلة للتخصيص والطباعة',
+    navHome:'الرئيسية', navLog:'سجل التقارير', navNewTpl:'قالب جديد', navSettings:'إعدادات المؤسسة',
+    langToggle:'FR',
+    lhYearLabel:'السنة الدراسية:', lhInstDefault:'اسم المؤسسة غير محدد', lhNiabaDefault:'النيابة الإقليمية', lhAcadDefault:'الأكاديمية الجهوية',
+    homeTitle:'نماذج التقارير', searchPlaceholder:'ابحث عن نموذج (مثال: غياب، تأخر، حادثة...)', allCategories:'كل الفئات',
+    fieldsCountSuffix:'حقل/حقول', customBadge:'مخصص',
+    openTemplateBtn:'📝 فتح النموذج', editBtn:'✏️ تعديل', deleteBtn:'🗑️ حذف', duplicateEditBtn:'📄 تكرار وتعديل',
+    emptyTemplates:'لا توجد نماذج مطابقة. جرّب كلمة بحث أخرى أو أنشئ قالباً جديداً.',
+    confirmDeleteTemplate: name=>`هل تريد حذف القالب "${name}"؟ لن يتم حذف التقارير المحفوظة المرتبطة به من السجل.`,
+    templateDeletedToast:'تم حذف القالب',
+    backBtn:'↩ رجوع', clearFormBtn:'تفريغ الحقول', saveReportBtn:'حفظ في السجل', printBtn:'طباعة / PDF',
+    formPanelTitle:'بيانات النموذج', extraFieldsTitle:'حقول إضافية لهذا التقرير', addExtraFieldBtn:'إضافة حقل إضافي',
+    printAreaTitle:'معاينة الطباعة',
+    noExtraFieldsMsg:'لا توجد حقول إضافية. أضف حقلاً إذا احتجت معلومة غير موجودة في النموذج.',
+    extraFieldLabelPrompt:'عنوان الحقل الإضافي (مثال: اسم الشاهد، رقم الهاتف...)',
+    extraFieldTypePrompt:'نوع الحقل: اكتب واحداً من\n1 = نص قصير\n2 = نص طويل\n3 = رقم\n4 = تاريخ',
+    confirmClearFields:'هل تريد تفريغ كل الحقول؟',
+    missingFieldsToast: names=>'يرجى تعبئة: ' + names,
+    savedReportToast:'تم حفظ التقرير في السجل',
+    addRowBtn:'➕ إضافة سطر', deleteRowBtn:'حذف', selectPlaceholderOpt:'— اختر —',
+    kingdomLine:'المملكة المغربية', ministryLine:'وزارة التربية الوطنية والتعليم الأولي والرياضة',
+    academicYearLabel:'السنة الدراسية:', editDateLabel:'تاريخ التحرير:', additionalInfoLabel:'معلومات إضافية',
+    supervisorRole:'الحارس(ة) العام(ة)', administrationRole:'الإدارة',
+    yesLabel:'✅ نعم', noLabel:'❌ لا',
+    builderNewTitle:'قالب جديد', builderEditTitle:'تعديل القالب',
+    tplNameLabel:'اسم النموذج', tplNamePlaceholder:'مثال: تقرير غياب مخصص',
+    tplCategoryLabel:'الفئة', tplCategoryPlaceholder:'مثال: الغياب والتأخر',
+    builderFieldsTitle:'حقول النموذج', addFieldBtn:'إضافة حقل', saveTemplateBtn:'حفظ القالب',
+    fieldLabelPlaceholder:'عنوان الحقل', optionsPlaceholder:'خيارات القائمة (كل خيار في سطر)', columnsPlaceholder:'أعمدة الجدول (كل عمود في سطر)',
+    requiredFieldLabel:'حقل إلزامي', moveUpTitle:'نقل لأعلى', moveDownTitle:'نقل لأسفل', deleteFieldTitle:'حذف الحقل',
+    noFieldsYet:'لا توجد حقول بعد. اضغط "إضافة حقل" للبدء.',
+    nameRequiredToast:'يرجى إدخال اسم النموذج', atLeastOneFieldToast:'أضف حقلاً واحداً على الأقل', fieldNoLabelToast:'يوجد حقل بدون عنوان',
+    templateSavedToast:'تم حفظ القالب',
+    fieldTypeLabels:{text:'نص قصير', textarea:'نص طويل', date:'تاريخ', time:'وقت', number:'رقم', select:'قائمة اختيار', checkbox:'خانة اختيار', table:'جدول ديناميكي'},
+    defaultColumns:['عمود 1','عمود 2'],
+    logTitle:'سجل التقارير المحفوظة', exportBtn:'تصدير نسخة احتياطية', importBtn:'استيراد',
+    logSearchPlaceholder:'ابحث في السجل...',
+    logThName:'النموذج', logThCategory:'الفئة', logThDate:'تاريخ الحفظ', logThActions:'إجراءات',
+    logEmptyMsg:'لا توجد تقارير محفوظة بعد.',
+    openBtn:'فتح', duplicateBtn:'تكرار',
+    templateNotFoundToast:'تعذر العثور على القالب المرتبط بهذا التقرير',
+    confirmDeleteReport:'هل تريد حذف هذا التقرير من السجل؟', reportDeletedToast:'تم الحذف',
+    importSuccessToast:'تم الاستيراد بنجاح', importInvalidToast:'ملف غير صالح',
+    backupFilenamePrefix:'نسخة-احتياطية-الحراسة-العامة-',
+    settingsModalTitle:'⚙️ إعدادات المؤسسة', settingsInstLabel:'اسم المؤسسة', settingsNiabaLabel:'النيابة الإقليمية',
+    settingsAcadLabel:'الأكاديمية الجهوية', settingsYearLabel:'السنة الدراسية', settingsYearPlaceholder:'2025-2026',
+    settingsSupervisorLabel:'اسم الحارس(ة) العام(ة)', cancelBtn:'إلغاء', saveBtn:'💾 حفظ', settingsSavedToast:'تم حفظ الإعدادات',
+    footerText:'تطبيق الحراسة العامة — جميع البيانات محفوظة محلياً في متصفحك فقط (لا يوجد اتصال بخادم خارجي).',
+    duplicateSuffix:' (نسخة معدّلة)', listSep:'، '
+  },
+  fr: {
+    pageTitle:'Surveillance Générale — Modèles de rapports',
+    appTitle:'Surveillance Générale', appSubtitle:'Modèles de rapports flexibles — personnalisables et imprimables',
+    navHome:'Accueil', navLog:'Registre des rapports', navNewTpl:'Nouveau modèle', navSettings:"Paramètres de l'établissement",
+    langToggle:'AR',
+    lhYearLabel:'Année scolaire :', lhInstDefault:"Nom de l'établissement non défini", lhNiabaDefault:'Délégation provinciale', lhAcadDefault:'Académie régionale',
+    homeTitle:'Modèles de rapports', searchPlaceholder:'Rechercher un modèle (ex : absence, retard, incident...)', allCategories:'Toutes les catégories',
+    fieldsCountSuffix:'champ(s)', customBadge:'Personnalisé',
+    openTemplateBtn:'📝 Ouvrir le modèle', editBtn:'✏️ Modifier', deleteBtn:'🗑️ Supprimer', duplicateEditBtn:'📄 Dupliquer et modifier',
+    emptyTemplates:"Aucun modèle correspondant. Essayez un autre mot-clé ou créez un nouveau modèle.",
+    confirmDeleteTemplate: name=>`Voulez-vous supprimer le modèle "${name}" ? Les rapports déjà enregistrés dans le registre ne seront pas supprimés.`,
+    templateDeletedToast:'Modèle supprimé',
+    backBtn:'↩ Retour', clearFormBtn:'Vider les champs', saveReportBtn:'Enregistrer dans le registre', printBtn:'Imprimer / PDF',
+    formPanelTitle:'Données du modèle', extraFieldsTitle:'Champs supplémentaires pour ce rapport', addExtraFieldBtn:'Ajouter un champ supplémentaire',
+    printAreaTitle:"Aperçu avant impression",
+    noExtraFieldsMsg:"Aucun champ supplémentaire. Ajoutez un champ si une information manque dans le modèle.",
+    extraFieldLabelPrompt:"Titre du champ supplémentaire (ex : nom du témoin, numéro de téléphone...)",
+    extraFieldTypePrompt:"Type de champ : tapez l'un des suivants\n1 = Texte court\n2 = Texte long\n3 = Nombre\n4 = Date",
+    confirmClearFields:'Voulez-vous vider tous les champs ?',
+    missingFieldsToast: names=>'Veuillez remplir : ' + names,
+    savedReportToast:'Rapport enregistré dans le registre',
+    addRowBtn:'➕ Ajouter une ligne', deleteRowBtn:'Supprimer', selectPlaceholderOpt:'— Choisir —',
+    kingdomLine:'Royaume du Maroc', ministryLine:"Ministère de l'Éducation Nationale, du Préscolaire et des Sports",
+    academicYearLabel:'Année scolaire :', editDateLabel:'Date de rédaction :', additionalInfoLabel:'Informations complémentaires',
+    supervisorRole:'Surveillant(e) général(e)', administrationRole:'Administration',
+    yesLabel:'✅ Oui', noLabel:'❌ Non',
+    builderNewTitle:'Nouveau modèle', builderEditTitle:'Modifier le modèle',
+    tplNameLabel:'Nom du modèle', tplNamePlaceholder:"Ex : Rapport d'absence personnalisé",
+    tplCategoryLabel:'Catégorie', tplCategoryPlaceholder:'Ex : Absences et retards',
+    builderFieldsTitle:'Champs du modèle', addFieldBtn:'Ajouter un champ', saveTemplateBtn:'Enregistrer le modèle',
+    fieldLabelPlaceholder:'Titre du champ', optionsPlaceholder:'Options de la liste (une par ligne)', columnsPlaceholder:'Colonnes du tableau (une par ligne)',
+    requiredFieldLabel:'Champ obligatoire', moveUpTitle:'Monter', moveDownTitle:'Descendre', deleteFieldTitle:'Supprimer le champ',
+    noFieldsYet:'Aucun champ pour le moment. Cliquez sur « Ajouter un champ » pour commencer.',
+    nameRequiredToast:'Veuillez saisir le nom du modèle', atLeastOneFieldToast:'Ajoutez au moins un champ', fieldNoLabelToast:'Un champ est sans titre',
+    templateSavedToast:'Modèle enregistré',
+    fieldTypeLabels:{text:'Texte court', textarea:'Texte long', date:'Date', time:'Heure', number:'Nombre', select:'Liste déroulante', checkbox:'Case à cocher', table:'Tableau dynamique'},
+    defaultColumns:['Colonne 1','Colonne 2'],
+    logTitle:'Registre des rapports enregistrés', exportBtn:'Exporter une sauvegarde', importBtn:'Importer',
+    logSearchPlaceholder:'Rechercher dans le registre...',
+    logThName:'Modèle', logThCategory:'Catégorie', logThDate:"Date d'enregistrement", logThActions:'Actions',
+    logEmptyMsg:'Aucun rapport enregistré pour le moment.',
+    openBtn:'Ouvrir', duplicateBtn:'Dupliquer',
+    templateNotFoundToast:'Impossible de retrouver le modèle associé à ce rapport',
+    confirmDeleteReport:'Voulez-vous supprimer ce rapport du registre ?', reportDeletedToast:'Supprimé',
+    importSuccessToast:'Importation réussie', importInvalidToast:'Fichier invalide',
+    backupFilenamePrefix:'sauvegarde-surveillance-generale-',
+    settingsModalTitle:"⚙️ Paramètres de l'établissement", settingsInstLabel:"Nom de l'établissement", settingsNiabaLabel:'Délégation provinciale',
+    settingsAcadLabel:'Académie régionale', settingsYearLabel:'Année scolaire', settingsYearPlaceholder:'2025-2026',
+    settingsSupervisorLabel:'Nom du/de la surveillant(e) général(e)', cancelBtn:'Annuler', saveBtn:'💾 Enregistrer', settingsSavedToast:'Paramètres enregistrés',
+    footerText:"Application de la Surveillance Générale — toutes les données sont stockées localement dans votre navigateur uniquement (aucune connexion à un serveur externe).",
+    duplicateSuffix:' (copie modifiée)', listSep:', '
+  }
 };
-function catIcon(c){ return CATEGORY_ICONS[c] || '🗂️'; }
+
+const CATEGORIES = [
+  {id:'ghiyab', ar:'الغياب والتأخر', fr:'Absences et retards', icon:'📋'},
+  {id:'suluk', ar:'السلوك والانضباط', fr:'Comportement et discipline', icon:'⚖️'},
+  {id:'hawadith', ar:'الحوادث والوقائع', fr:'Incidents et événements', icon:'🚨'},
+  {id:'murasalat', ar:'المراسلات', fr:'Correspondances', icon:'✉️'},
+  {id:'majalis', ar:'المجالس والمحاضر', fr:'Conseils et procès-verbaux', icon:'🏛️'},
+  {id:'imtihanat', ar:'الامتحانات', fr:'Examens', icon:'📝'},
+  {id:'other', ar:'أخرى', fr:'Autre', icon:'🗂️'}
+];
+function categoryById(id){ return CATEGORIES.find(c=>c.id===id); }
+function categoryLabel(catValue){ const c=categoryById(catValue); return c ? L(c) : catValue; }
+function categoryIcon(catValue){ const c=categoryById(catValue); return c ? c.icon : '🗂️'; }
 
 function esc(v){
   if(v===undefined || v===null) return '';
   return String(v).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 }
+function L(val){
+  if(val===undefined || val===null) return '';
+  if(typeof val==='object') return val[state.lang] || val.ar || val.fr || '';
+  return String(val);
+}
+function colId(c){ return (c && typeof c==='object') ? c.id : c; }
+function optionId(o){ return (o && typeof o==='object') ? o.id : o; }
 function uid(prefix){ return (prefix||'id') + '_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,8); }
 function todayISO(){ const d=new Date(); return d.toISOString().slice(0,10); }
 function loadJSON(key, fallback){
@@ -378,102 +498,117 @@ function toast(msg){
 /* ============================= النماذج الجاهزة (Built-in) ============================= */
 const BUILTIN_TEMPLATES = [
   {
-    id:'ghiyab', builtin:true, category:'الغياب والتأخر', name:'تقرير غياب التلاميذ',
+    id:'ghiyab', builtin:true, category:'ghiyab', name:{ar:'تقرير غياب التلاميذ', fr:"Rapport d'absence des élèves"},
     fields:[
-      {id:'f1', type:'date', label:'اليوم والتاريخ', required:true},
-      {id:'f2', type:'text', label:'القسم / الأقسام المعنية', required:false},
-      {id:'f3', type:'table', label:'لائحة الغياب', columns:['الاسم الكامل','رقم التسجيل','القسم','مدة الغياب','السبب (إن وجد)']},
-      {id:'f4', type:'textarea', label:'ملاحظات عامة', required:false}
+      {id:'f1', type:'date', label:{ar:'اليوم والتاريخ', fr:'Jour et date'}, required:true},
+      {id:'f2', type:'text', label:{ar:'القسم / الأقسام المعنية', fr:'Classe(s) concernée(s)'}, required:false},
+      {id:'f3', type:'table', label:{ar:'لائحة الغياب', fr:'Liste des absences'}, columns:[
+        {id:'c1',ar:'الاسم الكامل',fr:'Nom complet'},{id:'c2',ar:'رقم التسجيل',fr:"N° d'inscription"},
+        {id:'c3',ar:'القسم',fr:'Classe'},{id:'c4',ar:'مدة الغياب',fr:"Durée de l'absence"},{id:'c5',ar:'السبب (إن وجد)',fr:'Motif (le cas échéant)'}
+      ]},
+      {id:'f4', type:'textarea', label:{ar:'ملاحظات عامة', fr:'Remarques générales'}, required:false}
     ]
   },
   {
-    id:'taakhor', builtin:true, category:'الغياب والتأخر', name:'تقرير التأخر عن الحصص',
+    id:'taakhor', builtin:true, category:'ghiyab', name:{ar:'تقرير التأخر عن الحصص', fr:'Rapport de retard aux cours'},
     fields:[
-      {id:'f1', type:'date', label:'التاريخ', required:true},
-      {id:'f2', type:'text', label:'الحصة / التوقيت', required:false},
-      {id:'f3', type:'table', label:'لائحة المتأخرين', columns:['الاسم الكامل','القسم','وقت الوصول','المدة المتأخر بها','السبب']},
-      {id:'f4', type:'textarea', label:'الإجراء المتخذ', required:false}
+      {id:'f1', type:'date', label:{ar:'التاريخ', fr:'Date'}, required:true},
+      {id:'f2', type:'text', label:{ar:'الحصة / التوقيت', fr:'Cours / Horaire'}, required:false},
+      {id:'f3', type:'table', label:{ar:'لائحة المتأخرين', fr:'Liste des retardataires'}, columns:[
+        {id:'c1',ar:'الاسم الكامل',fr:'Nom complet'},{id:'c2',ar:'القسم',fr:'Classe'},
+        {id:'c3',ar:'وقت الوصول',fr:"Heure d'arrivée"},{id:'c4',ar:'المدة المتأخر بها',fr:'Durée du retard'},{id:'c5',ar:'السبب',fr:'Motif'}
+      ]},
+      {id:'f4', type:'textarea', label:{ar:'الإجراء المتخذ', fr:'Mesure prise'}, required:false}
     ]
   },
   {
-    id:'suluk', builtin:true, category:'السلوك والانضباط', name:'تقرير سلوك / مخالفة تلميذ',
+    id:'suluk', builtin:true, category:'suluk', name:{ar:'تقرير سلوك / مخالفة تلميذ', fr:"Rapport de comportement / infraction d'élève"},
     fields:[
-      {id:'f1', type:'date', label:'التاريخ', required:true},
-      {id:'f2', type:'text', label:'اسم التلميذ', required:true},
-      {id:'f3', type:'text', label:'القسم', required:false},
-      {id:'f4', type:'select', label:'نوع المخالفة', options:['خفيفة','متوسطة','جسيمة']},
-      {id:'f5', type:'textarea', label:'وصف الواقعة', required:true},
-      {id:'f6', type:'textarea', label:'الإجراء المتخذ', required:false},
-      {id:'f7', type:'text', label:'الأطراف الحاضرة / الشهود', required:false}
+      {id:'f1', type:'date', label:{ar:'التاريخ', fr:'Date'}, required:true},
+      {id:'f2', type:'text', label:{ar:'اسم التلميذ', fr:"Nom de l'élève"}, required:true},
+      {id:'f3', type:'text', label:{ar:'القسم', fr:'Classe'}, required:false},
+      {id:'f4', type:'select', label:{ar:'نوع المخالفة', fr:"Type d'infraction"}, options:[
+        {id:'light', ar:'خفيفة', fr:'Légère'}, {id:'medium', ar:'متوسطة', fr:'Moyenne'}, {id:'severe', ar:'جسيمة', fr:'Grave'}
+      ]},
+      {id:'f5', type:'textarea', label:{ar:'وصف الواقعة', fr:'Description des faits'}, required:true},
+      {id:'f6', type:'textarea', label:{ar:'الإجراء المتخذ', fr:'Mesure prise'}, required:false},
+      {id:'f7', type:'text', label:{ar:'الأطراف الحاضرة / الشهود', fr:'Parties présentes / Témoins'}, required:false}
     ]
   },
   {
-    id:'majlis-indibat', builtin:true, category:'المجالس والمحاضر', name:'محضر مجلس الانضباط',
+    id:'majlis-indibat', builtin:true, category:'majalis', name:{ar:'محضر مجلس الانضباط', fr:'Procès-verbal du conseil de discipline'},
     fields:[
-      {id:'f1', type:'date', label:'تاريخ الانعقاد', required:true},
-      {id:'f2', type:'text', label:'اسم التلميذ المعني', required:true},
-      {id:'f3', type:'text', label:'القسم', required:false},
-      {id:'f4', type:'textarea', label:'موضوع الانعقاد', required:false},
-      {id:'f5', type:'table', label:'أعضاء المجلس الحاضرون', columns:['الاسم','الصفة']},
-      {id:'f6', type:'textarea', label:'مداولات المجلس', required:false},
-      {id:'f7', type:'textarea', label:'القرار المتخذ', required:true}
+      {id:'f1', type:'date', label:{ar:'تاريخ الانعقاد', fr:'Date de la séance'}, required:true},
+      {id:'f2', type:'text', label:{ar:'اسم التلميذ المعني', fr:"Nom de l'élève concerné"}, required:true},
+      {id:'f3', type:'text', label:{ar:'القسم', fr:'Classe'}, required:false},
+      {id:'f4', type:'textarea', label:{ar:'موضوع الانعقاد', fr:'Objet de la séance'}, required:false},
+      {id:'f5', type:'table', label:{ar:'أعضاء المجلس الحاضرون', fr:'Membres du conseil présents'}, columns:[
+        {id:'c1',ar:'الاسم',fr:'Nom'},{id:'c2',ar:'الصفة',fr:'Fonction'}
+      ]},
+      {id:'f6', type:'textarea', label:{ar:'مداولات المجلس', fr:'Délibérations du conseil'}, required:false},
+      {id:'f7', type:'textarea', label:{ar:'القرار المتخذ', fr:'Décision prise'}, required:true}
     ]
   },
   {
-    id:'istidaa', builtin:true, category:'المراسلات', name:'استدعاء ولي أمر',
+    id:'istidaa', builtin:true, category:'murasalat', name:{ar:'استدعاء ولي أمر', fr:'Convocation du tuteur'},
     fields:[
-      {id:'f1', type:'text', label:'اسم ولي الأمر', required:true},
-      {id:'f2', type:'text', label:'اسم التلميذ(ة)', required:true},
-      {id:'f3', type:'text', label:'القسم', required:false},
-      {id:'f4', type:'date', label:'تاريخ الاستدعاء', required:true},
-      {id:'f5', type:'time', label:'الساعة', required:false},
-      {id:'f6', type:'textarea', label:'موضوع الاستدعاء', required:true}
+      {id:'f1', type:'text', label:{ar:'اسم ولي الأمر', fr:'Nom du tuteur'}, required:true},
+      {id:'f2', type:'text', label:{ar:'اسم التلميذ(ة)', fr:"Nom de l'élève"}, required:true},
+      {id:'f3', type:'text', label:{ar:'القسم', fr:'Classe'}, required:false},
+      {id:'f4', type:'date', label:{ar:'تاريخ الاستدعاء', fr:'Date de convocation'}, required:true},
+      {id:'f5', type:'time', label:{ar:'الساعة', fr:'Heure'}, required:false},
+      {id:'f6', type:'textarea', label:{ar:'موضوع الاستدعاء', fr:'Objet de la convocation'}, required:true}
     ]
   },
   {
-    id:'haditha', builtin:true, category:'الحوادث والوقائع', name:'تقرير حادثة / واقعة',
+    id:'haditha', builtin:true, category:'hawadith', name:{ar:'تقرير حادثة / واقعة', fr:"Rapport d'incident / événement"},
     fields:[
-      {id:'f1', type:'date', label:'تاريخ الحادثة', required:true},
-      {id:'f2', type:'time', label:'وقت الحادثة', required:false},
-      {id:'f3', type:'text', label:'المكان', required:false},
-      {id:'f4', type:'textarea', label:'وصف الحادثة', required:true},
-      {id:'f5', type:'text', label:'الأطراف المعنية', required:false},
-      {id:'f6', type:'textarea', label:'الإجراءات المتخذة', required:false},
-      {id:'f7', type:'textarea', label:'توصيات', required:false}
+      {id:'f1', type:'date', label:{ar:'تاريخ الحادثة', fr:"Date de l'incident"}, required:true},
+      {id:'f2', type:'time', label:{ar:'وقت الحادثة', fr:"Heure de l'incident"}, required:false},
+      {id:'f3', type:'text', label:{ar:'المكان', fr:'Lieu'}, required:false},
+      {id:'f4', type:'textarea', label:{ar:'وصف الحادثة', fr:"Description de l'incident"}, required:true},
+      {id:'f5', type:'text', label:{ar:'الأطراف المعنية', fr:'Parties concernées'}, required:false},
+      {id:'f6', type:'textarea', label:{ar:'الإجراءات المتخذة', fr:'Mesures prises'}, required:false},
+      {id:'f7', type:'textarea', label:{ar:'توصيات', fr:'Recommandations'}, required:false}
     ]
   },
   {
-    id:'hirasat-imtihan', builtin:true, category:'الامتحانات', name:'تقرير حراسة الامتحان',
+    id:'hirasat-imtihan', builtin:true, category:'imtihanat', name:{ar:'تقرير حراسة الامتحان', fr:"Rapport de surveillance d'examen"},
     fields:[
-      {id:'f1', type:'text', label:'المادة الممتحن فيها', required:true},
-      {id:'f2', type:'date', label:'التاريخ', required:true},
-      {id:'f3', type:'text', label:'التوقيت', required:false},
-      {id:'f4', type:'text', label:'رقم القاعة', required:false},
-      {id:'f5', type:'number', label:'عدد المسجلين', required:false},
-      {id:'f6', type:'number', label:'عدد الحاضرين', required:false},
-      {id:'f7', type:'number', label:'عدد الغائبين', required:false},
-      {id:'f8', type:'table', label:'حالات الغش أو المخالفات', columns:['اسم التلميذ','رقم الطاولة','نوع المخالفة','الإجراء']},
-      {id:'f9', type:'textarea', label:'ملاحظات حول سير الحراسة', required:false}
+      {id:'f1', type:'text', label:{ar:'المادة الممتحن فيها', fr:"Matière de l'examen"}, required:true},
+      {id:'f2', type:'date', label:{ar:'التاريخ', fr:'Date'}, required:true},
+      {id:'f3', type:'text', label:{ar:'التوقيت', fr:'Horaire'}, required:false},
+      {id:'f4', type:'text', label:{ar:'رقم القاعة', fr:'N° de la salle'}, required:false},
+      {id:'f5', type:'number', label:{ar:'عدد المسجلين', fr:"Nombre d'inscrits"}, required:false},
+      {id:'f6', type:'number', label:{ar:'عدد الحاضرين', fr:'Nombre de présents'}, required:false},
+      {id:'f7', type:'number', label:{ar:'عدد الغائبين', fr:"Nombre d'absents"}, required:false},
+      {id:'f8', type:'table', label:{ar:'حالات الغش أو المخالفات', fr:"Cas de fraude ou d'infractions"}, columns:[
+        {id:'c1',ar:'اسم التلميذ',fr:"Nom de l'élève"},{id:'c2',ar:'رقم الطاولة',fr:'N° de table'},
+        {id:'c3',ar:'نوع المخالفة',fr:"Type d'infraction"},{id:'c4',ar:'الإجراء',fr:'Mesure'}
+      ]},
+      {id:'f9', type:'textarea', label:{ar:'ملاحظات حول سير الحراسة', fr:'Remarques sur le déroulement de la surveillance'}, required:false}
     ]
   },
   {
-    id:'rokhsat-khoroj', builtin:true, category:'المراسلات', name:'رخصة خروج / مغادرة',
+    id:'rokhsat-khoroj', builtin:true, category:'murasalat', name:{ar:'رخصة خروج / مغادرة', fr:'Autorisation de sortie'},
     fields:[
-      {id:'f1', type:'text', label:'اسم التلميذ(ة)', required:true},
-      {id:'f2', type:'text', label:'القسم', required:false},
-      {id:'f3', type:'date', label:'التاريخ', required:true},
-      {id:'f4', type:'time', label:'وقت الخروج', required:false},
-      {id:'f5', type:'textarea', label:'سبب المغادرة', required:true},
-      {id:'f6', type:'text', label:'اسم المرافق / ولي الأمر (إن وجد)', required:false}
+      {id:'f1', type:'text', label:{ar:'اسم التلميذ(ة)', fr:"Nom de l'élève"}, required:true},
+      {id:'f2', type:'text', label:{ar:'القسم', fr:'Classe'}, required:false},
+      {id:'f3', type:'date', label:{ar:'التاريخ', fr:'Date'}, required:true},
+      {id:'f4', type:'time', label:{ar:'وقت الخروج', fr:'Heure de sortie'}, required:false},
+      {id:'f5', type:'textarea', label:{ar:'سبب المغادرة', fr:'Motif de la sortie'}, required:true},
+      {id:'f6', type:'text', label:{ar:'اسم المرافق / ولي الأمر (إن وجد)', fr:"Nom de l'accompagnant / tuteur (le cas échéant)"}, required:false}
     ]
   }
 ];
 
 /* ============================= الحالة العامة ============================= */
 const state = {
+  lang: localStorage.getItem(K_LANG) || 'ar',
   settings: loadJSON(K_SETTINGS, {institution:'', niaba:'', academy:'', year:'', supervisor:''}),
   customTemplates: loadJSON(K_TEMPLATES, []),
   reports: loadJSON(K_REPORTS, []),
+  currentView: 'view-home',
   currentTemplate: null,
   currentReportId: null,
   formValues: {},
@@ -489,64 +624,137 @@ function findTemplate(id){ return allTemplates().find(t=>t.id===id); }
 function showView(id){
   document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));
   document.getElementById(id).classList.remove('hidden');
+  state.currentView = id;
   window.scrollTo({top:0,behavior:'instant'});
 }
 
+/* ============================= اللغة / Langue ============================= */
+function applyLangToDocument(){
+  document.documentElement.lang = state.lang==='ar' ? 'ar-MA' : 'fr-MA';
+  document.documentElement.dir = state.lang==='ar' ? 'rtl' : 'ltr';
+}
+function applyStaticStrings(){
+  const S = STRINGS[state.lang];
+  document.title = S.pageTitle;
+  const descMeta = document.querySelector('meta[name=description]');
+  if(descMeta) descMeta.setAttribute('content', S.pageTitle);
+  document.getElementById('appTitleEl').textContent = S.appTitle;
+  document.getElementById('appSubtitleEl').textContent = S.appSubtitle;
+  document.getElementById('lblHome').textContent = S.navHome;
+  document.getElementById('lblLog').textContent = S.navLog;
+  document.getElementById('lblNewTpl').textContent = S.navNewTpl;
+  document.getElementById('lblSettings').textContent = S.navSettings;
+  document.getElementById('lblLangToggle').textContent = S.langToggle;
+  document.getElementById('lhYearLabel').textContent = S.lhYearLabel;
+  document.getElementById('homeTitleEl').textContent = S.homeTitle;
+  document.getElementById('searchInput').placeholder = S.searchPlaceholder;
+  document.getElementById('lblBackFill').textContent = S.backBtn;
+  document.getElementById('lblClearForm').textContent = S.clearFormBtn;
+  document.getElementById('lblSaveReport').textContent = S.saveReportBtn;
+  document.getElementById('lblPrintReport').textContent = S.printBtn;
+  document.getElementById('formPanelTitleEl').textContent = S.formPanelTitle;
+  document.getElementById('extraFieldsTitleEl').textContent = S.extraFieldsTitle;
+  document.getElementById('lblAddExtraField').textContent = S.addExtraFieldBtn;
+  document.getElementById('printAreaTitleEl').textContent = S.printAreaTitle;
+  document.getElementById('lblBackBuilder').textContent = S.backBtn;
+  document.getElementById('lblSaveTemplate').textContent = S.saveTemplateBtn;
+  document.getElementById('tplNameLabelEl').innerHTML = esc(S.tplNameLabel) + ' <span class="req">*</span>';
+  document.getElementById('tplName').placeholder = S.tplNamePlaceholder;
+  document.getElementById('tplCategoryLabelEl').textContent = S.tplCategoryLabel;
+  document.getElementById('tplCategory').placeholder = S.tplCategoryPlaceholder;
+  document.getElementById('builderFieldsTitleEl').textContent = S.builderFieldsTitle;
+  document.getElementById('lblAddFieldBtn').textContent = S.addFieldBtn;
+  document.getElementById('logTitleEl').textContent = S.logTitle;
+  document.getElementById('lblExportAll').textContent = S.exportBtn;
+  document.getElementById('lblImportFile').textContent = S.importBtn;
+  document.getElementById('logSearch').placeholder = S.logSearchPlaceholder;
+  document.getElementById('thName').textContent = S.logThName;
+  document.getElementById('thCategory').textContent = S.logThCategory;
+  document.getElementById('thDate').textContent = S.logThDate;
+  document.getElementById('thActions').textContent = S.logThActions;
+  document.getElementById('footerTextEl').textContent = S.footerText;
+}
+function rerenderAll(){
+  applyStaticStrings();
+  renderLetterheadBar();
+  renderHome();
+  if(state.currentView==='view-fill' && state.currentTemplate){
+    document.getElementById('fillTitle').textContent = L(state.currentTemplate.name);
+    renderFillForm(); renderExtraFields(); renderDocPreview();
+  }
+  if(state.currentView==='view-builder'){
+    populateCatList();
+    renderBuilderFields();
+    document.getElementById('builderTitle').textContent = state.builderEditingId ? STRINGS[state.lang].builderEditTitle : STRINGS[state.lang].builderNewTitle;
+  }
+  if(state.currentView==='view-log'){ renderLog(); }
+}
+document.getElementById('btnLangToggle').addEventListener('click', ()=>{
+  state.lang = state.lang==='ar' ? 'fr' : 'ar';
+  localStorage.setItem(K_LANG, state.lang);
+  applyLangToDocument();
+  rerenderAll();
+});
+
 /* ============================= شريط المؤسسة ============================= */
 function renderLetterheadBar(){
-  document.getElementById('lhInst').textContent = state.settings.institution || 'اسم المؤسسة غير محدد';
-  document.getElementById('lhNiaba').textContent = state.settings.niaba || 'النيابة الإقليمية';
-  document.getElementById('lhAcad').textContent = state.settings.academy || 'الأكاديمية الجهوية';
+  const S = STRINGS[state.lang];
+  document.getElementById('lhInst').textContent = state.settings.institution || S.lhInstDefault;
+  document.getElementById('lhNiaba').textContent = state.settings.niaba || S.lhNiabaDefault;
+  document.getElementById('lhAcad').textContent = state.settings.academy || S.lhAcadDefault;
   document.getElementById('lhYear').textContent = state.settings.year || '—';
 }
 
 /* ============================= الرئيسية: عرض النماذج ============================= */
 function renderCategoryFilterOptions(){
   const sel = document.getElementById('categoryFilter');
-  const cats = [...new Set(allTemplates().map(t=>t.category))];
-  sel.innerHTML = '<option value="">كل الفئات</option>' + cats.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
+  const cats = [...new Set(allTemplates().map(t=>categoryLabel(t.category)))];
+  sel.innerHTML = `<option value="">${esc(STRINGS[state.lang].allCategories)}</option>` + cats.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
 }
 
 function renderHome(){
+  const S = STRINGS[state.lang];
   renderCategoryFilterOptions();
   const q = (document.getElementById('searchInput').value || '').trim().toLowerCase();
   const catF = document.getElementById('categoryFilter').value;
   const tpls = allTemplates().filter(t=>{
-    if(catF && t.category!==catF) return false;
-    if(q && !t.name.toLowerCase().includes(q)) return false;
+    const catLbl = categoryLabel(t.category);
+    if(catF && catLbl!==catF) return false;
+    if(q && !L(t.name).toLowerCase().includes(q)) return false;
     return true;
   });
   const byCat = {};
-  tpls.forEach(t=>{ (byCat[t.category] = byCat[t.category]||[]).push(t); });
+  tpls.forEach(t=>{ const c = categoryLabel(t.category); (byCat[c] = byCat[c]||[]).push(t); });
 
   const container = document.getElementById('templatesContainer');
   const cats = Object.keys(byCat);
   if(cats.length===0){
-    container.innerHTML = `<div class="empty">لا توجد نماذج مطابقة. جرّب كلمة بحث أخرى أو أنشئ قالباً جديداً.</div>`;
+    container.innerHTML = `<div class="empty">${esc(S.emptyTemplates)}</div>`;
     return;
   }
   container.innerHTML = cats.map(cat=>{
     const cards = byCat[cat].map(t=>{
       const isCustom = !t.builtin;
+      const name = L(t.name);
       return `
       <div class="tpl-card">
         <div class="top">
-          <span class="emoji">${catIcon(t.category)}</span>
-          <span class="name">${esc(t.name)}</span>
-          ${isCustom ? '<span class="badge-custom">مخصص</span>' : ''}
+          <span class="emoji">${categoryIcon(t.category)}</span>
+          <span class="name">${esc(name)}</span>
+          ${isCustom ? `<span class="badge-custom">${esc(S.customBadge)}</span>` : ''}
         </div>
-        <div class="meta">${t.fields.length} حقل/حقول</div>
+        <div class="meta">${t.fields.length} ${esc(S.fieldsCountSuffix)}</div>
         <div class="actions">
-          <button class="btn btn-primary btn-sm" data-act="open" data-id="${esc(t.id)}">📝 فتح النموذج</button>
+          <button class="btn btn-primary btn-sm" data-act="open" data-id="${esc(t.id)}">${esc(S.openTemplateBtn)}</button>
           ${isCustom
-            ? `<button class="btn btn-light btn-sm" data-act="edit" data-id="${esc(t.id)}">✏️ تعديل</button>
-               <button class="btn btn-danger btn-sm" data-act="del" data-id="${esc(t.id)}">🗑️ حذف</button>`
-            : `<button class="btn btn-light btn-sm" data-act="dup" data-id="${esc(t.id)}">📄 تكرار وتعديل</button>`
+            ? `<button class="btn btn-light btn-sm" data-act="edit" data-id="${esc(t.id)}">${esc(S.editBtn)}</button>
+               <button class="btn btn-danger btn-sm" data-act="del" data-id="${esc(t.id)}">${esc(S.deleteBtn)}</button>`
+            : `<button class="btn btn-light btn-sm" data-act="dup" data-id="${esc(t.id)}">${esc(S.duplicateEditBtn)}</button>`
           }
         </div>
       </div>`;
     }).join('');
-    return `<div class="cat-block"><h3>${catIcon(cat)} ${esc(cat)}</h3><div class="cards-grid">${cards}</div></div>`;
+    return `<div class="cat-block"><h3>${categoryIcon(tpls.find(t=>categoryLabel(t.category)===cat).category)} ${esc(cat)}</h3><div class="cards-grid">${cards}</div></div>`;
   }).join('');
 }
 
@@ -561,11 +769,11 @@ document.getElementById('templatesContainer').addEventListener('click', e=>{
   else if(act==='dup') openBuilder(cloneTemplateForEdit(tpl), true);
   else if(act==='edit') openBuilder(tpl, false);
   else if(act==='del'){
-    if(confirm(`هل تريد حذف القالب "${tpl.name}"؟ لن يتم حذف التقارير المحفوظة المرتبطة به من السجل.`)){
+    if(confirm(STRINGS[state.lang].confirmDeleteTemplate(L(tpl.name)))){
       state.customTemplates = state.customTemplates.filter(t=>t.id!==id);
       saveJSON(K_TEMPLATES, state.customTemplates);
       renderHome();
-      toast('تم حذف القالب');
+      toast(STRINGS[state.lang].templateDeletedToast);
     }
   }
 });
@@ -587,19 +795,18 @@ function openFillView(tpl, existingReport){
     else state.formValues[f.id] = '';
   });
 
-  document.getElementById('fillTitle').textContent = tpl.name;
+  document.getElementById('fillTitle').textContent = L(tpl.name);
   renderFillForm();
   renderExtraFields();
   renderDocPreview();
   showView('view-fill');
 }
-function blankRow(columns){ const o={}; columns.forEach(c=>o[c]=''); return o; }
+function blankRow(columns){ const o={}; columns.forEach(c=>o[colId(c)]=''); return o; }
 
 function renderFillForm(){
   const tpl = state.currentTemplate;
   const wrap = document.getElementById('formFields');
   wrap.innerHTML = tpl.fields.map(f=>renderFieldInput(f)).join('');
-  // ربط الأحداث
   tpl.fields.forEach(f=>{
     if(f.type==='table'){
       bindTableEvents(f);
@@ -616,32 +823,34 @@ function renderFillForm(){
 }
 
 function renderFieldInput(f){
+  const S = STRINGS[state.lang];
   const val = state.formValues[f.id];
   const reqMark = f.required ? '<span class="req">*</span>' : '';
+  const label = esc(L(f.label));
   switch(f.type){
     case 'textarea':
-      return `<div class="field-group"><label>${esc(f.label)} ${reqMark}</label><textarea id="inp_${f.id}">${esc(val)}</textarea></div>`;
+      return `<div class="field-group"><label>${label} ${reqMark}</label><textarea id="inp_${f.id}">${esc(val)}</textarea></div>`;
     case 'select':
-      return `<div class="field-group"><label>${esc(f.label)} ${reqMark}</label>
+      return `<div class="field-group"><label>${label} ${reqMark}</label>
         <select id="inp_${f.id}">
-          <option value="">— اختر —</option>
-          ${(f.options||[]).map(o=>`<option value="${esc(o)}" ${val===o?'selected':''}>${esc(o)}</option>`).join('')}
+          <option value="">${esc(S.selectPlaceholderOpt)}</option>
+          ${(f.options||[]).map(o=>`<option value="${esc(optionId(o))}" ${val===optionId(o)?'selected':''}>${esc(L(o))}</option>`).join('')}
         </select></div>`;
     case 'checkbox':
-      return `<div class="field-group checkbox-row"><input type="checkbox" id="inp_${f.id}" ${val?'checked':''}><label>${esc(f.label)}</label></div>`;
+      return `<div class="field-group checkbox-row"><input type="checkbox" id="inp_${f.id}" ${val?'checked':''}><label>${label}</label></div>`;
     case 'table':
       return `<div class="field-group">
-        <label>${esc(f.label)}</label>
+        <label>${label}</label>
         <table class="dyn-table" id="tbl_${f.id}">
-          <thead><tr>${f.columns.map(c=>`<th>${esc(c)}</th>`).join('')}<th></th></tr></thead>
+          <thead><tr>${f.columns.map(c=>`<th>${esc(L(c))}</th>`).join('')}<th></th></tr></thead>
           <tbody>${renderTableRows(f)}</tbody>
         </table>
-        <button type="button" class="btn btn-light btn-sm" style="margin-top:6px" data-add-row="${f.id}">➕ إضافة سطر</button>
+        <button type="button" class="btn btn-light btn-sm" style="margin-top:6px" data-add-row="${f.id}">${esc(S.addRowBtn)}</button>
       </div>`;
     case 'date': case 'time': case 'number':
-      return `<div class="field-group"><label>${esc(f.label)} ${reqMark}</label><input type="${f.type}" id="inp_${f.id}" value="${esc(val)}"></div>`;
+      return `<div class="field-group"><label>${label} ${reqMark}</label><input type="${f.type}" id="inp_${f.id}" value="${esc(val)}"></div>`;
     default: // text
-      return `<div class="field-group"><label>${esc(f.label)} ${reqMark}</label><input type="text" id="inp_${f.id}" value="${esc(val)}"></div>`;
+      return `<div class="field-group"><label>${label} ${reqMark}</label><input type="text" id="inp_${f.id}" value="${esc(val)}"></div>`;
   }
 }
 
@@ -649,8 +858,8 @@ function renderTableRows(f){
   const rows = state.formValues[f.id] || [];
   return rows.map((row,ri)=>`
     <tr data-row="${ri}">
-      ${f.columns.map(c=>`<td><input type="text" data-col="${esc(c)}" value="${esc(row[c]||'')}"></td>`).join('')}
-      <td><button type="button" class="rm-row-btn" data-rm-row="${ri}">حذف</button></td>
+      ${f.columns.map(c=>`<td><input type="text" data-col="${esc(colId(c))}" value="${esc(row[colId(c)]||'')}"></td>`).join('')}
+      <td><button type="button" class="rm-row-btn" data-rm-row="${ri}">${esc(STRINGS[state.lang].deleteRowBtn)}</button></td>
     </tr>`).join('');
 }
 
@@ -689,7 +898,7 @@ function bindTableRowEvents(f, tbl){
 function renderExtraFields(){
   const wrap = document.getElementById('extraFieldsList');
   if(state.extraFields.length===0){
-    wrap.innerHTML = `<div style="color:var(--muted);font-size:.82rem;margin-bottom:8px">لا توجد حقول إضافية. أضف حقلاً إذا احتجت معلومة غير موجودة في النموذج.</div>`;
+    wrap.innerHTML = `<div style="color:var(--muted);font-size:.82rem;margin-bottom:8px">${esc(STRINGS[state.lang].noExtraFieldsMsg)}</div>`;
     return;
   }
   wrap.innerHTML = state.extraFields.map((ef,i)=>`
@@ -719,9 +928,10 @@ function renderExtraFields(){
 }
 
 document.getElementById('btnAddExtraField').addEventListener('click', ()=>{
-  const label = prompt('عنوان الحقل الإضافي (مثال: اسم الشاهد، رقم الهاتف...)');
+  const S = STRINGS[state.lang];
+  const label = prompt(S.extraFieldLabelPrompt);
   if(!label) return;
-  const typeChoice = prompt('نوع الحقل: اكتب واحداً من\n1 = نص قصير\n2 = نص طويل\n3 = رقم\n4 = تاريخ', '1');
+  const typeChoice = prompt(S.extraFieldTypePrompt, '1');
   const map = {'1':'text','2':'textarea','3':'number','4':'date'};
   const type = map[typeChoice] || 'text';
   state.extraFields.push({id:uid('ex'), label, type, value:''});
@@ -731,22 +941,30 @@ document.getElementById('btnAddExtraField').addEventListener('click', ()=>{
 
 /* ---- معاينة الطباعة ---- */
 function renderFieldPreview(f){
+  const S = STRINGS[state.lang];
   const val = state.formValues[f.id];
+  const label = esc(L(f.label));
   if(f.type==='table'){
-    const rows = (val||[]).filter(r=>f.columns.some(c=>(r[c]||'').trim()!==''));
+    const rows = (val||[]).filter(r=>f.columns.some(c=>(r[colId(c)]||'').trim()!==''));
     if(rows.length===0) return '';
-    return `<div class="doc-row"><div class="lbl">${esc(f.label)}</div>
-      <table class="doc-table"><thead><tr>${f.columns.map(c=>`<th>${esc(c)}</th>`).join('')}</tr></thead>
-      <tbody>${rows.map(r=>`<tr>${f.columns.map(c=>`<td>${esc(r[c]||'')}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+    return `<div class="doc-row"><div class="lbl">${label}</div>
+      <table class="doc-table"><thead><tr>${f.columns.map(c=>`<th>${esc(L(c))}</th>`).join('')}</tr></thead>
+      <tbody>${rows.map(r=>`<tr>${f.columns.map(c=>`<td>${esc(r[colId(c)]||'')}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
   }
   if(f.type==='checkbox'){
-    return `<div class="doc-row"><span class="lbl">${esc(f.label)}:</span> ${val ? '✅ نعم' : '❌ لا'}</div>`;
+    return `<div class="doc-row"><span class="lbl">${label}:</span> ${val ? S.yesLabel : S.noLabel}</div>`;
+  }
+  if(f.type==='select'){
+    if(!val) return '';
+    const opt = (f.options||[]).find(o=>optionId(o)===val);
+    return `<div class="doc-row"><div class="lbl">${label}</div><div class="val">${esc(opt ? L(opt) : val)}</div></div>`;
   }
   if(val===undefined || val===null || String(val).trim()==='') return '';
-  return `<div class="doc-row"><div class="lbl">${esc(f.label)}</div><div class="val">${esc(val)}</div></div>`;
+  return `<div class="doc-row"><div class="lbl">${label}</div><div class="val">${esc(val)}</div></div>`;
 }
 
 function renderDocPreview(){
+  const S = STRINGS[state.lang];
   const tpl = state.currentTemplate;
   const s = state.settings;
   const fieldsHtml = tpl.fields.map(renderFieldPreview).join('');
@@ -755,28 +973,28 @@ function renderDocPreview(){
   ).join('');
   document.getElementById('docPreview').innerHTML = `
     <div class="doc-head">
-      <div class="kingdom">المملكة المغربية</div>
-      <div class="line">وزارة التربية الوطنية والتعليم الأولي والرياضة</div>
-      <div class="line">${esc(s.academy || 'الأكاديمية الجهوية للتربية والتكوين')} — ${esc(s.niaba || 'النيابة الإقليمية')}</div>
-      <div class="inst">${esc(s.institution || 'اسم المؤسسة التعليمية')}</div>
+      <div class="kingdom">${esc(S.kingdomLine)}</div>
+      <div class="line">${esc(S.ministryLine)}</div>
+      <div class="line">${esc(s.academy || S.lhAcadDefault)} — ${esc(s.niaba || S.lhNiabaDefault)}</div>
+      <div class="inst">${esc(s.institution || S.lhInstDefault)}</div>
     </div>
-    <div class="doc-title">${esc(tpl.name)}</div>
+    <div class="doc-title">${esc(L(tpl.name))}</div>
     <div class="doc-meta">
-      <span>السنة الدراسية: ${esc(s.year || '—')}</span>
-      <span>تاريخ التحرير: ${esc(todayISO())}</span>
+      <span>${esc(S.academicYearLabel)} ${esc(s.year || '—')}</span>
+      <span>${esc(S.editDateLabel)} ${esc(todayISO())}</span>
     </div>
     ${fieldsHtml}
-    ${extraHtml ? `<div class="doc-row"><div class="lbl" style="color:var(--gold)">معلومات إضافية</div></div>${extraHtml}` : ''}
+    ${extraHtml ? `<div class="doc-row"><div class="lbl" style="color:var(--gold)">${esc(S.additionalInfoLabel)}</div></div>${extraHtml}` : ''}
     <div class="doc-sign">
-      <div class="box"><div class="cap">الحارس(ة) العام(ة)${s.supervisor ? '<br>'+esc(s.supervisor) : ''}</div><div class="line-blank"></div></div>
-      <div class="box"><div class="cap">الإدارة</div><div class="line-blank"></div></div>
+      <div class="box"><div class="cap">${esc(S.supervisorRole)}${s.supervisor ? '<br>'+esc(s.supervisor) : ''}</div><div class="line-blank"></div></div>
+      <div class="box"><div class="cap">${esc(S.administrationRole)}</div><div class="line-blank"></div></div>
     </div>
   `;
 }
 
 document.getElementById('btnBackFromFill').addEventListener('click', ()=>{ showView('view-home'); renderHome(); });
 document.getElementById('btnClearForm').addEventListener('click', ()=>{
-  if(!confirm('هل تريد تفريغ كل الحقول؟')) return;
+  if(!confirm(STRINGS[state.lang].confirmClearFields)) return;
   const tpl = state.currentTemplate;
   state.formValues = {};
   state.extraFields = [];
@@ -788,18 +1006,19 @@ document.getElementById('btnClearForm').addEventListener('click', ()=>{
 });
 document.getElementById('btnPrintReport').addEventListener('click', ()=>window.print());
 document.getElementById('btnSaveReport').addEventListener('click', ()=>{
+  const S = STRINGS[state.lang];
   const tpl = state.currentTemplate;
   const missing = tpl.fields.filter(f=>f.required && f.type!=='table' && f.type!=='checkbox' && !String(state.formValues[f.id]||'').trim());
   if(missing.length){
-    toast('يرجى تعبئة: ' + missing.map(f=>f.label).join('، '));
+    toast(S.missingFieldsToast(missing.map(f=>L(f.label)).join(S.listSep)));
     return;
   }
   const now = new Date();
   const record = {
     id: state.currentReportId || uid('rep'),
     templateId: tpl.id,
-    templateName: tpl.name,
-    category: tpl.category,
+    templateName: L(tpl.name),
+    category: categoryLabel(tpl.category),
     savedAt: now.toISOString(),
     values: JSON.parse(JSON.stringify(state.formValues)),
     extraFields: JSON.parse(JSON.stringify(state.extraFields))
@@ -808,17 +1027,25 @@ document.getElementById('btnSaveReport').addEventListener('click', ()=>{
   if(idx>=0) state.reports[idx] = record; else state.reports.unshift(record);
   state.currentReportId = record.id;
   saveJSON(K_REPORTS, state.reports);
-  toast('تم حفظ التقرير في السجل');
+  toast(S.savedReportToast);
 });
 
 /* ============================= بانِي القوالب (Builder) ============================= */
 function cloneTemplateForEdit(tpl){
+  const S = STRINGS[state.lang];
   return {
     id: uid('tpl'),
     builtin:false,
-    category: tpl.category,
-    name: tpl.name + ' (نسخة معدّلة)',
-    fields: JSON.parse(JSON.stringify(tpl.fields)).map(f=>({...f, id: uid('f')}))
+    category: categoryLabel(tpl.category),
+    name: L(tpl.name) + S.duplicateSuffix,
+    fields: JSON.parse(JSON.stringify(tpl.fields)).map(f=>({
+      id: uid('f'),
+      type: f.type,
+      label: L(f.label),
+      required: !!f.required,
+      options: f.options ? f.options.map(o=>L(o)) : undefined,
+      columns: f.columns ? f.columns.map(c=>L(c)) : undefined
+    }))
   };
 }
 
@@ -830,42 +1057,40 @@ function openBuilder(tpl, isDuplicate){
   state.builderFields = JSON.parse(JSON.stringify(base.fields));
   populateCatList();
   renderBuilderFields();
-  document.getElementById('builderTitle').textContent = state.builderEditingId ? 'تعديل القالب' : 'قالب جديد';
+  document.getElementById('builderTitle').textContent = state.builderEditingId ? STRINGS[state.lang].builderEditTitle : STRINGS[state.lang].builderNewTitle;
   showView('view-builder');
 }
 function populateCatList(){
   const dl = document.getElementById('catList');
-  const cats = [...new Set(allTemplates().map(t=>t.category))];
+  const predefined = CATEGORIES.map(c=>L(c));
+  const customCats = state.customTemplates.map(t=>t.category);
+  const cats = [...new Set(predefined.concat(customCats))];
   dl.innerHTML = cats.map(c=>`<option value="${esc(c)}">`).join('');
 }
 
-const FIELD_TYPE_LABELS = {
-  text:'نص قصير', textarea:'نص طويل', date:'تاريخ', time:'وقت',
-  number:'رقم', select:'قائمة اختيار', checkbox:'خانة اختيار', table:'جدول ديناميكي'
-};
-
 function renderBuilderFields(){
+  const S = STRINGS[state.lang];
   const wrap = document.getElementById('builderFields');
   if(state.builderFields.length===0){
-    wrap.innerHTML = `<div class="empty" style="margin-bottom:12px">لا توجد حقول بعد. اضغط "إضافة حقل" للبدء.</div>`;
+    wrap.innerHTML = `<div class="empty" style="margin-bottom:12px">${esc(S.noFieldsYet)}</div>`;
     return;
   }
   wrap.innerHTML = state.builderFields.map((f,i)=>`
     <div class="field-editor" data-i="${i}">
       <div class="row1">
-        <input type="text" data-b="label" placeholder="عنوان الحقل" value="${esc(f.label)}">
+        <input type="text" data-b="label" placeholder="${esc(S.fieldLabelPlaceholder)}" value="${esc(f.label)}">
         <select data-b="type">
-          ${Object.entries(FIELD_TYPE_LABELS).map(([v,l])=>`<option value="${v}" ${f.type===v?'selected':''}>${l}</option>`).join('')}
+          ${Object.entries(S.fieldTypeLabels).map(([v,l])=>`<option value="${v}" ${f.type===v?'selected':''}>${esc(l)}</option>`).join('')}
         </select>
       </div>
-      ${f.type==='select' ? `<div class="row2"><textarea data-b="options" placeholder="خيارات القائمة (كل خيار في سطر)">${esc((f.options||[]).join('\n'))}</textarea></div>` : ''}
-      ${f.type==='table' ? `<div class="row2"><textarea data-b="columns" placeholder="أعمدة الجدول (كل عمود في سطر)">${esc((f.columns||[]).join('\n'))}</textarea></div>` : ''}
+      ${f.type==='select' ? `<div class="row2"><textarea data-b="options" placeholder="${esc(S.optionsPlaceholder)}">${esc((f.options||[]).join('\n'))}</textarea></div>` : ''}
+      ${f.type==='table' ? `<div class="row2"><textarea data-b="columns" placeholder="${esc(S.columnsPlaceholder)}">${esc((f.columns||[]).join('\n'))}</textarea></div>` : ''}
       <div class="row3">
-        <label class="req-check"><input type="checkbox" data-b="required" ${f.required?'checked':''}> حقل إلزامي</label>
+        <label class="req-check"><input type="checkbox" data-b="required" ${f.required?'checked':''}> ${esc(S.requiredFieldLabel)}</label>
         <div class="move-btns">
-          <button type="button" data-b="up" title="نقل لأعلى">⬆️</button>
-          <button type="button" data-b="down" title="نقل لأسفل">⬇️</button>
-          <button type="button" data-b="del" title="حذف الحقل">🗑️</button>
+          <button type="button" data-b="up" title="${esc(S.moveUpTitle)}">⬆️</button>
+          <button type="button" data-b="down" title="${esc(S.moveDownTitle)}">⬇️</button>
+          <button type="button" data-b="del" title="${esc(S.deleteFieldTitle)}">🗑️</button>
         </div>
       </div>
     </div>
@@ -877,7 +1102,7 @@ function renderBuilderFields(){
     box.querySelector('[data-b=type]').addEventListener('change', e=>{
       state.builderFields[i].type = e.target.value;
       if(e.target.value==='select' && !state.builderFields[i].options) state.builderFields[i].options=[];
-      if(e.target.value==='table' && !state.builderFields[i].columns) state.builderFields[i].columns=['عمود 1','عمود 2'];
+      if(e.target.value==='table' && !state.builderFields[i].columns) state.builderFields[i].columns = STRINGS[state.lang].defaultColumns.slice();
       renderBuilderFields();
     });
     const opt = box.querySelector('[data-b=options]');
@@ -910,12 +1135,13 @@ document.getElementById('btnNewTpl').addEventListener('click', ()=>openBuilder(n
 document.getElementById('btnBackFromBuilder').addEventListener('click', ()=>{ showView('view-home'); renderHome(); });
 
 document.getElementById('btnSaveTemplate').addEventListener('click', ()=>{
+  const S = STRINGS[state.lang];
   const name = document.getElementById('tplName').value.trim();
-  const category = document.getElementById('tplCategory').value.trim() || 'أخرى';
-  if(!name){ toast('يرجى إدخال اسم النموذج'); return; }
-  if(state.builderFields.length===0){ toast('أضف حقلاً واحداً على الأقل'); return; }
+  const category = document.getElementById('tplCategory').value.trim() || categoryLabel('other');
+  if(!name){ toast(S.nameRequiredToast); return; }
+  if(state.builderFields.length===0){ toast(S.atLeastOneFieldToast); return; }
   const emptyLabel = state.builderFields.find(f=>!f.label.trim());
-  if(emptyLabel){ toast('يوجد حقل بدون عنوان'); return; }
+  if(emptyLabel){ toast(S.fieldNoLabelToast); return; }
 
   if(state.builderEditingId){
     const idx = state.customTemplates.findIndex(t=>t.id===state.builderEditingId);
@@ -926,68 +1152,81 @@ document.getElementById('btnSaveTemplate').addEventListener('click', ()=>{
     state.customTemplates.push({ id: uid('tpl'), builtin:false, name, category, fields: state.builderFields });
   }
   saveJSON(K_TEMPLATES, state.customTemplates);
-  toast('تم حفظ القالب');
+  toast(S.templateSavedToast);
   showView('view-home');
   renderHome();
 });
 
 /* ============================= سجل التقارير ============================= */
 function renderLog(){
+  const S = STRINGS[state.lang];
   const q = (document.getElementById('logSearch').value||'').trim().toLowerCase();
-  const rows = state.reports.filter(r=> !q || r.templateName.toLowerCase().includes(q) || r.category.toLowerCase().includes(q));
+  const rows = state.reports.map(r=>{
+    const tpl = findTemplate(r.templateId);
+    return {
+      rec: r,
+      nameDisp: tpl ? L(tpl.name) : r.templateName,
+      catDisp: tpl ? categoryLabel(tpl.category) : r.category
+    };
+  }).filter(x=> !q || x.nameDisp.toLowerCase().includes(q) || x.catDisp.toLowerCase().includes(q));
   const tbody = document.getElementById('logTbody');
   if(rows.length===0){
-    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:24px">لا توجد تقارير محفوظة بعد.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:24px">${esc(S.logEmptyMsg)}</td></tr>`;
     return;
   }
-  tbody.innerHTML = rows.map(r=>{
+  const locale = state.lang==='ar' ? 'ar-MA' : 'fr-MA';
+  tbody.innerHTML = rows.map(x=>{
+    const r = x.rec;
     const d = new Date(r.savedAt);
-    const dateStr = d.toLocaleDateString('ar-MA') + ' ' + d.toLocaleTimeString('ar-MA',{hour:'2-digit',minute:'2-digit'});
+    const dateStr = d.toLocaleDateString(locale) + ' ' + d.toLocaleTimeString(locale,{hour:'2-digit',minute:'2-digit'});
     return `<tr>
-      <td>${esc(r.templateName)}</td>
-      <td>${esc(r.category)}</td>
+      <td>${esc(x.nameDisp)}</td>
+      <td>${esc(x.catDisp)}</td>
       <td>${esc(dateStr)}</td>
       <td>
-        <button class="btn btn-primary btn-sm" data-log-act="open" data-id="${esc(r.id)}">فتح</button>
-        <button class="btn btn-light btn-sm" data-log-act="dup" data-id="${esc(r.id)}">تكرار</button>
-        <button class="btn btn-danger btn-sm" data-log-act="del" data-id="${esc(r.id)}">حذف</button>
+        <button class="btn btn-primary btn-sm" data-log-act="open" data-id="${esc(r.id)}">${esc(S.openBtn)}</button>
+        <button class="btn btn-light btn-sm" data-log-act="dup" data-id="${esc(r.id)}">${esc(S.duplicateBtn)}</button>
+        <button class="btn btn-danger btn-sm" data-log-act="del" data-id="${esc(r.id)}">${esc(S.deleteBtn)}</button>
       </td>
     </tr>`;
   }).join('');
 }
 document.getElementById('logTbody').addEventListener('click', e=>{
+  const S = STRINGS[state.lang];
   const btn = e.target.closest('button[data-log-act]');
   if(!btn) return;
   const rec = state.reports.find(r=>r.id===btn.dataset.id);
   if(!rec) return;
   const tpl = findTemplate(rec.templateId);
   if(btn.dataset.logAct==='open'){
-    if(!tpl){ toast('تعذر العثور على القالب المرتبط بهذا التقرير'); return; }
+    if(!tpl){ toast(S.templateNotFoundToast); return; }
     openFillView(tpl, rec);
   } else if(btn.dataset.logAct==='dup'){
-    if(!tpl){ toast('تعذر العثور على القالب المرتبط بهذا التقرير'); return; }
+    if(!tpl){ toast(S.templateNotFoundToast); return; }
     openFillView(tpl, {...rec, id:null});
   } else if(btn.dataset.logAct==='del'){
-    if(confirm('هل تريد حذف هذا التقرير من السجل؟')){
+    if(confirm(S.confirmDeleteReport)){
       state.reports = state.reports.filter(r=>r.id!==rec.id);
       saveJSON(K_REPORTS, state.reports);
       renderLog();
-      toast('تم الحذف');
+      toast(S.reportDeletedToast);
     }
   }
 });
 document.getElementById('logSearch').addEventListener('input', renderLog);
 
 document.getElementById('btnExportAll').addEventListener('click', ()=>{
+  const S = STRINGS[state.lang];
   const data = { settings: state.settings, customTemplates: state.customTemplates, reports: state.reports, exportedAt: new Date().toISOString() };
   const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'نسخة-احتياطية-الحراسة-العامة-' + todayISO() + '.json';
+  a.download = S.backupFilenamePrefix + todayISO() + '.json';
   a.click();
   URL.revokeObjectURL(a.href);
 });
 document.getElementById('importFile').addEventListener('change', e=>{
+  const S = STRINGS[state.lang];
   const file = e.target.files[0];
   if(!file) return;
   const reader = new FileReader();
@@ -1001,8 +1240,8 @@ document.getElementById('importFile').addEventListener('change', e=>{
       saveJSON(K_TEMPLATES, state.customTemplates);
       saveJSON(K_REPORTS, state.reports);
       renderLetterheadBar(); renderLog();
-      toast('تم الاستيراد بنجاح');
-    }catch(err){ toast('ملف غير صالح'); }
+      toast(S.importSuccessToast);
+    }catch(err){ toast(S.importInvalidToast); }
     e.target.value = '';
   };
   reader.readAsText(file);
@@ -1010,20 +1249,21 @@ document.getElementById('importFile').addEventListener('change', e=>{
 
 /* ============================= إعدادات المؤسسة ============================= */
 function openSettingsModal(){
+  const S = STRINGS[state.lang];
   const s = state.settings;
   const bg = document.createElement('div');
   bg.className = 'modal-bg';
   bg.innerHTML = `
     <div class="modal">
-      <h3>⚙️ إعدادات المؤسسة</h3>
-      <div class="field-group"><label>اسم المؤسسة</label><input type="text" id="stInst" value="${esc(s.institution)}"></div>
-      <div class="field-group"><label>النيابة الإقليمية</label><input type="text" id="stNiaba" value="${esc(s.niaba)}"></div>
-      <div class="field-group"><label>الأكاديمية الجهوية</label><input type="text" id="stAcad" value="${esc(s.academy)}"></div>
-      <div class="field-group"><label>السنة الدراسية</label><input type="text" id="stYear" value="${esc(s.year)}" placeholder="2025-2026"></div>
-      <div class="field-group"><label>اسم الحارس(ة) العام(ة)</label><input type="text" id="stSup" value="${esc(s.supervisor)}"></div>
+      <h3>${esc(S.settingsModalTitle)}</h3>
+      <div class="field-group"><label>${esc(S.settingsInstLabel)}</label><input type="text" id="stInst" value="${esc(s.institution)}"></div>
+      <div class="field-group"><label>${esc(S.settingsNiabaLabel)}</label><input type="text" id="stNiaba" value="${esc(s.niaba)}"></div>
+      <div class="field-group"><label>${esc(S.settingsAcadLabel)}</label><input type="text" id="stAcad" value="${esc(s.academy)}"></div>
+      <div class="field-group"><label>${esc(S.settingsYearLabel)}</label><input type="text" id="stYear" value="${esc(s.year)}" placeholder="${esc(S.settingsYearPlaceholder)}"></div>
+      <div class="field-group"><label>${esc(S.settingsSupervisorLabel)}</label><input type="text" id="stSup" value="${esc(s.supervisor)}"></div>
       <div class="modal-actions">
-        <button class="btn btn-light" id="stCancel">إلغاء</button>
-        <button class="btn btn-primary" id="stSave">💾 حفظ</button>
+        <button class="btn btn-light" id="stCancel">${esc(S.cancelBtn)}</button>
+        <button class="btn btn-primary" id="stSave">${esc(S.saveBtn)}</button>
       </div>
     </div>`;
   document.body.appendChild(bg);
@@ -1041,7 +1281,7 @@ function openSettingsModal(){
     renderLetterheadBar();
     if(state.currentTemplate) renderDocPreview();
     bg.remove();
-    toast('تم حفظ الإعدادات');
+    toast(S.settingsSavedToast);
   });
 }
 document.getElementById('btnSettings').addEventListener('click', openSettingsModal);
@@ -1052,11 +1292,13 @@ document.getElementById('btnLog').addEventListener('click', ()=>{ renderLog(); s
 
 /* ============================= بدء التشغيل ============================= */
 function init(){
+  applyLangToDocument();
   if(!state.settings.year){
     const y = new Date().getFullYear();
     const m = new Date().getMonth(); // بعد شتنبر تبدأ السنة الدراسية الجديدة
     state.settings.year = (m>=8) ? `${y}-${y+1}` : `${y-1}-${y}`;
   }
+  applyStaticStrings();
   renderLetterheadBar();
   renderHome();
 
