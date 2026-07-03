@@ -476,6 +476,93 @@ document.getElementById('studentsTbody').addEventListener('click', e=>{
 });
 document.getElementById('btnAddStudent').addEventListener('click', ()=>openStudentForm(null));
 
+/* ---- تصدير واستيراد لائحة التلاميذ (CSV) ---- */
+function csvEscape(v){
+  const s = String(v===undefined||v===null ? '' : v);
+  return /[",\n]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s;
+}
+function parseCSVLine(line){
+  // يدعم التبويب (اللصق من Excel) أو الفاصلة اللاتينية "," أو الفاصلة العربية "،"، مع دعم بسيط للحقول المحاطة بعلامات اقتباس
+  const delim = line.includes('\t') ? '\t' : (line.includes('،') ? '،' : ',');
+  const out = []; let cur = ''; let inQuotes = false;
+  for(let i=0;i<line.length;i++){
+    const ch = line[i];
+    if(inQuotes){
+      if(ch === '"'){ if(line[i+1] === '"'){ cur += '"'; i++; } else inQuotes = false; }
+      else cur += ch;
+    } else {
+      if(ch === '"') inQuotes = true;
+      else if(ch === delim){ out.push(cur); cur=''; }
+      else cur += ch;
+    }
+  }
+  out.push(cur);
+  return out.map(s=>s.trim());
+}
+document.getElementById('btnExportStudents').addEventListener('click', ()=>{
+  if(state.students.length===0){ toast('لا يوجد تلاميذ لتصديرهم'); return; }
+  const header = ['الاسم الكامل','القسم','هاتف ولي الأمر','هاتف ثانٍ','الحالة','ملاحظات'];
+  const rows = state.students.map(s=>[s.fullName, s.section, s.parentPhone||'', s.parentPhone2||'', STATUS_LABELS[s.status], s.notes||'']);
+  const csv = [header].concat(rows).map(r=>r.map(csvEscape).join(',')).join('\r\n');
+  const blob = new Blob(['﻿' + csv], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'لائحة-التلاميذ-' + todayISO() + '.csv';
+  a.click(); URL.revokeObjectURL(a.href);
+  toast('تم تصدير اللائحة (' + state.students.length + ' تلميذ)');
+});
+document.getElementById('btnImportStudents').addEventListener('click', ()=>{
+  const bg = document.createElement('div');
+  bg.className = 'modal-bg';
+  bg.innerHTML = `
+    <div class="modal">
+      <h3>⬆️ استيراد لائحة تلاميذ</h3>
+      <p class="hint">الصق لائحة من Excel أو اكتبها يدوياً — سطر لكل تلميذ(ة)، بهذا الترتيب:<br>
+      <b>الاسم الكامل، القسم، هاتف ولي الأمر، هاتف ثانٍ (اختياري)، ملاحظات (اختياري)</b></p>
+      <div class="field-group"><textarea id="importCsvText" rows="8" placeholder="مثال:&#10;أحمد الإدريسي، الأولى إعدادي 1، 0612345678"></textarea></div>
+      <div class="field-group">
+        <label>أو اختر ملف CSV</label>
+        <input type="file" id="importCsvFile" accept=".csv,text/csv">
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-light" id="importCsvCancel">إلغاء</button>
+        <button class="btn btn-primary" id="importCsvOk">استيراد</button>
+      </div>
+    </div>`;
+  document.body.appendChild(bg);
+  bg.addEventListener('click', e=>{ if(e.target===bg) bg.remove(); });
+  bg.querySelector('#importCsvCancel').addEventListener('click', ()=>bg.remove());
+  bg.querySelector('#importCsvFile').addEventListener('change', e=>{
+    const file = e.target.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ()=>{ bg.querySelector('#importCsvText').value = reader.result; };
+    reader.readAsText(file);
+  });
+  bg.querySelector('#importCsvOk').addEventListener('click', ()=>{
+    const text = bg.querySelector('#importCsvText').value.trim();
+    if(!text){ toast('لا يوجد محتوى للاستيراد'); return; }
+    const lines = text.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+    let added = 0, skippedDup = 0, skippedInvalid = 0;
+    lines.forEach(line=>{
+      const cols = parseCSVLine(line);
+      const [fullName, section, parentPhone, parentPhone2, notes] = cols;
+      if(!fullName || !section || fullName.includes('الاسم الكامل')){ skippedInvalid++; return; } // يتجاهل الأسطر الناقصة أو سطر العنوان إن أُعيد لصقه
+      const dup = state.students.some(s=>s.fullName===fullName && s.section===section);
+      if(dup){ skippedDup++; return; }
+      state.students.push({
+        id: uid('stu'), fullName, section,
+        parentPhone: parentPhone||'', parentPhone2: parentPhone2||'', notes: notes||'',
+        status:'normal', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
+      });
+      added++;
+    });
+    saveStudents();
+    renderStudentsTable();
+    bg.remove();
+    toast(`تم استيراد ${added} تلميذ(ة)` + (skippedDup?` — تم تجاهل ${skippedDup} مكرر`:'') + (skippedInvalid?` — ${skippedInvalid} سطر غير صالح`:''));
+  });
+});
+
 function openStudentForm(student){
   const isEdit = !!student;
   const s = student || {fullName:'', section: state.settings.sections[0]||'', parentPhone:'', parentPhone2:'', notes:'', status:'normal'};
