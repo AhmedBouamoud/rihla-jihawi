@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640">
+<defs>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#07101d" flood-opacity=".35"/></filter>
+<linearGradient id="paper" x1="0" x2="1"><stop stop-color="#f7e4bd"/><stop offset="1" stop-color="#d2aa72"/></linearGradient>
+<linearGradient id="sea" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#12324c"/><stop offset="1" stop-color="#0a1424"/></linearGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0a5"/><stop offset=".5" stop-color="#d6a83e"/><stop offset="1" stop-color="#8c5d12"/></linearGradient>
+<style><![CDATA[
+.ar{font-family:'Amiri','Noto Naskh Arabic','Tahoma',sans-serif;direction:rtl}
+.small{font-size:18px;fill:#2b2116;font-weight:700}.label{font-size:28px;fill:#2b2116;font-weight:800}.white{fill:#fff7df}.stroke{stroke:#3d2b1a;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+]]></style>
+</defs>
+<rect width="1000" height="640" rx="42" fill="#102236"/>
+<path d="M160 90 C320 45,520 78,775 110 C870 122,900 190,858 250 C810 319,888 397,785 520 C685 640,466 562,316 579 C166 598,80 512,112 399 C139 305,52 172,160 90Z" fill="#ebd2a2" stroke="#573d22" stroke-width="6" filter="url(#shadow)"/>
+<g font-family="Tahoma" font-weight="900" text-anchor="middle">
+<circle cx="300" cy="270" r="55" fill="#2b7bbb"/><text x="300" y="280" fill="white" font-size="21">France</text>
+<circle cx="214" cy="190" r="55" fill="#2b7bbb"/><text x="214" y="200" fill="white" font-size="18">Britain</text>
+<circle cx="690" cy="210" r="60" fill="#2b7bbb"/><text x="690" y="220" fill="white" font-size="20">Russia</text>
+<circle cx="470" cy="295" r="60" fill="#c83232"/><text x="470" y="305" fill="white" font-size="21">Germany</text>
+<circle cx="560" cy="390" r="66" fill="#c83232"/><text x="560" y="390" fill="white" font-size="16">Austria-</text><text x="560" y="412" fill="white" font-size="16">Hungary</text>
+</g>
+<path d="M300 270 L214 190 L690 210 L300 270" fill="none" stroke="#2b7bbb" stroke-width="7" stroke-dasharray="12 10"/>
+<path d="M470 295 L560 390" fill="none" stroke="#c83232" stroke-width="8" stroke-dasharray="12 10"/>
+<g class="ar" font-weight="900">
+<rect x="48" y="485" width="390" height="86" rx="20" fill="#0c1728" opacity=".8"/><circle cx="400" cy="529" r="16" fill="#2b7bbb"/><text x="373" y="538" text-anchor="end" fill="white" font-size="24">دول الوفاق الثلاثي</text>
+<rect x="562" y="485" width="390" height="86" rx="20" fill="#0c1728" opacity=".8"/><circle cx="914" cy="529" r="16" fill="#c83232"/><text x="887" y="538" text-anchor="end" fill="white" font-size="24">دول المركز</text>
+</g>
+<text x="500" y="62" text-anchor="middle" class="ar white" font-size="36" font-weight="900">خريطة الأحلاف: حين تتسع الأزمة</text>
+</svg>

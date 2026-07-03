@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الحرب العالمية الأولى | بوابة رحلة الثالثة إعدادي</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <div class="brand">
+      <div class="school-badge" title="مكان شعار مؤسسة الحنان">مؤسسة الحنان</div>
+      <div>
+        <h1>بوابة رحلة الثالثة إعدادي</h1>
+        <p>إعداد وتقديم: الأستاذ أحمد بوعمود</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <a class="ghost-btn" href="../../index.html">🗺️ خريطة الرحلة</a>
+      <button class="ghost-btn" id="soundToggle" type="button">🔊 الصوت</button>
+      <button class="ghost-btn" id="openReportBtn" type="button">📄 تقرير الدرس</button>
+      <button class="ghost-btn" id="openTeacherBtn" type="button">👨‍🏫 لوحة الأستاذ</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero page active-page">
+      <div class="hero-copy">
+        <span class="lesson-chip">التاريخ • الثالثة إعدادي • درس تفاعلي</span>
+        <h2>الحرب العالمية الأولى:<br />من برميل البارود إلى قصر فرساي</h2>
+        <p>
+          رحلة تاريخية لفهم كيف قادت القومية والإمبريالية والأحلاف والتسلح إلى حرب عالمية،
+          وكيف غيّرت نتائجها خريطة أوروبا ومهدت لتحولات كبرى.
+        </p>
+        <div class="hero-buttons">
+          <button class="primary-btn" id="startJourneyBtn" type="button">🚀 ابدأ الرحلة</button>
+          <button class="secondary-btn" id="resumeBtn" type="button">⏳ واصل من آخر محطة</button>
+        </div>
+        <div class="micro-note">
+          <strong>تنبيه منهجي:</strong> 1918 نهاية الحرب عسكرياً، و1919 سنة مؤتمر الصلح ومعاهدة فرساي.
+        </div>
+      </div>
+      <div class="hero-visual card-glow">
+        <img src="assets/hero_map.svg" alt="خريطة أوروبا القديمة ومسار الحرب العالمية الأولى" />
+      </div>
+    </section>
+
+    <section id="journey" class="page journey-page">
+      <aside class="passport card-glow">
+        <div class="passport-head">
+          <img src="assets/atlas_guide.svg" alt="المرشد أطلس" />
+          <div>
+            <h3>جواز الرحلة</h3>
+            <p id="guideSpeech">لاحظ قبل أن تجيب.</p>
+          </div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-label"><span>تقدمك</span><span id="progressText">0%</span></div>
+          <div class="progress-bar"><span id="progressFill"></span></div>
+        </div>
+        <div id="stampBoard" class="stamp-board"></div>
+        <button class="secondary-btn full" id="mapBtn" type="button">🗺️ خريطة الفهم</button>
+        <button class="danger-btn full" id="resetBtn" type="button">إعادة البداية</button>
+      </aside>
+
+      <section class="station-area card-glow">
+        <div class="station-top">
+          <button class="ghost-btn" id="prevStationBtn" type="button">السابق</button>
+          <div class="station-counter" id="stationCounter">المحطة 1 / 10</div>
+          <button class="ghost-btn" id="nextStationBtn" type="button">التالي</button>
+        </div>
+        <div id="stationContent" class="station-content"></div>
+      </section>
+    </section>
+  </main>
+
+  <div id="mapModal" class="modal" aria-hidden="true">
+    <div class="modal-box wide paper-box">
+      <button class="close-btn" data-close="mapModal" type="button">×</button>
+      <h2>خريطة الفهم الممزقة</h2>
+      <p>كل محطة ناجحة تمنحك قطعة. عند اكتمال القطع ستفهم كيف تحولت أزمة أوروبية إلى حرب عالمية.</p>
+      <div id="mapPieces" class="map-pieces"></div>
+      <div id="mapMessage" class="map-message"></div>
+    </div>
+  </div>
+
+  <div id="reportModal" class="modal" aria-hidden="true">
+    <div class="modal-box report-modal-box">
+      <button class="close-btn no-print" data-close="reportModal" type="button">×</button>
+      <div class="report-actions no-print">
+        <button class="primary-btn" id="printReportBtn" type="button">🖨️ طباعة التقرير</button>
+      </div>
+      <article id="printableReport" class="printable-report">
+        <header class="report-header">
+          <div class="school-badge print-badge">مؤسسة الحنان</div>
+          <div>
+            <h1>الحرب العالمية الأولى: الأسباب والنتائج</h1>
+            <p>تقرير درس كامل قابل للطباعة — إعداد وتقديم: الأستاذ أحمد بوعمود</p>
+          </div>
+        </header>
+        <section>
+          <h2>تقديم</h2>
+          <p>
+            شهد العالم خلال بداية القرن العشرين توتراً متزايداً بين القوى الأوروبية بسبب التنافس الإمبريالي حول المستعمرات،
+            ونمو النزعات القومية، وظهور التحالفات العسكرية، والتسابق نحو التسلح. وقد أدى اغتيال ولي عهد النمسا بسراييفو سنة 1914
+            إلى اندلاع حرب عالمية مدمرة استمرت عسكرياً إلى سنة 1918، ثم أعقبتها تسوية سياسية سنة 1919.
+          </p>
+        </section>
+        <section>
+          <h2>الإشكالية</h2>
+          <p>ما أسباب اندلاع الحرب العالمية الأولى؟ وما أهم مراحلها؟ وما النتائج التي خلفتها على العالم؟</p>
+        </section>
+        <section>
+          <h2>أولاً: أسباب الحرب العالمية الأولى</h2>
+          <h3>1. الأسباب غير المباشرة</h3>
+          <ul>
+            <li>نمو النزعة القومية بأوروبا، مما أدى إلى توترات ونزاعات بين الشعوب والدول.</li>
+            <li>اشتداد التنافس الإمبريالي حول المستعمرات والأسواق ومصادر المواد الأولية.</li>
+            <li>ظهور التحالفات العسكرية بين الدول الأوروبية، وأهمها الوفاق الثلاثي ودول المركز.</li>
+            <li>التسابق نحو التسلح، حيث عملت الدول الأوروبية على تقوية جيوشها استعداداً للمواجهة.</li>
+          </ul>
+          <h3>2. السبب المباشر</h3>
+          <p>تمثل السبب المباشر في اغتيال ولي عهد النمسا أثناء زيارته لسراييفو يوم 28 يونيو 1914، فكان ذلك الشرارة التي فجرت الحرب.</p>
+        </section>
+        <section>
+          <h2>ثانياً: مراحل الحرب العالمية الأولى</h2>
+          <h3>1. المرحلة الأولى: 1914–1917</h3>
+          <p>تميزت بتفوق نسبي لدول المركز بقيادة ألمانيا، واعتماد أساليب قتالية قاسية مثل حرب الخنادق.</p>
+          <h3>2. المرحلة الثانية: 1917–1918</h3>
+          <p>تميزت بانسحاب روسيا بعد الثورة البلشفية، ودخول الولايات المتحدة الأمريكية الحرب إلى جانب دول الوفاق، مما قلب ميزان القوى وأدى إلى هزيمة ألمانيا سنة 1918.</p>
+          <p class="method-note"><strong>تنبيه منهجي:</strong> سنة 1918 تمثل نهاية الحرب عسكرياً، أما سنة 1919 فترتبط بمؤتمر الصلح ومعاهدة فرساي وتسوية ما بعد الحرب.</p>
+        </section>
+        <section>
+          <h2>ثالثاً: نتائج الحرب العالمية الأولى</h2>
+          <h3>1. النتائج البشرية</h3>
+          <p>خلفت الحرب خسائر بشرية كبيرة بسبب ارتفاع عدد القتلى والمعطوبين، وانخفاض معدلات الولادة، وانتشار ظاهرة الشيخوخة.</p>
+          <h3>2. النتائج الاقتصادية</h3>
+          <p>تراجعت اقتصاديات الدول المتحاربة بسبب نفقات الحرب والديون، وتراجعت الهيمنة الاقتصادية الأوروبية لصالح قوى صاعدة مثل الولايات المتحدة الأمريكية واليابان.</p>
+          <h3>3. النتائج الاجتماعية</h3>
+          <p>أدى تدهور الوضع الاقتصادي إلى انتشار الفقر والبطالة وتدني مستوى المعيشة.</p>
+          <h3>4. النتائج السياسية</h3>
+          <p>عقد مؤتمر الصلح بقصر فرساي سنة 1919، وفرضت معاهدته شروطاً قاسية على الدول المنهزمة، كما تغيرت الخريطة السياسية لأوروبا، وتفككت إمبراطوريات قديمة مثل النمسا-المجر والإمبراطورية العثمانية.</p>
+          <h3>5. عصبة الأمم</h3>
+          <p>أنشئت عصبة الأمم بعد الحرب بهدف ضمان السلم العالمي وحل النزاعات الدولية بالطرق السلمية لتجنب حرب عالمية جديدة.</p>
+        </section>
+        <section>
+          <h2>خاتمة</h2>
+          <p>غيرت الحرب العالمية الأولى الخريطة السياسية لأوروبا، وأضعفت الدول الأوروبية، وفتحت المجال أمام تحولات كبرى حملت في طياتها أسباب توتر دولي جديد ساهم لاحقاً في اندلاع الحرب العالمية الثانية.</p>
+        </section>
+        <section>
+          <h2>مصطلحات أساسية</h2>
+          <div class="terms-grid print-terms">
+            <p><strong>الإمبريالية:</strong> سياسة توسعية تهدف إلى السيطرة على مناطق أخرى اقتصادياً وسياسياً.</p>
+            <p><strong>النزعة القومية:</strong> شعور بالانتماء إلى أمة معينة والدفاع عن مصالحها.</p>
+            <p><strong>دول الوفاق:</strong> تحالف ضم فرنسا وبريطانيا وروسيا.</p>
+            <p><strong>دول المركز:</strong> ألمانيا والنمسا-المجر وحلفاؤهما.</p>
+            <p><strong>معاهدة فرساي:</strong> معاهدة صلح سنة 1919 فرضت شروطاً قاسية على الدول المنهزمة.</p>
+            <p><strong>عصبة الأمم:</strong> منظمة دولية هدفها الحفاظ على السلم العالمي.</p>
+          </div>
+        </section>
+        <section>
+          <h2>تواريخ مهمة</h2>
+          <ul>
+            <li><strong>28 يونيو 1914:</strong> اغتيال ولي عهد النمسا بسراييفو.</li>
+            <li><strong>1914–1917:</strong> المرحلة الأولى من الحرب.</li>
+            <li><strong>1917:</strong> انسحاب روسيا ودخول الولايات المتحدة الأمريكية.</li>
+            <li><strong>1918:</strong> هزيمة ألمانيا ونهاية الحرب عسكرياً.</li>
+            <li><strong>1919:</strong> مؤتمر الصلح ومعاهدة فرساي وعصبة الأمم.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>مهارة تاريخية</h2>
+          <p>لفهم حدث تاريخي كبير، لا نكتفي بحفظ التاريخ، بل نربط بين: الأسباب العميقة + السبب المباشر + المراحل + النتائج + التحولات اللاحقة.</p>
+        </section>
+        <section>
+          <h2>أسئلة تقويمية</h2>
+          <ol>
+            <li>اذكر سببين غير مباشرين للحرب العالمية الأولى.</li>
+            <li>ما السبب المباشر لاندلاع الحرب؟</li>
+            <li>ميز بين المرحلة الأولى والمرحلة الثانية من الحرب.</li>
+            <li>صنف نتائج الحرب إلى بشرية واقتصادية وسياسية.</li>
+            <li>ما الهدف من إنشاء عصبة الأمم؟</li>
+            <li>لماذا يمكن اعتبار معاهدة فرساي من بوادر التوتر الدولي اللاحق؟</li>
+          </ol>
+        </section>
+      </article>
+    </div>
+  </div>
+
+  <div id="teacherModal" class="modal" aria-hidden="true">
+    <div class="modal-box wide">
+      <button class="close-btn" data-close="teacherModal" type="button">×</button>
+      <h2>لوحة الأستاذ</h2>
+      <div id="teacherLogin" class="teacher-login">
+        <p>أدخل كلمة المرور لفتح اللوحة.</p>
+        <input id="teacherPassword" type="password" placeholder="كلمة المرور" />
+        <button class="primary-btn" id="teacherLoginBtn" type="button">دخول</button>
+        <p class="hint">كلمة المرور التجريبية: 1234</p>
+      </div>
+      <div id="teacherPanel" class="teacher-panel hidden">
+        <div class="teacher-stats">
+          <div><strong id="teacherQCount">0</strong><span>عدد الأسئلة</span></div>
+          <div><strong id="teacherDone">0</strong><span>محطات منجزة</span></div>
+          <div><strong id="teacherScore">0</strong><span>آخر نتيجة نهائية</span></div>
+        </div>
+        <div class="teacher-actions">
+          <button class="secondary-btn" id="teacherPrintBtn" type="button">طباعة التقرير</button>
+          <button class="danger-btn" id="teacherResetBtn" type="button">إعادة ضبط تقدم التلميذ</button>
+        </div>
+        <p class="hint">يمكن تطوير هذه اللوحة لاحقاً لتعديل الأسئلة مباشرة من الواجهة.</p>
+        <div id="questionList" class="question-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="certificateModal" class="modal" aria-hidden="true">
+    <div class="modal-box certificate-box">
+      <button class="close-btn no-print" data-close="certificateModal" type="button">×</button>
+      <div class="report-actions no-print">
+        <input id="studentName" class="student-name-input" placeholder="اكتب اسم التلميذ/ة" />
+        <button class="primary-btn" id="printCertificateBtn" type="button">🖨️ طباعة الشهادة</button>
+      </div>
+      <div id="certificate" class="certificate">
+        <img src="assets/certificate_bg.svg" alt="خلفية شهادة تقدير" />
+        <div class="certificate-content">
+          <h2>شهادة تقدير</h2>
+          <p>تُمنح هذه الشهادة للتلميذ/ة</p>
+          <h3 id="certName">........................</h3>
+          <p>بعد إتمام رحلة درس: <strong>الحرب العالمية الأولى</strong></p>
+          <p>واكتساب مهارة التمييز بين الأسباب، المراحل، والنتائج.</p>
+          <p class="cert-sign">إعداد وتقديم: الأستاذ أحمد بوعمود</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
