@@ -3,1311 +3,481 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>الحراسة العامة — نماذج التقارير</title>
-<meta name="description" content="تطبيق نماذج تقارير مرنة للحراسة العامة: غياب، تأخر، سلوك، حوادث، مجالس، امتحانات، مراسلات — قابلة للتخصيص والطباعة.">
-<meta name="theme-color" content="#16324f">
+<title>مساعد الحراسة العامة – مؤسسة الحنان</title>
+<meta name="description" content="نظام ذكي لتتبع الحياة المدرسية اليومية: الغياب، التأخر، السلوك، التدخلات، التواصل مع أولياء الأمور، والتقارير.">
+<meta name="theme-color" content="#14539a">
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" href="./icons/icon-192.png">
 <link rel="apple-touch-icon" href="./icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --navy:#16324f; --navy-2:#1f4b73; --navy-3:#0e2138;
-    --gold:#b4820c; --gold-l:#f4e2b3;
-    --bg:#eef1f5; --card:#ffffff; --line:#d9e0e8;
-    --ink:#1c2a3a; --muted:#5c6b7c;
-    --danger:#b3261e; --danger-l:#fbe9e7;
-    --success:#166534; --success-l:#e7f5ec;
-    --radius:14px;
-    --shadow:0 2px 10px rgba(20,40,70,.08), 0 1px 2px rgba(20,40,70,.06);
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
-  body{
-    font-family:"Cairo","Tajawal","Segoe UI",Tahoma,Arial,sans-serif;
-    background:var(--bg); color:var(--ink);
-    min-height:100vh;
-  }
-  button{font-family:inherit;cursor:pointer}
-  input,textarea,select{font-family:inherit}
-  .hidden{display:none !important}
-  .wrap{max-width:1080px;margin:0 auto;padding:16px 16px 60px}
-
-  /* ===== Header ===== */
-  header.app-header{
-    background:linear-gradient(135deg,var(--navy-3),var(--navy));
-    color:#fff; padding:18px 16px; box-shadow:var(--shadow);
-    position:sticky; top:0; z-index:20;
-  }
-  .app-header .inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-  .app-header .brand{display:flex;align-items:center;gap:10px;flex:1;min-width:220px}
-  .app-header .brand .emoji{font-size:2rem;line-height:1}
-  .app-header h1{font-size:1.15rem;margin:0;font-weight:800}
-  .app-header .sub{font-size:.78rem;color:#cfe0f0;margin-top:2px}
-  .header-actions{display:flex;gap:8px;flex-wrap:wrap}
-  .icon-btn{
-    background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); color:#fff;
-    border-radius:10px; padding:8px 12px; font-size:.85rem; display:flex; align-items:center; gap:6px;
-    transition:.15s;
-  }
-  .icon-btn:hover{background:rgba(255,255,255,.22)}
-  .icon-btn.lang-btn{background:rgba(180,130,12,.35);border-color:rgba(244,226,179,.5);font-weight:800}
-
-  .letterhead-bar{
-    background:#fff; border-bottom:1px solid var(--line); padding:10px 16px; font-size:.82rem; color:var(--muted);
-  }
-  .letterhead-bar .inner{max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-  .letterhead-bar b{color:var(--ink)}
-
-  /* ===== Views ===== */
-  .view{padding-top:18px}
-  .view-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
-  .view-title h2{margin:0;font-size:1.3rem}
-  .toolbar{display:flex;gap:8px;flex-wrap:wrap}
-
-  .btn{
-    border:none;border-radius:10px;padding:9px 16px;font-size:.88rem;font-weight:700;
-    display:inline-flex;align-items:center;gap:6px;transition:.15s; white-space:nowrap;
-  }
-  .btn-primary{background:var(--navy);color:#fff}
-  .btn-primary:hover{background:var(--navy-2)}
-  .btn-gold{background:var(--gold);color:#3a2a00}
-  .btn-gold:hover{filter:brightness(1.06)}
-  .btn-light{background:#fff;color:var(--navy);border:1px solid var(--line)}
-  .btn-light:hover{background:#f4f7fa}
-  .btn-danger{background:var(--danger-l);color:var(--danger)}
-  .btn-danger:hover{background:#f7d9d6}
-  .btn-sm{padding:6px 11px;font-size:.78rem;border-radius:8px}
-  .btn:disabled{opacity:.5;cursor:not-allowed}
-
-  .search-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-  .search-row input[type=text], .search-row select{
-    padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:.9rem;
-  }
-  .search-row input[type=text]{flex:1;min-width:200px}
-
-  .cat-block{margin-bottom:26px}
-  .cat-block h3{
-    display:flex;align-items:center;gap:8px;font-size:1.02rem;color:var(--navy-2);
-    border-bottom:2px solid var(--line); padding-bottom:8px;margin-bottom:12px;
-  }
-  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
-  .tpl-card{
-    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
-    padding:14px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:8px;
-  }
-  .tpl-card .top{display:flex;align-items:center;gap:8px}
-  .tpl-card .top .emoji{font-size:1.5rem}
-  .tpl-card .name{font-weight:800;font-size:.98rem;flex:1}
-  .tpl-card .meta{font-size:.76rem;color:var(--muted)}
-  .tpl-card .badge-custom{
-    font-size:.68rem; background:var(--gold-l); color:#7a5a00; padding:2px 7px; border-radius:6px; font-weight:700;
-  }
-  .tpl-card .actions{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap}
-
-  .empty{
-    text-align:center;color:var(--muted); padding:40px 10px; background:#fff; border:1px dashed var(--line);
-    border-radius:var(--radius);
-  }
-
-  /* ===== Fill view ===== */
-  .fill-layout{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-  @media (max-width:860px){.fill-layout{grid-template-columns:1fr}}
-  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
-  .panel h3{margin:0 0 12px;font-size:1rem;color:var(--navy-2)}
-  .field-group{margin-bottom:14px}
-  .field-group label{display:block;font-size:.85rem;font-weight:700;margin-bottom:5px;color:var(--ink)}
-  .field-group .req{color:var(--danger)}
-  .field-group input[type=text],.field-group input[type=number],.field-group input[type=date],
-  .field-group input[type=time],.field-group textarea,.field-group select{
-    width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:9px;font-size:.9rem;background:#fbfcfd;
-  }
-  .field-group textarea{min-height:70px;resize:vertical}
-  .field-group.checkbox-row{display:flex;align-items:center;gap:8px}
-  .field-group.checkbox-row label{margin:0}
-
-  .dyn-table{width:100%;border-collapse:collapse;margin-top:6px}
-  .dyn-table th,.dyn-table td{border:1px solid var(--line);padding:5px;font-size:.82rem}
-  .dyn-table th{background:#f2f5f8}
-  .dyn-table td input{width:100%;border:none;background:transparent;padding:4px;font-size:.82rem}
-  .dyn-table td input:focus{outline:1px solid var(--navy-2);border-radius:4px}
-  .dyn-table .rm-row-btn{background:var(--danger-l);color:var(--danger);border:none;border-radius:6px;padding:3px 8px;font-size:.75rem}
-
-  .extra-field-row{display:flex;gap:6px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap}
-  .extra-field-row .grow{flex:1;min-width:120px}
-  .extra-field-row .rm{background:var(--danger-l);color:var(--danger);border:none;border-radius:8px;padding:8px 10px}
-
-  /* Print preview */
-  #printArea{background:#fff}
-  .doc{background:#fff;padding:22px;border:1px solid var(--line);border-radius:10px;min-height:400px}
-  .doc-head{text-align:center;margin-bottom:14px;border-bottom:2px solid var(--navy);padding-bottom:10px}
-  .doc-head .kingdom{font-weight:800;font-size:.95rem}
-  .doc-head .line{font-size:.82rem;color:var(--muted)}
-  .doc-head .inst{font-weight:800;font-size:1.02rem;margin-top:4px;color:var(--navy)}
-  .doc-title{
-    text-align:center;font-weight:900;font-size:1.15rem;background:var(--gold-l);color:#5b4300;
-    padding:8px;border-radius:8px;margin:14px 0;
-  }
-  .doc-meta{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);margin-bottom:10px;flex-wrap:wrap;gap:6px}
-  .doc-row{margin-bottom:10px;font-size:.9rem}
-  .doc-row .lbl{font-weight:800;color:var(--navy-2)}
-  .doc-row .val{margin-top:2px;white-space:pre-wrap}
-  table.doc-table{width:100%;border-collapse:collapse;margin:8px 0 14px}
-  table.doc-table th,table.doc-table td{border:1px solid #94a3b8;padding:6px;font-size:.82rem;text-align:center}
-  table.doc-table th{background:#eef1f5}
-  .doc-sign{display:flex;justify-content:space-between;margin-top:36px;gap:20px;flex-wrap:wrap}
-  .doc-sign .box{text-align:center;flex:1;min-width:150px}
-  .doc-sign .box .cap{font-weight:800;font-size:.85rem;margin-bottom:34px}
-  .doc-sign .box .line-blank{border-top:1px solid var(--ink);width:80%;margin:0 auto}
-
-  /* Builder */
-  .field-editor{border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px;background:#fbfcfd}
-  .field-editor .row1{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-  .field-editor .row1 input[type=text]{flex:2;min-width:140px;padding:8px 10px;border:1px solid var(--line);border-radius:8px}
-  .field-editor .row1 select{flex:1;min-width:120px;padding:8px 10px;border:1px solid var(--line);border-radius:8px}
-  .field-editor .row2{margin-top:8px}
-  .field-editor .row2 textarea{width:100%;padding:8px;border:1px solid var(--line);border-radius:8px;min-height:50px}
-  .field-editor .row3{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
-  .field-editor .req-check{display:flex;align-items:center;gap:5px;font-size:.8rem}
-  .move-btns{display:flex;gap:4px}
-  .move-btns button{background:#fff;border:1px solid var(--line);border-radius:6px;padding:4px 8px;font-size:.8rem}
-
-  /* Log */
-  .log-table-wrap{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-  table.log-table{width:100%;border-collapse:collapse;min-width:640px}
-  table.log-table th,table.log-table td{padding:10px 12px;font-size:.85rem;border-bottom:1px solid var(--line);text-align:start}
-  table.log-table th{background:#f2f5f8;color:var(--navy-2)}
-  table.log-table tr:hover td{background:#f9fbfd}
-
-  /* Modal */
-  .modal-bg{position:fixed;inset:0;background:rgba(15,25,40,.5);display:flex;align-items:center;justify-content:center;z-index:100;padding:16px}
-  .modal{background:#fff;border-radius:var(--radius);padding:20px;max-width:480px;width:100%;max-height:88vh;overflow:auto;box-shadow:0 10px 40px rgba(0,0,0,.25)}
-  .modal h3{margin-top:0}
-  .modal .field-group{margin-bottom:12px}
-  .modal .field-group label{display:block;font-size:.85rem;font-weight:700;margin-bottom:5px}
-  .modal .field-group input{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px}
-  .modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
-
-  .toast{
-    position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
-    background:var(--navy-3);color:#fff;padding:10px 20px;border-radius:10px;font-size:.85rem;
-    box-shadow:var(--shadow); z-index:200; opacity:0; pointer-events:none; transition:opacity .25s;
-  }
-  .toast.show{opacity:1}
-
-  footer.app-footer{text-align:center;color:var(--muted);font-size:.78rem;padding:20px;}
-
-  @media print{
-    header.app-header,.letterhead-bar,.no-print,footer.app-footer{display:none !important}
-    body{background:#fff}
-    .wrap{padding:0;max-width:100%}
-    #view-fill .fill-layout{display:block}
-    #formPanel{display:none !important}
-    .doc{border:none;padding:0}
-  }
-</style>
+<!-- تُحمَّل الخطوط بشكل غير حاجب حتى لا يتعطل التطبيق عند ضعف الاتصال أو انعدامه -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
-<header class="app-header no-print">
-  <div class="inner">
-    <div class="brand">
-      <span class="emoji">🛡️</span>
-      <div>
-        <h1 id="appTitleEl">الحراسة العامة</h1>
-        <div class="sub" id="appSubtitleEl">نماذج تقارير مرنة — قابلة للتخصيص والطباعة</div>
-      </div>
+<!-- ============================= شاشة الدخول (تجريبية) ============================= -->
+<div id="loginGate" class="login-gate">
+  <div class="login-card">
+    <div class="login-logo">🛡️</div>
+    <h1>مساعد الحراسة العامة</h1>
+    <div class="login-sub">مؤسسة الحنان</div>
+    <p class="login-tag">نظام ذكي لتتبع الحياة المدرسية اليومية</p>
+    <div class="field-group">
+      <label>اسمك</label>
+      <input type="text" id="loginName" placeholder="مثال: عبد الرحيم">
     </div>
-    <div class="header-actions">
-      <button class="icon-btn" id="btnHome">🏠 <span id="lblHome"></span></button>
-      <button class="icon-btn" id="btnLog">🗂️ <span id="lblLog"></span></button>
-      <button class="icon-btn" id="btnNewTpl">➕ <span id="lblNewTpl"></span></button>
-      <button class="icon-btn" id="btnSettings">⚙️ <span id="lblSettings"></span></button>
-      <button class="icon-btn lang-btn" id="btnLangToggle">🌐 <span id="lblLangToggle"></span></button>
+    <div class="field-group">
+      <label>الدور</label>
+      <select id="loginRole">
+        <option value="حارس عام">حارس(ة) عام(ة)</option>
+        <option value="مدير" disabled>مدير — قريباً</option>
+        <option value="أستاذ" disabled>أستاذ(ة) — قريباً</option>
+        <option value="إدارة" disabled>إدارة — قريباً</option>
+      </select>
     </div>
-  </div>
-</header>
-
-<div class="letterhead-bar no-print">
-  <div class="inner">
-    <span><b id="lhInst">—</b> · <span id="lhNiaba">—</span> · <span id="lhAcad">—</span></span>
-    <span><span id="lhYearLabel"></span> <b id="lhYear">—</b></span>
+    <button class="btn btn-primary btn-block" id="btnLogin">🔓 دخول</button>
+    <p class="login-note">⚠️ هذا الدخول محلي لتنظيم الاستعمال فقط، وليس حماية أمنية حقيقية للبيانات. جميع البيانات محفوظة في متصفحك فقط.</p>
   </div>
 </div>
 
-<div class="wrap">
+<!-- ============================= التطبيق ============================= -->
+<div id="appRoot" class="hidden">
 
-  <!-- ============ HOME VIEW ============ -->
-  <section class="view" id="view-home">
-    <div class="view-title">
-      <h2 id="homeTitleEl">نماذج التقارير</h2>
-    </div>
-    <div class="search-row">
-      <input type="text" id="searchInput" placeholder="">
-      <select id="categoryFilter"><option value="">كل الفئات</option></select>
-    </div>
-    <div id="templatesContainer"></div>
-  </section>
-
-  <!-- ============ FILL VIEW ============ -->
-  <section class="view hidden" id="view-fill">
-    <div class="view-title">
-      <h2 id="fillTitle">تعبئة نموذج</h2>
-      <div class="toolbar no-print">
-        <button class="btn btn-light" id="btnBackFromFill"><span id="lblBackFill"></span></button>
-        <button class="btn btn-light" id="btnClearForm">🧹 <span id="lblClearForm"></span></button>
-        <button class="btn btn-primary" id="btnSaveReport">💾 <span id="lblSaveReport"></span></button>
-        <button class="btn btn-gold" id="btnPrintReport">🖨️ <span id="lblPrintReport"></span></button>
-      </div>
-    </div>
-    <div class="fill-layout">
-      <div class="panel no-print" id="formPanel">
-        <h3>📝 <span id="formPanelTitleEl"></span></h3>
-        <div id="formFields"></div>
-        <div id="extraFieldsWrap">
-          <h3 style="margin-top:18px">➕ <span id="extraFieldsTitleEl"></span></h3>
-          <div id="extraFieldsList"></div>
-          <button class="btn btn-light btn-sm" id="btnAddExtraField">➕ <span id="lblAddExtraField"></span></button>
+  <header class="app-header no-print">
+    <div class="inner">
+      <div class="brand">
+        <span class="emoji">🛡️</span>
+        <div>
+          <h1>مساعد الحراسة العامة</h1>
+          <div class="sub">نظام ذكي لتتبع الحياة المدرسية اليومية — مؤسسة الحنان</div>
         </div>
       </div>
-      <div class="panel" id="printArea">
-        <h3 class="no-print">🖨️ <span id="printAreaTitleEl"></span></h3>
-        <div class="doc" id="docPreview"></div>
+      <div class="header-search">
+        <input type="text" id="globalSearch" placeholder="🔍 ابحث عن تلميذ بالاسم أو القسم...">
+        <div id="globalSearchResults" class="search-results hidden"></div>
+      </div>
+      <div class="header-user">
+        <span id="userBadge" class="user-badge">👤 —</span>
+        <button class="icon-btn" id="btnLogout" title="تسجيل الخروج">🚪</button>
       </div>
     </div>
-  </section>
+    <nav class="main-nav">
+      <button class="nav-btn" data-view="view-dashboard">🏠 لوحة اليوم</button>
+      <button class="nav-btn" data-view="view-students">🧑‍🎓 سجل التلاميذ</button>
+      <button class="nav-btn" data-view="view-attendance">📋 الغياب والتأخر</button>
+      <button class="nav-btn" data-view="view-behavior">⚖️ السلوك والتدخلات</button>
+      <button class="nav-btn" data-view="view-messages">✉️ التواصل مع الآباء</button>
+      <button class="nav-btn" data-view="view-reports">🗂️ التقارير والقوالب</button>
+      <button class="nav-btn" data-view="view-dailylog">📅 سجل اليوم</button>
+      <button class="nav-btn" data-view="view-stats">📊 الإحصائيات</button>
+      <button class="nav-btn" data-view="view-settings">⚙️ الإعدادات</button>
+    </nav>
+  </header>
 
-  <!-- ============ BUILDER VIEW ============ -->
-  <section class="view hidden" id="view-builder">
-    <div class="view-title">
-      <h2 id="builderTitle">قالب جديد</h2>
-      <div class="toolbar">
-        <button class="btn btn-light" id="btnBackFromBuilder"><span id="lblBackBuilder"></span></button>
-        <button class="btn btn-primary" id="btnSaveTemplate">💾 <span id="lblSaveTemplate"></span></button>
-      </div>
-    </div>
-    <div class="panel" style="margin-bottom:14px">
-      <div class="field-group">
-        <label id="tplNameLabelEl">اسم النموذج <span class="req">*</span></label>
-        <input type="text" id="tplName" placeholder="">
-      </div>
-      <div class="field-group">
-        <label id="tplCategoryLabelEl">الفئة</label>
-        <input type="text" id="tplCategory" list="catList" placeholder="">
-        <datalist id="catList"></datalist>
-      </div>
-    </div>
-    <div class="panel">
-      <h3 id="builderFieldsTitleEl">حقول النموذج</h3>
-      <div id="builderFields"></div>
-      <button class="btn btn-light btn-sm" id="btnAddField">➕ <span id="lblAddFieldBtn"></span></button>
-    </div>
-  </section>
+  <main class="wrap">
 
-  <!-- ============ LOG VIEW ============ -->
-  <section class="view hidden" id="view-log">
-    <div class="view-title">
-      <h2 id="logTitleEl">سجل التقارير المحفوظة</h2>
-      <div class="toolbar">
-        <button class="btn btn-light" id="btnExportAll">⬇️ <span id="lblExportAll"></span></button>
-        <label class="btn btn-light" style="position:relative;overflow:hidden">
-          ⬆️ <span id="lblImportFile"></span>
-          <input type="file" id="importFile" accept="application/json" style="position:absolute;inset:0;opacity:0;cursor:pointer">
-        </label>
-      </div>
-    </div>
-    <div class="search-row">
-      <input type="text" id="logSearch" placeholder="">
-    </div>
-    <div class="log-table-wrap">
-      <table class="log-table">
-        <thead><tr><th id="thName"></th><th id="thCategory"></th><th id="thDate"></th><th id="thActions"></th></tr></thead>
-        <tbody id="logTbody"></tbody>
-      </table>
-    </div>
-  </section>
+    <!-- ============ DASHBOARD ============ -->
+    <section class="view" id="view-dashboard">
+      <div class="view-title"><h2>🏠 لوحة اليوم</h2><div class="today-date" id="todayDateLabel"></div></div>
 
+      <div class="stat-grid" id="statGrid"></div>
+
+      <div class="quick-actions">
+        <button class="qa-btn qa-blue" data-qa="attendance">📋<span>تسجيل غياب أو تأخر</span></button>
+        <button class="qa-btn qa-orange" data-qa="behavior">📝<span>إضافة ملاحظة سلوكية</span></button>
+        <button class="qa-btn qa-red" data-qa="summon">☎️<span>استدعاء ولي أمر</span></button>
+        <button class="qa-btn qa-blue" data-qa="intervention">🛠️<span>تسجيل تدخل</span></button>
+        <button class="qa-btn qa-green" data-qa="dailyreport">🖨️<span>توليد تقرير اليوم</span></button>
+      </div>
+
+      <div class="dash-panel">
+        <h3>آخر الأحداث اليوم</h3>
+        <div id="dashRecentToday" class="recent-list"></div>
+      </div>
+    </section>
+
+    <!-- ============ STUDENTS ============ -->
+    <section class="view hidden" id="view-students">
+      <div id="students-list-view">
+        <div class="view-title">
+          <h2>🧑‍🎓 سجل التلاميذ</h2>
+          <button class="btn btn-primary" id="btnAddStudent">➕ إضافة تلميذ</button>
+        </div>
+        <div class="search-row">
+          <input type="text" id="studentSearch" placeholder="ابحث بالاسم أو القسم...">
+          <select id="studentSectionFilter"><option value="">كل الأقسام</option></select>
+          <select id="studentStatusFilter">
+            <option value="">كل الحالات</option>
+            <option value="normal">عادي</option>
+            <option value="tracking">يحتاج تتبع</option>
+            <option value="urgent">حالة مستعجلة</option>
+          </select>
+        </div>
+        <div id="studentsTableWrap" class="log-table-wrap">
+          <table class="log-table">
+            <thead><tr><th>الاسم الكامل</th><th>القسم</th><th>الحالة</th><th>هاتف ولي الأمر</th><th>إجراءات</th></tr></thead>
+            <tbody id="studentsTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="students-detail-view" class="hidden">
+        <div class="view-title">
+          <h2 id="studentDetailName">—</h2>
+          <div class="toolbar">
+            <button class="btn btn-light" id="btnBackToStudents">↩ رجوع لسجل التلاميذ</button>
+            <button class="btn btn-light" id="btnEditStudent">✏️ تعديل البيانات</button>
+          </div>
+        </div>
+        <div class="student-detail-card">
+          <div class="sd-row"><b>القسم:</b> <span id="sdSection"></span></div>
+          <div class="sd-row"><b>الحالة:</b> <span id="sdStatus"></span></div>
+          <div class="sd-row"><b>هاتف ولي الأمر:</b> <span id="sdPhone1"></span></div>
+          <div class="sd-row"><b>هاتف ثانٍ:</b> <span id="sdPhone2"></span></div>
+          <div class="sd-row"><b>ملاحظات:</b> <span id="sdNotes"></span></div>
+        </div>
+        <div class="tabs no-print">
+          <button class="tab-btn active" data-tab="attendance">الغياب والتأخر</button>
+          <button class="tab-btn" data-tab="behavior">السلوك والتدخلات</button>
+          <button class="tab-btn" data-tab="messages">الاتصالات</button>
+        </div>
+        <div id="sdTabAttendance" class="tab-panel"></div>
+        <div id="sdTabBehavior" class="tab-panel hidden"></div>
+        <div id="sdTabMessages" class="tab-panel hidden"></div>
+        <div class="toolbar" style="margin-top:14px">
+          <button class="btn btn-gold" id="btnStudentReport">🖨️ توليد تقرير هذا التلميذ</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ATTENDANCE ============ -->
+    <section class="view hidden" id="view-attendance">
+      <div class="view-title"><h2>📋 الغياب والتأخر</h2></div>
+      <div class="panel">
+        <h3>تسجيل حالة جديدة</h3>
+        <div class="form-grid">
+          <div class="field-group">
+            <label>القسم</label>
+            <select id="attSection"></select>
+          </div>
+          <div class="field-group">
+            <label>التلميذ(ة)</label>
+            <select id="attStudent"></select>
+          </div>
+          <div class="field-group">
+            <label>نوع الحالة</label>
+            <select id="attType"><option value="absence">غياب</option><option value="tardiness">تأخر</option></select>
+          </div>
+          <div class="field-group"><label>التاريخ</label><input type="date" id="attDate"></div>
+          <div class="field-group"><label>الساعة</label><input type="time" id="attTime"></div>
+          <div class="field-group"><label>السبب</label><input type="text" id="attReason" placeholder="اختياري"></div>
+          <div class="field-group">
+            <label>الوضعية</label>
+            <select id="attJustification">
+              <option value="pending">ينتظر التبرير</option>
+              <option value="justified">مبرر</option>
+              <option value="unjustified">غير مبرر</option>
+            </select>
+          </div>
+          <div class="field-group full"><label>ملاحظة إضافية</label><textarea id="attNote"></textarea></div>
+        </div>
+        <div id="attAlertBox" class="alert-box hidden"></div>
+        <div class="toolbar">
+          <button class="btn btn-primary" id="btnAttSave">💾 حفظ</button>
+          <button class="btn btn-light" id="btnAttMessage">✉️ إعداد رسالة لولي الأمر</button>
+          <button class="btn btn-gold" id="btnAttAddToDaily">📌 إضافة إلى تقرير اليوم</button>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>آخر التسجيلات</h3>
+        <div class="search-row"><input type="text" id="attListSearch" placeholder="ابحث..."></div>
+        <div class="log-table-wrap">
+          <table class="log-table">
+            <thead><tr><th>التلميذ</th><th>القسم</th><th>النوع</th><th>التاريخ</th><th>الوضعية</th><th>إجراءات</th></tr></thead>
+            <tbody id="attTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BEHAVIOR ============ -->
+    <section class="view hidden" id="view-behavior">
+      <div class="view-title"><h2>⚖️ السلوك والتدخلات</h2></div>
+      <div class="panel">
+        <h3>تسجيل حالة جديدة</h3>
+        <div class="form-grid">
+          <div class="field-group">
+            <label>القسم</label>
+            <select id="behSection"></select>
+          </div>
+          <div class="field-group">
+            <label>التلميذ(ة)</label>
+            <select id="behStudent"></select>
+          </div>
+          <div class="field-group"><label>التاريخ</label><input type="date" id="behDate"></div>
+          <div class="field-group">
+            <label>نوع الحالة</label>
+            <select id="behType"></select>
+          </div>
+          <div class="field-group">
+            <label>درجة الخطورة</label>
+            <select id="behSeverity">
+              <option value="light">بسيطة</option>
+              <option value="medium">متوسطة</option>
+              <option value="urgent">مستعجلة</option>
+            </select>
+          </div>
+          <div class="field-group full"><label>وصف الحالة</label><textarea id="behDescription"></textarea></div>
+          <div class="field-group">
+            <label>الإجراء المتخذ</label>
+            <select id="behAction"></select>
+          </div>
+          <div class="field-group"><label>تاريخ المتابعة</label><input type="date" id="behFollowUp"></div>
+          <div class="field-group">
+            <label>حالة الملف</label>
+            <select id="behFileStatus"><option value="open">مفتوح</option><option value="closed">مغلق</option></select>
+          </div>
+        </div>
+        <div class="toolbar">
+          <button class="btn btn-primary" id="btnBehSave">💾 حفظ</button>
+          <button class="btn btn-light" id="btnBehMessage">✉️ إعداد رسالة لولي الأمر</button>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>الحالات المسجلة</h3>
+        <div class="search-row">
+          <input type="text" id="behListSearch" placeholder="ابحث...">
+          <select id="behFileFilter">
+            <option value="">كل الملفات</option>
+            <option value="open">مفتوحة فقط</option>
+            <option value="closed">مغلقة فقط</option>
+          </select>
+        </div>
+        <div class="log-table-wrap">
+          <table class="log-table">
+            <thead><tr><th>التلميذ</th><th>النوع</th><th>الخطورة</th><th>التاريخ</th><th>الملف</th><th>إجراءات</th></tr></thead>
+            <tbody id="behTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MESSAGES ============ -->
+    <section class="view hidden" id="view-messages">
+      <div class="view-title"><h2>✉️ التواصل مع أولياء الأمور</h2></div>
+      <div class="panel">
+        <div class="form-grid">
+          <div class="field-group">
+            <label>القالب</label>
+            <select id="msgTemplate"></select>
+          </div>
+          <div class="field-group">
+            <label>القسم</label>
+            <select id="msgSection"></select>
+          </div>
+          <div class="field-group">
+            <label>التلميذ(ة)</label>
+            <select id="msgStudent"></select>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>نص الرسالة (قابل للتعديل قبل الإرسال)</label>
+          <textarea id="msgPreview" rows="7"></textarea>
+        </div>
+        <div class="toolbar">
+          <button class="btn btn-gold" id="btnMsgWhatsapp">🟢 فتح في واتساب</button>
+          <button class="btn btn-light" id="btnMsgCopy">📋 نسخ النص</button>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>سجل الاتصالات الأخيرة</h3>
+        <div class="log-table-wrap">
+          <table class="log-table">
+            <thead><tr><th>التلميذ</th><th>القالب</th><th>التاريخ</th></tr></thead>
+            <tbody id="msgLogTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ REPORTS & TEMPLATES ============ -->
+    <section class="view hidden" id="view-reports">
+
+      <div id="reports-home-view">
+        <div class="view-title"><h2>🗂️ التقارير والقوالب</h2></div>
+
+        <div class="dash-panel">
+          <h3>⚡ تقارير ذكية (تُولَّد تلقائياً من بياناتك)</h3>
+          <div class="smart-reports-grid">
+            <button class="btn btn-light smart-rep-btn" id="btnSmartDaily">📅 تقرير اليوم</button>
+            <button class="btn btn-light smart-rep-btn" id="btnSmartStudent">🧑‍🎓 تقرير تلميذ</button>
+            <button class="btn btn-light smart-rep-btn" id="btnSmartSection">🏫 تقرير قسم</button>
+            <button class="btn btn-light smart-rep-btn" id="btnSmartMonthlyAbsence">🗓️ تقرير غياب شهري</button>
+            <button class="btn btn-light smart-rep-btn" id="btnSmartRepeatedTardiness">⏱️ تقرير تأخر متكرر</button>
+          </div>
+        </div>
+
+        <div class="view-title" style="margin-top:22px">
+          <h3 style="margin:0">📄 نماذج قابلة للتعبئة والتخصيص</h3>
+          <button class="btn btn-primary btn-sm" id="btnNewTpl">➕ قالب جديد</button>
+        </div>
+        <div class="search-row">
+          <input type="text" id="searchInput" placeholder="ابحث عن نموذج...">
+          <select id="categoryFilter"><option value="">كل الفئات</option></select>
+        </div>
+        <div id="templatesContainer"></div>
+      </div>
+
+      <!-- Fill view -->
+      <section class="view hidden" id="view-fill">
+        <div class="view-title">
+          <h2 id="fillTitle">تعبئة نموذج</h2>
+          <div class="toolbar no-print">
+            <button class="btn btn-light" id="btnBackFromFill">↩ رجوع</button>
+            <button class="btn btn-light" id="btnClearForm">🧹 تفريغ الحقول</button>
+            <button class="btn btn-primary" id="btnSaveReport">💾 حفظ في السجل</button>
+            <button class="btn btn-gold" id="btnPrintReport">🖨️ طباعة / PDF</button>
+          </div>
+        </div>
+        <div class="fill-layout">
+          <div class="panel no-print" id="formPanel">
+            <h3>📝 بيانات النموذج</h3>
+            <div id="formFields"></div>
+            <div id="extraFieldsWrap">
+              <h3 style="margin-top:18px">➕ حقول إضافية لهذا التقرير</h3>
+              <div id="extraFieldsList"></div>
+              <button class="btn btn-light btn-sm" id="btnAddExtraField">➕ إضافة حقل إضافي</button>
+            </div>
+          </div>
+          <div class="panel" id="printArea">
+            <h3 class="no-print">🖨️ معاينة الطباعة</h3>
+            <div class="doc" id="docPreview"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Builder view -->
+      <section class="view hidden" id="view-builder">
+        <div class="view-title">
+          <h2 id="builderTitle">قالب جديد</h2>
+          <div class="toolbar">
+            <button class="btn btn-light" id="btnBackFromBuilder">↩ رجوع</button>
+            <button class="btn btn-primary" id="btnSaveTemplate">💾 حفظ القالب</button>
+          </div>
+        </div>
+        <div class="panel" style="margin-bottom:14px">
+          <div class="field-group">
+            <label>اسم النموذج <span class="req">*</span></label>
+            <input type="text" id="tplName" placeholder="مثال: تقرير غياب مخصص">
+          </div>
+          <div class="field-group">
+            <label>الفئة</label>
+            <input type="text" id="tplCategory" list="catList" placeholder="مثال: الغياب والتأخر">
+            <datalist id="catList"></datalist>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>حقول النموذج</h3>
+          <div id="builderFields"></div>
+          <button class="btn btn-light btn-sm" id="btnAddField">➕ إضافة حقل</button>
+        </div>
+      </section>
+
+      <!-- Generic smart-report print view -->
+      <section class="view hidden" id="view-smart-print">
+        <div class="view-title">
+          <h2 id="smartPrintTitle">تقرير</h2>
+          <div class="toolbar no-print">
+            <button class="btn btn-light" id="btnBackFromSmartPrint">↩ رجوع</button>
+            <button class="btn btn-gold" id="btnPrintSmart">🖨️ طباعة / PDF</button>
+          </div>
+        </div>
+        <div class="panel" id="smartPrintPanel">
+          <div class="doc" id="smartDocPreview"></div>
+        </div>
+      </section>
+
+    </section>
+
+    <!-- ============ DAILY LOG ============ -->
+    <section class="view hidden" id="view-dailylog">
+      <div class="view-title">
+        <h2>📅 سجل اليوم — <span id="dailyLogDate"></span></h2>
+        <button class="btn btn-gold" id="btnGenerateDailyFromLog">🖨️ توليد تقرير اليوم</button>
+      </div>
+      <div class="dash-panel"><h3>📋 الغياب والتأخر</h3><div id="dlAttendance" class="recent-list"></div></div>
+      <div class="dash-panel"><h3>⚖️ السلوك والتدخلات</h3><div id="dlBehavior" class="recent-list"></div></div>
+      <div class="dash-panel"><h3>✉️ الاتصالات</h3><div id="dlMessages" class="recent-list"></div></div>
+      <div class="dash-panel"><h3>📂 الملفات المفتوحة (كل الفترات)</h3><div id="dlOpenFiles" class="recent-list"></div></div>
+    </section>
+
+    <!-- ============ STATISTICS ============ -->
+    <section class="view hidden" id="view-stats">
+      <div class="view-title"><h2>📊 الإحصائيات</h2></div>
+      <div class="stat-grid" id="statsSummaryGrid"></div>
+      <div class="dash-panel"><h3>الغياب حسب القسم</h3><div id="statAbsenceBySection" class="bar-list"></div></div>
+      <div class="dash-panel"><h3>التأخر حسب القسم</h3><div id="statTardyBySection" class="bar-list"></div></div>
+      <div class="dash-panel"><h3>الأكثر تكراراً في التأخر</h3><div id="statTopTardy" class="bar-list"></div></div>
+      <div class="dash-panel"><h3>الأكثر تكراراً في الغياب</h3><div id="statTopAbsence" class="bar-list"></div></div>
+    </section>
+
+    <!-- ============ SETTINGS ============ -->
+    <section class="view hidden" id="view-settings">
+      <div class="view-title"><h2>⚙️ الإعدادات</h2></div>
+
+      <div class="panel">
+        <h3>معلومات المؤسسة</h3>
+        <div class="form-grid">
+          <div class="field-group"><label>اسم المؤسسة</label><input type="text" id="setInstitution"></div>
+          <div class="field-group"><label>النيابة الإقليمية</label><input type="text" id="setNiaba"></div>
+          <div class="field-group"><label>الأكاديمية الجهوية</label><input type="text" id="setAcademy"></div>
+          <div class="field-group"><label>السنة الدراسية</label><input type="text" id="setYear"></div>
+          <div class="field-group"><label>اسم الحارس(ة) العام(ة)</label><input type="text" id="setSupervisor"></div>
+        </div>
+        <button class="btn btn-primary" id="btnSaveSettings">💾 حفظ المعلومات</button>
+      </div>
+
+      <div class="panel">
+        <h3>الأقسام</h3>
+        <div id="settingsSections" class="chip-list"></div>
+        <div class="toolbar"><input type="text" id="newSectionInput" placeholder="اسم قسم جديد"><button class="btn btn-light btn-sm" id="btnAddSection">➕ إضافة</button></div>
+      </div>
+
+      <div class="panel">
+        <h3>أنواع الحالات السلوكية</h3>
+        <div id="settingsCaseTypes" class="chip-list"></div>
+        <div class="toolbar"><input type="text" id="newCaseTypeInput" placeholder="نوع حالة جديد"><button class="btn btn-light btn-sm" id="btnAddCaseType">➕ إضافة</button></div>
+      </div>
+
+      <div class="panel">
+        <h3>قوالب رسائل أولياء الأمور</h3>
+        <div id="settingsMessageTemplates"></div>
+      </div>
+
+      <div class="panel">
+        <h3>البيانات</h3>
+        <div class="toolbar">
+          <button class="btn btn-light" id="btnExportAll">⬇️ تصدير نسخة احتياطية</button>
+          <label class="btn btn-light" style="position:relative;overflow:hidden">⬆️ استيراد نسخة احتياطية
+            <input type="file" id="importFile" accept="application/json" style="position:absolute;inset:0;opacity:0;cursor:pointer">
+          </label>
+          <button class="btn btn-danger" id="btnWipeData">🗑️ مسح جميع البيانات</button>
+        </div>
+        <p class="hint">التصدير يشمل: التلاميذ، الغياب والتأخر، السلوك، سجل الاتصالات، القوالب المخصصة، التقارير المحفوظة، والإعدادات.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer no-print">
+    مساعد الحراسة العامة — مؤسسة الحنان — جميع البيانات محفوظة محلياً في متصفحك فقط (لا يوجد اتصال بخادم خارجي).
+  </footer>
 </div>
-
-<footer class="app-footer no-print">
-  <span id="footerTextEl"></span>
-</footer>
 
 <div class="toast" id="toast"></div>
 
-<script>
-(function(){
-"use strict";
-
-/* ============================= ثوابت وتخزين / Constantes et stockage ============================= */
-const K_SETTINGS = 'harissa_settings_v1';
-const K_TEMPLATES = 'harissa_templates_v1';
-const K_REPORTS = 'harissa_reports_v1';
-const K_LANG = 'harissa_lang_v1';
-
-/* ============================= الترجمة / i18n ============================= */
-const STRINGS = {
-  ar: {
-    pageTitle:'الحراسة العامة — نماذج التقارير',
-    appTitle:'الحراسة العامة', appSubtitle:'نماذج تقارير مرنة — قابلة للتخصيص والطباعة',
-    navHome:'الرئيسية', navLog:'سجل التقارير', navNewTpl:'قالب جديد', navSettings:'إعدادات المؤسسة',
-    langToggle:'FR',
-    lhYearLabel:'السنة الدراسية:', lhInstDefault:'اسم المؤسسة غير محدد', lhNiabaDefault:'النيابة الإقليمية', lhAcadDefault:'الأكاديمية الجهوية',
-    homeTitle:'نماذج التقارير', searchPlaceholder:'ابحث عن نموذج (مثال: غياب، تأخر، حادثة...)', allCategories:'كل الفئات',
-    fieldsCountSuffix:'حقل/حقول', customBadge:'مخصص',
-    openTemplateBtn:'📝 فتح النموذج', editBtn:'✏️ تعديل', deleteBtn:'🗑️ حذف', duplicateEditBtn:'📄 تكرار وتعديل',
-    emptyTemplates:'لا توجد نماذج مطابقة. جرّب كلمة بحث أخرى أو أنشئ قالباً جديداً.',
-    confirmDeleteTemplate: name=>`هل تريد حذف القالب "${name}"؟ لن يتم حذف التقارير المحفوظة المرتبطة به من السجل.`,
-    templateDeletedToast:'تم حذف القالب',
-    backBtn:'↩ رجوع', clearFormBtn:'تفريغ الحقول', saveReportBtn:'حفظ في السجل', printBtn:'طباعة / PDF',
-    formPanelTitle:'بيانات النموذج', extraFieldsTitle:'حقول إضافية لهذا التقرير', addExtraFieldBtn:'إضافة حقل إضافي',
-    printAreaTitle:'معاينة الطباعة',
-    noExtraFieldsMsg:'لا توجد حقول إضافية. أضف حقلاً إذا احتجت معلومة غير موجودة في النموذج.',
-    extraFieldLabelPrompt:'عنوان الحقل الإضافي (مثال: اسم الشاهد، رقم الهاتف...)',
-    extraFieldTypePrompt:'نوع الحقل: اكتب واحداً من\n1 = نص قصير\n2 = نص طويل\n3 = رقم\n4 = تاريخ',
-    confirmClearFields:'هل تريد تفريغ كل الحقول؟',
-    missingFieldsToast: names=>'يرجى تعبئة: ' + names,
-    savedReportToast:'تم حفظ التقرير في السجل',
-    addRowBtn:'➕ إضافة سطر', deleteRowBtn:'حذف', selectPlaceholderOpt:'— اختر —',
-    kingdomLine:'المملكة المغربية', ministryLine:'وزارة التربية الوطنية والتعليم الأولي والرياضة',
-    academicYearLabel:'السنة الدراسية:', editDateLabel:'تاريخ التحرير:', additionalInfoLabel:'معلومات إضافية',
-    supervisorRole:'الحارس(ة) العام(ة)', administrationRole:'الإدارة',
-    yesLabel:'✅ نعم', noLabel:'❌ لا',
-    builderNewTitle:'قالب جديد', builderEditTitle:'تعديل القالب',
-    tplNameLabel:'اسم النموذج', tplNamePlaceholder:'مثال: تقرير غياب مخصص',
-    tplCategoryLabel:'الفئة', tplCategoryPlaceholder:'مثال: الغياب والتأخر',
-    builderFieldsTitle:'حقول النموذج', addFieldBtn:'إضافة حقل', saveTemplateBtn:'حفظ القالب',
-    fieldLabelPlaceholder:'عنوان الحقل', optionsPlaceholder:'خيارات القائمة (كل خيار في سطر)', columnsPlaceholder:'أعمدة الجدول (كل عمود في سطر)',
-    requiredFieldLabel:'حقل إلزامي', moveUpTitle:'نقل لأعلى', moveDownTitle:'نقل لأسفل', deleteFieldTitle:'حذف الحقل',
-    noFieldsYet:'لا توجد حقول بعد. اضغط "إضافة حقل" للبدء.',
-    nameRequiredToast:'يرجى إدخال اسم النموذج', atLeastOneFieldToast:'أضف حقلاً واحداً على الأقل', fieldNoLabelToast:'يوجد حقل بدون عنوان',
-    templateSavedToast:'تم حفظ القالب',
-    fieldTypeLabels:{text:'نص قصير', textarea:'نص طويل', date:'تاريخ', time:'وقت', number:'رقم', select:'قائمة اختيار', checkbox:'خانة اختيار', table:'جدول ديناميكي'},
-    defaultColumns:['عمود 1','عمود 2'],
-    logTitle:'سجل التقارير المحفوظة', exportBtn:'تصدير نسخة احتياطية', importBtn:'استيراد',
-    logSearchPlaceholder:'ابحث في السجل...',
-    logThName:'النموذج', logThCategory:'الفئة', logThDate:'تاريخ الحفظ', logThActions:'إجراءات',
-    logEmptyMsg:'لا توجد تقارير محفوظة بعد.',
-    openBtn:'فتح', duplicateBtn:'تكرار',
-    templateNotFoundToast:'تعذر العثور على القالب المرتبط بهذا التقرير',
-    confirmDeleteReport:'هل تريد حذف هذا التقرير من السجل؟', reportDeletedToast:'تم الحذف',
-    importSuccessToast:'تم الاستيراد بنجاح', importInvalidToast:'ملف غير صالح',
-    backupFilenamePrefix:'نسخة-احتياطية-الحراسة-العامة-',
-    settingsModalTitle:'⚙️ إعدادات المؤسسة', settingsInstLabel:'اسم المؤسسة', settingsNiabaLabel:'النيابة الإقليمية',
-    settingsAcadLabel:'الأكاديمية الجهوية', settingsYearLabel:'السنة الدراسية', settingsYearPlaceholder:'2025-2026',
-    settingsSupervisorLabel:'اسم الحارس(ة) العام(ة)', cancelBtn:'إلغاء', saveBtn:'💾 حفظ', settingsSavedToast:'تم حفظ الإعدادات',
-    footerText:'تطبيق الحراسة العامة — جميع البيانات محفوظة محلياً في متصفحك فقط (لا يوجد اتصال بخادم خارجي).',
-    duplicateSuffix:' (نسخة معدّلة)', listSep:'، '
-  },
-  fr: {
-    pageTitle:'Surveillance Générale — Modèles de rapports',
-    appTitle:'Surveillance Générale', appSubtitle:'Modèles de rapports flexibles — personnalisables et imprimables',
-    navHome:'Accueil', navLog:'Registre des rapports', navNewTpl:'Nouveau modèle', navSettings:"Paramètres de l'établissement",
-    langToggle:'AR',
-    lhYearLabel:'Année scolaire :', lhInstDefault:"Nom de l'établissement non défini", lhNiabaDefault:'Délégation provinciale', lhAcadDefault:'Académie régionale',
-    homeTitle:'Modèles de rapports', searchPlaceholder:'Rechercher un modèle (ex : absence, retard, incident...)', allCategories:'Toutes les catégories',
-    fieldsCountSuffix:'champ(s)', customBadge:'Personnalisé',
-    openTemplateBtn:'📝 Ouvrir le modèle', editBtn:'✏️ Modifier', deleteBtn:'🗑️ Supprimer', duplicateEditBtn:'📄 Dupliquer et modifier',
-    emptyTemplates:"Aucun modèle correspondant. Essayez un autre mot-clé ou créez un nouveau modèle.",
-    confirmDeleteTemplate: name=>`Voulez-vous supprimer le modèle "${name}" ? Les rapports déjà enregistrés dans le registre ne seront pas supprimés.`,
-    templateDeletedToast:'Modèle supprimé',
-    backBtn:'↩ Retour', clearFormBtn:'Vider les champs', saveReportBtn:'Enregistrer dans le registre', printBtn:'Imprimer / PDF',
-    formPanelTitle:'Données du modèle', extraFieldsTitle:'Champs supplémentaires pour ce rapport', addExtraFieldBtn:'Ajouter un champ supplémentaire',
-    printAreaTitle:"Aperçu avant impression",
-    noExtraFieldsMsg:"Aucun champ supplémentaire. Ajoutez un champ si une information manque dans le modèle.",
-    extraFieldLabelPrompt:"Titre du champ supplémentaire (ex : nom du témoin, numéro de téléphone...)",
-    extraFieldTypePrompt:"Type de champ : tapez l'un des suivants\n1 = Texte court\n2 = Texte long\n3 = Nombre\n4 = Date",
-    confirmClearFields:'Voulez-vous vider tous les champs ?',
-    missingFieldsToast: names=>'Veuillez remplir : ' + names,
-    savedReportToast:'Rapport enregistré dans le registre',
-    addRowBtn:'➕ Ajouter une ligne', deleteRowBtn:'Supprimer', selectPlaceholderOpt:'— Choisir —',
-    kingdomLine:'Royaume du Maroc', ministryLine:"Ministère de l'Éducation Nationale, du Préscolaire et des Sports",
-    academicYearLabel:'Année scolaire :', editDateLabel:'Date de rédaction :', additionalInfoLabel:'Informations complémentaires',
-    supervisorRole:'Surveillant(e) général(e)', administrationRole:'Administration',
-    yesLabel:'✅ Oui', noLabel:'❌ Non',
-    builderNewTitle:'Nouveau modèle', builderEditTitle:'Modifier le modèle',
-    tplNameLabel:'Nom du modèle', tplNamePlaceholder:"Ex : Rapport d'absence personnalisé",
-    tplCategoryLabel:'Catégorie', tplCategoryPlaceholder:'Ex : Absences et retards',
-    builderFieldsTitle:'Champs du modèle', addFieldBtn:'Ajouter un champ', saveTemplateBtn:'Enregistrer le modèle',
-    fieldLabelPlaceholder:'Titre du champ', optionsPlaceholder:'Options de la liste (une par ligne)', columnsPlaceholder:'Colonnes du tableau (une par ligne)',
-    requiredFieldLabel:'Champ obligatoire', moveUpTitle:'Monter', moveDownTitle:'Descendre', deleteFieldTitle:'Supprimer le champ',
-    noFieldsYet:'Aucun champ pour le moment. Cliquez sur « Ajouter un champ » pour commencer.',
-    nameRequiredToast:'Veuillez saisir le nom du modèle', atLeastOneFieldToast:'Ajoutez au moins un champ', fieldNoLabelToast:'Un champ est sans titre',
-    templateSavedToast:'Modèle enregistré',
-    fieldTypeLabels:{text:'Texte court', textarea:'Texte long', date:'Date', time:'Heure', number:'Nombre', select:'Liste déroulante', checkbox:'Case à cocher', table:'Tableau dynamique'},
-    defaultColumns:['Colonne 1','Colonne 2'],
-    logTitle:'Registre des rapports enregistrés', exportBtn:'Exporter une sauvegarde', importBtn:'Importer',
-    logSearchPlaceholder:'Rechercher dans le registre...',
-    logThName:'Modèle', logThCategory:'Catégorie', logThDate:"Date d'enregistrement", logThActions:'Actions',
-    logEmptyMsg:'Aucun rapport enregistré pour le moment.',
-    openBtn:'Ouvrir', duplicateBtn:'Dupliquer',
-    templateNotFoundToast:'Impossible de retrouver le modèle associé à ce rapport',
-    confirmDeleteReport:'Voulez-vous supprimer ce rapport du registre ?', reportDeletedToast:'Supprimé',
-    importSuccessToast:'Importation réussie', importInvalidToast:'Fichier invalide',
-    backupFilenamePrefix:'sauvegarde-surveillance-generale-',
-    settingsModalTitle:"⚙️ Paramètres de l'établissement", settingsInstLabel:"Nom de l'établissement", settingsNiabaLabel:'Délégation provinciale',
-    settingsAcadLabel:'Académie régionale', settingsYearLabel:'Année scolaire', settingsYearPlaceholder:'2025-2026',
-    settingsSupervisorLabel:'Nom du/de la surveillant(e) général(e)', cancelBtn:'Annuler', saveBtn:'💾 Enregistrer', settingsSavedToast:'Paramètres enregistrés',
-    footerText:"Application de la Surveillance Générale — toutes les données sont stockées localement dans votre navigateur uniquement (aucune connexion à un serveur externe).",
-    duplicateSuffix:' (copie modifiée)', listSep:', '
-  }
-};
-
-const CATEGORIES = [
-  {id:'ghiyab', ar:'الغياب والتأخر', fr:'Absences et retards', icon:'📋'},
-  {id:'suluk', ar:'السلوك والانضباط', fr:'Comportement et discipline', icon:'⚖️'},
-  {id:'hawadith', ar:'الحوادث والوقائع', fr:'Incidents et événements', icon:'🚨'},
-  {id:'murasalat', ar:'المراسلات', fr:'Correspondances', icon:'✉️'},
-  {id:'majalis', ar:'المجالس والمحاضر', fr:'Conseils et procès-verbaux', icon:'🏛️'},
-  {id:'imtihanat', ar:'الامتحانات', fr:'Examens', icon:'📝'},
-  {id:'other', ar:'أخرى', fr:'Autre', icon:'🗂️'}
-];
-function categoryById(id){ return CATEGORIES.find(c=>c.id===id); }
-function categoryLabel(catValue){ const c=categoryById(catValue); return c ? L(c) : catValue; }
-function categoryIcon(catValue){ const c=categoryById(catValue); return c ? c.icon : '🗂️'; }
-
-function esc(v){
-  if(v===undefined || v===null) return '';
-  return String(v).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-}
-function L(val){
-  if(val===undefined || val===null) return '';
-  if(typeof val==='object') return val[state.lang] || val.ar || val.fr || '';
-  return String(val);
-}
-function colId(c){ return (c && typeof c==='object') ? c.id : c; }
-function optionId(o){ return (o && typeof o==='object') ? o.id : o; }
-function uid(prefix){ return (prefix||'id') + '_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,8); }
-function todayISO(){ const d=new Date(); return d.toISOString().slice(0,10); }
-function loadJSON(key, fallback){
-  try{ const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }
-  catch(e){ return fallback; }
-}
-function saveJSON(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
-
-function toast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(toast._t);
-  toast._t = setTimeout(()=>t.classList.remove('show'), 2200);
-}
-
-/* ============================= النماذج الجاهزة (Built-in) ============================= */
-const BUILTIN_TEMPLATES = [
-  {
-    id:'ghiyab', builtin:true, category:'ghiyab', name:{ar:'تقرير غياب التلاميذ', fr:"Rapport d'absence des élèves"},
-    fields:[
-      {id:'f1', type:'date', label:{ar:'اليوم والتاريخ', fr:'Jour et date'}, required:true},
-      {id:'f2', type:'text', label:{ar:'القسم / الأقسام المعنية', fr:'Classe(s) concernée(s)'}, required:false},
-      {id:'f3', type:'table', label:{ar:'لائحة الغياب', fr:'Liste des absences'}, columns:[
-        {id:'c1',ar:'الاسم الكامل',fr:'Nom complet'},{id:'c2',ar:'رقم التسجيل',fr:"N° d'inscription"},
-        {id:'c3',ar:'القسم',fr:'Classe'},{id:'c4',ar:'مدة الغياب',fr:"Durée de l'absence"},{id:'c5',ar:'السبب (إن وجد)',fr:'Motif (le cas échéant)'}
-      ]},
-      {id:'f4', type:'textarea', label:{ar:'ملاحظات عامة', fr:'Remarques générales'}, required:false}
-    ]
-  },
-  {
-    id:'taakhor', builtin:true, category:'ghiyab', name:{ar:'تقرير التأخر عن الحصص', fr:'Rapport de retard aux cours'},
-    fields:[
-      {id:'f1', type:'date', label:{ar:'التاريخ', fr:'Date'}, required:true},
-      {id:'f2', type:'text', label:{ar:'الحصة / التوقيت', fr:'Cours / Horaire'}, required:false},
-      {id:'f3', type:'table', label:{ar:'لائحة المتأخرين', fr:'Liste des retardataires'}, columns:[
-        {id:'c1',ar:'الاسم الكامل',fr:'Nom complet'},{id:'c2',ar:'القسم',fr:'Classe'},
-        {id:'c3',ar:'وقت الوصول',fr:"Heure d'arrivée"},{id:'c4',ar:'المدة المتأخر بها',fr:'Durée du retard'},{id:'c5',ar:'السبب',fr:'Motif'}
-      ]},
-      {id:'f4', type:'textarea', label:{ar:'الإجراء المتخذ', fr:'Mesure prise'}, required:false}
-    ]
-  },
-  {
-    id:'suluk', builtin:true, category:'suluk', name:{ar:'تقرير سلوك / مخالفة تلميذ', fr:"Rapport de comportement / infraction d'élève"},
-    fields:[
-      {id:'f1', type:'date', label:{ar:'التاريخ', fr:'Date'}, required:true},
-      {id:'f2', type:'text', label:{ar:'اسم التلميذ', fr:"Nom de l'élève"}, required:true},
-      {id:'f3', type:'text', label:{ar:'القسم', fr:'Classe'}, required:false},
-      {id:'f4', type:'select', label:{ar:'نوع المخالفة', fr:"Type d'infraction"}, options:[
-        {id:'light', ar:'خفيفة', fr:'Légère'}, {id:'medium', ar:'متوسطة', fr:'Moyenne'}, {id:'severe', ar:'جسيمة', fr:'Grave'}
-      ]},
-      {id:'f5', type:'textarea', label:{ar:'وصف الواقعة', fr:'Description des faits'}, required:true},
-      {id:'f6', type:'textarea', label:{ar:'الإجراء المتخذ', fr:'Mesure prise'}, required:false},
-      {id:'f7', type:'text', label:{ar:'الأطراف الحاضرة / الشهود', fr:'Parties présentes / Témoins'}, required:false}
-    ]
-  },
-  {
-    id:'majlis-indibat', builtin:true, category:'majalis', name:{ar:'محضر مجلس الانضباط', fr:'Procès-verbal du conseil de discipline'},
-    fields:[
-      {id:'f1', type:'date', label:{ar:'تاريخ الانعقاد', fr:'Date de la séance'}, required:true},
-      {id:'f2', type:'text', label:{ar:'اسم التلميذ المعني', fr:"Nom de l'élève concerné"}, required:true},
-      {id:'f3', type:'text', label:{ar:'القسم', fr:'Classe'}, required:false},
-      {id:'f4', type:'textarea', label:{ar:'موضوع الانعقاد', fr:'Objet de la séance'}, required:false},
-      {id:'f5', type:'table', label:{ar:'أعضاء المجلس الحاضرون', fr:'Membres du conseil présents'}, columns:[
-        {id:'c1',ar:'الاسم',fr:'Nom'},{id:'c2',ar:'الصفة',fr:'Fonction'}
-      ]},
-      {id:'f6', type:'textarea', label:{ar:'مداولات المجلس', fr:'Délibérations du conseil'}, required:false},
-      {id:'f7', type:'textarea', label:{ar:'القرار المتخذ', fr:'Décision prise'}, required:true}
-    ]
-  },
-  {
-    id:'istidaa', builtin:true, category:'murasalat', name:{ar:'استدعاء ولي أمر', fr:'Convocation du tuteur'},
-    fields:[
-      {id:'f1', type:'text', label:{ar:'اسم ولي الأمر', fr:'Nom du tuteur'}, required:true},
-      {id:'f2', type:'text', label:{ar:'اسم التلميذ(ة)', fr:"Nom de l'élève"}, required:true},
-      {id:'f3', type:'text', label:{ar:'القسم', fr:'Classe'}, required:false},
-      {id:'f4', type:'date', label:{ar:'تاريخ الاستدعاء', fr:'Date de convocation'}, required:true},
-      {id:'f5', type:'time', label:{ar:'الساعة', fr:'Heure'}, required:false},
-      {id:'f6', type:'textarea', label:{ar:'موضوع الاستدعاء', fr:'Objet de la convocation'}, required:true}
-    ]
-  },
-  {
-    id:'haditha', builtin:true, category:'hawadith', name:{ar:'تقرير حادثة / واقعة', fr:"Rapport d'incident / événement"},
-    fields:[
-      {id:'f1', type:'date', label:{ar:'تاريخ الحادثة', fr:"Date de l'incident"}, required:true},
-      {id:'f2', type:'time', label:{ar:'وقت الحادثة', fr:"Heure de l'incident"}, required:false},
-      {id:'f3', type:'text', label:{ar:'المكان', fr:'Lieu'}, required:false},
-      {id:'f4', type:'textarea', label:{ar:'وصف الحادثة', fr:"Description de l'incident"}, required:true},
-      {id:'f5', type:'text', label:{ar:'الأطراف المعنية', fr:'Parties concernées'}, required:false},
-      {id:'f6', type:'textarea', label:{ar:'الإجراءات المتخذة', fr:'Mesures prises'}, required:false},
-      {id:'f7', type:'textarea', label:{ar:'توصيات', fr:'Recommandations'}, required:false}
-    ]
-  },
-  {
-    id:'hirasat-imtihan', builtin:true, category:'imtihanat', name:{ar:'تقرير حراسة الامتحان', fr:"Rapport de surveillance d'examen"},
-    fields:[
-      {id:'f1', type:'text', label:{ar:'المادة الممتحن فيها', fr:"Matière de l'examen"}, required:true},
-      {id:'f2', type:'date', label:{ar:'التاريخ', fr:'Date'}, required:true},
-      {id:'f3', type:'text', label:{ar:'التوقيت', fr:'Horaire'}, required:false},
-      {id:'f4', type:'text', label:{ar:'رقم القاعة', fr:'N° de la salle'}, required:false},
-      {id:'f5', type:'number', label:{ar:'عدد المسجلين', fr:"Nombre d'inscrits"}, required:false},
-      {id:'f6', type:'number', label:{ar:'عدد الحاضرين', fr:'Nombre de présents'}, required:false},
-      {id:'f7', type:'number', label:{ar:'عدد الغائبين', fr:"Nombre d'absents"}, required:false},
-      {id:'f8', type:'table', label:{ar:'حالات الغش أو المخالفات', fr:"Cas de fraude ou d'infractions"}, columns:[
-        {id:'c1',ar:'اسم التلميذ',fr:"Nom de l'élève"},{id:'c2',ar:'رقم الطاولة',fr:'N° de table'},
-        {id:'c3',ar:'نوع المخالفة',fr:"Type d'infraction"},{id:'c4',ar:'الإجراء',fr:'Mesure'}
-      ]},
-      {id:'f9', type:'textarea', label:{ar:'ملاحظات حول سير الحراسة', fr:'Remarques sur le déroulement de la surveillance'}, required:false}
-    ]
-  },
-  {
-    id:'rokhsat-khoroj', builtin:true, category:'murasalat', name:{ar:'رخصة خروج / مغادرة', fr:'Autorisation de sortie'},
-    fields:[
-      {id:'f1', type:'text', label:{ar:'اسم التلميذ(ة)', fr:"Nom de l'élève"}, required:true},
-      {id:'f2', type:'text', label:{ar:'القسم', fr:'Classe'}, required:false},
-      {id:'f3', type:'date', label:{ar:'التاريخ', fr:'Date'}, required:true},
-      {id:'f4', type:'time', label:{ar:'وقت الخروج', fr:'Heure de sortie'}, required:false},
-      {id:'f5', type:'textarea', label:{ar:'سبب المغادرة', fr:'Motif de la sortie'}, required:true},
-      {id:'f6', type:'text', label:{ar:'اسم المرافق / ولي الأمر (إن وجد)', fr:"Nom de l'accompagnant / tuteur (le cas échéant)"}, required:false}
-    ]
-  }
-];
-
-/* ============================= الحالة العامة ============================= */
-const state = {
-  lang: localStorage.getItem(K_LANG) || 'ar',
-  settings: loadJSON(K_SETTINGS, {institution:'', niaba:'', academy:'', year:'', supervisor:''}),
-  customTemplates: loadJSON(K_TEMPLATES, []),
-  reports: loadJSON(K_REPORTS, []),
-  currentView: 'view-home',
-  currentTemplate: null,
-  currentReportId: null,
-  formValues: {},
-  extraFields: [],
-  builderFields: [],
-  builderEditingId: null
-};
-
-function allTemplates(){ return BUILTIN_TEMPLATES.concat(state.customTemplates); }
-function findTemplate(id){ return allTemplates().find(t=>t.id===id); }
-
-/* ============================= التنقل بين الشاشات ============================= */
-function showView(id){
-  document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
-  state.currentView = id;
-  window.scrollTo({top:0,behavior:'instant'});
-}
-
-/* ============================= اللغة / Langue ============================= */
-function applyLangToDocument(){
-  document.documentElement.lang = state.lang==='ar' ? 'ar-MA' : 'fr-MA';
-  document.documentElement.dir = state.lang==='ar' ? 'rtl' : 'ltr';
-}
-function applyStaticStrings(){
-  const S = STRINGS[state.lang];
-  document.title = S.pageTitle;
-  const descMeta = document.querySelector('meta[name=description]');
-  if(descMeta) descMeta.setAttribute('content', S.pageTitle);
-  document.getElementById('appTitleEl').textContent = S.appTitle;
-  document.getElementById('appSubtitleEl').textContent = S.appSubtitle;
-  document.getElementById('lblHome').textContent = S.navHome;
-  document.getElementById('lblLog').textContent = S.navLog;
-  document.getElementById('lblNewTpl').textContent = S.navNewTpl;
-  document.getElementById('lblSettings').textContent = S.navSettings;
-  document.getElementById('lblLangToggle').textContent = S.langToggle;
-  document.getElementById('lhYearLabel').textContent = S.lhYearLabel;
-  document.getElementById('homeTitleEl').textContent = S.homeTitle;
-  document.getElementById('searchInput').placeholder = S.searchPlaceholder;
-  document.getElementById('lblBackFill').textContent = S.backBtn;
-  document.getElementById('lblClearForm').textContent = S.clearFormBtn;
-  document.getElementById('lblSaveReport').textContent = S.saveReportBtn;
-  document.getElementById('lblPrintReport').textContent = S.printBtn;
-  document.getElementById('formPanelTitleEl').textContent = S.formPanelTitle;
-  document.getElementById('extraFieldsTitleEl').textContent = S.extraFieldsTitle;
-  document.getElementById('lblAddExtraField').textContent = S.addExtraFieldBtn;
-  document.getElementById('printAreaTitleEl').textContent = S.printAreaTitle;
-  document.getElementById('lblBackBuilder').textContent = S.backBtn;
-  document.getElementById('lblSaveTemplate').textContent = S.saveTemplateBtn;
-  document.getElementById('tplNameLabelEl').innerHTML = esc(S.tplNameLabel) + ' <span class="req">*</span>';
-  document.getElementById('tplName').placeholder = S.tplNamePlaceholder;
-  document.getElementById('tplCategoryLabelEl').textContent = S.tplCategoryLabel;
-  document.getElementById('tplCategory').placeholder = S.tplCategoryPlaceholder;
-  document.getElementById('builderFieldsTitleEl').textContent = S.builderFieldsTitle;
-  document.getElementById('lblAddFieldBtn').textContent = S.addFieldBtn;
-  document.getElementById('logTitleEl').textContent = S.logTitle;
-  document.getElementById('lblExportAll').textContent = S.exportBtn;
-  document.getElementById('lblImportFile').textContent = S.importBtn;
-  document.getElementById('logSearch').placeholder = S.logSearchPlaceholder;
-  document.getElementById('thName').textContent = S.logThName;
-  document.getElementById('thCategory').textContent = S.logThCategory;
-  document.getElementById('thDate').textContent = S.logThDate;
-  document.getElementById('thActions').textContent = S.logThActions;
-  document.getElementById('footerTextEl').textContent = S.footerText;
-}
-function rerenderAll(){
-  applyStaticStrings();
-  renderLetterheadBar();
-  renderHome();
-  if(state.currentView==='view-fill' && state.currentTemplate){
-    document.getElementById('fillTitle').textContent = L(state.currentTemplate.name);
-    renderFillForm(); renderExtraFields(); renderDocPreview();
-  }
-  if(state.currentView==='view-builder'){
-    populateCatList();
-    renderBuilderFields();
-    document.getElementById('builderTitle').textContent = state.builderEditingId ? STRINGS[state.lang].builderEditTitle : STRINGS[state.lang].builderNewTitle;
-  }
-  if(state.currentView==='view-log'){ renderLog(); }
-}
-document.getElementById('btnLangToggle').addEventListener('click', ()=>{
-  state.lang = state.lang==='ar' ? 'fr' : 'ar';
-  localStorage.setItem(K_LANG, state.lang);
-  applyLangToDocument();
-  rerenderAll();
-});
-
-/* ============================= شريط المؤسسة ============================= */
-function renderLetterheadBar(){
-  const S = STRINGS[state.lang];
-  document.getElementById('lhInst').textContent = state.settings.institution || S.lhInstDefault;
-  document.getElementById('lhNiaba').textContent = state.settings.niaba || S.lhNiabaDefault;
-  document.getElementById('lhAcad').textContent = state.settings.academy || S.lhAcadDefault;
-  document.getElementById('lhYear').textContent = state.settings.year || '—';
-}
-
-/* ============================= الرئيسية: عرض النماذج ============================= */
-function renderCategoryFilterOptions(){
-  const sel = document.getElementById('categoryFilter');
-  const cats = [...new Set(allTemplates().map(t=>categoryLabel(t.category)))];
-  sel.innerHTML = `<option value="">${esc(STRINGS[state.lang].allCategories)}</option>` + cats.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
-}
-
-function renderHome(){
-  const S = STRINGS[state.lang];
-  renderCategoryFilterOptions();
-  const q = (document.getElementById('searchInput').value || '').trim().toLowerCase();
-  const catF = document.getElementById('categoryFilter').value;
-  const tpls = allTemplates().filter(t=>{
-    const catLbl = categoryLabel(t.category);
-    if(catF && catLbl!==catF) return false;
-    if(q && !L(t.name).toLowerCase().includes(q)) return false;
-    return true;
-  });
-  const byCat = {};
-  tpls.forEach(t=>{ const c = categoryLabel(t.category); (byCat[c] = byCat[c]||[]).push(t); });
-
-  const container = document.getElementById('templatesContainer');
-  const cats = Object.keys(byCat);
-  if(cats.length===0){
-    container.innerHTML = `<div class="empty">${esc(S.emptyTemplates)}</div>`;
-    return;
-  }
-  container.innerHTML = cats.map(cat=>{
-    const cards = byCat[cat].map(t=>{
-      const isCustom = !t.builtin;
-      const name = L(t.name);
-      return `
-      <div class="tpl-card">
-        <div class="top">
-          <span class="emoji">${categoryIcon(t.category)}</span>
-          <span class="name">${esc(name)}</span>
-          ${isCustom ? `<span class="badge-custom">${esc(S.customBadge)}</span>` : ''}
-        </div>
-        <div class="meta">${t.fields.length} ${esc(S.fieldsCountSuffix)}</div>
-        <div class="actions">
-          <button class="btn btn-primary btn-sm" data-act="open" data-id="${esc(t.id)}">${esc(S.openTemplateBtn)}</button>
-          ${isCustom
-            ? `<button class="btn btn-light btn-sm" data-act="edit" data-id="${esc(t.id)}">${esc(S.editBtn)}</button>
-               <button class="btn btn-danger btn-sm" data-act="del" data-id="${esc(t.id)}">${esc(S.deleteBtn)}</button>`
-            : `<button class="btn btn-light btn-sm" data-act="dup" data-id="${esc(t.id)}">${esc(S.duplicateEditBtn)}</button>`
-          }
-        </div>
-      </div>`;
-    }).join('');
-    return `<div class="cat-block"><h3>${categoryIcon(tpls.find(t=>categoryLabel(t.category)===cat).category)} ${esc(cat)}</h3><div class="cards-grid">${cards}</div></div>`;
-  }).join('');
-}
-
-document.getElementById('templatesContainer').addEventListener('click', e=>{
-  const btn = e.target.closest('button[data-act]');
-  if(!btn) return;
-  const id = btn.dataset.id;
-  const act = btn.dataset.act;
-  const tpl = findTemplate(id);
-  if(!tpl) return;
-  if(act==='open') openFillView(tpl, null);
-  else if(act==='dup') openBuilder(cloneTemplateForEdit(tpl), true);
-  else if(act==='edit') openBuilder(tpl, false);
-  else if(act==='del'){
-    if(confirm(STRINGS[state.lang].confirmDeleteTemplate(L(tpl.name)))){
-      state.customTemplates = state.customTemplates.filter(t=>t.id!==id);
-      saveJSON(K_TEMPLATES, state.customTemplates);
-      renderHome();
-      toast(STRINGS[state.lang].templateDeletedToast);
-    }
-  }
-});
-document.getElementById('searchInput').addEventListener('input', renderHome);
-document.getElementById('categoryFilter').addEventListener('change', renderHome);
-
-/* ============================= شاشة تعبئة النموذج ============================= */
-function openFillView(tpl, existingReport){
-  state.currentTemplate = tpl;
-  state.currentReportId = existingReport ? existingReport.id : null;
-  state.formValues = existingReport ? JSON.parse(JSON.stringify(existingReport.values)) : {};
-  state.extraFields = existingReport ? JSON.parse(JSON.stringify(existingReport.extraFields||[])) : [];
-
-  // تهيئة قيم افتراضية
-  tpl.fields.forEach(f=>{
-    if(state.formValues[f.id] !== undefined) return;
-    if(f.type==='table') state.formValues[f.id] = [ blankRow(f.columns) ];
-    else if(f.type==='date' && !existingReport) state.formValues[f.id] = todayISO();
-    else state.formValues[f.id] = '';
-  });
-
-  document.getElementById('fillTitle').textContent = L(tpl.name);
-  renderFillForm();
-  renderExtraFields();
-  renderDocPreview();
-  showView('view-fill');
-}
-function blankRow(columns){ const o={}; columns.forEach(c=>o[colId(c)]=''); return o; }
-
-function renderFillForm(){
-  const tpl = state.currentTemplate;
-  const wrap = document.getElementById('formFields');
-  wrap.innerHTML = tpl.fields.map(f=>renderFieldInput(f)).join('');
-  tpl.fields.forEach(f=>{
-    if(f.type==='table'){
-      bindTableEvents(f);
-    } else {
-      const el = document.getElementById('inp_'+f.id);
-      if(!el) return;
-      const evt = (f.type==='checkbox') ? 'change' : 'input';
-      el.addEventListener(evt, ()=>{
-        state.formValues[f.id] = f.type==='checkbox' ? el.checked : el.value;
-        renderDocPreview();
-      });
-    }
-  });
-}
-
-function renderFieldInput(f){
-  const S = STRINGS[state.lang];
-  const val = state.formValues[f.id];
-  const reqMark = f.required ? '<span class="req">*</span>' : '';
-  const label = esc(L(f.label));
-  switch(f.type){
-    case 'textarea':
-      return `<div class="field-group"><label>${label} ${reqMark}</label><textarea id="inp_${f.id}">${esc(val)}</textarea></div>`;
-    case 'select':
-      return `<div class="field-group"><label>${label} ${reqMark}</label>
-        <select id="inp_${f.id}">
-          <option value="">${esc(S.selectPlaceholderOpt)}</option>
-          ${(f.options||[]).map(o=>`<option value="${esc(optionId(o))}" ${val===optionId(o)?'selected':''}>${esc(L(o))}</option>`).join('')}
-        </select></div>`;
-    case 'checkbox':
-      return `<div class="field-group checkbox-row"><input type="checkbox" id="inp_${f.id}" ${val?'checked':''}><label>${label}</label></div>`;
-    case 'table':
-      return `<div class="field-group">
-        <label>${label}</label>
-        <table class="dyn-table" id="tbl_${f.id}">
-          <thead><tr>${f.columns.map(c=>`<th>${esc(L(c))}</th>`).join('')}<th></th></tr></thead>
-          <tbody>${renderTableRows(f)}</tbody>
-        </table>
-        <button type="button" class="btn btn-light btn-sm" style="margin-top:6px" data-add-row="${f.id}">${esc(S.addRowBtn)}</button>
-      </div>`;
-    case 'date': case 'time': case 'number':
-      return `<div class="field-group"><label>${label} ${reqMark}</label><input type="${f.type}" id="inp_${f.id}" value="${esc(val)}"></div>`;
-    default: // text
-      return `<div class="field-group"><label>${label} ${reqMark}</label><input type="text" id="inp_${f.id}" value="${esc(val)}"></div>`;
-  }
-}
-
-function renderTableRows(f){
-  const rows = state.formValues[f.id] || [];
-  return rows.map((row,ri)=>`
-    <tr data-row="${ri}">
-      ${f.columns.map(c=>`<td><input type="text" data-col="${esc(colId(c))}" value="${esc(row[colId(c)]||'')}"></td>`).join('')}
-      <td><button type="button" class="rm-row-btn" data-rm-row="${ri}">${esc(STRINGS[state.lang].deleteRowBtn)}</button></td>
-    </tr>`).join('');
-}
-
-function bindTableEvents(f){
-  const tbl = document.getElementById('tbl_'+f.id);
-  const addBtn = document.querySelector(`[data-add-row="${f.id}"]`);
-  addBtn.addEventListener('click', ()=>{
-    state.formValues[f.id].push(blankRow(f.columns));
-    tbl.querySelector('tbody').innerHTML = renderTableRows(f);
-    bindTableRowEvents(f, tbl);
-    renderDocPreview();
-  });
-  bindTableRowEvents(f, tbl);
-}
-function bindTableRowEvents(f, tbl){
-  tbl.querySelectorAll('input[data-col]').forEach(inp=>{
-    inp.addEventListener('input', ()=>{
-      const ri = +inp.closest('tr').dataset.row;
-      state.formValues[f.id][ri][inp.dataset.col] = inp.value;
-      renderDocPreview();
-    });
-  });
-  tbl.querySelectorAll('[data-rm-row]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const ri = +btn.dataset.rmRow;
-      state.formValues[f.id].splice(ri,1);
-      if(state.formValues[f.id].length===0) state.formValues[f.id].push(blankRow(f.columns));
-      tbl.querySelector('tbody').innerHTML = renderTableRows(f);
-      bindTableRowEvents(f, tbl);
-      renderDocPreview();
-    });
-  });
-}
-
-/* ---- حقول إضافية عند التعبئة (مرونة إضافية لكل تقرير) ---- */
-function renderExtraFields(){
-  const wrap = document.getElementById('extraFieldsList');
-  if(state.extraFields.length===0){
-    wrap.innerHTML = `<div style="color:var(--muted);font-size:.82rem;margin-bottom:8px">${esc(STRINGS[state.lang].noExtraFieldsMsg)}</div>`;
-    return;
-  }
-  wrap.innerHTML = state.extraFields.map((ef,i)=>`
-    <div class="extra-field-row" data-i="${i}">
-      <div class="grow">
-        <label style="font-size:.8rem;font-weight:700">${esc(ef.label)}</label>
-        ${ef.type==='textarea'
-          ? `<textarea data-extra-val="${i}">${esc(ef.value)}</textarea>`
-          : `<input type="${ef.type}" data-extra-val="${i}" value="${esc(ef.value)}">`}
-      </div>
-      <button type="button" class="rm" data-extra-rm="${i}">🗑️</button>
-    </div>
-  `).join('');
-  wrap.querySelectorAll('[data-extra-val]').forEach(el=>{
-    el.addEventListener('input', ()=>{
-      state.extraFields[+el.dataset.extraVal].value = el.value;
-      renderDocPreview();
-    });
-  });
-  wrap.querySelectorAll('[data-extra-rm]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      state.extraFields.splice(+btn.dataset.extraRm,1);
-      renderExtraFields();
-      renderDocPreview();
-    });
-  });
-}
-
-document.getElementById('btnAddExtraField').addEventListener('click', ()=>{
-  const S = STRINGS[state.lang];
-  const label = prompt(S.extraFieldLabelPrompt);
-  if(!label) return;
-  const typeChoice = prompt(S.extraFieldTypePrompt, '1');
-  const map = {'1':'text','2':'textarea','3':'number','4':'date'};
-  const type = map[typeChoice] || 'text';
-  state.extraFields.push({id:uid('ex'), label, type, value:''});
-  renderExtraFields();
-  renderDocPreview();
-});
-
-/* ---- معاينة الطباعة ---- */
-function renderFieldPreview(f){
-  const S = STRINGS[state.lang];
-  const val = state.formValues[f.id];
-  const label = esc(L(f.label));
-  if(f.type==='table'){
-    const rows = (val||[]).filter(r=>f.columns.some(c=>(r[colId(c)]||'').trim()!==''));
-    if(rows.length===0) return '';
-    return `<div class="doc-row"><div class="lbl">${label}</div>
-      <table class="doc-table"><thead><tr>${f.columns.map(c=>`<th>${esc(L(c))}</th>`).join('')}</tr></thead>
-      <tbody>${rows.map(r=>`<tr>${f.columns.map(c=>`<td>${esc(r[colId(c)]||'')}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
-  }
-  if(f.type==='checkbox'){
-    return `<div class="doc-row"><span class="lbl">${label}:</span> ${val ? S.yesLabel : S.noLabel}</div>`;
-  }
-  if(f.type==='select'){
-    if(!val) return '';
-    const opt = (f.options||[]).find(o=>optionId(o)===val);
-    return `<div class="doc-row"><div class="lbl">${label}</div><div class="val">${esc(opt ? L(opt) : val)}</div></div>`;
-  }
-  if(val===undefined || val===null || String(val).trim()==='') return '';
-  return `<div class="doc-row"><div class="lbl">${label}</div><div class="val">${esc(val)}</div></div>`;
-}
-
-function renderDocPreview(){
-  const S = STRINGS[state.lang];
-  const tpl = state.currentTemplate;
-  const s = state.settings;
-  const fieldsHtml = tpl.fields.map(renderFieldPreview).join('');
-  const extraHtml = state.extraFields.filter(ef=>String(ef.value).trim()!=='').map(ef=>
-    `<div class="doc-row"><div class="lbl">${esc(ef.label)}</div><div class="val">${esc(ef.value)}</div></div>`
-  ).join('');
-  document.getElementById('docPreview').innerHTML = `
-    <div class="doc-head">
-      <div class="kingdom">${esc(S.kingdomLine)}</div>
-      <div class="line">${esc(S.ministryLine)}</div>
-      <div class="line">${esc(s.academy || S.lhAcadDefault)} — ${esc(s.niaba || S.lhNiabaDefault)}</div>
-      <div class="inst">${esc(s.institution || S.lhInstDefault)}</div>
-    </div>
-    <div class="doc-title">${esc(L(tpl.name))}</div>
-    <div class="doc-meta">
-      <span>${esc(S.academicYearLabel)} ${esc(s.year || '—')}</span>
-      <span>${esc(S.editDateLabel)} ${esc(todayISO())}</span>
-    </div>
-    ${fieldsHtml}
-    ${extraHtml ? `<div class="doc-row"><div class="lbl" style="color:var(--gold)">${esc(S.additionalInfoLabel)}</div></div>${extraHtml}` : ''}
-    <div class="doc-sign">
-      <div class="box"><div class="cap">${esc(S.supervisorRole)}${s.supervisor ? '<br>'+esc(s.supervisor) : ''}</div><div class="line-blank"></div></div>
-      <div class="box"><div class="cap">${esc(S.administrationRole)}</div><div class="line-blank"></div></div>
-    </div>
-  `;
-}
-
-document.getElementById('btnBackFromFill').addEventListener('click', ()=>{ showView('view-home'); renderHome(); });
-document.getElementById('btnClearForm').addEventListener('click', ()=>{
-  if(!confirm(STRINGS[state.lang].confirmClearFields)) return;
-  const tpl = state.currentTemplate;
-  state.formValues = {};
-  state.extraFields = [];
-  tpl.fields.forEach(f=>{
-    if(f.type==='table') state.formValues[f.id] = [blankRow(f.columns)];
-    else state.formValues[f.id] = '';
-  });
-  renderFillForm(); renderExtraFields(); renderDocPreview();
-});
-document.getElementById('btnPrintReport').addEventListener('click', ()=>window.print());
-document.getElementById('btnSaveReport').addEventListener('click', ()=>{
-  const S = STRINGS[state.lang];
-  const tpl = state.currentTemplate;
-  const missing = tpl.fields.filter(f=>f.required && f.type!=='table' && f.type!=='checkbox' && !String(state.formValues[f.id]||'').trim());
-  if(missing.length){
-    toast(S.missingFieldsToast(missing.map(f=>L(f.label)).join(S.listSep)));
-    return;
-  }
-  const now = new Date();
-  const record = {
-    id: state.currentReportId || uid('rep'),
-    templateId: tpl.id,
-    templateName: L(tpl.name),
-    category: categoryLabel(tpl.category),
-    savedAt: now.toISOString(),
-    values: JSON.parse(JSON.stringify(state.formValues)),
-    extraFields: JSON.parse(JSON.stringify(state.extraFields))
-  };
-  const idx = state.reports.findIndex(r=>r.id===record.id);
-  if(idx>=0) state.reports[idx] = record; else state.reports.unshift(record);
-  state.currentReportId = record.id;
-  saveJSON(K_REPORTS, state.reports);
-  toast(S.savedReportToast);
-});
-
-/* ============================= بانِي القوالب (Builder) ============================= */
-function cloneTemplateForEdit(tpl){
-  const S = STRINGS[state.lang];
-  return {
-    id: uid('tpl'),
-    builtin:false,
-    category: categoryLabel(tpl.category),
-    name: L(tpl.name) + S.duplicateSuffix,
-    fields: JSON.parse(JSON.stringify(tpl.fields)).map(f=>({
-      id: uid('f'),
-      type: f.type,
-      label: L(f.label),
-      required: !!f.required,
-      options: f.options ? f.options.map(o=>L(o)) : undefined,
-      columns: f.columns ? f.columns.map(c=>L(c)) : undefined
-    }))
-  };
-}
-
-function openBuilder(tpl, isDuplicate){
-  state.builderEditingId = (tpl && !isDuplicate && !tpl.builtin) ? tpl.id : null;
-  const base = tpl || {name:'', category:'', fields:[]};
-  document.getElementById('tplName').value = base.name;
-  document.getElementById('tplCategory').value = base.category;
-  state.builderFields = JSON.parse(JSON.stringify(base.fields));
-  populateCatList();
-  renderBuilderFields();
-  document.getElementById('builderTitle').textContent = state.builderEditingId ? STRINGS[state.lang].builderEditTitle : STRINGS[state.lang].builderNewTitle;
-  showView('view-builder');
-}
-function populateCatList(){
-  const dl = document.getElementById('catList');
-  const predefined = CATEGORIES.map(c=>L(c));
-  const customCats = state.customTemplates.map(t=>t.category);
-  const cats = [...new Set(predefined.concat(customCats))];
-  dl.innerHTML = cats.map(c=>`<option value="${esc(c)}">`).join('');
-}
-
-function renderBuilderFields(){
-  const S = STRINGS[state.lang];
-  const wrap = document.getElementById('builderFields');
-  if(state.builderFields.length===0){
-    wrap.innerHTML = `<div class="empty" style="margin-bottom:12px">${esc(S.noFieldsYet)}</div>`;
-    return;
-  }
-  wrap.innerHTML = state.builderFields.map((f,i)=>`
-    <div class="field-editor" data-i="${i}">
-      <div class="row1">
-        <input type="text" data-b="label" placeholder="${esc(S.fieldLabelPlaceholder)}" value="${esc(f.label)}">
-        <select data-b="type">
-          ${Object.entries(S.fieldTypeLabels).map(([v,l])=>`<option value="${v}" ${f.type===v?'selected':''}>${esc(l)}</option>`).join('')}
-        </select>
-      </div>
-      ${f.type==='select' ? `<div class="row2"><textarea data-b="options" placeholder="${esc(S.optionsPlaceholder)}">${esc((f.options||[]).join('\n'))}</textarea></div>` : ''}
-      ${f.type==='table' ? `<div class="row2"><textarea data-b="columns" placeholder="${esc(S.columnsPlaceholder)}">${esc((f.columns||[]).join('\n'))}</textarea></div>` : ''}
-      <div class="row3">
-        <label class="req-check"><input type="checkbox" data-b="required" ${f.required?'checked':''}> ${esc(S.requiredFieldLabel)}</label>
-        <div class="move-btns">
-          <button type="button" data-b="up" title="${esc(S.moveUpTitle)}">⬆️</button>
-          <button type="button" data-b="down" title="${esc(S.moveDownTitle)}">⬇️</button>
-          <button type="button" data-b="del" title="${esc(S.deleteFieldTitle)}">🗑️</button>
-        </div>
-      </div>
-    </div>
-  `).join('');
-
-  wrap.querySelectorAll('.field-editor').forEach(box=>{
-    const i = +box.dataset.i;
-    box.querySelector('[data-b=label]').addEventListener('input', e=>state.builderFields[i].label = e.target.value);
-    box.querySelector('[data-b=type]').addEventListener('change', e=>{
-      state.builderFields[i].type = e.target.value;
-      if(e.target.value==='select' && !state.builderFields[i].options) state.builderFields[i].options=[];
-      if(e.target.value==='table' && !state.builderFields[i].columns) state.builderFields[i].columns = STRINGS[state.lang].defaultColumns.slice();
-      renderBuilderFields();
-    });
-    const opt = box.querySelector('[data-b=options]');
-    if(opt) opt.addEventListener('input', e=>{ state.builderFields[i].options = e.target.value.split('\n').map(s=>s.trim()).filter(Boolean); });
-    const cols = box.querySelector('[data-b=columns]');
-    if(cols) cols.addEventListener('input', e=>{ state.builderFields[i].columns = e.target.value.split('\n').map(s=>s.trim()).filter(Boolean); });
-    box.querySelector('[data-b=required]').addEventListener('change', e=>state.builderFields[i].required = e.target.checked);
-    box.querySelector('[data-b=up]').addEventListener('click', ()=>{
-      if(i===0) return;
-      [state.builderFields[i-1], state.builderFields[i]] = [state.builderFields[i], state.builderFields[i-1]];
-      renderBuilderFields();
-    });
-    box.querySelector('[data-b=down]').addEventListener('click', ()=>{
-      if(i===state.builderFields.length-1) return;
-      [state.builderFields[i+1], state.builderFields[i]] = [state.builderFields[i], state.builderFields[i+1]];
-      renderBuilderFields();
-    });
-    box.querySelector('[data-b=del]').addEventListener('click', ()=>{
-      state.builderFields.splice(i,1);
-      renderBuilderFields();
-    });
-  });
-}
-
-document.getElementById('btnAddField').addEventListener('click', ()=>{
-  state.builderFields.push({id: uid('f'), type:'text', label:'', required:false});
-  renderBuilderFields();
-});
-document.getElementById('btnNewTpl').addEventListener('click', ()=>openBuilder(null,false));
-document.getElementById('btnBackFromBuilder').addEventListener('click', ()=>{ showView('view-home'); renderHome(); });
-
-document.getElementById('btnSaveTemplate').addEventListener('click', ()=>{
-  const S = STRINGS[state.lang];
-  const name = document.getElementById('tplName').value.trim();
-  const category = document.getElementById('tplCategory').value.trim() || categoryLabel('other');
-  if(!name){ toast(S.nameRequiredToast); return; }
-  if(state.builderFields.length===0){ toast(S.atLeastOneFieldToast); return; }
-  const emptyLabel = state.builderFields.find(f=>!f.label.trim());
-  if(emptyLabel){ toast(S.fieldNoLabelToast); return; }
-
-  if(state.builderEditingId){
-    const idx = state.customTemplates.findIndex(t=>t.id===state.builderEditingId);
-    if(idx>=0){
-      state.customTemplates[idx] = {...state.customTemplates[idx], name, category, fields: state.builderFields};
-    }
-  } else {
-    state.customTemplates.push({ id: uid('tpl'), builtin:false, name, category, fields: state.builderFields });
-  }
-  saveJSON(K_TEMPLATES, state.customTemplates);
-  toast(S.templateSavedToast);
-  showView('view-home');
-  renderHome();
-});
-
-/* ============================= سجل التقارير ============================= */
-function renderLog(){
-  const S = STRINGS[state.lang];
-  const q = (document.getElementById('logSearch').value||'').trim().toLowerCase();
-  const rows = state.reports.map(r=>{
-    const tpl = findTemplate(r.templateId);
-    return {
-      rec: r,
-      nameDisp: tpl ? L(tpl.name) : r.templateName,
-      catDisp: tpl ? categoryLabel(tpl.category) : r.category
-    };
-  }).filter(x=> !q || x.nameDisp.toLowerCase().includes(q) || x.catDisp.toLowerCase().includes(q));
-  const tbody = document.getElementById('logTbody');
-  if(rows.length===0){
-    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:24px">${esc(S.logEmptyMsg)}</td></tr>`;
-    return;
-  }
-  const locale = state.lang==='ar' ? 'ar-MA' : 'fr-MA';
-  tbody.innerHTML = rows.map(x=>{
-    const r = x.rec;
-    const d = new Date(r.savedAt);
-    const dateStr = d.toLocaleDateString(locale) + ' ' + d.toLocaleTimeString(locale,{hour:'2-digit',minute:'2-digit'});
-    return `<tr>
-      <td>${esc(x.nameDisp)}</td>
-      <td>${esc(x.catDisp)}</td>
-      <td>${esc(dateStr)}</td>
-      <td>
-        <button class="btn btn-primary btn-sm" data-log-act="open" data-id="${esc(r.id)}">${esc(S.openBtn)}</button>
-        <button class="btn btn-light btn-sm" data-log-act="dup" data-id="${esc(r.id)}">${esc(S.duplicateBtn)}</button>
-        <button class="btn btn-danger btn-sm" data-log-act="del" data-id="${esc(r.id)}">${esc(S.deleteBtn)}</button>
-      </td>
-    </tr>`;
-  }).join('');
-}
-document.getElementById('logTbody').addEventListener('click', e=>{
-  const S = STRINGS[state.lang];
-  const btn = e.target.closest('button[data-log-act]');
-  if(!btn) return;
-  const rec = state.reports.find(r=>r.id===btn.dataset.id);
-  if(!rec) return;
-  const tpl = findTemplate(rec.templateId);
-  if(btn.dataset.logAct==='open'){
-    if(!tpl){ toast(S.templateNotFoundToast); return; }
-    openFillView(tpl, rec);
-  } else if(btn.dataset.logAct==='dup'){
-    if(!tpl){ toast(S.templateNotFoundToast); return; }
-    openFillView(tpl, {...rec, id:null});
-  } else if(btn.dataset.logAct==='del'){
-    if(confirm(S.confirmDeleteReport)){
-      state.reports = state.reports.filter(r=>r.id!==rec.id);
-      saveJSON(K_REPORTS, state.reports);
-      renderLog();
-      toast(S.reportDeletedToast);
-    }
-  }
-});
-document.getElementById('logSearch').addEventListener('input', renderLog);
-
-document.getElementById('btnExportAll').addEventListener('click', ()=>{
-  const S = STRINGS[state.lang];
-  const data = { settings: state.settings, customTemplates: state.customTemplates, reports: state.reports, exportedAt: new Date().toISOString() };
-  const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = S.backupFilenamePrefix + todayISO() + '.json';
-  a.click();
-  URL.revokeObjectURL(a.href);
-});
-document.getElementById('importFile').addEventListener('change', e=>{
-  const S = STRINGS[state.lang];
-  const file = e.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = ()=>{
-    try{
-      const data = JSON.parse(reader.result);
-      if(data.settings) state.settings = {...state.settings, ...data.settings};
-      if(Array.isArray(data.customTemplates)) state.customTemplates = state.customTemplates.concat(data.customTemplates);
-      if(Array.isArray(data.reports)) state.reports = data.reports.concat(state.reports);
-      saveJSON(K_SETTINGS, state.settings);
-      saveJSON(K_TEMPLATES, state.customTemplates);
-      saveJSON(K_REPORTS, state.reports);
-      renderLetterheadBar(); renderLog();
-      toast(S.importSuccessToast);
-    }catch(err){ toast(S.importInvalidToast); }
-    e.target.value = '';
-  };
-  reader.readAsText(file);
-});
-
-/* ============================= إعدادات المؤسسة ============================= */
-function openSettingsModal(){
-  const S = STRINGS[state.lang];
-  const s = state.settings;
-  const bg = document.createElement('div');
-  bg.className = 'modal-bg';
-  bg.innerHTML = `
-    <div class="modal">
-      <h3>${esc(S.settingsModalTitle)}</h3>
-      <div class="field-group"><label>${esc(S.settingsInstLabel)}</label><input type="text" id="stInst" value="${esc(s.institution)}"></div>
-      <div class="field-group"><label>${esc(S.settingsNiabaLabel)}</label><input type="text" id="stNiaba" value="${esc(s.niaba)}"></div>
-      <div class="field-group"><label>${esc(S.settingsAcadLabel)}</label><input type="text" id="stAcad" value="${esc(s.academy)}"></div>
-      <div class="field-group"><label>${esc(S.settingsYearLabel)}</label><input type="text" id="stYear" value="${esc(s.year)}" placeholder="${esc(S.settingsYearPlaceholder)}"></div>
-      <div class="field-group"><label>${esc(S.settingsSupervisorLabel)}</label><input type="text" id="stSup" value="${esc(s.supervisor)}"></div>
-      <div class="modal-actions">
-        <button class="btn btn-light" id="stCancel">${esc(S.cancelBtn)}</button>
-        <button class="btn btn-primary" id="stSave">${esc(S.saveBtn)}</button>
-      </div>
-    </div>`;
-  document.body.appendChild(bg);
-  bg.querySelector('#stCancel').addEventListener('click', ()=>bg.remove());
-  bg.addEventListener('click', e=>{ if(e.target===bg) bg.remove(); });
-  bg.querySelector('#stSave').addEventListener('click', ()=>{
-    state.settings = {
-      institution: bg.querySelector('#stInst').value.trim(),
-      niaba: bg.querySelector('#stNiaba').value.trim(),
-      academy: bg.querySelector('#stAcad').value.trim(),
-      year: bg.querySelector('#stYear').value.trim(),
-      supervisor: bg.querySelector('#stSup').value.trim()
-    };
-    saveJSON(K_SETTINGS, state.settings);
-    renderLetterheadBar();
-    if(state.currentTemplate) renderDocPreview();
-    bg.remove();
-    toast(S.settingsSavedToast);
-  });
-}
-document.getElementById('btnSettings').addEventListener('click', openSettingsModal);
-
-/* ============================= أزرار الرأس ============================= */
-document.getElementById('btnHome').addEventListener('click', ()=>{ showView('view-home'); renderHome(); });
-document.getElementById('btnLog').addEventListener('click', ()=>{ renderLog(); showView('view-log'); });
-
-/* ============================= بدء التشغيل ============================= */
-function init(){
-  applyLangToDocument();
-  if(!state.settings.year){
-    const y = new Date().getFullYear();
-    const m = new Date().getMonth(); // بعد شتنبر تبدأ السنة الدراسية الجديدة
-    state.settings.year = (m>=8) ? `${y}-${y+1}` : `${y-1}-${y}`;
-  }
-  applyStaticStrings();
-  renderLetterheadBar();
-  renderHome();
-
-  if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('./sw.js').catch(()=>{});
-  }
-}
-init();
-})();
-</script>
+<script src="./app.js"></script>
 </body>
 </html>

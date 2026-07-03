@@ -1,7 +1,9 @@
-const CACHE_NAME = 'harissa-v2';
+const CACHE_NAME = 'harissa-v3';
 const APP_SHELL = [
   './',
   './index.html',
+  './style.css',
+  './app.js',
   './manifest.json',
   './icons/icon-192.png',
   './icons/icon-512.png'
