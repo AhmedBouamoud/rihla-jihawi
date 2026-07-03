@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>الإمبريالية وليدة الرأسمالية — رحلة الثالثة إعدادي</title>
+<meta name="theme-color" content="#0f766e">
+<style>
+:root{
+  --bg1:#ecfeff; --bg2:#fff7ed; --ink:#14213d; --muted:#64748b; --paper:#ffffffee;
+  --primary:#0f766e; --primary2:#0ea5a4; --blue:#2563eb; --sky:#0ea5e9;
+  --gold:#f59e0b; --orange:#fb923c; --red:#ef4444; --green:#22c55e; --purple:#7c3aed;
+  --line:rgba(15,118,110,.17); --shadow:0 20px 60px rgba(15,23,42,.13); --radius:28px;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;font-family:Tahoma,"Segoe UI",Arial,sans-serif;color:var(--ink);background:
+  radial-gradient(circle at 7% 8%,rgba(14,165,233,.20),transparent 26%),
+  radial-gradient(circle at 92% 8%,rgba(245,158,11,.22),transparent 26%),
+  linear-gradient(135deg,var(--bg1),#fff 44%,var(--bg2));overflow-x:hidden}
+button,input,textarea{font:inherit} button{cursor:pointer;border:0}.hidden{display:none!important}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.78);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav{max-width:1220px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.brand{display:flex;gap:12px;align-items:center}.mark{width:58px;height:58px;border-radius:20px;background:linear-gradient(135deg,var(--primary),var(--sky));display:grid;place-items:center;color:#fff;font-size:30px;box-shadow:0 12px 28px rgba(14,165,233,.22)}
+.brand strong{display:block;font-size:18px}.brand small{display:block;color:var(--muted);font-weight:700}.navlinks{display:flex;gap:8px;flex-wrap:wrap}.btn{border-radius:999px;padding:10px 14px;font-weight:900;background:#fff;color:var(--primary);box-shadow:0 8px 24px rgba(15,23,42,.08);border:1px solid rgba(15,118,110,.12)}
+.btn.primary{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff}.btn.gold{background:linear-gradient(135deg,var(--gold),var(--orange));color:#fff}.btn.blue{background:linear-gradient(135deg,var(--blue),var(--sky));color:#fff}.btn.red{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff}
+.app{max-width:1220px;margin:auto;padding:18px}.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:stretch;padding:18px 0}
+.card,.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;position:relative}.hero-text{padding:clamp(24px,4vw,42px)}
+.kicker{display:inline-flex;gap:8px;align-items:center;padding:8px 13px;border-radius:999px;background:#ecfeff;color:#0f766e;font-weight:900;margin-bottom:14px}
+h1{font-size:clamp(36px,6vw,66px);line-height:1.05;margin:0;letter-spacing:-1px}.gradient{background:linear-gradient(135deg,var(--blue),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}.lead{font-size:clamp(16px,2vw,21px);line-height:1.95;color:#334155;max-width:92%}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}.name{min-width:220px;flex:1;border:2px solid rgba(14,165,233,.22);border-radius:999px;padding:13px 18px;font-weight:800;outline:none}.name:focus{border-color:var(--sky);box-shadow:0 0 0 5px rgba(14,165,233,.12)}
+.hero-visual{min-height:470px;background:linear-gradient(180deg,#0f766e,#075985);color:#fff;padding:22px;display:flex;flex-direction:column;justify-content:space-between}.scene{height:320px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.2);position:relative;overflow:hidden}.scene svg{width:100%;height:100%;display:block}.guide{display:flex;gap:14px;align-items:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:22px;padding:14px}.avatar{width:74px;height:74px;border-radius:22px;background:linear-gradient(135deg,#fde68a,#fb923c);display:grid;place-items:center;font-size:44px;flex:0 0 74px}.guide b{font-size:20px}.guide p{margin:6px 0 0;line-height:1.8;color:rgba(255,255,255,.92)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}.stat{background:#fff;border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 10px 24px rgba(15,23,42,.06)}.stat span{color:var(--muted);font-weight:800;font-size:13px}.stat b{display:block;font-size:24px;margin-top:5px;color:var(--primary)}
+.panel{padding:22px;margin:18px 0}.section-title{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:15px}.section-title h2{margin:0;font-size:clamp(26px,3.2vw,40px)}.section-title p{margin:4px 0 0;color:var(--muted);line-height:1.8}.badge{display:inline-flex;border-radius:999px;padding:7px 11px;background:#ecfeff;color:#0f766e;font-weight:900;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.mini{padding:17px;border-radius:22px;background:#fff;border:1px solid var(--line);box-shadow:0 10px 25px rgba(15,23,42,.06)}.mini h3{margin:0 0 8px;color:var(--primary)}.mini p,.mini li{line-height:1.85;color:#334155}.mini ul{margin:0;padding-right:18px}.mini .icon{font-size:34px}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:center}.flow .step{min-height:126px;padding:14px;border-radius:20px;background:#fff;border:1px solid var(--line);text-align:center;display:grid;align-content:center;box-shadow:0 9px 20px rgba(15,23,42,.06)}.flow .step strong{display:block;margin-top:8px}.arrow{font-size:25px;color:var(--gold);font-weight:900;text-align:center}.flow-wrap{overflow:auto}.flow-inner{min-width:850px}
+.route{display:grid;grid-template-columns:1fr 360px;gap:18px}.map{position:relative;min-height:720px;border-radius:30px;background:linear-gradient(180deg,#e0f2fe,#fef3c7);overflow:hidden;border:1px solid var(--line)}.map svg{position:absolute;inset:0;width:100%;height:100%}.station{position:absolute;width:175px;background:#fff;border:2px solid rgba(14,165,233,.3);border-radius:22px;padding:12px;text-align:center;box-shadow:0 14px 30px rgba(15,23,42,.14);transition:.25s}.station:hover{transform:translateY(-5px) scale(1.02)}.station.locked{filter:saturate(.5);opacity:.72}.station .num{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--primary),var(--sky));color:#fff;margin:-32px auto 6px;font-weight:900;border:4px solid #fff}.station b{display:block;color:#0f4c81}.station small{display:block;color:var(--muted);line-height:1.7;margin-top:4px}.s1{right:7%;top:70px}.s2{left:16%;top:160px}.s3{right:19%;top:270px}.s4{left:8%;top:390px}.s5{right:10%;top:505px}.s6{left:16%;top:625px}.side{display:flex;flex-direction:column;gap:12px}.mission{background:#fff;border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:0 10px 26px rgba(15,23,42,.06)}.mission h3{margin:0 0 8px;color:var(--primary)}.mission p{line-height:1.85;margin:0;color:#334155}.mission button{margin-top:10px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tab{padding:10px 13px;border-radius:999px;background:#fff;border:1px solid var(--line);font-weight:900;color:#0f766e}.tab.active{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff}.tab-content{background:#fff;border:1px solid var(--line);border-radius:24px;padding:20px;min-height:240px}.tab-content h3{margin-top:0;color:var(--primary)}.tab-content p,.tab-content li{line-height:1.95;color:#334155}.note{background:#fffbeb;border:1px solid #fde68a;color:#7c2d12;border-radius:18px;padding:13px 15px;line-height:1.9}.correct-box{background:#f0fdf4;border:1px solid #bbf7d0;color:#14532d;border-radius:18px;padding:13px 15px;line-height:1.9}.danger-box{background:#fff1f2;border:1px solid #fecdd3;color:#881337;border-radius:18px;padding:13px 15px;line-height:1.9}
+.matching{display:grid;grid-template-columns:1fr 1fr;gap:12px}.match-item,.drop{background:#fff;border:2px dashed #bae6fd;border-radius:18px;padding:12px;min-height:55px;font-weight:800}.match-item{cursor:grab;border-style:solid}.drop.ok{border-color:#22c55e;background:#f0fdf4}.drop.bad{border-color:#ef4444;background:#fff1f2}.timeline{display:flex;gap:10px;flex-wrap:wrap}.tl-item{background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 12px;font-weight:900;box-shadow:0 8px 18px rgba(15,23,42,.06);cursor:pointer}.tl-item.selected{outline:4px solid rgba(245,158,11,.25);border-color:#f59e0b}.quiz-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:20px}.quiz-options{display:grid;gap:10px;margin-top:14px}.opt{text-align:right;background:#f8fafc;border:2px solid #e2e8f0;border-radius:18px;padding:13px;font-weight:800}.opt:hover{border-color:var(--sky);background:#ecfeff}.opt.correct{background:#dcfce7;border-color:#22c55e}.opt.wrong{background:#fee2e2;border-color:#ef4444}.scorebar{height:15px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:12px 0}.scorebar div{height:100%;width:0%;background:linear-gradient(90deg,var(--sky),var(--gold));transition:.5s}.teacher{background:#f8fafc;border:1px solid #dbeafe;border-radius:22px;padding:16px}.teacher textarea{width:100%;min-height:170px;border-radius:16px;border:1px solid #bfdbfe;padding:12px;direction:ltr;text-align:left;font-family:monospace}
+.print-report{background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px}.print-report h3{color:#0f766e}.print-report p,.print-report li{line-height:1.9}.footer{text-align:center;color:var(--muted);padding:22px;font-weight:800}
+.toast{position:fixed;bottom:20px;right:20px;background:#0f766e;color:#fff;padding:13px 16px;border-radius:18px;box-shadow:var(--shadow);z-index:100;transform:translateY(100px);opacity:0;transition:.35s}.toast.show{transform:translateY(0);opacity:1}.confetti{position:fixed;inset:0;pointer-events:none;z-index:90}
+@media(max-width:920px){.hero,.route{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.matching{grid-template-columns:1fr}.map{min-height:980px}.station{width:150px}.s1{right:8%;top:70px}.s2{left:8%;top:210px}.s3{right:8%;top:350px}.s4{left:8%;top:500px}.s5{right:8%;top:650px}.s6{left:8%;top:820px}.hero-visual{min-height:auto}.flow-inner{min-width:760px}}
+@media print{.topbar,.hero,.stats,.route,.tabs,.activity,.quiz,.teacher,.footer .no-print,.btn,.toast{display:none!important}body{background:#fff}.app{max-width:none;padding:0}.panel,.print-report{box-shadow:none;border:0}.print-report{font-size:14px}.print-only{display:block!important}}
+
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.15)}50%{box-shadow:0 0 0 14px rgba(245,158,11,0)}}
+@keyframes riseIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.hero,.panel,.stat{animation:riseIn .7s ease both}.guide,.mark{animation:floaty 5s ease-in-out infinite}.kicker{animation:pulseGlow 2.6s infinite}
+.game-strip{display:grid;grid-template-columns:1.2fr repeat(4,1fr);gap:12px;margin:16px 0 22px}.reward{background:#fff;border:1px solid var(--line);border-radius:24px;padding:14px;box-shadow:0 12px 24px rgba(15,23,42,.06);position:relative;overflow:hidden}.reward::after{content:'';position:absolute;inset:auto -20% -35% auto;width:110px;height:110px;background:radial-gradient(circle,rgba(14,165,233,.12),transparent 68%);border-radius:50%}.reward .big{font-size:28px;font-weight:900;color:var(--primary);display:block}.reward small{color:var(--muted);font-weight:800}.xpcard{background:linear-gradient(135deg,#0f766e,#0ea5e9);color:#fff}.xpbar{height:14px;background:rgba(255,255,255,.26);border-radius:999px;overflow:hidden;margin-top:8px}.xpbar div{height:100%;width:0;background:linear-gradient(90deg,#fde68a,#fff);transition:.45s}
+.atlas-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:stretch}.visual-stage{background:linear-gradient(180deg,#f8fbff,#fff7ed);border:1px solid var(--line);border-radius:28px;padding:18px;min-height:390px;box-shadow:0 14px 30px rgba(15,23,42,.06)}.visual-stage .legend{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0}.chip{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:999px;background:#fff;border:1px solid var(--line);font-weight:800;color:#334155}.visual-stage svg{width:100%;height:250px;display:block}.visual-stage h3{margin:8px 0 4px;color:var(--primary)}.visual-stage p{line-height:1.9;color:#334155}.atlas-list{display:grid;gap:12px}.visual-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:14px;display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:center;cursor:pointer;box-shadow:0 10px 22px rgba(15,23,42,.06);transition:.25s}.visual-card:hover,.visual-card.active{transform:translateY(-4px);border-color:#7dd3fc;background:#f0fdfa}.thumb{height:76px;border-radius:18px;background:linear-gradient(135deg,#dbeafe,#fde68a);display:grid;place-items:center;font-size:36px}.visual-card h4{margin:0 0 6px;color:#0f766e}.visual-card p{margin:0;color:#475569;line-height:1.75}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.gallery-card{background:#fff;border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 10px 22px rgba(15,23,42,.06);transition:.25s}.gallery-card:hover,.quiz-card:hover,.mini:hover,.mission:hover{transform:translateY(-4px)}.gallery-visual{height:170px;background:linear-gradient(135deg,#dbeafe,#fef3c7);display:grid;place-items:center}.gallery-card svg{width:100%;height:100%}.gallery-card .txt{padding:14px}.gallery-card h4{margin:0 0 8px;color:#0f766e}.gallery-card p{margin:0;line-height:1.8;color:#334155}
+.funline{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}.funpill{padding:10px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-weight:900;color:#0f766e}
+
+.doc-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:16px;align-items:start}.doc-card{background:#fff;border:1px solid var(--line);border-radius:26px;padding:18px;box-shadow:0 12px 26px rgba(15,23,42,.06)}.doc-card h3{margin:0 0 10px;color:var(--primary)}.doc-card p,.doc-card li{line-height:1.9;color:#334155}.infographic-sheet{background:#fffdf5;border:2px solid #fde68a;border-radius:30px;padding:18px;box-shadow:0 18px 42px rgba(15,23,42,.10);position:relative;overflow:hidden}.infographic-sheet::before{content:'وثيقة التلميذ';position:absolute;top:14px;left:-34px;transform:rotate(-18deg);background:#ef4444;color:#fff;font-weight:900;padding:8px 44px;border-radius:999px;font-size:12px}.info-title{text-align:center;background:linear-gradient(135deg,#0f766e,#0ea5e9);color:#fff;border-radius:24px;padding:14px;margin-bottom:12px}.info-title h3{margin:0;font-size:28px;color:#fff}.info-title small{display:block;margin-top:5px;font-weight:800;color:#e0f2fe}.info-map{height:190px;border-radius:22px;background:linear-gradient(180deg,#dbeafe,#fef3c7);overflow:hidden;border:1px solid #bae6fd;margin-bottom:12px}.info-map svg{width:100%;height:100%;display:block}.info-blocks{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.info-mini{background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:11px}.info-mini b{display:block;color:#0f766e;margin-bottom:5px}.info-mini p{margin:0;line-height:1.65;color:#334155;font-size:14px}.info-types{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.type-pill{border-radius:16px;padding:10px;background:#ecfeff;border:1px solid #bae6fd;text-align:center;font-weight:900;color:#0f766e}.mission-ribbon{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.mission-ribbon span{background:#fff7ed;border:1px solid #fed7aa;border-radius:999px;padding:8px 12px;font-weight:900;color:#9a3412}.map-quest{background:linear-gradient(135deg,#ecfeff,#fff7ed);border:1px solid var(--line);border-radius:24px;padding:14px}.quest-map{height:190px;border-radius:18px;background:#dbeafe;overflow:hidden;border:1px solid #93c5fd}.quest-map svg{width:100%;height:100%;display:block}.hotspot{cursor:pointer;transition:.25s}.hotspot:hover{transform:scale(1.12);filter:drop-shadow(0 8px 10px rgba(15,23,42,.2))}.float-badge{position:absolute;display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 12px;box-shadow:0 12px 24px rgba(15,23,42,.10);font-weight:900;color:#0f766e;animation:floaty 4.8s ease-in-out infinite}.fb1{top:24px;left:24px}.fb2{bottom:24px;right:24px;animation-delay:.7s}.visual-stage{position:relative;overflow:hidden}.visual-stage::after{content:'🧭';position:absolute;bottom:10px;left:12px;font-size:34px;opacity:.35;animation:floaty 5s infinite}@media (max-width:920px){.doc-grid{grid-template-columns:1fr}.info-blocks,.info-types{grid-template-columns:1fr}}
+
+@media (max-width:960px){.game-strip{grid-template-columns:1fr 1fr}.atlas-wrap,.gallery-grid{grid-template-columns:1fr}}
+@media (max-width:640px){.game-strip{grid-template-columns:1fr}.visual-card{grid-template-columns:72px 1fr}}
+
+
+.hero-visual{background:linear-gradient(180deg,#0f766e,#075985);padding:18px}
+.scene{padding:0;background:#082f49}
+.scene .hero-photo{position:relative;height:100%;overflow:hidden;border-radius:24px}
+.scene .hero-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.08) contrast(1.02)}
+.scene .hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,47,73,.08),rgba(8,47,73,.35) 70%,rgba(8,47,73,.62))}
+.scene-caption{position:absolute;inset:auto 18px 18px 18px;color:#fff;z-index:2;background:rgba(15,23,42,.34);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:12px 14px;line-height:1.8}
+.scene-caption b{display:block;font-size:18px;margin-bottom:4px}
+.cinema-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:14px;align-items:stretch}
+.feature-media{position:relative;overflow:hidden;border-radius:24px;min-height:350px;background:#e2e8f0;cursor:pointer}
+.feature-media img{width:100%;height:100%;object-fit:cover;display:block;transition:.35s}
+.feature-media:hover img,.photo-card:hover img,.doc-photo:hover img,.atlas-main-image:hover{transform:scale(1.02)}
+.feature-media::after,.photo-card::after,.doc-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,23,42,0),rgba(15,23,42,.07) 55%,rgba(15,23,42,.55));pointer-events:none}
+.feature-caption{position:absolute;right:18px;left:18px;bottom:16px;color:#fff;z-index:2}
+.feature-caption h3{margin:0 0 6px;font-size:28px}
+.feature-caption p{margin:0;line-height:1.85}
+.photo-stack{display:grid;gap:14px}
+.photo-card{position:relative;overflow:hidden;border-radius:24px;min-height:168px;cursor:pointer;background:#e2e8f0}
+.photo-card img{width:100%;height:100%;object-fit:cover;display:block;transition:.35s}
+.photo-card .caption{position:absolute;inset:auto 14px 14px 14px;color:#fff;z-index:2;font-weight:800;line-height:1.7}
+.photo-card .caption b{display:block;font-size:18px;margin-bottom:4px}
+.gallery-grid.real{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.gallery-grid.real .gallery-card{padding:0;overflow:hidden}
+.gallery-grid.real .gallery-visual{height:220px;padding:0;background:#e5e7eb;position:relative}
+.gallery-grid.real .gallery-visual img{width:100%;height:100%;object-fit:cover;display:block;transition:.35s;cursor:pointer}
+.gallery-grid.real .gallery-card:hover img{transform:scale(1.03)}
+.gallery-grid.real .txt{padding:16px}
+.thumb-img{width:100%;height:76px;border-radius:18px;object-fit:cover;display:block;border:1px solid rgba(14,165,233,.14)}
+.visual-stage .stage-wrap{display:grid;gap:14px}
+.atlas-main-image{width:100%;height:280px;object-fit:cover;border-radius:22px;display:block;cursor:pointer;box-shadow:0 12px 24px rgba(15,23,42,.10);transition:.35s}
+.image-note{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:12px 14px;color:#334155;line-height:1.85}
+.doc-photos{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+.doc-photo{position:relative;border-radius:18px;overflow:hidden;min-height:170px;cursor:pointer}
+.doc-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:.35s}
+.doc-photo .cap{position:absolute;inset:auto 12px 12px 12px;color:#fff;z-index:2;font-weight:800;line-height:1.7}
+.lightbox{position:fixed;inset:0;background:rgba(2,6,23,.84);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:120;padding:20px}
+.lightbox.open{display:flex}
+.lightbox-inner{max-width:min(1100px,96vw);max-height:92vh;background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 28px 90px rgba(0,0,0,.35);display:grid;grid-template-columns:1fr 320px}
+.lightbox-inner img{width:100%;height:100%;max-height:92vh;object-fit:contain;background:#0f172a}
+.lightbox-side{padding:22px;background:linear-gradient(180deg,#f8fafc,#fff7ed);overflow:auto}
+.lightbox-side h3{margin:0 0 8px;color:var(--primary)}
+.lightbox-side p{line-height:1.95;color:#334155}
+.lightbox-side .mini-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.lightbox-close{position:absolute;top:18px;left:18px;width:48px;height:48px;border-radius:50%;background:#fff;color:#0f172a;font-size:26px;font-weight:900;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+@media (max-width:960px){.cinema-grid,.gallery-grid.real,.doc-photos,.lightbox-inner{grid-template-columns:1fr}.photo-stack{grid-template-columns:1fr 1fr}.feature-media{min-height:260px}.atlas-main-image{height:220px}.gallery-grid.real .gallery-visual{height:200px}.lightbox-inner img{max-height:48vh}}
+
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="nav">
+    <div class="brand"><div class="mark">🌍</div><div><strong>بوابة رحلة الثالثة إعدادي</strong><small>الدرس 2 — الإمبريالية وليدة الرأسمالية</small></div></div>
+    <div class="navlinks">
+      <a class="btn" href="../../index.html">🗺️ خريطة الرحلة</a><a class="btn" href="#lesson">الدرس</a><a class="btn" href="#atlas">خرائط</a><a class="btn" href="#activity">أنشطة</a><a class="btn" href="#quiz">اختبار</a><a class="btn gold" href="#studentDocs">وثائق التلميذ</a><a class="btn gold" href="#report">التقرير</a><button class="btn blue" onclick="toggleSound()" id="soundBtn">الصوت 🔊</button>
+    </div>
+  </div>
+</div>
+<main class="app">
+  <section class="hero">
+    <div class="card hero-text">
+      <span class="kicker">🧭 مهمة تاريخية جديدة</span>
+      <h1>كيف ولدت <span class="gradient">الإمبريالية</span> من رحم الرأسمالية؟</h1>
+      <p class="lead">بعد أن ازدهرت الصناعة والأبناك والشركات في أوروبا خلال القرن 19م، صار العالم الرأسمالي يبحث عن أسواق ومواد أولية ومجالات لتصريف فائض الإنتاج والرساميل واليد العاملة. من هنا انطلقت الحركة الإمبريالية.</p>
+      <div class="hero-actions"><input class="name" id="studentName" placeholder="اكتب اسم التلميذ للحصول على الشهادة"/><button class="btn primary" onclick="startJourney()">ابدأ الرحلة</button><button class="btn gold" onclick="window.print()">طباعة التقرير</button></div>
+    </div>
+    <div class="card hero-visual">
+      <div class="scene" aria-label="صورة تاريخية تمهد للدرس">
+        <div class="hero-photo">
+          <img src="./images/01-hero-capitalism-to-imperialism.webp" alt="ميناء تجاري وصناعة وبواخر ترمز إلى ولادة الإمبريالية من الرأسمالية" loading="eager"/>
+          <div class="scene-caption"><b>من المصنع إلى الميناء إلى الخريطة</b>هذه الصورة تختصر روح الدرس: صناعة أوروبية متنامية، حركة تجارية قوية، واندفاع نحو الخارج بحثاً عن الأسواق والمواد الأولية.</div>
+        </div>
+      </div>
+      <div class="guide"><div class="avatar">🧑‍🏫</div><div><b>ابن بطوطة الصغير</b><p>كل محطة تكشف جزءاً من الحكاية: من المصنع الأوروبي إلى الخريطة الاستعمارية.</p></div></div>
+    </div>
+  </section>
+  <section class="stats">
+    <div class="stat"><span>المكون</span><b>التاريخ</b></div><div class="stat"><span>المستوى</span><b>3 إعدادي</b></div><div class="stat"><span>المحور</span><b>العالم الرأسمالي</b></div><div class="stat"><span>النموذج</span><b>الجزائر</b></div>
+  
+</section>
+
+  <section class="panel" id="photoJourney">
+    <div class="section-title"><div><span class="badge">صور حقيقية/مولدة باحتراف</span><h2>مسرح الصور داخل التطبيق</h2><p>أضفنا مجموعة صور كبيرة ونظيفة حتى يشعر التلميذ أن الدرس حيّ: ميناء، خريطة، الجزائر، وأنماط السيطرة الاستعمارية.</p></div></div>
+    <div class="cinema-grid">
+      <div class="feature-media" onclick="openLightbox(IMG.hero,'ميناء الرأسمالية والإمبريالية','صورة افتتاحية تجمع المصنع والميناء والبواخر والخريطة، لتفسير كيف دفعت الرأسمالية الأوروبية نحو التوسع الإمبريالي.',['رأسمالية','تجارة بحرية','أسواق','مواد أولية'])">
+        <img src="./images/01-hero-capitalism-to-imperialism.webp" alt="صورة افتتاحية عن الميناء والتوسع الإمبريالي" loading="lazy"/>
+        <div class="feature-caption"><h3>الصورة البطلة للدرس</h3><p>استعملها في بداية الحصة لطرح السؤال الإشكالي: ماذا نرى؟ وكيف يقود هذا المشهد إلى فهم الإمبريالية؟</p></div>
+      </div>
+      <div class="photo-stack">
+        <div class="photo-card" onclick="openLightbox(IMG.map,'من فرنسا إلى الجزائر','خريطة بصرية توضح المسار عبر البحر المتوسط، وتساعد على فهم البعد الجغرافي للتوسع الفرنسي.',['خريطة','فرنسا','الجزائر','البحر المتوسط'])"><img src="./images/03-mediterranean-route-france-algeria.webp" alt="خريطة فرنسا والجزائر" loading="lazy"/><div class="caption"><b>خريطة التوسع</b>من فرنسا إلى الجزائر عبر المتوسط.</div></div>
+        <div class="photo-card" onclick="openLightbox(IMG.landing,'بداية الاحتلال العسكري','صورة مشهدية لنزول القوات الفرنسية على السواحل الجزائرية، تصلح لشرح بداية الاحتلال وتدرجه.',['احتلال','الجزائر','ساحل','1830'])"><img src="./images/04-french-landing-algeria-1830.webp" alt="نزول القوات الفرنسية في الجزائر" loading="lazy"/><div class="caption"><b>الاحتلال العسكري</b>مدخل التوسع من الذريعة إلى السيطرة.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="game-strip">
+    <div class="reward xpcard">
+      <small>مستوى الرحلة</small>
+      <span class="big" id="xpLabel">0 / 100 XP</span>
+      <div class="xpbar"><div id="xpFill"></div></div>
+      <div class="funline"><span class="funpill">🎮 تعلم باللعب</span><span class="funpill">🗺️ خرائط حية</span></div>
+    </div>
+    <div class="reward"><small>النجوم</small><span class="big" id="starsCount">0</span><small>تكسبها كلما أنهيت تحدياً</small></div>
+    <div class="reward"><small>الخرائط المكتشفة</small><span class="big" id="mapsCount">0</span><small>افتح الخرائط التفسيرية</small></div>
+    <div class="reward"><small>المحطات المفتوحة</small><span class="big" id="stationsCount">0</span><small>اضغط على محطات الدرس</small></div>
+    <div class="reward"><small>التحديات المنجزة</small><span class="big" id="tasksCount">0</span><small>أنشطة + اختبار + شهادة</small></div>
+  </section>
+
+  <section class="panel" id="lesson">
+    <div class="section-title"><div><span class="badge">بناء الدرس</span><h2>من الرأسمالية إلى الإمبريالية</h2><p>الدرس يبدأ من نتيجة الدرس السابق: ازدهار الرأسمالية الأوروبية خلق حاجات جديدة دفعت نحو التوسع الاستعماري.</p></div></div>
+    <div class="flow-wrap"><div class="flow-inner"><div class="flow">
+      <div class="step">🏭<strong>ازدهار الصناعة</strong><small>مصانع وشركات وأبناك</small></div><div class="arrow">←</div>
+      <div class="step">📦<strong>فائض الإنتاج</strong><small>سلع أكثر من حاجة السوق المحلي</small></div><div class="arrow">←</div>
+      <div class="step">🧭<strong>البحث عن الخارج</strong><small>أسواق، مواد أولية، يد عاملة</small></div>
+      <div class="step">🚢<strong>التوسع</strong><small>بعثات، ضغط، حماية، احتلال</small></div><div class="arrow">←</div>
+      <div class="step">🌍<strong>الإمبريالية</strong><small>سيطرة دولة قوية على مناطق ضعيفة</small></div><div class="arrow">←</div>
+      <div class="step">⚠️<strong>نتائج عميقة</strong><small>استغلال، استيطان، مقاومة</small></div>
+    </div></div></div>
+  </section>
+
+  <section class="panel">
+    <div class="section-title"><div><span class="badge">خريطة التعلم</span><h2>مسار الرحلة داخل الدرس</h2><p>اضغط على كل محطة لفتح بطاقة التعلم. الهدف ليس الحفظ فقط، بل فهم العلاقة السببية.</p></div></div>
+    <div class="route">
+      <div class="map">
+        <svg viewBox="0 0 900 760" preserveAspectRatio="none"><path d="M710 85 C420 120 580 225 275 215 C80 210 210 370 560 350 C820 335 760 510 280 505 C105 500 150 670 675 660" fill="none" stroke="#f59e0b" stroke-width="14" stroke-linecap="round" stroke-dasharray="24 22" opacity=".9"/></svg>
+        <button class="station s1" onclick="openMission(0)"><span class="num">1</span><b>الربط</b><small>لماذا لم تتوقف الرأسمالية عند أوروبا؟</small></button>
+        <button class="station s2" onclick="openMission(1)"><span class="num">2</span><b>المفهوم</b><small>ما معنى الإمبريالية؟</small></button>
+        <button class="station s3" onclick="openMission(2)"><span class="num">3</span><b>الدوافع</b><small>اقتصادية، اجتماعية، سياسية</small></button>
+        <button class="station s4" onclick="openMission(3)"><span class="num">4</span><b>المبررات والوسائل</b><small>حضارية، دينية، علمية، عسكرية</small></button>
+        <button class="station s5" onclick="openMission(4)"><span class="num">5</span><b>أنواع المستعمرات</b><small>استيطان، استغلال، حماية/نفوذ</small></button>
+        <button class="station s6" onclick="openMission(5)"><span class="num">6</span><b>نموذج الجزائر</b><small>من الذريعة إلى الاحتلال والاستيطان</small></button>
+      </div>
+      <aside class="side">
+        <div class="mission" id="missionBox"><h3>محطة الانطلاق</h3><p>اضغط على محطة من الخريطة. ستظهر هنا بطاقة مختصرة تساعد التلميذ على بناء الفهم تدريجياً.</p></div>
+        <div class="mission"><h3>فكرة ذهبية للحفظ</h3><p>الإمبريالية ليست مجرد احتلال عسكري؛ إنها نتيجة لحاجات الرأسمالية إلى الأسواق والمواد الأولية ومجالات الاستثمار، وقد اتخذت أشكالاً متعددة: مستعمرات استيطان، مستعمرات استغلال، ومحميات أو مناطق نفوذ، مع استعمال مبررات حضارية ودينية وعلمية للتغطية على المصالح الحقيقية.</p></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="section-title"><div><span class="badge">شرح الأستاذ</span><h2>بطاقات الدرس المنظمة</h2><p>تصلح للشرح داخل القسم، وللمراجعة الفردية على الهاتف.</p></div></div>
+    <div class="tabs"><button class="tab active" onclick="showTab(0)">المفهوم</button><button class="tab" onclick="showTab(1)">الدوافع</button><button class="tab" onclick="showTab(2)">المبررات</button><button class="tab" onclick="showTab(3)">أنواع المستعمرات</button><button class="tab" onclick="showTab(4)">الجزائر نموذجاً</button><button class="tab" onclick="showTab(5)">النتائج</button></div>
+    <div class="tab-content" id="tabContent"></div>
+  </section>
+
+  <section class="panel" id="atlas">
+    <div class="section-title"><div><span class="badge">صور وخرائط</span><h2>أطلس بصري يجعل الدرس حياً</h2><p>بدل النص فقط، يستكشف التلميذ خرائط تفسيرية ورسومات مبسطة تساعده على الفهم السريع وربط الأفكار.</p></div></div>
+    <div class="atlas-wrap">
+      <div class="visual-stage" id="atlasStage"></div>
+      <div class="atlas-list">
+        <button class="visual-card active" onclick="showAtlas(0,this)"><img class="thumb-img" src="./images/01-hero-capitalism-to-imperialism.webp" alt="صورة مصغرة للميناء الإمبريالي"/><div><h4>من الصناعة إلى الميناء</h4><p>صورة افتتاحية تشرح كيف التقت الصناعة والتجارة البحرية بالخريطة الاستعمارية.</p></div></button>
+        <button class="visual-card" onclick="showAtlas(1,this)"><img class="thumb-img" src="./images/03-mediterranean-route-france-algeria.webp" alt="صورة مصغرة لخريطة فرنسا والجزائر"/><div><h4>المتوسط والجزائر</h4><p>خريطة توضح المسار من فرنسا إلى الجزائر وأهمية الموقع الاستراتيجي.</p></div></button>
+        <button class="visual-card" onclick="showAtlas(2,this)"><img class="thumb-img" src="./images/extra/08-map-focus-mediterranean-algeria.webp" alt="صورة مصغرة لتركيز الخريطة على المتوسط والجزائر"/><div><h4>تركيز على المتوسط والجزائر</h4><p>صورة إضافية تقرّب المسافة والخط البحري بين الساحلين.</p></div></button>
+        <button class="visual-card" onclick="showAtlas(3,this)"><img class="thumb-img" src="./images/05-colony-types-visual-comparison.webp" alt="صورة مصغرة لأنواع التوسع"/><div><h4>صور أنواع المستعمرات</h4><p>بطاقة بصرية كبيرة لتقريب معنى الاستيطان والاستغلال والتحكم السياسي.</p></div></button>
+        <button class="visual-card" onclick="showAtlas(4,this)"><img class="thumb-img" src="./images/02-industrial-port-19c.webp" alt="صورة مصغرة لميناء صناعي"/><div><h4>الدوافع الاقتصادية</h4><p>صورة الميناء الصناعي تساعد على فهم فائض الإنتاج وحركة التصدير.</p></div></button>
+        <button class="visual-card" onclick="showAtlas(5,this)"><img class="thumb-img" src="./images/06-colonial-policy-effects-algeria.webp" alt="صورة مصغرة للسياسة الاستعمارية"/><div><h4>نتائج السياسة الاستعمارية</h4><p>صورة مركبة توضح مصادرة الأرض، التفاوت الاجتماعي، وآثار الهيمنة.</p></div></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="section-title"><div><span class="badge">معرض سريع</span><h2>بطاقات بصرية للشرح داخل القسم</h2><p>يمكن استعمالها كصور دعم أثناء الشرح أو كوقفات قصيرة داخل الحصة.</p></div></div>
+    <div class="gallery-grid real">
+      <div class="gallery-card"><div class="gallery-visual"><img src="./images/02-industrial-port-19c.webp" alt="ميناء صناعي في القرن 19" loading="lazy" onclick="openLightbox(IMG.industrial,'الميناء الصناعي','هذه الصورة تشرح الدافع الاقتصادي بوضوح: مصانع، قطارات، بواخر، قطن، وصادرات.',['صناعة','ميناء','تصدير','فائض الإنتاج'])"/></div><div class="txt"><h4>فائض الإنتاج والبحث عن الخارج</h4><p>الصورة تجعل التلميذ يرى كيف أنتجت المصانع والقطارات والموانئ ضغطاً نحو الأسواق الخارجية.</p></div></div>
+      <div class="gallery-card"><div class="gallery-visual"><img src="./images/05-colony-types-visual-comparison.webp" alt="صور لأنواع التوسع الإمبريالي" loading="lazy" onclick="openLightbox(IMG.types,'أنواع المستعمرات بصرياً','لوحة ثلاثية تساعد على المقارنة بين الاستيطان والاستغلال والتحكم السياسي/الدبلوماسي.',['استيطان','استغلال','نفوذ','مقارنة'])"/></div><div class="txt"><h4>أنواع المستعمرات بصرياً</h4><p>استعمال بصري ممتاز للمقارنة بين الأشكال المختلفة للسيطرة الاستعمارية.</p></div></div>
+      <div class="gallery-card"><div class="gallery-visual"><img src="./images/04-french-landing-algeria-1830.webp" alt="بداية الاحتلال الفرنسي للجزائر" loading="lazy" onclick="openLightbox(IMG.landing,'الجزائر نموذجاً','مشهد درامي لبداية الاحتلال العسكري، يصلح لشرح احتلال الساحل الشمالي سنة 1830م.',['الجزائر','احتلال','1830','الذريعة'])"/></div><div class="txt"><h4>الجزائر: من الذريعة إلى الاحتلال</h4><p>يمكن الانطلاق من تفاصيل الصورة لسؤال التلاميذ: من القادم؟ من المدافع؟ وما الذي يكشفه المشهد؟</p></div></div>
+      <div class="gallery-card"><div class="gallery-visual"><img src="./images/extra/07-factory-and-export-detail.webp" alt="تفصيل مصنع وصادرات" loading="lazy" onclick="openLightbox(IMG.factory,'فائض الإنتاج والتصدير','صورة تفصيلية للمصنع وحركة التصدير، تدعم فكرة أن الصناعة الأوروبية أنتجت أكثر مما تستوعبه السوق المحلية.',['فائض إنتاج','تصدير','صناعة'])"/></div><div class="txt"><h4>فائض الإنتاج: صورة تفصيلية</h4><p>صورة داعمة تُبرز تفاصيل المصنع والتصدير لتثبيت فكرة الدافع الاقتصادي.</p></div></div>
+    </div>
+  </section>
+
+  <section class="panel activity" id="activity">
+    <div class="section-title"><div><span class="badge">تعلم باللعب</span><h2>أنشطة تفاعلية قصيرة</h2><p>أنشطة تصلح خلال الحصة أو في نهاية الدرس لتثبيت المفاهيم.</p></div></div>
+    <div class="grid">
+      <div class="mini"><div class="icon">🧩</div><h3>نشاط 1: اربط الدافع بالشرح</h3><p>اسحب البطاقة إلى المكان المناسب.</p><div class="matching" id="matching"></div><button class="btn primary" onclick="checkMatching()">تحقق</button></div>
+      <div class="mini"><div class="icon">⏳</div><h3>نشاط 2: مراحل احتلال الجزائر</h3><p>اختر المراحل بالترتيب الصحيح.</p><div class="timeline" id="timeline"></div><button class="btn gold" onclick="checkTimeline()">تحقق من الترتيب</button></div>
+      <div class="mini"><div class="icon">🕵️</div><h3>نشاط 3: السبب والذريعة</h3><p>ما الفرق بين السبب الحقيقي والذريعة الظاهرة؟</p><div class="note"><b>الذريعة الظاهرة:</b> ضربة المروحة. <br><b>الأسباب العميقة:</b> البحث عن الخيرات والمراسي والأسواق والموقع الاستراتيجي.</div><button class="btn blue" onclick="toast('ممتاز: المؤرخ لا يكتفي بالذريعة، بل يبحث عن المصالح العميقة.')">فهمت الفرق</button></div>
+      <div class="mini"><div class="icon">🏷️</div><h3>نشاط 4: صنف نوع المستعمرة</h3><img src="./images/extra/10-colony-types-three-panels.webp" alt="ثلاث لوحات لأنواع المستعمرات" loading="lazy" style="width:100%;border-radius:16px;margin:8px 0;cursor:pointer" onclick="openLightbox(IMG.colonyPanels,'أنواع المستعمرات: ثلاث لوحات','ثلاث لوحات جنباً إلى جنب تساعد التلميذ على مقارنة الاستيطان والاستغلال والحماية قبل الإجابة عن النشاط.',['استيطان','استغلال','حماية'])"/><p>اقرأ الوضعية واختر النوع المناسب.</p><div id="colonyActivity" class="note"></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn primary" onclick="answerColony('استيطان')">استيطان</button><button class="btn gold" onclick="answerColony('استغلال')">استغلال</button><button class="btn blue" onclick="answerColony('حماية')">حماية/نفوذ</button></div></div>
+      <div class="mini"><div class="icon">💎</div><h3>نشاط 5: بطاقة كنز سريعة</h3><p>اضغط لاستخراج بطاقة مفاجأة تعيد أهم فكرة في الدرس بطريقة لعبية.</p><div id="treasureBox" class="correct-box">اضغط زر الاكتشاف لتظهر لك بطاقة كنز.</div><button class="btn red" onclick="drawTreasure()">اكتشف الكنز</button></div>
+      <div class="mini"><div class="icon">🗺️</div><h3>نشاط 6: اختبر الخريطة</h3><p>اضغط على الجزائر داخل الخريطة لتكسب نجمة الأطلس.</p><div class="map-quest"><div class="quest-map"><svg viewBox="0 0 420 210"><rect width="420" height="210" fill="#dbeafe"/><path d="M74 38 C130 12 196 30 226 78 C258 70 293 84 315 112 C266 146 205 153 143 136 C93 125 53 80 74 38Z" fill="#2563eb" opacity=".86"/><text x="126" y="83" fill="#fff" font-size="18" font-weight="900">أوروبا</text><path d="M226 122 C280 112 330 124 382 148 C335 190 270 190 220 167 C215 148 218 134 226 122Z" fill="#0f766e" opacity=".9"/><circle class="hotspot" onclick="answerMapQuest()" cx="286" cy="151" r="16" fill="#f59e0b" stroke="#fff" stroke-width="5"/><text x="305" y="158" fill="#fff" font-size="20" font-weight="900">الجزائر</text><path d="M190 88 C230 97 254 116 285 146" fill="none" stroke="#ef4444" stroke-width="7" stroke-linecap="round" stroke-dasharray="12 8"/><polygon points="285,146 267,137 273,155" fill="#ef4444"/></svg></div><div id="mapQuestMsg" class="note" style="margin-top:10px">تلميح: ابحث عن النقطة الذهبية جنوب البحر المتوسط.</div></div></div>
+    </div>
+  </section>
+
+  <section class="panel quiz" id="quiz">
+    <div class="section-title"><div><span class="badge">اختبار مرحلي</span><h2>اختبر فهمك</h2><p>أسئلة متنوعة، مع تفسير مباشر للجواب. الجواب الصحيح ليس دائماً في نفس الموضع.</p></div><button class="btn red" onclick="resetQuiz()">إعادة الاختبار</button></div>
+    <div class="scorebar"><div id="bar"></div></div><p id="scoreText" class="note">السؤال 1 من 12</p>
+    <div class="quiz-card" id="quizCard"></div>
+    <div id="certificate" class="hidden"></div>
+  </section>
+
+  <section class="panel teacher">
+    <div class="section-title"><div><span class="badge">لوحة الأستاذ</span><h2>تعديل سريع لبنك الأسئلة</h2><p>انسخ الأسئلة بصيغة JSON، عدلها، ثم اضغط حفظ. تحفظ محلياً على الجهاز.</p></div></div>
+    <textarea id="questionEditor"></textarea><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn primary" onclick="saveQuestions()">حفظ الأسئلة</button><button class="btn" onclick="loadDefaultQuestions()">استرجاع الأصلي</button></div>
+  </section>
+
+
+  <section class="panel" id="studentDocs">
+    <div class="section-title"><div><span class="badge">وثائق التلميذ</span><h2>التقرير + الإنفوغرافيا داخل التطبيق</h2><p>كل درس في بوابة رحلة الثالثة إعدادي سيضم تقريراً شاملاً، ومعه إنفوغرافيا نظيفة تصلح كوثيقة تلميذ للمراجعة والطباعة.</p></div><button class="btn gold" onclick="printDoc('infographicSheet')">طباعة الإنفوغرافيا</button></div>
+    <div class="doc-grid">
+      <div class="doc-card">
+        <h3>📄 ماذا يجد التلميذ هنا؟</h3>
+        <ul>
+          <li><b>التقرير الكامل:</b> شرح منظم للمقدمة، الإشكالية، المحاور، الخلاصة، والمصطلحات.</li>
+          <li><b>إنفوغرافيا الدرس:</b> وثيقة مختصرة بصرياً تربط المفهوم بالدوافع والأنواع ونموذج الجزائر.</li>
+          <li><b>استعمال داخل القسم:</b> يمكن عرضها في نهاية الحصة كخريطة ذهنية جماعية.</li>
+          <li><b>استعمال منزلي:</b> تصلح للمراجعة السريعة قبل الفرض أو الاختبار.</li>
+        </ul>
+        <div class="mission-ribbon"><span>🧠 فهم</span><span>🗺️ خريطة</span><span>🎮 لعب</span><span>🖨️ طباعة</span></div>
+        <div class="doc-photos">
+          <div class="doc-photo" onclick="openLightbox(IMG.map,'خريطة وثيقة التلميذ','خريطة مكملة للتقرير تساعد على الربط بين أوروبا والجزائر.',['وثيقة','خريطة','مراجعة'])"><img src="./images/03-mediterranean-route-france-algeria.webp" alt="خريطة وثيقة التلميذ" loading="lazy"/><div class="cap">خريطة مراجعة</div></div>
+          <div class="doc-photo" onclick="openLightbox(IMG.effects,'آثار السياسة الاستعمارية','صورة داعمة لجزء الانعكاسات داخل التقرير، توضح مصادرة الأرض والتفاوت الاجتماعي.',['انعكاسات','مصادرة','أثر اجتماعي'])"><img src="./images/06-colonial-policy-effects-algeria.webp" alt="آثار السياسة الاستعمارية" loading="lazy"/><div class="cap">آثار السياسة الاستعمارية</div></div>
+          <div class="doc-photo" onclick="openLightbox(IMG.confiscated,'مصادرة الأراضي والاستيطان','صورة داعمة لفقرة مصادرة الأراضي وتشجيع الاستيطان الفرنسي في الجزائر.',['مصادرة الأراضي','استيطان','فلاحون'])"><img src="./images/extra/09-confiscated-land-and-policy-detail.webp" alt="مصادرة الأراضي والاستيطان" loading="lazy"/><div class="cap">مصادرة الأراضي</div></div>
+        </div>
+      </div>
+      <article class="infographic-sheet" id="infographicSheet">
+        <div class="info-title"><h3>الإمبريالية وليدة الرأسمالية</h3><small>إنفوغرافيا تعليمية — الاجتماعيات — الثالثة إعدادي</small></div>
+        <div class="info-map">
+          <svg viewBox="0 0 720 250" aria-label="خريطة مبسطة لأوروبا والجزائر">
+            <defs><linearGradient id="imap" x1="0" x2="1"><stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#fef3c7"/></linearGradient></defs>
+            <rect width="720" height="250" fill="url(#imap)"/>
+            <path d="M140 42 C220 18 300 36 335 96 C392 88 430 115 458 152 C385 195 294 202 205 180 C136 162 96 105 140 42Z" fill="#2563eb" opacity=".88"/>
+            <text x="220" y="96" fill="#fff" font-size="22" font-weight="900">أوروبا الرأسمالية</text>
+            <path d="M416 142 C486 126 558 142 620 177 C560 224 472 228 392 205 C390 176 398 156 416 142Z" fill="#0f766e" opacity=".9"/>
+            <text x="470" y="190" fill="#fff" font-size="25" font-weight="900">الجزائر</text>
+            <path d="M310 108 C386 112 430 128 475 158" fill="none" stroke="#ef4444" stroke-width="10" stroke-linecap="round" stroke-dasharray="18 12"/>
+            <polygon points="474,158 450,150 460,174" fill="#ef4444"/>
+            <g transform="translate(65,170)"><path d="M0 25 H120 L95 50 H15 Z" fill="#334155"/><rect x="38" y="0" width="10" height="28" fill="#475569"/><path d="M48 2 L84 20 L48 20 Z" fill="#fff"/></g>
+            <text x="62" y="158" fill="#7f1d1d" font-size="19" font-weight="900">أسطول وتوسع</text>
+            <circle cx="475" cy="158" r="11" fill="#f59e0b"/>
+          </svg>
+        </div>
+        <div class="info-blocks">
+          <div class="info-mini"><b>1) المفهوم</b><p>الإمبريالية حركة توسع وسيطرة قادتها الدول الرأسمالية الأوروبية خلال القرن 19م.</p></div>
+          <div class="info-mini"><b>2) الدوافع</b><p>أسواق خارجية، مواد أولية، فائض رساميل، فائض سكان، وتنافس سياسي واستراتيجي.</p></div>
+          <div class="info-mini"><b>3) المبررات</b><p>نشر الحضارة، حماية البعثات العلمية والجغرافية، نشر المسيحية، وضمان الأمن.</p></div>
+          <div class="info-mini"><b>4) نموذج الجزائر</b><p>ضربة المروحة ذريعة ظاهرة، أما الهدف الحقيقي فمرتبط بالخيرات والموانئ والنفوذ.</p></div>
+        </div>
+        <div class="info-types"><div class="type-pill">🏘️ استيطان</div><div class="type-pill">⛏️ استغلال</div><div class="type-pill">🎭 حماية/نفوذ</div></div>
+        <div class="correct-box" style="margin-top:10px"><b>خلاصة:</b> فتح احتلال الجزائر شهية فرنسا لاستكمال توسعها في شمال إفريقيا، ومهد للضغط الاستعماري على المغرب.</div>
+        <p style="text-align:center;font-weight:900;color:#64748b;margin-bottom:0">إعداد: الأستاذ أحمد بوعمود</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="panel" id="report">
+    <div class="section-title"><div><span class="badge">تقرير قابل للطباعة</span><h2>ملخص شامل للدرس</h2><p>هذا الجزء مصمم للطباعة أو للتحويل إلى PDF من المتصفح.</p></div><button class="btn gold" onclick="window.print()">طباعة</button></div>
+    <article class="print-report">
+      <h3>درس: الإمبريالية وليدة الرأسمالية</h3>
+      <p><b>المستوى:</b> الثالثة إعدادي — <b>المكون:</b> التاريخ — <b>المحور:</b> التحولات الكبرى للعالم الرأسمالي خلال القرن 19م.</p>
+      <h3>تقديم</h3>
+      <p>أدى ازدهار الرأسمالية الأوروبية خلال القرن 19م إلى نمو الصناعة وتطور الأبناك والشركات وارتفاع الإنتاج. غير أن هذا التطور خلق حاجات جديدة، مثل الحاجة إلى المواد الأولية والأسواق الخارجية ومجالات استثمار الرساميل وتصريف فائض اليد العاملة. لذلك اتجهت الدول الأوروبية نحو التوسع خارج أوروبا، فظهرت الحركة الإمبريالية.</p>
+      <h3>الإشكالية</h3>
+      <p>ما المقصود بالإمبريالية؟ وما دوافعها ومبرراتها؟ وكيف يمثل احتلال فرنسا للجزائر نموذجاً للتوسع الإمبريالي خلال القرن 19م؟</p>
+      <h3>أولاً: مفهوم الإمبريالية</h3>
+      <p>الإمبريالية حركة توسعية استعمارية قادتها الدول الرأسمالية الأوروبية خلال القرن 19م، وهدفت إلى السيطرة على مناطق خارج أوروبا سياسياً واقتصادياً وعسكرياً، من أجل تصريف فائض الإنتاج والرساميل، والحصول على المواد الأولية والأسواق واليد العاملة.</p>
+      <h3>ثانياً: دوافع الإمبريالية</h3>
+      <ul><li><b>دوافع اقتصادية:</b> البحث عن المواد الأولية والأسواق الخارجية ومجالات الاستثمار.</li><li><b>دوافع مالية:</b> تصريف فائض الرساميل وتوسيع أرباح الأبناك والشركات.</li><li><b>دوافع اجتماعية وديموغرافية:</b> تصريف فائض السكان واليد العاملة نحو المستعمرات.</li><li><b>دوافع سياسية واستراتيجية:</b> التنافس بين الدول الأوروبية حول النفوذ والمواقع البحرية والممرات التجارية.</li></ul>
+      <h3>ثالثاً: المبررات والوسائل</h3>
+      <p>استعملت الدول الأوروبية مبررات متعددة لتبرير توسعها، منها نشر الحضارة، وحماية البعثات العلمية والجغرافية، ونشر المسيحية عبر البعثات التبشيرية، وضمان الأمن. غير أن هذه المبررات كانت تخفي مصالح اقتصادية واستراتيجية. كما استعمل الأوروبيون وسائل متعددة مثل البعثات الاستكشافية، والشركات التجارية، والضغط الدبلوماسي، والتدخل العسكري، ثم الاحتلال المباشر والاستيطان.</p>
+      <h3>رابعاً: أنواع المستعمرات</h3>
+      <p>لم تكن السيطرة الإمبريالية شكلاً واحداً، بل اتخذت صوراً مختلفة حسب هدف الدولة المستعمِرة وطريقة التحكم في البلاد المستعمَرة:</p>
+      <ul>
+        <li><b>مستعمرات استيطان:</b> تشجع الدولة المستعمِرة سكانها على الهجرة والاستقرار في البلاد المستعمَرة، مع الاستيلاء على الأراضي وإضعاف السكان الأصليين. ويعد الاستيطان الفرنسي في الجزائر مثالاً واضحاً.</li>
+        <li><b>مستعمرات استغلال:</b> يكون الهدف الأساسي هو استغلال المواد الأولية واليد العاملة والأسواق، وقد يكون عدد المستوطنين قليلاً مقارنة بمستعمرات الاستيطان.</li>
+        <li><b>محميات أو مناطق نفوذ:</b> تترك فيها الدولة الاستعمارية سلطة محلية شكلية، لكنها تتحكم فعلياً في القرار السياسي والاقتصادي والعسكري، كما سيظهر لاحقاً في درس الضغط الاستعماري على المغرب ونظام الحماية.</li>
+      </ul>
+      <p><b>فكرة منهجية:</b> معرفة نوع المستعمرة تساعدنا على فهم طبيعة السياسة الاستعمارية: هل كان الهدف الاستقرار السكاني؟ أم الاستغلال الاقتصادي؟ أم التحكم غير المباشر؟</p>
+      <h3>خامساً: احتلال فرنسا للجزائر نموذجاً</h3>
+      <p>اتخذت فرنسا من حادثة ضربة المروحة ذريعة للتدخل في الجزائر، لكن الأسباب العميقة ارتبطت برغبتها في السيطرة على موقع الجزائر الاستراتيجي وخيراتها وموانئها ومواردها. مر الاحتلال الفرنسي للجزائر بمراحل: احتلال الساحل الشمالي سنة 1830م، ثم التوسع في وسط الجزائر بين 1831م و1848م، ثم احتلال الصحراء إلى حدود غرداية بين 1849م و1870م، ثم استكمال الاحتلال بعد 1871م.</p>
+      <h3>سادساً: مظاهر السياسة الفرنسية وانعكاساتها</h3>
+      <ul><li>مصادرة الأراضي وإلحاق الجزائر بفرنسا.</li><li>تشجيع الاستيطان الفرنسي وتغيير أسماء المدن والقرى.</li><li>طمس الهوية العربية الإسلامية ومحاولة فرنسة المجتمع.</li><li>تهميش الجزائريين اقتصادياً واجتماعياً، ودفع عدد كبير منهم إلى الفقر والأمية والعمل لدى المعمرين.</li></ul>
+      <h3>خلاصة</h3>
+      <p>تؤكد دراسة الإمبريالية أنها لم تكن عملاً عشوائياً، بل كانت نتيجة مباشرة لتطور الرأسمالية الأوروبية وحاجاتها الاقتصادية والمالية والاجتماعية. ويمثل احتلال فرنسا للجزائر مثالاً واضحاً على انتقال أوروبا من التوسع الاقتصادي إلى الاحتلال المباشر، وهو ما فتح شهية فرنسا لاستكمال توسعها في شمال إفريقيا، ومهد للضغط الاستعماري على المغرب.</p>
+      <h3>مصطلحات أساسية</h3>
+      <ul><li><b>الرأسمالية:</b> نظام اقتصادي يقوم على الملكية الخاصة وحرية المبادرة والبحث عن الربح.</li><li><b>الإمبريالية:</b> سياسة توسع وسيطرة تمارسها دولة قوية على مناطق أخرى.</li><li><b>الاستيطان:</b> انتقال سكان الدولة المستعمِرة إلى المستعمَرة والاستقرار فيها.</li><li><b>مستعمرة استيطان:</b> مجال تستقر فيه أعداد من المعمرين وتتم فيه مصادرة أراضي السكان الأصليين.</li><li><b>مستعمرة استغلال:</b> مجال يركز فيه الاستعمار على استغلال الخيرات واليد العاملة والأسواق.</li><li><b>الحماية/منطقة النفوذ:</b> شكل من السيطرة غير المباشرة، تبقى فيه سلطة محلية شكلية تحت تحكم أجنبي فعلي.</li><li><b>الذريعة:</b> سبب ظاهر يستعمل لتبرير عمل معين، وقد يخفي أسباباً أعمق.</li></ul>
+    </article>
+  </section>
+</main>
+<div class="footer">الأستاذ أحمد بوعمود | مادة الاجتماعيات | بوابة رحلة الثالثة إعدادي</div>
+<div class="toast" id="toast"></div><canvas class="confetti" id="confetti"></canvas>
+<script>
+let soundOn=true;
+function beep(freq=560,dur=0.08,type='sine'){if(!soundOn)return;try{const ctx=new (window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator();const g=ctx.createGain();o.type=type;o.frequency.value=freq;o.connect(g);g.connect(ctx.destination);g.gain.setValueAtTime(.045,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+dur);o.start();o.stop(ctx.currentTime+dur)}catch(e){}}
+function toggleSound(){soundOn=!soundOn;document.getElementById('soundBtn').textContent=soundOn?'الصوت 🔊':'الصوت 🔇';toast(soundOn?'تم تشغيل الصوت':'تم إيقاف الصوت')}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
+
+const progress={xp:0,stars:0,maps:new Set(),stations:new Set(),tasks:new Set()};
+function updateDashboard(){document.getElementById('xpLabel').textContent=`${progress.xp} / 100 XP`;document.getElementById('xpFill').style.width=Math.min(progress.xp,100)+'%';document.getElementById('starsCount').textContent=progress.stars;document.getElementById('mapsCount').textContent=progress.maps.size;document.getElementById('stationsCount').textContent=progress.stations.size;document.getElementById('tasksCount').textContent=progress.tasks.size}
+function addXP(v,msg=''){progress.xp=Math.min(100,progress.xp+v);updateDashboard();if(msg)toast(msg)}
+function awardStar(task,msg='نجمة جديدة! ✨'){if(!progress.tasks.has(task)){progress.tasks.add(task);progress.stars++;addXP(8,msg)}else updateDashboard()}
+
+function startJourney(){beep(660,.12);document.querySelector('#lesson').scrollIntoView({behavior:'smooth'});addXP(5,'انطلقت الرحلة: من المصنع إلى الخريطة الاستعمارية!')}
+const missions=[
+ {h:'محطة 1: الربط بالدرس السابق',p:'ازدهار الرأسمالية الأوروبية لم يكن نهاية المسار، بل بداية ضغط جديد: إنتاج كثير، رساميل كثيرة، وسكان أكثر. لذلك احتاجت الدول الصناعية إلى الخارج.'},
+ {h:'محطة 2: مفهوم الإمبريالية',p:'الإمبريالية هي سياسة توسع وسيطرة تمارسها الدول القوية على مناطق أخرى، بهدف الاستغلال الاقتصادي والهيمنة السياسية والعسكرية.'},
+ {h:'محطة 3: دوافع الإمبريالية',p:'تداخلت دوافع اقتصادية ومالية واجتماعية وسياسية: أسواق لتصريف السلع، مواد أولية للصناعة، مجالات لاستثمار الرساميل، ومواقع استراتيجية.'},
+ {h:'محطة 4: المبررات والوسائل',p:'قدمت أوروبا توسعها كرسالة حضارية ودينية وعلمية، لكنها اعتمدت فعلياً على البعثات، الشركات، الضغط الدبلوماسي، ثم التدخل العسكري والاحتلال.'},
+ {h:'محطة 5: أنواع المستعمرات',p:'اتخذت الإمبريالية أشكالاً متعددة: مستعمرات استيطان تقوم على هجرة المعمرين ومصادرة الأراضي، ومستعمرات استغلال تركز على الخيرات والأسواق، ومحميات أو مناطق نفوذ تقوم على تحكم غير مباشر.'},
+ {h:'محطة 6: الجزائر نموذجاً',p:'استعملت فرنسا ضربة المروحة كذريعة، لكن الاحتلال ارتبط بمصالح عميقة: الموقع، الموانئ، الخيرات، والتوسع في شمال إفريقيا، ثم اتخذ طابعاً استيطانياً واضحاً.'}
+];
+const openedMissions=new Set();
+function openMission(i){beep(520+i*60,.09);const m=missions[i];progress.stations.add(i);updateDashboard();if(!openedMissions.has(i)){openedMissions.add(i);addXP(6,'محطة جديدة مفتوحة!')}document.getElementById('missionBox').innerHTML=`<h3>${m.h}</h3><p>${m.p}</p><button class="btn gold" onclick="toast('أحسنت: سجل الفكرة الذهبية في دفترك.')">فكرة ذهبية ⭐</button>`}
+
+const tabs=[
+ `<h3>مفهوم الإمبريالية</h3><p>الإمبريالية حركة استعمارية توسعية قادتها الدول الرأسمالية الأوروبية خلال القرن 19م. جوهرها السيطرة على مناطق خارج أوروبا سياسياً واقتصادياً وعسكرياً.</p><div class="correct-box"><b>صيغة سهلة للحفظ:</b> رأسمالية قوية + فائض إنتاج ورساميل + حاجة إلى الخارج = إمبريالية.</div>`,
+ `<h3>دوافع الإمبريالية</h3><ul><li><b>اقتصادياً:</b> البحث عن الأسواق والمواد الأولية.</li><li><b>مالياً:</b> استثمار فائض الرساميل.</li><li><b>اجتماعياً:</b> تصريف فائض السكان واليد العاملة.</li><li><b>سياسياً واستراتيجياً:</b> التنافس حول النفوذ والموانئ والممرات.</li></ul>`,
+ `<h3>المبررات والوسائل</h3><p>رفعت الدول الأوروبية شعارات مثل نشر الحضارة، حماية البعثات العلمية والجغرافية، نشر الدين المسيحي، وتقديم المساعدات. لكن هذه المبررات غطت مصالح اقتصادية واستراتيجية.</p><div class="note"><b>تنبيه منهجي:</b> نفرق بين المبرر المعلن والمصلحة الحقيقية.</div>`,
+ `<h3>أنواع المستعمرات</h3><div class="grid"><div class="mini"><div class="icon">🏘️</div><h3>مستعمرة استيطان</h3><p>تقوم على انتقال المعمرين للاستقرار، ومصادرة الأراضي، وإضعاف السكان الأصليين. <b>مثال: الجزائر.</b></p></div><div class="mini"><div class="icon">⛏️</div><h3>مستعمرة استغلال</h3><p>يركز الاستعمار فيها على المواد الأولية، اليد العاملة، والأسواق، دون ضرورة استقرار أعداد كبيرة من المعمرين.</p></div><div class="mini"><div class="icon">🎭</div><h3>حماية أو نفوذ</h3><p>تبقى سلطة محلية شكلية، لكن القرار الحقيقي يكون بيد الدولة الاستعمارية.</p></div></div><div class="correct-box"><b>قاعدة للحفظ:</b> استيطان = سكان وأرض؛ استغلال = ثروات وأسواق؛ حماية/نفوذ = حكم غير مباشر.</div>`,
+ `<h3>احتلال الجزائر نموذجاً</h3><img src="./images/extra/11-soldiers-and-occupation-scene.webp" alt="مشهد الجنود والاحتلال" loading="lazy" style="width:100%;max-height:260px;object-fit:cover;border-radius:18px;margin-bottom:10px;cursor:pointer" onclick="openLightbox(IMG.soldiers,'مشهد الاحتلال العسكري','صورة داعمة لشرح الاحتلال الفرنسي للجزائر: جنود ومشهد سيطرة عسكرية على الساحل.',['احتلال','جنود','الجزائر'])"/><p>احتلت فرنسا الجزائر تدريجياً: الساحل الشمالي سنة 1830م، وسط الجزائر بين 1831م و1848م، الصحراء إلى حدود غرداية بين 1849م و1870م، ثم استكمال الاحتلال بعد 1871م.</p><div class="danger-box"><b>ضربة المروحة:</b> ذريعة ظاهرة، وليست السبب العميق الوحيد. كما أن الجزائر تحولت إلى نموذج واضح للمستعمرة الاستيطانية.</div>`,
+ `<h3>النتائج على الجزائر</h3><ul><li>مصادرة الأراضي وإلحاق الجزائر بفرنسا.</li><li>تشجيع الاستيطان الفرنسي.</li><li>تغيير أسماء المدن والقرى.</li><li>طمس الهوية العربية الإسلامية وتهميش الجزائريين.</li><li>انتشار الفقر والأمية والعمل القسري/الهامشي لدى المعمرين.</li></ul>`
+];
+function showTab(i){document.querySelectorAll('.tab').forEach((b,k)=>b.classList.toggle('active',k===i));document.getElementById('tabContent').innerHTML=tabs[i];beep(420+i*50,.06)}
+
+
+const IMG={hero:'./images/01-hero-capitalism-to-imperialism.webp',industrial:'./images/02-industrial-port-19c.webp',map:'./images/03-mediterranean-route-france-algeria.webp',landing:'./images/04-french-landing-algeria-1830.webp',types:'./images/05-colony-types-visual-comparison.webp',effects:'./images/06-colonial-policy-effects-algeria.webp',factory:'./images/extra/07-factory-and-export-detail.webp',mapFocus:'./images/extra/08-map-focus-mediterranean-algeria.webp',confiscated:'./images/extra/09-confiscated-land-and-policy-detail.webp',colonyPanels:'./images/extra/10-colony-types-three-panels.webp',soldiers:'./images/extra/11-soldiers-and-occupation-scene.webp'};
+const atlasSlides=[
+  {img:IMG.hero,title:'من الصناعة إلى الإمبريالية',desc:'صورة مركبة تجمع المصنع والميناء والبواخر والخريطة. استعملها لاستخراج الفكرة المركزية: الرأسمالية القوية بحثت عن الأسواق والمواد الأولية ومجالات النفوذ.',legend:['🏭 الصناعة','🚢 الملاحة التجارية','🌍 الخريطة الاستعمارية','📦 فائض الإنتاج']},
+  {img:IMG.map,title:'المتوسط والجزائر',desc:'هذه الخريطة البصرية تقرّب لتلميذ الثالثة إعدادي المسافة بين فرنسا والجزائر، وتبين أن البحر المتوسط كان جسراً للتدخل والتوسع.',legend:['🗺️ موقع استراتيجي','🇫🇷 فرنسا','🇩🇿 الجزائر','🌊 البحر المتوسط']},
+  {img:IMG.mapFocus,title:'تركيز على البحر المتوسط والجزائر',desc:'صورة إضافية تقرّب أكثر خط الملاحة والمسافة الفاصلة بين السواحل الفرنسية والجزائرية عبر المتوسط.',legend:['🌊 البحر المتوسط','🧭 خط الملاحة','🇩🇿 الساحل الجزائري']},
+  {img:IMG.types,title:'أنواع المستعمرات في مشهد واحد',desc:'لوحة بصرية تساعد على التمييز بين الاستيطان والاستغلال والتحكم السياسي. يمكن للأستاذ أن يقف مع كل مشهد ويطلب من التلاميذ تحديد النوع المناسب.',legend:['🏘️ استيطان','⛏️ استغلال','🤝 نفوذ/تحكم','🧠 مقارنة']},
+  {img:IMG.industrial,title:'الدوافع الاقتصادية واضحة في الميناء الصناعي',desc:'القطار والمصنع والرصيف والبضائع والقطن كلها عناصر تشرح لماذا كانت أوروبا تبحث عن الخارج: تصريف فائض الإنتاج والحصول على المواد الأولية.',legend:['🚂 قطار','🏭 مصنع','🧵 مواد أولية','📤 تصدير']},
+  {img:IMG.effects,title:'انعكاسات السياسة الاستعمارية',desc:'صورة مركبة توضح مصادرة الأراضي، فرض الأسماء والمؤسسات، والتفاوت الاجتماعي الذي خلفه الاستعمار في الجزائر.',legend:['🌾 مصادرة الأرض','🏛️ إدارة استعمارية','⚖️ تفاوت','👥 معاناة السكان']}
+];
+function openLightbox(src,title,desc,tags){
+  const box=document.getElementById('lightbox');
+  document.getElementById('lbImg').src=src;
+  document.getElementById('lbTitle').textContent=title||'صورة';
+  document.getElementById('lbDesc').textContent=desc||'';
+  document.getElementById('lbTags').innerHTML=(tags||[]).map(t=>`<span class="chip">${t}</span>`).join('');
+  box.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
+function showAtlas(i,el){document.querySelectorAll('.visual-card').forEach(c=>c.classList.remove('active'));if(el)el.classList.add('active');const s=atlasSlides[i];document.getElementById('atlasStage').innerHTML=`<div class="stage-wrap"><img class="atlas-main-image" src="${s.img}" alt="${s.title}"/><h3>${s.title}</h3><p>${s.desc}</p><div class="legend">${s.legend.map(x=>`<span class="chip">${x}</span>`).join('')}</div><div class="image-note"><b>فائدة بيداغوجية:</b> استعمل هذه الصورة كأساس لملاحظة موجهة، ثم اطلب من التلاميذ استخراج الفكرة التاريخية التي تمثلها.</div></div>`;
+  const img=document.querySelector('#atlasStage .atlas-main-image');
+  img.onclick=()=>openLightbox(s.img,s.title,s.desc,s.legend);
+  const fresh=!progress.maps.has(i);progress.maps.add(i);if(fresh)addXP(4,'اكتشفت صورة/خريطة جديدة!');updateDashboard();beep(540+i*40,.06)}
+
+const pairs=[['اقتصادي','البحث عن الأسواق والمواد الأولية'],['مالي','استثمار فائض الرساميل'],['اجتماعي','تصريف فائض السكان واليد العاملة'],['استراتيجي','السيطرة على المواقع والموانئ']];
+function initMatching(){const c=document.getElementById('matching');c.innerHTML='';const left=[...pairs].sort(()=>Math.random()-.5);const right=[...pairs].sort(()=>Math.random()-.5);const l=document.createElement('div'),r=document.createElement('div');left.forEach(p=>{const el=document.createElement('div');el.className='match-item';el.draggable=true;el.dataset.key=p[0];el.textContent=p[0];el.ondragstart=e=>e.dataTransfer.setData('text/plain',p[0]);l.appendChild(el)});right.forEach(p=>{const d=document.createElement('div');d.className='drop';d.dataset.key=p[0];d.textContent=p[1];d.ondragover=e=>e.preventDefault();d.ondrop=e=>{e.preventDefault();d.dataset.answer=e.dataTransfer.getData('text/plain');d.innerHTML=`<b>${d.dataset.answer}</b><br>${p[1]}`};r.appendChild(d)});c.append(l,r)}
+function checkMatching(){let ok=0;document.querySelectorAll('.drop').forEach(d=>{d.classList.remove('ok','bad');if(d.dataset.answer===d.dataset.key){d.classList.add('ok');ok++}else d.classList.add('bad')});beep(ok===pairs.length?820:260,.12);if(ok===pairs.length){awardStar('matching');addXP(10,'رائع! كل الروابط صحيحة.')}else toast('راجع الروابط الحمراء وحاول من جديد.')}
+
+const tl=['1830: احتلال الساحل الشمالي','1831-1848: احتلال وسط الجزائر','1849-1870: احتلال الصحراء إلى حدود غرداية','بعد 1871: استكمال احتلال الجزائر'];let selected=[];
+function initTimeline(){const t=document.getElementById('timeline');t.innerHTML='';selected=[];[...tl].sort(()=>Math.random()-.5).forEach(x=>{const e=document.createElement('button');e.className='tl-item';e.textContent=x;e.onclick=()=>{if(e.classList.contains('selected'))return;e.classList.add('selected');selected.push(x);beep(500,.06)};t.appendChild(e)})}
+function checkTimeline(){const ok=selected.join('|')===tl.join('|');beep(ok?850:240,.13);if(ok){awardStar('timeline');addXP(10,'ترتيب صحيح لمراحل احتلال الجزائر.')}else{toast('الترتيب غير صحيح. امسح الاختيار وحاول من جديد.');initTimeline()}}
+
+const colonyCases=[
+ {text:'تنتقل أعداد من الأوروبيين للاستقرار في البلاد، وتتم مصادرة أراضي السكان الأصليين لفائدة المعمرين.', answer:'استيطان', explain:'هذا نموذج مستعمرة استيطان: سكان وافدون + أرض + استقرار.'},
+ {text:'تركز الدولة المستعمِرة على استخراج المواد الأولية وتشغيل اليد العاملة وفتح الأسواق أمام سلعها.', answer:'استغلال', explain:'هذا نموذج مستعمرة استغلال: ثروات + يد عاملة + أسواق.'},
+ {text:'تبقى سلطة محلية في الواجهة، لكن القرارات السياسية والاقتصادية المهمة تخضع لمراقبة أجنبية.', answer:'حماية', explain:'هذا نموذج حماية أو منطقة نفوذ: تحكم غير مباشر.'}
+];
+let colonyCase=colonyCases[Math.floor(Math.random()*colonyCases.length)];
+function renderColony(){const box=document.getElementById('colonyActivity');if(box)box.innerHTML=`<b>الوضعية:</b> ${colonyCase.text}`}
+function answerColony(choice){const ok=choice===colonyCase.answer;beep(ok?820:260,.12);if(ok){awardStar('colony');addXP(8,colonyCase.explain)}else toast('اقتربت، لكن أعد قراءة الوضعية: هل تتحدث عن السكان، الثروات، أم التحكم غير المباشر؟');colonyCase=colonyCases[Math.floor(Math.random()*colonyCases.length)];setTimeout(renderColony,900)}
+const treasures=['🎁 كنز 1: الذريعة ليست هي الحقيقة كاملة، بل الباب الذي يخفي المصالح العميقة.','💎 كنز 2: مستعمرة الاستيطان = معمرون + أرض + إقصاء السكان الأصليين.','🧠 كنز 3: الاستغلال الاقتصادي كان في قلب التوسع الإمبريالي.','🗺️ كنز 4: فهم الخريطة يساعدك على فهم التاريخ.'];
+function drawTreasure(){const t=treasures[Math.floor(Math.random()*treasures.length)];document.getElementById('treasureBox').textContent=t;awardStar('treasure');beep(760,.1)}
+
+const DEFAULT_Q=[
+ {q:'ما المقصود بالإمبريالية؟',a:['سياسة تعاون ثقافي متكافئ','سياسة توسع وسيطرة لدولة قوية على مناطق أخرى','نظام انتخابي محلي','تنظيم نقابي عمالي'],c:1,e:'الإمبريالية توسع وسيطرة سياسية واقتصادية وعسكرية.'},
+ {q:'ما العلاقة بين الرأسمالية والإمبريالية؟',a:['الإمبريالية نتيجة لحاجات الرأسمالية إلى الأسواق والمواد الأولية','الإمبريالية ألغت الصناعة الأوروبية','الرأسمالية منعت التجارة الخارجية','لا علاقة بينهما'],c:0,e:'تطور الرأسمالية خلق فائض إنتاج ورساميلاً وحاجة إلى الخارج.'},
+ {q:'أي عامل يعد دافعاً اقتصادياً للإمبريالية؟',a:['حماية التراث المحلي','البحث عن المواد الأولية والأسواق','إلغاء الأبناك','تقليص التجارة البحرية'],c:1,e:'الدافع الاقتصادي ارتبط بالمواد الأولية والأسواق وتصريف الإنتاج.'},
+ {q:'ما المقصود بالذريعة في احتلال الجزائر؟',a:['السبب العميق الوحيد','مبرر ظاهر للتدخل قد يخفي مصالح أعمق','نتيجة اجتماعية للاحتلال','مرحلة من مراحل المقاومة'],c:1,e:'ضربة المروحة كانت ذريعة ظاهرة، بينما المصالح كانت أعمق.'},
+ {q:'متى احتلت فرنسا الساحل الشمالي للجزائر؟',a:['1871م','1848م','1830م','1912م'],c:2,e:'بدأ الاحتلال الفرنسي باحتلال الساحل الشمالي سنة 1830م.'},
+ {q:'أي مما يلي يدخل ضمن المبررات الحضارية للإمبريالية؟',a:['نشر الحضارة خارج أوروبا','توزيع الأراضي على الجزائريين','الانسحاب من المستعمرات','إلغاء التنافس الأوروبي'],c:0,e:'رفعت أوروبا شعار نشر الحضارة لتبرير توسعها.'},
+ {q:'ما دور البعثات العلمية والجغرافية في التوسع الإمبريالي؟',a:['منع جمع المعلومات','جمع معلومات عن المناخ والموارد والمناطق','تحرير الشعوب المحتلة','إلغاء الاستيطان'],c:1,e:'استعملت البعثات لمعرفة المناطق المراد التوسع فيها.'},
+ {q:'ما إحدى نتائج السياسة الفرنسية في الجزائر؟',a:['تقوية السيادة الجزائرية','مصادرة الأراضي وتشجيع الاستيطان','انسحاب فرنسا سنة 1831م','منع تغيير أسماء المدن'],c:1,e:'اعتمدت فرنسا سياسة مصادرة الأراضي والاستيطان والفرنسة.'},
+ {q:'أي عبارة تلخص الفكرة المركزية للدرس؟',a:['الإمبريالية ولدت من حاجات الرأسمالية الأوروبية','الاستعمار بدأ بسبب عامل ديني فقط','الرأسمالية أوقفت التوسع خارج أوروبا','الجزائر لم تكن ضمن الأطماع الفرنسية'],c:0,e:'الفكرة المركزية: الرأسمالية أفرزت حاجات دفعت نحو الإمبريالية.'},
+ {q:'ما المرحلة الثانية في احتلال الجزائر؟',a:['احتلال الساحل الشمالي سنة 1830م','احتلال وسط الجزائر بين 1831م و1848م','استكمال الاحتلال بعد 1871م','احتلال الصحراء بين 1849م و1870م'],c:1,e:'بعد الساحل، توسعت فرنسا نحو وسط الجزائر بين 1831م و1848م.'},
+ {q:'أي دافع يرتبط بفائض السكان واليد العاملة؟',a:['دافع مالي','دافع اجتماعي وديموغرافي','مبرر ديني','دافع علمي فقط'],c:1,e:'فائض السكان واليد العاملة يندرج ضمن الدوافع الاجتماعية والديموغرافية.'},
+ {q:'لماذا تعد الجزائر نموذجاً للتوسع الإمبريالي؟',a:['لأنها لم تعرف احتلالاً مباشراً','لأن احتلالها أبرز الذريعة والتدرج والسياسة الاستيطانية','لأن فرنسا انسحبت منها بسرعة','لأنها كانت دولة أوروبية'],c:1,e:'نموذج الجزائر يظهر كيف ينتقل التوسع من الذريعة إلى الاحتلال والسيطرة والاستيطان.'},
+ {q:'أي نوع من المستعمرات يقوم على هجرة المعمرين ومصادرة الأراضي؟',a:['مستعمرة استغلال','مستعمرة استيطان','منطقة تبادل حر','تحالف عسكري'],c:1,e:'مستعمرة الاستيطان تقوم على استقرار المعمرين ومصادرة الأراضي.'},
+ {q:'ما المقصود بمستعمرة الاستغلال؟',a:['مجال يركز فيه الاستعمار على استغلال الخيرات واليد العاملة والأسواق','مجال تستقل فيه الدولة تماماً','مجال يمنع فيه الاستعمار التجارة','مجال لا علاقة له بالرأسمالية'],c:0,e:'مستعمرة الاستغلال ترتبط بالخيرات واليد العاملة والأسواق.'},
+ {q:'ما الخاصية الأساسية للحماية أو منطقة النفوذ؟',a:['حكم محلي شكلي مع تحكم أجنبي فعلي','انسحاب كامل للدولة الاستعمارية','غياب أي تدخل اقتصادي','منع الدبلوماسية'],c:0,e:'في الحماية أو منطقة النفوذ تبقى الواجهة محلية، لكن القرار الحقيقي خاضع للدولة الاستعمارية.'}
+];
+let questions=JSON.parse(localStorage.getItem('imperialism_questions')||'null')||DEFAULT_Q;if(!questions.some(q=>q.q.includes('المستعمرات')))questions=DEFAULT_Q;let idx=0,score=0,answered=false;
+function shuffle(arr){return [...arr].sort(()=>Math.random()-.5)}
+function renderEditor(){document.getElementById('questionEditor').value=JSON.stringify(questions,null,2)}
+function loadDefaultQuestions(){questions=DEFAULT_Q;localStorage.removeItem('imperialism_questions');renderEditor();resetQuiz();toast('تم استرجاع بنك الأسئلة الأصلي.')}
+function saveQuestions(){try{const q=JSON.parse(document.getElementById('questionEditor').value);if(!Array.isArray(q))throw new Error('not array');questions=q;localStorage.setItem('imperialism_questions',JSON.stringify(q));resetQuiz();toast('تم حفظ الأسئلة محلياً.')}catch(e){toast('صيغة JSON غير صحيحة.')}}
+function resetQuiz(){idx=0;score=0;answered=false;questions=shuffle(questions).slice(0,12);renderQuiz();document.getElementById('certificate').classList.add('hidden');document.getElementById('bar').style.width='0%'}
+function renderQuiz(){const q=questions[idx];document.getElementById('scoreText').textContent=`السؤال ${idx+1} من ${questions.length} — النقط: ${score}`;const opts=q.a.map((txt,i)=>({txt,i}));document.getElementById('quizCard').innerHTML=`<h3>${q.q}</h3><div class="quiz-options">${opts.map(o=>`<button class="opt" onclick="answer(${o.i},this)">${o.txt}</button>`).join('')}</div><p id="explain" class="note hidden"></p>`}
+function answer(i,btn){if(answered)return;answered=true;const q=questions[idx];document.querySelectorAll('.opt').forEach(b=>{const txt=b.textContent;if(q.a.indexOf(txt)===q.c)b.classList.add('correct')});if(i===q.c){score++;btn.classList.add('correct');addXP(2);beep(840,.1)}else{btn.classList.add('wrong');beep(240,.15)}const ex=document.getElementById('explain');ex.textContent=q.e;ex.classList.remove('hidden');document.getElementById('bar').style.width=Math.round(((idx+1)/questions.length)*100)+'%';setTimeout(()=>{idx++;answered=false;if(idx<questions.length)renderQuiz();else finishQuiz()},1300)}
+function finishQuiz(){const pct=Math.round(score/questions.length*100);document.getElementById('quizCard').innerHTML=`<h3>انتهى الاختبار</h3><p class="correct-box">حصلت على ${score}/${questions.length} — ${pct}%</p><button class="btn gold" onclick="makeCertificate()">إظهار الشهادة</button>`;awardStar('quiz');addXP(pct>=70?12:6,pct>=70?'ممتاز! أنهيت الاختبار بنجاح.':'أنهيت الاختبار، أعد المحاولة لتحصد نقاطاً أكثر.');if(pct>=70)confetti()}
+function makeCertificate(){const name=document.getElementById('studentName').value.trim()||'تلميذ(ة) مجتهد(ة)';const c=document.getElementById('certificate');c.classList.remove('hidden');c.innerHTML=`<div class="print-report" style="margin-top:14px;text-align:center;border:4px double #f59e0b"><h2>🏅 شهادة إنجاز</h2><p>تُمنح هذه الشهادة إلى</p><h1 style="font-size:38px;color:#0f766e">${name}</h1><p>بعد إتمام رحلة درس: <b>الإمبريالية وليدة الرأسمالية</b></p><p>الأستاذ أحمد بوعمود — مادة الاجتماعيات</p><button class="btn gold" onclick="window.print()">طباعة الشهادة</button></div>`;awardStar('certificate');addXP(10,'تم فتح الشهادة!');confetti()}
+function confetti(){const canvas=document.getElementById('confetti'),ctx=canvas.getContext('2d');canvas.width=innerWidth;canvas.height=innerHeight;let pieces=Array.from({length:120},()=>({x:Math.random()*canvas.width,y:-20-Math.random()*300,s:4+Math.random()*7,v:2+Math.random()*5,r:Math.random()*6.28}));let t=0;function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);pieces.forEach(p=>{p.y+=p.v;p.x+=Math.sin((t+p.r)/10)*2;p.r+=.08;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=['#0ea5e9','#f59e0b','#22c55e','#ef4444','#7c3aed'][Math.floor(Math.random()*5)];ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s);ctx.restore()});t++;if(t<150)requestAnimationFrame(draw);else ctx.clearRect(0,0,canvas.width,canvas.height)}draw()}
+
+
+function answerMapQuest(){awardStar('mapquest');progress.maps.add('mapquest');updateDashboard();document.getElementById('mapQuestMsg').className='correct-box';document.getElementById('mapQuestMsg').textContent='أحسنت! الجزائر تقع جنوب البحر المتوسط، وكانت هدفاً فرنسياً بسبب الموقع والموانئ والخيرات.';beep(920,.12);addXP(10,'نجمة الأطلس: عثرت على الجزائر في الخريطة!')}
+function printDoc(id){const node=document.getElementById(id);if(!node)return;const w=window.open('','_blank');w.document.write(`<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>وثيقة التلميذ</title><style>body{font-family:Tahoma,Arial,sans-serif;background:#fff;margin:0;padding:18px;color:#14213d}.infographic-sheet{max-width:900px;margin:auto;border:2px solid #f59e0b;border-radius:22px;padding:18px}.info-title{text-align:center;background:linear-gradient(135deg,#0f766e,#0ea5e9);color:#fff;border-radius:18px;padding:14px}.info-title h3{margin:0;font-size:30px}.info-map{height:210px;border-radius:18px;overflow:hidden;margin:12px 0}.info-map svg{width:100%;height:100%}.info-blocks{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.info-mini{border:1px solid #ddd;border-radius:14px;padding:10px}.info-mini b{display:block;color:#0f766e}.info-mini p{line-height:1.7}.info-types{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.type-pill{text-align:center;border:1px solid #bae6fd;background:#ecfeff;border-radius:14px;padding:10px;font-weight:900}.correct-box{border:1px solid #bbf7d0;background:#f0fdf4;border-radius:14px;padding:12px;line-height:1.8;margin-top:12px}@media print{button{display:none}}
+.hero-visual{background:linear-gradient(180deg,#0f766e,#075985);padding:18px}
+.scene{padding:0;background:#082f49}
+.scene .hero-photo{position:relative;height:100%;overflow:hidden;border-radius:24px}
+.scene .hero-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.08) contrast(1.02)}
+.scene .hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,47,73,.08),rgba(8,47,73,.35) 70%,rgba(8,47,73,.62))}
+.scene-caption{position:absolute;inset:auto 18px 18px 18px;color:#fff;z-index:2;background:rgba(15,23,42,.34);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:12px 14px;line-height:1.8}
+.scene-caption b{display:block;font-size:18px;margin-bottom:4px}
+.cinema-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:14px;align-items:stretch}
+.feature-media{position:relative;overflow:hidden;border-radius:24px;min-height:350px;background:#e2e8f0;cursor:pointer}
+.feature-media img{width:100%;height:100%;object-fit:cover;display:block;transition:.35s}
+.feature-media:hover img,.photo-card:hover img,.doc-photo:hover img,.atlas-main-image:hover{transform:scale(1.02)}
+.feature-media::after,.photo-card::after,.doc-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,23,42,0),rgba(15,23,42,.07) 55%,rgba(15,23,42,.55));pointer-events:none}
+.feature-caption{position:absolute;right:18px;left:18px;bottom:16px;color:#fff;z-index:2}
+.feature-caption h3{margin:0 0 6px;font-size:28px}
+.feature-caption p{margin:0;line-height:1.85}
+.photo-stack{display:grid;gap:14px}
+.photo-card{position:relative;overflow:hidden;border-radius:24px;min-height:168px;cursor:pointer;background:#e2e8f0}
+.photo-card img{width:100%;height:100%;object-fit:cover;display:block;transition:.35s}
+.photo-card .caption{position:absolute;inset:auto 14px 14px 14px;color:#fff;z-index:2;font-weight:800;line-height:1.7}
+.photo-card .caption b{display:block;font-size:18px;margin-bottom:4px}
+.gallery-grid.real{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.gallery-grid.real .gallery-card{padding:0;overflow:hidden}
+.gallery-grid.real .gallery-visual{height:220px;padding:0;background:#e5e7eb;position:relative}
+.gallery-grid.real .gallery-visual img{width:100%;height:100%;object-fit:cover;display:block;transition:.35s;cursor:pointer}
+.gallery-grid.real .gallery-card:hover img{transform:scale(1.03)}
+.gallery-grid.real .txt{padding:16px}
+.thumb-img{width:100%;height:76px;border-radius:18px;object-fit:cover;display:block;border:1px solid rgba(14,165,233,.14)}
+.visual-stage .stage-wrap{display:grid;gap:14px}
+.atlas-main-image{width:100%;height:280px;object-fit:cover;border-radius:22px;display:block;cursor:pointer;box-shadow:0 12px 24px rgba(15,23,42,.10);transition:.35s}
+.image-note{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:12px 14px;color:#334155;line-height:1.85}
+.doc-photos{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+.doc-photo{position:relative;border-radius:18px;overflow:hidden;min-height:170px;cursor:pointer}
+.doc-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:.35s}
+.doc-photo .cap{position:absolute;inset:auto 12px 12px 12px;color:#fff;z-index:2;font-weight:800;line-height:1.7}
+.lightbox{position:fixed;inset:0;background:rgba(2,6,23,.84);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:120;padding:20px}
+.lightbox.open{display:flex}
+.lightbox-inner{max-width:min(1100px,96vw);max-height:92vh;background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 28px 90px rgba(0,0,0,.35);display:grid;grid-template-columns:1fr 320px}
+.lightbox-inner img{width:100%;height:100%;max-height:92vh;object-fit:contain;background:#0f172a}
+.lightbox-side{padding:22px;background:linear-gradient(180deg,#f8fafc,#fff7ed);overflow:auto}
+.lightbox-side h3{margin:0 0 8px;color:var(--primary)}
+.lightbox-side p{line-height:1.95;color:#334155}
+.lightbox-side .mini-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.lightbox-close{position:absolute;top:18px;left:18px;width:48px;height:48px;border-radius:50%;background:#fff;color:#0f172a;font-size:26px;font-weight:900;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+@media (max-width:960px){.cinema-grid,.gallery-grid.real,.doc-photos,.lightbox-inner{grid-template-columns:1fr}.photo-stack{grid-template-columns:1fr 1fr}.feature-media{min-height:260px}.atlas-main-image{height:220px}.gallery-grid.real .gallery-visual{height:200px}.lightbox-inner img{max-height:48vh}}
+
+</style></head><body>${node.outerHTML}<script>setTimeout(()=>print(),300)<\/script></body></html>`);w.document.close()}
+
+function prefillName(){try{const portal=JSON.parse(localStorage.getItem('rihla_3ac_portal_v2')||'{}');if(portal.name)document.getElementById('studentName').value=portal.name}catch(e){}}
+prefillName();showTab(0);initMatching();initTimeline();renderColony();renderEditor();resetQuiz();showAtlas(0,document.querySelector('.visual-card'));updateDashboard();
+</script>
+</body>
+</html>

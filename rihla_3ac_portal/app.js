@@ -14,7 +14,7 @@ const subjects={
 // خطة الدروس الرسمية للأسدس الأول - الثالثة إعدادي اجتماعيات (الاستعداد للامتحان المحلي)
 const LESSONS=[
   {id:'h1',subject:'history',order:1,title:'ازدهار الرأسمالية الأوربية خلال القرن 19م',status:'live',href:'./lessons/capitalisme/index.html',desc:'محطة جاهزة: آلة زمن، مبيانات، أبناك، تركيز رأسمالي، وثائق وشهادة.'},
-  {id:'h2',subject:'history',order:2,title:'الإمبريالية وليدة الرأسمالية',status:'soon',desc:'دوافع التوسع الاستعماري وعلاقته بازدهار الرأسمالية.'},
+  {id:'h2',subject:'history',order:2,title:'الإمبريالية وليدة الرأسمالية',status:'live',href:'./lessons/imperialism/index.html',desc:'كيف أدى ازدهار الرأسمالية الأوروبية إلى ظهور التوسع الإمبريالي؟ وما نموذج الجزائر؟'},
   {id:'h3',subject:'history',order:3,title:'الضغط الاستعماري على المغرب',status:'soon',desc:'الأطماع، المعاهدات، الامتيازات، والأزمات قبل الحماية.'},
   {id:'h4',subject:'history',order:4,title:'الحرب العالمية الأولى: الأسباب والنتائج',status:'soon',desc:'أسباب الحرب، أطرافها، وأهم نتائجها السياسية والبشرية.'},
   {id:'h5',subject:'history',order:5,title:'انهيار الإمبراطورية العثمانية والتدخل الاستعماري في المشرق العربي',status:'soon',desc:'أسباب الانهيار، ومظاهر التقاسم الاستعماري للمشرق العربي.'},
@@ -114,9 +114,10 @@ function exportPlan(){
 }
 
 // ---- نسخة العمل دون إنترنت (خاصة بالأستاذ فقط) ----
-const OFFLINE_CACHE='rihla-3ac-portal-v3';
+const OFFLINE_CACHE='rihla-3ac-portal-v4';
 const OFFLINE_ASSETS=['./','./index.html','./history.html','./geography.html','./citizenship.html','./local-exam.html','./teacher.html','./style.css','./app.js','./manifest.webmanifest','./icon.svg',
-'./lessons/capitalisme/index.html','./lessons/capitalisme/map.html','./lessons/capitalisme/lesson1.html','./lessons/capitalisme/graph.html','./lessons/capitalisme/banks.html','./lessons/capitalisme/concentration.html','./lessons/capitalisme/society.html','./lessons/capitalisme/documents.html','./lessons/capitalisme/final.html','./lessons/capitalisme/certificate.html','./lessons/capitalisme/report.html','./lessons/capitalisme/style.css','./lessons/capitalisme/app.js'];
+'./lessons/capitalisme/index.html','./lessons/capitalisme/map.html','./lessons/capitalisme/lesson1.html','./lessons/capitalisme/graph.html','./lessons/capitalisme/banks.html','./lessons/capitalisme/concentration.html','./lessons/capitalisme/society.html','./lessons/capitalisme/documents.html','./lessons/capitalisme/final.html','./lessons/capitalisme/certificate.html','./lessons/capitalisme/report.html','./lessons/capitalisme/style.css','./lessons/capitalisme/app.js',
+'./lessons/imperialism/index.html','./lessons/imperialism/images/01-hero-capitalism-to-imperialism.webp','./lessons/imperialism/images/02-industrial-port-19c.webp','./lessons/imperialism/images/03-mediterranean-route-france-algeria.webp','./lessons/imperialism/images/04-french-landing-algeria-1830.webp','./lessons/imperialism/images/05-colony-types-visual-comparison.webp','./lessons/imperialism/images/06-colonial-policy-effects-algeria.webp','./lessons/imperialism/images/extra/07-factory-and-export-detail.webp','./lessons/imperialism/images/extra/08-map-focus-mediterranean-algeria.webp','./lessons/imperialism/images/extra/09-confiscated-land-and-policy-detail.webp','./lessons/imperialism/images/extra/10-colony-types-three-panels.webp','./lessons/imperialism/images/extra/11-soldiers-and-occupation-scene.webp'];
 async function prepareOfflineCopy(){
   if(!('caches' in window)){toast('هذا المتصفح لا يدعم العمل دون إنترنت.');return}
   toast('جارٍ تجهيز نسخة العمل دون إنترنت...');
