@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="700" viewBox="0 0 1600 700" role="img" aria-label="خط زمني الحرب العالمية الأولى">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7e6c7"/><stop offset="1" stop-color="#d2a66c"/></linearGradient>
+  <linearGradient id="dark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3d2b20"/><stop offset="1" stop-color="#7b4f2c"/></linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#3b2415" flood-opacity="0.22"/></filter>
+  <style>
+    .title{font:700 42px Tahoma,Arial,sans-serif; fill:#3b2415}
+    .sub{font:600 24px Tahoma,Arial,sans-serif; fill:#5a3a24}
+    .txt{font:500 21px Tahoma,Arial,sans-serif; fill:#3b2415}
+    .small{font:500 17px Tahoma,Arial,sans-serif; fill:#4c3322}
+    .label{font:700 18px Tahoma,Arial,sans-serif; fill:#fff}
+    .card{fill:#fff9ef; stroke:#9b6b3d; stroke-width:2; filter:url(#shadow)}
+  </style>
+</defs>
+<rect width="1600" height="700" fill="#f6ecd9"/><text x="800" y="75" text-anchor="middle" class="title">خط زمني تفاعلي: 1914 - 1919</text><path d="M190 370 H1410" stroke="#8c5a32" stroke-width="10" stroke-linecap="round"/>
+<g>
+  <line x1="190" y1="370" x2="190" y2="335" stroke="#8c5a32" stroke-width="4"/>
+  <circle cx="190" cy="370" r="25" fill="#8c2f27" stroke="#fff8e9" stroke-width="7"/>
+  <rect x="65" y="165" width="250" height="150" rx="22" fill="#fff8e9" stroke="#9b6b3d" stroke-width="3" filter="url(#shadow)"/>
+  <text x="190" y="212" text-anchor="middle" class="sub">1914</text>
+  <text x="190" y="253" text-anchor="middle" class="small"><tspan x="190" dy="0">اغتيال ولي عهد النمسا</tspan><tspan x="190" dy="28">واندلاع الحرب</tspan></text>
+</g>
+<g>
+  <line x1="430" y1="370" x2="430" y2="405" stroke="#8c5a32" stroke-width="4"/>
+  <circle cx="430" cy="370" r="25" fill="#8c2f27" stroke="#fff8e9" stroke-width="7"/>
+  <rect x="305" y="430" width="250" height="150" rx="22" fill="#fff8e9" stroke="#9b6b3d" stroke-width="3" filter="url(#shadow)"/>
+  <text x="430" y="477" text-anchor="middle" class="sub">1914</text>
+  <text x="430" y="518" text-anchor="middle" class="small"><tspan x="430" dy="0">حرب الخنادق</tspan><tspan x="430" dy="28">على الجبهة الغربية</tspan></text>
+</g>
+<g>
+  <line x1="670" y1="370" x2="670" y2="335" stroke="#8c5a32" stroke-width="4"/>
+  <circle cx="670" cy="370" r="25" fill="#8c2f27" stroke="#fff8e9" stroke-width="7"/>
+  <rect x="545" y="165" width="250" height="150" rx="22" fill="#fff8e9" stroke="#9b6b3d" stroke-width="3" filter="url(#shadow)"/>
+  <text x="670" y="212" text-anchor="middle" class="sub">1917</text>
+  <text x="670" y="253" text-anchor="middle" class="small"><tspan x="670" dy="0">دخول الولايات المتحدة</tspan><tspan x="670" dy="28">إلى الحرب</tspan></text>
+</g>
+<g>
+  <line x1="910" y1="370" x2="910" y2="405" stroke="#8c5a32" stroke-width="4"/>
+  <circle cx="910" cy="370" r="25" fill="#8c2f27" stroke="#fff8e9" stroke-width="7"/>
+  <rect x="785" y="430" width="250" height="150" rx="22" fill="#fff8e9" stroke="#9b6b3d" stroke-width="3" filter="url(#shadow)"/>
+  <text x="910" y="477" text-anchor="middle" class="sub">1917</text>
+  <text x="910" y="518" text-anchor="middle" class="small"><tspan x="910" dy="0">انسحاب روسيا</tspan><tspan x="910" dy="28">بعد الثورة</tspan></text>
+</g>
+<g>
+  <line x1="1150" y1="370" x2="1150" y2="335" stroke="#8c5a32" stroke-width="4"/>
+  <circle cx="1150" cy="370" r="25" fill="#8c2f27" stroke="#fff8e9" stroke-width="7"/>
+  <rect x="1025" y="165" width="250" height="150" rx="22" fill="#fff8e9" stroke="#9b6b3d" stroke-width="3" filter="url(#shadow)"/>
+  <text x="1150" y="212" text-anchor="middle" class="sub">1918</text>
+  <text x="1150" y="253" text-anchor="middle" class="small"><tspan x="1150" dy="0">نهاية الحرب</tspan><tspan x="1150" dy="28">وانتصار الوفاق</tspan></text>
+</g>
+<g>
+  <line x1="1390" y1="370" x2="1390" y2="405" stroke="#8c5a32" stroke-width="4"/>
+  <circle cx="1390" cy="370" r="25" fill="#8c2f27" stroke="#fff8e9" stroke-width="7"/>
+  <rect x="1265" y="430" width="250" height="150" rx="22" fill="#fff8e9" stroke="#9b6b3d" stroke-width="3" filter="url(#shadow)"/>
+  <text x="1390" y="477" text-anchor="middle" class="sub">1919</text>
+  <text x="1390" y="518" text-anchor="middle" class="small"><tspan x="1390" dy="0">مؤتمر الصلح</tspan><tspan x="1390" dy="28">ومعاهدة فرساي</tspan></text>
+</g>
+</svg>

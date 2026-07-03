@@ -53,7 +53,7 @@ const stations = [
   },
   {
     title:"برميل البارود الأوروبي",
-    image:"assets/powder_keg.svg",
+    image:"assets/infographic-causes.svg",
     stamp:"الأسباب العميقة",
     speech:"اجمع الأسباب الصحيحة لترى مؤشر التوتر يرتفع.",
     text:`لم تنفجر الحرب من فراغ. تراكمت أسباب غير مباشرة: القومية، التنافس الإمبريالي، التحالفات، والتسلح. أما بعض الأحداث فظهرت بعد الحرب وليست سبباً لها.`,
@@ -77,7 +77,7 @@ const stations = [
   },
   {
     title:"خريطة الأحلاف",
-    image:"assets/alliances_map.svg",
+    image:"assets/map-alliances.svg",
     stamp:"الأحلاف",
     speech:"الأحلاف حولت النزاع من أزمة محدودة إلى حرب واسعة.",
     text:`تواجهت مجموعتان رئيسيتان: الوفاق الثلاثي، ويضم فرنسا وبريطانيا وروسيا، ودول المركز التي يمثلها أساساً ألمانيا والنمسا-المجر وحلفاؤهما.`,
@@ -88,7 +88,7 @@ const stations = [
   },
   {
     title:"داخل الخنادق: مراحل الحرب",
-    image:"assets/timeline_train.svg",
+    image:"assets/timeline-1914-1919.svg",
     stamp:"المراحل",
     speech:"رتب الأحداث لتفهم مسار الحرب.",
     text:`مرت الحرب بمرحلتين: 1914–1917 تميزت بتفوق نسبي لدول المركز، و1917–1918 تميزت بانسحاب روسيا ودخول الولايات المتحدة، فمالت الكفة للوفاق.`,
@@ -96,10 +96,16 @@ const stations = [
   },
   {
     title:"بطاقتان غيّرتا الميزان",
-    image:"assets/trench.svg",
+    image:"assets/trench-scene-educational.svg",
+    hotspots:[
+      {label:"الأسلاك الشائكة", top:"23%", right:"66%", tip:"الأسلاك الشائكة: استعملت لإبطاء تقدم الجنود نحو مواقع العدو."},
+      {label:"الخندق", top:"25%", right:"41%", tip:"الخندق: حفرة دفاعية طويلة احتمى فيها الجنود من القصف والرصاص."},
+      {label:"الجنود", top:"23%", right:"19%", tip:"الجنود: عاشوا شهوراً في ظروف قاسية داخل الخنادق."},
+      {label:"المدفعية", top:"68%", right:"12%", tip:"المدفعية: تسببت في دمار واسع وجعلت الحرب أكثر عنفاً وكلفة."}
+    ],
     stamp:"المراحل",
     speech:"سنة 1917 محطة مفصلية: انسحاب من جهة ودخول من جهة أخرى.",
-    text:`انسحبت روسيا بعد الثورة البلشفية، ودخلت الولايات المتحدة الأمريكية الحرب، فتغير ميزان القوى لصالح دول الوفاق.`,
+    text:`انسحبت روسيا بعد الثورة البلشفية، ودخلت الولايات المتحدة الأمريكية الحرب، فتغير ميزان القوى لصالح دول الوفاق. اضغط على وسوم مشهد الخنادق أعلاه لتتعرف على مكوناته.`,
     activity:{type:"twoCards", cards:[
       {img:"assets/russia_card.svg", q:"ماذا ترتب عن الثورة البلشفية بالنسبة للحرب؟", answer:"انسحاب روسيا", options:["انسحاب روسيا", "بداية الحرب", "إنشاء عصبة الأمم"]},
       {img:"assets/usa_card.svg", q:"ماذا ترتب عن دخول الولايات المتحدة؟", answer:"رجحان كفة الوفاق", options:["رجحان كفة الوفاق", "تأسيس الاتحاد الأوروبي", "تفكك الوفاق"]}
@@ -107,7 +113,7 @@ const stations = [
   },
   {
     title:"حصيلة حرب مدمرة",
-    image:"assets/results_infographic.svg",
+    image:"assets/infographic-results.svg",
     stamp:"النتائج",
     speech:"لا تنظر إلى الخريطة فقط؛ الحرب مست البشر والاقتصاد والمجتمع والسياسة.",
     text:`خلفت الحرب نتائج بشرية واقتصادية واجتماعية وسياسية: قتلى ومعطوبون، ديون وتراجع اقتصادي، فقر وبطالة، وتغيرات سياسية كبرى.`,
@@ -216,9 +222,10 @@ function renderStation(){
   $("#stationCounter").textContent = `المحطة ${currentStation+1} / ${stations.length}`;
   guide(st.speech);
   const done = !!state.done[currentStation];
+  const hotspotsHtml = (st.hotspots||[]).map(h=>`<button class="hotspot-btn" type="button" style="top:${h.top};right:${h.right}" data-tip="${escapeHtml(h.tip)}">${h.label}</button>`).join('');
   $("#stationContent").innerHTML = `
     <div class="station-grid">
-      <div class="station-visual"><img src="${st.image}" alt="${escapeHtml(st.title)}"></div>
+      <div class="station-visual"><img src="${st.image}" alt="${escapeHtml(st.title)}">${hotspotsHtml}</div>
       <div class="station-info">
         <span class="lesson-chip">${done ? '✅ محطة منجزة' : '🎯 مهمة جديدة'}</span>
         <h2>${st.title}</h2>
@@ -235,6 +242,7 @@ function renderStation(){
     </div>`;
   $("#stationReportBtn").onclick = () => openModal("reportModal");
   $("#completeStationBtn").onclick = () => { markDone(currentStation); toast("تم ختم المحطة في جواز الرحلة"); renderStation(); };
+  $$("[data-tip]").forEach(b => b.onclick = () => { toast(b.dataset.tip); sound("move"); });
   renderActivity(st.activity, $("#activityRoot"));
   updateProgress();
 }
@@ -315,7 +323,7 @@ function renderClassify(activity, root){
 }
 function renderSort(activity, root){
   let arr = shuffle(activity.correct);
-  root.innerHTML = `<p>${activity.prompt}</p><div class="sort-list" id="sortList"></div><div class="station-footer"><button class="primary-btn" id="checkSort" type="button">تحقق من الترتيب</button><button class="secondary-btn" id="resetSort" type="button">خلط جديد</button></div><div class="feedback" id="sortFb">استعمل السهمين لتحريك الحدث.</div>`;
+  root.innerHTML = `<p>${activity.prompt}</p><div class="sort-list" id="sortList"></div><div class="station-footer"><button class="primary-btn" id="checkSort" type="button">تحقق من الترتيب</button><button class="secondary-btn" id="resetSort" type="button">خلط جديد</button></div><div class="feedback" id="sortFb">استعمل السهمين لتحريك الحدث.</div><div id="sortReveal"></div>`;
   const list = $("#sortList");
   function draw(){
     list.innerHTML = arr.map((x,i)=>`<div class="sort-item"><span>${i+1}. ${x}</span><span class="sort-controls"><button type="button" data-up="${i}">↑</button><button type="button" data-down="${i}">↓</button></span></div>`).join("");
@@ -329,7 +337,7 @@ function renderSort(activity, root){
     $("#sortFb").textContent = good ? "ترتيب ممتاز. 1918 نهاية الحرب عسكرياً، و1919 سنة الصلح." : "ما زال الترتيب يحتاج مراجعة. ابدأ بالشرارة ثم المراحل ثم التسوية.";
     $("#sortFb").className = "feedback " + (good?"good":"bad");
     sound(good?"ok":"bad");
-    if(good) completeWithMessage("رتبت الزمن التاريخي بنجاح");
+    if(good){ completeWithMessage("رتبت الزمن التاريخي بنجاح"); $("#sortReveal").innerHTML = `<img class="visual-reveal" src="assets/cards-events.svg" alt="بطاقات الأحداث بالترتيب الصحيح" style="width:100%;border-radius:16px;margin-top:14px">`; }
   };
 }
 function renderCategorize(activity, root){

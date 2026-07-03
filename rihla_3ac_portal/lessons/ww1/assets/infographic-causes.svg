@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-label="إنفوغرافيا أسباب الحرب العالمية الأولى">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7e6c7"/><stop offset="1" stop-color="#d2a66c"/></linearGradient>
+  <linearGradient id="dark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3d2b20"/><stop offset="1" stop-color="#7b4f2c"/></linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#3b2415" flood-opacity="0.22"/></filter>
+  <style>
+    .title{font:700 42px Tahoma,Arial,sans-serif; fill:#3b2415}
+    .sub{font:600 24px Tahoma,Arial,sans-serif; fill:#5a3a24}
+    .txt{font:500 21px Tahoma,Arial,sans-serif; fill:#3b2415}
+    .small{font:500 17px Tahoma,Arial,sans-serif; fill:#4c3322}
+    .label{font:700 18px Tahoma,Arial,sans-serif; fill:#fff}
+    .card{fill:#fff9ef; stroke:#9b6b3d; stroke-width:2; filter:url(#shadow)}
+  </style>
+</defs>
+<rect width="1600" height="1000" fill="#f5ead8"/><text x="800" y="70" text-anchor="middle" class="title">لماذا اندلعت الحرب العالمية الأولى؟</text><text x="800" y="112" text-anchor="middle" class="sub">أسباب عميقة وشرارة مباشرة</text>
+    <g transform="translate(1030,170)">
+      <rect width="430" height="315" rx="28" class="card"/>
+      <circle cx="360" cy="70" r="46" fill="#8c2f27"/><text x="360" y="85" text-anchor="middle" font-size="42">🌍</text>
+      <text x="390" y="150" text-anchor="end" class="sub">التنافس الإمبريالي</text>
+      <text x="390" y="205" text-anchor="end" class="txt"><tspan x="390" dy="0">تسابق الدول الكبرى للسيطرة على المستعمرات و</tspan><tspan x="390" dy="34">الأسواق</tspan></text>
+      <circle cx="55" cy="265" r="28" fill="#d2a66c"/><text x="55" y="273" text-anchor="middle" class="label">1</text>
+    </g>
+    <g transform="translate(585,170)">
+      <rect width="430" height="315" rx="28" class="card"/>
+      <circle cx="360" cy="70" r="46" fill="#8c2f27"/><text x="360" y="85" text-anchor="middle" font-size="42">🤝</text>
+      <text x="390" y="150" text-anchor="end" class="sub">التحالفات العسكرية</text>
+      <text x="390" y="205" text-anchor="end" class="txt"><tspan x="390" dy="0">انقسام أوروبا إلى معسكرات متقابلة</tspan><tspan x="390" dy="34"></tspan></text>
+      <circle cx="55" cy="265" r="28" fill="#d2a66c"/><text x="55" y="273" text-anchor="middle" class="label">2</text>
+    </g>
+    <g transform="translate(140,170)">
+      <rect width="430" height="315" rx="28" class="card"/>
+      <circle cx="360" cy="70" r="46" fill="#8c2f27"/><text x="360" y="85" text-anchor="middle" font-size="42">⚙️</text>
+      <text x="390" y="150" text-anchor="end" class="sub">السباق نحو التسلح</text>
+      <text x="390" y="205" text-anchor="end" class="txt"><tspan x="390" dy="0">ارتفاع الإنفاق العسكري وبناء الجيوش والأساط</tspan><tspan x="390" dy="34">يل</tspan></text>
+      <circle cx="55" cy="265" r="28" fill="#d2a66c"/><text x="55" y="273" text-anchor="middle" class="label">3</text>
+    </g>
+    <g transform="translate(1030,565)">
+      <rect width="430" height="315" rx="28" class="card"/>
+      <circle cx="360" cy="70" r="46" fill="#8c2f27"/><text x="360" y="85" text-anchor="middle" font-size="42">🔥</text>
+      <text x="390" y="150" text-anchor="end" class="sub">النزعات القومية</text>
+      <text x="390" y="205" text-anchor="end" class="txt"><tspan x="390" dy="0">رغبة شعوب ومجموعات في الاستقلال أو التوسع</tspan><tspan x="390" dy="34"></tspan></text>
+      <circle cx="55" cy="265" r="28" fill="#d2a66c"/><text x="55" y="273" text-anchor="middle" class="label">4</text>
+    </g>
+    <g transform="translate(585,565)">
+      <rect width="430" height="315" rx="28" class="card"/>
+      <circle cx="360" cy="70" r="46" fill="#8c2f27"/><text x="360" y="85" text-anchor="middle" font-size="42">⛰️</text>
+      <text x="390" y="150" text-anchor="end" class="sub">أزمة البلقان</text>
+      <text x="390" y="205" text-anchor="end" class="txt"><tspan x="390" dy="0">تحول البلقان إلى منطقة توتر بين القوى الأور</tspan><tspan x="390" dy="34">وبية</tspan></text>
+      <circle cx="55" cy="265" r="28" fill="#d2a66c"/><text x="55" y="273" text-anchor="middle" class="label">5</text>
+    </g>
+    <g transform="translate(140,565)">
+      <rect width="430" height="315" rx="28" class="card"/>
+      <circle cx="360" cy="70" r="46" fill="#8c2f27"/><text x="360" y="85" text-anchor="middle" font-size="42">⚡</text>
+      <text x="390" y="150" text-anchor="end" class="sub">حادثة سراييفو</text>
+      <text x="390" y="205" text-anchor="end" class="txt"><tspan x="390" dy="0">اغتيال ولي عهد النمسا كان الشرارة المباشرة</tspan><tspan x="390" dy="34"></tspan></text>
+      <circle cx="55" cy="265" r="28" fill="#d2a66c"/><text x="55" y="273" text-anchor="middle" class="label">6</text>
+    </g>
+</svg>

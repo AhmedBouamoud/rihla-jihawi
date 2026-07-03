@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-label="خريطة التحالفات">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7e6c7"/><stop offset="1" stop-color="#d2a66c"/></linearGradient>
+  <linearGradient id="dark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3d2b20"/><stop offset="1" stop-color="#7b4f2c"/></linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#3b2415" flood-opacity="0.22"/></filter>
+  <style>
+    .title{font:700 42px Tahoma,Arial,sans-serif; fill:#3b2415}
+    .sub{font:600 24px Tahoma,Arial,sans-serif; fill:#5a3a24}
+    .txt{font:500 21px Tahoma,Arial,sans-serif; fill:#3b2415}
+    .small{font:500 17px Tahoma,Arial,sans-serif; fill:#4c3322}
+    .label{font:700 18px Tahoma,Arial,sans-serif; fill:#fff}
+    .card{fill:#fff9ef; stroke:#9b6b3d; stroke-width:2; filter:url(#shadow)}
+  </style>
+</defs>
+
+<rect width="1600" height="1000" fill="#efe1c8"/>
+<text x="800" y="72" text-anchor="middle" class="title">خريطة مبسطة للتحالفات قبل الحرب</text>
+<text x="800" y="118" text-anchor="middle" class="sub">الوفاق الثلاثي في مواجهة التحالف الثلاثي</text>
+<g transform="translate(120,190)" opacity=".95">
+ <path d="M500,120 C610,85 700,135 765,220 C850,320 745,410 800,520 C850,620 755,715 630,720 C500,725 450,625 360,625 C250,625 160,555 180,445 C200,315 330,300 350,205 C365,155 425,140 500,120Z" fill="#fff7e8" stroke="#8c6a43" stroke-width="5"/>
+ <path d="M450,210 l110,-30 85,60 -30,88 -118,20 -80,-60z" fill="#cc5b4b" opacity=".82" stroke="#5c2b26" stroke-width="3"/>
+ <text x="535" y="268" text-anchor="middle" class="label">ألمانيا</text>
+ <path d="M590,370 l130,-20 55,90 -75,85 -135,-30 -35,-72z" fill="#cc5b4b" opacity=".82" stroke="#5c2b26" stroke-width="3"/>
+ <text x="655" y="445" text-anchor="middle" class="label">النمسا</text>
+ <path d="M510,535 l85,25 40,95 -50,20 -95,-90z" fill="#cc5b4b" opacity=".82" stroke="#5c2b26" stroke-width="3"/>
+ <text x="560" y="620" text-anchor="middle" class="label">إيطاليا</text>
+ <path d="M240,300 l115,-45 70,75 -50,100 -120,-18 -50,-70z" fill="#326da8" opacity=".82" stroke="#193a5a" stroke-width="3"/>
+ <text x="315" y="355" text-anchor="middle" class="label">فرنسا</text>
+ <path d="M190,150 l70,18 35,70 -70,35 -85,-35z" fill="#326da8" opacity=".82" stroke="#193a5a" stroke-width="3"/>
+ <text x="220" y="218" text-anchor="middle" class="label">بريطانيا</text>
+ <path d="M785,170 l250,-70 155,95 -60,200 -245,80 -130,-120z" fill="#326da8" opacity=".82" stroke="#193a5a" stroke-width="3"/>
+ <text x="960" y="290" text-anchor="middle" class="label">روسيا</text>
+</g>
+<g transform="translate(1065,245)">
+  <rect width="385" height="410" rx="26" fill="#fff8e9" stroke="#9b6b3d" stroke-width="3" filter="url(#shadow)"/>
+  <text x="340" y="58" text-anchor="end" class="sub">الأسطورة</text>
+  <rect x="275" y="105" width="58" height="38" rx="8" fill="#326da8"/><text x="255" y="133" text-anchor="end" class="txt">دول الوفاق الثلاثي</text>
+  <rect x="275" y="175" width="58" height="38" rx="8" fill="#cc5b4b"/><text x="255" y="203" text-anchor="end" class="txt">دول التحالف الثلاثي</text>
+  <text x="340" y="285" text-anchor="end" class="small">ملاحظة بيداغوجية:</text>
+  <text x="340" y="325" text-anchor="end" class="small">الخريطة مبسطة للتعلم،</text>
+  <text x="340" y="360" text-anchor="end" class="small">وليست خريطة حدود دقيقة.</text>
+</g>
+
+</svg>
