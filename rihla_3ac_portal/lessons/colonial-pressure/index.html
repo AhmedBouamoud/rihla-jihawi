@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="theme-color" content="#6e2b1b"/>
+<title>الضغط الاستعماري على المغرب — رحلة الثالثة إعدادي</title>
+<style>
+:root{
+  --bg1:#f7e5c3;--bg2:#ead0a0;--ink:#25180f;--muted:#6b543c;--card:#fff7e6;--paper:#fffaf0;
+  --red:#8b2d24;--red2:#a8392c;--green:#2f6b45;--green2:#3f8a5c;--blue:#153c58;--gold:#d8aa53;--gold2:#f0c877;
+  --line:rgba(110,43,27,.22);--shadow:0 18px 46px rgba(37,24,15,.18);--radius:26px;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;font-family:Tahoma,"Segoe UI",Arial,sans-serif;color:var(--ink);line-height:1.85;
+  background:linear-gradient(150deg,var(--bg1),#fdf6e6 45%,var(--bg2));min-height:100vh}
+button,input,textarea{font:inherit} button{cursor:pointer;border:0}
+a{color:inherit;text-decoration:none}
+.hidden{display:none!important}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,250,240,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{max-width:1180px;margin:auto;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.brand{display:flex;gap:10px;align-items:center;min-width:0}
+.mark{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,var(--red),var(--gold));display:grid;place-items:center;color:#fff;font-size:24px;box-shadow:0 10px 22px rgba(139,45,36,.3);flex:0 0 auto}
+.brand strong{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand small{display:block;color:var(--muted);font-weight:700;font-size:11px}
+.navlinks{display:flex;gap:6px;flex-wrap:wrap}
+.btn{border-radius:999px;padding:9px 13px;font-weight:900;background:#fff;color:var(--red);box-shadow:0 6px 16px rgba(37,24,15,.08);border:1px solid var(--line);font-size:13px}
+.btn.primary{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff}
+.btn.gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#3a2408}
+.btn.green{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff}
+.btn.blue{background:linear-gradient(135deg,var(--blue),#2b5a80);color:#fff}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.app{max-width:1180px;margin:auto;padding:16px}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:stretch;padding:16px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;position:relative}
+.hero-text{padding:clamp(20px,3.4vw,34px)}
+.kicker{display:inline-flex;gap:7px;align-items:center;padding:7px 12px;border-radius:999px;background:#fdf0d8;color:var(--red);font-weight:900;margin-bottom:12px;font-size:13px;border:1px solid #eecf9a}
+h1{font-size:clamp(28px,5vw,48px);line-height:1.12;margin:0 0 8px;color:var(--red)}
+.lead{font-size:clamp(15px,1.8vw,18px);color:#3a2b1c;max-width:96%}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.name{min-width:210px;flex:1;border:2px solid var(--line);border-radius:999px;padding:12px 16px;font-weight:800;outline:none;background:#fff}
+.name:focus{border-color:var(--gold)}
+.goal-card{margin-top:14px;background:#fdf3de;border:1px dashed #d8aa53;border-radius:18px;padding:12px 14px}
+.goal-card b{color:var(--red)}
+.hero-visual{padding:12px}
+.hero-visual img{width:100%;height:100%;object-fit:cover;border-radius:18px;display:block;min-height:260px}
+.section-title{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.section-title h2{margin:0;font-size:clamp(22px,3vw,32px);color:var(--blue)}
+.section-title p{margin:4px 0 0;color:var(--muted)}
+.badge-pill{display:inline-flex;border-radius:999px;padding:6px 11px;background:#fdf0d8;color:var(--red);font-weight:900;font-size:12px;border:1px solid #eecf9a}
+.panel{padding:20px;margin:16px 0}
+.game-strip{display:grid;grid-template-columns:1.15fr repeat(3,1fr);gap:10px;margin:14px 0 20px}
+.reward{background:#fff;border:1px solid var(--line);border-radius:20px;padding:12px;box-shadow:0 8px 20px rgba(37,24,15,.06)}
+.reward small{color:var(--muted);font-weight:800}
+.reward .big{font-size:24px;font-weight:900;color:var(--red);display:block}
+.xpcard{background:linear-gradient(135deg,var(--red),var(--blue));color:#fff}
+.xpcard small{color:#fde9d8}
+.xpbar{height:12px;background:rgba(255,255,255,.28);border-radius:999px;overflow:hidden;margin-top:6px}
+.xpbar div{height:100%;width:0;background:linear-gradient(90deg,#f6d67a,#fff);transition:.4s}
+.info-visual{width:100%;border-radius:20px;border:1px solid var(--line);margin-bottom:14px;display:block}
+.stations-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.station{background:#fff;border:1px solid var(--line);border-right:8px solid var(--green);border-radius:20px;padding:14px;box-shadow:0 8px 20px rgba(37,24,15,.06);cursor:pointer;transition:.2s}
+.station:hover{transform:translateY(-3px)}
+.station.done{border-right-color:var(--gold)}
+.station .num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--red);color:#fff;font-weight:900;margin-inline-end:8px}
+.station h3{margin:8px 0 4px;font-size:16px;color:var(--blue)}
+.station p{margin:0;color:var(--muted);font-size:13px}
+.mission-box{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;margin-top:14px}
+.mission-box img{width:100%;max-height:230px;object-fit:cover;border-radius:16px;margin-bottom:10px}
+.mission-box h3{color:var(--red);margin:0 0 8px}
+.tiles{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.tile{background:#fdf3de;border:2px solid #eecf9a;border-radius:14px;padding:10px 13px;font-weight:900;color:var(--blue)}
+.tile.correct{background:#e6f4ea;border-color:var(--green)}
+.tile.wrong{background:#fbe6e3;border-color:var(--red)}
+.feedback{margin-top:10px;background:#fdf3de;border:1px solid #eecf9a;border-radius:16px;padding:12px 14px;color:#4a3216;display:none}
+.feedback.show{display:block}
+.timeline-row{display:flex;gap:10px;overflow:auto;padding:6px 2px 14px}
+.year{min-width:150px;background:#fff;border:2px solid var(--line);border-radius:18px;padding:12px;text-align:center;flex:0 0 auto}
+.year strong{display:block;color:var(--red);font-size:22px}
+.year small{color:var(--muted);font-weight:800}
+.timeline-note{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}
+.concepts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.flip-outer{perspective:1400px;height:150px}
+.flip-inner{position:relative;width:100%;height:100%;transition:.55s;transform-style:preserve-3d;cursor:pointer}
+.flip-outer.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;border:1px solid var(--line);padding:14px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.flip-front{background:linear-gradient(135deg,var(--card),#fff2d6)}
+.flip-front h4{margin:0;color:var(--red);font-size:16px}
+.flip-front span{margin-top:6px;color:var(--muted);font-size:12px}
+.flip-back{background:#fff;transform:rotateY(180deg);font-size:13px;color:#3a2b1c}
+.quiz-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px}
+.scorebar{height:13px;background:#eee0c4;border-radius:999px;overflow:hidden;margin:10px 0}
+.scorebar div{height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--gold));transition:.4s}
+.quiz-options{display:grid;gap:9px;margin-top:12px}
+.opt{text-align:right;background:#fdf7ea;border:2px solid var(--line);border-radius:16px;padding:12px;font-weight:800}
+.opt.correct{background:#e6f4ea;border-color:var(--green)}
+.opt.wrong{background:#fbe6e3;border-color:var(--red)}
+.note{background:#eef5f0;border:1px solid #bfe0cb;border-radius:16px;padding:12px 14px;color:#1f4a30}
+.certificate-card{background:#fffaf0;border:3px double var(--gold);border-radius:22px;padding:22px;text-align:center;margin-top:14px}
+.teacher{background:#fdf7ea;border:1px solid var(--line);border-radius:20px;padding:16px}
+.teacher textarea{width:100%;min-height:160px;border-radius:14px;border:1px solid var(--line);padding:12px;direction:ltr;text-align:left;font-family:monospace;font-size:12px}
+.print-report{background:var(--paper)}
+.print-report h3{color:var(--red);margin-top:18px}
+.print-report table{width:100%;border-collapse:collapse;margin:10px 0}
+.print-report td,.print-report th{border:1px solid var(--line);padding:8px;text-align:right;font-size:13px}
+.report-callout{background:#fdf3de;border-right:5px solid var(--gold);border-radius:14px;padding:12px 14px;margin:10px 0}
+footer{text-align:center;padding:20px;background:#25180f;color:#f0dcb8;font-weight:800}
+.toast{position:fixed;bottom:18px;right:18px;left:18px;max-width:420px;margin-inline-start:auto;background:#25180f;color:#f0dcb8;padding:13px 16px;border-radius:16px;box-shadow:var(--shadow);z-index:100;transform:translateY(120px);opacity:0;transition:.35s}
+.toast.show{transform:translateY(0);opacity:1}
+@media(max-width:920px){.hero{grid-template-columns:1fr}.game-strip{grid-template-columns:1fr 1fr}.hero-visual img{min-height:200px}}
+@media(max-width:640px){.game-strip{grid-template-columns:1fr}}
+@media print{
+  .topbar,.no-print,.btn,.toast{display:none!important}
+  body{background:#fff}
+  .app{max-width:100%;padding:0}
+  .card,.panel{box-shadow:none;border:0}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="nav">
+    <div class="brand"><div class="mark">🛡️</div><div><strong>بوابة رحلة الثالثة إعدادي</strong><small>الدرس 3 — الضغط الاستعماري على المغرب</small></div></div>
+    <div class="navlinks">
+      <a class="btn" href="../../index.html">🗺️ خريطة الرحلة</a>
+      <a class="btn" href="#stations">المحطات</a><a class="btn" href="#timeline">الخط الزمني</a><a class="btn" href="#concepts">المفاهيم</a><a class="btn gold" href="#quiz">اختبار</a><a class="btn gold" href="#report">التقرير</a>
+    </div>
+  </div>
+</div>
+
+<main class="app">
+  <section class="hero">
+    <div class="card hero-text">
+      <span class="kicker">🛡️ رحلة تاريخية جديدة</span>
+      <h1>الضغط الاستعماري على المغرب</h1>
+      <p class="lead">من هزيمة معركة إيسلي سنة 1844م، مروراً بمحاولات الإصلاح، وصولاً إلى فرض الحماية سنة 1912م: رحلة في سبع محطات تكتشف فيها كيف فقد المغرب استقلاله تدريجياً.</p>
+      <div class="hero-actions">
+        <input class="name" id="studentName" placeholder="اكتب اسم التلميذ للحصول على الشهادة"/>
+        <button class="btn primary" onclick="startJourney()">ابدأ الرحلة</button>
+        <button class="btn gold" onclick="window.print()">اطبع التقرير</button>
+      </div>
+      <div class="goal-card"><b>ماذا سأتعلم؟</b><br>أتعرف أشكال الضغط الاستعماري على المغرب، وأفسر فشل الإصلاحات، وأفهم كيف أدى ذلك إلى فرض الحماية سنة 1912م.</div>
+    </div>
+    <div class="card hero-visual"><img src="./images/journey-map.webp" alt="خريطة رحلة الدرس عبر سبع محطات من معركة إيسلي إلى فرض الحماية" loading="eager"/></div>
+  </section>
+
+  <section class="game-strip">
+    <div class="reward xpcard"><small>مستوى الرحلة</small><span class="big" id="xpLabel">0 / 100 XP</span><div class="xpbar"><div id="xpFill"></div></div></div>
+    <div class="reward"><small>الأوسمة</small><span class="big" id="starsCount">0</span><small>وسام لكل محطة تنجزها</small></div>
+    <div class="reward"><small>المحطات المفتوحة</small><span class="big" id="stationsCount">0</span><small>من أصل 7 محطات</small></div>
+    <div class="reward"><small>التحديات المنجزة</small><span class="big" id="tasksCount">0</span><small>أنشطة + اختبار + شهادة</small></div>
+  </section>
+
+  <section class="panel card" id="stations">
+    <div class="section-title"><div><h2>مسار الرحلة: سبع محطات</h2><p>اضغط على أي محطة لفتح بطاقتها: شرح قصير، نشاط، تغذية راجعة، ووسام.</p></div><span class="badge-pill">🎮 تعلم باللعب</span></div>
+    <img class="info-visual" src="./images/poster-overview.webp" alt="ملصق شامل للضغط الاستعماري على المغرب من 1844 إلى 1912"/>
+    <div class="stations-grid" id="stationsGrid"></div>
+    <div class="mission-box" id="missionBox">
+      <h3>محطة الانطلاق</h3>
+      <p>اضغط على محطة من الأعلى لتبدأ. كل محطة تحكي جزءاً من قصة الضغط الاستعماري على المغرب.</p>
+    </div>
+  </section>
+
+  <section class="panel card" id="timeline">
+    <div class="section-title"><div><h2>الخط الزمني</h2><p>اضغط على أي سنة لعرض الحدث ودلالته التاريخية.</p></div></div>
+    <img class="info-visual" src="./images/clean_timeline.svg" alt="الخط الزمني للضغط الاستعماري على المغرب"/>
+    <div class="timeline-row" id="timelineRow"></div>
+    <div class="timeline-note note" id="timelineNote">اضغط على سنة من الخط الزمني لعرض الحدث ودلالته.</div>
+  </section>
+
+  <section class="panel card">
+    <div class="section-title"><div><h2>من فشل الإصلاحات إلى فرض الحماية</h2><p>مخطط يلخص كيف أدت العوامل الثلاثة إلى فقدان المغرب استقلاله.</p></div></div>
+    <img class="info-visual" src="./images/clean_flowchart_to_protectorate.svg" alt="مخطط من فشل الإصلاحات إلى فرض الحماية"/>
+    <img class="info-visual" src="./images/flow-to-protectorate.webp" alt="مخطط بصري من فشل الإصلاحات إلى فرض الحماية"/>
+  </section>
+
+  <section class="panel card">
+    <div class="section-title"><div><h2>خريطة الضغوط ومقارنة أشكال الإصلاح</h2><p>خريطة مبسطة لمسارات الضغط، ومقارنة بين أشكال الضغط ومحاولات الإصلاح المقابلة لها.</p></div></div>
+    <img class="info-visual" src="./images/pressure-map.webp" alt="خريطة مبسطة للضغط الاستعماري على المغرب"/>
+    <img class="info-visual" src="./images/pressure-reform-comparison.webp" alt="مقارنة بين أشكال الضغط الاستعماري ومحاولات الإصلاح"/>
+  </section>
+
+  <section class="panel card" id="concepts">
+    <div class="section-title"><div><h2>بطاقات المفاهيم</h2><p>اضغط على البطاقة لقلبها ومعرفة التعريف.</p></div></div>
+    <img class="info-visual" src="./images/clean_concept_cards.svg" alt="بطاقات مفاهيم الدرس"/>
+    <div class="concepts-grid" id="conceptsGrid"></div>
+  </section>
+
+  <section class="panel card no-print" id="quiz">
+    <div class="section-title"><div><h2>اختبار نهائي</h2><p>أجب عن الأسئلة. النجاح بـ 70% فما فوق يفتح الشهادة.</p></div><button class="btn red" onclick="resetQuiz()">إعادة الاختبار</button></div>
+    <div class="scorebar"><div id="scoreBar"></div></div>
+    <p id="scoreText" class="note">السؤال 1 من 6</p>
+    <div class="quiz-card" id="quizCard"></div>
+    <div id="certificate" class="hidden"></div>
+  </section>
+
+  <section class="panel card teacher no-print">
+    <div class="section-title"><div><h2>لوحة الأستاذ</h2><p>تعديل سريع لبنك أسئلة الاختبار. يُحفظ محلياً على هذا الجهاز فقط.</p></div></div>
+    <textarea id="questionEditor"></textarea>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+      <button class="btn primary" onclick="saveQuestions()">حفظ الأسئلة</button>
+      <button class="btn" onclick="loadDefaultQuestions()">استرجاع الأصلي</button>
+    </div>
+  </section>
+
+  <section class="panel card print-report" id="report">
+    <div class="section-title"><div><h2>تقرير الدرس القابل للطباعة</h2><p>ملخص شامل يصلح للمراجعة أو التوزيع على التلاميذ.</p></div><button class="btn gold no-print" onclick="window.print()">طباعة 🖨️</button></div>
+
+    <h3>1. تقديم الدرس</h3>
+    <p>تعرض المغرب منذ القرن التاسع عشر لضغوط استعمارية متزايدة بسبب احتداد التنافس الإمبريالي الأوروبي، وضعف البنية العسكرية والمالية للدولة المغربية، وتوسع الامتيازات الأجنبية. بدأت هذه الضغوط تظهر بقوة بعد معركة إيسلي سنة 1844م، ثم تعمقت عبر معاهدة لالة مغنية والاتفاقيات التجارية والحماية القنصلية، قبل أن تنتهي بفرض نظام الحماية سنة 1912م.</p>
+
+    <h3>2. إشكالية الدرس</h3>
+    <ul>
+      <li>ما نوعية الضغوط الاستعمارية التي تعرض لها المغرب خلال القرن 19م؟</li>
+      <li>كيف حاول المغرب مواجهة هذه الضغوط؟</li>
+      <li>كيف أدى فشل الإصلاحات وتزايد التدخل الأوروبي إلى فرض الحماية سنة 1912م؟</li>
+    </ul>
+
+    <h3>3. المحور الأول: الضغط الاستعماري وتوقيع معاهدة لالة مغنية</h3>
+    <p>دخل المغرب في مواجهة عسكرية مع فرنسا بسبب دعمه للأمير عبد القادر الجزائري، فانتهت المواجهة بهزيمة الجيش المغربي في <strong>معركة إيسلي يوم 14 غشت 1844م</strong>. وقد كشفت هذه الهزيمة ضعف الجيش المغربي مقارنة بالجيوش الأوروبية الحديثة.</p>
+    <p>بعد الهزيمة، وقع المغرب وفرنسا <strong>معاهدة لالة مغنية في 18 مارس 1845م</strong> لتسوية مسألة الحدود بين المغرب والجزائر المحتلة. وقد حددت المعاهدة جزءاً من الحدود الشمالية الشرقية، لكنها تركت المناطق الصحراوية الجنوبية الشرقية دون تحديد دقيق، مما خلق غموضاً استغلته فرنسا لاحقاً للتوسع.</p>
+    <div class="report-callout"><b>نشاط وثائقي:</b> أحدد تاريخ معركة إيسلي والطرفين المتواجهين، أستخرج نتائج المعركة على المغرب، وأستخلص من معاهدة لالة مغنية القضية التي عالجتها والحدود التي بقيت غامضة.</div>
+
+    <h3>4. المحور الثاني: أشكال التهافت الأوروبي ومحاولات الإصلاح</h3>
+    <p>تعددت أشكال الضغط الأوروبي على المغرب:</p>
+    <table><thead><tr><th>نوع الضغط</th><th>أمثلة</th></tr></thead><tbody>
+      <tr><td>ضغط عسكري</td><td>معركة إيسلي 1844م، حرب تطوان 1859-1860م</td></tr>
+      <tr><td>ضغط اقتصادي</td><td>المعاهدة التجارية مع إنجلترا 1856م، الامتيازات التجارية، الديون</td></tr>
+      <tr><td>ضغط سياسي ودبلوماسي</td><td>الحماية القنصلية، تزايد عدد المحميين، التدخل في شؤون المغرب</td></tr>
+    </tbody></table>
+    <p>ولمواجهة هذه الأخطار، قام السلاطين بمحاولات إصلاح شملت عدة مجالات:</p>
+    <table><thead><tr><th>مجال الإصلاح</th><th>أمثلة</th></tr></thead><tbody>
+      <tr><td>عسكري</td><td>تكوين جيش نظامي، الاستعانة بمدربين أجانب، بناء معامل عسكرية</td></tr>
+      <tr><td>تعليمي</td><td>إرسال بعثات طلابية إلى أوروبا لاكتساب العلوم الحديثة</td></tr>
+      <tr><td>اقتصادي وإداري</td><td>فرض ضرائب جديدة، إصلاح المراسي، سك نقود جديدة</td></tr>
+    </tbody></table>
+
+    <h3>5. المحور الثالث: فشل الإصلاحات وفرض الحماية</h3>
+    <p>رغم أهمية الإصلاحات، فإنها فشلت بسبب:</p>
+    <ul>
+      <li><b>معارضة داخلية</b> لبعض الإصلاحات، خاصة الضرائب الجديدة وبعض مظاهر التحديث.</li>
+      <li><b>أزمة مالية وديون</b> جعلت الدولة عاجزة عن تمويل الإصلاحات.</li>
+      <li><b>ضغوط خارجية</b> متزايدة فرضت على المغرب تقديم تنازلات جديدة.</li>
+    </ul>
+    <p>ومع بداية القرن 20م، زاد التدخل الأوروبي، فانعقد <strong>مؤتمر الجزيرة الخضراء سنة 1906م</strong> الذي قيد السيادة المغربية، ومنح فرنسا وإسبانيا دوراً في تنظيم الأمن والمالية. ثم جاءت <strong>أزمة أكادير سنة 1911م</strong> لتزيد من نفوذ فرنسا بعد تخلي ألمانيا عن منافستها، لينتهي الأمر بتوقيع <strong>معاهدة الحماية يوم 30 مارس 1912م</strong> من طرف السلطان المولى عبد الحفيظ، وبذلك فقد المغرب استقلاله.</p>
+
+    <h3>6. الخط الزمني المختصر</h3>
+    <table><thead><tr><th>السنة</th><th>الحدث</th><th>الدلالة</th></tr></thead><tbody>
+      <tr><td>1844</td><td>معركة إيسلي</td><td>هزيمة الجيش المغربي أمام القوات الفرنسية.</td></tr>
+      <tr><td>1845</td><td>معاهدة لالة مغنية</td><td>تسوية مسألة الحدود بين المغرب والجزائر المحتلة مع ترك الغموض في الجنوب الشرقي.</td></tr>
+      <tr><td>1856</td><td>المعاهدة التجارية مع إنجلترا</td><td>توسيع الامتيازات التجارية الأوروبية بالمغرب.</td></tr>
+      <tr><td>1859-1860</td><td>حرب تطوان</td><td>هزيمة المغرب أمام إسبانيا واحتلال تطوان مؤقتاً مع فرض تعويضات ثقيلة.</td></tr>
+      <tr><td>1863</td><td>اتفاقية الحمايات مع فرنسا</td><td>توسيع نظام الحماية القنصلية وتزايد عدد المحميين.</td></tr>
+      <tr><td>1906</td><td>مؤتمر الجزيرة الخضراء</td><td>تدويل القضية المغربية وتقييد السيادة المغربية.</td></tr>
+      <tr><td>30 مارس 1912</td><td>فرض الحماية</td><td>توقيع معاهدة الحماية وفقدان المغرب استقلاله.</td></tr>
+    </tbody></table>
+
+    <h3>7. مصطلحات ومفاهيم</h3>
+    <ul>
+      <li><b>المخزن:</b> السلطات المغربية.</li>
+      <li><b>الحماية:</b> نظام استعماري يحتفظ فيه البلد الخاضع للحماية بمؤسساته، لكنها تخضع لمراقبة الدولة الحامية.</li>
+      <li><b>معركة إيسلي:</b> معركة دارت يوم 14 غشت 1844م بين المغرب وفرنسا وانتهت بهزيمة الجيش المغربي.</li>
+      <li><b>معاهدة لالة مغنية:</b> اتفاقية وقعت يوم 18 مارس 1845م بين المغرب وفرنسا لتعيين الحدود بين المغرب والجزائر المحتلة.</li>
+      <li><b>حرب تطوان:</b> حرب دارت بين المغرب وإسبانيا بين 1859 و1860م وانتهت بهزيمة المغرب واحتلال تطوان مؤقتاً.</li>
+      <li><b>مؤتمر الجزيرة الخضراء:</b> مؤتمر انعقد سنة 1906م بإسبانيا وقيد السيادة المغربية ووسع التدخل الأجنبي.</li>
+      <li><b>المحميون:</b> أشخاص يتمتعون بحماية قنصلية أجنبية ولا يؤدون بعض الضرائب.</li>
+    </ul>
+
+    <h3>8. خلاصة مركزة</h3>
+    <p>يمثل الضغط الاستعماري على المغرب نتيجة مباشرة للتنافس الإمبريالي الأوروبي وضعف الدولة المغربية خلال القرن 19م. فقد كشفت الهزائم العسكرية والاتفاقيات التجارية والحماية القنصلية هشاشة أوضاع المغرب، فحاول السلاطين القيام بإصلاحات عسكرية وتعليمية واقتصادية. غير أن المعارضة الداخلية والأزمة المالية والضغوط الخارجية أدت إلى فشل هذه الإصلاحات، فتم تدويل القضية المغربية في مؤتمر الجزيرة الخضراء، ثم فرضت الحماية سنة 1912م.</p>
+
+    <h3>9. تقويم التعلمات</h3>
+    <ol>
+      <li>أشرح معنى الحماية القنصلية.</li>
+      <li>أحدد نتائج معركة إيسلي على المغرب.</li>
+      <li>أصنف أشكال الضغط الأوروبي على المغرب.</li>
+      <li>أذكر مجالين من مجالات الإصلاح المغربي.</li>
+      <li>أبين أسباب فشل الإصلاحات المغربية.</li>
+      <li>أكتب فقرة قصيرة أفسر فيها كيف انتقل المغرب من الضغط الاستعماري إلى فقدان الاستقلال.</li>
+    </ol>
+  </section>
+</main>
+
+<footer>الأستاذ أحمد بوعمود | مادة الاجتماعيات | بوابة رحلة الثالثة إعدادي</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+let soundOn=true;
+function beep(freq=560,dur=.08,type='sine'){if(!soundOn)return;try{const ctx=new (window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator();const g=ctx.createGain();o.type=type;o.frequency.value=freq;o.connect(g);g.connect(ctx.destination);g.gain.setValueAtTime(.045,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+dur);o.start();o.stop(ctx.currentTime+dur)}catch(e){}}
+function vibrate(ms){try{navigator.vibrate&&navigator.vibrate(ms)}catch(e){}}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
+function startJourney(){beep(660,.12);document.getElementById('stations').scrollIntoView({behavior:'smooth'});addXP(5,'انطلقت الرحلة نحو فهم الضغط الاستعماري على المغرب!')}
+function prefillName(){try{const portal=JSON.parse(localStorage.getItem('rihla_3ac_portal_v2')||'{}');if(portal.name)document.getElementById('studentName').value=portal.name}catch(e){}}
+
+const progress={xp:0,stars:0,stations:new Set(),tasks:new Set()};
+function updateDashboard(){
+  document.getElementById('xpLabel').textContent=`${progress.xp} / 100 XP`;
+  document.getElementById('xpFill').style.width=Math.min(progress.xp,100)+'%';
+  document.getElementById('starsCount').textContent=progress.stars;
+  document.getElementById('stationsCount').textContent=progress.stations.size;
+  document.getElementById('tasksCount').textContent=progress.tasks.size;
+}
+function addXP(v,msg=''){progress.xp=Math.min(100,progress.xp+v);updateDashboard();if(msg)toast(msg)}
+function awardStar(task,msg='وسام جديد! ⭐'){if(!progress.tasks.has(task)){progress.tasks.add(task);progress.stars++;addXP(8,msg);vibrate(60)}else updateDashboard()}
+
+const TIMELINE=[
+ {year:'1844',event:'معركة إيسلي',note:'هزيمة الجيش المغربي أمام القوات الفرنسية.'},
+ {year:'1845',event:'معاهدة لالة مغنية',note:'تسوية مسألة الحدود بين المغرب والجزائر المحتلة مع ترك الغموض في الجنوب الشرقي.'},
+ {year:'1856',event:'المعاهدة التجارية مع إنجلترا',note:'توسيع الامتيازات التجارية الأوروبية بالمغرب.'},
+ {year:'1859-1860',event:'حرب تطوان',note:'هزيمة المغرب أمام إسبانيا واحتلال تطوان مؤقتاً مع فرض تعويضات ثقيلة.'},
+ {year:'1863',event:'اتفاقية الحمايات مع فرنسا',note:'توسيع نظام الحماية القنصلية وتزايد عدد المحميين.'},
+ {year:'1906',event:'مؤتمر الجزيرة الخضراء',note:'تدويل القضية المغربية وتقييد السيادة المغربية.'},
+ {year:'30 مارس 1912',event:'فرض الحماية',note:'توقيع معاهدة الحماية وفقدان المغرب استقلاله.'}
+];
+const CONCEPTS=[
+ {term:'المخزن',def:'السلطات المغربية.'},
+ {term:'الحماية',def:'نظام استعماري يحتفظ فيه البلد الخاضع للحماية بمؤسساته، لكنها تخضع لمراقبة الدولة الحامية.'},
+ {term:'معركة إيسلي',def:'معركة دارت يوم 14 غشت 1844م بين المغرب وفرنسا وانتهت بهزيمة الجيش المغربي.'},
+ {term:'معاهدة لالة مغنية',def:'اتفاقية وقعت يوم 18 مارس 1845م بين المغرب وفرنسا لتعيين الحدود بين المغرب والجزائر المحتلة.'},
+ {term:'حرب تطوان',def:'حرب دارت بين المغرب وإسبانيا بين 1859 و1860م وانتهت بهزيمة المغرب واحتلال تطوان مؤقتاً.'},
+ {term:'مؤتمر الجزيرة الخضراء',def:'مؤتمر انعقد سنة 1906م بإسبانيا وقيد السيادة المغربية ووسع التدخل الأجنبي.'},
+ {term:'المحميون',def:'أشخاص يتمتعون بحماية قنصلية أجنبية ولا يؤدون بعض الضرائب.'}
+];
+
+// كل محطة: عنوان، شرح قصير، صورة، مكافأة، ونشاط تفاعلي خاص بها (منفصل عن أسئلة الاختبار النهائي)
+const STATIONS=[
+ {id:1,title:'معركة إيسلي',img:'./images/timeline-full.webp',reward:'وسام الشجاعة التاريخية',
+  text:'دخل المغرب في مواجهة عسكرية مع فرنسا بسبب دعمه للأمير عبد القادر الجزائري، فانتهت المواجهة بهزيمة الجيش المغربي يوم 14 غشت 1844م. كشفت هذه الهزيمة ضعف الجيش المغربي أمام الجيوش الأوروبية الحديثة.',
+  activity:{type:'mcq',q:'ساند المغرب في معركة إيسلي:',choices:['الأمير عبد القادر الجزائري','ملك إسبانيا','السلطان العثماني'],a:0,fb:'انهزم المغرب لأنه ساند الأمير عبد القادر في مقاومته للاحتلال الفرنسي بالجزائر.'}},
+ {id:2,title:'معاهدة لالة مغنية',img:'./images/pressure-map.webp',reward:'وسام الوثيقة',
+  text:'بعد هزيمة إيسلي، وقع المغرب وفرنسا معاهدة لالة مغنية في 18 مارس 1845م لتسوية الحدود بين المغرب والجزائر المحتلة. حُددت الحدود الشمالية الشرقية، لكن المناطق الصحراوية بقيت غامضة.',
+  activity:{type:'mcq',q:'ما الذي بقي غامضاً في معاهدة لالة مغنية؟',choices:['الحدود الشمالية الشرقية','الحدود الصحراوية الجنوبية الشرقية','حدود تطوان'],a:1,fb:'تركت المعاهدة الجزء الصحراوي الجنوبي الشرقي دون تحديد دقيق، مما استغلته فرنسا لاحقاً.'}},
+ {id:3,title:'الضغوط الأوروبية',img:'./images/pressure-reform-comparison.webp',reward:'وسام التصنيف',
+  text:'تعددت أشكال الضغط الأوروبي: عسكري (إيسلي، حرب تطوان)، اقتصادي (المعاهدة التجارية مع إنجلترا 1856، الامتيازات)، وسياسي/دبلوماسي (الحماية القنصلية وتزايد المحميين).',
+  activity:{type:'classify',q:'صنف: "المعاهدة التجارية مع إنجلترا 1856" ضغط...',options:['عسكري','اقتصادي','سياسي/دبلوماسي'],a:'اقتصادي',fb:'الاتفاقيات التجارية والامتيازات تدخل ضمن الضغط الاقتصادي.'}},
+ {id:4,title:'محاولات الإصلاح',img:'./images/pressure-reform-comparison.webp',reward:'وسام الإصلاح',
+  text:'لمواجهة الضغوط، حاول السلاطين إصلاحات: عسكرية (جيش نظامي، مدربون أجانب)، تعليمية (بعثات طلابية إلى أوروبا)، واقتصادية وإدارية (ضرائب جديدة، إصلاح المراسي، سك نقود جديدة).',
+  activity:{type:'classify',q:'صنف: "إرسال بعثات طلابية إلى أوروبا" إصلاح...',options:['عسكري','تعليمي','اقتصادي وإداري'],a:'تعليمي',fb:'البعثات الطلابية كانت وسيلة لاكتساب العلوم الحديثة من أوروبا.'}},
+ {id:5,title:'فشل الإصلاحات',img:'./images/flow-to-protectorate.webp',reward:'وسام التحليل',
+  text:'فشلت الإصلاحات بسبب معارضة داخلية لبعض الإجراءات، وأزمة مالية وديون أثقلت كاهل الدولة، وضغوط خارجية متزايدة فرضت تنازلات جديدة.',
+  activity:{type:'classify',q:'صنف: "تفاقم الديون العمومية" سبب...',options:['داخلي','مالي','خارجي'],a:'مالي',fb:'الديون والعجز المالي جعلا الدولة عاجزة عن تمويل الإصلاحات.'}},
+ {id:6,title:'مؤتمر الجزيرة الخضراء',img:'./images/flow-to-protectorate.webp',reward:'وسام الدبلوماسية',
+  text:'مع بداية القرن 20م، انعقد مؤتمر الجزيرة الخضراء سنة 1906م، الذي قيد السيادة المغربية ومنح فرنسا وإسبانيا دوراً في تنظيم الأمن والمالية.',
+  activity:{type:'mcq',q:'ماذا نتج عن مؤتمر الجزيرة الخضراء؟',choices:['استقلال المغرب الكامل','تقييد السيادة المغربية','انسحاب فرنسا وإسبانيا'],a:1,fb:'دوّل المؤتمر القضية المغربية وقيد سيادة الدولة المغربية.'}},
+ {id:7,title:'فرض الحماية',img:'./images/poster-overview.webp',reward:'وسام خبير التاريخ',
+  text:'زادت أزمة أكادير سنة 1911م من نفوذ فرنسا، لينتهي الأمر بتوقيع معاهدة الحماية يوم 30 مارس 1912م من طرف السلطان المولى عبد الحفيظ، فقد المغرب استقلاله.',
+  activity:{type:'mcq',q:'من وقّع معاهدة الحماية سنة 1912م؟',choices:['السلطان المولى عبد الحفيظ','الأمير عبد القادر','قائد فرنسي'],a:0,fb:'وقع السلطان المولى عبد الحفيظ معاهدة الحماية يوم 30 مارس 1912م.'}}
+];
+
+function renderStationsGrid(){
+  const grid=document.getElementById('stationsGrid');
+  grid.innerHTML=STATIONS.map(s=>`<div class="station" id="stationCard${s.id}" onclick="openStation(${s.id})"><span class="num">${s.id}</span><h3 style="display:inline">${s.title}</h3><p>اضغط لفتح المحطة</p></div>`).join('');
+}
+function openStation(id){
+  const s=STATIONS.find(x=>x.id===id);
+  beep(520+id*30,.09);
+  progress.stations.add(id);
+  document.getElementById('stationCard'+id).classList.add('done');
+  updateDashboard();
+  const act=s.activity;
+  let actHtml='';
+  if(act.type==='mcq'){
+    actHtml=`<div class="tiles">${act.choices.map((c,i)=>`<button class="tile" onclick="answerStation(${id},${i})">${c}</button>`).join('')}</div>`;
+  }else if(act.type==='classify'){
+    actHtml=`<div class="tiles">${act.options.map(o=>`<button class="tile" onclick="answerStation(${id},'${o}')">${o}</button>`).join('')}</div>`;
+  }
+  document.getElementById('missionBox').innerHTML=`
+    <h3>محطة ${id}: ${s.title}</h3>
+    <img src="${s.img}" alt="${s.title}"/>
+    <p>${s.text}</p>
+    <p><b>${act.q}</b></p>
+    ${actHtml}
+    <div class="feedback" id="stationFeedback"></div>`;
+  document.getElementById('missionBox').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function answerStation(id,choice){
+  const s=STATIONS.find(x=>x.id===id);
+  const act=s.activity;
+  let ok;
+  if(act.type==='mcq') ok = choice===act.a;
+  else ok = choice===act.a;
+  document.querySelectorAll('#missionBox .tile').forEach(b=>b.disabled=true);
+  event.target.classList.add(ok?'correct':'wrong');
+  const fb=document.getElementById('stationFeedback');
+  fb.textContent=(ok?'أحسنت! ':'')+act.fb;
+  fb.classList.add('show');
+  beep(ok?820:260,.12);
+  if(ok){awardStar('station'+id,`حصلت على ${s.reward}! 🎖️`)}else{toast('راجع الشرح أعلاه وحاول التفكير مجدداً.')}
+}
+
+function renderTimeline(){
+  const row=document.getElementById('timelineRow');
+  row.innerHTML=TIMELINE.map((t,i)=>`<button class="year" onclick="showYear(${i})"><strong>${t.year}</strong><small>${t.event}</small></button>`).join('');
+}
+function showYear(i){
+  const t=TIMELINE[i];
+  document.getElementById('timelineNote').innerHTML=`<h3 style="margin:0 0 6px;color:var(--red)">${t.year} — ${t.event}</h3><p style="margin:0">${t.note}</p>`;
+  beep(500+i*30,.06);
+  awardStar('timeline','اكتشفت الخط الزمني! ⏳');
+}
+
+function renderConcepts(){
+  const grid=document.getElementById('conceptsGrid');
+  grid.innerHTML=CONCEPTS.map((c,i)=>`
+    <div class="flip-outer" id="flip${i}" onclick="flipCard(${i})">
+      <div class="flip-inner">
+        <div class="flip-face flip-front"><h4>${c.term}</h4><span>اضغط لمعرفة التعريف</span></div>
+        <div class="flip-face flip-back">${c.def}</div>
+      </div>
+    </div>`).join('');
+}
+function flipCard(i){document.getElementById('flip'+i).classList.toggle('flipped');beep(460+i*20,.06);awardStar('concepts','بدأت استكشاف بطاقات المفاهيم! 🗂️')}
+
+const DEFAULT_Q=[
+ {type:'qcm',q:'وقعت معركة إيسلي سنة:',choices:['1844','1845','1906','1912'],a:'1844',fb:'معركة إيسلي وقعت يوم 14 غشت 1844م.'},
+ {type:'qcm',q:'ما القضية التي عالجتها معاهدة لالة مغنية أساساً؟',choices:['إصلاح الجيش','تسوية مسألة الحدود','فرض الحماية','إلغاء الديون'],a:'تسوية مسألة الحدود',fb:'المعاهدة عالجت مسألة الحدود بين المغرب والجزائر المحتلة.'},
+ {type:'qcm',q:'أي مثال يدل على ضغط اقتصادي؟',choices:['المعاهدة التجارية مع إنجلترا 1856','معركة إيسلي','حرب تطوان','أزمة أكادير'],a:'المعاهدة التجارية مع إنجلترا 1856',fb:'الاتفاقيات التجارية والامتيازات تدخل ضمن الضغط الاقتصادي.'},
+ {type:'qcm',q:'انعقد مؤتمر الجزيرة الخضراء سنة:',choices:['1863','1906','1911','1912'],a:'1906',fb:'انعقد مؤتمر الجزيرة الخضراء سنة 1906م.'},
+ {type:'qcm',q:'وقعت معاهدة الحماية يوم:',choices:['18 مارس 1845','14 غشت 1844','30 مارس 1912','7 أبريل 1906'],a:'30 مارس 1912',fb:'وقعت معاهدة الحماية يوم 30 مارس 1912م.'},
+ {type:'true_false',q:'ترك تحديد الحدود الصحراوية غامضاً بعد معاهدة لالة مغنية.',a:true,fb:'صحيح، لم تحدد المعاهدة الجزء الصحراوي الجنوبي الشرقي بدقة.'}
+];
+let questions=JSON.parse(localStorage.getItem('lesson3_questions')||'null')||DEFAULT_Q;
+if(!Array.isArray(questions)||!questions.length)questions=DEFAULT_Q;
+let qIdx=0,score=0,answered=false;
+
+function renderEditor(){document.getElementById('questionEditor').value=JSON.stringify(questions,null,2)}
+function loadDefaultQuestions(){questions=DEFAULT_Q;localStorage.removeItem('lesson3_questions');renderEditor();resetQuiz();toast('تم استرجاع بنك الأسئلة الأصلي.')}
+function saveQuestions(){
+  try{const q=JSON.parse(document.getElementById('questionEditor').value);if(!Array.isArray(q))throw new Error('not array');questions=q;localStorage.setItem('lesson3_questions',JSON.stringify(q));resetQuiz();toast('تم حفظ الأسئلة محلياً.')}
+  catch(e){toast('صيغة JSON غير صحيحة.')}
+}
+function resetQuiz(){qIdx=0;score=0;answered=false;document.getElementById('certificate').classList.add('hidden');document.getElementById('scoreBar').style.width='0%';renderQuiz()}
+function renderQuiz(){
+  const q=questions[qIdx];
+  document.getElementById('scoreText').textContent=`السؤال ${qIdx+1} من ${questions.length} — النقط: ${score}`;
+  let choices;
+  if(q.type==='true_false'){choices=[{label:'صحيح',val:true},{label:'خطأ',val:false}];}
+  else{choices=[...q.choices].sort(()=>Math.random()-.5).map(c=>({label:c,val:c}));}
+  document.getElementById('quizCard').innerHTML=`<h3>${q.q}</h3><div class="quiz-options" id="quizChoices"></div>`;
+  const box=document.getElementById('quizChoices');
+  choices.forEach(ch=>{
+    const btn=document.createElement('button');btn.className='opt';btn.textContent=ch.label;
+    btn.onclick=()=>answerQuiz(ch.val,btn);
+    box.appendChild(btn);
+  });
+}
+function answerQuiz(val,btn){
+  if(answered)return;answered=true;
+  const q=questions[qIdx];
+  const ok=val===q.a;
+  document.querySelectorAll('#quizChoices .opt').forEach(b=>{if(b.textContent===String(q.a)||(q.type==='true_false'&&((q.a&&b.textContent==='صحيح')||(!q.a&&b.textContent==='خطأ'))))b.classList.add('correct')});
+  if(ok){score++;btn.classList.add('correct');beep(840,.1)}else{btn.classList.add('wrong');beep(240,.15)}
+  document.getElementById('quizCard').insertAdjacentHTML('beforeend',`<p class="note" style="margin-top:10px">${q.fb}</p>`);
+  document.getElementById('scoreBar').style.width=Math.round(((qIdx+1)/questions.length)*100)+'%';
+  setTimeout(()=>{qIdx++;answered=false;if(qIdx<questions.length)renderQuiz();else finishQuiz()},1400);
+}
+function finishQuiz(){
+  const pct=Math.round(score/questions.length*100);
+  document.getElementById('quizCard').innerHTML=`<h3>انتهى الاختبار</h3><p class="note">حصلت على ${score}/${questions.length} — ${pct}%</p>${pct>=70?'<button class="btn gold" onclick="makeCertificate()">إظهار الشهادة 🎓</button>':'<button class="btn primary" onclick="resetQuiz()">أعد المحاولة</button>'}`;
+  awardStar('quiz','أنهيت الاختبار النهائي!');
+  addXP(pct>=70?12:6,pct>=70?'ممتاز! نجحت في الاختبار.':'راجع الدرس وحاول مرة أخرى لتحسين نتيجتك.');
+  if(pct>=70)confetti();
+}
+function makeCertificate(){
+  const name=(document.getElementById('studentName').value||'').trim()||'تلميذ(ة) مجتهد(ة)';
+  const c=document.getElementById('certificate');
+  c.classList.remove('hidden');
+  c.innerHTML=`<div class="certificate-card"><h2>🏅 شهادة إنجاز</h2><p>تُمنح هذه الشهادة إلى</p><h1 style="font-size:34px;color:var(--red)">${name}</h1><p>بعد إتمام رحلة درس: <b>الضغط الاستعماري على المغرب</b></p><p>الأستاذ أحمد بوعمود — مادة الاجتماعيات</p><button class="btn gold no-print" onclick="window.print()">طباعة الشهادة</button></div>`;
+  awardStar('certificate','فتحت شهادة الإنجاز! 🎓');
+  vibrate([40,40,40]);
+  confetti();
+}
+function confetti(){
+  const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:90';canvas.width=innerWidth;canvas.height=innerHeight;document.body.appendChild(canvas);
+  const ctx=canvas.getContext('2d');
+  let pieces=Array.from({length:110},()=>({x:Math.random()*canvas.width,y:-20-Math.random()*300,s:4+Math.random()*7,v:2+Math.random()*5,r:Math.random()*6.28}));
+  let t=0;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pieces.forEach(p=>{p.y+=p.v;p.x+=Math.sin((t+p.r)/10)*2;p.r+=.08;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=['#8b2d24','#d8aa53','#2f6b45','#153c58','#f0c877'][Math.floor(Math.random()*5)];ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s);ctx.restore()});
+    t++;
+    if(t<150)requestAnimationFrame(draw);else canvas.remove();
+  }
+  draw();
+}
+
+prefillName();
+renderStationsGrid();
+renderTimeline();
+renderConcepts();
+renderEditor();
+resetQuiz();
+updateDashboard();
+</script>
+</body>
+</html>

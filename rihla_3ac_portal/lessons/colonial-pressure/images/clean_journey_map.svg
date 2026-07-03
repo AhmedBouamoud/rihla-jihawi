@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1414" viewBox="0 0 1000 1414" direction="rtl">
+
+<style>
+  .bg{fill:#f4dfb8}
+  .border{fill:none;stroke:#6e2b1b;stroke-width:8}
+  .thin{fill:none;stroke:#9d6d36;stroke-width:2}
+  .title{font:700 42px 'Arial','Tahoma',sans-serif;fill:#5b1611}
+  .subtitle{font:700 24px 'Arial','Tahoma',sans-serif;fill:#143b4f}
+  .h{font:700 24px 'Arial','Tahoma',sans-serif;fill:#fff}
+  .txt{font:700 20px 'Arial','Tahoma',sans-serif;fill:#1f1b15}
+  .small{font:600 16px 'Arial','Tahoma',sans-serif;fill:#1f1b15}
+  .note{font:600 15px 'Arial','Tahoma',sans-serif;fill:#2d251d}
+</style>
+
+<rect class="bg" width="1000" height="1414"/>
+<rect class="border" x="18" y="18" width="964" height="1378" rx="26"/>
+<text class="title" x="500" y="80" text-anchor="middle">رحلة عبر محطات الدرس</text>
+<text class="subtitle" x="500" y="118" text-anchor="middle">الضغط الاستعماري على المغرب</text>
+<path d="M500 1210 C760 1120, 680 1000, 280 900 C120 800, 560 760, 700 730 C900 690, 530 590, 300 570 C100 540, 500 450, 690 400 C900 310, 640 260, 500 230" fill="none" stroke="#8b6d3c" stroke-width="28" stroke-linecap="round" stroke-dasharray="8 26"/>
+
+<circle cx="500" cy="1210" r="52" fill="#2f6b45" stroke="#f7df9c" stroke-width="6"/>
+<text class="h" x="500" y="1220" text-anchor="middle" font-size="30">1</text>
+<rect x="330" y="1275" width="340" height="52" rx="15" fill="#2f6b45"/>
+<text class="h" x="500" y="1310" text-anchor="middle" font-size="22">معركة إيسلي</text>
+<text x="645" y="1260" text-anchor="middle" font-size="36" font-family="Arial">⭐</text>
+
+<circle cx="740" cy="1050" r="52" fill="#153c58" stroke="#f7df9c" stroke-width="6"/>
+<text class="h" x="740" y="1060" text-anchor="middle" font-size="30">2</text>
+<rect x="570" y="1115" width="340" height="52" rx="15" fill="#153c58"/>
+<text class="h" x="740" y="1150" text-anchor="middle" font-size="22">معاهدة لالة مغنية</text>
+<text x="885" y="1100" text-anchor="middle" font-size="36" font-family="Arial">⭐</text>
+
+<circle cx="280" cy="900" r="52" fill="#6c3b63" stroke="#f7df9c" stroke-width="6"/>
+<text class="h" x="280" y="910" text-anchor="middle" font-size="30">3</text>
+<rect x="110" y="965" width="340" height="52" rx="15" fill="#6c3b63"/>
+<text class="h" x="280" y="1000" text-anchor="middle" font-size="22">الضغوط الأوروبية</text>
+<text x="425" y="950" text-anchor="middle" font-size="36" font-family="Arial">⭐</text>
+
+<circle cx="700" cy="730" r="52" fill="#2f6b45" stroke="#f7df9c" stroke-width="6"/>
+<text class="h" x="700" y="740" text-anchor="middle" font-size="30">4</text>
+<rect x="530" y="795" width="340" height="52" rx="15" fill="#2f6b45"/>
+<text class="h" x="700" y="830" text-anchor="middle" font-size="22">محاولات الإصلاح</text>
+<text x="845" y="780" text-anchor="middle" font-size="36" font-family="Arial">⭐</text>
+
+<circle cx="300" cy="570" r="52" fill="#8b2d24" stroke="#f7df9c" stroke-width="6"/>
+<text class="h" x="300" y="580" text-anchor="middle" font-size="30">5</text>
+<rect x="130" y="635" width="340" height="52" rx="15" fill="#8b2d24"/>
+<text class="h" x="300" y="670" text-anchor="middle" font-size="22">فشل الإصلاحات</text>
+<text x="445" y="620" text-anchor="middle" font-size="36" font-family="Arial">⭐</text>
+
+<circle cx="690" cy="400" r="52" fill="#7b5425" stroke="#f7df9c" stroke-width="6"/>
+<text class="h" x="690" y="410" text-anchor="middle" font-size="30">6</text>
+<rect x="520" y="465" width="340" height="52" rx="15" fill="#7b5425"/>
+<text class="h" x="690" y="500" text-anchor="middle" font-size="22">مؤتمر الجزيرة الخضراء</text>
+<text x="835" y="450" text-anchor="middle" font-size="36" font-family="Arial">⭐</text>
+
+<circle cx="500" cy="230" r="52" fill="#8b2d24" stroke="#f7df9c" stroke-width="6"/>
+<text class="h" x="500" y="240" text-anchor="middle" font-size="30">7</text>
+<rect x="330" y="295" width="340" height="52" rx="15" fill="#8b2d24"/>
+<text class="h" x="500" y="330" text-anchor="middle" font-size="22">فرض الحماية</text>
+<text x="645" y="280" text-anchor="middle" font-size="36" font-family="Arial">⭐</text>
+
+<rect x="70" y="1060" width="260" height="185" rx="22" fill="#fff4d8" stroke="#153c58" stroke-width="4"/>
+<text class="subtitle" x="200" y="1110" text-anchor="middle">دليل الرحلة</text>
+<text x="200" y="1160" text-anchor="middle" font-size="46" font-family="Arial">🧭</text>
+<foreignObject x="90" y="1190" width="220" height="80">
+<div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="font:700 18px Arial,Tahoma;text-align:center;line-height:1.5">أجب عن الأسئلة، اجمع الأوسمة، واحصل على شهادة خبير التاريخ.</div>
+</foreignObject>
+<text class="small" x="500" y="1350" text-anchor="middle">صورة مرجعية لمسار التطبيق داخل بوابة رحلة الثالثة إعدادي</text>
+</svg>

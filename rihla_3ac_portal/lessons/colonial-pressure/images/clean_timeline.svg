@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" direction="rtl">
+
+<style>
+  .bg{fill:#f4dfb8}
+  .border{fill:none;stroke:#6e2b1b;stroke-width:8}
+  .thin{fill:none;stroke:#9d6d36;stroke-width:2}
+  .title{font:700 42px 'Arial','Tahoma',sans-serif;fill:#5b1611}
+  .subtitle{font:700 24px 'Arial','Tahoma',sans-serif;fill:#143b4f}
+  .h{font:700 24px 'Arial','Tahoma',sans-serif;fill:#fff}
+  .txt{font:700 20px 'Arial','Tahoma',sans-serif;fill:#1f1b15}
+  .small{font:600 16px 'Arial','Tahoma',sans-serif;fill:#1f1b15}
+  .note{font:600 15px 'Arial','Tahoma',sans-serif;fill:#2d251d}
+</style>
+
+<rect class="bg" x="0" y="0" width="1280" height="720"/>
+<rect class="border" x="18" y="18" width="1244" height="684" rx="24"/>
+<rect class="thin" x="40" y="40" width="1200" height="640" rx="18"/>
+<text class="title" x="640" y="90" text-anchor="middle">الخط الزمني للضغط الاستعماري على المغرب</text>
+<text class="subtitle" x="640" y="130" text-anchor="middle">أهم المحطات من 1844 إلى 1912</text>
+<line x1="90" y1="330" x2="1190" y2="330" stroke="#6e2b1b" stroke-width="8" stroke-linecap="round"/>
+<polygon points="1190,330 1165,315 1165,345" fill="#6e2b1b"/>
+
+<circle cx="115" cy="330" r="52" fill="#8b2d24" stroke="#f8e4b8" stroke-width="5"/>
+<text x="115" y="322" text-anchor="middle" font-size="28" font-family="Arial,Tahoma" fill="#fff" font-weight="700">1844</text>
+<text x="115" y="360" text-anchor="middle" font-size="26" font-family="Arial,Tahoma" fill="#f7df9c">⚔</text>
+<rect x="43" y="415" width="144" height="56" rx="12" fill="#8b2d24"/>
+<text class="h" x="115" y="452" text-anchor="middle" font-size="18">معركة إيسلي</text>
+<foreignObject x="20" y="485" width="190" height="90">
+  <div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="font-family:Arial,Tahoma,sans-serif;font-size:16px;font-weight:600;color:#201a13;text-align:center;line-height:1.55">هزيمة الجيش المغربي أمام القوات الفرنسية.</div>
+</foreignObject>
+
+<circle cx="275" cy="330" r="52" fill="#153c58" stroke="#f8e4b8" stroke-width="5"/>
+<text x="275" y="322" text-anchor="middle" font-size="28" font-family="Arial,Tahoma" fill="#fff" font-weight="700">1845</text>
+<text x="275" y="360" text-anchor="middle" font-size="26" font-family="Arial,Tahoma" fill="#f7df9c">📜</text>
+<rect x="203" y="415" width="144" height="56" rx="12" fill="#153c58"/>
+<text class="h" x="275" y="452" text-anchor="middle" font-size="18">معاهدة لالة مغنية</text>
+<foreignObject x="180" y="485" width="190" height="90">
+  <div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="font-family:Arial,Tahoma,sans-serif;font-size:16px;font-weight:600;color:#201a13;text-align:center;line-height:1.55">تسوية مسألة الحدود بين المغرب والجزائر المحتلة مع ترك الغموض في الجنوب الشرقي.</div>
+</foreignObject>
+
+<circle cx="435" cy="330" r="52" fill="#2f6b45" stroke="#f8e4b8" stroke-width="5"/>
+<text x="435" y="322" text-anchor="middle" font-size="28" font-family="Arial,Tahoma" fill="#fff" font-weight="700">1856</text>
+<text x="435" y="360" text-anchor="middle" font-size="26" font-family="Arial,Tahoma" fill="#f7df9c">⚓</text>
+<rect x="363" y="415" width="144" height="56" rx="12" fill="#2f6b45"/>
+<text class="h" x="435" y="452" text-anchor="middle" font-size="18">المعاهدة التجارية مع إنجلترا</text>
+<foreignObject x="340" y="485" width="190" height="90">
+  <div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="font-family:Arial,Tahoma,sans-serif;font-size:16px;font-weight:600;color:#201a13;text-align:center;line-height:1.55">توسيع الامتيازات التجارية الأوروبية بالمغرب.</div>
+</foreignObject>
+
+<circle cx="595" cy="330" r="52" fill="#6c3b63" stroke="#f8e4b8" stroke-width="5"/>
+<text x="595" y="322" text-anchor="middle" font-size="28" font-family="Arial,Tahoma" fill="#fff" font-weight="700">1859-1860</text>
+<text x="595" y="360" text-anchor="middle" font-size="26" font-family="Arial,Tahoma" fill="#f7df9c">🏰</text>
+<rect x="523" y="415" width="144" height="56" rx="12" fill="#6c3b63"/>
+<text class="h" x="595" y="452" text-anchor="middle" font-size="18">حرب تطوان</text>
+<foreignObject x="500" y="485" width="190" height="90">
+  <div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="font-family:Arial,Tahoma,sans-serif;font-size:16px;font-weight:600;color:#201a13;text-align:center;line-height:1.55">هزيمة المغرب أمام إسبانيا واحتلال تطوان مؤقتاً مع فرض تعويضات ثقيلة.</div>
+</foreignObject>
+
+<circle cx="755" cy="330" r="52" fill="#7b5425" stroke="#f8e4b8" stroke-width="5"/>
+<text x="755" y="322" text-anchor="middle" font-size="28" font-family="Arial,Tahoma" fill="#fff" font-weight="700">1863</text>
+<text x="755" y="360" text-anchor="middle" font-size="26" font-family="Arial,Tahoma" fill="#f7df9c">🛡</text>
+<rect x="683" y="415" width="144" height="56" rx="12" fill="#7b5425"/>
+<text class="h" x="755" y="452" text-anchor="middle" font-size="18">اتفاقية الحمايات مع فرنسا</text>
+<foreignObject x="660" y="485" width="190" height="90">
+  <div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="font-family:Arial,Tahoma,sans-serif;font-size:16px;font-weight:600;color:#201a13;text-align:center;line-height:1.55">توسيع نظام الحماية القنصلية وتزايد عدد المحميين.</div>
+</foreignObject>
+
+<circle cx="915" cy="330" r="52" fill="#153c58" stroke="#f8e4b8" stroke-width="5"/>
+<text x="915" y="322" text-anchor="middle" font-size="28" font-family="Arial,Tahoma" fill="#fff" font-weight="700">1906</text>
+<text x="915" y="360" text-anchor="middle" font-size="26" font-family="Arial,Tahoma" fill="#f7df9c">🌐</text>
+<rect x="843" y="415" width="144" height="56" rx="12" fill="#153c58"/>
+<text class="h" x="915" y="452" text-anchor="middle" font-size="18">مؤتمر الجزيرة الخضراء</text>
+<foreignObject x="820" y="485" width="190" height="90">
+  <div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="font-family:Arial,Tahoma,sans-serif;font-size:16px;font-weight:600;color:#201a13;text-align:center;line-height:1.55">تدويل القضية المغربية وتقييد السيادة المغربية.</div>
+</foreignObject>
+
+<circle cx="1075" cy="330" r="52" fill="#8b2d24" stroke="#f8e4b8" stroke-width="5"/>
+<text x="1075" y="322" text-anchor="middle" font-size="28" font-family="Arial,Tahoma" fill="#fff" font-weight="700">30 مارس 1912</text>
+<text x="1075" y="360" text-anchor="middle" font-size="26" font-family="Arial,Tahoma" fill="#f7df9c">★</text>
+<rect x="1003" y="415" width="144" height="56" rx="12" fill="#8b2d24"/>
+<text class="h" x="1075" y="452" text-anchor="middle" font-size="18">فرض الحماية</text>
+<foreignObject x="980" y="485" width="190" height="90">
+  <div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="font-family:Arial,Tahoma,sans-serif;font-size:16px;font-weight:600;color:#201a13;text-align:center;line-height:1.55">توقيع معاهدة الحماية وفقدان المغرب استقلاله.</div>
+</foreignObject>
+<text class="small" x="640" y="650" text-anchor="middle">نسخة نظيفة قابلة للإدراج في التطبيق والطباعة</text></svg>

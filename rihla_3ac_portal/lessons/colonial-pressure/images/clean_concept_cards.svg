@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1414" viewBox="0 0 1000 1414" direction="rtl">
+
+<style>
+  .bg{fill:#f4dfb8}
+  .border{fill:none;stroke:#6e2b1b;stroke-width:8}
+  .thin{fill:none;stroke:#9d6d36;stroke-width:2}
+  .title{font:700 42px 'Arial','Tahoma',sans-serif;fill:#5b1611}
+  .subtitle{font:700 24px 'Arial','Tahoma',sans-serif;fill:#143b4f}
+  .h{font:700 24px 'Arial','Tahoma',sans-serif;fill:#fff}
+  .txt{font:700 20px 'Arial','Tahoma',sans-serif;fill:#1f1b15}
+  .small{font:600 16px 'Arial','Tahoma',sans-serif;fill:#1f1b15}
+  .note{font:600 15px 'Arial','Tahoma',sans-serif;fill:#2d251d}
+</style>
+
+<rect class="bg" width="1000" height="1414"/>
+<rect class="border" x="18" y="18" width="964" height="1378" rx="26"/>
+<text class="title" x="500" y="95" text-anchor="middle">بطاقات مفاهيم الدرس</text>
+
+<rect x="55" y="130" width="410" height="270" rx="22" fill="#fff4d8" stroke="#8b2d24" stroke-width="4"/>
+<circle cx="260" cy="160" r="28" fill="#8b2d24"/><text class="h" x="260" y="169" text-anchor="middle">1</text>
+<text x="260" y="233" text-anchor="middle" font-size="48" font-family="Arial">🏛</text>
+<text class="title" x="260" y="299" text-anchor="middle" font-size="34">المخزن</text>
+<foreignObject x="90" y="325" width="340" height="72">
+<div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="font:700 19px Arial,Tahoma;text-align:center;line-height:1.55;color:#1f1b15">السلطات المغربية.</div>
+</foreignObject>
+
+<rect x="535" y="130" width="410" height="270" rx="22" fill="#fff4d8" stroke="#8b2d24" stroke-width="4"/>
+<circle cx="740" cy="160" r="28" fill="#8b2d24"/><text class="h" x="740" y="169" text-anchor="middle">2</text>
+<text x="740" y="233" text-anchor="middle" font-size="48" font-family="Arial">🛡</text>
+<text class="title" x="740" y="299" text-anchor="middle" font-size="34">الحماية</text>
+<foreignObject x="570" y="325" width="340" height="72">
+<div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="font:700 19px Arial,Tahoma;text-align:center;line-height:1.55;color:#1f1b15">نظام استعماري يحتفظ فيه البلد الخاضع للحماية بمؤسساته، لكنها تخضع لمراقبة الدولة الحامية.</div>
+</foreignObject>
+
+<rect x="55" y="490" width="410" height="270" rx="22" fill="#fff4d8" stroke="#8b2d24" stroke-width="4"/>
+<circle cx="260" cy="520" r="28" fill="#8b2d24"/><text class="h" x="260" y="529" text-anchor="middle">3</text>
+<text x="260" y="593" text-anchor="middle" font-size="48" font-family="Arial">⚔</text>
+<text class="title" x="260" y="659" text-anchor="middle" font-size="34">معركة إيسلي</text>
+<foreignObject x="90" y="685" width="340" height="72">
+<div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="font:700 19px Arial,Tahoma;text-align:center;line-height:1.55;color:#1f1b15">معركة دارت يوم 14 غشت 1844م بين المغرب وفرنسا وانتهت بهزيمة الجيش المغربي.</div>
+</foreignObject>
+
+<rect x="535" y="490" width="410" height="270" rx="22" fill="#fff4d8" stroke="#8b2d24" stroke-width="4"/>
+<circle cx="740" cy="520" r="28" fill="#8b2d24"/><text class="h" x="740" y="529" text-anchor="middle">4</text>
+<text x="740" y="593" text-anchor="middle" font-size="48" font-family="Arial">📜</text>
+<text class="title" x="740" y="659" text-anchor="middle" font-size="34">معاهدة لالة مغنية</text>
+<foreignObject x="570" y="685" width="340" height="72">
+<div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="font:700 19px Arial,Tahoma;text-align:center;line-height:1.55;color:#1f1b15">اتفاقية وقعت يوم 18 مارس 1845م بين المغرب وفرنسا لتعيين الحدود بين المغرب والجزائر المحتلة.</div>
+</foreignObject>
+
+<rect x="55" y="850" width="410" height="270" rx="22" fill="#fff4d8" stroke="#8b2d24" stroke-width="4"/>
+<circle cx="260" cy="880" r="28" fill="#8b2d24"/><text class="h" x="260" y="889" text-anchor="middle">5</text>
+<text x="260" y="953" text-anchor="middle" font-size="48" font-family="Arial">🌐</text>
+<text class="title" x="260" y="1019" text-anchor="middle" font-size="34">حرب تطوان</text>
+<foreignObject x="90" y="1045" width="340" height="72">
+<div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="font:700 19px Arial,Tahoma;text-align:center;line-height:1.55;color:#1f1b15">حرب دارت بين المغرب وإسبانيا بين 1859 و1860م وانتهت بهزيمة المغرب واحتلال تطوان مؤقتاً.</div>
+</foreignObject>
+
+<rect x="535" y="850" width="410" height="270" rx="22" fill="#fff4d8" stroke="#8b2d24" stroke-width="4"/>
+<circle cx="740" cy="880" r="28" fill="#8b2d24"/><text class="h" x="740" y="889" text-anchor="middle">6</text>
+<text x="740" y="953" text-anchor="middle" font-size="48" font-family="Arial">👥</text>
+<text class="title" x="740" y="1019" text-anchor="middle" font-size="34">مؤتمر الجزيرة الخضراء</text>
+<foreignObject x="570" y="1045" width="340" height="72">
+<div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="font:700 19px Arial,Tahoma;text-align:center;line-height:1.55;color:#1f1b15">مؤتمر انعقد سنة 1906م بإسبانيا وقيد السيادة المغربية ووسع التدخل الأجنبي.</div>
+</foreignObject>
+<text class="small" x="500" y="1350" text-anchor="middle">استعملها كبطاقات تفاعلية: اقلب البطاقة لرؤية التعريف</text></svg>

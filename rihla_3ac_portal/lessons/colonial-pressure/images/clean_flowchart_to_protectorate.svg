@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1414" viewBox="0 0 1000 1414" direction="rtl">
+
+<style>
+  .bg{fill:#f4dfb8}
+  .border{fill:none;stroke:#6e2b1b;stroke-width:8}
+  .thin{fill:none;stroke:#9d6d36;stroke-width:2}
+  .title{font:700 42px 'Arial','Tahoma',sans-serif;fill:#5b1611}
+  .subtitle{font:700 24px 'Arial','Tahoma',sans-serif;fill:#143b4f}
+  .h{font:700 24px 'Arial','Tahoma',sans-serif;fill:#fff}
+  .txt{font:700 20px 'Arial','Tahoma',sans-serif;fill:#1f1b15}
+  .small{font:600 16px 'Arial','Tahoma',sans-serif;fill:#1f1b15}
+  .note{font:600 15px 'Arial','Tahoma',sans-serif;fill:#2d251d}
+</style>
+
+<rect class="bg" width="1000" height="1414"/>
+<rect class="border" x="18" y="18" width="964" height="1378" rx="26"/>
+<text class="title" x="500" y="90" text-anchor="middle">من فشل الإصلاحات إلى فرض الحماية</text>
+
+<rect x="55" y="150" width="270" height="185" rx="18" fill="#fff4d8" stroke="#8b2d24" stroke-width="5"/>
+<rect x="55" y="150" width="270" height="48" rx="18" fill="#8b2d24"/>
+<text class="h" x="190" y="184" text-anchor="middle">معارضة داخلية</text>
+<text x="190" y="245" text-anchor="middle" font-size="42" font-family="Arial">⚖</text>
+<foreignObject x="75" y="270" width="230" height="55">
+<div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="font:700 17px Arial,Tahoma;text-align:center;line-height:1.5;color:#1f1b15">رفض بعض الإصلاحات + تمردات محلية</div>
+</foreignObject>
+<path d="M190,335 L500,410" stroke="#6e2b1b" stroke-width="6" fill="none"/>
+
+<rect x="365" y="150" width="270" height="185" rx="18" fill="#fff4d8" stroke="#2f6b45" stroke-width="5"/>
+<rect x="365" y="150" width="270" height="48" rx="18" fill="#2f6b45"/>
+<text class="h" x="500" y="184" text-anchor="middle">أزمة مالية وديون</text>
+<text x="500" y="245" text-anchor="middle" font-size="42" font-family="Arial">💰</text>
+<foreignObject x="385" y="270" width="230" height="55">
+<div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="font:700 17px Arial,Tahoma;text-align:center;line-height:1.5;color:#1f1b15">تراجع المداخيل وتزايد القروض</div>
+</foreignObject>
+<path d="M500,335 L500,410" stroke="#6e2b1b" stroke-width="6" fill="none"/>
+
+<rect x="675" y="150" width="270" height="185" rx="18" fill="#fff4d8" stroke="#153c58" stroke-width="5"/>
+<rect x="675" y="150" width="270" height="48" rx="18" fill="#153c58"/>
+<text class="h" x="810" y="184" text-anchor="middle">ضغوط خارجية</text>
+<text x="810" y="245" text-anchor="middle" font-size="42" font-family="Arial">🚢</text>
+<foreignObject x="695" y="270" width="230" height="55">
+<div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="font:700 17px Arial,Tahoma;text-align:center;line-height:1.5;color:#1f1b15">تنافس أوروبي وامتيازات وضغط عسكري</div>
+</foreignObject>
+<path d="M810,335 L500,410" stroke="#6e2b1b" stroke-width="6" fill="none"/>
+
+<rect x="230" y="410" width="540" height="78" rx="15" fill="#8b2d24" stroke="#f5d690" stroke-width="4"/>
+<text class="h" x="500" y="460" text-anchor="middle">فشل الإصلاحات</text>
+<path d="M500,488 L500,540" stroke="#6e2b1b" stroke-width="8" marker-end="url(#arrow)"/>
+<rect x="230" y="540" width="540" height="78" rx="15" fill="#2f6b45" stroke="#f5d690" stroke-width="4"/>
+<text class="h" x="500" y="590" text-anchor="middle">تزايد التدخل الأجنبي</text>
+<path d="M500,618 L500,670" stroke="#6e2b1b" stroke-width="8" marker-end="url(#arrow)"/>
+<rect x="230" y="670" width="540" height="78" rx="15" fill="#153c58" stroke="#f5d690" stroke-width="4"/>
+<text class="h" x="500" y="720" text-anchor="middle">مؤتمر الجزيرة الخضراء 1906</text>
+<path d="M500,748 L500,800" stroke="#6e2b1b" stroke-width="8" marker-end="url(#arrow)"/>
+<rect x="230" y="800" width="540" height="78" rx="15" fill="#7b5425" stroke="#f5d690" stroke-width="4"/>
+<text class="h" x="500" y="850" text-anchor="middle">أزمة أكادير 1911</text>
+<path d="M500,878 L500,930" stroke="#6e2b1b" stroke-width="8" marker-end="url(#arrow)"/>
+<rect x="230" y="930" width="540" height="78" rx="15" fill="#2f6b45" stroke="#f5d690" stroke-width="4"/>
+<text class="h" x="500" y="980" text-anchor="middle">معاهدة الحماية 30 مارس 1912</text>
+<path d="M500,1008 L500,1060" stroke="#6e2b1b" stroke-width="8" marker-end="url(#arrow)"/>
+<rect x="230" y="1060" width="540" height="78" rx="15" fill="#8b2d24" stroke="#f5d690" stroke-width="4"/>
+<text class="h" x="500" y="1110" text-anchor="middle">فقدان استقلال المغرب</text>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6e2b1b"/></marker></defs>
+<text class="small" x="500" y="1340" text-anchor="middle">المسار السببي: أسباب الفشل ← التدخل الأجنبي ← الحماية</text>
+</svg>
