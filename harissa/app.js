@@ -12,6 +12,7 @@
 const K_AUTH        = 'hg_auth_v1';
 const K_SETTINGS     = 'hg_settings_v1';
 const K_STUDENTS     = 'hg_students_v1';
+const K_TEACHERS     = 'hg_teachers_v1';
 const K_ATTENDANCE   = 'hg_attendance_v1';
 const K_BEHAVIOR     = 'hg_behavior_v1';
 const K_MSGLOG       = 'hg_msglog_v1';
@@ -185,6 +186,7 @@ function monthKey(dateStr){ return (dateStr||'').slice(0,7); } // YYYY-MM
 const state = {
   settings: loadJSON(K_SETTINGS, DEFAULT_SETTINGS),
   students: loadJSON(K_STUDENTS, []),
+  teachers: loadJSON(K_TEACHERS, []),
   attendance: loadJSON(K_ATTENDANCE, []),
   behavior: loadJSON(K_BEHAVIOR, []),
   msglog: loadJSON(K_MSGLOG, []),
@@ -202,6 +204,7 @@ const state = {
 };
 function saveSettings(){ saveJSON(K_SETTINGS, state.settings); }
 function saveStudents(){ saveJSON(K_STUDENTS, state.students); }
+function saveTeachers(){ saveJSON(K_TEACHERS, state.teachers); }
 function saveAttendance(){ saveJSON(K_ATTENDANCE, state.attendance); }
 function saveBehavior(){ saveJSON(K_BEHAVIOR, state.behavior); }
 function saveMsgLog(){ saveJSON(K_MSGLOG, state.msglog); }
@@ -281,6 +284,25 @@ function seedDemoData(){
   saveStudents(); saveAttendance(); saveBehavior();
   localStorage.setItem(K_SEEDED,'1');
 }
+// دالة منفصلة عن seedDemoData حتى تُغذّي المستخدمين الحاليين بأساتذة تجريبيين
+// (وحدة الأساتذة أُضيفت لاحقاً بعد أن سبق لهم زرع بيانات التلاميذ وضبط علم K_SEEDED)
+function seedTeachersIfEmpty(){
+  if(state.teachers.length>0) return;
+  const teacherSeed = [
+    {fullName:'ذ. يوسف العماري', subject:'الرياضيات', sections:'الأولى إعدادي 1، الأولى إعدادي 2'},
+    {fullName:'ة. سعاد بنكيران', subject:'اللغة العربية', sections:'الثانية إعدادي 1، الثانية إعدادي 2'},
+    {fullName:'ذ. كريم الفيلالي', subject:'الاجتماعيات', sections:'الثالثة إعدادي 1، الثالثة إعدادي 2'},
+    {fullName:'ة. حنان الطيبي', subject:'اللغة الفرنسية', sections:'الأولى إعدادي 1، الثانية إعدادي 1'},
+    {fullName:'ذ. عمر الشرقاوي', subject:'العلوم الفيزيائية', sections:'الثانية إعدادي 2، الثالثة إعدادي 1'},
+    {fullName:'ة. مريم الإدريسي', subject:'التربية الإسلامية', sections:'كل الأقسام'}
+  ];
+  state.teachers = teacherSeed.map(t=>({
+    id: uid('tch'), fullName:t.fullName, subject:t.subject, sections:t.sections,
+    phone:'06' + String(10000000 + Math.floor(Math.random()*89999999)).slice(0,8),
+    notes:'', createdAt:new Date().toISOString(), updatedAt:new Date().toISOString()
+  }));
+  saveTeachers();
+}
 
 /* ============================= شاشة الدخول ============================= */
 function initLoginGate(){
@@ -326,6 +348,7 @@ function showView(id){
     state.currentStudentId = null;
     renderStudentsTable();
   }
+  if(id==='view-teachers') renderTeachersTable();
   if(id==='view-attendance') renderAttendanceView();
   if(id==='view-behavior') renderBehaviorView();
   if(id==='view-messages') renderMessagesView();
@@ -669,6 +692,145 @@ function renderStudentTabs(id){
   ` : `<div class="empty-hint">لا توجد اتصالات مسجلة لهذا التلميذ.</div>`;
 }
 document.getElementById('btnStudentReport').addEventListener('click', ()=>generateStudentReport(state.currentStudentId));
+
+/* ============================= لائحة الأساتذة ============================= */
+function renderTeachersTable(){
+  const q = (document.getElementById('teacherSearch').value||'').trim().toLowerCase();
+  const rows = state.teachers.filter(t=>{
+    if(!q) return true;
+    return t.fullName.toLowerCase().includes(q) || (t.subject||'').toLowerCase().includes(q) || (t.sections||'').toLowerCase().includes(q);
+  });
+  const tbody = document.getElementById('teachersTbody');
+  if(rows.length===0){ tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:20px">لا يوجد أساتذة مطابقون.</td></tr>`; return; }
+  tbody.innerHTML = rows.map(t=>`
+    <tr>
+      <td>${esc(t.fullName)}</td>
+      <td>${esc(t.subject||'—')}</td>
+      <td>${esc(t.sections||'—')}</td>
+      <td>${esc(t.phone||'—')}</td>
+      <td>
+        <button class="btn btn-light btn-sm" data-tch-act="edit" data-id="${esc(t.id)}">تعديل</button>
+        <button class="btn btn-danger btn-sm" data-tch-act="del" data-id="${esc(t.id)}">حذف</button>
+      </td>
+    </tr>`).join('');
+}
+document.getElementById('teacherSearch').addEventListener('input', renderTeachersTable);
+document.getElementById('teachersTbody').addEventListener('click', e=>{
+  const btn = e.target.closest('button[data-tch-act]'); if(!btn) return;
+  const id = btn.dataset.id, act = btn.dataset.tchAct;
+  const teacher = state.teachers.find(t=>t.id===id);
+  if(act==='edit') openTeacherForm(teacher);
+  else if(act==='del'){
+    if(confirm(`هل تريد حذف الأستاذ(ة) "${teacher.fullName}"؟`)){
+      state.teachers = state.teachers.filter(t=>t.id!==id);
+      saveTeachers(); renderTeachersTable();
+      toast('تم الحذف');
+    }
+  }
+});
+document.getElementById('btnAddTeacher').addEventListener('click', ()=>openTeacherForm(null));
+function openTeacherForm(teacher){
+  const isEdit = !!teacher;
+  const t = teacher || {fullName:'', subject:'', sections:'', phone:'', notes:''};
+  const bg = document.createElement('div');
+  bg.className = 'modal-bg';
+  bg.innerHTML = `
+    <div class="modal">
+      <h3>${isEdit ? '✏️ تعديل بيانات أستاذ(ة)' : '➕ إضافة أستاذ(ة) جديد(ة)'}</h3>
+      <div class="field-group"><label>الاسم الكامل <span class="req">*</span></label><input type="text" id="tchName" value="${esc(t.fullName)}"></div>
+      <div class="field-group"><label>المادة</label><input type="text" id="tchSubject" value="${esc(t.subject)}"></div>
+      <div class="field-group"><label>الأقسام (مفصولة بفاصلة)</label><input type="text" id="tchSections" value="${esc(t.sections)}" placeholder="مثال: الأولى إعدادي 1، الثانية إعدادي 2"></div>
+      <div class="field-group"><label>الهاتف</label><input type="text" id="tchPhone" value="${esc(t.phone)}" placeholder="06XXXXXXXX"></div>
+      <div class="field-group"><label>ملاحظات</label><textarea id="tchNotes">${esc(t.notes)}</textarea></div>
+      <div class="modal-actions">
+        <button class="btn btn-light" id="tchCancel">إلغاء</button>
+        <button class="btn btn-primary" id="tchSave">💾 حفظ</button>
+      </div>
+    </div>`;
+  document.body.appendChild(bg);
+  bg.addEventListener('click', e=>{ if(e.target===bg) bg.remove(); });
+  bg.querySelector('#tchCancel').addEventListener('click', ()=>bg.remove());
+  bg.querySelector('#tchSave').addEventListener('click', ()=>{
+    const fullName = bg.querySelector('#tchName').value.trim();
+    if(!fullName){ toast('يرجى إدخال الاسم الكامل'); return; }
+    const data = {
+      fullName,
+      subject: bg.querySelector('#tchSubject').value.trim(),
+      sections: bg.querySelector('#tchSections').value.trim(),
+      phone: bg.querySelector('#tchPhone').value.trim(),
+      notes: bg.querySelector('#tchNotes').value.trim(),
+      updatedAt: new Date().toISOString()
+    };
+    if(isEdit) Object.assign(teacher, data);
+    else state.teachers.push({ id: uid('tch'), createdAt: new Date().toISOString(), ...data });
+    saveTeachers();
+    bg.remove();
+    renderTeachersTable();
+    toast('تم الحفظ');
+  });
+}
+document.getElementById('btnExportTeachers').addEventListener('click', ()=>{
+  if(state.teachers.length===0){ toast('لا يوجد أساتذة لتصديرهم'); return; }
+  const header = ['الاسم الكامل','المادة','الأقسام','الهاتف','ملاحظات'];
+  const rows = state.teachers.map(t=>[t.fullName, t.subject||'', t.sections||'', t.phone||'', t.notes||'']);
+  const csv = [header].concat(rows).map(r=>r.map(csvEscape).join(',')).join('\r\n');
+  const blob = new Blob(['﻿' + csv], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'لائحة-الأساتذة-' + todayISO() + '.csv';
+  a.click(); URL.revokeObjectURL(a.href);
+  toast('تم تصدير اللائحة (' + state.teachers.length + ' أستاذ/ة)');
+});
+document.getElementById('btnImportTeachers').addEventListener('click', ()=>{
+  const bg = document.createElement('div');
+  bg.className = 'modal-bg';
+  bg.innerHTML = `
+    <div class="modal">
+      <h3>⬆️ استيراد لائحة أساتذة</h3>
+      <p class="hint">الصق لائحة من Excel أو اكتبها يدوياً — سطر لكل أستاذ(ة)، بهذا الترتيب:<br>
+      <b>الاسم الكامل، المادة، الأقسام، الهاتف (اختياري)، ملاحظات (اختياري)</b></p>
+      <div class="field-group"><textarea id="importTchText" rows="8" placeholder="مثال:&#10;ذ. سفيان الحمداوي، الرياضيات، الأولى إعدادي 1"></textarea></div>
+      <div class="field-group">
+        <label>أو اختر ملف CSV</label>
+        <input type="file" id="importTchFile" accept=".csv,text/csv">
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-light" id="importTchCancel">إلغاء</button>
+        <button class="btn btn-primary" id="importTchOk">استيراد</button>
+      </div>
+    </div>`;
+  document.body.appendChild(bg);
+  bg.addEventListener('click', e=>{ if(e.target===bg) bg.remove(); });
+  bg.querySelector('#importTchCancel').addEventListener('click', ()=>bg.remove());
+  bg.querySelector('#importTchFile').addEventListener('change', e=>{
+    const file = e.target.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ()=>{ bg.querySelector('#importTchText').value = reader.result; };
+    reader.readAsText(file);
+  });
+  bg.querySelector('#importTchOk').addEventListener('click', ()=>{
+    const text = bg.querySelector('#importTchText').value.trim();
+    if(!text){ toast('لا يوجد محتوى للاستيراد'); return; }
+    const lines = text.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+    let added = 0, skippedDup = 0, skippedInvalid = 0;
+    lines.forEach(line=>{
+      const cols = parseCSVLine(line);
+      const [fullName, subject, sections, phone, notes] = cols;
+      if(!fullName || fullName.includes('الاسم الكامل')){ skippedInvalid++; return; }
+      const dup = state.teachers.some(t=>t.fullName===fullName && t.subject===(subject||''));
+      if(dup){ skippedDup++; return; }
+      state.teachers.push({
+        id: uid('tch'), fullName, subject: subject||'', sections: sections||'', phone: phone||'', notes: notes||'',
+        createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
+      });
+      added++;
+    });
+    saveTeachers();
+    renderTeachersTable();
+    bg.remove();
+    toast(`تم استيراد ${added} أستاذ(ة)` + (skippedDup?` — تم تجاهل ${skippedDup} مكرر`:'') + (skippedInvalid?` — ${skippedInvalid} سطر غير صالح`:''));
+  });
+});
 
 /* ============================= الغياب والتأخر ============================= */
 function renderAttendanceView(){
@@ -1499,7 +1661,7 @@ document.getElementById('btnSaveSettings').addEventListener('click', ()=>{
 });
 document.getElementById('btnExportAll').addEventListener('click', ()=>{
   const data = {
-    settings: state.settings, students: state.students, attendance: state.attendance, behavior: state.behavior,
+    settings: state.settings, students: state.students, teachers: state.teachers, attendance: state.attendance, behavior: state.behavior,
     msglog: state.msglog, customTemplates: state.customTemplates, reports: state.reports, exportedAt: new Date().toISOString()
   };
   const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
@@ -1516,12 +1678,13 @@ document.getElementById('importFile').addEventListener('change', e=>{
       const data = JSON.parse(reader.result);
       if(data.settings) state.settings = {...state.settings, ...data.settings};
       if(Array.isArray(data.students)) state.students = state.students.concat(data.students);
+      if(Array.isArray(data.teachers)) state.teachers = state.teachers.concat(data.teachers);
       if(Array.isArray(data.attendance)) state.attendance = state.attendance.concat(data.attendance);
       if(Array.isArray(data.behavior)) state.behavior = state.behavior.concat(data.behavior);
       if(Array.isArray(data.msglog)) state.msglog = state.msglog.concat(data.msglog);
       if(Array.isArray(data.customTemplates)) state.customTemplates = state.customTemplates.concat(data.customTemplates);
       if(Array.isArray(data.reports)) state.reports = state.reports.concat(data.reports);
-      saveSettings(); saveStudents(); saveAttendance(); saveBehavior(); saveMsgLog(); saveTemplates(); saveReports();
+      saveSettings(); saveStudents(); saveTeachers(); saveAttendance(); saveBehavior(); saveMsgLog(); saveTemplates(); saveReports();
       renderSettingsView();
       toast('تم الاستيراد بنجاح');
     }catch(err){ toast('ملف غير صالح'); }
@@ -1532,7 +1695,7 @@ document.getElementById('importFile').addEventListener('change', e=>{
 document.getElementById('btnWipeData').addEventListener('click', ()=>{
   const phrase = prompt('لتأكيد مسح جميع البيانات نهائياً، اكتب "حذف نهائي" بالضبط:');
   if(phrase !== 'حذف نهائي'){ toast('لم يتم المسح — النص غير مطابق'); return; }
-  [K_SETTINGS,K_STUDENTS,K_ATTENDANCE,K_BEHAVIOR,K_MSGLOG,K_TEMPLATES,K_REPORTS,K_SEEDED].forEach(k=>localStorage.removeItem(k));
+  [K_SETTINGS,K_STUDENTS,K_TEACHERS,K_ATTENDANCE,K_BEHAVIOR,K_MSGLOG,K_TEMPLATES,K_REPORTS,K_SEEDED].forEach(k=>localStorage.removeItem(k));
   toast('تم مسح جميع البيانات — سيُعاد تحميل الصفحة');
   setTimeout(()=>location.reload(), 900);
 });
@@ -1545,6 +1708,7 @@ function bootApp(){
     saveSettings();
   }
   seedDemoData();
+  seedTeachersIfEmpty();
   initGlobalSearch();
   showView('view-dashboard');
   if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js').catch(()=>{}); }

@@ -66,6 +66,7 @@
     <nav class="main-nav">
       <button class="nav-btn" data-view="view-dashboard">🏠 لوحة اليوم</button>
       <button class="nav-btn" data-view="view-students">🧑‍🎓 سجل التلاميذ</button>
+      <button class="nav-btn" data-view="view-teachers">👨‍🏫 الأساتذة</button>
       <button class="nav-btn" data-view="view-attendance">📋 الغياب والتأخر</button>
       <button class="nav-btn" data-view="view-behavior">⚖️ السلوك والتدخلات</button>
       <button class="nav-btn" data-view="view-messages">✉️ التواصل مع الآباء</button>
@@ -153,6 +154,27 @@
         <div class="toolbar" style="margin-top:14px">
           <button class="btn btn-gold" id="btnStudentReport">🖨️ توليد تقرير هذا التلميذ</button>
         </div>
+      </div>
+    </section>
+
+    <!-- ============ TEACHERS ============ -->
+    <section class="view hidden" id="view-teachers">
+      <div class="view-title">
+        <h2>👨‍🏫 لائحة الأساتذة</h2>
+        <div class="toolbar">
+          <button class="btn btn-primary" id="btnAddTeacher">➕ إضافة أستاذ(ة)</button>
+          <button class="btn btn-light" id="btnImportTeachers">⬆️ استيراد لائحة</button>
+          <button class="btn btn-light" id="btnExportTeachers">⬇️ تصدير اللائحة</button>
+        </div>
+      </div>
+      <div class="search-row">
+        <input type="text" id="teacherSearch" placeholder="ابحث بالاسم أو المادة أو القسم...">
+      </div>
+      <div class="log-table-wrap">
+        <table class="log-table">
+          <thead><tr><th>الاسم الكامل</th><th>المادة</th><th>الأقسام</th><th>الهاتف</th><th>إجراءات</th></tr></thead>
+          <tbody id="teachersTbody"></tbody>
+        </table>
       </div>
     </section>
 
@@ -470,7 +492,7 @@
           </label>
           <button class="btn btn-danger" id="btnWipeData">🗑️ مسح جميع البيانات</button>
         </div>
-        <p class="hint">التصدير يشمل: التلاميذ، الغياب والتأخر، السلوك، سجل الاتصالات، القوالب المخصصة، التقارير المحفوظة، والإعدادات.</p>
+        <p class="hint">التصدير يشمل: التلاميذ، الأساتذة، الغياب والتأخر، السلوك، سجل الاتصالات، القوالب المخصصة، التقارير المحفوظة، والإعدادات.</p>
       </div>
     </section>
 
