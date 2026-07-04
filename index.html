@@ -78,6 +78,20 @@ main{max-width:920px; margin:0 auto; padding:24px 14px 90px; position:relative;}
 .por-nav-cta{background:linear-gradient(135deg,#1D4ED8,#1E40AF);color:#fff;border:none;border-radius:12px;padding:10px 17px;font-size:.87rem;font-weight:800;font-family:inherit;cursor:pointer;box-shadow:0 4px 14px rgba(29,78,216,.32);transition:all .2s;white-space:nowrap}
 .por-nav-cta:hover{transform:translateY(-2px);box-shadow:0 7px 20px rgba(29,78,216,.42)}
 .por-nav-cta:active{transform:translateY(0)}
+/* Nav dropdown (external resources) */
+.por-nav-dropdown{position:relative}
+.por-nav-dropdown>.por-nav-link{cursor:default}
+.por-nav-dropdown-menu{position:absolute;top:100%;inset-inline-start:0;background:#fff;border:1.5px solid var(--pp-border);border-radius:12px;box-shadow:var(--pp-sh-lg);padding:8px;min-width:200px;display:none;flex-direction:column;gap:2px;z-index:20}
+.por-nav-dropdown-menu a{display:block;padding:9px 12px;border-radius:8px;font-size:.85rem;font-weight:700;color:var(--pp-text);text-decoration:none;white-space:nowrap;transition:background .15s}
+.por-nav-dropdown-menu a:hover{background:rgba(29,78,216,.08);color:var(--pp-blue)}
+.por-nav-dropdown:hover .por-nav-dropdown-menu,.por-nav-dropdown:focus-within .por-nav-dropdown-menu{display:flex}
+/* Hamburger + mobile menu */
+.por-nav-toggle{display:none;background:none;border:none;font-size:1.35rem;line-height:1;color:var(--pp-blue-d);cursor:pointer;padding:7px 10px;border-radius:9px;transition:background .2s}
+.por-nav-toggle:hover{background:rgba(29,78,216,.08)}
+.por-mobile-menu{display:none;position:absolute;top:100%;inset-inline:0;background:#fff;border-bottom:1.5px solid var(--pp-border);box-shadow:var(--pp-sh-lg);flex-direction:column;padding:10px;gap:2px;max-height:calc(100vh - 68px);overflow-y:auto}
+.por-mobile-menu.open{display:flex;animation:porFadeUp .25s ease both}
+.por-mobile-menu a{display:block;padding:13px 16px;border-radius:10px;font-size:.92rem;font-weight:800;color:var(--pp-text);text-decoration:none;transition:background .15s}
+.por-mobile-menu a:hover{background:rgba(29,78,216,.08)}
 /* Identity */
 #portal #idGuestSection{display:flex;align-items:center;gap:6px;flex-wrap:nowrap}
 #portal #idUserSection{display:none;align-items:center;gap:8px}
@@ -216,11 +230,12 @@ main{max-width:920px; margin:0 auto; padding:24px 14px 90px; position:relative;}
 .hud-identity-chip #hudIdentityName{max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;vertical-align:middle}
 /* Responsive */
 @media(max-width:960px){
-  .por-hero{grid-template-columns:1fr;padding:40px 20px 30px;text-align:center}
+  .por-hero{grid-template-columns:1fr;padding:44px 20px 34px;text-align:center}
   .por-hero-visual{display:none}
   .por-hero-btns{justify-content:center}
   .por-features-grid{grid-template-columns:repeat(2,1fr)}
   .por-nav-links{display:none}
+  .por-nav-toggle{display:inline-flex;align-items:center;justify-content:center}
   .id-welcome-txt{display:none}
 }
 @media(max-width:600px){
@@ -256,12 +271,22 @@ main{max-width:920px; margin:0 auto; padding:24px 14px 90px; position:relative;}
       </div>
     </div>
     <div class="por-nav-links">
-      <a href="#" class="por-nav-link active">الرئيسية</a>
-      <a href="#por-destinations" class="por-nav-link" onclick="event.preventDefault();document.getElementById('por-destinations').scrollIntoView({behavior:'smooth'})">الرحلات</a>
-      <a href="kanz-sanawat/" class="por-nav-link">الأرشيف</a>
-      <a href="#" class="por-nav-link" onclick="enterApp(event)">الشهادات</a>
+      <a href="#" class="por-nav-link active" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})">الرئيسية</a>
+      <a href="kanz-sanawat/" class="por-nav-link">📚 الأرشيف</a>
+      <a href="https://moajam-mostalahat-dhahabi.netlify.app/" target="_blank" rel="noopener" class="por-nav-link">📖 المعجم</a>
+      <div class="por-nav-dropdown">
+        <span class="por-nav-link" tabindex="0">🌐 مصادر خارجية ▾</span>
+        <div class="por-nav-dropdown-menu">
+          <a href="https://moraja3a.netlify.app/" target="_blank" rel="noopener">🌐 موقع المراجعة</a>
+          <a href="https://ijtima3iyat-3ac-portal.netlify.app/" target="_blank" rel="noopener">🎒 بوابة الاجتماعيات</a>
+          <a href="https://moharibou-jihawi.netlify.app/" target="_blank" rel="noopener">🛡️ محاربو الجهوي</a>
+        </div>
+      </div>
+      <a href="comments.html" class="por-nav-link">💬 التعليقات</a>
+      <a href="contact.html" class="por-nav-link">✉️ تواصل</a>
     </div>
     <div class="por-nav-actions">
+      <button class="por-nav-toggle" id="porNavToggle" onclick="toggleMobileNav()" aria-label="فتح القائمة" aria-expanded="false">☰</button>
       <div id="idGuestSection">
         <span class="id-welcome-txt">👋 سجل دخولك لحفظ تقدمك</span>
         <button class="id-btn id-btn-login" onclick="netlifyIdentity&&netlifyIdentity.open('login')">🔑 دخول</button>
@@ -274,18 +299,26 @@ main{max-width:920px; margin:0 auto; padding:24px 14px 90px; position:relative;}
       <button class="por-nav-cta" onclick="enterApp(event)">ابدأ الرحلة ←</button>
     </div>
   </div>
+  <div class="por-mobile-menu" id="porMobileMenu">
+    <a href="#" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'});closeMobileNav();">🏠 الرئيسية</a>
+    <a href="kanz-sanawat/" onclick="closeMobileNav()">📚 الأرشيف</a>
+    <a href="https://moajam-mostalahat-dhahabi.netlify.app/" target="_blank" rel="noopener" onclick="closeMobileNav()">📖 المعجم</a>
+    <a href="https://moraja3a.netlify.app/" target="_blank" rel="noopener" onclick="closeMobileNav()">🌐 موقع المراجعة</a>
+    <a href="https://ijtima3iyat-3ac-portal.netlify.app/" target="_blank" rel="noopener" onclick="closeMobileNav()">🎒 بوابة الاجتماعيات</a>
+    <a href="https://moharibou-jihawi.netlify.app/" target="_blank" rel="noopener" onclick="closeMobileNav()">🛡️ محاربو الجهوي</a>
+    <a href="comments.html" onclick="closeMobileNav()">💬 التعليقات</a>
+    <a href="contact.html" onclick="closeMobileNav()">✉️ تواصل</a>
+  </div>
 </nav>
 <div id="idGuestInvite">
   <div class="inv-inner">💡 يمكنك إنشاء حساب لحفظ تجربتك مستقبلاً، لكن يمكنك الاستمرار بدون تسجيل.</div>
 </div>
 <section class="por-hero">
   <div class="por-hero-content">
-    <div class="por-badge">🌟 بوابة التعليم التفاعلي</div>
-    <h1 class="por-h1">مرحباً بك في عالم<br><span class="por-shine">التعلّم باللعب</span> 🎓</h1>
-    <p class="por-hero-desc">موارد تعليمية تفاعلية وتطبيقات مراجعة ذكية تجمع المتعة والاحتراف، وتساعد التلميذ على الوصول إلى الامتحان بثقة.</p>
+    <h1 class="por-h1">رحلة الجهوي <span class="por-shine">الذهبية</span> 🏆</h1>
+    <p class="por-hero-desc">مغامرة مراجعة تفاعلية للامتحان الجهوي 🎯</p>
     <div class="por-hero-btns">
-      <button class="por-btn-primary" onclick="enterApp(event)">🏆 انطلق في رحلة الجهوي الذهبية</button>
-      <a href="kanz-sanawat/" class="por-btn-secondary">📚 استكشف الأرشيف</a>
+      <button class="por-btn-primary" onclick="enterApp(event)">🚀 انطلق في الرحلة</button>
     </div>
   </div>
   <div class="por-hero-visual">
@@ -560,6 +593,22 @@ function enterApp(e){
   por.classList.add('hiding');
   setTimeout(function(){por.style.display='none';},420);
 }
+/* Mobile nav */
+function toggleMobileNav(){
+  var m=document.getElementById('porMobileMenu');
+  var t=document.getElementById('porNavToggle');
+  var open=m.classList.toggle('open');
+  t.textContent=open?'✕':'☰';
+  t.setAttribute('aria-expanded',open?'true':'false');
+}
+function closeMobileNav(){
+  var m=document.getElementById('porMobileMenu');
+  var t=document.getElementById('porNavToggle');
+  m.classList.remove('open');
+  t.textContent='☰';
+  t.setAttribute('aria-expanded','false');
+}
+window.addEventListener('resize',function(){if(window.innerWidth>960)closeMobileNav();});
 /* Load companion stats from localStorage */
 (function(){
   try{
