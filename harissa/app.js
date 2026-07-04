@@ -694,6 +694,22 @@ function migrateSecondaryLevels(){
   state.settings.sections = state.settings.sections.concat(missing);
   saveSettings();
 }
+// يرقّي قوالب الرسائل المحفوظة قبل تفعيل الفرنسية (كانت title/body نصاً عادياً) إلى الصيغة الثنائية اللغة {ar,fr}،
+// مع الحفاظ على أي تعديل عربي أجراه المستخدم على نص الرسالة، وإضافة الترجمة الفرنسية الافتراضية له
+function migrateMessageTemplates(){
+  let changed = false;
+  state.settings.messageTemplates = state.settings.messageTemplates.map(tpl=>{
+    if(tpl.title && typeof tpl.title === 'object') return tpl;
+    changed = true;
+    const def = DEFAULT_SETTINGS.messageTemplates.find(d=>d.key===tpl.key);
+    return {
+      key: tpl.key,
+      title: def ? def.title : { ar: tpl.title, fr: tpl.title },
+      body: { ar: tpl.body || (def?def.body.ar:''), fr: def ? def.body.fr : (tpl.body||'') }
+    };
+  });
+  if(changed) saveSettings();
+}
 
 /* ============================= الحماية: كلمة المرور والرقم السري ============================= */
 function randomSalt(){
@@ -2288,6 +2304,7 @@ function bootApp(){
   seedDemoData();
   seedTeachersIfEmpty();
   migrateSecondaryLevels();
+  migrateMessageTemplates();
   initGlobalSearch();
   showView('view-dashboard');
   if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js').catch(()=>{}); }
