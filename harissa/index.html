@@ -23,39 +23,39 @@
   <!-- إعداد أول مرة: تعيين كلمة المرور والرقم السري -->
   <div class="login-card" id="authCardSetup">
     <div class="login-logo">🛡️</div>
-    <h1>مساعد الحراسة العامة</h1>
+    <h1 data-i18n="app.title">مساعد الحراسة العامة</h1>
     <div class="login-sub">مؤسسة الحنان</div>
-    <p class="login-tag">إعداد الحماية لأول مرة</p>
-    <div class="field-group"><label>اسمك</label><input type="text" id="setupName" placeholder="مثال: عبد الرحيم"></div>
-    <div class="field-group"><label>كلمة مرور جديدة</label><input type="password" id="setupPw" placeholder="4 أحرف على الأقل"></div>
-    <div class="field-group"><label>تأكيد كلمة المرور</label><input type="password" id="setupPwConfirm"></div>
-    <div class="field-group"><label>رقم سري قصير (4 أرقام) للقفل السريع</label><input type="text" inputmode="numeric" maxlength="6" id="setupPin" placeholder="مثال: 1234"></div>
-    <div class="field-group"><label>تأكيد الرقم السري</label><input type="text" inputmode="numeric" maxlength="6" id="setupPinConfirm"></div>
+    <p class="login-tag" data-i18n="auth.setupTag">إعداد الحماية لأول مرة</p>
+    <div class="field-group"><label data-i18n="auth.yourName">اسمك</label><input type="text" id="setupName" placeholder="مثال: عبد الرحيم" data-i18n-ph="auth.namePh"></div>
+    <div class="field-group"><label data-i18n="auth.newPassword">كلمة مرور جديدة</label><input type="password" id="setupPw" placeholder="4 أحرف على الأقل" data-i18n-ph="auth.pwPh"></div>
+    <div class="field-group"><label data-i18n="auth.confirmPassword">تأكيد كلمة المرور</label><input type="password" id="setupPwConfirm"></div>
+    <div class="field-group"><label data-i18n="auth.newPin">رقم سري قصير (4 أرقام) للقفل السريع</label><input type="text" inputmode="numeric" maxlength="6" id="setupPin" placeholder="مثال: 1234" data-i18n-ph="auth.pinPh"></div>
+    <div class="field-group"><label data-i18n="auth.confirmPin">تأكيد الرقم السري</label><input type="text" inputmode="numeric" maxlength="6" id="setupPinConfirm"></div>
     <p class="auth-error hidden" id="setupError"></p>
-    <button class="btn btn-primary btn-block" id="btnSetupSave">🔐 حفظ وتفعيل الحماية</button>
-    <p class="login-note">🔒 هذا القفل يحمي من الاستعمال العرضي على هذا الجهاز. البيانات نفسها محفوظة في متصفحك بصيغة عادية (غير مشفّرة)، فلا تتركي الجهاز مفتوحاً لمن لا تثقين به.</p>
+    <button class="btn btn-primary btn-block" id="btnSetupSave" data-i18n="auth.setupSave">🔐 حفظ وتفعيل الحماية</button>
+    <p class="login-note" data-i18n="auth.setupNote">🔒 هذا القفل يحمي من الاستعمال العرضي على هذا الجهاز. البيانات نفسها محفوظة في متصفحك بصيغة عادية (غير مشفّرة)، فلا تتركي الجهاز مفتوحاً لمن لا تثقين به.</p>
   </div>
 
   <!-- الدخول الكامل (بعد إغلاق المتصفح أو تسجيل الخروج) -->
   <div class="login-card hidden" id="authCardLogin">
     <div class="login-logo">🛡️</div>
-    <h1>مساعد الحراسة العامة</h1>
+    <h1 data-i18n="app.title">مساعد الحراسة العامة</h1>
     <div class="login-sub">مؤسسة الحنان</div>
-    <p class="login-tag">أدخل كلمة المرور للمتابعة</p>
-    <div class="field-group"><label>كلمة المرور</label><input type="password" id="loginPw"></div>
+    <p class="login-tag" data-i18n="auth.loginTag">أدخل كلمة المرور للمتابعة</p>
+    <div class="field-group"><label data-i18n="auth.password">كلمة المرور</label><input type="password" id="loginPw"></div>
     <p class="auth-error hidden" id="loginError"></p>
-    <button class="btn btn-primary btn-block" id="btnLoginSubmit">🔓 دخول</button>
-    <p class="login-note hint-note">نسيت كلمة المرور؟ لا يمكن استرجاعها لأنها غير محفوظة على أي خادم. إعادة الضبط تتطلب مسح بيانات المتصفح لهذا الموقع من إعدادات المتصفح، ثم إعادة الاستيراد من نسخة احتياطية مصدَّرة إن وُجدت (من ⚙️ الإعدادات).</p>
+    <button class="btn btn-primary btn-block" id="btnLoginSubmit" data-i18n="auth.loginBtn">🔓 دخول</button>
+    <p class="login-note hint-note" data-i18n="auth.forgotNote">نسيت كلمة المرور؟ لا يمكن استرجاعها لأنها غير محفوظة على أي خادم. إعادة الضبط تتطلب مسح بيانات المتصفح لهذا الموقع من إعدادات المتصفح، ثم إعادة الاستيراد من نسخة احتياطية مصدَّرة إن وُجدت (من ⚙️ الإعدادات).</p>
   </div>
 
   <!-- القفل السريع بالرقم السري -->
   <div class="login-card hidden" id="authCardPin">
     <div class="login-logo">🔒</div>
-    <h1>التطبيق مقفل</h1>
-    <div class="login-sub">أدخل الرقم السري لمتابعة العمل</div>
-    <div class="field-group"><label>الرقم السري</label><input type="password" inputmode="numeric" maxlength="6" id="pinInput"></div>
+    <h1 data-i18n="auth.lockedTitle">التطبيق مقفل</h1>
+    <div class="login-sub" data-i18n="auth.pinSub">أدخل الرقم السري لمتابعة العمل</div>
+    <div class="field-group"><label data-i18n="auth.pin">الرقم السري</label><input type="password" inputmode="numeric" maxlength="6" id="pinInput"></div>
     <p class="auth-error hidden" id="pinError"></p>
-    <button class="btn btn-primary btn-block" id="btnPinSubmit">🔓 فتح</button>
+    <button class="btn btn-primary btn-block" id="btnPinSubmit" data-i18n="auth.pinBtn">🔓 فتح</button>
   </div>
 
 </div>
@@ -68,31 +68,32 @@
       <div class="brand">
         <span class="emoji">🛡️</span>
         <div>
-          <h1>مساعد الحراسة العامة</h1>
-          <div class="sub">نظام ذكي لتتبع الحياة المدرسية اليومية — مؤسسة الحنان</div>
+          <h1 data-i18n="app.title">مساعد الحراسة العامة</h1>
+          <div class="sub" data-i18n="app.tagline">نظام ذكي لتتبع الحياة المدرسية اليومية — مؤسسة الحنان</div>
         </div>
       </div>
       <div class="header-search">
-        <input type="text" id="globalSearch" placeholder="🔍 ابحث عن تلميذ بالاسم أو القسم...">
+        <input type="text" id="globalSearch" placeholder="🔍 ابحث عن تلميذ بالاسم أو القسم..." data-i18n-ph="header.searchPh">
         <div id="globalSearchResults" class="search-results hidden"></div>
       </div>
       <div class="header-user">
         <span id="userBadge" class="user-badge">👤 —</span>
-        <button class="icon-btn" id="btnLock" title="قفل سريع بالرقم السري">🔒</button>
-        <button class="icon-btn" id="btnLogout" title="تسجيل الخروج">🚪</button>
+        <button class="icon-btn lang-btn" id="btnLangToggle" title="Français / العربية">🌐 <span id="lblLangToggle">FR</span></button>
+        <button class="icon-btn" id="btnLock" title="قفل سريع بالرقم السري" data-i18n-title="header.lockTitle">🔒</button>
+        <button class="icon-btn" id="btnLogout" title="تسجيل الخروج" data-i18n-title="header.logoutTitle">🚪</button>
       </div>
     </div>
     <nav class="main-nav">
-      <button class="nav-btn" data-view="view-dashboard">🏠 لوحة اليوم</button>
-      <button class="nav-btn" data-view="view-students">🧑‍🎓 سجل التلاميذ</button>
-      <button class="nav-btn" data-view="view-teachers">👨‍🏫 الأساتذة</button>
-      <button class="nav-btn" data-view="view-attendance">📋 الغياب والتأخر</button>
-      <button class="nav-btn" data-view="view-behavior">⚖️ السلوك والتدخلات</button>
-      <button class="nav-btn" data-view="view-messages">✉️ التواصل مع الآباء</button>
-      <button class="nav-btn" data-view="view-reports">🗂️ التقارير والقوالب</button>
-      <button class="nav-btn" data-view="view-dailylog">📅 سجل اليوم</button>
-      <button class="nav-btn" data-view="view-stats">📊 الإحصائيات</button>
-      <button class="nav-btn" data-view="view-settings">⚙️ الإعدادات</button>
+      <button class="nav-btn" data-view="view-dashboard">🏠 <span data-i18n="nav.dashboard">لوحة اليوم</span></button>
+      <button class="nav-btn" data-view="view-students">🧑‍🎓 <span data-i18n="nav.students">سجل التلاميذ</span></button>
+      <button class="nav-btn" data-view="view-teachers">👨‍🏫 <span data-i18n="nav.teachers">الأساتذة</span></button>
+      <button class="nav-btn" data-view="view-attendance">📋 <span data-i18n="nav.attendance">الغياب والتأخر</span></button>
+      <button class="nav-btn" data-view="view-behavior">⚖️ <span data-i18n="nav.behavior">السلوك والتدخلات</span></button>
+      <button class="nav-btn" data-view="view-messages">✉️ <span data-i18n="nav.messages">التواصل مع الآباء</span></button>
+      <button class="nav-btn" data-view="view-reports">🗂️ <span data-i18n="nav.reports">التقارير والقوالب</span></button>
+      <button class="nav-btn" data-view="view-dailylog">📅 <span data-i18n="nav.dailylog">سجل اليوم</span></button>
+      <button class="nav-btn" data-view="view-stats">📊 <span data-i18n="nav.stats">الإحصائيات</span></button>
+      <button class="nav-btn" data-view="view-settings">⚙️ <span data-i18n="nav.settings">الإعدادات</span></button>
     </nav>
   </header>
 
@@ -100,20 +101,20 @@
 
     <!-- ============ DASHBOARD ============ -->
     <section class="view" id="view-dashboard">
-      <div class="view-title"><h2>🏠 لوحة اليوم</h2><div class="today-date" id="todayDateLabel"></div></div>
+      <div class="view-title"><h2>🏠 <span data-i18n="nav.dashboard">لوحة اليوم</span></h2><div class="today-date" id="todayDateLabel"></div></div>
 
       <div class="stat-grid" id="statGrid"></div>
 
       <div class="quick-actions">
-        <button class="qa-btn qa-blue" data-qa="attendance">📋<span>تسجيل غياب أو تأخر</span></button>
-        <button class="qa-btn qa-orange" data-qa="behavior">📝<span>إضافة ملاحظة سلوكية</span></button>
-        <button class="qa-btn qa-red" data-qa="summon">☎️<span>استدعاء ولي أمر</span></button>
-        <button class="qa-btn qa-blue" data-qa="intervention">🛠️<span>تسجيل تدخل</span></button>
-        <button class="qa-btn qa-green" data-qa="dailyreport">🖨️<span>توليد تقرير اليوم</span></button>
+        <button class="qa-btn qa-blue" data-qa="attendance">📋<span data-i18n="dash.qaAttendance">تسجيل غياب أو تأخر</span></button>
+        <button class="qa-btn qa-orange" data-qa="behavior">📝<span data-i18n="dash.qaBehavior">إضافة ملاحظة سلوكية</span></button>
+        <button class="qa-btn qa-red" data-qa="summon">☎️<span data-i18n="dash.qaSummon">استدعاء ولي أمر</span></button>
+        <button class="qa-btn qa-blue" data-qa="intervention">🛠️<span data-i18n="dash.qaIntervention">تسجيل تدخل</span></button>
+        <button class="qa-btn qa-green" data-qa="dailyreport">🖨️<span data-i18n="dash.qaDailyReport">توليد تقرير اليوم</span></button>
       </div>
 
       <div class="dash-panel">
-        <h3>آخر الأحداث اليوم</h3>
+        <h3 data-i18n="dash.recentToday">آخر الأحداث اليوم</h3>
         <div id="dashRecentToday" class="recent-list"></div>
       </div>
     </section>
@@ -122,26 +123,26 @@
     <section class="view hidden" id="view-students">
       <div id="students-list-view">
         <div class="view-title">
-          <h2>🧑‍🎓 سجل التلاميذ</h2>
+          <h2>🧑‍🎓 <span data-i18n="students.title">سجل التلاميذ</span></h2>
           <div class="toolbar">
-            <button class="btn btn-primary" id="btnAddStudent">➕ إضافة تلميذ</button>
-            <button class="btn btn-light" id="btnImportStudents">⬆️ استيراد لائحة</button>
-            <button class="btn btn-light" id="btnExportStudents">⬇️ تصدير اللائحة</button>
+            <button class="btn btn-primary" id="btnAddStudent">➕ <span data-i18n="students.add">إضافة تلميذ</span></button>
+            <button class="btn btn-light" id="btnImportStudents">⬆️ <span data-i18n="common.importList">استيراد لائحة</span></button>
+            <button class="btn btn-light" id="btnExportStudents">⬇️ <span data-i18n="common.exportList">تصدير اللائحة</span></button>
           </div>
         </div>
         <div class="search-row">
-          <input type="text" id="studentSearch" placeholder="ابحث بالاسم أو القسم...">
-          <select id="studentSectionFilter"><option value="">كل الأقسام</option></select>
+          <input type="text" id="studentSearch" placeholder="ابحث بالاسم أو القسم..." data-i18n-ph="students.searchPh">
+          <select id="studentSectionFilter"><option value="" data-i18n="common.allSections">كل الأقسام</option></select>
           <select id="studentStatusFilter">
-            <option value="">كل الحالات</option>
-            <option value="normal">عادي</option>
-            <option value="tracking">يحتاج تتبع</option>
-            <option value="urgent">حالة مستعجلة</option>
+            <option value="" data-i18n="common.allStatuses">كل الحالات</option>
+            <option value="normal" data-i18n="status.normal">عادي</option>
+            <option value="tracking" data-i18n="status.tracking">يحتاج تتبع</option>
+            <option value="urgent" data-i18n="status.urgent">حالة مستعجلة</option>
           </select>
         </div>
         <div id="studentsTableWrap" class="log-table-wrap">
           <table class="log-table">
-            <thead><tr><th>الاسم الكامل</th><th>القسم</th><th>الحالة</th><th>هاتف ولي الأمر</th><th>إجراءات</th></tr></thead>
+            <thead><tr><th data-i18n="students.thName">الاسم الكامل</th><th data-i18n="students.thSection">القسم</th><th data-i18n="students.thStatus">الحالة</th><th data-i18n="students.thPhone">هاتف ولي الأمر</th><th data-i18n="common.thActions">إجراءات</th></tr></thead>
             <tbody id="studentsTbody"></tbody>
           </table>
         </div>
@@ -151,27 +152,27 @@
         <div class="view-title">
           <h2 id="studentDetailName">—</h2>
           <div class="toolbar">
-            <button class="btn btn-light" id="btnBackToStudents">↩ رجوع لسجل التلاميذ</button>
-            <button class="btn btn-light" id="btnEditStudent">✏️ تعديل البيانات</button>
+            <button class="btn btn-light" id="btnBackToStudents" data-i18n="students.backToList">↩ رجوع لسجل التلاميذ</button>
+            <button class="btn btn-light" id="btnEditStudent">✏️ <span data-i18n="common.editData">تعديل البيانات</span></button>
           </div>
         </div>
         <div class="student-detail-card">
-          <div class="sd-row"><b>القسم:</b> <span id="sdSection"></span></div>
-          <div class="sd-row"><b>الحالة:</b> <span id="sdStatus"></span></div>
-          <div class="sd-row"><b>هاتف ولي الأمر:</b> <span id="sdPhone1"></span></div>
-          <div class="sd-row"><b>هاتف ثانٍ:</b> <span id="sdPhone2"></span></div>
-          <div class="sd-row"><b>ملاحظات:</b> <span id="sdNotes"></span></div>
+          <div class="sd-row"><b data-i18n="students.section">القسم:</b> <span id="sdSection"></span></div>
+          <div class="sd-row"><b data-i18n="students.status">الحالة:</b> <span id="sdStatus"></span></div>
+          <div class="sd-row"><b data-i18n="students.parentPhone">هاتف ولي الأمر:</b> <span id="sdPhone1"></span></div>
+          <div class="sd-row"><b data-i18n="students.parentPhone2">هاتف ثانٍ:</b> <span id="sdPhone2"></span></div>
+          <div class="sd-row"><b data-i18n="students.notes">ملاحظات:</b> <span id="sdNotes"></span></div>
         </div>
         <div class="tabs no-print">
-          <button class="tab-btn active" data-tab="attendance">الغياب والتأخر</button>
-          <button class="tab-btn" data-tab="behavior">السلوك والتدخلات</button>
-          <button class="tab-btn" data-tab="messages">الاتصالات</button>
+          <button class="tab-btn active" data-tab="attendance" data-i18n="nav.attendance">الغياب والتأخر</button>
+          <button class="tab-btn" data-tab="behavior" data-i18n="nav.behavior">السلوك والتدخلات</button>
+          <button class="tab-btn" data-tab="messages" data-i18n="students.tabMessages">الاتصالات</button>
         </div>
         <div id="sdTabAttendance" class="tab-panel"></div>
         <div id="sdTabBehavior" class="tab-panel hidden"></div>
         <div id="sdTabMessages" class="tab-panel hidden"></div>
         <div class="toolbar" style="margin-top:14px">
-          <button class="btn btn-gold" id="btnStudentReport">🖨️ توليد تقرير هذا التلميذ</button>
+          <button class="btn btn-gold" id="btnStudentReport">🖨️ <span data-i18n="students.genReport">توليد تقرير هذا التلميذ</span></button>
         </div>
       </div>
     </section>
@@ -179,19 +180,19 @@
     <!-- ============ TEACHERS ============ -->
     <section class="view hidden" id="view-teachers">
       <div class="view-title">
-        <h2>👨‍🏫 لائحة الأساتذة</h2>
+        <h2>👨‍🏫 <span data-i18n="teachers.title">لائحة الأساتذة</span></h2>
         <div class="toolbar">
-          <button class="btn btn-primary" id="btnAddTeacher">➕ إضافة أستاذ(ة)</button>
-          <button class="btn btn-light" id="btnImportTeachers">⬆️ استيراد لائحة</button>
-          <button class="btn btn-light" id="btnExportTeachers">⬇️ تصدير اللائحة</button>
+          <button class="btn btn-primary" id="btnAddTeacher">➕ <span data-i18n="teachers.add">إضافة أستاذ(ة)</span></button>
+          <button class="btn btn-light" id="btnImportTeachers">⬆️ <span data-i18n="common.importList">استيراد لائحة</span></button>
+          <button class="btn btn-light" id="btnExportTeachers">⬇️ <span data-i18n="common.exportList">تصدير اللائحة</span></button>
         </div>
       </div>
       <div class="search-row">
-        <input type="text" id="teacherSearch" placeholder="ابحث بالاسم أو المادة أو القسم...">
+        <input type="text" id="teacherSearch" placeholder="ابحث بالاسم أو المادة أو القسم..." data-i18n-ph="teachers.searchPh">
       </div>
       <div class="log-table-wrap">
         <table class="log-table">
-          <thead><tr><th>الاسم الكامل</th><th>المادة</th><th>الأقسام</th><th>الهاتف</th><th>إجراءات</th></tr></thead>
+          <thead><tr><th data-i18n="students.thName">الاسم الكامل</th><th data-i18n="teachers.thSubject">المادة</th><th data-i18n="teachers.thSections">الأقسام</th><th data-i18n="teachers.thPhone">الهاتف</th><th data-i18n="common.thActions">إجراءات</th></tr></thead>
           <tbody id="teachersTbody"></tbody>
         </table>
       </div>
@@ -199,48 +200,48 @@
 
     <!-- ============ ATTENDANCE ============ -->
     <section class="view hidden" id="view-attendance">
-      <div class="view-title"><h2>📋 الغياب والتأخر</h2></div>
+      <div class="view-title"><h2>📋 <span data-i18n="nav.attendance">الغياب والتأخر</span></h2></div>
       <div class="panel">
-        <h3>تسجيل حالة جديدة</h3>
+        <h3 data-i18n="attendance.newEntry">تسجيل حالة جديدة</h3>
         <div class="form-grid">
           <div class="field-group">
-            <label>القسم</label>
+            <label data-i18n="common.section">القسم</label>
             <select id="attSection"></select>
           </div>
           <div class="field-group">
-            <label>التلميذ(ة)</label>
+            <label data-i18n="common.student">التلميذ(ة)</label>
             <select id="attStudent"></select>
           </div>
           <div class="field-group">
-            <label>نوع الحالة</label>
-            <select id="attType"><option value="absence">غياب</option><option value="tardiness">تأخر</option></select>
+            <label data-i18n="attendance.caseType">نوع الحالة</label>
+            <select id="attType"><option value="absence" data-i18n="attendance.absence">غياب</option><option value="tardiness" data-i18n="attendance.tardiness">تأخر</option></select>
           </div>
-          <div class="field-group"><label>التاريخ</label><input type="date" id="attDate"></div>
-          <div class="field-group"><label>الساعة</label><input type="time" id="attTime"></div>
-          <div class="field-group"><label>السبب</label><input type="text" id="attReason" placeholder="اختياري"></div>
+          <div class="field-group"><label data-i18n="common.date">التاريخ</label><input type="date" id="attDate"></div>
+          <div class="field-group"><label data-i18n="common.time">الساعة</label><input type="time" id="attTime"></div>
+          <div class="field-group"><label data-i18n="common.reason">السبب</label><input type="text" id="attReason" placeholder="اختياري" data-i18n-ph="common.optional"></div>
           <div class="field-group">
-            <label>الوضعية</label>
+            <label data-i18n="attendance.justification">الوضعية</label>
             <select id="attJustification">
-              <option value="pending">ينتظر التبرير</option>
-              <option value="justified">مبرر</option>
-              <option value="unjustified">غير مبرر</option>
+              <option value="pending" data-i18n="justif.pending">ينتظر التبرير</option>
+              <option value="justified" data-i18n="justif.justified">مبرر</option>
+              <option value="unjustified" data-i18n="justif.unjustified">غير مبرر</option>
             </select>
           </div>
-          <div class="field-group full"><label>ملاحظة إضافية</label><textarea id="attNote"></textarea></div>
+          <div class="field-group full"><label data-i18n="common.extraNote">ملاحظة إضافية</label><textarea id="attNote"></textarea></div>
         </div>
         <div id="attAlertBox" class="alert-box hidden"></div>
         <div class="toolbar">
-          <button class="btn btn-primary" id="btnAttSave">💾 حفظ</button>
-          <button class="btn btn-light" id="btnAttMessage">✉️ إعداد رسالة لولي الأمر</button>
-          <button class="btn btn-gold" id="btnAttAddToDaily">📌 إضافة إلى تقرير اليوم</button>
+          <button class="btn btn-primary" id="btnAttSave">💾 <span data-i18n="common.save">حفظ</span></button>
+          <button class="btn btn-light" id="btnAttMessage">✉️ <span data-i18n="common.prepMessage">إعداد رسالة لولي الأمر</span></button>
+          <button class="btn btn-gold" id="btnAttAddToDaily">📌 <span data-i18n="attendance.addToDaily">إضافة إلى تقرير اليوم</span></button>
         </div>
       </div>
       <div class="panel">
-        <h3>آخر التسجيلات</h3>
-        <div class="search-row"><input type="text" id="attListSearch" placeholder="ابحث..."></div>
+        <h3 data-i18n="attendance.recentEntries">آخر التسجيلات</h3>
+        <div class="search-row"><input type="text" id="attListSearch" placeholder="ابحث..." data-i18n-ph="common.searchPh"></div>
         <div class="log-table-wrap">
           <table class="log-table">
-            <thead><tr><th>التلميذ</th><th>القسم</th><th>النوع</th><th>التاريخ</th><th>الوضعية</th><th>إجراءات</th></tr></thead>
+            <thead><tr><th data-i18n="common.student">التلميذ</th><th data-i18n="students.thSection">القسم</th><th data-i18n="attendance.thType">النوع</th><th data-i18n="common.date">التاريخ</th><th data-i18n="attendance.justification">الوضعية</th><th data-i18n="common.thActions">إجراءات</th></tr></thead>
             <tbody id="attTbody"></tbody>
           </table>
         </div>
@@ -249,60 +250,60 @@
 
     <!-- ============ BEHAVIOR ============ -->
     <section class="view hidden" id="view-behavior">
-      <div class="view-title"><h2>⚖️ السلوك والتدخلات</h2></div>
+      <div class="view-title"><h2>⚖️ <span data-i18n="nav.behavior">السلوك والتدخلات</span></h2></div>
       <div class="panel">
-        <h3>تسجيل حالة جديدة</h3>
+        <h3 data-i18n="attendance.newEntry">تسجيل حالة جديدة</h3>
         <div class="form-grid">
           <div class="field-group">
-            <label>القسم</label>
+            <label data-i18n="common.section">القسم</label>
             <select id="behSection"></select>
           </div>
           <div class="field-group">
-            <label>التلميذ(ة)</label>
+            <label data-i18n="common.student">التلميذ(ة)</label>
             <select id="behStudent"></select>
           </div>
-          <div class="field-group"><label>التاريخ</label><input type="date" id="behDate"></div>
+          <div class="field-group"><label data-i18n="common.date">التاريخ</label><input type="date" id="behDate"></div>
           <div class="field-group">
-            <label>نوع الحالة</label>
+            <label data-i18n="attendance.caseType">نوع الحالة</label>
             <select id="behType"></select>
           </div>
           <div class="field-group">
-            <label>درجة الخطورة</label>
+            <label data-i18n="behavior.severity">درجة الخطورة</label>
             <select id="behSeverity">
-              <option value="light">بسيطة</option>
-              <option value="medium">متوسطة</option>
-              <option value="urgent">مستعجلة</option>
+              <option value="light" data-i18n="severity.light">بسيطة</option>
+              <option value="medium" data-i18n="severity.medium">متوسطة</option>
+              <option value="urgent" data-i18n="severity.urgent">مستعجلة</option>
             </select>
           </div>
-          <div class="field-group full"><label>وصف الحالة</label><textarea id="behDescription"></textarea></div>
+          <div class="field-group full"><label data-i18n="behavior.description">وصف الحالة</label><textarea id="behDescription"></textarea></div>
           <div class="field-group">
-            <label>الإجراء المتخذ</label>
+            <label data-i18n="behavior.action">الإجراء المتخذ</label>
             <select id="behAction"></select>
           </div>
-          <div class="field-group"><label>تاريخ المتابعة</label><input type="date" id="behFollowUp"></div>
+          <div class="field-group"><label data-i18n="behavior.followUp">تاريخ المتابعة</label><input type="date" id="behFollowUp"></div>
           <div class="field-group">
-            <label>حالة الملف</label>
-            <select id="behFileStatus"><option value="open">مفتوح</option><option value="closed">مغلق</option></select>
+            <label data-i18n="behavior.fileStatus">حالة الملف</label>
+            <select id="behFileStatus"><option value="open" data-i18n="file.open">مفتوح</option><option value="closed" data-i18n="file.closed">مغلق</option></select>
           </div>
         </div>
         <div class="toolbar">
-          <button class="btn btn-primary" id="btnBehSave">💾 حفظ</button>
-          <button class="btn btn-light" id="btnBehMessage">✉️ إعداد رسالة لولي الأمر</button>
+          <button class="btn btn-primary" id="btnBehSave">💾 <span data-i18n="common.save">حفظ</span></button>
+          <button class="btn btn-light" id="btnBehMessage">✉️ <span data-i18n="common.prepMessage">إعداد رسالة لولي الأمر</span></button>
         </div>
       </div>
       <div class="panel">
-        <h3>الحالات المسجلة</h3>
+        <h3 data-i18n="behavior.registered">الحالات المسجلة</h3>
         <div class="search-row">
-          <input type="text" id="behListSearch" placeholder="ابحث...">
+          <input type="text" id="behListSearch" placeholder="ابحث..." data-i18n-ph="common.searchPh">
           <select id="behFileFilter">
-            <option value="">كل الملفات</option>
-            <option value="open">مفتوحة فقط</option>
-            <option value="closed">مغلقة فقط</option>
+            <option value="" data-i18n="behavior.allFiles">كل الملفات</option>
+            <option value="open" data-i18n="behavior.openOnly">مفتوحة فقط</option>
+            <option value="closed" data-i18n="behavior.closedOnly">مغلقة فقط</option>
           </select>
         </div>
         <div class="log-table-wrap">
           <table class="log-table">
-            <thead><tr><th>التلميذ</th><th>النوع</th><th>الخطورة</th><th>التاريخ</th><th>الملف</th><th>إجراءات</th></tr></thead>
+            <thead><tr><th data-i18n="common.student">التلميذ</th><th data-i18n="attendance.thType">النوع</th><th data-i18n="behavior.severity">الخطورة</th><th data-i18n="common.date">التاريخ</th><th data-i18n="behavior.file">الملف</th><th data-i18n="common.thActions">إجراءات</th></tr></thead>
             <tbody id="behTbody"></tbody>
           </table>
         </div>
@@ -311,37 +312,37 @@
 
     <!-- ============ MESSAGES ============ -->
     <section class="view hidden" id="view-messages">
-      <div class="view-title"><h2>✉️ التواصل مع أولياء الأمور</h2></div>
+      <div class="view-title"><h2>✉️ <span data-i18n="nav.messages">التواصل مع أولياء الأمور</span></h2></div>
       <div class="panel">
         <div class="form-grid">
           <div class="field-group">
-            <label>القالب</label>
+            <label data-i18n="messages.template">القالب</label>
             <select id="msgTemplate"></select>
           </div>
           <div class="field-group">
-            <label>القسم</label>
+            <label data-i18n="common.section">القسم</label>
             <select id="msgSection"></select>
           </div>
           <div class="field-group">
-            <label>التلميذ(ة)</label>
+            <label data-i18n="common.student">التلميذ(ة)</label>
             <select id="msgStudent"></select>
           </div>
         </div>
         <div class="field-group">
-          <label>نص الرسالة (قابل للتعديل قبل الإرسال)</label>
+          <label data-i18n="messages.previewLabel">نص الرسالة (قابل للتعديل قبل الإرسال)</label>
           <textarea id="msgPreview" rows="7"></textarea>
         </div>
         <div class="toolbar">
-          <button class="btn btn-light" id="btnMsgAI">✨ تحسين الصياغة بالذكاء الاصطناعي</button>
-          <button class="btn btn-gold" id="btnMsgWhatsapp">🟢 فتح في واتساب</button>
-          <button class="btn btn-light" id="btnMsgCopy">📋 نسخ النص</button>
+          <button class="btn btn-light" id="btnMsgAI">✨ <span data-i18n="messages.aiImprove">تحسين الصياغة بالذكاء الاصطناعي</span></button>
+          <button class="btn btn-gold" id="btnMsgWhatsapp">🟢 <span data-i18n="messages.openWhatsapp">فتح في واتساب</span></button>
+          <button class="btn btn-light" id="btnMsgCopy">📋 <span data-i18n="messages.copyText">نسخ النص</span></button>
         </div>
       </div>
       <div class="panel">
-        <h3>سجل الاتصالات الأخيرة</h3>
+        <h3 data-i18n="messages.recentLog">سجل الاتصالات الأخيرة</h3>
         <div class="log-table-wrap">
           <table class="log-table">
-            <thead><tr><th>التلميذ</th><th>القالب</th><th>التاريخ</th></tr></thead>
+            <thead><tr><th data-i18n="common.student">التلميذ</th><th data-i18n="messages.template">القالب</th><th data-i18n="common.date">التاريخ</th></tr></thead>
             <tbody id="msgLogTbody"></tbody>
           </table>
         </div>
@@ -352,26 +353,26 @@
     <section class="view hidden" id="view-reports">
 
       <div id="reports-home-view">
-        <div class="view-title"><h2>🗂️ التقارير والقوالب</h2></div>
+        <div class="view-title"><h2>🗂️ <span data-i18n="nav.reports">التقارير والقوالب</span></h2></div>
 
         <div class="dash-panel">
-          <h3>⚡ تقارير ذكية (تُولَّد تلقائياً من بياناتك)</h3>
+          <h3 data-i18n="reports.smartTitle">⚡ تقارير ذكية (تُولَّد تلقائياً من بياناتك)</h3>
           <div class="smart-reports-grid">
-            <button class="btn btn-light smart-rep-btn" id="btnSmartDaily">📅 تقرير اليوم</button>
-            <button class="btn btn-light smart-rep-btn" id="btnSmartStudent">🧑‍🎓 تقرير تلميذ</button>
-            <button class="btn btn-light smart-rep-btn" id="btnSmartSection">🏫 تقرير قسم</button>
-            <button class="btn btn-light smart-rep-btn" id="btnSmartMonthlyAbsence">🗓️ تقرير غياب شهري</button>
-            <button class="btn btn-light smart-rep-btn" id="btnSmartRepeatedTardiness">⏱️ تقرير تأخر متكرر</button>
+            <button class="btn btn-light smart-rep-btn" id="btnSmartDaily">📅 <span data-i18n="reports.smartDaily">تقرير اليوم</span></button>
+            <button class="btn btn-light smart-rep-btn" id="btnSmartStudent">🧑‍🎓 <span data-i18n="reports.smartStudent">تقرير تلميذ</span></button>
+            <button class="btn btn-light smart-rep-btn" id="btnSmartSection">🏫 <span data-i18n="reports.smartSection">تقرير قسم</span></button>
+            <button class="btn btn-light smart-rep-btn" id="btnSmartMonthlyAbsence">🗓️ <span data-i18n="reports.smartMonthly">تقرير غياب شهري</span></button>
+            <button class="btn btn-light smart-rep-btn" id="btnSmartRepeatedTardiness">⏱️ <span data-i18n="reports.smartRepeated">تقرير تأخر متكرر</span></button>
           </div>
         </div>
 
         <div class="view-title" style="margin-top:22px">
-          <h3 style="margin:0">📄 نماذج قابلة للتعبئة والتخصيص</h3>
-          <button class="btn btn-primary btn-sm" id="btnNewTpl">➕ قالب جديد</button>
+          <h3 style="margin:0" data-i18n="reports.customTitle">📄 نماذج قابلة للتعبئة والتخصيص</h3>
+          <button class="btn btn-primary btn-sm" id="btnNewTpl">➕ <span data-i18n="reports.newTemplate">قالب جديد</span></button>
         </div>
         <div class="search-row">
-          <input type="text" id="searchInput" placeholder="ابحث عن نموذج...">
-          <select id="categoryFilter"><option value="">كل الفئات</option></select>
+          <input type="text" id="searchInput" placeholder="ابحث عن نموذج..." data-i18n-ph="reports.searchPh">
+          <select id="categoryFilter"><option value="" data-i18n="reports.allCategories">كل الفئات</option></select>
         </div>
         <div id="templatesContainer"></div>
       </div>
@@ -381,24 +382,24 @@
         <div class="view-title">
           <h2 id="fillTitle">تعبئة نموذج</h2>
           <div class="toolbar no-print">
-            <button class="btn btn-light" id="btnBackFromFill">↩ رجوع</button>
-            <button class="btn btn-light" id="btnClearForm">🧹 تفريغ الحقول</button>
-            <button class="btn btn-primary" id="btnSaveReport">💾 حفظ في السجل</button>
-            <button class="btn btn-gold" id="btnPrintReport">🖨️ طباعة / PDF</button>
+            <button class="btn btn-light" id="btnBackFromFill" data-i18n="common.back">↩ رجوع</button>
+            <button class="btn btn-light" id="btnClearForm">🧹 <span data-i18n="reports.clearFields">تفريغ الحقول</span></button>
+            <button class="btn btn-primary" id="btnSaveReport">💾 <span data-i18n="reports.saveToLog">حفظ في السجل</span></button>
+            <button class="btn btn-gold" id="btnPrintReport">🖨️ <span data-i18n="common.printPdf">طباعة / PDF</span></button>
           </div>
         </div>
         <div class="fill-layout">
           <div class="panel no-print" id="formPanel">
-            <h3>📝 بيانات النموذج</h3>
+            <h3 data-i18n="reports.formData">📝 بيانات النموذج</h3>
             <div id="formFields"></div>
             <div id="extraFieldsWrap">
-              <h3 style="margin-top:18px">➕ حقول إضافية لهذا التقرير</h3>
+              <h3 style="margin-top:18px" data-i18n="reports.extraFields">➕ حقول إضافية لهذا التقرير</h3>
               <div id="extraFieldsList"></div>
-              <button class="btn btn-light btn-sm" id="btnAddExtraField">➕ إضافة حقل إضافي</button>
+              <button class="btn btn-light btn-sm" id="btnAddExtraField">➕ <span data-i18n="reports.addExtraField">إضافة حقل إضافي</span></button>
             </div>
           </div>
           <div class="panel" id="printArea">
-            <h3 class="no-print">🖨️ معاينة الطباعة</h3>
+            <h3 class="no-print" data-i18n="reports.printPreview">🖨️ معاينة الطباعة</h3>
             <div class="doc" id="docPreview"></div>
           </div>
         </div>
@@ -409,25 +410,25 @@
         <div class="view-title">
           <h2 id="builderTitle">قالب جديد</h2>
           <div class="toolbar">
-            <button class="btn btn-light" id="btnBackFromBuilder">↩ رجوع</button>
-            <button class="btn btn-primary" id="btnSaveTemplate">💾 حفظ القالب</button>
+            <button class="btn btn-light" id="btnBackFromBuilder" data-i18n="common.back">↩ رجوع</button>
+            <button class="btn btn-primary" id="btnSaveTemplate">💾 <span data-i18n="reports.saveTemplate">حفظ القالب</span></button>
           </div>
         </div>
         <div class="panel" style="margin-bottom:14px">
           <div class="field-group">
-            <label>اسم النموذج <span class="req">*</span></label>
-            <input type="text" id="tplName" placeholder="مثال: تقرير غياب مخصص">
+            <label data-i18n="reports.templateName">اسم النموذج</label> <span class="req">*</span>
+            <input type="text" id="tplName" placeholder="مثال: تقرير غياب مخصص" data-i18n-ph="reports.templateNamePh">
           </div>
           <div class="field-group">
-            <label>الفئة</label>
-            <input type="text" id="tplCategory" list="catList" placeholder="مثال: الغياب والتأخر">
+            <label data-i18n="reports.category">الفئة</label>
+            <input type="text" id="tplCategory" list="catList" placeholder="مثال: الغياب والتأخر" data-i18n-ph="reports.categoryPh">
             <datalist id="catList"></datalist>
           </div>
         </div>
         <div class="panel">
-          <h3>حقول النموذج</h3>
+          <h3 data-i18n="reports.templateFields">حقول النموذج</h3>
           <div id="builderFields"></div>
-          <button class="btn btn-light btn-sm" id="btnAddField">➕ إضافة حقل</button>
+          <button class="btn btn-light btn-sm" id="btnAddField">➕ <span data-i18n="reports.addField">إضافة حقل</span></button>
         </div>
       </section>
 
@@ -436,8 +437,8 @@
         <div class="view-title">
           <h2 id="smartPrintTitle">تقرير</h2>
           <div class="toolbar no-print">
-            <button class="btn btn-light" id="btnBackFromSmartPrint">↩ رجوع</button>
-            <button class="btn btn-gold" id="btnPrintSmart">🖨️ طباعة / PDF</button>
+            <button class="btn btn-light" id="btnBackFromSmartPrint" data-i18n="common.back">↩ رجوع</button>
+            <button class="btn btn-gold" id="btnPrintSmart">🖨️ <span data-i18n="common.printPdf">طباعة / PDF</span></button>
           </div>
         </div>
         <div class="panel" id="smartPrintPanel">
@@ -450,84 +451,84 @@
     <!-- ============ DAILY LOG ============ -->
     <section class="view hidden" id="view-dailylog">
       <div class="view-title">
-        <h2>📅 سجل اليوم — <span id="dailyLogDate"></span></h2>
-        <button class="btn btn-gold" id="btnGenerateDailyFromLog">🖨️ توليد تقرير اليوم</button>
+        <h2>📅 <span data-i18n="nav.dailylog">سجل اليوم</span> — <span id="dailyLogDate"></span></h2>
+        <button class="btn btn-gold" id="btnGenerateDailyFromLog">🖨️ <span data-i18n="dash.qaDailyReport">توليد تقرير اليوم</span></button>
       </div>
-      <div class="dash-panel"><h3>📋 الغياب والتأخر</h3><div id="dlAttendance" class="recent-list"></div></div>
-      <div class="dash-panel"><h3>⚖️ السلوك والتدخلات</h3><div id="dlBehavior" class="recent-list"></div></div>
-      <div class="dash-panel"><h3>✉️ الاتصالات</h3><div id="dlMessages" class="recent-list"></div></div>
-      <div class="dash-panel"><h3>📂 الملفات المفتوحة (كل الفترات)</h3><div id="dlOpenFiles" class="recent-list"></div></div>
+      <div class="dash-panel"><h3>📋 <span data-i18n="nav.attendance">الغياب والتأخر</span></h3><div id="dlAttendance" class="recent-list"></div></div>
+      <div class="dash-panel"><h3>⚖️ <span data-i18n="nav.behavior">السلوك والتدخلات</span></h3><div id="dlBehavior" class="recent-list"></div></div>
+      <div class="dash-panel"><h3>✉️ <span data-i18n="dailylog.messages">الاتصالات</span></h3><div id="dlMessages" class="recent-list"></div></div>
+      <div class="dash-panel"><h3>📂 <span data-i18n="dailylog.openFiles">الملفات المفتوحة (كل الفترات)</span></h3><div id="dlOpenFiles" class="recent-list"></div></div>
     </section>
 
     <!-- ============ STATISTICS ============ -->
     <section class="view hidden" id="view-stats">
-      <div class="view-title"><h2>📊 الإحصائيات</h2></div>
+      <div class="view-title"><h2>📊 <span data-i18n="nav.stats">الإحصائيات</span></h2></div>
       <div class="stat-grid" id="statsSummaryGrid"></div>
-      <div class="dash-panel"><h3>الغياب حسب القسم</h3><div id="statAbsenceBySection" class="bar-list"></div></div>
-      <div class="dash-panel"><h3>التأخر حسب القسم</h3><div id="statTardyBySection" class="bar-list"></div></div>
-      <div class="dash-panel"><h3>الأكثر تكراراً في التأخر</h3><div id="statTopTardy" class="bar-list"></div></div>
-      <div class="dash-panel"><h3>الأكثر تكراراً في الغياب</h3><div id="statTopAbsence" class="bar-list"></div></div>
+      <div class="dash-panel"><h3 data-i18n="stats.absenceBySection">الغياب حسب القسم</h3><div id="statAbsenceBySection" class="bar-list"></div></div>
+      <div class="dash-panel"><h3 data-i18n="stats.tardyBySection">التأخر حسب القسم</h3><div id="statTardyBySection" class="bar-list"></div></div>
+      <div class="dash-panel"><h3 data-i18n="stats.topTardy">الأكثر تكراراً في التأخر</h3><div id="statTopTardy" class="bar-list"></div></div>
+      <div class="dash-panel"><h3 data-i18n="stats.topAbsence">الأكثر تكراراً في الغياب</h3><div id="statTopAbsence" class="bar-list"></div></div>
     </section>
 
     <!-- ============ SETTINGS ============ -->
     <section class="view hidden" id="view-settings">
-      <div class="view-title"><h2>⚙️ الإعدادات</h2></div>
+      <div class="view-title"><h2>⚙️ <span data-i18n="nav.settings">الإعدادات</span></h2></div>
 
       <div class="panel">
-        <h3>معلومات المؤسسة</h3>
+        <h3 data-i18n="settings.institutionInfo">معلومات المؤسسة</h3>
         <div class="form-grid">
-          <div class="field-group"><label>اسم المؤسسة</label><input type="text" id="setInstitution"></div>
-          <div class="field-group"><label>النيابة الإقليمية</label><input type="text" id="setNiaba"></div>
-          <div class="field-group"><label>الأكاديمية الجهوية</label><input type="text" id="setAcademy"></div>
-          <div class="field-group"><label>السنة الدراسية</label><input type="text" id="setYear"></div>
-          <div class="field-group"><label>اسم الحارس(ة) العام(ة)</label><input type="text" id="setSupervisor"></div>
+          <div class="field-group"><label data-i18n="settings.institutionName">اسم المؤسسة</label><input type="text" id="setInstitution"></div>
+          <div class="field-group"><label data-i18n="settings.niaba">النيابة الإقليمية</label><input type="text" id="setNiaba"></div>
+          <div class="field-group"><label data-i18n="settings.academy">الأكاديمية الجهوية</label><input type="text" id="setAcademy"></div>
+          <div class="field-group"><label data-i18n="settings.year">السنة الدراسية</label><input type="text" id="setYear"></div>
+          <div class="field-group"><label data-i18n="settings.supervisor">اسم الحارس(ة) العام(ة)</label><input type="text" id="setSupervisor"></div>
         </div>
-        <button class="btn btn-primary" id="btnSaveSettings">💾 حفظ المعلومات</button>
+        <button class="btn btn-primary" id="btnSaveSettings">💾 <span data-i18n="settings.saveInfo">حفظ المعلومات</span></button>
       </div>
 
       <div class="panel">
-        <h3>الأقسام</h3>
+        <h3 data-i18n="settings.sections">الأقسام</h3>
         <div id="settingsSections" class="chip-list"></div>
-        <div class="toolbar"><input type="text" id="newSectionInput" placeholder="اسم قسم جديد"><button class="btn btn-light btn-sm" id="btnAddSection">➕ إضافة</button></div>
+        <div class="toolbar"><input type="text" id="newSectionInput" placeholder="اسم قسم جديد" data-i18n-ph="settings.newSectionPh"><button class="btn btn-light btn-sm" id="btnAddSection">➕ <span data-i18n="common.add">إضافة</span></button></div>
       </div>
 
       <div class="panel">
-        <h3>أنواع الحالات السلوكية</h3>
+        <h3 data-i18n="settings.caseTypes">أنواع الحالات السلوكية</h3>
         <div id="settingsCaseTypes" class="chip-list"></div>
-        <div class="toolbar"><input type="text" id="newCaseTypeInput" placeholder="نوع حالة جديد"><button class="btn btn-light btn-sm" id="btnAddCaseType">➕ إضافة</button></div>
+        <div class="toolbar"><input type="text" id="newCaseTypeInput" placeholder="نوع حالة جديد" data-i18n-ph="settings.newCaseTypePh"><button class="btn btn-light btn-sm" id="btnAddCaseType">➕ <span data-i18n="common.add">إضافة</span></button></div>
       </div>
 
       <div class="panel">
-        <h3>قوالب رسائل أولياء الأمور</h3>
+        <h3 data-i18n="settings.messageTemplates">قوالب رسائل أولياء الأمور</h3>
         <div id="settingsMessageTemplates"></div>
       </div>
 
       <div class="panel">
-        <h3>🔐 الأمان</h3>
+        <h3 data-i18n="settings.security">🔐 الأمان</h3>
         <div class="toolbar">
-          <button class="btn btn-light" id="btnChangePassword">🔑 تغيير كلمة المرور</button>
-          <button class="btn btn-light" id="btnChangePin">🔢 تغيير الرقم السري</button>
+          <button class="btn btn-light" id="btnChangePassword">🔑 <span data-i18n="settings.changePassword">تغيير كلمة المرور</span></button>
+          <button class="btn btn-light" id="btnChangePin">🔢 <span data-i18n="settings.changePin">تغيير الرقم السري</span></button>
         </div>
-        <p class="hint">استعمل زر 🔒 في الرأس لقفل التطبيق سريعاً بالرقم السري، وزر 🚪 لتسجيل الخروج الكامل (يتطلب كلمة المرور عند الدخول التالي).</p>
+        <p class="hint" data-i18n="settings.securityHint">استعمل زر 🔒 في الرأس لقفل التطبيق سريعاً بالرقم السري، وزر 🚪 لتسجيل الخروج الكامل (يتطلب كلمة المرور عند الدخول التالي).</p>
       </div>
 
       <div class="panel">
-        <h3>البيانات</h3>
+        <h3 data-i18n="settings.dataTitle">البيانات</h3>
         <div class="toolbar">
-          <button class="btn btn-light" id="btnExportAll">⬇️ تصدير نسخة احتياطية</button>
-          <label class="btn btn-light" style="position:relative;overflow:hidden">⬆️ استيراد نسخة احتياطية
+          <button class="btn btn-light" id="btnExportAll">⬇️ <span data-i18n="settings.exportBackup">تصدير نسخة احتياطية</span></button>
+          <label class="btn btn-light" style="position:relative;overflow:hidden">⬆️ <span data-i18n="settings.importBackup">استيراد نسخة احتياطية</span>
             <input type="file" id="importFile" accept="application/json" style="position:absolute;inset:0;opacity:0;cursor:pointer">
           </label>
-          <button class="btn btn-danger" id="btnWipeData">🗑️ مسح جميع البيانات</button>
+          <button class="btn btn-danger" id="btnWipeData">🗑️ <span data-i18n="settings.wipeData">مسح جميع البيانات</span></button>
         </div>
-        <p class="hint">التصدير يشمل: التلاميذ، الأساتذة، الغياب والتأخر، السلوك، سجل الاتصالات، القوالب المخصصة، التقارير المحفوظة، والإعدادات.</p>
+        <p class="hint" data-i18n="settings.exportHint">التصدير يشمل: التلاميذ، الأساتذة، الغياب والتأخر، السلوك، سجل الاتصالات، القوالب المخصصة، التقارير المحفوظة، والإعدادات.</p>
       </div>
     </section>
 
   </main>
 
   <footer class="app-footer no-print">
-    مساعد الحراسة العامة — مؤسسة الحنان — جميع البيانات محفوظة محلياً في متصفحك فقط (لا يوجد اتصال بخادم خارجي).
+    <span data-i18n="app.footer">مساعد الحراسة العامة — مؤسسة الحنان — جميع البيانات محفوظة محلياً في متصفحك فقط (لا يوجد اتصال بخادم خارجي).</span>
   </footer>
 </div>
 

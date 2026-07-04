@@ -1,4 +1,4 @@
-const CACHE_NAME = 'harissa-v7';
+const CACHE_NAME = 'harissa-v8';
 const APP_SHELL = [
   './',
   './index.html',
