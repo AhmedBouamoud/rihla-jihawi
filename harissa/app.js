@@ -10,6 +10,10 @@
 
 /* ============================= مفاتيح التخزين ============================= */
 const K_AUTH        = 'hg_auth_v1';
+const K_PWHASH       = 'hg_pwhash_v1';
+const K_PINHASH      = 'hg_pinhash_v1';
+const SS_UNLOCKED    = 'hg_session_unlocked'; // sessionStorage: تم التحقق من كلمة المرور الكاملة لهذه الجلسة
+const SS_PIN_LOCKED  = 'hg_pin_locked';       // sessionStorage: التطبيق مقفل مؤقتاً وينتظر الرقم السري فقط
 const K_SETTINGS     = 'hg_settings_v1';
 const K_STUDENTS     = 'hg_students_v1';
 const K_TEACHERS     = 'hg_teachers_v1';
@@ -316,34 +320,122 @@ function migrateSecondaryLevels(){
   saveSettings();
 }
 
-/* ============================= شاشة الدخول ============================= */
+/* ============================= الحماية: كلمة المرور والرقم السري ============================= */
+// تشفير بسيط عبر Web Crypto (SHA-256 + ملح عشوائي) — يمنع الاستعمال العرضي فقط،
+// وليس تشفيراً حقيقياً للبيانات نفسها (تبقى البيانات كنص عادي في localStorage).
+function randomSalt(){
+  const arr = new Uint8Array(16);
+  crypto.getRandomValues(arr);
+  return Array.from(arr).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+async function sha256Hex(text){
+  const enc = new TextEncoder().encode(text);
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+async function setSecret(key, value){
+  const salt = randomSalt();
+  const hash = await sha256Hex(salt + ':' + value);
+  saveJSON(key, {salt, hash});
+}
+async function verifySecret(key, value){
+  const stored = loadJSON(key, null);
+  if(!stored) return false;
+  const hash = await sha256Hex(stored.salt + ':' + value);
+  return hash === stored.hash;
+}
+function hasPasswordConfigured(){ return !!loadJSON(K_PWHASH, null); }
+
+/* ============================= بوابة الدخول ============================= */
+function showAuthCard(mode){
+  document.getElementById('loginGate').classList.remove('hidden');
+  document.getElementById('appRoot').classList.add('hidden');
+  ['Setup','Login','Pin'].forEach(m=>{
+    document.getElementById('authCard'+m).classList.toggle('hidden', m.toLowerCase()!==mode);
+  });
+}
 function initLoginGate(){
   const auth = loadJSON(K_AUTH, null);
-  if(auth && auth.name){
-    showApp(auth);
+  if(!hasPasswordConfigured()){
+    if(auth && auth.name) document.getElementById('setupName').value = auth.name;
+    showAuthCard('setup');
+  } else if(sessionStorage.getItem(SS_UNLOCKED)==='1'){
+    if(sessionStorage.getItem(SS_PIN_LOCKED)==='1') showAuthCard('pin');
+    else showApp(auth);
   } else {
-    document.getElementById('loginGate').classList.remove('hidden');
-    document.getElementById('appRoot').classList.add('hidden');
+    showAuthCard('login');
   }
-  document.getElementById('btnLogin').addEventListener('click', ()=>{
-    const name = document.getElementById('loginName').value.trim() || 'الحارس(ة) العام(ة)';
-    const role = document.getElementById('loginRole').value;
-    const auth = { name, role, loggedInAt: new Date().toISOString() };
-    saveJSON(K_AUTH, auth);
-    showApp(auth);
+
+  document.getElementById('btnSetupSave').addEventListener('click', async ()=>{
+    const name = document.getElementById('setupName').value.trim() || 'الحارس(ة) العام(ة)';
+    const pw = document.getElementById('setupPw').value;
+    const pwConfirm = document.getElementById('setupPwConfirm').value;
+    const pin = document.getElementById('setupPin').value.trim();
+    const pinConfirm = document.getElementById('setupPinConfirm').value.trim();
+    const errEl = document.getElementById('setupError');
+    errEl.classList.add('hidden');
+    if(pw.length < 4){ errEl.textContent = 'كلمة المرور يجب أن تكون 4 أحرف على الأقل'; errEl.classList.remove('hidden'); return; }
+    if(pw !== pwConfirm){ errEl.textContent = 'كلمتا المرور غير متطابقتين'; errEl.classList.remove('hidden'); return; }
+    if(!/^\d{4,6}$/.test(pin)){ errEl.textContent = 'الرقم السري يجب أن يكون من 4 إلى 6 أرقام'; errEl.classList.remove('hidden'); return; }
+    if(pin !== pinConfirm){ errEl.textContent = 'الرقمان السريان غير متطابقين'; errEl.classList.remove('hidden'); return; }
+    await setSecret(K_PWHASH, pw);
+    await setSecret(K_PINHASH, pin);
+    const newAuth = { name, role:'حارس عام', loggedInAt: new Date().toISOString() };
+    saveJSON(K_AUTH, newAuth);
+    sessionStorage.setItem(SS_UNLOCKED, '1');
+    sessionStorage.removeItem(SS_PIN_LOCKED);
+    showApp(newAuth);
+  });
+
+  document.getElementById('btnLoginSubmit').addEventListener('click', async ()=>{
+    const pw = document.getElementById('loginPw').value;
+    const errEl = document.getElementById('loginError');
+    const ok = await verifySecret(K_PWHASH, pw);
+    if(!ok){ errEl.textContent = 'كلمة المرور غير صحيحة'; errEl.classList.remove('hidden'); return; }
+    errEl.classList.add('hidden');
+    document.getElementById('loginPw').value = '';
+    sessionStorage.setItem(SS_UNLOCKED, '1');
+    sessionStorage.removeItem(SS_PIN_LOCKED);
+    showApp(loadJSON(K_AUTH, {name:'الحارس(ة) العام(ة)', role:'حارس عام'}));
+  });
+  document.getElementById('loginPw').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('btnLoginSubmit').click(); });
+
+  document.getElementById('btnPinSubmit').addEventListener('click', async ()=>{
+    const pin = document.getElementById('pinInput').value;
+    const errEl = document.getElementById('pinError');
+    const ok = await verifySecret(K_PINHASH, pin);
+    if(!ok){ errEl.textContent = 'الرقم السري غير صحيح'; errEl.classList.remove('hidden'); return; }
+    errEl.classList.add('hidden');
+    document.getElementById('pinInput').value = '';
+    sessionStorage.removeItem(SS_PIN_LOCKED);
+    showApp(loadJSON(K_AUTH, {name:'الحارس(ة) العام(ة)', role:'حارس عام'}));
+  });
+  document.getElementById('pinInput').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('btnPinSubmit').click(); });
+
+  document.getElementById('btnLock').addEventListener('click', ()=>{
+    sessionStorage.setItem(SS_PIN_LOCKED, '1');
+    showAuthCard('pin');
   });
   document.getElementById('btnLogout').addEventListener('click', ()=>{
-    if(confirm('هل تريد تسجيل الخروج؟ (البيانات لن تُحذف، فقط شاشة الدخول ستظهر من جديد)')){
-      localStorage.removeItem(K_AUTH);
-      location.reload();
+    if(confirm('هل تريد تسجيل الخروج؟ (البيانات لن تُحذف، وستحتاج كلمة المرور فقط للعودة)')){
+      sessionStorage.removeItem(SS_UNLOCKED);
+      sessionStorage.removeItem(SS_PIN_LOCKED);
+      showAuthCard('login');
     }
   });
 }
+let appBooted = false;
 function showApp(auth){
   document.getElementById('loginGate').classList.add('hidden');
   document.getElementById('appRoot').classList.remove('hidden');
   document.getElementById('userBadge').textContent = '👤 ' + auth.name + ' — ' + auth.role;
-  bootApp();
+  if(!appBooted){
+    appBooted = true;
+    bootApp();
+  } else {
+    // العودة من قفل سريع (رقم سري) — نستأنف نفس الشاشة بدل إعادة كل الإعداد
+    showView(state.currentView);
+  }
 }
 
 /* ============================= التنقل بين الشاشات ============================= */
@@ -1671,6 +1763,55 @@ document.getElementById('btnSaveSettings').addEventListener('click', ()=>{
   saveSettings();
   toast('تم حفظ معلومات المؤسسة');
 });
+
+/* ---- تغيير كلمة المرور / الرقم السري (يتطلب التحقق من كلمة المرور الحالية) ---- */
+function openSecretChangeModal({title, currentLabel, verifyKey, newLabel, newPattern, patternErr, saveKey, successMsg}){
+  const bg = document.createElement('div');
+  bg.className = 'modal-bg';
+  bg.innerHTML = `
+    <div class="modal">
+      <h3>${esc(title)}</h3>
+      <div class="field-group"><label>${esc(currentLabel)} الحالية</label><input type="password" id="scCurrent"></div>
+      <div class="field-group"><label>${esc(newLabel)} الجديدة</label><input type="password" id="scNew"></div>
+      <div class="field-group"><label>تأكيد ${esc(newLabel)} الجديدة</label><input type="password" id="scNewConfirm"></div>
+      <p class="auth-error hidden" id="scError"></p>
+      <div class="modal-actions">
+        <button class="btn btn-light" id="scCancel">إلغاء</button>
+        <button class="btn btn-primary" id="scSave">💾 حفظ</button>
+      </div>
+    </div>`;
+  document.body.appendChild(bg);
+  bg.addEventListener('click', e=>{ if(e.target===bg) bg.remove(); });
+  bg.querySelector('#scCancel').addEventListener('click', ()=>bg.remove());
+  bg.querySelector('#scSave').addEventListener('click', async ()=>{
+    const errEl = bg.querySelector('#scError');
+    const current = bg.querySelector('#scCurrent').value;
+    const okCurrent = await verifySecret(verifyKey, current);
+    if(!okCurrent){ errEl.textContent = 'كلمة المرور الحالية غير صحيحة'; errEl.classList.remove('hidden'); return; }
+    const val = bg.querySelector('#scNew').value;
+    const confirm2 = bg.querySelector('#scNewConfirm').value;
+    if(!newPattern.test(val)){ errEl.textContent = patternErr; errEl.classList.remove('hidden'); return; }
+    if(val !== confirm2){ errEl.textContent = 'القيمتان غير متطابقتين'; errEl.classList.remove('hidden'); return; }
+    await setSecret(saveKey, val);
+    bg.remove();
+    toast(successMsg);
+  });
+}
+document.getElementById('btnChangePassword').addEventListener('click', ()=>{
+  openSecretChangeModal({
+    title:'🔑 تغيير كلمة المرور', currentLabel:'كلمة المرور', verifyKey:K_PWHASH,
+    newLabel:'كلمة المرور', newPattern:/^.{4,}$/, patternErr:'كلمة المرور يجب أن تكون 4 أحرف على الأقل',
+    saveKey:K_PWHASH, successMsg:'تم تغيير كلمة المرور'
+  });
+});
+document.getElementById('btnChangePin').addEventListener('click', ()=>{
+  openSecretChangeModal({
+    title:'🔢 تغيير الرقم السري', currentLabel:'كلمة المرور', verifyKey:K_PWHASH,
+    newLabel:'الرقم السري', newPattern:/^\d{4,6}$/, patternErr:'الرقم السري يجب أن يكون من 4 إلى 6 أرقام',
+    saveKey:K_PINHASH, successMsg:'تم تغيير الرقم السري'
+  });
+});
+
 document.getElementById('btnExportAll').addEventListener('click', ()=>{
   const data = {
     settings: state.settings, students: state.students, teachers: state.teachers, attendance: state.attendance, behavior: state.behavior,
@@ -1707,7 +1848,8 @@ document.getElementById('importFile').addEventListener('change', e=>{
 document.getElementById('btnWipeData').addEventListener('click', ()=>{
   const phrase = prompt('لتأكيد مسح جميع البيانات نهائياً، اكتب "حذف نهائي" بالضبط:');
   if(phrase !== 'حذف نهائي'){ toast('لم يتم المسح — النص غير مطابق'); return; }
-  [K_SETTINGS,K_STUDENTS,K_TEACHERS,K_ATTENDANCE,K_BEHAVIOR,K_MSGLOG,K_TEMPLATES,K_REPORTS,K_SEEDED].forEach(k=>localStorage.removeItem(k));
+  [K_SETTINGS,K_STUDENTS,K_TEACHERS,K_ATTENDANCE,K_BEHAVIOR,K_MSGLOG,K_TEMPLATES,K_REPORTS,K_SEEDED,K_AUTH,K_PWHASH,K_PINHASH].forEach(k=>localStorage.removeItem(k));
+  sessionStorage.removeItem(SS_UNLOCKED); sessionStorage.removeItem(SS_PIN_LOCKED);
   toast('تم مسح جميع البيانات — سيُعاد تحميل الصفحة');
   setTimeout(()=>location.reload(), 900);
 });

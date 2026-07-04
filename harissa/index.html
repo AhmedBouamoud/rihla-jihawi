@@ -17,29 +17,47 @@
 </head>
 <body>
 
-<!-- ============================= شاشة الدخول (تجريبية) ============================= -->
+<!-- ============================= بوابة الحماية (كلمة مرور + رقم سري) ============================= -->
 <div id="loginGate" class="login-gate">
-  <div class="login-card">
+
+  <!-- إعداد أول مرة: تعيين كلمة المرور والرقم السري -->
+  <div class="login-card" id="authCardSetup">
     <div class="login-logo">🛡️</div>
     <h1>مساعد الحراسة العامة</h1>
     <div class="login-sub">مؤسسة الحنان</div>
-    <p class="login-tag">نظام ذكي لتتبع الحياة المدرسية اليومية</p>
-    <div class="field-group">
-      <label>اسمك</label>
-      <input type="text" id="loginName" placeholder="مثال: عبد الرحيم">
-    </div>
-    <div class="field-group">
-      <label>الدور</label>
-      <select id="loginRole">
-        <option value="حارس عام">حارس(ة) عام(ة)</option>
-        <option value="مدير" disabled>مدير — قريباً</option>
-        <option value="أستاذ" disabled>أستاذ(ة) — قريباً</option>
-        <option value="إدارة" disabled>إدارة — قريباً</option>
-      </select>
-    </div>
-    <button class="btn btn-primary btn-block" id="btnLogin">🔓 دخول</button>
-    <p class="login-note">⚠️ هذا الدخول محلي لتنظيم الاستعمال فقط، وليس حماية أمنية حقيقية للبيانات. جميع البيانات محفوظة في متصفحك فقط.</p>
+    <p class="login-tag">إعداد الحماية لأول مرة</p>
+    <div class="field-group"><label>اسمك</label><input type="text" id="setupName" placeholder="مثال: عبد الرحيم"></div>
+    <div class="field-group"><label>كلمة مرور جديدة</label><input type="password" id="setupPw" placeholder="4 أحرف على الأقل"></div>
+    <div class="field-group"><label>تأكيد كلمة المرور</label><input type="password" id="setupPwConfirm"></div>
+    <div class="field-group"><label>رقم سري قصير (4 أرقام) للقفل السريع</label><input type="text" inputmode="numeric" maxlength="6" id="setupPin" placeholder="مثال: 1234"></div>
+    <div class="field-group"><label>تأكيد الرقم السري</label><input type="text" inputmode="numeric" maxlength="6" id="setupPinConfirm"></div>
+    <p class="auth-error hidden" id="setupError"></p>
+    <button class="btn btn-primary btn-block" id="btnSetupSave">🔐 حفظ وتفعيل الحماية</button>
+    <p class="login-note">🔒 هذا القفل يحمي من الاستعمال العرضي على هذا الجهاز. البيانات نفسها محفوظة في متصفحك بصيغة عادية (غير مشفّرة)، فلا تتركي الجهاز مفتوحاً لمن لا تثقين به.</p>
   </div>
+
+  <!-- الدخول الكامل (بعد إغلاق المتصفح أو تسجيل الخروج) -->
+  <div class="login-card hidden" id="authCardLogin">
+    <div class="login-logo">🛡️</div>
+    <h1>مساعد الحراسة العامة</h1>
+    <div class="login-sub">مؤسسة الحنان</div>
+    <p class="login-tag">أدخل كلمة المرور للمتابعة</p>
+    <div class="field-group"><label>كلمة المرور</label><input type="password" id="loginPw"></div>
+    <p class="auth-error hidden" id="loginError"></p>
+    <button class="btn btn-primary btn-block" id="btnLoginSubmit">🔓 دخول</button>
+    <p class="login-note hint-note">نسيت كلمة المرور؟ لا يمكن استرجاعها لأنها غير محفوظة على أي خادم. إعادة الضبط تتطلب مسح بيانات المتصفح لهذا الموقع من إعدادات المتصفح، ثم إعادة الاستيراد من نسخة احتياطية مصدَّرة إن وُجدت (من ⚙️ الإعدادات).</p>
+  </div>
+
+  <!-- القفل السريع بالرقم السري -->
+  <div class="login-card hidden" id="authCardPin">
+    <div class="login-logo">🔒</div>
+    <h1>التطبيق مقفل</h1>
+    <div class="login-sub">أدخل الرقم السري لمتابعة العمل</div>
+    <div class="field-group"><label>الرقم السري</label><input type="password" inputmode="numeric" maxlength="6" id="pinInput"></div>
+    <p class="auth-error hidden" id="pinError"></p>
+    <button class="btn btn-primary btn-block" id="btnPinSubmit">🔓 فتح</button>
+  </div>
+
 </div>
 
 <!-- ============================= التطبيق ============================= -->
@@ -60,6 +78,7 @@
       </div>
       <div class="header-user">
         <span id="userBadge" class="user-badge">👤 —</span>
+        <button class="icon-btn" id="btnLock" title="قفل سريع بالرقم السري">🔒</button>
         <button class="icon-btn" id="btnLogout" title="تسجيل الخروج">🚪</button>
       </div>
     </div>
@@ -481,6 +500,15 @@
       <div class="panel">
         <h3>قوالب رسائل أولياء الأمور</h3>
         <div id="settingsMessageTemplates"></div>
+      </div>
+
+      <div class="panel">
+        <h3>🔐 الأمان</h3>
+        <div class="toolbar">
+          <button class="btn btn-light" id="btnChangePassword">🔑 تغيير كلمة المرور</button>
+          <button class="btn btn-light" id="btnChangePin">🔢 تغيير الرقم السري</button>
+        </div>
+        <p class="hint">استعمل زر 🔒 في الرأس لقفل التطبيق سريعاً بالرقم السري، وزر 🚪 لتسجيل الخروج الكامل (يتطلب كلمة المرور عند الدخول التالي).</p>
       </div>
 
       <div class="panel">
