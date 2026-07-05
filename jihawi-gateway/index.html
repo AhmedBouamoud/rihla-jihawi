@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>بوابة الجهوي — رحلة الجهوي الجيل الثاني</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="particles" aria-hidden="true"></div>
+
+<section class="opening" id="opening" aria-label="افتتاح بوابة الجهوي">
+  <div class="opening-map">
+    <div class="opening-photo" aria-hidden="true"></div>
+    <div class="opening-gate"></div>
+    <div class="opening-title">بوابة الجهوي فُتحت الآن</div>
+  </div>
+</section>
+<button class="skip-intro" id="skipIntro">تجاوز الافتتاح</button>
+
+<header class="container topbar">
+  <div class="brand">
+    <div class="logo">🧭</div>
+    <div>
+      <h1>بوابة الجهوي</h1>
+      <small>رحلة الاجتماعيات نحو التفوق</small>
+    </div>
+  </div>
+  <div class="player-bar">
+    <span class="player-pill">👤 رحّالة مبتدئ</span>
+    <span class="player-pill">⭐ 580 XP <span class="xp"><i></i></span></span>
+    <span class="player-pill">🏅 3 شارات</span>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="hello">أهلاً أيها الرحّالة</span>
+      <h2>التاريخ يُقرأ…<br><span>والجغرافيا تُستكشف</span></h2>
+      <p>
+        أمامك عوالم التاريخ، وخبايا الجغرافيا، وتحديات المواطنة.
+        اختر بوابتك، وافتح طريقك نحو الجهوي خطوة بخطوة.
+      </p>
+      <div class="cta-row">
+        <a href="#daily" class="btn primary">ابدأ رحلة اليوم</a>
+        <a href="#gates" class="btn ghost">اختر بوابتي</a>
+        <button class="btn ghost" id="ibnTip">نصيحة ابن بطوطة</button>
+      </div>
+
+      <div class="ibn-message" id="ibnBox">
+        <div class="avatar-small">
+          <img class="avatar-photo" src="assets/images/ibn-battuta.webp" alt="ابن بطوطة" onerror="this.remove()">
+        </div>
+        <div>
+          <b>ابن بطوطة — رفيق الرحلة</b>
+          <span id="ibnText">أهلاً بك يا رفيق الدرب. أمامك بوابات كثيرة، لكن لا تقلق: اختر ما تحتاجه اليوم، وسأظهر عندما تحتاج إلى نصيحة.</span>
+        </div>
+      </div>
+    </div>
+
+    <aside class="hero-world">
+      <div class="world-screen">
+        <div class="big-map"><div class="portal"></div></div>
+        <div class="floating-card fc1">وثيقة مخفية</div>
+        <div class="floating-card fc2">خريطة تنتظر</div>
+        <div class="floating-card fc3">شارة قريبة</div>
+
+        <div class="ibn-full" aria-hidden="true">
+          <img class="ibn-photo" src="assets/images/ibn-battuta.webp" alt="" onerror="this.remove()">
+          <div class="ibn-halo"></div>
+          <div class="ibn-turban"></div>
+          <div class="ibn-face"></div>
+          <span class="ibn-eye ie1"></span><span class="ibn-eye ie2"></span><span class="ibn-smile"></span>
+          <div class="ibn-body"></div>
+        </div>
+        <div class="speech">شدّ الرحال… أول بوابة في انتظارك.</div>
+      </div>
+      <div class="world-stats">
+        <div class="stat-card"><b>8</b><small>بوابات نحو الجهوي</small></div>
+        <div class="stat-card"><b>30%</b><small>حد أقصى للأسئلة المباشرة</small></div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="section" id="gates">
+    <div class="section-title">
+      <div>
+        <h3>اختر بوابتك نحو الجهوي</h3>
+        <p>كل بوابة تقودك إلى طريقة مختلفة في الاستعداد: لعب، مراجعة، تحديات، منهجية، امتحانات، شروحات، موارد، أو إنجازات.</p>
+      </div>
+    </div>
+
+    <div class="gates">
+      <article class="gate featured active" data-message="أراضي الاستكشاف مناسبة عندما تريد أن تبدأ باللعب: رتب، صنف، افتح صندوقاً، واجمع مفتاحاً جديداً.">
+        <div class="gate-image">
+          <img class="gate-photo" src="assets/images/gate-exploration.webp" alt="أراضي الاستكشاف" onerror="this.remove()">
+          <span class="gate-icon">🗺️</span>
+        </div>
+        <h4>أراضي الاستكشاف</h4>
+        <p>ألغاز، خرائط، صناديق، مفاتيح، ترتيب زمني، تصنيف، وسحب وإفلات.</p>
+        <span class="tag">ابدأ بالمغامرة</span>
+      </article>
+
+      <article class="gate" data-message="خزانة المخطوطات تحفظ لك خلاصات الدروس والمفاهيم والتواريخ بشكل منظم وسهل الرجوع إليه.">
+        <div class="gate-image">
+          <img class="gate-photo" src="assets/images/gate-manuscripts.webp" alt="خزانة المخطوطات" onerror="this.remove()">
+          <span class="gate-icon">📜</span>
+        </div>
+        <h4>خزانة المخطوطات</h4>
+        <p>ملخصات، مفاهيم، تواريخ، خرائط ذهنية، وخلاصات قابلة للطباعة.</p>
+        <span class="tag">راجع بذكاء</span>
+      </article>
+
+      <article class="gate" data-message="في ميدان التحدي لا تحفظ فقط؛ ستربط، تصنف، تستخرج المعطيات، وتكتشف الدليل داخل الوثيقة.">
+        <div class="gate-image">
+          <img class="gate-photo" src="assets/images/gate-challenge.webp" alt="ميدان التحدي" onerror="this.remove()">
+          <span class="gate-icon">⚔️</span>
+        </div>
+        <h4>ميدان التحدي</h4>
+        <p>تمارين قصيرة ومتدرجة: ربط، تصنيف، استخراج، تفسير، ووثائق.</p>
+        <span class="tag">اختبر فهمك</span>
+      </article>
+
+      <article class="gate" data-message="بوصلة المهارات تقودك إلى سر الامتحان: وثيقة، خريطة، مبيان، خط زمني، وموضوع مقالي.">
+        <div class="gate-image">
+          <img class="gate-photo" src="assets/images/gate-skills.webp" alt="بوصلة المهارات" onerror="this.remove()">
+          <span class="gate-icon">🧭</span>
+        </div>
+        <h4>بوصلة المهارات</h4>
+        <p>تحليل وثيقة، قراءة خريطة، رسم مبيان، خط زمني، وموضوع مقالي.</p>
+        <span class="tag">أتقن المنهجية</span>
+      </article>
+
+      <article class="gate" data-message="قاعة الحسم هي مكان التدريب الجاد: وقت محدد، نموذج جهوي، تصحيح ذاتي، وشبكة تنقيط.">
+        <div class="gate-image">
+          <img class="gate-photo" src="assets/images/gate-exam.webp" alt="قاعة الحسم" onerror="this.remove()">
+          <span class="gate-icon">📝</span>
+        </div>
+        <h4>قاعة الحسم</h4>
+        <p>نماذج جهوية، محاكاة زمنية، أرشيف امتحانات، وتصحيح ذاتي.</p>
+        <span class="tag">استعد للامتحان</span>
+      </article>
+
+      <article class="gate" data-message="قبة العروض مناسبة عندما تحتاج إلى شرح سريع أو كبسولة قصيرة قبل التحدي.">
+        <div class="gate-image">
+          <img class="gate-photo" src="assets/images/gate-videos.webp" alt="قبة العروض" onerror="this.remove()">
+          <span class="gate-icon">🎬</span>
+        </div>
+        <h4>قبة العروض</h4>
+        <p>فيديوهات وكبسولات قصيرة حسب الدرس أو المهارة أو الصعوبة.</p>
+        <span class="tag">شاهد وافهم</span>
+      </article>
+
+      <article class="gate" data-message="مرفأ المعرفة لا يتركك تبحر عشوائياً؛ ستجد روابط منتقاة ومواقع مفيدة داخل مسار واضح.">
+        <div class="gate-image">
+          <img class="gate-photo" src="assets/images/gate-harbor.webp" alt="مرفأ المعرفة" onerror="this.remove()">
+          <span class="gate-icon">⚓</span>
+        </div>
+        <h4>مرفأ المعرفة</h4>
+        <p>موارد خارجية منتقاة، مواقع مفيدة، وروابط منظمة دون ضياع.</p>
+        <span class="tag">إبحار ذكي</span>
+      </article>
+
+      <article class="gate" data-message="ديوان الرحالة يسجل تقدمك: XP، شارات، شهادات، وآخر محطة وصلت إليها.">
+        <div class="gate-image">
+          <img class="gate-photo" src="assets/images/gate-achievements.webp" alt="ديوان الرحالة" onerror="this.remove()">
+          <span class="gate-icon">🏅</span>
+        </div>
+        <h4>ديوان الرحالة</h4>
+        <p>XP، شارات، شهادة، آخر تقدم، إنجازات، وتوصيات للمهمة القادمة.</p>
+        <span class="tag">تقدمك محفوظ</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="section dashboard" id="daily">
+    <article class="card daily-card">
+      <div class="daily-icon">🎯</div>
+      <div>
+        <h3>نداء اليوم</h3>
+        <p id="dailyText">خريطة الذاكرة ضاعت! رتّب 5 أحداث من تاريخ المغرب وافتح صندوق الزمن.</p>
+      </div>
+      <button class="btn primary" id="newMission">غيّر المهمة</button>
+    </article>
+
+    <article class="card progress-card">
+      <div class="rank">
+        <div>
+          <h3>ديوان الرحالة</h3>
+          <p style="color:var(--muted);font-weight:900;margin:0">المستوى 2 · 580 XP · الشارة التالية قريبة</p>
+        </div>
+        <div class="medal-small">⭐</div>
+      </div>
+      <div class="progress-line"><i></i></div>
+      <div class="badges">
+        <span>⏳ منظم الزمن</span>
+        <span>🗺️ قارئ الخريطة</span>
+        <span>🔍 محقق الوثيقة</span>
+      </div>
+    </article>
+  </section>
+
+  <section class="section">
+    <div class="section-title">
+      <div>
+        <h3>هنا لا تجيب فقط… بل تفعل</h3>
+        <p>التعلم يبدأ بالفعل: ترتيب، تصنيف، اكتشاف، بناء، تحقيق، ربط، اختيار، ثم تثبيت قصير.</p>
+      </div>
+    </div>
+    <div class="action-strip">
+      <div class="action"><b>⏳</b>رتّب</div>
+      <div class="action"><b>🧩</b>صنّف</div>
+      <div class="action"><b>🗺️</b>اكتشف</div>
+      <div class="action"><b>📊</b>ابنِ</div>
+      <div class="action"><b>🔍</b>حقّق</div>
+      <div class="action"><b>🎴</b>اربط</div>
+      <div class="action"><b>⚖️</b>اختر</div>
+      <div class="action"><b>🏆</b>اربح</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="design-note">
+      هذه المعاينة مخصصة للنقاش بين فريق العمل. واجهة التلميذ نفسها لا تستعمل عبارات تقنية؛ هي تتحدث بلغة الرحلة: بوابة، خريطة، رفيق، مهمة، شارات، ونجاح.
+    </div>
+  </section>
+</main>
+
+<footer class="container footer">
+  بوابة الجهوي — رحلة الاجتماعيات نحو التفوق
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
