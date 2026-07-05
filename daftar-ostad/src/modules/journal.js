@@ -75,6 +75,13 @@ export function updS(sid, k, v, isHolidayFn, saveFn, renderFn){
   saveFn(); renderFn();
 }
 
+export function updU(unitId, k, v, saveFn, renderFn){
+  const u = state.data.find(x=>x.id===unitId);
+  if(!u) return;
+  u[k] = v;
+  saveFn(); renderFn();
+}
+
 export function updEl(eid, k, v, saveFn){
   const f = findEl(eid);
   if(!f) return;
@@ -109,6 +116,7 @@ export function applyPreset(pid, append, saveFn, renderFn, tabFn){
     id: uid(),
     period: u.period,
     title: u.title,
+    weeks: u.weeksHint || '',
     lessons: u.lessons.map(l => ({
       id: uid(),
       title: l,

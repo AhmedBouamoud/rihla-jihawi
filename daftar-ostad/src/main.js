@@ -8,7 +8,7 @@ import { PRESETS } from './data/presets.js';
 import { initStorage, save, load, saveMeta, loadMeta, saveDocs, loadDocs } from './modules/storage.js';
 
 // holidays
-import { saveHolidays, loadHolidays, isHoliday, scanHolidays, clearHolidaySessionDates } from './modules/holidays.js';
+import { loadHolidays, isHoliday, addHolidayPeriod, delHolidayPeriod, scanHolidays, clearHolidaySessionDates } from './modules/holidays.js';
 
 // render
 import { tab, stats, header, fillSelectors, periodOptions, render, renderElements, renderPresets, renderSubjectMap, filters, init as renderInit } from './modules/render.js';
@@ -17,7 +17,7 @@ import { tab, stats, header, fillSelectors, periodOptions, render, renderElement
 import {
   findLesson, findSession, findEl,
   makeSession, addLesson, addSession, copySession, delSession,
-  updS, updEl, addEl, delEl,
+  updS, updU, updEl, addEl, delEl,
   applyPreset as applyPresetFn,
   previewSmart, applySmart
 } from './modules/journal.js';
@@ -124,6 +124,9 @@ window._holidaysModule = { loadHolidays };
 // expose delDoc for inline onclick in renderDocs
 window._delDoc = (id) => delDoc(id);
 
+// expose delHoliday for inline onclick in renderHolidays
+window._delHoliday = (id) => delHolidayPeriod(id);
+
 // ---- public API wired to window ----
 
 function applyPreset(pid, append=false){
@@ -131,6 +134,7 @@ function applyPreset(pid, append=false){
 }
 
 function _updS(sid, k, v){ updS(sid, k, v, isHoliday, save, render); }
+function _updU(unitId, k, v){ updU(unitId, k, v, save, render); }
 function _updEl(eid, k, v){ updEl(eid, k, v, save); }
 function _addEl(sid, level){ addEl(sid, level, save, render); }
 function _delEl(eid){ delEl(eid, save, render); }
@@ -169,6 +173,7 @@ Object.assign(window, {
   renderSubjectMap,
   // journal / table
   updS:                _updS,
+  updU:                _updU,
   updEl:               _updEl,
   addEl:               _addEl,
   delEl:               _delEl,
@@ -184,7 +189,7 @@ Object.assign(window, {
   applySchedule:       _applySchedule,
   clearDates:          _clearDates,
   // holidays
-  saveHolidays,
+  addHolidayPeriod,
   scanHolidays,
   clearHolidaySessionDates: _clearHolidaySessionDates,
   // docs

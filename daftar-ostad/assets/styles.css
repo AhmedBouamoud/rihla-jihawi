@@ -305,6 +305,9 @@ th, td { border: 1px solid var(--line); padding: 6px; vertical-align: top; font-
 th { background: var(--sidebar); color: #fff; position: sticky; top: 0; }
 .unit td { background: linear-gradient(90deg, var(--sidebar), #0d7f72); color: #fff; font-weight: 800; }
 .lesson td { background: #f0faf8; font-weight: 800; }
+.unit-weeks { display:inline-block; margin-right:10px; }
+.unit-weeks input { width:220px; padding:3px 8px; font-size:11px; font-weight:400; display:inline-block; }
+.unit-weeks .print-value { color:#fff; font-weight:800; }
 
 /* ===== PILLS ===== */
 .pill    { display:inline-block; border-radius:999px; padding:2px 7px; font-weight:800; font-size:11px; }

@@ -240,20 +240,18 @@
     <section id="tab-holidays" class="tab hidden">
       <div class="page-header"><h2>مفكرة العطل</h2></div>
       <div class="panel">
-        <div class="grid3">
-          <div>
-            <label>لائحة العطل</label>
-            <textarea id="holText" placeholder="2026-10-01 إلى 2026-10-05 - عطلة بينية&#10;2026-12-20 إلى 2027-01-03 - عطلة الشتاء"></textarea>
-          </div>
-          <div>
-            <button class="g" onclick="saveHolidays()">حفظ العطل</button>
-            <button class="t" style="margin-top:8px" onclick="scanHolidays()">فحص الحصص</button>
-            <button class="y" style="margin-top:8px" onclick="clearHolidaySessionDates()">مسح تواريخ العطل من الحصص</button>
-          </div>
-          <div>
-            <label>النتيجة</label>
-            <div id="holOut" class="output">لا توجد عطل بعد.</div>
-          </div>
+        <p class="muted">أضف عطل هذا الموسم يدوياً كل سنة — لا يوجد تقويم عطل رسمي ثابت لأن برنامج العطل الرسمي يتغير سنوياً ولا يصدر مسبقاً.</p>
+        <div class="grid4">
+          <div><label>اسم العطلة</label><input id="holLabel" placeholder="مثال: عطلة نصف السنة"></div>
+          <div><label>تاريخ البداية</label><input id="holStart" type="date"></div>
+          <div><label>تاريخ النهاية</label><input id="holEnd" type="date"></div>
+          <div style="display:flex;align-items:flex-end"><button class="g" style="width:100%" onclick="addHolidayPeriod()">إضافة عطلة</button></div>
+        </div>
+        <div id="holidayList" style="margin-top:12px"></div>
+        <div class="grid3" style="margin-top:12px">
+          <div><button class="t" style="width:100%" onclick="scanHolidays()">فحص الحصص</button></div>
+          <div><button class="y" style="width:100%" onclick="clearHolidaySessionDates()">مسح تواريخ العطل من الحصص</button></div>
+          <div><label>النتيجة</label><div id="holOut" class="output">لا توجد عطل بعد.</div></div>
         </div>
       </div>
     </section>

@@ -78,7 +78,7 @@ export function render(){
   if(!bodyRows) return;
   let h = '';
   for(const u of state.data){
-    h += `<tr class="unit"><td colspan="12">${esc(u.period)} | ${esc(u.title)} <span class="screen-only"><button class="small b" onclick="addLesson('${u.id}')">+ درس</button></span></td></tr>`;
+    h += `<tr class="unit"><td colspan="12">${esc(u.period)} | ${esc(u.title)} <span class="unit-weeks"><input class="screen" placeholder="التقسيم الزمني (مثال: الأسابيع 1-3)" value="${esc(u.weeks||'')}" oninput="updU('${u.id}','weeks',this.value)"><span class="print-value">${u.weeks ? '⏱ '+esc(u.weeks) : ''}</span></span> <span class="screen-only"><button class="small b" onclick="addLesson('${u.id}')">+ درس</button></span></td></tr>`;
     for(const l of u.lessons){
       h += `<tr class="lesson"><td colspan="12">${esc(l.title)} <span class="actions screen-only"><button class="small b" onclick="addSession('${l.id}','normal')">+ درس</button><button class="small y" onclick="addSession('${l.id}','exercise')">+ تطبيق</button><button class="small g" onclick="addSession('${l.id}','support')">+ دعم</button><button class="small r" onclick="addSession('${l.id}','exam')">+ فرض</button><button class="small gray" onclick="addSession('${l.id}','correction')">+ تصحيح</button></span></td></tr>`;
       for(const s of l.sessions){
