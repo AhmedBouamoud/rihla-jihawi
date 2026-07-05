@@ -1,6 +1,22 @@
 .brand-group{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .back-btn{padding:11px 16px;font-size:14px}
 
+/* شريط التقدم */
+.exp-progress{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 20px;margin-bottom:6px;border-radius:20px;
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);
+}
+.exp-progress-track{
+  flex:1;height:12px;border-radius:999px;background:rgba(255,255,255,.14);overflow:hidden;
+}
+.exp-progress-fill{
+  display:block;height:100%;width:0%;border-radius:999px;
+  background:linear-gradient(90deg,var(--mint),var(--gold));
+  transition:width .5s ease;
+}
+.exp-progress-label{font-weight:1000;color:#ffe8b5;white-space:nowrap;font-size:14px}
+
 /* main layout */
 .exp-main{
   display:grid;
@@ -70,10 +86,25 @@
   display:grid;place-items:center;font-size:14px;
   box-shadow:0 6px 14px rgba(0,0,0,.3);
 }
+.node-lock{
+  position:absolute;top:-6px;left:-6px;
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(7,24,39,.85);color:#ffe8b5;
+  display:grid;place-items:center;font-size:13px;
+  box-shadow:0 6px 14px rgba(0,0,0,.3);border:1px solid rgba(255,211,106,.4);
+}
 .chest-node .node-icon{border-color:var(--amber)}
 .chest-node.locked .node-icon{filter:grayscale(.85) brightness(.5);cursor:not-allowed}
 .chest-node.unlocked .node-icon{animation:nodeGlow 1.6s ease-in-out infinite}
 .chest-node.opened .node-icon{filter:none;border-color:var(--mint)}
+
+/* توهج ذهبي عند النجاح داخل النافذة */
+.modal-card.success-glow{animation:modalGoldFlash 1s ease}
+@keyframes modalGoldFlash{
+  0%{box-shadow:0 40px 100px rgba(0,0,0,.5), 0 0 0 rgba(255,211,106,0)}
+  35%{box-shadow:0 40px 100px rgba(0,0,0,.5), 0 0 60px 14px rgba(255,211,106,.55)}
+  100%{box-shadow:0 40px 100px rgba(0,0,0,.5), 0 0 0 rgba(255,211,106,0)}
+}
 
 .shake{animation:shakeX .45s ease}
 @keyframes shakeX{

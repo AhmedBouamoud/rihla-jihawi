@@ -83,7 +83,9 @@ const modalClose = document.getElementById('modalClose');
 const chestModal = document.getElementById('chestModal');
 const chestArt = document.getElementById('chestArt');
 const chestNode = document.getElementById('chestNode');
-const laterBtn = document.getElementById('laterBtn');
+const retryBtn = document.getElementById('retryBtn');
+const progressFill = document.getElementById('progressFill');
+const progressLabel = document.getElementById('progressLabel');
 
 /* ============ واجهة عامة ============ */
 function say(text, mood) {
@@ -96,6 +98,29 @@ function say(text, mood) {
 function updateHeaderStats() {
   xpEl.textContent = state.xp;
   badgeCountEl.textContent = state.badges.length;
+}
+
+function updateProgress() {
+  const done = STATION_ORDER.filter(k => state.completedStations.includes(k)).length;
+  progressFill.style.width = (done / STATION_ORDER.length * 100) + '%';
+  progressLabel.textContent = `${done} / ${STATION_ORDER.length} محطات`;
+}
+
+function setNodeBadge(node, kind) {
+  const icon = node.querySelector('.node-icon');
+  let badge = icon.querySelector('.node-check, .node-lock');
+  if (badge) badge.remove();
+  if (kind === 'check') {
+    badge = document.createElement('span');
+    badge.className = 'node-check';
+    badge.textContent = '✔';
+    icon.appendChild(badge);
+  } else if (kind === 'lock') {
+    badge = document.createElement('span');
+    badge.className = 'node-lock';
+    badge.textContent = '🔒';
+    icon.appendChild(badge);
+  }
 }
 
 function isUnlocked(stationKey) {
@@ -112,21 +137,14 @@ function updateNodeStates() {
     node.classList.toggle('completed', completed);
     node.classList.toggle('locked', !unlocked && !completed);
     node.classList.toggle('unlocked', unlocked && !completed);
-    const icon = node.querySelector('.node-icon');
-    let check = icon.querySelector('.node-check');
-    if (completed && !check) {
-      check = document.createElement('span');
-      check.className = 'node-check';
-      check.textContent = '✔';
-      icon.appendChild(check);
-    } else if (!completed && check) {
-      check.remove();
-    }
+    setNodeBadge(node, completed ? 'check' : (!unlocked ? 'lock' : 'none'));
   });
   const allDone = STATION_ORDER.every(k => state.completedStations.includes(k));
   chestNode.classList.toggle('locked', !allDone && !state.chestOpened);
   chestNode.classList.toggle('unlocked', allDone && !state.chestOpened);
   chestNode.classList.toggle('opened', state.chestOpened);
+  setNodeBadge(chestNode, state.chestOpened ? 'check' : (!allDone ? 'lock' : 'none'));
+  updateProgress();
 }
 
 function shakeNode(node) {
@@ -151,7 +169,10 @@ function closeModal(overlay) {
 }
 modalClose.addEventListener('click', () => closeModal(stationModal));
 stationModal.addEventListener('click', e => { if (e.target === stationModal) closeModal(stationModal); });
-laterBtn.addEventListener('click', () => closeModal(chestModal));
+retryBtn.addEventListener('click', () => {
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
+});
 
 /* ============ محطة: صندوق الزمن (ترتيب زمني) ============ */
 function renderTimeline(stationKey) {
@@ -370,6 +391,11 @@ function completeStation(stationKey, feedbackEl) {
   say(IBN_MESSAGES.success);
   const node = document.getElementById('node-' + stationKey);
   node.classList.add('gold-flash');
+  spawnBurst(feedbackEl, 14);
+  const modalCard = document.getElementById('modalCard');
+  modalCard.classList.remove('success-glow');
+  void modalCard.offsetWidth;
+  modalCard.classList.add('success-glow');
 
   if (!state.completedStations.includes(stationKey)) {
     const reward = EXPLORATION_DATA[stationKey].reward;
@@ -406,11 +432,12 @@ STATION_ORDER.forEach(key => {
 });
 
 /* ============ صندوق المكافأة ============ */
-function spawnBurst(originEl) {
+function spawnBurst(originEl, count) {
+  count = count || 22;
   const rect = originEl.getBoundingClientRect();
   const cx = rect.left + rect.width / 2;
   const cy = rect.top + rect.height / 2;
-  for (let i = 0; i < 22; i++) {
+  for (let i = 0; i < count; i++) {
     const p = document.createElement('span');
     p.className = 'burst-particle';
     const angle = Math.random() * Math.PI * 2;
