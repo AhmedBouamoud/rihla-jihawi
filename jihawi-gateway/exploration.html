@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>أراضي الاستكشاف — بوابة الجهوي</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%BA%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="exploration.css">
+</head>
+<body>
+<div class="particles" aria-hidden="true"></div>
+
+<header class="container topbar">
+  <div class="brand-group">
+    <a href="index.html" class="btn ghost back-btn">→ بوابة الجهوي</a>
+    <div class="brand">
+      <div class="logo">🗺️</div>
+      <div>
+        <h1>أراضي الاستكشاف</h1>
+        <small>استكشف، رتّب، اكتشف</small>
+      </div>
+    </div>
+  </div>
+  <div class="player-bar">
+    <span class="player-pill">⭐ <span id="expXp">0</span> XP</span>
+    <span class="player-pill">🏅 <span id="expBadgeCount">0</span> شارات</span>
+  </div>
+</header>
+
+<main class="container exp-main">
+  <section class="exp-map-card">
+    <div class="exp-map" id="expMap">
+      <svg class="exp-path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M16,10 L72,32 L20,56 L68,80" />
+      </svg>
+
+      <button class="station-node" id="node-station1" data-station="station1" style="top:10%;left:16%">
+        <span class="node-icon">⏳</span>
+        <span class="node-label">صندوق الزمن</span>
+      </button>
+
+      <button class="station-node" id="node-station2" data-station="station2" style="top:32%;left:72%">
+        <span class="node-icon">🔍</span>
+        <span class="node-label">خريطة الدليل</span>
+      </button>
+
+      <button class="station-node" id="node-station3" data-station="station3" style="top:56%;left:20%">
+        <span class="node-icon">🧩</span>
+        <span class="node-label">لغز المفاهيم</span>
+      </button>
+
+      <button class="chest-node" id="chestNode" style="top:80%;left:68%">
+        <span class="node-icon">🎁</span>
+        <span class="node-label">صندوق المكافأة</span>
+      </button>
+    </div>
+  </section>
+
+  <aside class="ibn-guide">
+    <div class="ibn-guide-avatar">
+      <img src="assets/images/ibn-battuta.webp" alt="ابن بطوطة" onerror="this.remove()">
+    </div>
+    <div class="ibn-guide-bubble">
+      <b>ابن بطوطة</b>
+      <span id="ibnGuideText">أهلاً أيها الرحالة. في هذه الأراضي لا نحفظ فقط، بل نكتشف ونرتب ونفتح المفاتيح.</span>
+    </div>
+  </aside>
+</main>
+
+<div class="modal-overlay" id="stationModal" hidden>
+  <div class="modal-card" id="modalCard" role="dialog" aria-modal="true">
+    <button class="modal-close" id="modalClose" aria-label="إغلاق">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="chestModal" hidden>
+  <div class="modal-card chest-card" role="dialog" aria-modal="true">
+    <div class="chest-art" id="chestArt">🎁</div>
+    <h2>لقد أنهيت أول رحلة في أراضي الاستكشاف.</h2>
+    <div class="chest-rewards">
+      <span class="reward-chip">✨ 150+ XP</span>
+      <span class="reward-chip">🏅 شارة المستكشف</span>
+    </div>
+    <div class="cta-row chest-cta">
+      <a href="index.html" class="btn primary">العودة إلى بوابة الجهوي</a>
+      <button class="btn ghost" id="laterBtn">متابعة الرحلة لاحقاً</button>
+    </div>
+  </div>
+</div>
+
+<script src="exploration.js"></script>
+</body>
+</html>

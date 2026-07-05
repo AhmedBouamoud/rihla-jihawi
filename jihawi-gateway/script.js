@@ -26,6 +26,7 @@ document.getElementById('ibnTip').addEventListener('click',()=>{
 });
 document.querySelectorAll('.gate').forEach(g=>{
   g.addEventListener('click',()=>{
+    if(g.dataset.href){ window.location.href=g.dataset.href; return; }
     document.querySelectorAll('.gate').forEach(x=>x.classList.remove('active'));
     g.classList.add('active');
     ibnText.textContent=g.dataset.message;
