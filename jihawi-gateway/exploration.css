@@ -198,7 +198,7 @@
 .tl-arrows button:hover{background:rgba(255,255,255,.24)}
 
 /* drag zones (station 2/3) */
-.dz-zones{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.dz-zones{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px}
 .dz-zone{
   border-radius:18px;padding:10px;min-height:120px;
   background:rgba(255,255,255,.08);border:1.5px dashed rgba(255,211,106,.4);
@@ -256,7 +256,7 @@
   .ibn-guide{position:static;flex-direction:row;text-align:right}
   .ibn-guide-avatar{width:70px;height:70px;flex-shrink:0}
   .exp-map-card,.exp-map{min-height:560px}
-  .dz-zones{grid-template-columns:1fr}
+  .dz-zones{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
 }
 @media(max-width:480px){
   .node-icon{width:60px;height:60px;font-size:26px}
