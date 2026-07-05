@@ -231,6 +231,9 @@ button{font:inherit}
 .avatar-small:before{content:"";position:absolute;left:14px;top:10px;width:50px;height:22px;border-radius:18px;background:#fff4d5;box-shadow:-9px 9px 0 #fff4d5}
 .avatar-small:after{content:"";position:absolute;left:22px;top:36px;width:34px;height:34px;border-radius:50%;background:#bd7e55;box-shadow:0 38px 0 22px #123b55}
 .avatar-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:26px}
+/* الصورة الحقيقية هي النسخة الرئيسية؛ الرسم بـ CSS احتياط يظهر فقط إذا فشل تحميل الصورة */
+.avatar-small:has(.avatar-photo):before,
+.avatar-small:has(.avatar-photo):after{display:none}
 .ibn-message b{display:block;color:#ffe6aa;margin-bottom:5px}
 .ibn-message span{color:#e9f8ff;line-height:1.75}
 
@@ -308,6 +311,13 @@ button{font:inherit}
   object-fit:contain;object-position:bottom;
   filter:drop-shadow(0 14px 20px rgba(0,0,0,.35));
 }
+/* الصورة الحقيقية هي النسخة الرئيسية؛ الرسم بـ CSS احتياط يظهر فقط إذا فشل تحميل الصورة */
+.ibn-full:has(.ibn-photo) .ibn-halo,
+.ibn-full:has(.ibn-photo) .ibn-turban,
+.ibn-full:has(.ibn-photo) .ibn-face,
+.ibn-full:has(.ibn-photo) .ibn-eye,
+.ibn-full:has(.ibn-photo) .ibn-smile,
+.ibn-full:has(.ibn-photo) .ibn-body{display:none}
 .speech{
   position:absolute;right:34px;bottom:26px;left:240px;
   border-radius:24px;padding:18px;background:rgba(255,255,255,.94);
