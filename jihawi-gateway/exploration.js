@@ -359,6 +359,7 @@ function makeDraggableChip(chip, pool) {
     chip.style.left = rect.left + 'px';
     chip.style.top = rect.top + 'px';
     chip.style.zIndex = 1500;
+    chip.style.pointerEvents = 'none';
 
     function move(ev) {
       chip.style.left = (ev.clientX - offsetX) + 'px';
@@ -372,6 +373,7 @@ function makeDraggableChip(chip, pool) {
       chip.style.position = '';
       chip.style.left = '';
       chip.style.top = '';
+      chip.style.pointerEvents = '';
       chip.style.width = '';
       chip.style.zIndex = '';
       const dropEl = document.elementFromPoint(ev.clientX, ev.clientY);

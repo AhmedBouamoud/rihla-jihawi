@@ -43,3 +43,28 @@ const missions=[
 document.getElementById('newMission').addEventListener('click',()=>{
   document.getElementById('dailyText').textContent=missions[Math.floor(Math.random()*missions.length)];
 });
+
+(function renderHistoryProgress(){
+  let state={completedLessons:[],xp:0};
+  try{
+    const raw=localStorage.getItem('jihawiHistoryProgress');
+    if(raw) state=JSON.parse(raw);
+  }catch(e){}
+  document.querySelectorAll('.history-card').forEach(card=>{
+    const id=card.dataset.lesson;
+    const done=state.completedLessons.includes(id);
+    const track=card.querySelector('.history-progress-track i');
+    const label=card.querySelector('.history-progress small');
+    const btn=card.querySelector('.history-start');
+    if(done){
+      card.classList.add('completed');
+      track.style.width='100%';
+      label.textContent='منجز ✔';
+      btn.textContent='راجع الدرس';
+    }else{
+      track.style.width='0%';
+      label.textContent='لم تبدأ بعد';
+      btn.textContent='ابدأ الدرس';
+    }
+  });
+})();

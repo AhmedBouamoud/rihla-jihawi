@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>درس — محور التاريخ | بوابة الجهوي</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9C%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../lesson.css">
+</head>
+<body>
+<div class="particles" aria-hidden="true"></div>
+
+<header class="container topbar">
+  <div class="brand-group">
+    <a href="../../index.html#history-axis" class="btn ghost back-btn">→ محور التاريخ</a>
+    <div class="brand">
+      <div class="logo">📜</div>
+      <div><h1>محور التاريخ</h1><small>6 رحلات نحو الفهم</small></div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <p class="crumbs"><a href="../../index.html">الرئيسية</a><span>/</span><a href="../../index.html#history-axis">محور التاريخ</a><span>/</span><span id="crumbTitle"></span></p>
+
+  <div class="lesson-ibn">
+    <img src="../../assets/images/ibn-battuta.webp" alt="ابن بطوطة" onerror="this.remove()">
+    <div><b>ابن بطوطة</b><span>لا تحفظ الأحداث فقط… اربط كل سبب بنتيجته، وستجد الدرس أسهل مما تتصور.</span></div>
+  </div>
+
+  <section class="lesson-hero">
+    <span class="icon" id="lessonIcon"></span>
+    <h2 id="lessonTitle"></h2>
+    <p id="lessonTeaser"></p>
+    <div class="lesson-meta">
+      <span class="player-pill" id="lessonDuration"></span>
+      <span class="player-pill">✅ جاهز</span>
+    </div>
+  </section>
+
+  <div class="lesson-steps">
+    <span class="lesson-step" id="step-content">📖 الدرس</span>
+    <span class="lesson-step" id="step-challenge">🎯 التحدي</span>
+    <span class="lesson-step" id="step-quiz">📝 الاختبار</span>
+    <span class="lesson-step" id="step-done">🏅 الإنجاز</span>
+  </div>
+
+  <article class="lesson-card">
+    <div id="lessonSections"></div>
+  </article>
+
+  <article class="lesson-card">
+    <h3>🗺️ خط زمني سريع</h3>
+    <div class="lesson-timeline" id="lessonTimeline"></div>
+  </article>
+
+  <article class="lesson-card">
+    <h3>🔑 مفاهيم مفتاحية</h3>
+    <div class="keyterms" id="lessonKeyterms"></div>
+  </article>
+
+  <article class="lesson-card">
+    <h3>🎯 التحدي</h3>
+    <div id="challengeBody"></div>
+    <div class="challenge-feedback" id="challengeFeedback"></div>
+  </article>
+
+  <article class="lesson-card" id="quizLockedMsg">
+    <p class="locked-msg">🔒 أكمل التحدي أعلاه أولاً لفتح الاختبار.</p>
+  </article>
+
+  <article class="lesson-card" id="quizCard" hidden>
+    <h3>📝 الاختبار</h3>
+    <div id="quizBody"></div>
+    <div class="challenge-actions">
+      <button class="btn primary" id="quizFinishBtn" hidden>إنهاء الدرس</button>
+    </div>
+  </article>
+
+  <article class="lesson-card completion-card" id="completionCard" hidden>
+    <div class="completion-badge" id="completionBadge">🏅</div>
+    <h2>أحسنت! أنهيت هذا الدرس.</h2>
+    <div class="completion-rewards">
+      <span class="reward-chip" id="completionXp"></span>
+      <span class="reward-chip">🏅 <span id="completionBadgeName"></span></span>
+    </div>
+    <div class="completion-actions">
+      <a href="../../index.html#history-axis" class="btn ghost">العودة إلى بوابة التاريخ</a>
+      <a href="#" class="btn primary" id="nextLessonBtn"></a>
+    </div>
+  </article>
+</main>
+
+<footer class="container footer">بوابة الجهوي — محور التاريخ</footer>
+
+<script>const LESSON_ID = 'colonial-pressure-morocco';</script>
+<script src="../lesson-data.js"></script>
+<script src="../lesson.js"></script>
+</body>
+</html>

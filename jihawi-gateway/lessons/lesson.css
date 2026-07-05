@@ -1,0 +1,158 @@
+.brand-group{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.back-btn{padding:11px 16px;font-size:14px}
+
+/* خيط التنقل */
+.crumbs{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  padding:14px 0 0;color:#bcd4e6;font-weight:800;font-size:14px;
+}
+.crumbs a{color:#ffe6aa}
+.crumbs span{opacity:.5}
+
+/* رسالة ابن بطوطة أعلى الدرس */
+.lesson-ibn{
+  display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;
+  border-radius:26px;padding:16px 18px;margin:16px 0;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
+}
+.lesson-ibn img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,211,106,.5)}
+.lesson-ibn b{display:block;color:#ffe6aa;margin-bottom:4px}
+.lesson-ibn span{color:#e9f8ff;line-height:1.7}
+
+/* رأس الدرس */
+.lesson-hero{
+  border-radius:34px;padding:32px;margin-bottom:20px;
+  background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.05));
+  border:1px solid rgba(255,255,255,.18);box-shadow:var(--shadow);
+}
+.lesson-hero .icon{font-size:52px;margin-bottom:10px;display:block}
+.lesson-hero h2{font-size:clamp(26px,4vw,40px);margin:0 0 10px}
+.lesson-hero p{color:#e9f8ff;line-height:1.85;font-size:17px;max-width:760px}
+.lesson-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+
+/* خطوات المسار */
+.lesson-steps{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 26px}
+.lesson-step{
+  padding:9px 14px;border-radius:999px;font-weight:900;font-size:13px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#bcd4e6;
+}
+.lesson-step.active{background:rgba(255,211,106,.16);border-color:rgba(255,211,106,.4);color:#ffe7a6}
+.lesson-step.done{background:rgba(77,211,162,.16);border-color:rgba(77,211,162,.4);color:#c9f7e5}
+
+/* المحتوى */
+.lesson-section{margin-bottom:18px}
+.lesson-section h3{font-size:21px;margin:0 0 10px;color:#ffe7a6}
+.lesson-section ul{margin:0;padding-inline-start:22px;line-height:1.9;color:#eaf8ff}
+.lesson-section p{line-height:1.9;color:#eaf8ff;margin:0}
+.lesson-section b{color:#ffe6aa}
+
+/* الخط الزمني (إنفوغرافيا) */
+.lesson-timeline{
+  display:flex;gap:10px;overflow-x:auto;padding:18px 4px 10px;margin:10px 0 26px;
+  scrollbar-width:thin;
+}
+.tl-point{
+  flex:0 0 auto;min-width:150px;border-radius:20px;padding:14px 16px;
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);
+  position:relative;
+}
+.tl-point:before{
+  content:"";position:absolute;top:-9px;right:16px;width:12px;height:12px;border-radius:50%;
+  background:var(--gold);box-shadow:0 0 10px rgba(255,211,106,.8);
+}
+.tl-point b{display:block;color:var(--gold);font-size:15px;margin-bottom:6px}
+.tl-point span{color:#eaf8ff;font-size:13px;line-height:1.6}
+
+/* المفاهيم المفتاحية */
+.keyterms{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:10px}
+.keyterm-card{
+  border-radius:20px;padding:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+}
+.keyterm-card b{display:block;color:#ffe6aa;margin-bottom:6px;font-size:16px}
+.keyterm-card span{color:#dceff7;line-height:1.7;font-size:14px}
+
+/* بطاقة عامة */
+.lesson-card{
+  border-radius:31px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 20px 50px rgba(0,0,0,.18);padding:26px;backdrop-filter:blur(10px);margin-bottom:20px;
+}
+.lesson-card h3{font-size:23px;margin:0 0 8px}
+.lesson-card > p.hint{color:#dceff7;line-height:1.75;margin:0 0 16px}
+
+/* التحدي: ترتيب زمني */
+.tl-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.tl-card{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);
+  border-radius:18px;padding:12px 14px;touch-action:none;user-select:none;
+}
+.tl-card.dragging{background:rgba(255,211,106,.18);box-shadow:0 14px 30px rgba(0,0,0,.35);z-index:5;position:relative}
+.tl-handle{cursor:grab;font-size:18px;color:#ffe6aa;flex-shrink:0}
+.tl-text{flex:1;min-width:0;font-weight:800;line-height:1.6;overflow-wrap:break-word}
+.tl-arrows{display:flex;flex-direction:column;gap:2px;flex-shrink:0}
+.tl-arrows button{width:26px;height:22px;border:0;border-radius:6px;cursor:pointer;background:rgba(255,255,255,.14);color:#fff;font-size:11px}
+.tl-arrows button:hover{background:rgba(255,255,255,.24)}
+
+/* التحدي: سحب إلى خانات */
+.dz-zones{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px}
+.dz-zone{border-radius:18px;padding:10px;min-height:120px;background:rgba(255,255,255,.08);border:1.5px dashed rgba(255,211,106,.4)}
+.dz-zone h4{margin:0 0 8px;font-size:14px;text-align:center;color:#ffe8b5}
+.dz-zone-body{display:flex;flex-wrap:wrap;gap:6px;min-height:60px}
+.dz-pool{display:flex;flex-wrap:wrap;gap:8px;padding:14px;border-radius:18px;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.12);min-height:56px}
+.dz-chip{
+  padding:9px 12px;border-radius:999px;font-size:13px;font-weight:800;
+  background:linear-gradient(135deg,var(--gold),var(--amber));color:#152236;
+  cursor:grab;touch-action:none;user-select:none;box-shadow:0 8px 16px rgba(0,0,0,.25);
+}
+.dz-chip.dragging{opacity:.85;box-shadow:0 20px 34px rgba(0,0,0,.4)}
+.dz-chip.wrong{animation:shakeChip .4s ease;background:linear-gradient(135deg,var(--rose),#c73e3e)}
+@keyframes shakeChip{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.dz-chip.correct{background:linear-gradient(135deg,var(--mint),#1f9d55);color:#04231a}
+
+.shake-basic{animation:shakeBasic .45s ease}
+@keyframes shakeBasic{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+
+.challenge-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.challenge-feedback{margin-top:14px;padding:12px 16px;border-radius:16px;background:rgba(255,211,106,.12);border:1px solid rgba(255,211,106,.28);color:#ffe8b5;font-weight:800;min-height:20px}
+.challenge-feedback.success{background:rgba(77,211,162,.16);border-color:rgba(77,211,162,.4);color:#c9f7e5}
+
+/* الاختبار */
+.quiz-q{margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.1)}
+.quiz-q:last-child{border-bottom:0}
+.quiz-q p.qtext{font-weight:900;font-size:16px;margin:0 0 10px;color:#fff}
+.quiz-opts{display:flex;flex-direction:column;gap:8px}
+.quiz-opt{
+  text-align:right;padding:12px 14px;border-radius:14px;cursor:pointer;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#eaf8ff;font-weight:700;
+  transition:.2s background,.2s border;
+}
+.quiz-opt:hover{background:rgba(255,255,255,.14)}
+.quiz-opt.selected{border-color:rgba(255,211,106,.5);background:rgba(255,211,106,.12)}
+.quiz-opt.correct{background:rgba(77,211,162,.22);border-color:var(--mint);color:#c9f7e5}
+.quiz-opt.incorrect{background:rgba(226,85,85,.22);border-color:#e25555;color:#ffd7d7}
+.quiz-explain{margin-top:8px;font-size:14px;color:#dceff7;line-height:1.7;display:none}
+.quiz-explain.show{display:block}
+
+/* الإنجاز/الشارة */
+.completion-card{text-align:center;padding:40px 26px}
+.completion-badge{font-size:70px;margin-bottom:10px;transition:.4s transform}
+.completion-badge.pop{animation:badgePop .7s ease}
+@keyframes badgePop{0%{transform:scale(.6) rotate(-8deg)}50%{transform:scale(1.2) rotate(6deg)}100%{transform:scale(1) rotate(0)}}
+.completion-rewards{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px 0 22px}
+.reward-chip{padding:9px 14px;border-radius:999px;font-weight:1000;background:rgba(255,211,106,.16);border:1px solid rgba(255,211,106,.35);color:#ffe7a6}
+.completion-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+.burst-particle{
+  position:fixed;width:6px;height:6px;border-radius:50%;background:var(--gold);
+  box-shadow:0 0 10px rgba(255,211,106,.9);pointer-events:none;z-index:1300;
+  animation:burstFly .8s ease-out forwards;
+}
+@keyframes burstFly{to{transform:translate(var(--bx),var(--by)) scale(.2);opacity:0}}
+
+.locked-msg{text-align:center;padding:60px 20px;color:#dceff7}
+
+@media(max-width:700px){
+  .lesson-hero{padding:22px}
+  .lesson-card{padding:18px}
+  .dz-zones{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
+}
