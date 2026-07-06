@@ -638,6 +638,29 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 .hx-visual-caption{display:block;text-align:center;margin-top:8px;font-size:.76rem;font-weight:800;color:#7f1d1d;opacity:.85;}
 @media(max-width:480px){.hx-banner-card img{max-height:180px;}.hx-hero-card img{max-height:170px;}}
 /* HISTORY VISUAL PACK END */
+
+/* LESSON PICKER START — صفحة استقبال واختيار حر لدروس التاريخ، لا تمس بقية المكونات */
+.ls-landing{background:linear-gradient(135deg, rgba(45,212,191,.12), rgba(59,130,246,.08));border-radius:28px;padding:22px;margin-bottom:18px;display:flex;flex-direction:column;gap:16px;}
+.ls-landing-card{display:flex;align-items:center;gap:16px;}
+.ls-landing-avatar{width:64px;height:64px;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 6px 18px rgba(15,23,42,.12);}
+.ls-landing-avatar img{width:100%;height:100%;object-fit:cover;}
+.ls-landing-text h1{margin:6px 0;font-size:26px;}
+.ls-landing-text p{margin:0;color:var(--muted);line-height:1.85;max-width:640px;}
+.ls-landing-actions{display:flex;flex-wrap:wrap;gap:10px;}
+@media(max-width:640px){.ls-landing-card{flex-direction:column;text-align:center;}.ls-landing-text p{max-width:none;}.ls-landing-actions{justify-content:center;}}
+
+.lesson-picker-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.lesson-pick-card{background:white;border-radius:22px;box-shadow:0 8px 24px rgba(15,23,42,.07);padding:18px;display:flex;flex-direction:column;gap:10px;border-top:4px solid #dc2626;transition:transform .2s,box-shadow .2s;}
+.lesson-pick-card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(15,23,42,.12);}
+.lesson-pick-card .num{width:34px;height:34px;border-radius:50%;background:#fef2f2;color:#dc2626;display:grid;place-items:center;font-weight:900;font-size:.85rem;}
+.lesson-pick-card h3{margin:0;font-size:16px;line-height:1.5;}
+.lesson-pick-card p{margin:0;color:var(--muted);font-size:.82rem;line-height:1.7;flex:1;}
+.lesson-pick-card .stars{font-size:.8rem;font-weight:900;color:#b45309;}
+.lesson-pick-card button{border:0;border-radius:14px;padding:10px;font-weight:900;cursor:pointer;background:linear-gradient(180deg,#2dd4bf,var(--primary));color:white;box-shadow:0 4px 0 #0d5a53;}
+.lesson-pick-card.done{border-top-color:#16a34a;}
+@media(max-width:900px){.lesson-picker-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.lesson-picker-grid{grid-template-columns:1fr;}}
+/* LESSON PICKER END */
 </style>
 </head>
 <body>
@@ -682,6 +705,35 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 </header>
 
 <main class="app">
+  <!-- LESSON PICKER START -->
+  <section class="ls-landing">
+    <div class="ls-landing-card">
+      <div class="ls-landing-avatar"><img src="assets/ibn-battuta.webp" alt="ابن بطوطة" loading="lazy" /></div>
+      <div class="ls-landing-text">
+        <span class="kicker">🧭 رحلة المحلي — الأسدس الأول</span>
+        <h1>أهلاً بك أيها الرحّالة!</h1>
+        <p>هذه بوابتك للاستعداد للامتحان المحلي في مادة الاجتماعيات — الأسدس الأول، الثالثة إعدادي. اختر أي درس تريد دراسته الآن من دروس التاريخ الستة، دون أي التزام بترتيب معين.</p>
+      </div>
+    </div>
+    <div class="ls-landing-actions">
+      <button type="button" class="btn primary" onclick="scrollToLessonPicker()">📚 ابدأ من دروس التاريخ</button>
+      <button type="button" class="btn ghost" onclick="scrollToRoute(true)">🗺️ تابع خريطتي</button>
+      <button type="button" class="btn gold" onclick="openFinalChallenge()">🏁 التحدي النهائي</button>
+      <button type="button" class="btn info" onclick="openCertificateIfReady()">🏆 شهادتي</button>
+    </div>
+  </section>
+
+  <section id="lessonPickerSection" class="panel">
+    <div class="section-title">
+      <div>
+        <h2>📖 اختر درسك من جزيرة الزمن — التاريخ</h2>
+        <p>كل بطاقة تفتح مساراً خاصاً بها: مدخل بصري، نشاط تفاعلي، اختبار قصير، وشارة الدرس — اختر ما تريد دون الحاجة لإنهاء البقية أولاً.</p>
+      </div>
+    </div>
+    <div class="lesson-picker-grid" id="lessonPickerGrid"></div>
+  </section>
+  <!-- LESSON PICKER END -->
+
   <section class="hero">
     <div class="hero-card">
       <span class="kicker">🏆 رحلة المحلي — الأسدس الأول</span>
@@ -753,7 +805,7 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
     <div class="section-title">
       <div>
         <h2>لوحة الرحلة الكبرى</h2>
-        <p>مسار بصري متعرّج يربط 22 محطة عبر أربع جزر معرفية وصولاً إلى مغارة التتويج.</p>
+        <p>أداة لتتبع تقدّمك وتحدٍّ جامع بعد إنجاز الدروس — مسار بصري يربط 22 محطة عبر أربع جزر معرفية وصولاً إلى مغارة التتويج. ليست ممراً إجبارياً؛ يمكنك دائماً اختيار دروسك من قسم "اختر درسك" أعلاه.</p>
       </div>
       <button class="btn primary" onclick="scrollToRoute(true)">انطلق إلى المحطة الحالية</button>
     </div>
@@ -2726,7 +2778,7 @@ function progressPct() { return Math.round(Object.keys(progress.completed || {})
 function completedRange(a,b) { for(let i=a;i<=b;i++) if(progress.completed[i] === undefined) return false; return true; }
 function currentBadges() { return BADGES.filter(b=>b.test()); }
 function currentStepId() { return stations.find(st => isUnlocked(st.id) && progress.completed[st.id] === undefined)?.id || stations.length; }
-function isUnlocked(id) { return id === 1 || progress.completed[id-1] !== undefined; }
+function isUnlocked(id) { if (hxIsHistory(id)) return true; /* LESSON PICKER: اختيار حر لدروس التاريخ الستة */ return id === 1 || progress.completed[id-1] !== undefined; }
 function stationStars(id) { return Number(progress.completed[id] ?? 0); }
 function levelLabel() { const s=totalStars(); if(s>=55) return 'أسطورة المحلي'; if(s>=50) return 'ممتاز'; if(s>=33) return 'متقدم'; if(s>=17) return 'مجتهد'; return 'مبتدئ'; }
 function unlockedRewardsCount() { return MILESTONES.filter(m => progress.rewards && progress.rewards[m.id]).length; }
@@ -2847,8 +2899,8 @@ function startFromSplash() {
   if(name) showToast('أشرعت السفينة يا ' + name + '، وبدأت الرحلة!');
   else showToast('انطلق! يمكنك كتابة اسمك في أي وقت.');
   const allDone = Object.keys(progress.completed).length >= stations.length;
-  const nextId = currentStepId();
-  setTimeout(() => { if(allDone) openCertificate(); else openStation(nextId); }, 450);
+  /* LESSON PICKER: لا نفرض فتح محطة خطية؛ نوجّه التلميذ لقسم اختيار الدروس */
+  setTimeout(() => { if(allDone) openCertificate(); else scrollToLessonPicker(); }, 450);
 }
 
 function resumeJourney() {
@@ -2856,16 +2908,19 @@ function resumeJourney() {
   renderAll();
   const done = Object.keys(progress.completed || {}).length;
   const allDone = done >= stations.length;
-  if(done > 0) {
-    if(allDone) {
-      showToast('أتممت الرحلة! يمكنك فتح الشهادة الآن.');
-      setTimeout(() => openCertificate(), 450);
-    } else {
-      showToast('مرحباً مجدداً! تقدمك محفوظ — نواصل الرحلة.');
-      setTimeout(() => openStation(currentStepId()), 450);
-    }
+  const nextHistoryId = [1,2,3,4,5,6].find(id => progress.completed[id] === undefined); /* LESSON PICKER */
+  if(allDone) {
+    showToast('أتممت الرحلة! يمكنك فتح الشهادة الآن.');
+    setTimeout(() => openCertificate(), 450);
+  } else if(nextHistoryId) {
+    showToast('مرحباً مجدداً! نواصل من حيث توقفت في دروس التاريخ.');
+    setTimeout(() => openStation(nextHistoryId), 450);
+  } else if(done > 0) {
+    showToast('أتممت دروس التاريخ! يمكنك متابعة باقي الخريطة الكبرى.');
+    setTimeout(() => scrollToRoute(true), 450);
   } else {
-    showToast('لم تبدأ الرحلة بعد. اكتب اسمك واضغط انطلق!');
+    showToast('لم تبدأ الرحلة بعد. اختر درساً من قسم "اختر درسك"!');
+    setTimeout(() => scrollToLessonPicker(), 450);
   }
 }
 if(sessionStorage.getItem('rihla_mahali_splash_seen') === '1') {
@@ -2904,7 +2959,7 @@ function renderStats() {
   if(certBtn) { certBtn.textContent = allDone ? '🏆 افتح الشهادة ✅' : '🏆 الشهادة 🔒'; certBtn.className = allDone ? 'btn gold' : 'btn ghost'; }
   updateSoundButton(); updateMascot(); updateMissionCards();
 }
-function renderAll() { renderStats(); renderRoutePath(); renderRouteNodes(); renderBadges(); renderRewards(); updateHistoryProgressUI(); /* HISTORY ENRICHMENT */ }
+function renderAll() { renderStats(); renderRoutePath(); renderRouteNodes(); renderBadges(); renderRewards(); updateHistoryProgressUI(); renderLessonPicker(); /* HISTORY ENRICHMENT + LESSON PICKER */ }
 function startJourney() {
   const name = document.getElementById('studentName').value.trim();
   if(name) { progress.name = name; saveProgress(); }
@@ -2913,10 +2968,38 @@ function startJourney() {
   if(progress.name) showToast('أشرعت السفينة يا ' + progress.name + '، وبدأت الرحلة!');
   else showToast('انطلق! يمكنك كتابة اسمك في أي وقت.');
   const allDone = Object.keys(progress.completed).length >= stations.length;
-  const nextId = currentStepId();
-  setTimeout(() => { if(allDone) openCertificate(); else openStation(nextId); }, 350);
+  /* LESSON PICKER: لا نفرض فتح محطة خطية؛ نوجّه التلميذ لقسم اختيار الدروس */
+  setTimeout(() => { if(allDone) openCertificate(); else scrollToLessonPicker(); }, 350);
 }
 function scrollToRoute(centerCurrent=false) { const board = document.getElementById('routeBoard'); document.getElementById('routeSection').scrollIntoView({behavior:'smooth', block:'start'}); if(centerCurrent) setTimeout(()=>board.scrollIntoView({behavior:'smooth', block:'center'}), 200); }
+/* LESSON PICKER START */
+function scrollToLessonPicker() { document.getElementById('lessonPickerSection').scrollIntoView({behavior:'smooth', block:'start'}); }
+function openFinalChallenge() {
+  const historyDone = [1,2,3,4,5,6].every(id => progress.completed[id] !== undefined);
+  if (!historyDone) { showToast('أكمل دروس التاريخ الستة أولاً لفتح التحدي النهائي'); scrollToLessonPicker(); return; }
+  openRandomStation();
+}
+function renderLessonPicker() {
+  const grid = document.getElementById('lessonPickerGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  stations.filter(st => hxIsHistory(st.id)).forEach(st => {
+    const starsEarned = progress.completed[st.id];
+    const done = starsEarned !== undefined;
+    const card = document.createElement('article');
+    card.className = 'lesson-pick-card' + (done ? ' done' : '');
+    card.innerHTML = `
+      <div class="num">${st.id}</div>
+      <h3>${st.icon || '📜'} ${st.title}</h3>
+      <p>${st.brief}</p>
+      <div class="stars">${done ? '⭐'.repeat(starsEarned) + ' مكتمل' : 'لم تبدأ بعد'}</div>
+      <button type="button">${done ? '🔁 أعد المحاولة' : '▶️ ابدأ الدرس'}</button>
+    `;
+    card.querySelector('button').addEventListener('click', () => openStation(st.id));
+    grid.appendChild(card);
+  });
+}
+/* LESSON PICKER END */
 function randomUnlockedStation() { const arr = stations.filter(st => isUnlocked(st.id)); return arr[Math.floor(Math.random()*arr.length)]; }
 function openRandomStation() { const st = randomUnlockedStation(); if(st) openStation(st.id); }
 function openSurprise(reshuffle=false) { const modal = document.getElementById('surpriseModal'); const txt = SURPRISES[Math.floor(Math.random()*SURPRISES.length)]; document.getElementById('surpriseContent').innerHTML = `<div style="font-size:48px">🧭</div><h2 style="margin:8px 0 10px">رسالة من البوصلة</h2><p style="margin:0; line-height:2; color:#334155; font-weight:800">${txt}</p>`; modal.classList.remove('hidden'); if(!reshuffle) playTone('reward'); }
