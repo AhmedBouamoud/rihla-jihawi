@@ -512,6 +512,91 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 @keyframes lsWiggle{0%,100%{transform:rotate(-4deg);}50%{transform:rotate(4deg);}}
 @keyframes lsBounce{0%{transform:translateY(-180px);opacity:0;}60%{transform:translateY(16px);}80%{transform:translateY(-6px);}100%{transform:translateY(0);opacity:1;}}
 @keyframes lsStarPop{0%{transform:scale(0) rotate(-30deg);opacity:0;}60%{transform:scale(1.4) rotate(8deg);}100%{transform:scale(1) rotate(0);opacity:1;}}
+
+/* HISTORY ENRICHMENT START — تجويد جزيرة الزمن (التاريخ)، لا يمس بقية المكونات */
+.hx-problem{background:linear-gradient(135deg,#fef2f2,#fff7ed);border:1.5px solid rgba(220,38,38,.22);border-radius:20px;padding:18px;margin-bottom:14px;animation:lsFadeUp .4s;}
+.hx-problem .lbl{font-size:.8rem;font-weight:900;color:#dc2626;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.hx-problem p{margin:0;line-height:1.9;color:#374151;font-weight:800;font-size:.98rem;}
+.hx-objectives{background:white;border-radius:20px;box-shadow:0 8px 24px rgba(15,23,42,.06);padding:18px;margin-bottom:14px;animation:lsFadeUp .45s;}
+.hx-objectives .lbl{font-size:.8rem;font-weight:900;color:var(--primary);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.hx-objectives ul{margin:0;padding-inline-start:20px;color:#374151;line-height:1.95;font-size:.92rem;}
+.hx-objectives li{margin-bottom:4px;}
+
+.hx-card{background:white;border-radius:20px;box-shadow:0 8px 24px rgba(15,23,42,.07);padding:18px;margin-bottom:14px;animation:lsFadeUp .4s;}
+.hx-card .lbl{font-size:.8rem;font-weight:900;color:#dc2626;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+
+.hx-icon-chain{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;padding:6px 0;}
+.hx-icon-step{display:flex;flex-direction:column;align-items:center;gap:6px;width:78px;}
+.hx-icon-circle{width:52px;height:52px;border-radius:50%;background:#fef2f2;color:#dc2626;display:grid;place-items:center;box-shadow:0 4px 0 rgba(220,38,38,.18);}
+.hx-icon-circle svg{width:28px;height:28px;}
+.hx-icon-step span{font-size:.72rem;font-weight:800;color:#374151;text-align:center;line-height:1.4;}
+.hx-arrow{color:#dc2626;flex-shrink:0;opacity:.6;}
+.hx-arrow svg{width:18px;height:18px;transform:scaleX(-1);}
+
+.hx-chain{display:flex;flex-direction:column;align-items:stretch;gap:4px;}
+.hx-chain-box{background:#fef2f2;border:1.5px solid rgba(220,38,38,.25);border-radius:16px;padding:12px 16px;text-align:center;font-weight:900;color:#7f1d1d;font-size:.9rem;line-height:1.6;}
+.hx-chain-arrow{display:flex;justify-content:center;color:#dc2626;opacity:.7;padding:2px 0;}
+.hx-chain-arrow svg{width:20px;height:20px;}
+
+.hx-timeline{display:flex;gap:10px;overflow-x:auto;padding:8px 4px 12px;-webkit-overflow-scrolling:touch;}
+.hx-tl-point{flex:0 0 auto;min-width:132px;background:white;border-radius:16px;padding:12px 14px;box-shadow:0 6px 18px rgba(15,23,42,.08);border-top:4px solid var(--tl-color,#dc2626);}
+.hx-tl-point b{display:block;color:var(--tl-color,#dc2626);font-size:.85rem;margin-bottom:4px;}
+.hx-tl-point span{font-size:.78rem;color:#374151;line-height:1.5;display:block;}
+.hx-tl-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:.72rem;font-weight:800;}
+.hx-tl-legend span{display:flex;align-items:center;gap:5px;color:#374151;}
+.hx-tl-legend i{width:10px;height:10px;border-radius:50%;display:inline-block;}
+
+.hx-quad-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.hx-quad{background:#fafafa;border-radius:14px;padding:12px;border-inline-start:4px solid #dc2626;}
+.hx-quad b{display:block;font-size:.78rem;color:#7f1d1d;margin-bottom:6px;}
+.hx-quad ul{margin:0;padding-inline-start:16px;font-size:.76rem;color:#374151;line-height:1.6;}
+@media(max-width:480px){.hx-quad-grid{grid-template-columns:1fr;}}
+
+.hx-map{display:flex;align-items:center;justify-content:center;gap:14px;padding:14px 6px;flex-wrap:wrap;}
+.hx-map-center{width:88px;height:88px;border-radius:50%;background:#fef3c7;display:grid;place-items:center;font-weight:900;font-size:.72rem;color:#92400e;text-align:center;padding:6px;box-shadow:0 4px 0 rgba(146,64,14,.18);}
+.hx-map-arrow{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.72rem;font-weight:900;}
+.hx-map-arrow svg{width:34px;height:20px;}
+.hx-map-arrow.fr{color:#2563eb;}
+.hx-map-arrow.gb{color:#dc2626;}
+.hx-map-chips{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:10px;}
+.hx-map-chips span{background:#f3f4f6;border-radius:999px;padding:5px 10px;font-size:.72rem;font-weight:800;color:#374151;}
+
+.hx-result-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;}
+.hx-result-chips div{background:#fafafa;border-radius:14px;padding:10px;text-align:center;border-top:3px solid #dc2626;}
+.hx-result-chips b{display:block;font-size:.74rem;color:#7f1d1d;margin-bottom:4px;}
+.hx-result-chips span{font-size:.72rem;color:#374151;line-height:1.5;}
+@media(max-width:480px){.hx-result-chips{grid-template-columns:1fr;}}
+
+.hx-activity-hint{background:linear-gradient(135deg,#ecfeff,#f0f9ff);border:1.5px solid rgba(14,165,233,.22);border-radius:16px;padding:12px 14px;margin-bottom:12px;font-size:.85rem;color:#0e7490;font-weight:800;line-height:1.7;text-align:center;}
+
+.hx-match-items{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.hx-match-item{background:white;border:2.5px solid #cffafe;border-radius:14px;padding:10px 14px;font-weight:800;font-size:.86rem;cursor:pointer;box-shadow:0 4px 0 #cffafe;transition:all .15s;color:#132238;}
+.hx-match-item.selected{border-color:var(--gold);box-shadow:0 4px 0 var(--gold-2);}
+.hx-match-item.done{border-color:#16a34a;background:#f0fdf4;box-shadow:0 4px 0 #16a34a;cursor:default;opacity:.85;}
+.hx-match-item.done .hx-match-done-tag{display:inline;margin-inline-start:6px;color:#16a34a;font-weight:900;}
+.hx-match-cats{display:flex;flex-wrap:wrap;gap:8px;}
+.hx-match-cat{background:#fef2f2;border:2.5px solid #fecaca;border-radius:14px;padding:10px 14px;font-weight:900;font-size:.82rem;cursor:pointer;color:#7f1d1d;box-shadow:0 4px 0 #fecaca;transition:all .15s;}
+.hx-match-cat:hover{transform:translateY(-2px);}
+.hx-match-cat.wrong-flash{animation:lsWiggle .4s;background:#fee2e2;}
+.hx-match-progress{margin-top:10px;font-size:.78rem;font-weight:900;color:var(--primary);text-align:center;}
+
+.hx-order-list{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-direction:column;gap:8px;}
+.hx-order-card{background:white;border-radius:14px;box-shadow:0 4px 12px rgba(15,23,42,.08);padding:10px 12px;display:flex;align-items:center;gap:10px;}
+.hx-order-card .txt{flex:1;font-weight:800;font-size:.86rem;color:#132238;line-height:1.6;}
+.hx-order-card .arrows{display:flex;flex-direction:column;gap:3px;}
+.hx-order-card .arrows button{width:30px;height:26px;border:0;border-radius:8px;background:#ecfeff;color:var(--primary);font-weight:900;cursor:pointer;}
+.hx-order-card .arrows button:disabled{opacity:.3;cursor:default;}
+.hx-order-card.correct{border:2px solid #16a34a;background:#f0fdf4;}
+
+.hx-progress-mini{margin-top:12px;background:#fafafa;border-radius:14px;padding:10px 12px;}
+.hx-progress-mini .track{height:8px;border-radius:999px;background:#fee2e2;overflow:hidden;margin-bottom:6px;}
+.hx-progress-mini .track i{display:block;height:100%;background:linear-gradient(90deg,#dc2626,var(--gold));border-radius:999px;transition:width .4s;}
+.hx-progress-mini small{font-weight:900;color:#7f1d1d;font-size:.76rem;}
+.hx-ibn-note{display:flex;align-items:center;gap:10px;background:#fff7ed;border:1.5px solid rgba(217,119,6,.2);border-radius:16px;padding:10px 12px;margin:10px 0;font-size:.82rem;color:#92400e;font-weight:800;line-height:1.7;}
+.hx-ibn-note img{width:36px;height:36px;border-radius:50%;flex-shrink:0;object-fit:cover;}
+.hx-next-lesson-btn{display:block;width:100%;margin-top:10px;}
+.cel-btn.teal{background:linear-gradient(180deg,#2dd4bf,var(--primary));color:white;box-shadow:0 5px 0 #0d5a53;}
+/* HISTORY ENRICHMENT END */
 </style>
 </head>
 <body>
@@ -713,6 +798,13 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
     <div class="chapter-grid">
       <article class="chapter-panel">
         <div class="top"><div class="icon">🏭</div><h3>جزيرة الزمن — التاريخ</h3><p>6 محطات تراجع التحولات السياسية والاقتصادية والعسكرية في القرن 19 وبداية القرن 20.</p></div>
+        <!-- HISTORY ENRICHMENT START -->
+        <div class="hx-ibn-note"><img src="assets/ibn-battuta.webp" alt="ابن بطوطة" />يا رحالة المحلي، التاريخ ليس تواريخ تحفظها فقط؛ إنه سلسلة أسباب ونتائج. اربط بين الحدث وما قبله وما بعده، وستصبح الرحلة أسهل.</div>
+        <div class="hx-progress-mini" id="hxProgressBox">
+          <div class="track"><i id="hxProgressFill" style="width:0%"></i></div>
+          <small id="hxProgressLabel">0 / 6 دروس تاريخية مكتملة</small>
+        </div>
+        <!-- HISTORY ENRICHMENT END -->
         <ul>
           <li>ازدهار الرأسمالية والإمبريالية</li>
           <li>الضغط الاستعماري على المغرب</li>
@@ -796,6 +888,10 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
   </div>
   <div class="ls-body">
     <div id="stageIntro"></div>
+    <!-- HISTORY ENRICHMENT START -->
+    <div id="stageInfographic" style="display:none;"></div>
+    <div id="stageActivity" style="display:none;"></div>
+    <!-- HISTORY ENRICHMENT END -->
     <div id="stageQuiz" style="display:none;"></div>
   </div>
   <div id="fbSheet" class="fb-sheet">
@@ -828,6 +924,9 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
       <button class="cel-btn gold" onclick="closeCelebration()">متابعة الرحلة ←</button>
       <button class="cel-btn ghost" onclick="replayStation()">إعادة المحطة</button>
     </div>
+    <!-- HISTORY ENRICHMENT START -->
+    <div id="celExtraActions"></div>
+    <!-- HISTORY ENRICHMENT END -->
   </div>
 </div>
 
@@ -1924,7 +2023,7 @@ const MILESTONES = [
 ];
 const BADGES = [
   { id:'start', label:'بداية الرحلة', icon:'🚀', desc:'أنجز أول محطة.', test: () => Object.keys(progress.completed).length >= 1 },
-  { id:'history', label:'المؤرخ الصغير', icon:'🏭', desc:'أكمل محطات التاريخ الست.', test: () => completedRange(1,6) },
+  { id:'history', label:'مؤرخ رحلة المحلي', icon:'🏭', desc:'أكمل محطات التاريخ الست.', test: () => completedRange(1,6) },
   { id:'geo', label:'الجغرافي الذكي', icon:'🗺️', desc:'أكمل محطات الجغرافيا الست.', test: () => completedRange(7,12) },
   { id:'citizen', label:'المواطن المسؤول', icon:'🤲', desc:'أكمل محطات المواطنة الست.', test: () => completedRange(13,18) },
   { id:'method', label:'سيد المنهجية', icon:'📜', desc:'أكمل محطات المنهجية الأربع.', test: () => completedRange(19,22) },
@@ -1948,6 +2047,344 @@ const MASCOT_MESSAGES = [
   '💬 يقول ابن بطوطة: «لا تقلق من الخطأ؛ الخطأ خطوة في طريق التعلم.»',
   '💬 يقول ابن بطوطة: «ركز جيداً، المحطة القادمة تحتاج انتباهك كله.»'
 ];
+
+/* HISTORY ENRICHMENT START — بيانات وأدوات تجويد جزيرة الزمن (التاريخ) فقط. لا يمس هذا القسم الجغرافيا أو المواطنة أو المنهجية أو نظام QCM/الشهادة الحالي. */
+function hxIsHistory(id) { return id >= 1 && id <= 6; }
+
+function hxIconSvg(name) {
+  const common = 'viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"';
+  const icons = {
+    gear: `<svg ${common}><circle cx="24" cy="24" r="8"/><path d="M24 4v6M24 38v6M44 24h-6M10 24H4M37.6 10.4l-4.2 4.2M14.6 33.4l-4.2 4.2M37.6 37.6l-4.2-4.2M14.6 14.6l-4.2-4.2"/></svg>`,
+    factory: `<svg ${common}><path d="M6 42V22l8 6v-6l8 6v-6l10 6V16h6v26z"/><path d="M14 16v-4M22 16v-4"/><rect x="10" y="30" width="6" height="6"/></svg>`,
+    crates: `<svg ${common}><rect x="6" y="20" width="16" height="16" rx="2"/><rect x="24" y="14" width="18" height="20" rx="2"/><path d="M6 28h16M24 24h18"/></svg>`,
+    ship: `<svg ${common}><path d="M8 28h32l-4 12H12z"/><path d="M24 28V8M24 8h10l-4 8M24 14h-8"/></svg>`,
+    bank: `<svg ${common}><path d="M6 20 24 8l18 12"/><rect x="6" y="20" width="36" height="4"/><path d="M10 24v14M18 24v14M30 24v14M38 24v14"/><rect x="6" y="38" width="36" height="4"/></svg>`
+  };
+  return icons[name] || icons.gear;
+}
+function hxArrowSvg() { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h14M12 6l6 6-6 6"/></svg>'; }
+function hxArrowDownSvg() { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v14M6 12l6 6 6-6"/></svg>'; }
+
+const HISTORY_ENRICHMENT = {
+  1: {
+    problem: 'كيف ساهمت التحولات الصناعية والمالية في ازدهار الرأسمالية الأوروبية خلال القرن 19م؟',
+    objectives: [
+      'تعرف مظاهر ازدهار الرأسمالية الأوروبية.',
+      'ربط الاختراعات بتطور الإنتاج والمواصلات.',
+      'فهم الانتقال من الرأسمالية الصناعية إلى الرأسمالية المالية.'
+    ],
+    infographic: { type:'iconChain', steps:[
+      {icon:'gear', label:'اختراعات'},
+      {icon:'factory', label:'مصانع'},
+      {icon:'crates', label:'إنتاج كبير'},
+      {icon:'ship', label:'تجارة عالمية'},
+      {icon:'bank', label:'رأسمالية صناعية ومالية'}
+    ]},
+    activity: { type:'match', hint:'اضغط على بطاقة الاختراع، ثم اختر التحول الذي ساهم فيه.',
+      items:[
+        {id:'a1', text:'الآلة البخارية', cat:'نمو الإنتاج'},
+        {id:'a2', text:'السكك الحديدية', cat:'سرعة النقل'},
+        {id:'a3', text:'المصنع', cat:'تركيز العمال'},
+        {id:'a4', text:'الأبناك', cat:'تمويل المشاريع'},
+        {id:'a5', text:'البورصة', cat:'تداول الأسهم'}
+      ]
+    },
+    successMsg: 'أحسنت! ربطت كل اختراع بالتحول الذي صنعه.'
+  },
+  2: {
+    problem: 'كيف أدى تطور الرأسمالية الأوروبية إلى ظهور الإمبريالية والتوسع خارج أوروبا؟',
+    objectives: [
+      'تعرف مفهوم الإمبريالية.',
+      'تصنيف دوافع التوسع الإمبريالي.',
+      'ربط الرأسمالية بالحاجة إلى المواد الأولية والأسواق ومجالات الاستثمار.'
+    ],
+    infographic: { type:'chain', steps:[
+      'الرأسمالية الصناعية والمالية',
+      'الحاجة إلى المواد الأولية والأسواق والاستثمار',
+      'التنافس بين الدول الأوروبية',
+      'الإمبريالية'
+    ]},
+    activity: { type:'match', hint:'اضغط على البطاقة، ثم اختر الصنف المناسب لها.',
+      items:[
+        {id:'b1', text:'البحث عن المواد الأولية', cat:'دوافع اقتصادية'},
+        {id:'b2', text:'تصريف فائض الإنتاج', cat:'دوافع اقتصادية'},
+        {id:'b3', text:'البحث عن مجالات الاستثمار', cat:'دوافع اقتصادية'},
+        {id:'b4', text:'التنافس بين الدول الكبرى', cat:'دوافع سياسية'},
+        {id:'b5', text:'التخلص من فائض السكان', cat:'دوافع اجتماعية'},
+        {id:'b6', text:'نشر الحضارة (مبرر مزعوم)', cat:'تبريرات حضارية مزعومة'}
+      ]
+    },
+    successMsg: 'أحسنت! صنّفت دوافع الإمبريالية بدقة.'
+  },
+  3: {
+    problem: 'كيف تدرج الضغط الأوروبي على المغرب من الهزائم العسكرية إلى فرض الحماية سنة 1912؟',
+    objectives: [
+      'ترتيب أهم مراحل الضغط الاستعماري على المغرب.',
+      'التمييز بين الضغط العسكري والاقتصادي والدبلوماسي والسياسي.',
+      'فهم كيف مهدت هذه الضغوط لفرض الحماية.'
+    ],
+    infographic: { type:'timeline', points:[
+      {y:'1844', l:'معركة إيسلي', c:'#dc2626'},
+      {y:'1845', l:'معاهدة للا مغنية', c:'#7c3aed'},
+      {y:'1859-60', l:'حرب تطوان', c:'#dc2626'},
+      {y:'أواخر ق.19', l:'تزايد الامتيازات الأجنبية', c:'#059669'},
+      {y:'1906', l:'مؤتمر الجزيرة الخضراء', c:'#0369a1'},
+      {y:'1912', l:'فرض الحماية', c:'#0369a1'}
+    ], legend:[{c:'#dc2626',l:'عسكري'},{c:'#7c3aed',l:'دبلوماسي'},{c:'#059669',l:'اقتصادي'},{c:'#0369a1',l:'سياسي'}] },
+    activity: { type:'order', hint:'رتّب مراحل الضغط الاستعماري من الأقدم إلى الأحدث.',
+      items:[
+        {id:'c1', text:'معركة إيسلي'},
+        {id:'c2', text:'معاهدة للا مغنية'},
+        {id:'c3', text:'حرب تطوان'},
+        {id:'c4', text:'تزايد الامتيازات الأجنبية'},
+        {id:'c5', text:'مؤتمر الجزيرة الخضراء'},
+        {id:'c6', text:'فرض الحماية'}
+      ]
+    },
+    successMsg: 'أحسنت! عندما ترتب الأحداث ترى كيف تحول الضغط إلى حماية.'
+  },
+  4: {
+    problem: 'كيف تحولت التوترات الأوروبية إلى حرب عالمية، وما أبرز نتائجها؟',
+    objectives: [
+      'تعرف الأسباب غير المباشرة والمباشرة للحرب.',
+      'ترتيب أهم أحداث الحرب.',
+      'استنتاج نتائجها البشرية والاقتصادية والسياسية.'
+    ],
+    infographic: { type:'quadrant',
+      quads:[
+        {title:'أسباب غير مباشرة', items:['التنافس الإمبريالي','التحالفات العسكرية','سباق التسلح','النزعة القومية']},
+        {title:'السبب المباشر', items:['اغتيال ولي عهد النمسا-المجر بسراييفو 1914']},
+        {title:'النتائج البشرية والاقتصادية', items:['قتلى وجرحى بالملايين','دمار وديون']},
+        {title:'النتائج السياسية', items:['معاهدات الصلح','سقوط إمبراطوريات','تأسيس عصبة الأمم']}
+      ],
+      timeline:[{y:'1914',l:'اندلاع الحرب'},{y:'1917',l:'دخول أمريكا'},{y:'1918',l:'نهاية الحرب'},{y:'1919',l:'مؤتمر الصلح'}]
+    },
+    activity: { type:'order', hint:'رتّب أحداث الحرب العالمية الأولى زمنياً.',
+      items:[
+        {id:'d1', text:'اغتيال ولي عهد النمسا-المجر'},
+        {id:'d2', text:'اندلاع الحرب'},
+        {id:'d3', text:'حرب الخنادق'},
+        {id:'d4', text:'دخول الولايات المتحدة الحرب'},
+        {id:'d5', text:'نهاية الحرب'},
+        {id:'d6', text:'مؤتمر الصلح'}
+      ]
+    },
+    successMsg: 'أحسنت! هكذا تسلسلت أحداث الحرب الكبرى.'
+  },
+  5: {
+    problem: 'كيف أدى ضعف الدولة العثمانية والحرب العالمية الأولى إلى تدخل استعماري في المشرق العربي؟',
+    objectives: [
+      'تعرف عوامل ضعف الإمبراطورية العثمانية.',
+      'فهم أثر الحرب العالمية الأولى في تفككها.',
+      'ربط اتفاقيات التقسيم والانتداب بالتدخل الاستعماري في المشرق.'
+    ],
+    infographic: { type:'chain', steps:[
+      'ضعف الدولة العثمانية',
+      'تزايد التدخل الأوروبي',
+      'الحرب العالمية الأولى',
+      'تفكك الإمبراطورية',
+      'اتفاقية سايكس بيكو',
+      'الانتداب على المشرق العربي'
+    ], map:true },
+    activity: { type:'match', hint:'اضغط على السبب، ثم اختر نتيجته المباشرة.',
+      items:[
+        {id:'e1', text:'ضعف الدولة العثمانية', cat:'تزايد التدخل الأوروبي'},
+        {id:'e2', text:'الحرب العالمية الأولى', cat:'تفكك الإمبراطورية'},
+        {id:'e3', text:'اتفاقية سايكس بيكو', cat:'تقسيم المشرق العربي'},
+        {id:'e4', text:'الانتداب', cat:'سيطرة استعمارية مباشرة أو غير مباشرة'}
+      ]
+    },
+    successMsg: 'أحسنت! فهمت خيط الأحداث من الضعف العثماني إلى الانتداب.'
+  },
+  6: {
+    problem: 'كيف تحولت أزمة البورصة الأمريكية سنة 1929 إلى أزمة اقتصادية عالمية؟',
+    objectives: [
+      'تعرف أسباب أزمة 1929.',
+      'تتبع مظاهر انتشار الأزمة.',
+      'استنتاج نتائجها الاقتصادية والاجتماعية والسياسية.'
+    ],
+    infographic: { type:'chain', steps:[
+      'المضاربات في البورصة',
+      'انهيار وول ستريت',
+      'إفلاس الأبناك',
+      'إغلاق المصانع',
+      'انتشار البطالة',
+      'تدخل الدولة'
+    ], results:[
+      {t:'اقتصادية', d:'إفلاس وتراجع الإنتاج'},
+      {t:'اجتماعية', d:'بطالة وفقر'},
+      {t:'سياسية', d:'صعود الأنظمة الشمولية'}
+    ]},
+    activity: { type:'order', hint:'رتّب مراحل انتشار أزمة 1929.',
+      items:[
+        {id:'f1', text:'المضاربات في البورصة'},
+        {id:'f2', text:'انهيار وول ستريت'},
+        {id:'f3', text:'إفلاس الأبناك'},
+        {id:'f4', text:'إغلاق المصانع'},
+        {id:'f5', text:'انتشار البطالة'},
+        {id:'f6', text:'تدخل الدولة'}
+      ]
+    },
+    successMsg: 'رائع! فهمت كيف تنتقل الأزمة من البورصة إلى المجتمع.'
+  }
+};
+
+function hxRenderProblemObjectives(st) {
+  const hx = HISTORY_ENRICHMENT[st.id];
+  if (!hx) return '';
+  return `
+    <div class="hx-problem"><div class="lbl">❓ السؤال الإشكالي</div><p>${hx.problem}</p></div>
+    <div class="hx-objectives"><div class="lbl">🎯 أهداف التعلم</div><ul>${hx.objectives.map(o=>'<li>'+o+'</li>').join('')}</ul></div>
+  `;
+}
+
+function hxRenderInfographic(container, st) {
+  const info = HISTORY_ENRICHMENT[st.id].infographic;
+  let html = '<div class="hx-card"><div class="lbl">🖼️ إنفوغرافيا الدرس</div>';
+  if (info.type === 'iconChain') {
+    html += '<div class="hx-icon-chain">';
+    info.steps.forEach((s,i) => {
+      if (i>0) html += '<span class="hx-arrow">'+hxArrowSvg()+'</span>';
+      html += '<div class="hx-icon-step"><span class="hx-icon-circle">'+hxIconSvg(s.icon)+'</span><span>'+s.label+'</span></div>';
+    });
+    html += '</div>';
+  } else if (info.type === 'chain') {
+    html += '<div class="hx-chain">';
+    info.steps.forEach((s,i) => {
+      if (i>0) html += '<div class="hx-chain-arrow">'+hxArrowDownSvg()+'</div>';
+      html += '<div class="hx-chain-box">'+s+'</div>';
+    });
+    html += '</div>';
+    if (info.map) {
+      html += '<div class="hx-map"><div class="hx-map-arrow fr">'+hxArrowSvg()+'<span>فرنسا</span></div>'
+        + '<div class="hx-map-center">المشرق<br/>العربي</div>'
+        + '<div class="hx-map-arrow gb">'+hxArrowSvg()+'<span>بريطانيا</span></div></div>'
+        + '<div class="hx-map-chips"><span>سايكس بيكو</span><span>الانتداب</span><span>التقسيم</span></div>';
+    }
+    if (info.results) {
+      html += '<div class="hx-result-chips">'+info.results.map(r=>'<div><b>'+r.t+'</b><span>'+r.d+'</span></div>').join('')+'</div>';
+    }
+  } else if (info.type === 'timeline') {
+    html += '<div class="hx-timeline">'+info.points.map(p=>'<div class="hx-tl-point" style="--tl-color:'+p.c+'"><b>'+p.y+'</b><span>'+p.l+'</span></div>').join('')+'</div>';
+    html += '<div class="hx-tl-legend">'+info.legend.map(g=>'<span><i style="background:'+g.c+'"></i>'+g.l+'</span>').join('')+'</div>';
+  } else if (info.type === 'quadrant') {
+    html += '<div class="hx-quad-grid">'+info.quads.map(q=>'<div class="hx-quad"><b>'+q.title+'</b><ul>'+q.items.map(it=>'<li>'+it+'</li>').join('')+'</ul></div>').join('')+'</div>';
+    html += '<div class="hx-timeline">'+info.timeline.map(p=>'<div class="hx-tl-point"><b>'+p.y+'</b><span>'+p.l+'</span></div>').join('')+'</div>';
+  }
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function hxShakeEl(el) {
+  el.style.animation = 'none';
+  void el.offsetWidth;
+  el.style.animation = 'lsWiggle .4s';
+}
+function hxMascotHint(text) {
+  const el = document.getElementById('guideText');
+  if (el) el.textContent = text || 'اقتربت من الطريق الصحيح. فكّر في العلاقة جيداً وحاول من جديد.';
+}
+
+function hxRenderActivity(container, st, onComplete) {
+  const act = HISTORY_ENRICHMENT[st.id].activity;
+  if (act.type === 'match') hxRenderMatchActivity(container, act, onComplete);
+  else hxRenderOrderActivity(container, act, onComplete);
+}
+
+function hxRenderMatchActivity(container, act, onComplete) {
+  const items = [...act.items].sort(() => Math.random() - 0.5);
+  const cats = [...new Set(act.items.map(i => i.cat))].sort(() => Math.random() - 0.5);
+  let doneCount = 0, selectedId = null;
+  container.innerHTML = `
+    <div class="hx-activity-hint">🎯 ${act.hint}</div>
+    <div class="hx-match-items" id="hxMatchItems"></div>
+    <div class="hx-match-cats" id="hxMatchCats"></div>
+    <div class="hx-match-progress" id="hxMatchProg">0 / ${items.length} مطابقة صحيحة</div>
+  `;
+  const itemsEl = container.querySelector('#hxMatchItems');
+  const catsEl = container.querySelector('#hxMatchCats');
+  items.forEach(it => {
+    const btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'hx-match-item'; btn.dataset.id = it.id;
+    btn.textContent = it.text;
+    btn.addEventListener('click', () => {
+      if (btn.classList.contains('done')) return;
+      itemsEl.querySelectorAll('.hx-match-item').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedId = it.id;
+    });
+    itemsEl.appendChild(btn);
+  });
+  cats.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'hx-match-cat';
+    btn.textContent = cat;
+    btn.addEventListener('click', () => {
+      if (!selectedId) { hxShakeEl(catsEl); return; }
+      const item = act.items.find(i => i.id === selectedId);
+      const itemBtn = itemsEl.querySelector('[data-id="'+selectedId+'"]');
+      if (item.cat === cat) {
+        itemBtn.classList.add('done');
+        itemBtn.classList.remove('selected');
+        itemBtn.innerHTML = item.text + '<span class="hx-match-done-tag">✔</span>';
+        doneCount++;
+        container.querySelector('#hxMatchProg').textContent = doneCount + ' / ' + items.length + ' مطابقة صحيحة';
+        selectedId = null;
+        if (typeof playTone === 'function') playTone('good');
+        if (doneCount === items.length) setTimeout(() => onComplete(true), 350);
+      } else {
+        btn.classList.add('wrong-flash');
+        setTimeout(() => btn.classList.remove('wrong-flash'), 400);
+        if (typeof playTone === 'function') playTone('bad');
+        hxMascotHint();
+      }
+    });
+    catsEl.appendChild(btn);
+  });
+}
+
+function hxRenderOrderActivity(container, act, onComplete) {
+  const items = [...act.items].sort(() => Math.random() - 0.5);
+  container.innerHTML = `
+    <div class="hx-activity-hint">🎯 ${act.hint}</div>
+    <ul class="hx-order-list" id="hxOrderList"></ul>
+    <button type="button" class="lbtn teal" id="hxOrderCheck" style="width:100%">تحقق من الترتيب</button>
+  `;
+  const list = container.querySelector('#hxOrderList');
+  items.forEach(it => {
+    const li = document.createElement('li');
+    li.className = 'hx-order-card'; li.dataset.id = it.id;
+    li.innerHTML = '<span class="txt">'+it.text+'</span><span class="arrows"><button type="button" class="up">▲</button><button type="button" class="down">▼</button></span>';
+    list.appendChild(li);
+    li.querySelector('.up').addEventListener('click', () => { const p = li.previousElementSibling; if (p) list.insertBefore(li, p); });
+    li.querySelector('.down').addEventListener('click', () => { const n = li.nextElementSibling; if (n) list.insertBefore(n, li); });
+  });
+  container.querySelector('#hxOrderCheck').addEventListener('click', () => {
+    const order = [...list.querySelectorAll('.hx-order-card')].map(c => c.dataset.id);
+    const correct = act.items.map(i => i.id);
+    const ok = order.every((id,i) => id === correct[i]);
+    if (ok) {
+      list.querySelectorAll('.hx-order-card').forEach(c => c.classList.add('correct'));
+      if (typeof playTone === 'function') playTone('good');
+      setTimeout(() => onComplete(true), 400);
+    } else {
+      hxShakeEl(list);
+      if (typeof playTone === 'function') playTone('bad');
+      hxMascotHint();
+    }
+  });
+}
+
+function updateHistoryProgressUI() {
+  const fill = document.getElementById('hxProgressFill');
+  const label = document.getElementById('hxProgressLabel');
+  if (!fill || !label) return;
+  let done = 0;
+  for (let i = 1; i <= 6; i++) if (progress.completed[i] !== undefined) done++;
+  fill.style.width = Math.round(done/6*100) + '%';
+  label.textContent = done + ' / 6 دروس تاريخية مكتملة';
+}
+/* HISTORY ENRICHMENT END */
 
 function clone(obj) { return JSON.parse(JSON.stringify(obj)); }
 function loadQuestionBank() {
@@ -2153,7 +2590,7 @@ function renderStats() {
   if(certBtn) { certBtn.textContent = allDone ? '🏆 افتح الشهادة ✅' : '🏆 الشهادة 🔒'; certBtn.className = allDone ? 'btn gold' : 'btn ghost'; }
   updateSoundButton(); updateMascot(); updateMissionCards();
 }
-function renderAll() { renderStats(); renderRoutePath(); renderRouteNodes(); renderBadges(); renderRewards(); }
+function renderAll() { renderStats(); renderRoutePath(); renderRouteNodes(); renderBadges(); renderRewards(); updateHistoryProgressUI(); /* HISTORY ENRICHMENT */ }
 function startJourney() {
   const name = document.getElementById('studentName').value.trim();
   if(name) { progress.name = name; saveProgress(); }
@@ -2214,6 +2651,7 @@ function showIntroStage() {
   document.getElementById('lnMainBtn').style.display = '';
   document.getElementById('lnMainBtn').textContent = 'ابدأ الاختبار →';
   document.getElementById('lnMainBtn').disabled = false;
+  document.getElementById('lnMainBtn').onclick = lnMainAction; /* HISTORY ENRICHMENT: يعيد الربط الافتراضي في حال بقي معطلاً من محطة سابقة */
   updateLsProgress(0, st.questions.length);
   document.getElementById('lsStepLbl').textContent = 'محطة ' + st.id;
   document.getElementById('stageIntro').innerHTML = `
@@ -2230,16 +2668,56 @@ function showIntroStage() {
     </div>
     <div class="mis-note">
       🎯 أجب على <strong>${st.questions.length} أسئلة</strong> لإتمام هذه المحطة وجمع النجوم
-    </div>`;
+    </div>` + (hxIsHistory(st.id) ? hxRenderProblemObjectives(st) : '');
+  /* HISTORY ENRICHMENT START */
+  if (hxIsHistory(st.id)) {
+    document.getElementById('lnMainBtn').textContent = 'استكشف الإنفوغرافيا →';
+  }
+  /* HISTORY ENRICHMENT END */
 }
 
 function lnMainAction() {
+  /* HISTORY ENRICHMENT START */
+  if (lsStage === 'intro' && hxIsHistory(currentStation.id)) { hxShowInfographicStage(); return; }
+  if (lsStage === 'infographic') { hxShowActivityStage(); return; }
+  /* HISTORY ENRICHMENT END */
   if(lsStage === 'intro') showQuizStage();
 }
+
+/* HISTORY ENRICHMENT START */
+function hxShowInfographicStage() {
+  lsStage = 'infographic';
+  document.getElementById('stageIntro').style.display = 'none';
+  document.getElementById('stageInfographic').style.display = 'block';
+  document.getElementById('lnMainBtn').textContent = 'انتقل إلى النشاط →';
+  document.getElementById('stationScreen').querySelector('.ls-body').scrollTop = 0;
+  hxRenderInfographic(document.getElementById('stageInfographic'), currentStation);
+}
+function hxShowActivityStage() {
+  lsStage = 'activity';
+  document.getElementById('stageInfographic').style.display = 'none';
+  document.getElementById('stageActivity').style.display = 'block';
+  document.getElementById('lnMainBtn').style.display = 'none';
+  document.getElementById('stationScreen').querySelector('.ls-body').scrollTop = 0;
+  hxRenderActivity(document.getElementById('stageActivity'), currentStation, () => {
+    const hx = HISTORY_ENRICHMENT[currentStation.id];
+    hxMascotHint(hx.successMsg);
+    const btn = document.getElementById('lnMainBtn');
+    btn.style.display = '';
+    btn.textContent = 'ابدأ الاختبار →';
+    btn.onclick = showQuizStage;
+  });
+}
+/* HISTORY ENRICHMENT END */
 
 function showQuizStage() {
   lsStage = 'quiz';
   document.getElementById('stageIntro').style.display = 'none';
+  /* HISTORY ENRICHMENT START */
+  document.getElementById('stageInfographic').style.display = 'none';
+  document.getElementById('stageActivity').style.display = 'none';
+  document.getElementById('lnMainBtn').onclick = lnMainAction;
+  /* HISTORY ENRICHMENT END */
   document.getElementById('stageQuiz').style.display = 'block';
   document.getElementById('lnMainBtn').style.display = 'none';
   document.getElementById('stationScreen').querySelector('.ls-body').scrollTop = 0;
@@ -2355,6 +2833,19 @@ function showCelebration() {
   if(currentScore === 3) { confetti(); playTone('reward'); } else { playTone('finish'); }
   checkMilestones();
   if(done === stations.length) setTimeout(openCertificate, 1200);
+  /* HISTORY ENRICHMENT START */
+  const extra = document.getElementById('celExtraActions');
+  if (extra) {
+    if (hxIsHistory(currentStation.id) && currentStation.id < 6) {
+      const nextId = currentStation.id + 1;
+      extra.innerHTML = '<button type="button" class="cel-btn teal hx-next-lesson-btn" onclick="closeCelebration();openStation('+nextId+')">الدرس التاريخي التالي ←</button>';
+    } else if (currentStation.id === 6 && completedRange(1,6)) {
+      extra.innerHTML = '<div class="hx-activity-hint" style="margin-top:14px">🏆 أنهيت جزيرة الزمن — التاريخ بالكامل! شارة "مؤرخ رحلة المحلي" بانتظارك.</div>';
+    } else {
+      extra.innerHTML = '';
+    }
+  }
+  /* HISTORY ENRICHMENT END */
 }
 
 function closeCelebration() {
