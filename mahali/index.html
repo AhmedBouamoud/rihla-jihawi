@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>رحلة المحلي الذهبية 🏆 — الثالثة إعدادي | ذ. أحمد بوعمود</title>
+<title>رحلة المحلي — الأسدس الأول 🏆 — الثالثة إعدادي | ذ. أحمد بوعمود</title>
 <meta name="theme-color" content="#0f766e">
-<meta name="description" content="تطبيق مراجعة تفاعلي لمادة الاجتماعيات الثالثة إعدادي — 20 محطة بين التاريخ والجغرافيا والتربية على المواطنة والمنهجية.">
+<meta name="description" content="رحلة المحلي — الأسدس الأول: تطبيق مراجعة تفاعلي لمادة الاجتماعيات الثالثة إعدادي استعداداً للامتحان المحلي، عبر 22 محطة بين التاريخ والجغرافيا والتربية على المواطنة والمنهجية.">
 <link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="رحلة المحلي">
@@ -81,8 +82,8 @@ button { cursor: pointer; border: 0; }
   background: var(--card); border:1px solid rgba(14,165,233,.12); border-radius: var(--radius);
   padding: clamp(22px, 4vw, 38px); box-shadow: var(--shadow); position: relative; overflow:hidden;
 }
-.hero-card::before { content:""; position:absolute; width:260px; height:260px; border-radius:50%; top:-90px; right:-90px; background: radial-gradient(circle, rgba(245,158,11,.2), transparent 62%); }
-.hero-card::after { content:""; position:absolute; width:260px; height:260px; border-radius:50%; bottom:-120px; left:-90px; background: radial-gradient(circle, rgba(14,165,233,.18), transparent 62%); }
+.hero-card::before { content:""; position:absolute; width:260px; height:260px; border-radius:50%; top:-90px; right:-90px; background: radial-gradient(circle, rgba(245,158,11,.2), transparent 62%); pointer-events:none; }
+.hero-card::after { content:""; position:absolute; width:260px; height:260px; border-radius:50%; bottom:-120px; left:-90px; background: radial-gradient(circle, rgba(14,165,233,.18), transparent 62%); pointer-events:none; }
 .kicker { display:inline-flex; align-items:center; gap:8px; padding:8px 14px; border-radius:999px; background:#ecfeff; color:#0f766e; font-weight:900; margin-bottom:16px; }
 h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5px; margin:0; font-family:"Cairo","Tajawal",sans-serif; }
 .gradient { background: linear-gradient(135deg, var(--blue), var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent; }
@@ -278,7 +279,7 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 .cert h2 { font-size: clamp(24px,4vw,38px); margin: 8px 0; color:#92400e; font-family:"Cairo","Tajawal",sans-serif; }
 .cert .student { font-size: clamp(26px,4.5vw,34px); font-weight:900; margin: 20px 0; color: var(--primary); }
 .cert p { line-height:2; font-size: clamp(15px,2vw,17px); color:#374151; }
-.toast { position: fixed; bottom: 24px; right: 24px; left: auto; background:#111827; color:white; padding:13px 18px; border-radius:18px; z-index:500; box-shadow: 0 16px 48px rgba(0,0,0,.26); opacity:0; transform:translateY(18px) scale(.97); transition: opacity .25s, transform .25s; max-width: 340px; font-weight:800; font-size:14px; line-height:1.6; }
+.toast { position: fixed; bottom: 24px; right: 24px; left: auto; background:#111827; color:white; padding:13px 18px; border-radius:18px; z-index:500; box-shadow: 0 16px 48px rgba(0,0,0,.26); opacity:0; pointer-events:none; transform:translateY(18px) scale(.97); transition: opacity .25s, transform .25s; max-width: 340px; font-weight:800; font-size:14px; line-height:1.6; }
 .toast.show { opacity:1; transform:translateY(0) scale(1); }
 @media (max-width: 480px) { .toast { left:16px; right:16px; bottom:16px; } }
 
@@ -516,7 +517,7 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 <body>
 <div id="luxurySplash" class="luxury-splash" style="--splash-img:url('assets/panorama.webp')">
   <div class="splash-card">
-    <span class="luxury-title">🧭 رحلة المحلي الذهبية</span>
+    <span class="luxury-title">🧭 رحلة المحلي — الأسدس الأول</span>
     <img src="assets/ibn-battuta.webp" alt="ابن بطوطة" />
     <h2>أهلاً أيها الرحّالة!</h2>
     <p>رحلة من <strong>22 محطة</strong> في التاريخ والجغرافيا والمواطنة والمنهجية — اجمع النجوم واكسب الشهادة!</p>
@@ -542,8 +543,8 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
     <div class="brand">
       <div class="brand-mark"><img src="assets/ibn-battuta.webp" alt="ابن بطوطة" /></div>
       <div>
-        <strong>رحلة المحلي الذهبية</strong>
-        <small>الثالثة إعدادي — الاجتماعيات — الأسدس الأول</small>
+        <strong>رحلة المحلي — الأسدس الأول</strong>
+        <small>الثالثة إعدادي — الاجتماعيات — استعداداً للامتحان المحلي</small>
       </div>
     </div>
     <div class="nav-actions">
@@ -557,9 +558,9 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 <main class="app">
   <section class="hero">
     <div class="hero-card">
-      <span class="kicker">✨ منصة مراجعة ممتعة وذكية</span>
+      <span class="kicker">🏆 رحلة المحلي — الأسدس الأول</span>
       <h1>استعدّ للامتحان <span class="gradient">المحلي</span> في رحلة لا تُنسى</h1>
-      <p class="lead">من ميناء الانطلاق إلى مغارة التتويج، يرافقك <strong>ابن بطوطة</strong> عبر مسار بحري متعرّج بين جزر التاريخ والجغرافيا والتربية على المواطنة والمنهجية. في كل محطة سؤال وتحدٍّ وصوت ومفاجأة وجائزة، وفي النهاية تنتظرك شهادة الاستعداد.</p>
+      <p class="lead">استعد للامتحان المحلي في الاجتماعيات عبر رحلة تفاعلية ممتعة تجمع بين الدروس، الأسئلة، الشارات، وشهادة الإتمام.</p>
       <div class="theme-chips">
         <span>🏝️ جزر المعرفة</span>
         <span>🧭 مسار متعرّج تفاعلي</span>
@@ -779,7 +780,7 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 
   <footer class="footer">
     ✍️ إعداد وتصور: الأستاذ أحمد بوعمود — أستاذ الاجتماعيات<br />
-    مؤسسة الحنان الخاصة | أكادير | رحلة المحلي الذهبية<br /><br />
+    مؤسسة الحنان الخاصة | أكادير | رحلة المحلي — الأسدس الأول<br /><br />
     <button onclick="openAdmin()" style="background:transparent;border:1px solid rgba(100,116,139,.25);color:var(--muted);cursor:pointer;font-size:12px;padding:6px 14px;border-radius:999px;font-family:inherit;">دخول الأستاذ</button>
     &nbsp;
     <button onclick="resetProgressConfirm()" style="background:transparent;border:1px solid rgba(100,116,139,.25);color:var(--muted);cursor:pointer;font-size:12px;padding:6px 14px;border-radius:999px;font-family:inherit;">إعادة الرحلة من الصفر</button>
@@ -895,7 +896,7 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
     <div class="modal-body">
       <div id="certificateContent" class="cert">
         <div style="font-size:54px">🏆</div>
-        <h2>شهادة إتمام رحلة المحلي الذهبية</h2>
+        <h2>شهادة إتمام رحلة المحلي — الأسدس الأول</h2>
         <p>مادة الاجتماعيات — الثالثة إعدادي — الأسدس الأول</p>
         <p>تُمنح هذه الشهادة للتلميذ(ة):</p>
         <div id="certName" class="student">................</div>

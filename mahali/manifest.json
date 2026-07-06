@@ -1,5 +1,5 @@
 {
-  "name": "رحلة المحلي الذهبية — اجتماعيات الثالثة إعدادي",
+  "name": "رحلة المحلي — الأسدس الأول",
   "short_name": "رحلة المحلي",
   "description": "تطبيق مراجعة تفاعلي لمادة الاجتماعيات الثالثة إعدادي — 22 محطة بين التاريخ والجغرافيا والتربية على المواطنة والمنهجية. إعداد: ذ. أحمد بوعمود.",
   "start_url": "./index.html?pwa=1",
@@ -16,9 +16,9 @@
     { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ],
   "screenshots": [
-    { "src": "assets/panorama.webp", "sizes": "1280x720", "type": "image/webp", "form_factor": "wide", "label": "لوحة رحلة المحلي الذهبية" }
+    { "src": "assets/panorama.webp", "sizes": "1280x720", "type": "image/webp", "form_factor": "wide", "label": "لوحة رحلة المحلي — الأسدس الأول" }
   ],
   "shortcuts": [
-    { "name": "ابدأ الرحلة", "short_name": "الرحلة", "url": "./index.html?start=1", "description": "انطلق في رحلة المحلي الذهبية" }
+    { "name": "ابدأ الرحلة", "short_name": "الرحلة", "url": "./index.html?start=1", "description": "انطلق في رحلة المحلي — الأسدس الأول" }
   ]
 }
