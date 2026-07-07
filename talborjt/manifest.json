@@ -1,0 +1,17 @@
+{
+  "name": "وكالتي Talborjt",
+  "short_name": "Talborjt",
+  "description": "تطبيق تسيير حسابات وكالة Talborjt — فواتير، مصاريف، تسبيقات، تقارير ومطبوعات",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "dir": "rtl",
+  "lang": "ar-MA",
+  "background_color": "#0b1f3a",
+  "theme_color": "#0b1f3a",
+  "categories": ["business", "finance", "productivity"],
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

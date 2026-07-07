@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#0b1f3a">
+<title>وكالتي Talborjt</title>
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icons/icon.svg">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<div id="login-screen" class="login-screen">
+  <form id="login-form" class="login-card">
+    <div class="login-logo">
+      <img src="./icons/icon.svg" alt="">
+      <h1 data-i18n="appName">وكالتي Talborjt</h1>
+    </div>
+    <p id="login-setup-hint" class="login-hint" data-i18n="loginSetupHint" hidden>لا توجد كلمة مرور بعد، اختر كلمة مرور لحماية بياناتك</p>
+    <label class="field">
+      <span data-i18n="password">كلمة المرور</span>
+      <input type="password" id="login-password" autocomplete="current-password" required>
+    </label>
+    <label class="field" id="login-password-confirm-wrap" hidden>
+      <span data-i18n="passwordConfirm">تأكيد كلمة المرور</span>
+      <input type="password" id="login-password-confirm" autocomplete="new-password">
+    </label>
+    <p id="login-error" class="form-error" hidden></p>
+    <button type="submit" class="btn btn-primary btn-block" data-i18n="login">دخول</button>
+    <button type="button" id="login-lang-toggle" class="btn btn-ghost btn-block">Français</button>
+  </form>
+</div>
+
+<div id="app-shell" class="app-shell" hidden>
+
+  <header class="topbar">
+    <button id="nav-toggle" class="icon-btn nav-toggle" aria-label="menu">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+    </button>
+    <div class="topbar-title">
+      <img src="./icons/icon.svg" alt="">
+      <span id="topbar-agency-name" data-i18n="appName">وكالتي Talborjt</span>
+    </div>
+    <div class="topbar-actions">
+      <button id="lang-toggle" class="btn btn-ghost btn-sm">Français</button>
+      <button id="logout-btn" class="icon-btn" data-i18n-title="logout" aria-label="logout">
+        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <nav id="side-nav" class="side-nav">
+    <button class="nav-item" data-nav="dashboard">
+      <svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v10h14V10" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span data-i18n="dashboard">لوحة التحكم</span>
+    </button>
+    <button class="nav-item" data-nav="entry">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      <span data-i18n="newEntry">إدخال عملية</span>
+    </button>
+    <button class="nav-item" data-nav="review">
+      <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      <span data-i18n="reviewTable">جدول المراجعة</span>
+    </button>
+    <button class="nav-item" data-nav="weeks">
+      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2" fill="none"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      <span data-i18n="weeks">الأسابيع</span>
+    </button>
+    <button class="nav-item" data-nav="printables">
+      <svg viewBox="0 0 24 24"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-2M6 14h12v7H6z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span data-i18n="printables">المطبوعات</span>
+    </button>
+    <button class="nav-item" data-nav="reports">
+      <svg viewBox="0 0 24 24"><path d="M3 3v18h18M7 15l4-6 3 4 5-8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span data-i18n="reports">التقارير</span>
+    </button>
+    <button class="nav-item" data-nav="settings">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.14.36.4.66.73.86.3.2.66.31 1.02.31H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span data-i18n="settings">الإعدادات</span>
+    </button>
+  </nav>
+  <div id="nav-backdrop" class="nav-backdrop"></div>
+
+  <main id="main-content" class="main-content">
+
+    <section id="view-dashboard" class="view">
+      <div class="view-head">
+        <h2 data-i18n="dashboard">لوحة التحكم</h2>
+        <select id="dashboard-week-select" class="select"></select>
+      </div>
+      <div id="dashboard-cards" class="cards-grid"></div>
+      <div class="panel">
+        <h3 data-i18n="latestOperations">آخر العمليات</h3>
+        <div id="dashboard-recent" class="recent-list"></div>
+      </div>
+    </section>
+
+    <section id="view-entry" class="view">
+      <div class="view-head">
+        <h2 data-i18n="newEntry">إدخال عملية</h2>
+      </div>
+      <form id="entry-form" class="panel form">
+        <div class="field">
+          <span data-i18n="operationType">نوع العملية</span>
+          <div class="type-tabs" id="entry-type-tabs">
+            <button type="button" class="type-tab active" data-type="invoice" data-i18n="typeInvoice">فاتورة MDJS</button>
+            <button type="button" class="type-tab" data-type="expense" data-i18n="typeExpense">مصروف</button>
+            <button type="button" class="type-tab" data-type="advance" data-i18n="typeAdvance">تسبيق</button>
+            <button type="button" class="type-tab" data-type="correction" data-i18n="typeCorrection">تصحيح</button>
+          </div>
+        </div>
+
+        <label class="field">
+          <span data-i18n="date">التاريخ</span>
+          <input type="date" id="f-date" required>
+        </label>
+
+        <div id="fields-invoice" class="type-fields">
+          <label class="field">
+            <span data-i18n="invoiceNumber">رقم الفاتورة</span>
+            <input type="text" id="f-invoice-number">
+          </label>
+          <label class="field">
+            <span data-i18n="supplier">المورد أو الشركة</span>
+            <input type="text" id="f-supplier">
+          </label>
+          <label class="field">
+            <span data-i18n="montantPrincipal">الأصل</span>
+            <input type="number" step="0.01" id="f-principal">
+          </label>
+          <label class="field">
+            <span data-i18n="montantPaid">المؤدى للشركات</span>
+            <input type="number" step="0.01" id="f-paid">
+          </label>
+          <label class="field">
+            <span data-i18n="commission">العمولة</span>
+            <input type="number" step="0.01" id="f-commission">
+          </label>
+          <label class="field field-check">
+            <input type="checkbox" id="f-tva-toggle">
+            <span data-i18n="tvaOptional">TVA اختيارية</span>
+          </label>
+          <label class="field" id="f-tva-wrap" hidden>
+            <span data-i18n="tvaAmount">مبلغ TVA</span>
+            <input type="number" step="0.01" id="f-tva">
+          </label>
+        </div>
+
+        <div id="fields-expense" class="type-fields" hidden>
+          <label class="field">
+            <span data-i18n="expenseType">نوع المصروف</span>
+            <input type="text" id="f-expense-type">
+          </label>
+          <label class="field">
+            <span data-i18n="montantExpense">مبلغ المصروف</span>
+            <input type="number" step="0.01" id="f-expense-amount">
+          </label>
+        </div>
+
+        <div id="fields-advance" class="type-fields" hidden>
+          <label class="field">
+            <span data-i18n="beneficiary">المستفيد</span>
+            <input type="text" id="f-beneficiary">
+          </label>
+          <label class="field">
+            <span data-i18n="montantAdvance">مبلغ التسبيق</span>
+            <input type="number" step="0.01" id="f-advance-amount">
+          </label>
+        </div>
+
+        <div id="fields-correction" class="type-fields" hidden>
+          <label class="field">
+            <span data-i18n="correctionAmount">مبلغ التصحيح</span>
+            <input type="number" step="0.01" id="f-correction-amount">
+          </label>
+        </div>
+
+        <label class="field">
+          <span data-i18n="note">ملاحظة</span>
+          <textarea id="f-note" rows="2"></textarea>
+        </label>
+
+        <label class="field">
+          <span data-i18n="status">الحالة</span>
+          <select id="f-status" class="select">
+            <option value="review" data-i18n="statusReview">قيد المراجعة</option>
+            <option value="validated" data-i18n="statusValidated">معتمد</option>
+          </select>
+        </label>
+
+        <input type="hidden" id="f-edit-id">
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-block" data-i18n="save">حفظ</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="view-review" class="view">
+      <div class="view-head">
+        <h2 data-i18n="reviewTable">جدول المراجعة</h2>
+      </div>
+      <div class="panel">
+        <div class="review-toolbar">
+          <input type="search" id="review-search" class="input" data-i18n-placeholder="search">
+          <select id="review-filter-type" class="select">
+            <option value="" data-i18n="allTypes">كل الأنواع</option>
+            <option value="invoice" data-i18n="typeInvoice">فاتورة MDJS</option>
+            <option value="expense" data-i18n="typeExpense">مصروف</option>
+            <option value="advance" data-i18n="typeAdvance">تسبيق</option>
+            <option value="correction" data-i18n="typeCorrection">تصحيح</option>
+          </select>
+          <select id="review-filter-status" class="select">
+            <option value="" data-i18n="allStatuses">كل الحالات</option>
+            <option value="review" data-i18n="statusReview">قيد المراجعة</option>
+            <option value="validated" data-i18n="statusValidated">معتمد</option>
+          </select>
+          <select id="review-sort" class="select">
+            <option value="date-desc" data-i18n="sortDateDesc">الأحدث أولاً</option>
+            <option value="date-asc" data-i18n="sortDateAsc">الأقدم أولاً</option>
+          </select>
+        </div>
+        <div id="review-summary" class="review-summary"></div>
+        <div class="table-wrap">
+          <table class="table" id="review-table">
+            <thead>
+              <tr>
+                <th data-i18n="date">التاريخ</th>
+                <th data-i18n="operationType">النوع</th>
+                <th data-i18n="invoiceNumber">رقم الفاتورة</th>
+                <th data-i18n="supplier">الشركة</th>
+                <th data-i18n="montantPrincipal">الأصل</th>
+                <th data-i18n="montantPaid">المؤدى للشركات</th>
+                <th data-i18n="commission">العمولة</th>
+                <th data-i18n="amount">المبلغ</th>
+                <th data-i18n="status">الحالة</th>
+                <th data-i18n="note">ملاحظة</th>
+                <th data-i18n="actions">إجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="review-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-weeks" class="view">
+      <div class="view-head">
+        <h2 data-i18n="weeks">الأسابيع</h2>
+        <button id="week-create-btn" class="btn btn-primary btn-sm" data-i18n="newWeek">أسبوع جديد</button>
+      </div>
+      <div class="panel">
+        <div class="compare-bar">
+          <span data-i18n="compareWeeks">مقارنة أسبوعين</span>
+          <select id="compare-week-a" class="select"></select>
+          <span>/</span>
+          <select id="compare-week-b" class="select"></select>
+          <button id="compare-btn" class="btn btn-secondary btn-sm" data-i18n="compare">قارن</button>
+        </div>
+        <div id="compare-result" class="compare-result"></div>
+      </div>
+      <div id="weeks-list" class="weeks-list"></div>
+    </section>
+
+    <section id="view-printables" class="view">
+      <div class="view-head">
+        <h2 data-i18n="printables">المطبوعات</h2>
+        <select id="printables-week-select" class="select"></select>
+      </div>
+      <div class="printables-grid">
+        <button class="printable-card" data-print="collecte">
+          <span data-i18n="printCollecte">مطبوع ملء معطيات الأسبوع</span>
+        </button>
+        <button class="printable-card" data-print="invoice">
+          <span data-i18n="printInvoice">مطبوع فاتورة MDJS</span>
+        </button>
+        <button class="printable-card" data-print="advance">
+          <span data-i18n="printAdvance">مطبوع التسبيق</span>
+        </button>
+        <button class="printable-card" data-print="expense">
+          <span data-i18n="printExpense">مطبوع المصروف</span>
+        </button>
+        <button class="printable-card" data-print="verification">
+          <span data-i18n="printVerification">مطبوع المراجعة النهائية</span>
+        </button>
+        <button class="printable-card" data-print="summary">
+          <span data-i18n="printSummary">مطبوع الملخص الأسبوعي</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="view-reports" class="view">
+      <div class="view-head">
+        <h2 data-i18n="reports">التقارير</h2>
+      </div>
+      <div class="panel">
+        <div class="report-tabs" id="report-tabs">
+          <button class="type-tab active" data-report="weekly" data-i18n="reportWeekly">تقرير أسبوعي</button>
+          <button class="type-tab" data-report="monthly" data-i18n="reportMonthly">تقرير شهري</button>
+          <button class="type-tab" data-report="global" data-i18n="reportGlobal">تقرير شامل</button>
+          <button class="type-tab" data-report="compare" data-i18n="reportCompare">مقارنة أسبوعين</button>
+        </div>
+        <div id="report-controls" class="report-controls"></div>
+        <div class="report-actions">
+          <button id="report-print" class="btn btn-secondary btn-sm" data-i18n="print">طباعة</button>
+          <button id="report-csv" class="btn btn-secondary btn-sm" data-i18n="exportCsv">تصدير CSV</button>
+        </div>
+        <div id="report-output" class="report-output"></div>
+      </div>
+    </section>
+
+    <section id="view-settings" class="view">
+      <div class="view-head">
+        <h2 data-i18n="settings">الإعدادات</h2>
+      </div>
+      <form id="settings-form" class="panel form">
+        <label class="field">
+          <span data-i18n="agencyName">اسم الوكالة</span>
+          <input type="text" id="s-agency-name">
+        </label>
+        <label class="field">
+          <span data-i18n="userPercent">النسبة الافتراضية للمستخدم</span>
+          <input type="number" step="0.01" min="0" max="100" id="s-user-percent">
+        </label>
+        <label class="field">
+          <span data-i18n="currency">العملة</span>
+          <input type="text" id="s-currency">
+        </label>
+        <label class="field">
+          <span data-i18n="defaultLang">اللغة الافتراضية</span>
+          <select id="s-default-lang" class="select">
+            <option value="ar">العربية</option>
+            <option value="fr">Français</option>
+          </select>
+        </label>
+        <label class="field field-check">
+          <input type="checkbox" id="s-tva-toggle">
+          <span data-i18n="tvaSettingLabel">تفعيل خصم TVA من العمولة</span>
+        </label>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" data-i18n="save">حفظ</button>
+        </div>
+      </form>
+
+      <div class="panel form">
+        <h3 data-i18n="changePassword">تغيير كلمة المرور</h3>
+        <label class="field">
+          <span data-i18n="currentPassword">كلمة المرور الحالية</span>
+          <input type="password" id="s-current-password">
+        </label>
+        <label class="field">
+          <span data-i18n="newPassword">كلمة المرور الجديدة</span>
+          <input type="password" id="s-new-password">
+        </label>
+        <p id="s-password-error" class="form-error" hidden></p>
+        <button id="s-password-btn" class="btn btn-secondary" data-i18n="save">حفظ</button>
+      </div>
+
+      <div class="panel form">
+        <h3 data-i18n="backup">النسخ الاحتياطي</h3>
+        <div class="form-actions">
+          <button id="s-backup-btn" class="btn btn-secondary" data-i18n="backupExport">حفظ نسخة احتياطية</button>
+          <label class="btn btn-secondary" for="s-restore-input" data-i18n="backupImport">استيراد نسخة احتياطية</label>
+          <input type="file" id="s-restore-input" accept="application/json" hidden>
+        </div>
+      </div>
+
+      <div class="panel form danger-zone">
+        <h3 data-i18n="dangerZone">منطقة الخطر</h3>
+        <button id="s-delete-all-btn" class="btn btn-danger" data-i18n="deleteAllData">حذف كل البيانات</button>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div id="confirm-modal" class="modal" hidden>
+  <div class="modal-card">
+    <p id="confirm-modal-text"></p>
+    <div class="modal-actions">
+      <button id="confirm-modal-cancel" class="btn btn-ghost" data-i18n="cancel">إلغاء</button>
+      <button id="confirm-modal-ok" class="btn btn-danger" data-i18n="confirm">تأكيد</button>
+    </div>
+  </div>
+</div>
+
+<div id="week-modal" class="modal" hidden>
+  <div class="modal-card">
+    <h3 id="week-modal-title" data-i18n="newWeek">أسبوع جديد</h3>
+    <label class="field">
+      <span data-i18n="weekName">تسمية الأسبوع</span>
+      <input type="text" id="week-modal-name">
+    </label>
+    <label class="field">
+      <span data-i18n="weekStart">من تاريخ</span>
+      <input type="date" id="week-modal-start">
+    </label>
+    <label class="field">
+      <span data-i18n="weekEnd">إلى تاريخ</span>
+      <input type="date" id="week-modal-end">
+    </label>
+    <input type="hidden" id="week-modal-id">
+    <div class="modal-actions">
+      <button id="week-modal-cancel" class="btn btn-ghost" data-i18n="cancel">إلغاء</button>
+      <button id="week-modal-save" class="btn btn-primary" data-i18n="save">حفظ</button>
+    </div>
+  </div>
+</div>
+
+<div id="print-frame-container"></div>
+
+<script src="./app.js"></script>
+</body>
+</html>
