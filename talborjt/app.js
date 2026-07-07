@@ -121,7 +121,6 @@ const I18N = {
     signName: 'الاسم والتوقيع',
     declaration: 'أصرح أن المعطيات أعلاه صحيحة.',
     additionalNotes: 'ملاحظات إضافية',
-    senderName: 'اسم المرسل',
     sendDate: 'تاريخ الإرسال',
     weekOf: 'الأسبوع من',
     to: 'إلى',
@@ -135,7 +134,14 @@ const I18N = {
     comparisonResult: 'نتيجة المقارنة',
     difference: 'الفرق',
     from: 'من',
-    tvaNoteReport: 'TVA تظهر فقط إذا كانت مدخلة في التفاصيل ولا تدخل في حساب العمولة إلا إذا فُعّل ذلك في الإعدادات.'
+    tvaNoteReport: 'TVA تظهر فقط إذا كانت مدخلة في التفاصيل ولا تدخل في حساب العمولة إلا إذا فُعّل ذلك في الإعدادات.',
+    declarantName: 'اسم المصرّح أو المرسل',
+    phone: 'رقم الهاتف',
+    bankTransfersSection: 'الأداءات البنكية',
+    paymentType: 'أداء',
+    bankReference: 'المرجع البنكي إن وجد',
+    declarationCollecte: 'أصرح أن المعطيات أعلاه صحيحة وأرسلها للمدير من أجل إدخالها في التطبيق.',
+    printablesNote: 'هذه المطبوعات مخصصة للمصرّح أو المرسل حتى يملأ المعطيات ويرسلها للمدير. المدير فقط هو من يدخل البيانات في التطبيق.'
   },
   fr: {
     appName: 'Mon Agence Talborjt',
@@ -256,7 +262,6 @@ const I18N = {
     signName: 'Nom et signature',
     declaration: 'Je déclare que les informations ci-dessus sont exactes.',
     additionalNotes: 'Remarques supplémentaires',
-    senderName: "Nom de l'expéditeur",
     sendDate: "Date d'envoi",
     weekOf: 'Semaine du',
     to: 'au',
@@ -270,7 +275,14 @@ const I18N = {
     comparisonResult: 'Résultat de la comparaison',
     difference: 'Différence',
     from: 'De',
-    tvaNoteReport: "La TVA n'apparaît que si elle est saisie dans les détails et n'entre dans le calcul de la commission que si cette option est activée dans les paramètres."
+    tvaNoteReport: "La TVA n'apparaît que si elle est saisie dans les détails et n'entre dans le calcul de la commission que si cette option est activée dans les paramètres.",
+    declarantName: "Nom du déclarant ou expéditeur",
+    phone: 'Téléphone',
+    bankTransfersSection: 'Virements bancaires',
+    paymentType: 'Paiement',
+    bankReference: 'Référence bancaire',
+    declarationCollecte: "Je déclare que les informations ci-dessus sont exactes et les transmets au gérant pour saisie dans l'application.",
+    printablesNote: "Ces imprimés sont destinés au déclarant ou à l'expéditeur afin de remplir les données et les transmettre au gérant. Seul le gérant saisit les données dans l'application."
   }
 };
 
@@ -763,22 +775,31 @@ function psSign() {
   <div class="ps-sign"><span>${t('signName')}: ______________________</span><span>${t('printDate')}: ______________</span></div>`;
 }
 function buildCollecteSheet(w) {
-  const rows = (n) => Array.from({ length: n }).map(() => `<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>`).join('');
+  const invoiceRows = (n) => Array.from({ length: n }).map(() => `<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>`).join('');
+  const invoiceTable = (label) => `
+    <div class="ps-section-title">${label}</div>
+    <table><thead><tr><th>${t('invoiceNumber')}</th><th>${t('montantPrincipal')}</th><th>${t('montantPaid')}</th><th>${t('commission')}</th><th>${t('note')}</th></tr></thead><tbody>${invoiceRows(2)}</tbody></table>`;
+  const bankRows = (n) => Array.from({ length: n }).map(() => `<tr><td>□ ${t('typeAdvance')}<br>□ ${t('paymentType')}</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>`).join('');
+  const expenseRows = (n) => Array.from({ length: n }).map(() => `<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>`).join('');
   return `<div class="print-sheet">${psHead()}
     <div class="ps-title">مطبوع ملء معطيات الأسبوع<small>Fiche de collecte hebdomadaire</small></div>
     <div class="ps-meta">
       <div>${t('agencyLabel')}: ${state.settings.agencyName || ''}</div>
       <div>${t('weekOf')}: ${w ? w.start || '' : ''} — ${t('to')}: ${w ? w.end || '' : ''}</div>
-      <div>${t('senderName')}: ______________________</div>
+      <div>${t('declarantName')}: ______________________</div>
+      <div>${t('phone')}: ______________</div>
       <div>${t('sendDate')}: ______________</div>
     </div>
-    <div class="ps-section-title">فواتير MDJS / Factures MDJS</div>
-    <table><thead><tr><th>${t('invoiceNumber')}</th><th>${t('society')}</th><th>${t('montantPrincipal')}</th><th>${t('montantPaid')}</th><th>${t('commission')}</th><th>${t('note')}</th></tr></thead><tbody>${rows(6)}</tbody></table>
-    <div class="ps-section-title">التسبيقات / Avances</div>
-    <table><thead><tr><th>${t('date')}</th><th>${t('beneficiaryLabel')}</th><th>${t('amount')}</th><th>${t('note')}</th></tr></thead><tbody>${rows(4)}</tbody></table>
-    <div class="ps-section-title">المصاريف / Dépenses</div>
-    <table><thead><tr><th>${t('date')}</th><th>${t('expenseTypeLabel')}</th><th>${t('amount')}</th><th>${t('note')}</th></tr></thead><tbody>${rows(4)}</tbody></table>
-    ${psSign()}
+    ${invoiceTable('MDJ')}
+    ${invoiceTable('Loto')}
+    ${invoiceTable('Sezal')}
+    <div class="ps-section-title">${t('bankTransfersSection')}</div>
+    <table><thead><tr><th>${t('operationType')}</th><th>${t('date')}</th><th>${t('amount')}</th><th>${t('bankReference')}</th><th>${t('note')}</th></tr></thead><tbody>${bankRows(4)}</tbody></table>
+    <div class="ps-section-title">${t('expensesLabel')}</div>
+    <table><thead><tr><th>${t('date')}</th><th>${t('expenseTypeLabel')}</th><th>${t('amount')}</th><th>${t('note')}</th></tr></thead><tbody>${expenseRows(3)}</tbody></table>
+    <div class="ps-notes"><b>${t('additionalNotes')}</b></div>
+    <p style="font-size:11px">${t('declarationCollecte')}</p>
+    <div class="ps-sign"><span>${t('signName')}: ______________________</span><span>${t('printDate')}: ______________</span></div>
     <div class="ps-foot">${state.settings.agencyName || ''} — ${t('printDate')}: ${todayISO()}</div>
   </div>`;
 }
