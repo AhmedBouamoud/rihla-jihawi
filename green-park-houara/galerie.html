@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>معرض الصور | Green Park Houarra</title>
+<meta name="description" content="معرض صور Green Park Houarra: المسبح، النافورة، التراس، الملعب والمناسبات." />
+<meta name="theme-color" content="#07190f" />
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="float" href="https://maps.app.goo.gl/8uxSh18oFtXb5zA88" target="_blank" rel="noopener" aria-label="Google Maps">📍</a>
+<a id="floatWa" class="float wa js-wa-link disabled" href="contact.html#contact" aria-disabled="true" title="واتساب">💬</a>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <a href="index.html" style="display:flex;align-items:center;gap:10px;color:inherit">
+        <img src="assets/logo.svg" alt="شعار Green Park Houarra" width="44" height="44" />
+        <div><b>Green Park Houarra</b><small>Piscine • Café • Terrain • Events</small></div>
+      </a>
+    </div>
+    <div class="links">
+      <a href="piscine.html">المسبح</a>
+      <a href="cafe.html">المقهى</a>
+      <a href="terrain.html">الملعب</a>
+      <a href="evenements.html">المناسبات</a>
+      <a href="galerie.html" class="active">الصور</a>
+      <a href="contact.html" class="nav-cta">تواصل</a>
+    </div>
+    <button class="burger" onclick="toggleMobileNav()" aria-label="القائمة" aria-controls="navMobile">☰</button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html">الرئيسية</a>
+    <a href="piscine.html">المسبح</a>
+    <a href="cafe.html">المقهى</a>
+    <a href="terrain.html">الملعب</a>
+    <a href="evenements.html">المناسبات</a>
+    <a href="galerie.html" class="active">الصور</a>
+    <a href="contact.html">تواصل</a>
+  </div>
+</nav>
+
+<header class="page-hero" style="background:linear-gradient(90deg,rgba(7,25,15,.92),rgba(7,25,15,.55),rgba(7,25,15,.1)),url('assets/images/overview.jpg') center/cover">
+  <div class="container">
+    <div class="crumb"><a href="index.html">الرئيسية</a><span>/</span><span>الصور</span></div>
+    <h1>معرض الصور</h1>
+    <p>صور نظيفة ومختارة من المكان: المسبح، النافورة، التراس، الملعب، والمناسبات. اضغط على أي صورة لتكبيرها.</p>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <div class="gallery uniform reveal">
+      <button class="tile" data-full="assets/images/hero_pool.jpg" data-caption="مسبح Green Park Houarra نهاراً"><picture><source type="image/webp" srcset="assets/images/hero_pool.webp"><img src="assets/images/hero_pool.jpg" alt="مسبح نهاراً" loading="lazy" decoding="async"></picture><b>المسبح نهاراً</b></button>
+      <button class="tile" data-full="assets/images/pool_night.jpg" data-caption="مسبح Green Park Houarra ليلاً"><picture><source type="image/webp" srcset="assets/images/pool_night.webp"><img src="assets/images/pool_night.jpg" alt="مسبح ليلاً" loading="lazy" decoding="async"></picture><b>المسبح ليلاً</b></button>
+      <button class="tile" data-full="assets/images/fountain.jpg" data-caption="النافورة الصخرية"><picture><source type="image/webp" srcset="assets/images/fountain.webp"><img src="assets/images/fountain.jpg" alt="النافورة الصخرية" loading="lazy" decoding="async"></picture><b>النافورة الصخرية</b></button>
+      <button class="tile" data-full="assets/images/terrace.jpg" data-caption="تراس المقهى"><picture><source type="image/webp" srcset="assets/images/terrace.webp"><img src="assets/images/terrace.jpg" alt="تراس المقهى" loading="lazy" decoding="async"></picture><b>تراس المقهى</b></button>
+      <button class="tile" data-full="assets/images/field.jpg" data-caption="الملعب الرياضي"><picture><source type="image/webp" srcset="assets/images/field.webp"><img src="assets/images/field.jpg" alt="الملعب الرياضي" loading="lazy" decoding="async"></picture><b>الملعب الرياضي</b></button>
+      <button class="tile" data-full="assets/images/event_table.jpg" data-caption="ضيافة ومشروبات"><picture><source type="image/webp" srcset="assets/images/event_table.webp"><img src="assets/images/event_table.jpg" alt="ضيافة ومشروبات" loading="lazy" decoding="async"></picture><b>ضيافة ومشروبات</b></button>
+      <button class="tile" data-full="assets/images/event_walkway.jpg" data-caption="ديكور المناسبات"><picture><source type="image/webp" srcset="assets/images/event_walkway.webp"><img src="assets/images/event_walkway.jpg" alt="ديكور المناسبات" loading="lazy" decoding="async"></picture><b>ديكور المناسبات</b></button>
+      <button class="tile" data-full="assets/images/overview.jpg" data-caption="منظر عام"><picture><source type="image/webp" srcset="assets/images/overview.webp"><img src="assets/images/overview.jpg" alt="منظر عام" loading="lazy" decoding="async"></picture><b>منظر عام</b></button>
+    </div>
+    <div class="clean-note reveal">الصور مبنية على لقطات حقيقية من المكان. قبل النشر التجاري النهائي يجب تأكيد موافقة صاحب المكان على استعمالها.</div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox">
+  <figure>
+    <button class="lb-close" id="lbClose" aria-label="إغلاق">✕</button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="السابق">‹</button>
+    <img id="lbImg" src="" alt="">
+    <figcaption id="lbCaption"></figcaption>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="التالي">›</button>
+  </figure>
+</div>
+
+<footer>
+  <b>Green Park Houarra</b><br>
+  فضاء عائلي للسباحة، القهوة، الرياضة والمناسبات — طريق P1709 قرب هوارة / أولاد تايمة.
+  <div class="foot-links">
+    <a href="https://maps.app.goo.gl/8uxSh18oFtXb5zA88" target="_blank" rel="noopener">Google Maps</a>
+    <a href="https://www.facebook.com/greenparkhouarra/" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://www.instagram.com/greenparkhouarra" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.tiktok.com/@green.park.houarra" target="_blank" rel="noopener">TikTok</a>
+  </div>
+</footer>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

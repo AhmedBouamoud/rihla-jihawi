@@ -1,238 +1,198 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Green Park Houara | Piscine • Café • Events</title>
-<meta name="description" content="Green Park Houara: piscine, café, terrasse, terrain de sport et espace événementiel à Houara. Site vitrine bilingue arabe/français."/>
-<meta name="robots" content="index, follow"/>
-<meta name="theme-color" content="#07190f"/>
-<link rel="icon" href="assets/logo.svg" type="image/svg+xml"/>
-<link rel="apple-touch-icon" href="assets/logo.svg"/>
-
-<meta property="og:type" content="business.business"/>
-<meta property="og:title" content="Green Park Houara | Piscine • Café • Events"/>
-<meta property="og:description" content="Piscine, café-terrasse, terrain de sport et espace pour mariages et événements à Houara."/>
-<meta property="og:image" content="assets/images/pool_day.jpg"/>
-<meta property="og:locale" content="fr_FR"/>
-<meta property="og:locale:alternate" content="ar_MA"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Green Park Houara"/>
-<meta name="twitter:description" content="Piscine, café-terrasse, terrain de sport et espace événements à Houara."/>
-<meta name="twitter:image" content="assets/images/pool_day.jpg"/>
-
-<link rel="preload" as="image" href="assets/images/pool_day.jpg"/>
-<link rel="stylesheet" href="assets/css/style.css"/>
-<script>
-(function(){
-  document.documentElement.classList.add('js');
-  var fr = localStorage.getItem('gph-lang') === 'fr';
-  if (fr) {
-    document.documentElement.setAttribute('lang','fr');
-    document.documentElement.setAttribute('dir','ltr');
-  }
-})();
-</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Green Park Houarra | فضاء عائلي للسباحة، القهوة والمناسبات</title>
+<meta name="description" content="Green Park Houarra: مسبح، مقهى، جلسات خارجية، ملعب ومناسبات عائلية على طريق P1709 قرب هوارة / أولاد تايمة." />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#07190f" />
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="assets/logo.svg" />
+<meta property="og:type" content="business.business" />
+<meta property="og:title" content="Green Park Houarra | فضاء عائلي للسباحة، القهوة والمناسبات" />
+<meta property="og:description" content="مسبح، مقهى وتراس، ملعب رياضي وفضاء مناسبات على طريق P1709 قرب هوارة / أولاد تايمة." />
+<meta property="og:image" content="assets/images/hero_pool.jpg" />
+<meta property="og:locale" content="ar_MA" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preload" as="image" href="assets/images/hero_pool.jpg" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-<a class="float" href="https://maps.app.goo.gl/m3cWVWuUNQDj6Lgu7?g_st=ac" target="_blank" rel="noopener" title="Google Maps">📍</a>
-<a id="floatWa" class="float wa js-wa-link disabled" href="#contact" style="display:none" target="_blank" rel="noopener" title="WhatsApp">💬</a>
+<a class="float" href="https://maps.app.goo.gl/8uxSh18oFtXb5zA88" target="_blank" rel="noopener" aria-label="Google Maps">📍</a>
+<a id="floatWa" class="float wa js-wa-link disabled" href="contact.html#contact" aria-disabled="true" title="واتساب">💬</a>
 
 <nav class="nav">
   <div class="nav-inner">
     <div class="brand">
-      <img src="assets/logo.svg" alt="شعار Green Park Houara" width="46" height="46"/>
-      <div>
-        <b>Green Park Houara</b>
-        <small>Piscine • Café • Events</small>
-      </div>
+      <a href="index.html" style="display:flex;align-items:center;gap:10px;color:inherit">
+        <img src="assets/logo.svg" alt="شعار Green Park Houarra" width="44" height="44" />
+        <div><b>Green Park Houarra</b><small>Piscine • Café • Terrain • Events</small></div>
+      </a>
     </div>
     <div class="links">
-      <a href="#experience"><span class="ar">التجربة</span><span class="fr">Expérience</span></a>
-      <a href="#menu"><span class="ar">القائمة</span><span class="fr">Menu</span></a>
-      <a href="#gallery"><span class="ar">الصور</span><span class="fr">Photos</span></a>
-      <a href="#events"><span class="ar">المناسبات</span><span class="fr">Événements</span></a>
-      <a href="#practical"><span class="ar">معلومات عملية</span><span class="fr">Infos pratiques</span></a>
-      <a href="#contact"><span class="ar">التواصل</span><span class="fr">Contact</span></a>
+      <a href="piscine.html">المسبح</a>
+      <a href="cafe.html">المقهى</a>
+      <a href="terrain.html">الملعب</a>
+      <a href="evenements.html">المناسبات</a>
+      <a href="galerie.html">الصور</a>
+      <a href="contact.html" class="nav-cta">تواصل</a>
     </div>
-    <button class="lang" onclick="toggleLang()" aria-label="Toggle language">AR / FR</button>
-    <button class="burger" onclick="toggleMobileNav()" aria-label="Menu" aria-controls="navMobile">☰</button>
+    <button class="burger" onclick="toggleMobileNav()" aria-label="القائمة" aria-controls="navMobile">☰</button>
   </div>
   <div class="nav-mobile" id="navMobile">
-    <a href="#experience"><span class="ar">التجربة</span><span class="fr">Expérience</span></a>
-    <a href="#menu"><span class="ar">القائمة</span><span class="fr">Menu</span></a>
-    <a href="#gallery"><span class="ar">الصور</span><span class="fr">Photos</span></a>
-    <a href="#events"><span class="ar">المناسبات</span><span class="fr">Événements</span></a>
-    <a href="#practical"><span class="ar">معلومات عملية</span><span class="fr">Infos pratiques</span></a>
-    <a href="#contact"><span class="ar">التواصل</span><span class="fr">Contact</span></a>
+    <a href="index.html" class="active">الرئيسية</a>
+    <a href="piscine.html">المسبح</a>
+    <a href="cafe.html">المقهى</a>
+    <a href="terrain.html">الملعب</a>
+    <a href="evenements.html">المناسبات</a>
+    <a href="galerie.html">الصور</a>
+    <a href="contact.html">تواصل</a>
   </div>
 </nav>
 
-<header class="hero">
-  <div class="container hero-content">
-    <div class="kicker">GREEN PARK HOUARA • PISCINE • CAFÉ • TERRAIN • EVENTS</div>
-    <h1>
-      <span class="ar">فضاء أخضر يجمع المسبح، القهوة، الرياضة والمناسبات</span>
-      <span class="fr">Un espace vert pour piscine, café, sport et événements</span>
-    </h1>
-    <p>
-      <span class="ar">واجهة رقمية مقترحة لـ Green Park Houara: مكان عائلي للاستراحة، السباحة، الجلسات الخارجية، مباريات كرة القدم المصغرة وتنظيم الحفلات والمناسبات.</span>
-      <span class="fr">Une vitrine digitale proposée pour Green Park Houara: détente, piscine, terrasse, terrain de sport et organisation d’événements.</span>
-    </p>
-    <div class="cta">
-      <a class="btn gold" href="#gallery"><span class="ar">شاهد الصور</span><span class="fr">Voir les photos</span></a>
-      <a class="btn dark" href="#events"><span class="ar">تنظيم مناسبة</span><span class="fr">Organiser un événement</span></a>
-      <a class="btn wa disabled js-wa-link" href="#contact" aria-disabled="true"><span class="ar">واتساب (قريباً)</span><span class="fr">WhatsApp (bientôt)</span></a>
-    </div>
-    <div class="stats">
-      <div class="stat"><b>Piscine</b><span><span class="ar">نهاراً وليلاً</span><span class="fr">Jour & nuit</span></span></div>
-      <div class="stat"><b>Café</b><span><span class="ar">مشروبات وجلسات</span><span class="fr">Boissons & terrasse</span></span></div>
-      <div class="stat"><b>Sport</b><span><span class="ar">ملعب كرة قدم</span><span class="fr">Terrain de foot</span></span></div>
-      <div class="stat"><b>Events</b><span><span class="ar">أعراس وحفلات</span><span class="fr">Mariages & fêtes</span></span></div>
+<header id="hero" class="hero" style="background:linear-gradient(90deg,rgba(7,25,15,.96),rgba(7,25,15,.62),rgba(7,25,15,.08)),url('assets/images/hero_pool.jpg') center/cover">
+  <div class="container">
+    <div class="hero-content">
+      <div class="kicker">GREEN PARK HOUARRA • P1709 • 4.2 ★ • 132 AVIS</div>
+      <h1>فضاء عائلي يدهشك بين هوارة وسهل سوس</h1>
+      <p>ليس مجرد مسبح ولا مقهى فقط؛ إنه واحة صغيرة للسباحة، القهوة، الرياضة، التصوير والمناسبات. مكان يظهر بهدوء على الطريق P1709 ثم يكشف تجربة كاملة للعائلة والأصدقاء.</p>
+      <div class="cta">
+        <a class="btn gold" href="galerie.html">شاهد الصور</a>
+        <a class="btn dark" href="evenements.html">تنظيم مناسبة</a>
+        <a class="btn green js-wa-link disabled" href="contact.html#contact" aria-disabled="true"><span data-wa-label>واتساب (قريباً)</span></a>
+        <a class="btn outline" href="https://maps.app.goo.gl/8uxSh18oFtXb5zA88" target="_blank" rel="noopener" style="background:rgba(255,255,255,.1);color:var(--cream);border-color:rgba(255,255,255,.22)">افتح الخريطة</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>4.2★</b><span>تقييم Google Maps</span></div>
+        <div class="stat"><b>132</b><span>مراجعة</span></div>
+        <div class="stat"><b>P1709</b><span>قرب هوارة / أولاد تايمة</span></div>
+        <div class="stat"><b dir="ltr">07:00–00:00</b><span>حسب دلائل عامة (قيد التأكيد)</span></div>
+      </div>
     </div>
   </div>
 </header>
 
-<section id="experience">
+<section id="story">
+  <div class="container story reveal">
+    <div>
+      <div class="eyebrow">Storytelling</div>
+      <h2 class="section-title">لم تكن تتوقع أن تجد هذا هنا...</h2>
+      <p>على الطريق الإقليمية P1709، وبين هدوء الحقول ودفء سهل سوس، يظهر Green Park Houarra كواحة صغيرة قرب هوارة / أولاد تايمة. من الخارج يبدو المكان هادئاً وبسيطاً، لكن بمجرد الدخول تنفتح أمامك صورة أخرى: مسبح أزرق تحت الشمس، نافورة صخرية تسرق النظر، جلسات تحت الظل، ملعب أخضر، وأجواء ليلية تتحول إلى فضاء للاحتفال والذكريات.</p>
+      <p>المكان يصلح لصورة جميلة، قهوة هادئة، سباحة صيفية، مباراة بين الأصدقاء، أو مناسبة عائلية تبقى في الذاكرة.</p>
+    </div>
+    <picture><source type="image/webp" srcset="assets/images/overview.webp"><img src="assets/images/overview.jpg" alt="منظر عام لـ Green Park Houarra" loading="lazy" decoding="async"></picture>
+  </div>
+</section>
+
+<section id="spaces">
   <div class="container">
     <div class="head reveal">
-      <div>
-        <div class="eyebrow">Services</div>
-        <h2><span class="ar">خدمات Green Park Houara</span><span class="fr">Les services Green Park Houara</span></h2>
-      </div>
-      <p class="lead"><span class="ar">الموقع يبرز أربعة عناصر قوية: مسبح واسع، نافورة صخرية مميزة، جلسات خارجية، وملعب رياضي، مع إمكانية تنظيم المناسبات.</span><span class="fr">Le site valorise quatre forces: piscine, fontaine rocheuse, terrasse, terrain de sport et événementiel.</span></p>
+      <div><div class="eyebrow">الفضاءات</div><h2>أربعة فضاءات… تجربة واحدة</h2></div>
+      <p class="lead">كل فضاء في Green Park Houarra له هويته الخاصة. اكتشف كل واحد على حدة.</p>
     </div>
-    <div class="cards">
-      <article class="card reveal"><div class="icon">🏊</div><h3><span class="ar">مسبح واستراحة</span><span class="fr">Piscine & détente</span></h3><p><span class="ar">صور نهارية وليلية للمسبح لإظهار المكان كوجهة صيفية وعائلية.</span><span class="fr">Photos de jour et de nuit pour une image estivale et familiale.</span></p></article>
-      <article class="card reveal"><div class="icon">☕</div><h3><span class="ar">مقهى وتراس</span><span class="fr">Café & terrasse</span></h3><p><span class="ar">جلسات خارجية ومشروبات في أجواء خضراء هادئة.</span><span class="fr">Terrasse et boissons dans un cadre vert et calme.</span></p></article>
-      <article class="card reveal"><div class="icon">⚽</div><h3><span class="ar">ملعب رياضي</span><span class="fr">Terrain de sport</span></h3><p><span class="ar">إضافة تجارية مهمة للعائلات والشباب والفرق الصغيرة.</span><span class="fr">Un atout pour familles, jeunes et petits groupes sportifs.</span></p></article>
-      <article class="card reveal"><div class="icon">💍</div><h3><span class="ar">حفلات ومناسبات</span><span class="fr">Mariages & événements</span></h3><p><span class="ar">صور الضيافة والزفاف تجعل الموقع يخاطب سوق المناسبات.</span><span class="fr">Les visuels mariage et réception ouvrent le marché événementiel.</span></p></article>
+    <div class="spaces reveal">
+      <a class="space-card" href="piscine.html">
+        <img src="assets/images/hero_pool.jpg" alt="المسبح" loading="lazy" decoding="async">
+        <div><div class="icon">🏊</div><h3>المسبح</h3><p>نهاراً وليلاً — قلب التجربة الصيفية.</p><span class="go">اكتشف المسبح ←</span></div>
+      </a>
+      <a class="space-card" href="cafe.html">
+        <img src="assets/images/terrace.jpg" alt="المقهى والتراس" loading="lazy" decoding="async">
+        <div><div class="icon">☕</div><h3>المقهى والتراس</h3><p>جلسات تحت الظل وضيافة مغربية أصيلة.</p><span class="go">اكتشف المقهى ←</span></div>
+      </a>
+      <a class="space-card" href="terrain.html">
+        <img src="assets/images/field.jpg" alt="الملعب الرياضي" loading="lazy" decoding="async">
+        <div><div class="icon">⚽</div><h3>الملعب</h3><p>مباريات مصغرة وتحديات بين الأصدقاء.</p><span class="go">اكتشف الملعب ←</span></div>
+      </a>
+      <a class="space-card" href="evenements.html">
+        <img src="assets/images/event_walkway.jpg" alt="فضاء المناسبات" loading="lazy" decoding="async">
+        <div><div class="icon">💍</div><h3>المناسبات</h3><p>أعراس، أعياد ميلاد وحفلات عائلية.</p><span class="go">اكتشف المناسبات ←</span></div>
+      </a>
     </div>
   </div>
 </section>
 
 <section>
-  <div class="container showcase reveal">
-    <div class="image-label"><picture><source type="image/webp" srcset="assets/images/pool_day.webp"><img src="assets/images/pool_day.jpg" alt="مسبح Green Park Houara نهاراً وسط أجواء خضراء" width="1448" height="1086" loading="lazy" decoding="async"></picture><span><span class="ar">مسبح نهاري وسط أجواء خضراء</span><span class="fr">Piscine de jour dans un cadre vert</span></span></div>
-    <div class="stack">
-      <div class="image-label"><picture><source type="image/webp" srcset="assets/images/pool_night.webp"><img src="assets/images/pool_night.jpg" alt="مسبح Green Park Houara مضاء ليلاً" width="1448" height="1086" loading="lazy" decoding="async"></picture><span><span class="ar">المسبح مضاء ليلاً</span><span class="fr">La piscine illuminée la nuit</span></span></div>
-      <div class="image-label"><picture><source type="image/webp" srcset="assets/images/event_table.webp"><img src="assets/images/event_table.jpg" alt="جلسة ضيافة في تراس Green Park Houara" width="1122" height="1402" loading="lazy" decoding="async"></picture><span><span class="ar">جلسات ضيافة على التراس</span><span class="fr">Accueil sur la terrasse</span></span></div>
-    </div>
-  </div>
-</section>
-
-<section id="menu">
-  <div class="container">
-    <div class="menu-box reveal" id="menuBox">
-      <div class="head">
-        <div>
-          <div class="eyebrow">Editable menu</div>
-          <h2><span class="ar">قائمة قابلة للتعديل</span><span class="fr">Menu modifiable</span></h2>
-        </div>
-        <p class="lead" style="color:#dfd2b8"><span class="ar">غيّر الأسماء والأسعار مباشرة، ثم احفظها داخل المتصفح. كلود كود يمكنه تحويلها لاحقاً إلى لوحة إدارة.</span><span class="fr">Modifiez noms et prix, puis sauvegardez localement. Claude Code pourra ajouter un admin panel.</span></p>
-        </div>
-      <div class="tools">
-        <button onclick="toggleEdit()"><span class="ar">تعديل</span><span class="fr">Modifier</span></button>
-        <button onclick="saveMenu()"><span class="ar">حفظ</span><span class="fr">Sauver</span></button>
-        <button onclick="resetMenu()"><span class="ar">استرجاع</span><span class="fr">Reset</span></button>
-      </div>
-      <div id="menuList" class="menu-list"></div>
-    </div>
-  </div>
-</section>
-
-<section id="gallery">
   <div class="container">
     <div class="head reveal">
-      <div>
-        <div class="eyebrow">Enhanced gallery</div>
-        <h2><span class="ar">معرض الصور المحسّنة</span><span class="fr">Galerie d’images améliorées</span></h2>
-      </div>
-      <p class="lead"><span class="ar">تم تنظيف الصور من واجهات الهاتف وتحسينها بصرياً لتناسب موقعاً تجارياً. قبل النشر النهائي يجب تأكيد حقوق استعمال الصور من صاحب المكان.</span><span class="fr">Images nettoyées et améliorées pour une vitrine commerciale. Confirmer les droits avant publication finale.</span></p>
+      <div><div class="eyebrow">لماذا Green Park Houarra</div><h2>تفاصيل تصنع الفرق</h2></div>
     </div>
-    <div class="gallery reveal">
-      <div class="tile big"><picture><source type="image/webp" srcset="assets/images/pool_night.webp"><img src="assets/images/pool_night.jpg" alt="مسبح Green Park Houara مضاء ليلاً" loading="lazy" decoding="async"></picture><b><span class="ar">مسبح مضاء ليلاً</span><span class="fr">Piscine illuminée</span></b></div>
-      <div class="tile"><picture><source type="image/webp" srcset="assets/images/pool_day.webp"><img src="assets/images/pool_day.jpg" alt="مسبح Green Park Houara نهاراً" loading="lazy" decoding="async"></picture><b><span class="ar">مسبح نهاري</span><span class="fr">Piscine de jour</span></b></div>
-      <div class="tile"><picture><source type="image/webp" srcset="assets/images/event_table.webp"><img src="assets/images/event_table.jpg" alt="طاولة ضيافة ومشروبات" loading="lazy" decoding="async"></picture><b><span class="ar">ضيافة ومشروبات</span><span class="fr">Accueil & boissons</span></b></div>
-      <div class="tile"><picture><source type="image/webp" srcset="assets/images/wedding_sign.webp"><img src="assets/images/wedding_sign.jpg" alt="لافتة استقبال مناسبة زفاف" loading="lazy" decoding="async"></picture><b><span class="ar">استقبال المناسبات</span><span class="fr">Accueil mariage</span></b></div>
+    <div class="cards reveal">
+      <article class="card"><div class="icon">⛲</div><h3>نافورة صخرية مميزة</h3><p>عنصر بصري نادر يمنح المكان هوية تختلف عن أي مسبح عادي.</p></article>
+      <article class="card"><div class="icon">🌙</div><h3>أجواء ليلية ساحرة</h3><p>المسبح يتحول ليلاً إلى فضاء إضاءة دافئة يصلح للسهرات والمناسبات.</p></article>
+      <article class="card"><div class="icon">🍲</div><h3>ضيافة مغربية أصيلة</h3><p>طاجين الماعز، القهوة السوداء والعصائر الطازجة ضمن أشهر ما يُقدَّم.</p></article>
+      <article class="card"><div class="icon">🚗</div><h3>قريب من أكادير</h3><p>على طريق P1709 قرب هوارة / أولاد تايمة، في متناول زوار سهل سوس.</p></article>
     </div>
   </div>
 </section>
 
-<section id="events">
-  <div class="container events reveal">
-    <div class="event-panel">
-      <div class="eyebrow">Events & celebrations</div>
-      <h2><span class="ar">مكان مناسب للحفلات والأعراس الصغيرة</span><span class="fr">Un lieu pour fêtes et mariages</span></h2>
-      <p><span class="ar">صور الممرات، الطاولات، المشروبات، ولافتة الترحيب تجعل من Green Park Houara فضاءً قابلاً للتسويق كمكان للمناسبات، أعياد الميلاد، حفلات عائلية، ولمسات زفاف.</span><span class="fr">Les visuels de décoration, table, boissons et accueil permettent de positionner Green Park Houara comme lieu d’événements familiaux et mariages.</span></p>
-      <div class="event-list">
-        <div>💍 <span class="ar">أعراس وحفلات عائلية</span><span class="fr">Mariages & fêtes familiales</span></div>
-        <div>🎂 <span class="ar">أعياد الميلاد</span><span class="fr">Anniversaires</span></div>
-        <div>🏊 <span class="ar">حفلات قرب المسبح</span><span class="fr">Soirées au bord de la piscine</span></div>
-        <div>⚽ <span class="ar">أنشطة رياضية مصغرة</span><span class="fr">Activités sportives</span></div>
-      </div>
-      <div class="notice"><span class="ar">ملاحظة: أضف الرقم الرسمي، الأسعار وساعات العمل قبل نشر النسخة النهائية.</span><span class="fr">Note: ajoutez numéro officiel, tarifs et horaires avant publication.</span></div>
+<section id="gallery-preview">
+  <div class="container">
+    <div class="head reveal">
+      <div><div class="eyebrow">Gallery</div><h2>لقطات من المكان</h2></div>
+      <p class="lead"><a class="btn outline" href="galerie.html">شاهد المعرض الكامل ←</a></p>
     </div>
-    <div class="event-photo"><picture><source type="image/webp" srcset="assets/images/wedding_sign.webp"><img src="assets/images/wedding_sign.jpg" alt="لافتة ترحيب بمناسبة في Green Park Houara" loading="lazy" decoding="async"></picture></div>
+    <div class="gallery reveal">
+      <div class="tile big"><picture><source type="image/webp" srcset="assets/images/pool_night.webp"><img src="assets/images/pool_night.jpg" alt="المسبح ليلاً" loading="lazy" decoding="async"></picture><b>المسبح ليلاً</b></div>
+      <div class="tile"><picture><source type="image/webp" srcset="assets/images/fountain.webp"><img src="assets/images/fountain.jpg" alt="النافورة الصخرية" loading="lazy" decoding="async"></picture><b>النافورة الصخرية</b></div>
+      <div class="tile"><picture><source type="image/webp" srcset="assets/images/event_table.webp"><img src="assets/images/event_table.jpg" alt="ضيافة ومشروبات" loading="lazy" decoding="async"></picture><b>ضيافة ومشروبات</b></div>
+    </div>
+  </div>
+</section>
+
+<section id="social">
+  <div class="container social reveal">
+    <div class="social-panel">
+      <div class="eyebrow">YouTube • TikTok • Instagram</div>
+      <h2>تابعونا على @greenparkhouarra</h2>
+      <p>محتوى قصير ومبهر: صباح المسبح، النافورة الصخرية، تحدي في الملعب، وتجهيز مناسبة — كل ذلك على قنواتنا الرسمية.</p>
+      <div class="social-list">
+        <div>🎬 <b>YouTube:</b> Green Park Houarra</div>
+        <div>🎵 <b>TikTok:</b> @green.park.houarra</div>
+        <div>📸 <b>Instagram:</b> @greenparkhouarra</div>
+      </div>
+      <div class="cta">
+        <a class="btn red" href="https://www.instagram.com/greenparkhouarra" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn black" href="https://www.tiktok.com/@green.park.houarra" target="_blank" rel="noopener">TikTok</a>
+        <a class="btn dark" href="https://www.facebook.com/greenparkhouarra/" target="_blank" rel="noopener" style="background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.14)">Facebook</a>
+      </div>
+    </div>
+    <div class="phone-frame">
+      <div class="phone-screen" style="background-image:url('assets/images/pool_night.jpg')">
+        <div class="reel-copy">لم تكن تتوقع أن تجد هذا قرب هوارة...</div>
+        <div class="handle">@greenparkhouarra</div>
+      </div>
+    </div>
   </div>
 </section>
 
 <section id="practical">
   <div class="container">
     <div class="head reveal">
-      <div>
-        <div class="eyebrow">Informations pratiques</div>
-        <h2><span class="ar">معلومات عملية</span><span class="fr">Informations pratiques</span></h2>
-      </div>
+      <div><div class="eyebrow">معلومات عملية</div><h2>قبل ما تزور</h2></div>
     </div>
     <div class="practical reveal">
-      <div class="card">
-        <div class="icon">📍</div>
-        <b><span class="ar">العنوان</span><span class="fr">Adresse</span></b>
-        <small><span class="ar">Houara، المغرب — الموقع الدقيق عبر Google Maps.</span><span class="fr">Houara, Maroc — position précise via Google Maps.</span></small><br>
-        <a class="btn gold" style="margin-top:14px" href="https://maps.app.goo.gl/m3cWVWuUNQDj6Lgu7?g_st=ac" target="_blank" rel="noopener"><span class="ar">افتح الخريطة</span><span class="fr">Ouvrir la carte</span></a>
-      </div>
-      <div class="card">
-        <div class="icon">🕒</div>
-        <b><span class="ar">ساعات العمل</span><span class="fr">Horaires</span></b>
-        <small data-field="hours"><span class="ar">ساعات العمل قيد التأكيد</span><span class="fr">Horaires à confirmer</span></small>
-      </div>
-      <div class="card">
-        <div class="icon">💳</div>
-        <b><span class="ar">الأسعار</span><span class="fr">Tarifs</span></b>
-        <small data-field="prices"><span class="ar">الأسعار قيد التأكيد</span><span class="fr">Tarifs à confirmer</span></small>
-      </div>
+      <div class="card"><div class="icon">📍</div><b>العنوان</b><small data-field="address">طريق P1709، قرب هوارة / أولاد تايمة</small></div>
+      <div class="card"><div class="icon">🕒</div><b>ساعات العمل</b><small data-field="hours">قيد التأكيد</small></div>
+      <div class="card"><div class="icon">⭐</div><b>التقييم</b><small data-field="rating">4.2 / 5</small></div>
     </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="container contact reveal">
-    <div class="contact-card">
-      <div class="eyebrow">Contact</div>
-      <h2>Green Park Houara</h2>
-      <div class="row"><b>📍</b><div><strong>Google Maps</strong><br><small><span class="ar">رابط الخريطة مدمج من الرسالة التي أرسلتها.</span><span class="fr">Lien Maps intégré depuis votre message.</span></small></div></div>
-      <div class="row"><b>☎️</b><div><strong><span class="ar">الهاتف / واتساب</span><span class="fr">Téléphone / WhatsApp</span></strong><br><small data-field="contact-note"><span class="ar">أضف رقم الهاتف الرسمي</span><span class="fr">Ajouter le numéro officiel</span></small></div></div>
-      <div class="row"><b>📘</b><div><strong>Facebook</strong><br><small>https://www.facebook.com/share/1GYu7arFZC/</small></div></div>
-      <div class="cta">
-        <a class="btn gold" href="https://maps.app.goo.gl/m3cWVWuUNQDj6Lgu7?g_st=ac" target="_blank" rel="noopener"><span class="ar">افتح الخريطة</span><span class="fr">Ouvrir la carte</span></a>
-        <a class="btn dark" href="https://www.facebook.com/share/1GYu7arFZC/" target="_blank" rel="noopener">Facebook</a>
-        <a class="btn wa disabled js-wa-link" href="#contact" aria-disabled="true"><span class="ar">واتساب (قريباً)</span><span class="fr">WhatsApp (bientôt)</span></a>
-      </div>
+    <div class="cta reveal" style="margin-top:24px;justify-content:center">
+      <a class="btn gold" href="contact.html">كل معلومات التواصل ←</a>
     </div>
-    <a class="map" href="https://maps.app.goo.gl/m3cWVWuUNQDj6Lgu7?g_st=ac" target="_blank" rel="noopener" title="Google Maps">
-      <span class="pin">📍</span>
-      <span class="label">Google Maps — Green Park Houara</span>
-    </a>
   </div>
 </section>
 
 <footer>
-  <b>Green Park Houara</b><br>
-  <span class="ar">موقع مقترح جاهز للتطوير والنشر. الحزمة تتضمن تعليمات لكلود كود.</span>
-  <span class="fr">Site proposé prêt pour développement et déploiement. Package avec instructions Claude Code.</span>
+  <b>Green Park Houarra</b><br>
+  فضاء عائلي للسباحة، القهوة، الرياضة والمناسبات — طريق P1709 قرب هوارة / أولاد تايمة.
+  <div class="foot-links">
+    <a href="https://maps.app.goo.gl/8uxSh18oFtXb5zA88" target="_blank" rel="noopener">Google Maps</a>
+    <a href="https://www.facebook.com/greenparkhouarra/" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://www.instagram.com/greenparkhouarra" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.tiktok.com/@green.park.houarra" target="_blank" rel="noopener">TikTok</a>
+  </div>
 </footer>
-
 <script src="assets/js/app.js"></script>
 </body>
 </html>

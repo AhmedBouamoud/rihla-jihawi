@@ -1,42 +1,36 @@
 {
-  "name": {
-    "ar": "Green Park Houara",
-    "fr": "Green Park Houara"
-  },
-  "tagline": {
-    "ar": "فضاء أخضر يجمع المسبح، القهوة، الرياضة والمناسبات",
-    "fr": "Un espace vert pour piscine, café, sport et événements"
-  },
+  "name": "Green Park Houarra",
+  "tagline": "فضاء عائلي يدهشك بين هوارة وسهل سوس",
+  "rating": { "value": 4.2, "count": 132, "source": "لقطة شاشة من Google Maps وفرها صاحب الطلب" },
   "contact": {
     "phone": "",
     "whatsapp": "",
-    "note": {
-      "ar": "الرقم الرسمي قيد التأكيد مع صاحب المكان.",
-      "fr": "Le numéro officiel est en cours de confirmation avec le propriétaire."
-    }
+    "note": "وردت عدة أرقام هاتف غير متطابقة في دلائل عامة على الإنترنت، لذلك لم يُعتمد أي رقم في الموقع قبل تأكيده مباشرة من صاحب المكان."
   },
   "hours": {
-    "status": "tbc",
-    "text": {
-      "ar": "ساعات العمل قيد التأكيد",
-      "fr": "Horaires à confirmer"
-    }
+    "status": "found_unconfirmed",
+    "text": "من 07:00 صباحاً إلى 00:00 منتصف الليل (حسب دلائل عامة على الإنترنت، بانتظار تأكيد صاحب المكان)"
   },
   "prices": {
     "status": "tbc",
-    "text": {
-      "ar": "الأسعار قيد التأكيد",
-      "fr": "Tarifs à confirmer"
-    }
+    "text": "الأسعار قيد التأكيد"
   },
   "address": {
-    "text": {
-      "ar": "Houara، المغرب",
-      "fr": "Houara, Maroc"
-    },
-    "maps_url": "https://maps.app.goo.gl/m3cWVWuUNQDj6Lgu7?g_st=ac"
+    "text": "طريق P1709، قرب هوارة / أولاد تايمة، إقليم تارودانت",
+    "postal": "B.P. 826, Oulad Teima 83350, Maroc",
+    "maps_url": "https://maps.app.goo.gl/8uxSh18oFtXb5zA88"
   },
   "social": {
-    "facebook": "https://www.facebook.com/share/1GYu7arFZC/"
-  }
+    "facebook": "https://www.facebook.com/greenparkhouarra/",
+    "instagram": "https://www.instagram.com/greenparkhouarra",
+    "tiktok": "https://www.tiktok.com/@green.park.houarra"
+  },
+  "menu": [
+    { "n": "قهوة سوداء", "d": "قهوة مغربية أصيلة تُقدَّم في جلسات التراس", "p": "قيد التأكيد", "icon": "☕" },
+    { "n": "عصائر طازجة", "d": "عصائر فواكه موسمية منعشة", "p": "قيد التأكيد", "icon": "🥤" },
+    { "n": "طاجين الماعز", "d": "الطبق المميز في Green Park Houarra، من مكونات محلية طازجة", "p": "قيد التأكيد", "icon": "🍲" },
+    { "n": "شاي مغربي", "d": "شاي بالنعناع للجلسات الهادئة", "p": "قيد التأكيد", "icon": "🫖" },
+    { "n": "حلويات ومعجنات", "d": "مرافقة خفيفة للقهوة", "p": "قيد التأكيد", "icon": "🍰" },
+    { "n": "صيغة مناسبة / مسبح", "d": "اقتراح خاص للمناسبات والاستراحة العائلية", "p": "على الطلب", "icon": "🎉" }
+  ]
 }
