@@ -1,0 +1,42 @@
+{
+  "name": {
+    "ar": "Green Park Houara",
+    "fr": "Green Park Houara"
+  },
+  "tagline": {
+    "ar": "فضاء أخضر يجمع المسبح، القهوة، الرياضة والمناسبات",
+    "fr": "Un espace vert pour piscine, café, sport et événements"
+  },
+  "contact": {
+    "phone": "",
+    "whatsapp": "",
+    "note": {
+      "ar": "الرقم الرسمي قيد التأكيد مع صاحب المكان.",
+      "fr": "Le numéro officiel est en cours de confirmation avec le propriétaire."
+    }
+  },
+  "hours": {
+    "status": "tbc",
+    "text": {
+      "ar": "ساعات العمل قيد التأكيد",
+      "fr": "Horaires à confirmer"
+    }
+  },
+  "prices": {
+    "status": "tbc",
+    "text": {
+      "ar": "الأسعار قيد التأكيد",
+      "fr": "Tarifs à confirmer"
+    }
+  },
+  "address": {
+    "text": {
+      "ar": "Houara، المغرب",
+      "fr": "Houara, Maroc"
+    },
+    "maps_url": "https://maps.app.goo.gl/m3cWVWuUNQDj6Lgu7?g_st=ac"
+  },
+  "social": {
+    "facebook": "https://www.facebook.com/share/1GYu7arFZC/"
+  }
+}
