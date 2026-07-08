@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#b7e06d"/><stop offset=".5" stop-color="#1f5c36"/><stop offset="1" stop-color="#07190f"/></linearGradient></defs>
+<circle cx="256" cy="256" r="236" fill="#07190f" stroke="#d8b56a" stroke-width="18"/>
+<circle cx="256" cy="256" r="170" fill="url(#g)" opacity=".92"/>
+<path d="M138 247c60-86 177-95 236-18-71-18-129 0-179 52 56-20 105-13 153 28-70 30-154 13-210-62Z" fill="#fff9ea" opacity=".9"/>
+<text x="256" y="348" font-family="Arial, sans-serif" font-size="54" font-weight="800" text-anchor="middle" fill="#fff9ea">GREEN</text>
+<text x="256" y="404" font-family="Arial, sans-serif" font-size="44" font-weight="800" text-anchor="middle" fill="#d8b56a">PARK</text>
+</svg>
