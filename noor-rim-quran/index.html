@@ -222,6 +222,17 @@
     </form>
   </dialog>
 
+  <dialog class="parent-dialog" id="certificateDialog">
+    <div class="dialog-card glass-card cert-dialog-card">
+      <button class="close" id="closeCertificateBtn" type="button">×</button>
+      <h2>🌙 شهادة إنجاز ريم</h2>
+      <canvas id="certificateCanvas" width="1000" height="1400"></canvas>
+      <div class="dialog-actions">
+        <button class="primary" id="downloadCertificateBtn" type="button">💾 حفظ الشهادة</button>
+      </div>
+    </div>
+  </dialog>
+
   <audio id="audioPlayer" preload="none"></audio>
   <audio id="voicePlayer" preload="none"></audio>
   <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
