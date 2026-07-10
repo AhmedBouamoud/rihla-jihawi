@@ -190,6 +190,7 @@ function renderFlowers(){
 }
 function renderJourney(){
   const s=currentSurah(), a=currentAyah();
+  $('journeyMode').textContent = state.completed[s.id] ? 'مراجعة سورة محفوظة 🔁' : 'رحلة الحفظ';
   $('surahName').textContent = `سورة ${s.name}`;
   $('totalStars').textContent = state.totalStars;
   $('ayahCount').textContent = `آية ${state.ayahIndex+1} / ${s.ayahs.length}`;
@@ -204,8 +205,14 @@ function renderJourney(){
 function renderGarden(){
   $('bigStars').textContent = `${state.totalStars} ⭐`;
   const badges = surahs.map(s=>`
-    <div class="badge-card">${state.completed[s.id]?'🏅':'🌱'} سورة ${s.name}<small>${state.completed[s.id]?'أتمتها ريم':'في انتظار وردة جديدة'}</small></div>`).join('');
+    <div class="badge-card">${state.completed[s.id]?'🏅':'🌱'} سورة ${s.name}<small>${state.completed[s.id]?'أتمتها ريم':'في انتظار وردة جديدة'}</small>
+      ${state.completed[s.id] ? `<button class="cert-btn" data-cert="${s.id}" type="button">🖼️ شهادة ريم</button>` : ''}
+    </div>`).join('');
   $('badges').innerHTML = badges;
+  document.querySelectorAll('.cert-btn').forEach(btn => btn.addEventListener('click', () => {
+    const s = surahs.find(x => x.id === btn.dataset.cert);
+    if(s) openCertificate(s);
+  }));
 }
 
 // ---------- صندوق هدايا ريم: أناشيد وسور على يوتيوب، تُفتح تدريجياً بالنجوم، تحت إشراف الأب ----------
@@ -375,7 +382,11 @@ function rimTurn(){
 function nextAyah(){
   const s=currentSurah();
   if(state.ayahIndex < s.ayahs.length-1){ state.ayahIndex++; state.repeats=0; persist(); renderJourney(); }
-  else { state.completed[s.id]=true; giveStar(`أتممتِ سورة ${s.name} يا ريم… هدية جميلة لقلبك.`); persist(); renderFlowers(); renderGarden(); }
+  else {
+    const firstTime = !state.completed[s.id];
+    state.completed[s.id]=true; giveStar(`أتممتِ سورة ${s.name} يا ريم… هدية جميلة لقلبك.`); persist(); renderFlowers(); renderGarden();
+    if(firstTime) setTimeout(()=>openCertificate(s), 1400);
+  }
 }
 async function toggleRecord(){
   const btn=$('recordBtn');
@@ -459,6 +470,84 @@ async function clearEncouragements(){
   refreshVoiceStudio();
 }
 
+// ---------- شهادة إنجاز قابلة للحفظ والمشاركة، تُرسم عند إتمام كل سورة ----------
+function loadImage(src){
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+async function drawCertificate(surahObj){
+  const canvas = $('certificateCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+
+  const grad = ctx.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, '#fff7ed'); grad.addColorStop(1, '#effdf5');
+  ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
+
+  ctx.strokeStyle = '#e3b84d'; ctx.lineWidth = 14; ctx.strokeRect(28, 28, W-56, H-56);
+  ctx.strokeStyle = '#1f8f72'; ctx.lineWidth = 4; ctx.strokeRect(48, 48, W-96, H-96);
+
+  try{
+    const img = await loadImage('assets/rim/rim-reward.jpg');
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(W/2, 330, 190, 0, Math.PI*2);
+    ctx.closePath();
+    ctx.clip();
+    const scale = Math.max(380/img.width, 380/img.height);
+    const iw = img.width*scale, ih = img.height*scale;
+    ctx.drawImage(img, W/2-iw/2, 330-ih/2, iw, ih);
+    ctx.restore();
+    ctx.beginPath();
+    ctx.arc(W/2, 330, 190, 0, Math.PI*2);
+    ctx.lineWidth = 10; ctx.strokeStyle = '#fff'; ctx.stroke();
+  }catch(e){ /* لا بأس إن لم تتوفر الصورة بعد */ }
+
+  ctx.direction = 'rtl';
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#1f8f72';
+  ctx.font = 'bold 48px sans-serif';
+  ctx.fillText('🌙 شهادة إنجاز 🌙', W/2, 610);
+  ctx.fillStyle = '#0f2a22';
+  ctx.font = 'bold 76px sans-serif';
+  ctx.fillText('ريم', W/2, 715);
+  ctx.font = '38px sans-serif';
+  ctx.fillStyle = '#276751';
+  ctx.fillText(`أتمّت بفضل الله حفظ سورة ${surahObj.name}`, W/2, 800);
+  ctx.font = '30px sans-serif';
+  ctx.fillStyle = '#6d7c75';
+  const dateStr = new Date().toLocaleDateString('ar', {year:'numeric', month:'long', day:'numeric'});
+  ctx.fillText(dateStr, W/2, 855);
+  ctx.font = '58px sans-serif';
+  ctx.fillText('⭐ ⭐ ⭐', W/2, 960);
+  ctx.font = '30px sans-serif';
+  ctx.fillStyle = '#9a6e12';
+  ctx.fillText(`مجموع نجوم ريم: ${state.totalStars}`, W/2, 1015);
+  ctx.font = '26px sans-serif';
+  ctx.fillStyle = '#6d7c75';
+  ctx.fillText('هدية بابا أحمد لريم — بحب لا ينتهي 💛', W/2, H-90);
+}
+async function openCertificate(surahObj){
+  await drawCertificate(surahObj);
+  $('certificateDialog').showModal();
+}
+function downloadCertificate(){
+  const canvas = $('certificateCanvas');
+  canvas.toBlob(blob => {
+    if(!blob) return;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `شهادة-ريم-${Date.now()}.png`;
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(url), 4000);
+  }, 'image/png');
+}
+
 function init(){
   renderFlowers(); renderJourney(); renderGarden();
   $('dailyMessage').textContent = messages[new Date().getDate()%messages.length];
@@ -495,6 +584,8 @@ function init(){
   $('clearAyahVoiceBtn').onclick=clearAyahVoice;
   $('recordEncourageBtn').onclick=toggleEncourageRecord;
   $('clearEncourageBtn').onclick=clearEncouragements;
+  $('closeCertificateBtn').onclick=()=> $('certificateDialog').close();
+  $('downloadCertificateBtn').onclick=downloadCertificate;
   if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
 }
 init();
