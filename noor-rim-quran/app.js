@@ -33,7 +33,23 @@ const surahs = [
     {text:'إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ', words:['إِيَّاكَ','نَعْبُدُ','وَإِيَّاكَ','نَسْتَعِينُ'], nudge:'آية طويلة، نقسمها.'},
     {text:'اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ', words:['اهْدِنَا','الصِّرَاطَ','الْمُسْتَقِيمَ'], nudge:'اهدنا الصراط المستقيم.'},
     {text:'صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ', words:['صِرَاطَ','الَّذِينَ','أَنْعَمْتَ','عَلَيْهِمْ','غَيْرِ','الْمَغْضُوبِ','عَلَيْهِمْ','وَلَا','الضَّالِّينَ'], nudge:'نأخذها على مراحل صغيرة يا ريم.'}
+  ]},
+  {id:'asr', name:'العصر', icon:'⏳', label:'سورة صغيرة عن قيمة الوقت', audio:'103-asr', color:'#ffd9c2', ayahs:[
+    {text:'وَالْعَصْرِ', words:['وَالْعَصْرِ'], nudge:'آية واحدة قصيرة… والعصر.'},
+    {text:'إِنَّ الْإِنسَانَ لَفِي خُسْرٍ', words:['إِنَّ','الْإِنسَانَ','لَفِي','خُسْرٍ'], nudge:'إنّ الإنسان… لفي خسر.'},
+    {text:'إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ', words:['إِلَّا','الَّذِينَ','آمَنُوا','وَعَمِلُوا','الصَّالِحَاتِ','وَتَوَاصَوْا','بِالْحَقِّ','وَتَوَاصَوْا','بِالصَّبْرِ'], nudge:'آية طويلة… نأخذها كلمة كلمة يا ريم.'}
   ]}
+];
+
+const GIFTS = [
+  {id:'surah-fatiha', stars:0, icon:'🌅', type:'سورة', title:'سورة الفاتحة بالتكرار', note:'هدية البداية: نسمع الفاتحة بهدوء ونردد.', url:'https://www.youtube.com/watch?v=Uufkkk6D2lk'},
+  {id:'short-surahs', stars:2, icon:'🌸', type:'سور قصيرة', title:'عشر سور قصيرة للأطفال', note:'بعد نجمتين: باقة قصار السور للحفظ المرحلي.', url:'https://www.youtube.com/watch?v=7CLccP_tElk'},
+  {id:'surah-ikhlas', stars:4, icon:'💜', type:'سورة', title:'سورة الإخلاص مع التكرار', note:'هدية سورة الإخلاص: نكررها كزهرة صغيرة.', url:'https://www.youtube.com/watch?v=-RPutM95Q4I'},
+  {id:'ya-tayba', stars:6, icon:'🕌', type:'أنشودة', title:'يا طيبة', note:'استراحة روحية قصيرة بعد مجهود جميل.', url:'https://www.youtube.com/watch?v=uD8isx1ALA8'},
+  {id:'qamar', stars:8, icon:'🌙', type:'أنشودة', title:'قمر سيدنا النبي', note:'هدية محبوبة لريم بعد 8 نجوم.', url:'https://www.youtube.com/watch?v=QZ9Y0Xar4sg'},
+  {id:'short-surahs-playlist', stars:10, icon:'🎧', type:'قائمة', title:'تكرار قصار السور والآيات', note:'هدية المراجعة: قائمة للتكرار الهادئ.', url:'https://www.youtube.com/playlist?list=PLjo03GBjk2H0N3Y_B8MQgpIAgImBidNZq'},
+  {id:'tayba-long', stars:12, icon:'🎁', type:'أنشودة', title:'يا طيبة ومجموعة أناشيد', note:'هدية طويلة ليوم الإنجاز الكبير.', url:'https://www.youtube.com/watch?v=Ao6paPBVBHg'},
+  {id:'kids-surahs-playlist', stars:14, icon:'📿', type:'قائمة', title:'سور قصيرة للأطفال مع الترديد', note:'مكتبة مراجعة إضافية حين تصبح ريم جاهزة.', url:'https://www.youtube.com/playlist?list=PLs49icgnNB22d4IfrLab__oqgrkiBKePS'}
 ];
 
 const messages = [
@@ -157,6 +173,7 @@ function showScreen(id){
   document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active', b.dataset.target===id));
   if(id==='journeyScreen') renderJourney();
   if(id==='gardenScreen') renderGarden();
+  if(id==='giftsScreen') renderGifts();
   window.scrollTo({top:0, behavior:'smooth'});
 }
 function renderFlowers(){
@@ -189,6 +206,43 @@ function renderGarden(){
   const badges = surahs.map(s=>`
     <div class="badge-card">${state.completed[s.id]?'🏅':'🌱'} سورة ${s.name}<small>${state.completed[s.id]?'أتمتها ريم':'في انتظار وردة جديدة'}</small></div>`).join('');
   $('badges').innerHTML = badges;
+}
+
+// ---------- صندوق هدايا ريم: أناشيد وسور على يوتيوب، تُفتح تدريجياً بالنجوم، تحت إشراف الأب ----------
+function giftUnlocked(gift){ return state.totalStars >= gift.stars; }
+function findGift(id){ return GIFTS.find(g=>g.id===id) || GIFTS[0]; }
+function toast(msg){
+  const t = $('toast');
+  if(!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(()=>t.classList.remove('show'), 2800);
+}
+function openGift(gift){
+  if(!giftUnlocked(gift)){ toast(`هذه الهدية تفتح عند ${gift.stars} نجوم يا ريم`); return; }
+  window.open(gift.url, '_blank', 'noopener,noreferrer');
+  toast('فتحت هدية ريم في نافذة جديدة 🎁');
+}
+function renderGifts(){
+  const next = GIFTS.find(g=>!giftUnlocked(g));
+  $('giftStarsText').textContent = `${state.totalStars} نجمة`;
+  $('giftUnlockText').textContent = next ? `الهدية القادمة: ${next.title} عند ${next.stars} نجوم.` : 'كل الهدايا مفتوحة يا ريم. نراجع ونفرح.';
+  $('giftGrid').innerHTML = GIFTS.map(g=>`
+    <article class="gift-card ${giftUnlocked(g)?'':'locked'}">
+      <div class="gift-icon">${giftUnlocked(g)?g.icon:'🔒'}</div>
+      <div>
+        <span class="gift-type">${g.type} • ${g.stars} نجوم</span>
+        <h3>${g.title}</h3>
+        <p>${g.note}</p>
+        <button class="${giftUnlocked(g)?'primary':'secondary'}" data-gift="${g.id}" type="button">${giftUnlocked(g)?'افتحي الهدية':'مقفلة الآن'}</button>
+      </div>
+    </article>`).join('');
+  document.querySelectorAll('#giftGrid button[data-gift]').forEach(btn=>btn.addEventListener('click',()=>openGift(findGift(btn.dataset.gift))));
+}
+function checkNewGift(){
+  const gift = GIFTS.find(g=>g.stars===state.totalStars);
+  if(gift) setTimeout(()=>toast(`🎁 فتحتِ هدية جديدة: ${gift.title}`), 900);
 }
 function visualWordPlayback(durationMs){
   const words = [...document.querySelectorAll('.word')];
@@ -309,6 +363,7 @@ function giveStar(text){
   playChime();
   vibrateCelebrate();
   playRandomEncouragement();
+  checkNewGift();
 }
 function rimTurn(){
   state.repeats += 1;
