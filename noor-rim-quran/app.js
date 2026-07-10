@@ -62,6 +62,7 @@ const state = {
   mediaRecorder: null,
   chunks: [],
   recordUrl: null,
+  onlineAudio: localStorage.getItem('onlineAudio') !== 'off',
 };
 
 const audioPlayer = $('audioPlayer');
@@ -112,12 +113,20 @@ function renderAyah() {
   $('wordRow').innerHTML = ayah.words.map((w, i) => `<span class="word-chip" data-word="${i}">${w}</span>`).join('');
   $('pronunciationHelp').textContent = `مساعدة نطق: ${ayah.help}`;
   $('rewardCard').hidden = true;
+  $('ayahProgressBar').style.width = `${((state.ayahIndex) / surah.ayahs.length) * 100}%`;
 }
 
-function audioPath() {
+function localAudioPath() {
   const surah = surahs[state.surahIndex];
   const n = String(state.ayahIndex + 1).padStart(2, '0');
   return `assets/audio/${surah.audioPrefix}-${n}.mp3`;
+}
+
+function onlineAudioPath() {
+  const surah = surahs[state.surahIndex];
+  const surahCode = surah.audioPrefix.split('-')[0];
+  const n3 = String(state.ayahIndex + 1).padStart(3, '0');
+  return `https://everyayah.com/data/Alafasy_128kbps/${surahCode}${n3}.mp3`;
 }
 
 function highlightWords(duration = 2200) {
@@ -139,13 +148,71 @@ function showReward(title, text) {
 }
 
 function playAyah() {
-  const src = audioPath();
-  audioPlayer.src = src;
   audioPlayer.playbackRate = $('slowMode').checked ? 0.86 : 1;
+  audioPlayer.onerror = null;
+
+  const useOnline = () => {
+    if (!state.onlineAudio) {
+      showReward('الصوت غير مضاف بعد', 'ضع ملف التلاوة في assets/audio، أو فعّل التلاوة عبر الإنترنت من وضع الأب.');
+      return;
+    }
+    audioPlayer.onerror = () => {
+      showReward('تعذّر تشغيل الصوت الآن', 'تحقّقي من الاتصال بالإنترنت، أو ضعي ملف التلاوة داخل assets/audio.');
+    };
+    audioPlayer.src = onlineAudioPath();
+    audioPlayer.play().catch(() => {});
+  };
+
+  audioPlayer.onerror = useOnline;
+  audioPlayer.src = localAudioPath();
+  audioPlayer.play().catch(useOnline);
+
+  audioPlayer.onloadedmetadata = () => {
+    const ms = isFinite(audioPlayer.duration) && audioPlayer.duration > 0 ? audioPlayer.duration * 1000 : 3500;
+    highlightWords(ms);
+  };
   highlightWords(3500);
-  audioPlayer.play().catch(() => {
-    showReward('الصوت غير مضاف بعد', 'ضع ملف التلاوة في assets/audio، وسيشتغل الزر تلقائياً. إلى ذلك الحين نستعمل الكلمات والتكرار مع أبي.');
-  });
+}
+
+function prevAyah() {
+  if (state.ayahIndex > 0) {
+    state.ayahIndex -= 1;
+    state.repeatCount = 0;
+    renderAyah();
+  }
+}
+
+function triggerConfetti() {
+  const layer = $('confettiLayer');
+  const colors = ['#1f9d6b', '#d7a941', '#f7dfe8', '#dff4ff', '#126345'];
+  for (let i = 0; i < 26; i += 1) {
+    const piece = document.createElement('i');
+    piece.className = 'confetti-piece';
+    piece.style.left = `${Math.random() * 100}%`;
+    piece.style.background = colors[i % colors.length];
+    piece.style.animationDuration = `${1.6 + Math.random() * 1.2}s`;
+    piece.style.animationDelay = `${Math.random() * 0.3}s`;
+    layer.appendChild(piece);
+    setTimeout(() => piece.remove(), 3200);
+  }
+}
+
+function playChime() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    [523.25, 659.25, 783.99].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.0001, ctx.currentTime + i * 0.14);
+      gain.gain.linearRampToValueAtTime(0.16, ctx.currentTime + i * 0.14 + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + i * 0.14 + 0.5);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(ctx.currentTime + i * 0.14);
+      osc.stop(ctx.currentTime + i * 0.14 + 0.55);
+    });
+  } catch (e) { /* الصوت التشجيعي اختياري */ }
 }
 
 function repeatAyah() {
@@ -156,6 +223,8 @@ function repeatAyah() {
     saveProgress();
     $('starCounter').textContent = `⭐ ${state.stars}`;
     showReward('أحسنت يا ريم ⭐', 'سمعتِ الآية عدة مرات. الآن دور ريم بهدوء.');
+    triggerConfetti();
+    playChime();
     state.repeatCount = 0;
   }
 }
@@ -173,6 +242,9 @@ function nextAyah() {
     renderSurahs();
     showReward(`ما شاء الله يا ريم`, `أتممتِ سورة ${surah.name}. نراجعها غداً بهدوء وفرح.`);
     $('starCounter').textContent = `⭐ ${state.stars}`;
+    $('ayahProgressBar').style.width = '100%';
+    triggerConfetti();
+    playChime();
   }
 }
 
@@ -216,6 +288,7 @@ $('backHomeBtn').addEventListener('click', () => { $('learnView').hidden = true;
 $('playAyahBtn').addEventListener('click', playAyah);
 $('repeatBtn').addEventListener('click', repeatAyah);
 $('rimTurnBtn').addEventListener('click', () => showReward('دور ريم الآن 🎤', 'نسمع من ريم بهدوء. كلمة كلمة… آية آية.'));
+$('prevAyahBtn').addEventListener('click', prevAyah);
 $('nextAyahBtn').addEventListener('click', nextAyah);
 $('recordBtn').addEventListener('click', toggleRecording);
 $('playRecordBtn').addEventListener('click', playRecording);
@@ -223,6 +296,11 @@ $('parentBtn').addEventListener('click', () => $('parentPanel').hidden = false);
 $('closeParentBtn').addEventListener('click', () => $('parentPanel').hidden = true);
 $('repeatSelect').value = String(state.repeatGoal);
 $('repeatSelect').addEventListener('change', e => { state.repeatGoal = Number(e.target.value); localStorage.setItem('repeatGoal', e.target.value); });
+$('onlineAudio').checked = state.onlineAudio;
+$('onlineAudio').addEventListener('change', e => {
+  state.onlineAudio = e.target.checked;
+  localStorage.setItem('onlineAudio', e.target.checked ? 'on' : 'off');
+});
 $('resetBtn').addEventListener('click', () => {
   if (!confirm('هل تريد إعادة تقدم ريم من البداية؟')) return;
   localStorage.removeItem('rimStars');
