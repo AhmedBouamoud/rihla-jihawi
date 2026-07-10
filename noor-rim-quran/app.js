@@ -101,11 +101,12 @@ function ayahVoiceKey(){ return `${currentSurah().id}#${state.ayahIndex}`; }
 function openVoiceDB(){
   return new Promise((resolve, reject) => {
     if(!('indexedDB' in window)) { reject(new Error('no-indexeddb')); return; }
-    const req = indexedDB.open('noorRimVoices', 1);
+    const req = indexedDB.open('noorRimVoices', 2);
     req.onupgradeneeded = () => {
       const db = req.result;
       if(!db.objectStoreNames.contains('ayahVoice')) db.createObjectStore('ayahVoice');
       if(!db.objectStoreNames.contains('encourage')) db.createObjectStore('encourage', {autoIncrement:true});
+      if(!db.objectStoreNames.contains('rimRecordings')) db.createObjectStore('rimRecordings', {keyPath:'id'});
     };
     req.onsuccess = () => resolve(req.result);
     req.onerror = () => reject(req.error);
@@ -116,8 +117,10 @@ async function idbPut(store, key, value){
     const db = await openVoiceDB();
     return new Promise((resolve, reject) => {
       const tx = db.transaction(store, 'readwrite');
-      if(key === undefined) tx.objectStore(store).add(value);
-      else tx.objectStore(store).put(value, key);
+      const os = tx.objectStore(store);
+      if(os.keyPath !== null) os.put(value); // متجر بمفتاح داخلي (rimRecordings): القيمة تحمل مفتاحها، put يسمح بالتحديث
+      else if(key === undefined) os.add(value);
+      else os.put(value, key);
       tx.oncomplete = () => resolve(true);
       tx.onerror = () => reject(tx.error);
     });
@@ -388,25 +391,164 @@ function nextAyah(){
     if(firstTime) setTimeout(()=>openCertificate(s), 1400);
   }
 }
-async function toggleRecord(){
-  const btn=$('recordBtn');
-  if(state.recorder && state.recorder.state==='recording'){
-    state.recorder.stop(); btn.textContent='● تسجيل'; btn.classList.remove('recording'); return;
+const RECORD_BTN_IDLE_LABEL = '🎙️ سجلي صوتك يا ريم';
+const RECORD_BTN_ACTIVE_LABEL = '⏹️ أوقفي التسجيل';
+
+function setRecordStatus(msg){
+  const el = $('recordStatus');
+  el.textContent = msg;
+  el.hidden = false;
+}
+function pickSupportedMimeType(){
+  const candidates = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4'];
+  if(typeof MediaRecorder === 'undefined' || !MediaRecorder.isTypeSupported) return '';
+  for(const type of candidates){
+    if(MediaRecorder.isTypeSupported(type)) return type;
   }
+  return '';
+}
+function showRimRecordingPlayer(url){
+  const player = $('rimRecordPlayer');
+  player.src = url;
+  player.hidden = false;
+  $('playRecordBtn').disabled = false;
+}
+
+async function toggleRecord(){
+  const btn = $('recordBtn');
+
+  if(state.recorder && state.recorder.state === 'recording'){
+    state.recorder.stop();
+    return;
+  }
+
+  if(!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) || typeof MediaRecorder === 'undefined'){
+    console.log('recording not supported on this browser');
+    setRecordStatus('هذا الهاتف لا يسمح بالتسجيل من المتصفح. جرّب Chrome أو فعّل إذن الميكروفون.');
+    return;
+  }
+
+  let stream;
   try{
-    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-    state.chunks=[];
-    state.recorder=new MediaRecorder(stream);
-    state.recorder.ondataavailable=e=>state.chunks.push(e.data);
-    state.recorder.onstop=()=>{
+    stream = await navigator.mediaDevices.getUserMedia({audio:true});
+  }catch(e){
+    console.log('recording permission denied', e);
+    setRecordStatus('يجب السماح للميكروفون حتى نسجل صوت ريم.');
+    return;
+  }
+
+  try{
+    const mimeType = pickSupportedMimeType();
+    state.chunks = [];
+    state.recordMime = mimeType || 'audio/webm';
+    state.recorder = mimeType ? new MediaRecorder(stream, {mimeType}) : new MediaRecorder(stream);
+
+    state.recorder.ondataavailable = e => { if(e.data && e.data.size > 0) state.chunks.push(e.data); };
+
+    state.recorder.onerror = (e) => {
+      console.log('recording error', e.error || e);
+      setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
       stream.getTracks().forEach(t=>t.stop());
-      if(state.recordUrl) URL.revokeObjectURL(state.recordUrl);
-      state.recordUrl=URL.createObjectURL(new Blob(state.chunks,{type:'audio/webm'}));
-      $('playRecordBtn').disabled=false;
-      $('nudgeText').textContent='استمعي لصوتك يا ريم… ثم نعيد بهدوء.';
+      btn.textContent = RECORD_BTN_IDLE_LABEL;
+      btn.classList.remove('recording');
     };
-    state.recorder.start(); btn.textContent='إيقاف التسجيل'; btn.classList.add('recording');
-  }catch(e){ $('nudgeText').textContent='الهاتف لم يسمح بالتسجيل. فعّل إذن الميكروفون من المتصفح.'; }
+
+    state.recorder.onstop = async () => {
+      console.log('recording stopped');
+      stream.getTracks().forEach(t=>t.stop());
+      btn.textContent = RECORD_BTN_IDLE_LABEL;
+      btn.classList.remove('recording');
+
+      const usedMime = state.recorder.mimeType || state.recordMime || 'audio/webm';
+      const blob = new Blob(state.chunks, {type: usedMime});
+      console.log('blob size', blob.size);
+
+      if(!blob.size){
+        setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
+        return;
+      }
+
+      if(state.recordUrl) URL.revokeObjectURL(state.recordUrl);
+      state.recordUrl = URL.createObjectURL(blob);
+      showRimRecordingPlayer(state.recordUrl);
+      setRecordStatus('أحسنتِ يا ريم، هذا صوتك الجميل 🌸');
+
+      const s = currentSurah(), a = currentAyah();
+      const rec = {
+        id: `${Date.now()}-${Math.random().toString(36).slice(2,8)}`,
+        surahId: s.id,
+        surahName: s.name,
+        ayahIndex: state.ayahIndex,
+        ayahText: a.text,
+        createdAt: Date.now(),
+        audioBlob: blob,
+        mimeType: usedMime,
+        isBest: false
+      };
+      const saved = await idbPut('rimRecordings', undefined, rec);
+      console.log('saved to IndexedDB', saved, rec.id);
+      refreshRimRecordingsIfOpen();
+    };
+
+    state.recorder.start();
+    console.log('recording started', {mimeType: state.recordMime});
+    btn.textContent = RECORD_BTN_ACTIVE_LABEL;
+    btn.classList.add('recording');
+    setRecordStatus('ريم تسجل الآن 🎙️');
+  }catch(e){
+    console.log('recording error', e);
+    setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
+    stream.getTracks().forEach(t=>t.stop());
+  }
+}
+
+// ---------- شاشة "تسجيلات ريم": استعراض/تشغيل/حذف/تمييز أفضل قراءة ----------
+async function renderRimRecordings(){
+  const recordings = await idbGetAll('rimRecordings');
+  recordings.sort((a,b)=> b.createdAt - a.createdAt);
+  console.log('loaded recordings count', recordings.length);
+
+  $('recordingsEmpty').hidden = recordings.length > 0;
+  $('recordingsList').innerHTML = recordings.map(r => `
+    <div class="recording-item" data-id="${r.id}">
+      <div class="rec-info">
+        سورة ${r.surahName} • آية ${r.ayahIndex + 1}
+        <small>${new Date(r.createdAt).toLocaleDateString('ar', {year:'numeric', month:'long', day:'numeric'})}</small>
+      </div>
+      <div class="rec-actions">
+        <button class="play-rec" data-id="${r.id}" type="button">▶ تشغيل</button>
+        <button class="best ${r.isBest ? 'active' : ''}" data-id="${r.id}" type="button">${r.isBest ? '⭐ الأفضل' : '☆ أفضل قراءة'}</button>
+        <button class="danger del-rec" data-id="${r.id}" type="button">🗑️ حذف</button>
+      </div>
+    </div>`).join('');
+
+  document.querySelectorAll('#recordingsList .play-rec').forEach(btn => btn.addEventListener('click', async () => {
+    const rec = await idbGet('rimRecordings', btn.dataset.id);
+    if(!rec) return;
+    const player = $('recordingsPlayer');
+    if(player.dataset.blobUrl) URL.revokeObjectURL(player.dataset.blobUrl);
+    const url = URL.createObjectURL(rec.audioBlob);
+    player.dataset.blobUrl = url;
+    player.src = url;
+    player.hidden = false;
+    player.play().catch(()=>{});
+  }));
+  document.querySelectorAll('#recordingsList .best').forEach(btn => btn.addEventListener('click', async () => {
+    const rec = await idbGet('rimRecordings', btn.dataset.id);
+    if(!rec) return;
+    rec.isBest = !rec.isBest;
+    await idbPut('rimRecordings', undefined, rec);
+    renderRimRecordings();
+  }));
+  document.querySelectorAll('#recordingsList .del-rec').forEach(btn => btn.addEventListener('click', async () => {
+    if(!confirm('هل تريد فعلاً حذف هذا التسجيل؟')) return;
+    await idbDelete('rimRecordings', btn.dataset.id);
+    console.log('recording deleted', btn.dataset.id);
+    renderRimRecordings();
+  }));
+}
+function refreshRimRecordingsIfOpen(){
+  if($('recordingsDialog').open) renderRimRecordings();
 }
 
 // ---------- استوديو صوت الأب: تلاوة شخصية للآية + عبارات تشجيع ----------
@@ -562,6 +704,8 @@ function init(){
   $('nextBtn').onclick=nextAyah;
   $('recordBtn').onclick=toggleRecord;
   $('playRecordBtn').onclick=()=>{ if(state.recordUrl) new Audio(state.recordUrl).play(); };
+  $('openRimRecordingsBtn').onclick=()=>{ renderRimRecordings(); $('recordingsDialog').showModal(); };
+  $('closeRecordingsBtn').onclick=()=> $('recordingsDialog').close();
   $('speakNudgeBtn').onclick=()=> speak($('nudgeText').textContent);
   $('speakRewardBtn').onclick=()=> speak($('rewardText').textContent);
   document.querySelectorAll('.nav-item').forEach(b=>b.onclick=()=>showScreen(b.dataset.target));

@@ -107,9 +107,12 @@
           <p>نسجل صوت ريم ونسمعه معاً. عند الصعوبة نقول: قريب جداً يا ريم… نعيدها معاً.</p>
         </div>
         <div class="record-actions">
-          <button class="record" id="recordBtn" type="button">● تسجيل</button>
+          <button class="record" id="recordBtn" type="button">🎙️ سجلي صوتك يا ريم</button>
           <button class="tiny-btn" id="playRecordBtn" type="button" disabled>تشغيل صوت ريم</button>
+          <button class="tiny-btn" id="openRimRecordingsBtn" type="button">🎧 تسجيلات ريم</button>
         </div>
+        <p class="record-status" id="recordStatus" hidden></p>
+        <audio id="rimRecordPlayer" controls hidden></audio>
       </section>
 
       <section class="reward-banner glass-card" id="rewardBanner" hidden>
@@ -230,6 +233,16 @@
       <div class="dialog-actions">
         <button class="primary" id="downloadCertificateBtn" type="button">💾 حفظ الشهادة</button>
       </div>
+    </div>
+  </dialog>
+
+  <dialog class="parent-dialog" id="recordingsDialog">
+    <div class="dialog-card glass-card">
+      <button class="close" id="closeRecordingsBtn" type="button">×</button>
+      <h2>🎧 تسجيلات ريم</h2>
+      <p id="recordingsEmpty">لا توجد تسجيلات بعد. سجّلي صوتك يا ريم من زر 🎙️.</p>
+      <div id="recordingsList"></div>
+      <audio id="recordingsPlayer" controls hidden></audio>
     </div>
   </dialog>
 
