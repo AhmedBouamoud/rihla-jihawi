@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>نور ريم — حفظ السور القصيرة</title>
+  <meta name="description" content="تطبيق شخصي لريم يساعدها على حفظ السور القصيرة بالسماع والتكرار والتشجيع." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">ر</div>
+        <div>
+          <h1>نور ريم</h1>
+          <p>آية صغيرة… نور كبير</p>
+        </div>
+      </div>
+      <button class="ghost-btn" id="parentBtn" type="button">وضع الأب</button>
+    </header>
+
+    <section class="hero-card" id="homeView">
+      <div class="hero-copy">
+        <span class="soft-badge">🌙 القرآن صديقي</span>
+        <h2>أهلاً ريم… نحفظ بهدوء وبفرح.</h2>
+        <p>نسمع الآية، نرددها، ثم نفرح بنجمة صغيرة. لا استعجال ولا ضغط.</p>
+        <div class="big-actions">
+          <button class="primary-btn" id="startBtn" type="button">أريد أن أحفظ</button>
+          <button class="secondary-btn" id="listenBtn" type="button">أسمع فقط</button>
+        </div>
+      </div>
+      <div class="rim-photo hero-photo" data-photo="assets/rim/rim-hero.jpg">
+        <img src="assets/rim/rim-hero.jpg" alt="صورة ريم" onerror="this.parentElement.classList.add('missing-photo');this.remove();">
+        <div class="photo-fallback">ضعي هنا صورة ريم<br><small>assets/rim/rim-hero.jpg</small></div>
+      </div>
+    </section>
+
+    <section class="surah-picker" aria-label="اختيار السورة">
+      <div class="section-title">
+        <h2>اختاري السورة يا ريم</h2>
+        <p>الأفضل اليوم سورة واحدة فقط.</p>
+      </div>
+      <div class="surah-grid" id="surahGrid"></div>
+    </section>
+
+    <section class="learning-card" id="learnView" hidden>
+      <div class="learn-head">
+        <button class="ghost-btn" id="backHomeBtn" type="button">الرجوع</button>
+        <div>
+          <span class="soft-badge" id="modeBadge">وضع الحفظ</span>
+          <h2 id="surahTitle">سورة الإخلاص</h2>
+        </div>
+      </div>
+
+      <div class="ayah-panel">
+        <div class="ayah-meta">
+          <span id="ayahCounter">آية 1 / 4</span>
+          <span id="starCounter">⭐ 0</span>
+        </div>
+        <p class="ayah-text" id="ayahText"></p>
+        <div class="word-row" id="wordRow"></div>
+        <p class="pronunciation-help" id="pronunciationHelp"></p>
+      </div>
+
+      <div class="control-grid">
+        <button class="primary-btn" id="playAyahBtn" type="button">🔊 أسمع الآية</button>
+        <button class="secondary-btn" id="repeatBtn" type="button">🔁 كررها</button>
+        <button class="secondary-btn" id="rimTurnBtn" type="button">🎤 دور ريم الآن</button>
+        <button class="secondary-btn" id="nextAyahBtn" type="button">الآية التالية</button>
+      </div>
+
+      <div class="record-card">
+        <div>
+          <h3>أبي يسمعني</h3>
+          <p>نسجل صوت ريم ثم نسمعه معاً. بدون كلمة خطأ، فقط نعيد بهدوء.</p>
+        </div>
+        <div class="record-actions">
+          <button class="record-btn" id="recordBtn" type="button">● تسجيل</button>
+          <button class="ghost-btn" id="playRecordBtn" type="button" disabled>تشغيل صوت ريم</button>
+        </div>
+      </div>
+
+      <div class="reward-card" id="rewardCard" hidden>
+        <div class="rim-photo reward-photo">
+          <img src="assets/rim/rim-reward.jpg" alt="ريم سعيدة" onerror="this.parentElement.classList.add('missing-photo');this.remove();">
+          <div class="photo-fallback">صورة مكافأة ريم<br><small>assets/rim/rim-reward.jpg</small></div>
+        </div>
+        <div>
+          <h3 id="rewardTitle">أحسنت يا ريم</h3>
+          <p id="rewardText">قريب جداً يا ريم… نعيدها معاً بنور وهدوء.</p>
+        </div>
+      </div>
+    </section>
+
+    <aside class="parent-panel" id="parentPanel" hidden>
+      <div class="panel-card">
+        <div class="learn-head">
+          <h2>وضع الأب</h2>
+          <button class="ghost-btn" id="closeParentBtn" type="button">إغلاق</button>
+        </div>
+        <label>عدد مرات التكرار قبل الانتقال
+          <select id="repeatSelect">
+            <option value="3">3 مرات</option>
+            <option value="5">5 مرات</option>
+            <option value="7">7 مرات</option>
+          </select>
+        </label>
+        <label class="switch-line">
+          <input id="slowMode" type="checkbox" checked />
+          تشغيل بطيء ومريح
+        </label>
+        <button class="danger-btn" id="resetBtn" type="button">إعادة التقدم من البداية</button>
+        <div class="note-box">
+          <b>مهم:</b> ضع ملفات تلاوة MP3 في <code>assets/audio/</code> بنفس الأسماء المكتوبة في ملف README_AR.md.
+        </div>
+      </div>
+    </aside>
+
+    <footer>
+      <p>صُمم بحب لريم — تطبيق عائلي خاص للحفظ الهادئ.</p>
+    </footer>
+  </main>
+
+  <audio id="audioPlayer" preload="none"></audio>
+  <script src="app.js"></script>
+</body>
+</html>
