@@ -143,12 +143,27 @@
       </figure>
     </section>
 
+    <section class="screen gifts-screen" id="giftsScreen">
+      <div class="glass-card gift-stats">
+        <span class="gift-icon-big">⭐</span>
+        <div>
+          <strong id="giftStarsText">0 نجمة</strong>
+          <p id="giftUnlockText">كل نجوم تفتح هدية جديدة.</p>
+        </div>
+      </div>
+      <div class="gift-grid" id="giftGrid"></div>
+      <p class="glass-card safe-note">ملاحظة للأب: روابط YouTube قد تُظهر إعلانات أو اقتراحات خارجة عن سيطرة التطبيق؛ يُفضّل فتحها بحساب YouTube Kids أو تحت إشرافك المباشر.</p>
+    </section>
+
     <nav class="bottom-nav" aria-label="التنقل">
       <button class="nav-item active" data-target="homeScreen" type="button">🏠<span>البداية</span></button>
       <button class="nav-item" data-target="journeyScreen" type="button">🌙<span>الحفظ</span></button>
       <button class="nav-item" data-target="gardenScreen" type="button">⭐<span>نجومي</span></button>
+      <button class="nav-item" data-target="giftsScreen" type="button">🎁<span>هدايا</span></button>
     </nav>
   </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <dialog class="parent-dialog" id="parentDialog">
     <form method="dialog" class="dialog-card glass-card">
