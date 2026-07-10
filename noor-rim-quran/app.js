@@ -730,6 +730,17 @@ function init(){
   $('clearEncourageBtn').onclick=clearEncouragements;
   $('closeCertificateBtn').onclick=()=> $('certificateDialog').close();
   $('downloadCertificateBtn').onclick=downloadCertificate;
-  if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
+  if('serviceWorker' in navigator){
+    // نضمن أن أي تحديث جديد للتطبيق (بعد إصلاح أو تطوير) يصل فعلياً لهاتف ريم بدل البقاء عالقاً في نسخة مخزَّنة قديمة.
+    let reloadedOnce = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if(reloadedOnce) return;
+      reloadedOnce = true;
+      window.location.reload();
+    });
+    navigator.serviceWorker.register('sw.js').then(reg => {
+      reg.update().catch(()=>{});
+    }).catch(()=>{});
+  }
 }
 init();
