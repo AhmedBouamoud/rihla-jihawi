@@ -32,7 +32,18 @@
       </div>
       <div class="rim-photo hero-photo" data-photo="assets/rim/rim-hero.jpg">
         <img src="assets/rim/rim-hero.jpg" alt="صورة ريم" onerror="this.parentElement.classList.add('missing-photo');this.remove();">
-        <div class="photo-fallback">ضعي هنا صورة ريم<br><small>assets/rim/rim-hero.jpg</small></div>
+        <div class="photo-fallback">
+          <svg class="mascot" viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="52" fill="url(#moonGrad)"/>
+            <path d="M78 34a34 34 0 1 0 8 55 28 28 0 0 1-8-55Z" fill="#fff7e0" opacity=".9"/>
+            <circle cx="46" cy="56" r="4.2" fill="#1f2a26"/>
+            <circle cx="70" cy="56" r="4.2" fill="#1f2a26"/>
+            <path d="M46 72c6 7 20 7 26 0" stroke="#1f2a26" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <defs><linearGradient id="moonGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe9b8"/><stop offset="1" stop-color="#ffd27a"/></linearGradient></defs>
+          </svg>
+          <b>صورة ريم قريباً هنا</b>
+          <small>ضع الصورة في assets/rim/rim-hero.jpg</small>
+        </div>
       </div>
     </section>
 
@@ -54,6 +65,7 @@
       </div>
 
       <div class="ayah-panel">
+        <div class="ayah-progress"><div class="ayah-progress-bar" id="ayahProgressBar"></div></div>
         <div class="ayah-meta">
           <span id="ayahCounter">آية 1 / 4</span>
           <span id="starCounter">⭐ 0</span>
@@ -67,7 +79,8 @@
         <button class="primary-btn" id="playAyahBtn" type="button">🔊 أسمع الآية</button>
         <button class="secondary-btn" id="repeatBtn" type="button">🔁 كررها</button>
         <button class="secondary-btn" id="rimTurnBtn" type="button">🎤 دور ريم الآن</button>
-        <button class="secondary-btn" id="nextAyahBtn" type="button">الآية التالية</button>
+        <button class="ghost-btn" id="prevAyahBtn" type="button">◀ الآية السابقة</button>
+        <button class="secondary-btn" id="nextAyahBtn" type="button">الآية التالية ▶</button>
       </div>
 
       <div class="record-card">
@@ -84,7 +97,14 @@
       <div class="reward-card" id="rewardCard" hidden>
         <div class="rim-photo reward-photo">
           <img src="assets/rim/rim-reward.jpg" alt="ريم سعيدة" onerror="this.parentElement.classList.add('missing-photo');this.remove();">
-          <div class="photo-fallback">صورة مكافأة ريم<br><small>assets/rim/rim-reward.jpg</small></div>
+          <div class="photo-fallback">
+            <svg class="mascot" viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="60" cy="60" r="52" fill="url(#starGrad)"/>
+              <path d="M60 30l7 16 17 2-13 12 4 17-15-9-15 9 4-17-13-12 17-2z" fill="#fff" opacity=".95"/>
+              <defs><linearGradient id="starGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8ecd3"/><stop offset="1" stop-color="#1f9d6b"/></linearGradient></defs>
+            </svg>
+            <small>صورة ريم قريباً هنا</small>
+          </div>
         </div>
         <div>
           <h3 id="rewardTitle">أحسنت يا ريم</h3>
@@ -110,9 +130,13 @@
           <input id="slowMode" type="checkbox" checked />
           تشغيل بطيء ومريح
         </label>
+        <label class="switch-line">
+          <input id="onlineAudio" type="checkbox" checked />
+          استعمال تلاوة الشيخ العفاسي عبر الإنترنت عند غياب الملف المحلي
+        </label>
         <button class="danger-btn" id="resetBtn" type="button">إعادة التقدم من البداية</button>
         <div class="note-box">
-          <b>مهم:</b> ضع ملفات تلاوة MP3 في <code>assets/audio/</code> بنفس الأسماء المكتوبة في ملف README_AR.md.
+          <b>مهم:</b> ضع ملفات تلاوة MP3 في <code>assets/audio/</code> بنفس الأسماء المكتوبة في ملف README_AR.md لتشغيل بلا إنترنت. وإلى أن تُضاف، يستعمل التطبيق تلاوة حقيقية للشيخ العفاسي عبر الإنترنت تلقائياً.
         </div>
       </div>
     </aside>
@@ -123,6 +147,7 @@
   </main>
 
   <audio id="audioPlayer" preload="none"></audio>
+  <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
   <script src="app.js"></script>
 </body>
 </html>
