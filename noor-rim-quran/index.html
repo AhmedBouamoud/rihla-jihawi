@@ -249,12 +249,14 @@
       </div>
 
       <div class="encouragement-settings">
-        <h3>🔔 أصوات تشجيع ريم</h3>
-        <p>خمسة أصوات تشجيع قصيرة وهادئة تُشغَّل عند إنجاز حقيقي فقط — لا تعمل مع القرآن ولا أثناء تسجيل ريم أبداً.</p>
+        <h3>🔔 نظام صوت ريم</h3>
+        <p>أصوات تلقائية تُشغَّل أثناء استخدام ريم للتطبيق نفسه (ترحيب، نجاح آية، إكمال مرحلة، نجمة أو هدية، ختم سورة، وإعادة محاولة لطيفة) — لا تعمل مطلقاً مع القرآن، ولا أثناء تسجيل ريم، ولا أثناء الاستماع لتسجيلها أو لصوت أبيها.</p>
         <label class="switch-line">
           <input id="encouragementMasterToggle" type="checkbox" checked />
-          تفعيل أصوات التشجيع
+          تفعيل كل الأصوات التلقائية
         </label>
+        <label>مستوى الصوت</label>
+        <input id="encouragementVolume" type="range" min="0" max="100" value="100" />
         <div id="encouragementTrackList"></div>
         <div class="dialog-actions">
           <button class="secondary" id="resetEncouragementDefaults" type="button">↺ استعادة الإعدادات الافتراضية</button>
@@ -307,6 +309,7 @@
   <audio id="audioPlayer" preload="none"></audio>
   <audio id="voicePlayer" preload="none"></audio>
   <audio id="encouragementPlayer" preload="none"></audio>
+  <script src="audio-manager.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

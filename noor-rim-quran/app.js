@@ -382,7 +382,7 @@ function checkNewGift(){
     toast(`🎁 فتحتِ هدية جديدة: ${gift.title}`);
     const card = document.querySelector(`#giftGrid button[data-gift="${gift.id}"]`)?.closest('.gift-card');
     if(card) card.classList.add('just-unlocked');
-    playEncouragementForEvent('reward');
+    AudioManager.play('reward');
   }, 900);
 }
 
@@ -402,7 +402,7 @@ async function resolvePlayableAudio(idx){
   return {src: audioSrc(idx), fallback: state.onlineAudio ? onlineAudioSrc(idx) : null};
 }
 function playResolvedAwaitable(resolved, rate){
-  stopEncouragement(); // القرآن له أولوية مطلقة: أي صوت تشجيع يتوقف فوراً ويُعاد لبدايته عند بدء التلاوة
+  AudioManager.stop(); // القرآن له أولوية مطلقة: أي صوت آخر (تشجيع أو أغنية هدية) يتوقف فوراً ويُعاد لبدايته عند بدء التلاوة
   giftSongPlayer.pause();
   giftSongPlayer.currentTime = 0;
   return new Promise((resolve) => {
@@ -489,79 +489,25 @@ async function playRandomEncouragement(){
   const clips = await idbGetAll('encourage');
   if(!clips.length) return;
   stopQuranAudio();
-  stopEncouragement();
+  AudioManager.stop();
   const blob = clips[Math.floor(Math.random()*clips.length)];
   voicePlayer.src = URL.createObjectURL(blob);
   voicePlayer.play().catch(()=>{});
 }
 
-// ---------- مدير صوت موحّد: يضمن عدم تشغيل أكثر من مصدر صوتي واحد في اللحظة نفسها (قرآن / تشجيع / تسجيل ريم) ----------
-// الملفات الخمسة توضع يدوياً من الأب في assets/audio/encouragement/ بأسماء encouragement-01.mp3 إلى encouragement-05.mp3.
-// ملاحظة: الملف "Mp3 (2)" مرفوض نهائياً ولا يُستعمل أو يُذكر في أي مكان بالتطبيق.
-const ENCOURAGEMENT_TRACKS_DEFAULT = [
-  {id:'encouragement-01', file:'encouragement-01.mp3', event:'attempt', displayName:'صوت تشجيع 1', enabled:true},
-  {id:'encouragement-02', file:'encouragement-02.mp3', event:'segment', displayName:'صوت تشجيع 2', enabled:true},
-  {id:'encouragement-03', file:'encouragement-03.mp3', event:'ayah', displayName:'صوت تشجيع 3', enabled:true},
-  {id:'encouragement-04', file:'encouragement-04.mp3', event:'surah', displayName:'صوت تشجيع 4', enabled:true},
-  {id:'encouragement-05', file:'encouragement-05.mp3', event:'reward', displayName:'صوت تشجيع 5', enabled:true}
-];
-const ENCOURAGEMENT_BASE_PATH = 'assets/audio/encouragement/';
-const ENCOURAGEMENT_EVENT_LABELS = {attempt:'محاولة', segment:'مقطع', ayah:'آية', surah:'سورة', reward:'هدية'};
-const ENCOURAGEMENT_MIN_GAP_MS = 8000;
-
-function loadEncouragementSettings(){
-  let saved = {};
-  try{ saved = JSON.parse(localStorage.getItem('rim.encouragementSettings') || '{}'); }catch(e){ saved = {}; }
-  const savedTracks = Array.isArray(saved.tracks) ? saved.tracks : [];
-  const tracks = ENCOURAGEMENT_TRACKS_DEFAULT.map(def => {
-    const override = savedTracks.find(t => t.id === def.id) || {};
-    return {
-      ...def,
-      enabled: override.enabled !== undefined ? override.enabled : def.enabled,
-      displayName: override.displayName || def.displayName,
-      event: override.event || def.event
-    };
-  });
-  return {soundEnabled: saved.soundEnabled !== undefined ? saved.soundEnabled : true, tracks};
-}
-let encouragementSettings = loadEncouragementSettings();
-function persistEncouragementSettings(){
-  localStorage.setItem('rim.encouragementSettings', JSON.stringify(encouragementSettings));
-}
-function findEncouragementTrack(id){ return encouragementSettings.tracks.find(t => t.id === id); }
-let lastEncouragementPlayedAt = 0;
-let lastEncouragementTrackId = null;
-
-function isSoundEnabled(){ return !!encouragementSettings.soundEnabled; }
-function setSoundEnabled(value){ encouragementSettings.soundEnabled = !!value; persistEncouragementSettings(); }
-
-function showEncouragementCard(track){
-  const card = $('encouragementCard');
-  if(!card) return;
-  $('encouragementCardName').textContent = track.displayName;
-  card.hidden = false;
-}
-function hideEncouragementCard(){
-  const card = $('encouragementCard');
-  if(card) card.hidden = true;
-}
-function stopEncouragement(){
-  encouragementPlayer.pause();
-  encouragementPlayer.currentTime = 0;
-  hideEncouragementCard();
-}
+// ---------- ربط AudioManager بتجربة ريم: يمنع تشغيل أكثر من مصدر صوتي واحد في اللحظة نفسها (قرآن / تشجيع / تسجيل ريم / أغنية هدية) ----------
 function stopQuranAudio(){
   audioPlayer.pause();
   audioPlayer.currentTime = 0;
 }
 function playQuranAudio(src){
-  stopEncouragement();
+  AudioManager.stop();
   audioPlayer.src = src;
   return audioPlayer.play();
 }
 function stopAllAudio(){
   stopQuranAudio();
-  stopEncouragement();
+  AudioManager.stop();
   voicePlayer.pause();
   voicePlayer.currentTime = 0;
   giftSongPlayer.pause();
@@ -571,54 +517,53 @@ function stopAllAudio(){
 function startRimRecording(){
   stopAllAudio();
 }
-// معاينة صريحة من لوحة الأب: تتجاوز مفتاح التفعيل العام والفاصل الزمني، لأن الأب يحتاج سماع الملف دائماً قبل اعتماده
-function previewEncouragementTrack(id){
-  const track = findEncouragementTrack(id);
-  if(!track) return;
-  stopAllAudio();
-  encouragementPlayer.src = ENCOURAGEMENT_BASE_PATH + track.file;
-  showEncouragementCard(track);
-  encouragementPlayer.play().catch(()=>{ track.missing = true; hideEncouragementCard(); });
+// صحيح فقط إن كان صوت "محمي" يعمل الآن (قرآن، تسجيل ريم بأنواعه، الاستماع لتسجيلها، صوت الأب) — عندها يُمنع أي صوت تلقائي من AudioManager
+function isProtectedAudioActive(){
+  return !audioPlayer.paused
+    || (state.recorder && state.recorder.state === 'recording')
+    || (state.segRecorder && state.segRecorder.state === 'recording')
+    || (state.surahRecorder && state.surahRecorder.state === 'recording')
+    || !$('rimRecordPlayer').paused
+    || !$('recordingsPlayer').paused
+    || !voicePlayer.paused;
 }
-function playEncouragement(trackId){
-  const track = findEncouragementTrack(trackId);
-  if(!track || !track.enabled || track.missing || !isSoundEnabled()) return;
-  const now = Date.now();
-  if(now - lastEncouragementPlayedAt < ENCOURAGEMENT_MIN_GAP_MS) return;
-  if(trackId === lastEncouragementTrackId){
-    const alternatives = encouragementSettings.tracks.filter(t => t.enabled && !t.missing && t.id !== trackId);
-    if(alternatives.length) return; // لا نكرر نفس الملف مباشرة إن وُجد بديل مفعّل غيره
-  }
-  stopAllAudio();
-  encouragementPlayer.src = ENCOURAGEMENT_BASE_PATH + track.file;
-  lastEncouragementPlayedAt = now;
-  lastEncouragementTrackId = trackId;
-  showEncouragementCard(track);
-  encouragementPlayer.onended = hideEncouragementCard;
-  encouragementPlayer.play().catch(()=>{ hideEncouragementCard(); });
-  clearTimeout(encouragementPlayer._safetyTimer);
-  encouragementPlayer._safetyTimer = setTimeout(hideEncouragementCard, 30000); // شبكة أمان إن لم يصل حدث "ended"
+// لمناسبات إكمال المرحلة/السورة: ننتظر توقف صوت القرآن كلياً قبل تشغيل الاحتفال، حتى لو كان لا يزال يعمل لأي سبب
+function playWhenQuranSilent(category){
+  if(audioPlayer.paused){ AudioManager.play(category); return; }
+  const onStop = () => {
+    audioPlayer.removeEventListener('pause', onStop);
+    audioPlayer.removeEventListener('ended', onStop);
+    AudioManager.play(category);
+  };
+  audioPlayer.addEventListener('pause', onStop, {once:true});
+  audioPlayer.addEventListener('ended', onStop, {once:true});
 }
-function playEncouragementForEvent(eventKey){
-  const candidates = encouragementSettings.tracks.filter(t => t.event === eventKey && t.enabled && !t.missing);
-  if(!candidates.length) return;
-  const pick = candidates.find(t => t.id !== lastEncouragementTrackId) || candidates[0];
-  playEncouragement(pick.id);
+
+// ---------- الترحيب عند فتح التطبيق: مرة واحدة فقط لكل جلسة، مع احترام حظر التشغيل التلقائي في Safari/الهاتف ----------
+let welcomeAttempted = false;
+function attemptWelcome(){
+  if(welcomeAttempted) return;
+  const p = AudioManager.play('welcome');
+  if(!p){ welcomeAttempted = true; return; }
+  welcomeAttempted = true;
+  p.catch(() => {
+    welcomeAttempted = false; // التشغيل التلقائي محظور؛ ننتظر أول لمسة أو ضغطة حقيقية من ريم
+    const retry = () => {
+      document.removeEventListener('pointerdown', retry);
+      document.removeEventListener('keydown', retry);
+      attemptWelcome();
+    };
+    document.addEventListener('pointerdown', retry, {once:true});
+    document.addEventListener('keydown', retry, {once:true});
+  });
 }
-async function checkEncouragementAvailability(){
-  for(const track of encouragementSettings.tracks){
-    try{
-      const res = await fetch(ENCOURAGEMENT_BASE_PATH + track.file, {method:'HEAD'});
-      track.missing = !res.ok;
-    }catch(e){
-      track.missing = true;
-    }
-  }
-}
+
+// ---------- لوحة الأب: التحكم الكامل بنظام صوت ريم (AudioManager) ----------
 async function renderEncouragementSettings(){
-  await checkEncouragementAvailability();
-  $('encouragementMasterToggle').checked = isSoundEnabled();
-  $('encouragementTrackList').innerHTML = encouragementSettings.tracks.map(t => `
+  await AudioManager.checkAvailability();
+  $('encouragementMasterToggle').checked = AudioManager.isSoundEnabled();
+  $('encouragementVolume').value = Math.round(AudioManager.getVolume() * 100);
+  $('encouragementTrackList').innerHTML = AudioManager.getTracks().map(t => `
     <div class="enc-track-row" data-id="${t.id}">
       <div class="enc-track-top">
         <input type="checkbox" class="enc-enabled" data-id="${t.id}" ${t.enabled?'checked':''} />
@@ -626,28 +571,32 @@ async function renderEncouragementSettings(){
         ${t.missing ? '<span class="enc-missing-badge">غير متوفر بعد</span>' : ''}
       </div>
       <div class="enc-track-actions">
-        <select class="enc-event" data-id="${t.id}">
-          ${Object.entries(ENCOURAGEMENT_EVENT_LABELS).map(([k,label])=>`<option value="${k}" ${t.event===k?'selected':''}>${label}</option>`).join('')}
+        <select class="enc-category" data-id="${t.id}">
+          ${AudioManager.CATEGORIES.map(c=>`<option value="${c}" ${t.category===c?'selected':''}>${AudioManager.CATEGORY_LABELS[c]}</option>`).join('')}
         </select>
+        <label class="enc-priority-label">أولوية <input type="number" class="enc-priority" data-id="${t.id}" min="1" max="10" value="${t.priority}" /></label>
+      </div>
+      <div class="enc-track-flags">
+        <label><input type="checkbox" class="enc-play-once" data-id="${t.id}" ${t.playOnce?'checked':''} /> مرة واحدة فقط</label>
+        <label><input type="checkbox" class="enc-no-repeat" data-id="${t.id}" ${t.noImmediateRepeat?'checked':''} /> لا تكرره مرتين متتاليتين</label>
+      </div>
+      <div class="enc-track-actions">
         <button class="tiny-btn enc-preview" data-id="${t.id}" type="button" ${t.missing?'disabled':''}>▶ معاينة</button>
         <button class="tiny-btn enc-stop-btn" type="button">■ إيقاف</button>
       </div>
     </div>`).join('');
 
-  document.querySelectorAll('.enc-enabled').forEach(el => el.addEventListener('change', () => {
-    const track = findEncouragementTrack(el.dataset.id);
-    if(track){ track.enabled = el.checked; persistEncouragementSettings(); }
-  }));
+  document.querySelectorAll('.enc-enabled').forEach(el => el.addEventListener('change', () => AudioManager.updateTrack(el.dataset.id, {enabled: el.checked})));
   document.querySelectorAll('.enc-name').forEach(el => el.addEventListener('change', () => {
-    const track = findEncouragementTrack(el.dataset.id);
-    if(track){ track.displayName = el.value.trim() || track.displayName; persistEncouragementSettings(); }
+    const v = el.value.trim();
+    if(v) AudioManager.updateTrack(el.dataset.id, {displayName: v});
   }));
-  document.querySelectorAll('.enc-event').forEach(el => el.addEventListener('change', () => {
-    const track = findEncouragementTrack(el.dataset.id);
-    if(track){ track.event = el.value; persistEncouragementSettings(); }
-  }));
-  document.querySelectorAll('.enc-preview').forEach(el => el.addEventListener('click', () => previewEncouragementTrack(el.dataset.id)));
-  document.querySelectorAll('.enc-stop-btn').forEach(el => el.addEventListener('click', stopEncouragement));
+  document.querySelectorAll('.enc-category').forEach(el => el.addEventListener('change', () => AudioManager.updateTrack(el.dataset.id, {category: el.value})));
+  document.querySelectorAll('.enc-priority').forEach(el => el.addEventListener('change', () => AudioManager.updateTrack(el.dataset.id, {priority: Math.min(10, Math.max(1, Number(el.value) || 5))})));
+  document.querySelectorAll('.enc-play-once').forEach(el => el.addEventListener('change', () => AudioManager.updateTrack(el.dataset.id, {playOnce: el.checked})));
+  document.querySelectorAll('.enc-no-repeat').forEach(el => el.addEventListener('change', () => AudioManager.updateTrack(el.dataset.id, {noImmediateRepeat: el.checked})));
+  document.querySelectorAll('.enc-preview').forEach(el => el.addEventListener('click', () => AudioManager.play(null, {preview:true, trackId: el.dataset.id})));
+  document.querySelectorAll('.enc-stop-btn').forEach(el => el.addEventListener('click', () => AudioManager.stop()));
 }
 
 function setRewardPhoto(src){
@@ -676,9 +625,9 @@ function giveStarForVerse(){
   }else{
     giveStar(state.fatherLine);
   }
-  playEncouragementForEvent('ayah');
+  AudioManager.play('ayah_success');
 }
-// الانتقال بين الآيات: عند انتهاء آخر آية، تكون "آيات السورة" قد اكتملت تعليمياً، لكن السورة لا تُحتسب "مكتملة" إلا بعد تسجيلها كاملة
+// الانتقال بين الآيات: عند انتهاء آخر آية، تكون "آيات السورة" قد اكتملت تعليمياً (= إكمال مرحلة)، لكن السورة لا تُحتسب "مكتملة" إلا بعد تسجيلها كاملة
 function nextAyah(){
   const s=currentSurah();
   state.progress[s.surahId] = state.verseIndex;
@@ -691,6 +640,8 @@ function nextAyah(){
     state.progress[s.surahId] = s.verses.length - 1;
     persist();
     toast(`أتممتِ آيات سورة ${s.surahName} يا ريم، الآن نسجل السورة كاملة 🌸`);
+    celebrateSoftly();
+    playWhenQuranSilent('stage_complete');
     setLearningStage('surah-record-offer');
   }
 }
@@ -939,6 +890,7 @@ async function toggleRecord(){
   if(!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) || typeof MediaRecorder === 'undefined'){
     console.log('recording not supported on this browser');
     setRecordStatus('هذا الهاتف لا يسمح بالتسجيل من المتصفح. جرّب Chrome أو فعّل إذن الميكروفون.');
+    AudioManager.play('retry');
     return;
   }
 
@@ -948,6 +900,7 @@ async function toggleRecord(){
   }catch(e){
     console.log('recording permission denied', e);
     setRecordStatus('يجب السماح للميكروفون من إعدادات المتصفح حتى تسجل ريم صوتها.');
+    AudioManager.play('retry');
     return;
   }
 
@@ -966,6 +919,7 @@ async function toggleRecord(){
       stream.getTracks().forEach(t=>t.stop());
       btn.textContent = RECORD_BTN_IDLE_LABEL;
       btn.classList.remove('recording');
+      AudioManager.play('retry');
     };
 
     state.recorder.onstop = async () => {
@@ -986,6 +940,7 @@ async function toggleRecord(){
 
       if(!blob.size){
         setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
+        AudioManager.play('retry');
         return;
       }
 
@@ -1013,7 +968,6 @@ async function toggleRecord(){
       const saved = await idbPut('rimRecordings', undefined, rec);
       console.log('saved to IndexedDB', saved, rec.id);
       refreshRimRecordingsIfOpen();
-      playEncouragementForEvent('attempt');
 
       if(localStorage.getItem('rim.firstRecordingRewardShown') !== 'yes'){
         localStorage.setItem('rim.firstRecordingRewardShown', 'yes');
@@ -1040,6 +994,7 @@ async function toggleRecord(){
   }catch(e){
     console.log('recording error', e);
     setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
+    AudioManager.play('retry');
     stream.getTracks().forEach(t=>t.stop());
   }
 }
@@ -1067,6 +1022,7 @@ async function toggleSegmentRecord(){
 
   if(!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) || typeof MediaRecorder === 'undefined'){
     setRecordStatus('هذا الهاتف لا يسمح بالتسجيل من المتصفح. جرّب Chrome أو فعّل إذن الميكروفون.');
+    AudioManager.play('retry');
     return;
   }
 
@@ -1075,6 +1031,7 @@ async function toggleSegmentRecord(){
     stream = await navigator.mediaDevices.getUserMedia({audio:true});
   }catch(e){
     setRecordStatus('يجب السماح للميكروفون من إعدادات المتصفح حتى تسجل ريم صوتها.');
+    AudioManager.play('retry');
     return;
   }
 
@@ -1093,6 +1050,7 @@ async function toggleSegmentRecord(){
       stream.getTracks().forEach(t=>t.stop());
       btn.textContent = SEGMENT_RECORD_IDLE_LABEL;
       btn.classList.remove('recording');
+      AudioManager.play('retry');
     };
 
     state.segRecorder.onstop = async () => {
@@ -1105,6 +1063,7 @@ async function toggleSegmentRecord(){
       const blob = new Blob(state.segChunks, {type: usedMime});
       if(!blob.size){
         setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
+        AudioManager.play('retry');
         return;
       }
       if(state.segRecordUrl) URL.revokeObjectURL(state.segRecordUrl);
@@ -1128,7 +1087,6 @@ async function toggleSegmentRecord(){
       };
       await idbPut('rimRecordings', undefined, rec);
       refreshRimRecordingsIfOpen();
-      playEncouragementForEvent('segment');
     };
 
     state.segRecorder.start();
@@ -1145,6 +1103,7 @@ async function toggleSegmentRecord(){
     }, SEGMENT_MAX_RECORD_MS);
   }catch(e){
     setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
+    AudioManager.play('retry');
     stream.getTracks().forEach(t=>t.stop());
   }
 }
@@ -1171,6 +1130,7 @@ async function toggleSurahRecord(){
 
   if(!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) || typeof MediaRecorder === 'undefined'){
     setRecordStatus('هذا الهاتف لا يسمح بالتسجيل من المتصفح. جرّب Chrome أو فعّل إذن الميكروفون.');
+    AudioManager.play('retry');
     return;
   }
 
@@ -1179,6 +1139,7 @@ async function toggleSurahRecord(){
     stream = await navigator.mediaDevices.getUserMedia({audio:true});
   }catch(e){
     setRecordStatus('يجب السماح للميكروفون من إعدادات المتصفح حتى تسجل ريم صوتها.');
+    AudioManager.play('retry');
     return;
   }
 
@@ -1197,6 +1158,7 @@ async function toggleSurahRecord(){
       stream.getTracks().forEach(t=>t.stop());
       btn.textContent = SURAH_RECORD_IDLE_LABEL;
       btn.classList.remove('recording');
+      AudioManager.play('retry');
     };
 
     state.surahRecorder.onstop = async () => {
@@ -1214,6 +1176,7 @@ async function toggleSurahRecord(){
       if(!blob.size){
         setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
         btn.textContent = SURAH_RECORD_IDLE_LABEL;
+        AudioManager.play('retry');
         return;
       }
 
@@ -1237,7 +1200,7 @@ async function toggleSurahRecord(){
       };
       await idbPut('rimRecordings', undefined, rec);
       refreshRimRecordingsIfOpen();
-      playEncouragementForEvent('surah');
+      playWhenQuranSilent('surah_complete'); // أفضل مقطع احتفالي كامل، ولا يبدأ إلا بعد توقف صوت التلاوة كلياً
 
       const firstTimeThisSurah = !state.completed[s.surahId];
       state.completed[s.surahId] = true;
@@ -1271,6 +1234,7 @@ async function toggleSurahRecord(){
     }, SURAH_MAX_RECORD_MS);
   }catch(e){
     setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
+    AudioManager.play('retry');
     stream.getTracks().forEach(t=>t.stop());
   }
 }
@@ -1532,9 +1496,16 @@ function toggleHelp(){
 }
 
 function init(){
+  AudioManager.init({
+    player: encouragementPlayer,
+    cardEl: $('encouragementCard'),
+    cardNameEl: $('encouragementCardName'),
+    isBlocked: isProtectedAudioActive
+  });
   renderSurahCards(); renderGarden();
   checkWelcomeBack();
   migrateLegacyRecordings();
+  attemptWelcome();
   $('startJourneyBtn').onclick=()=> showScreen('surahPickerScreen');
   $('shortcutListen').onclick=()=> { showScreen('journeyScreen'); setTimeout(()=>playVerse(false),300); };
   $('shortcutMemorize').onclick=()=> showScreen('surahPickerScreen');
@@ -1594,12 +1565,12 @@ function init(){
   $('recordEncourageBtn').onclick=toggleEncourageRecord;
   $('clearEncourageBtn').onclick=clearEncouragements;
 
-  $('encouragementMasterToggle').onchange=()=> setSoundEnabled($('encouragementMasterToggle').checked);
-  $('encouragementStopBtn').onclick=stopEncouragement;
+  $('encouragementMasterToggle').onchange=()=> AudioManager.setSoundEnabled($('encouragementMasterToggle').checked);
+  $('encouragementVolume').oninput=()=> AudioManager.setVolume(Number($('encouragementVolume').value) / 100);
+  $('encouragementStopBtn').onclick=()=> AudioManager.stop();
   $('resetEncouragementDefaults').onclick=()=>{
     if(!confirm('هل تريد فعلاً استعادة إعدادات أصوات التشجيع الافتراضية؟')) return;
-    encouragementSettings = {soundEnabled:true, tracks: ENCOURAGEMENT_TRACKS_DEFAULT.map(t=>({...t}))};
-    persistEncouragementSettings();
+    AudioManager.resetDefaults();
     renderEncouragementSettings();
   };
 
