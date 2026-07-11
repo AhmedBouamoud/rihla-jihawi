@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d1438">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="assets/css/style.css">
+<title>عالم نون — الرحلة</title>
+
+
+<meta name="description" content="عالم نون: مغامرة عربية خيالية للأطفال عبر خمس محطات تعليمية تفاعلية.">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="عالم نون — رحلة مدينة الأصوات">
+<meta property="og:description" content="مغامرة عربية خيالية للأطفال لتعلم الأصوات والحروف باللعب.">
+<meta property="og:image" content="assets/img/social-preview.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+
+</head>
+<body data-page="home">
+<div class="app-shell">
+
+<div id="offlineBadge" class="offline-badge"></div>
+<div id="installBanner" class="install-banner">
+  <p><strong>ثَبِّتْ عَالَمَ نُون</strong><br>ليفتح مثل تطبيق ويعمل بصورة أفضل على الهاتف.</p>
+  <button id="installApp" class="btn primary">تَثْبِيت</button>
+  <button id="closeInstall" class="icon-btn" aria-label="إغلاق">×</button>
+</div>
+
+<div class="stars"></div>
+<div id="voiceCaption" class="voice-caption hidden"><span class="face">🗣️</span><span id="voiceText"></span></div>
+<button id="repeatVoice" class="repeat-voice" aria-label="إعادة الاستماع">🔊</button>
+<div class="page">
+
+<header class="topbar">
+  <span class="pill">رِحْلَةُ مَدِينَةِ الأَصْوَات</span>
+  <button class="icon-btn" onclick="location.href='parents.html'">⚙️</button>
+</header>
+
+<section class="hero tall">
+  <img src="assets/img/city-home.webp" alt="مدينة الأصوات" loading="eager" fetchpriority="high" decoding="async">
+  <div class="overlay"></div>
+  <div class="caption">
+    <h1>عَالَمُ نُون</h1>
+    <p>فِي لَيْلَةٍ سَاحِرَةٍ، سَرَقَ <strong>ظِلُّ الصَّمْتِ</strong> خَمْسَةَ مَفَاتِيحَ مِنْ مَدِينَةِ الأَصْوَات. لَنْ تَعُودَ الأَنْوَارُ إِلَّا إِذَا أَكْمَلْنَا الرِّحْلَةَ مَعَ نُون، وَلُولُو، وَمِيم.</p>
+  </div>
+</section>
+
+<section class="card">
+  <h2>اِسْمُ البَطَل</h2>
+  <p class="footer-note">يَظْهَرُ الاسْمُ فِي لَوْحَةِ التَّقَدُّمِ.</p>
+  <div class="actions">
+    <input id="childNameInput" style="flex:1;min-width:180px;border:0;border-radius:18px;padding:14px 16px" value="بَطَل">
+    <button id="saveChildName" class="btn secondary">حِفْظُ الاسْم</button>
+  </div>
+</section>
+
+<section class="card">
+  <h2>خُطَّةُ الرِّحْلَة</h2>
+  <ol class="storyline">
+    <li>المِفْتَاحُ الأَوَّل: <strong>سِرُّ المَخْبَزِ الذَّهَبِي</strong>.</li>
+    <li>المِفْتَاحُ الثَّانِي: <strong>غَابَةُ البَالُونَات</strong>.</li>
+    <li>المِفْتَاحُ الثَّالِث: <strong>جِسْرُ الإِيقَاع</strong>.</li>
+    <li>المِفْتَاحُ الرَّابِع: <strong>كَهْفُ المِرْآةِ البِلَّوْرِيَّة</strong>.</li>
+    <li>المِفْتَاحُ الخَامِس: <strong>قَصْرُ النُّجُوم</strong>.</li>
+  </ol>
+  <div class="actions"><button id="startJourney" class="btn primary">اِبْدَأِ الرِّحْلَة</button></div>
+</section>
+
+<section class="grid-cards" style="margin-top:12px">
+  <article class="station-card" data-station-card="1">
+    <img src="assets/img/station1-bakery.webp" alt="المخبز الذهبي" loading="lazy" decoding="async">
+    <div class="body"><h3>1. سِرُّ المَخْبَزِ الذَّهَبِي</h3><small>اخْتَرْ كَلِمَاتِ صَوْتِ م لِتَسْتَيْقِظَ الأَفْرَان.</small><div class="meta"><button class="btn secondary station-action" data-href="station1.html">اُدْخُل</button></div></div>
+  </article>
+  <article class="station-card" data-station-card="2">
+    <img src="assets/img/station2-forest.webp" alt="غابة البالونات" loading="lazy" decoding="async">
+    <div class="body"><h3>2. غَابَةُ البَالُونَات</h3><small>اِلْتَقِطْ بَالُونَاتِ صَوْتِ ب مَعَ لُولُو.</small><div class="meta"><button class="btn secondary station-action" data-href="station2.html">اُدْخُل</button></div></div>
+  </article>
+  <article class="station-card" data-station-card="3">
+    <img src="assets/img/station3-bridge.webp" alt="جسر الإيقاع" loading="lazy" decoding="async">
+    <div class="body"><h3>3. جِسْرُ الإِيقَاع</h3><small>اِسْتَمِعْ ثُمَّ أَعِدِ الإِيقَاعَ لِيَعْبُرَ الأَصْدَاء.</small><div class="meta"><button class="btn secondary station-action" data-href="station3.html">اُدْخُل</button></div></div>
+  </article>
+  <article class="station-card" data-station-card="4">
+    <img src="assets/img/station4-cave.webp" alt="كهف المرآة" loading="lazy" decoding="async">
+    <div class="body"><h3>4. كَهْفُ المِرْآةِ البِلَّوْرِيَّة</h3><small>اُرْسُمْ خَيْطَ النُّورِ حَتَّى يَعُودَ الاِنْعِكَاس.</small><div class="meta"><button class="btn secondary station-action" data-href="station4.html">اُدْخُل</button></div></div>
+  </article>
+  <article class="station-card" data-station-card="5">
+    <img src="assets/img/station5-palace.webp" alt="قصر النجوم" loading="lazy" decoding="async">
+    <div class="body"><h3>5. قَصْرُ النُّجُوم</h3><small>اخْتِبَارُ النِّهَايَةِ لِإِضَاءَةِ المَدِينَةِ كُلِّهَا.</small><div class="meta"><button class="btn secondary station-action" data-href="station5.html">اُدْخُل</button></div></div>
+  </article>
+</section>
+
+</div>
+<div id="toast" class="toast"></div>
+</div>
+<script src="assets/js/app.js"></script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));}</script>
+</body>
+</html>

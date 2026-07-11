@@ -26,6 +26,23 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# عالم نون — Service Worker وManifest بلا تخزين مؤقت لضمان التحديث الفوري
+[[headers]]
+  for = "/alam-noon/service-worker.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/alam-noon/manifest.json"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+# عالم نون — الأصول الثابتة تُخزَّن لمدة سنة
+[[headers]]
+  for = "/alam-noon/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
 # الصفحة الرئيسية وكل الصفحات
 [[headers]]
   for = "/*"
