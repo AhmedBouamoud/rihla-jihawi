@@ -217,6 +217,10 @@ select,input[type=text]{width:100%;border:1px solid var(--stroke);background:#ff
 .cert-dialog-card{text-align:center}
 #certificateCanvas{width:100%;max-width:320px;height:auto;border-radius:20px;box-shadow:var(--shadow);margin:8px auto 0;display:block}
 
+.gift-song-card{text-align:center}
+.gift-song-icon{font-size:40px;display:block;margin-bottom:6px}
+#giftSongPlayer{width:100%;margin-top:14px}
+
 .album-photo{margin:0 0 14px;text-align:center}
 .album-photo img{width:100%;max-height:160px;object-fit:cover;border-radius:18px;display:block}
 .album-photo.empty .soft-fallback{position:static;height:120px;border-radius:18px;display:block}

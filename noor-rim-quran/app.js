@@ -78,7 +78,9 @@ const surahs = buildSurahs(RAW_SURAHS);
 
 const GIFTS = [
   {id:'surah-fatiha', stars:0, icon:'🌅', type:'سورة', title:'سورة الفاتحة بالتكرار', note:'هدية البداية: نسمع الفاتحة بهدوء ونردد.', url:'https://www.youtube.com/watch?v=Uufkkk6D2lk'},
+  {id:'rim-song', stars:1, icon:'🎵', type:'أغنية ريم', title:'حاولي يا ريم', local:true, note:'أغنية خاصة بريم وحدها، نسمعها داخل التطبيق بلا إنترنت.', url:'assets/audio/gifts/rim-try-song.mp3'},
   {id:'short-surahs', stars:2, icon:'🌸', type:'سور قصيرة', title:'عشر سور قصيرة للأطفال', note:'بعد نجمتين: باقة قصار السور للحفظ المرحلي.', url:'https://www.youtube.com/watch?v=7CLccP_tElk'},
+  {id:'rim-song-2', stars:3, icon:'🎵', type:'أغنية ريم', title:'حاولي يا ريم (النسخة الثانية)', local:true, note:'نسخة أخرى من أغنية ريم، هدية إضافية بصوت حبيب لقلبها.', url:'assets/audio/gifts/rim-try-song-2.mp3'},
   {id:'surah-ikhlas', stars:4, icon:'💜', type:'سورة', title:'سورة الإخلاص مع التكرار', note:'هدية سورة الإخلاص: نكررها كزهرة صغيرة.', url:'https://www.youtube.com/watch?v=-RPutM95Q4I'},
   {id:'ya-tayba', stars:6, icon:'🕌', type:'أنشودة', title:'يا طيبة', note:'استراحة روحية قصيرة بعد مجهود جميل.', url:'https://www.youtube.com/watch?v=uD8isx1ALA8'},
   {id:'qamar', stars:8, icon:'🌙', type:'أنشودة', title:'قمر سيدنا النبي', note:'هدية محبوبة لريم بعد 8 نجوم.', url:'https://www.youtube.com/watch?v=QZ9Y0Xar4sg'},
@@ -103,6 +105,7 @@ const $ = (id)=>document.getElementById(id);
 const audioPlayer = $('audioPlayer');
 const voicePlayer = $('voicePlayer');
 const encouragementPlayer = $('encouragementPlayer');
+const giftSongPlayer = $('giftSongPlayer');
 
 const state = {
   surahIndex: Number(localStorage.getItem('rim.surahIndex') || 0),
@@ -335,8 +338,18 @@ function toast(msg){
 }
 function openGift(gift){
   if(!giftUnlocked(gift)){ toast(`هذه الهدية تفتح عند ${gift.stars} نجوم يا ريم`); return; }
+  if(gift.local){ playGiftSong(gift); return; }
   window.open(gift.url, '_blank', 'noopener,noreferrer');
   toast('فتحت هدية ريم في نافذة جديدة 🎁');
+}
+// أغنية ريم الخاصة: تُشغَّل داخل التطبيق مباشرة (بلا إنترنت)، مع احترام قاعدة "صوت واحد فقط في اللحظة نفسها"
+function playGiftSong(gift){
+  stopAllAudio();
+  $('giftSongTitle').textContent = gift.title;
+  const player = $('giftSongPlayer');
+  player.src = gift.url;
+  $('giftSongDialog').showModal();
+  player.play().catch(()=>{});
 }
 const GIFT_THUMB_POOL = ['assets/rim-v2/listening.webp', 'assets/rim-v2/prayer-room.webp', 'assets/rim-v2/first-ayah.webp', 'assets/rim-v2/first-voice.webp'];
 function renderGifts(){
@@ -348,6 +361,7 @@ function renderGifts(){
     const icon = unlocked
       ? `<img src="${GIFT_THUMB_POOL[i % GIFT_THUMB_POOL.length]}" alt="" loading="lazy" />`
       : '🔒';
+    const openLabel = g.local ? '🎵 استمعي للأغنية' : 'افتحي الهدية';
     return `
     <article class="gift-card ${unlocked?'open':'locked'}">
       <div class="gift-icon">${icon}</div>
@@ -355,7 +369,7 @@ function renderGifts(){
         <span class="gift-type">${g.type} • ${g.stars} نجوم</span>
         <h3>${g.title}</h3>
         <p>${g.note}</p>
-        <button class="${unlocked?'primary':'secondary'}" data-gift="${g.id}" type="button">${unlocked?'افتحي الهدية':'مقفلة الآن'}</button>
+        <button class="${unlocked?'primary':'secondary'}" data-gift="${g.id}" type="button">${unlocked?openLabel:'مقفلة الآن'}</button>
       </div>
     </article>`;
   }).join('');
@@ -389,6 +403,8 @@ async function resolvePlayableAudio(idx){
 }
 function playResolvedAwaitable(resolved, rate){
   stopEncouragement(); // القرآن له أولوية مطلقة: أي صوت تشجيع يتوقف فوراً ويُعاد لبدايته عند بدء التلاوة
+  giftSongPlayer.pause();
+  giftSongPlayer.currentTime = 0;
   return new Promise((resolve) => {
     audioPlayer.onerror = null;
     audioPlayer.onended = null;
@@ -548,6 +564,8 @@ function stopAllAudio(){
   stopEncouragement();
   voicePlayer.pause();
   voicePlayer.currentTime = 0;
+  giftSongPlayer.pause();
+  giftSongPlayer.currentTime = 0;
 }
 // يجب استدعاؤها فوراً عند بدء أي تسجيل لصوت ريم، لإيقاف كل مصدر صوتي آخر قبل فتح الميكروفون
 function startRimRecording(){
@@ -1587,6 +1605,8 @@ function init(){
 
   $('closeCertificateBtn').onclick=()=> $('certificateDialog').close();
   $('downloadCertificateBtn').onclick=downloadCertificate;
+
+  $('closeGiftSongBtn').onclick=()=>{ $('giftSongDialog').close(); giftSongPlayer.pause(); giftSongPlayer.currentTime = 0; };
 
   if('serviceWorker' in navigator){
     // نضمن أن أي تحديث جديد للتطبيق (بعد إصلاح أو تطوير) يصل فعلياً لهاتف ريم بدل البقاء عالقاً في نسخة مخزَّنة قديمة.

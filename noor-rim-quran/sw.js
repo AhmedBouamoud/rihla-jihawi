@@ -1,4 +1,4 @@
-const CACHE = 'noor-rim-hadiya-v9';
+const CACHE = 'noor-rim-hadiya-v10';
 const AUDIO_CACHE = 'noor-rim-audio-v1';
 const ASSETS = ['./','./index.html','./style.css','./app.js','./manifest.webmanifest',
   './assets/icons/icon-192.svg','./assets/icons/icon-512.svg',
