@@ -68,11 +68,13 @@
 
       <article class="ayah-card">
         <span class="ayah-count" id="ayahCount">آية 1 / 4</span>
+        <span class="segment-label" id="segmentLabel" hidden></span>
         <p class="ayah-text" id="ayahText"></p>
-        <div class="word-cloud" id="wordCloud" hidden></div>
+        <p class="segment-text" id="segmentText" hidden></p>
       </article>
 
       <button class="primary huge main-action" id="recordBtn" type="button">🔊 اسمعي يا ريم</button>
+      <button class="tiny-btn segment-record-btn" id="segmentRecordBtn" type="button" hidden>🎙️ سجلي هذا المقطع</button>
       <p class="record-status" id="recordStatus" hidden></p>
       <audio id="rimRecordPlayer" controls hidden></audio>
       <button class="tiny-btn" id="playRecordBtn" type="button" disabled>🔊 تشغيل صوت ريم</button>
@@ -102,7 +104,6 @@
       <button class="help-toggle" id="helpToggleBtn" type="button">🧩 مساعدة</button>
       <div class="help-panel" id="helpPanel" hidden>
         <button class="tiny-btn" id="helpSlowBtn" type="button">🐢 سماع ببطء</button>
-        <button class="tiny-btn" id="helpSplitBtn" type="button">🧩 نقسمها معاً</button>
         <button class="tiny-btn" id="helpFullSurahBtn" type="button">📖 أسمع السورة كاملة</button>
         <button class="tiny-btn" id="openRimRecordingsBtn" type="button">🎧 ألبوم صوت ريم</button>
       </div>
@@ -263,6 +264,12 @@
         <img src="assets/rim-v2/album-header.webp" alt="ريم وأبوها" loading="lazy" onerror="this.parentElement.classList.add('empty'); this.remove();" />
         <div class="soft-fallback small" aria-hidden="true"></div>
       </figure>
+      <div class="recordings-filters" id="recordingsFilters">
+        <button class="filter-btn active" data-filter="all" type="button">الكل</button>
+        <button class="filter-btn" data-filter="surah" type="button">السور الكاملة</button>
+        <button class="filter-btn" data-filter="verse" type="button">الآيات</button>
+        <button class="filter-btn" data-filter="segment" type="button">التدريبات القصيرة</button>
+      </div>
       <p id="recordingsEmpty">لا توجد تسجيلات بعد. سجّلي صوتك يا ريم من شاشة الحفظ.</p>
       <div id="recordingsList"></div>
       <audio id="recordingsPlayer" controls hidden></audio>

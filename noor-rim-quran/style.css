@@ -79,9 +79,9 @@ button,input,select{font:inherit}
 .ayah-card{background:#fff;border:1px solid var(--stroke);border-radius:28px;padding:22px 16px;text-align:center;box-shadow:var(--shadow);margin-bottom:16px}
 .ayah-count{color:var(--muted);font-weight:900;font-size:13px}
 .ayah-text{font-family:"Amiri","Times New Roman",serif;font-size:clamp(34px,10vw,54px);line-height:2;margin:12px 0 0;color:var(--ink)}
-.word-cloud{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}
-.word{font-family:"Amiri","Times New Roman",serif;font-size:clamp(22px,6vw,32px);background:var(--cream2);border:1px solid var(--stroke);border-radius:16px;padding:6px 10px;cursor:pointer}
-.word.active{background:var(--apricot);border-color:var(--apricot-deep)}
+.segment-label{display:block;color:var(--sage-deep);font-weight:900;font-size:13px;margin-top:2px}
+.segment-text{font-family:"Amiri","Times New Roman",serif;font-size:clamp(30px,9vw,46px);line-height:2;margin:12px 0 0;color:var(--sage-deep);background:var(--cream2);border-radius:20px;padding:8px 6px}
+.segment-record-btn{display:block;width:100%;margin:0 0 10px}
 
 .main-action{width:100%;font-size:19px;min-height:66px;margin-bottom:10px;animation:breathe 3.2s ease-in-out infinite}
 .main-action:disabled{opacity:.75;animation:none}
@@ -202,6 +202,14 @@ select,input[type=text]{width:100%;border:1px solid var(--stroke);background:#ff
 .album-photo img{width:100%;max-height:160px;object-fit:cover;border-radius:18px;display:block}
 .album-photo.empty .soft-fallback{position:static;height:120px;border-radius:18px;display:block}
 .album-photo.empty img{display:none}
+
+.recordings-filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.filter-btn{border:1px solid var(--stroke);background:#fff;color:var(--muted);border-radius:999px;padding:7px 12px;font-weight:900;font-size:12px;cursor:pointer}
+.filter-btn.active{background:var(--gold);color:#fff;border-color:var(--gold)}
+
+.rec-type-badge{display:inline-block;margin-bottom:6px;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:1000;background:var(--sky);color:#2c5164}
+.rec-type-badge.rec-type-surah{background:var(--gold);color:#fff}
+.rec-type-badge.rec-type-segment{background:var(--apricot);color:#7a3c26}
 
 .recording-item{background:#fff;border:1px solid var(--stroke);border-radius:20px;padding:14px;margin-bottom:12px}
 .recording-item .rec-info b{font-size:15px;display:block;margin-bottom:4px}

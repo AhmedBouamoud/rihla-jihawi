@@ -1,45 +1,80 @@
-const surahs = [
-  {id:'ikhlas', name:'الإخلاص', symbol:'halo', label:'قصيرة ومحبوبة', audio:'112-ikhlas', ayahs:[
-    {text:'قُلْ هُوَ اللَّهُ أَحَدٌ', words:['قُلْ','هُوَ','اللَّهُ','أَحَدٌ'], nudge:'قُلْ… هُوَ… اللهُ… أَحَدٌ'},
-    {text:'اللَّهُ الصَّمَدُ', words:['اللَّهُ','الصَّمَدُ'], nudge:'الصَّمَدُ: الصَّـ / مَـ / دُ'},
-    {text:'لَمْ يَلِدْ وَلَمْ يُولَدْ', words:['لَمْ','يَلِدْ','وَلَمْ','يُولَدْ'], nudge:'كلمات قصيرة… نرددها بهدوء.'},
-    {text:'وَلَمْ يَكُنْ لَّهُ كُفُوًا أَحَدٌ', words:['وَلَمْ','يَكُنْ','لَّهُ','كُفُوًا','أَحَدٌ'], nudge:'كُفُوًا… نعيدها معاً يا ريم.'}
+// ---------- بيانات السور: كل سورة تتكون من آيات (verses)، وكل آية قد تُقسَّم تعليمياً إلى مقاطع (segments) ----------
+// المقطع أداة تدريب مؤقتة فقط: لا يُحتسب أبداً كآية مستقلة، ولا يُغيّر ترقيم الآيات أو تقدّم السورة.
+const RAW_SURAHS = [
+  {surahId:'ikhlas', surahName:'الإخلاص', symbol:'halo', label:'قصيرة ومحبوبة', audioCode:'112-ikhlas', verseTexts:[
+    'قُلْ هُوَ اللَّهُ أَحَدٌ',
+    'اللَّهُ الصَّمَدُ',
+    'لَمْ يَلِدْ وَلَمْ يُولَدْ',
+    'وَلَمْ يَكُنْ لَّهُ كُفُوًا أَحَدٌ'
   ]},
-  {id:'kawthar', name:'الكوثر', symbol:'droplet', label:'ثلاث آيات فقط', audio:'108-kawthar', ayahs:[
-    {text:'إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ', words:['إِنَّا','أَعْطَيْنَاكَ','الْكَوْثَرَ'], nudge:'أَعْطَيْـ / نَاكَ… الكوثر.'},
-    {text:'فَصَلِّ لِرَبِّكَ وَانْحَرْ', words:['فَصَلِّ','لِرَبِّكَ','وَانْحَرْ'], nudge:'فَصَلِّ… لربك… وانحر.'},
-    {text:'إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ', words:['إِنَّ','شَانِئَكَ','هُوَ','الْأَبْتَرُ'], nudge:'نقسمها: شا / نِئَ / كَ.'}
+  {surahId:'kawthar', surahName:'الكوثر', symbol:'droplet', label:'ثلاث آيات فقط', audioCode:'108-kawthar', verseTexts:[
+    'إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ',
+    'فَصَلِّ لِرَبِّكَ وَانْحَرْ',
+    'إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ'
   ]},
-  {id:'nas', name:'الناس', symbol:'embrace', label:'سكينة وطمأنينة', audio:'114-nas', ayahs:[
-    {text:'قُلْ أَعُوذُ بِرَبِّ النَّاسِ', words:['قُلْ','أَعُوذُ','بِرَبِّ','النَّاسِ'], nudge:'أَعُوذُ… نمدها بهدوء.'},
-    {text:'مَلِكِ النَّاسِ', words:['مَلِكِ','النَّاسِ'], nudge:'كلمتان فقط يا ريم.'},
-    {text:'إِلَٰهِ النَّاسِ', words:['إِلَٰهِ','النَّاسِ'], nudge:'إله الناس… صوت هادئ.'},
-    {text:'مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ', words:['مِنْ','شَرِّ','الْوَسْوَاسِ','الْخَنَّاسِ'], nudge:'الوسواس… الخناس.'},
-    {text:'الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ', words:['الَّذِي','يُوَسْوِسُ','فِي','صُدُورِ','النَّاسِ'], nudge:'نقرأ كلمة كلمة.'},
-    {text:'مِنَ الْجِنَّةِ وَالنَّاسِ', words:['مِنَ','الْجِنَّةِ','وَالنَّاسِ'], nudge:'آخر آية… أحسنت يا ريم.'}
+  {surahId:'nas', surahName:'الناس', symbol:'embrace', label:'سكينة وطمأنينة', audioCode:'114-nas', verseTexts:[
+    'قُلْ أَعُوذُ بِرَبِّ النَّاسِ',
+    'مَلِكِ النَّاسِ',
+    'إِلَٰهِ النَّاسِ',
+    'مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ',
+    'الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ',
+    'مِنَ الْجِنَّةِ وَالنَّاسِ'
   ]},
-  {id:'falaq', name:'الفلق', symbol:'sunrise', label:'نور وحماية', audio:'113-falaq', ayahs:[
-    {text:'قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ', words:['قُلْ','أَعُوذُ','بِرَبِّ','الْفَلَقِ'], nudge:'الفلق… نور الصباح.'},
-    {text:'مِنْ شَرِّ مَا خَلَقَ', words:['مِنْ','شَرِّ','مَا','خَلَقَ'], nudge:'أربع كلمات قصيرة.'},
-    {text:'وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ', words:['وَمِنْ','شَرِّ','غَاسِقٍ','إِذَا','وَقَبَ'], nudge:'غاسقٍ… إذا… وقب.'},
-    {text:'وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ', words:['وَمِنْ','شَرِّ','النَّفَّاثَاتِ','فِي','الْعُقَدِ'], nudge:'النَّفَّاثات… نقسمها بهدوء.'},
-    {text:'وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ', words:['وَمِنْ','شَرِّ','حَاسِدٍ','إِذَا','حَسَدَ'], nudge:'آخر آية في سورة الفلق.'}
+  {surahId:'falaq', surahName:'الفلق', symbol:'sunrise', label:'نور وحماية', audioCode:'113-falaq', verseTexts:[
+    'قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ',
+    'مِنْ شَرِّ مَا خَلَقَ',
+    'وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ',
+    'وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ',
+    'وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ'
   ]},
-  {id:'fatiha', name:'الفاتحة', symbol:'opening', label:'نأخذها ببطء', audio:'001-fatiha', ayahs:[
-    {text:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', words:['بِسْمِ','اللَّهِ','الرَّحْمَٰنِ','الرَّحِيمِ'], nudge:'بسم الله… بداية النور.'},
-    {text:'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ', words:['الْحَمْدُ','لِلَّهِ','رَبِّ','الْعَالَمِينَ'], nudge:'الحمد لله… بهدوء.'},
-    {text:'الرَّحْمَٰنِ الرَّحِيمِ', words:['الرَّحْمَٰنِ','الرَّحِيمِ'], nudge:'كلمتان جميلتان.'},
-    {text:'مَالِكِ يَوْمِ الدِّينِ', words:['مَالِكِ','يَوْمِ','الدِّينِ'], nudge:'نردد كلمة كلمة.'},
-    {text:'إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ', words:['إِيَّاكَ','نَعْبُدُ','وَإِيَّاكَ','نَسْتَعِينُ'], nudge:'آية طويلة، نقسمها.'},
-    {text:'اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ', words:['اهْدِنَا','الصِّرَاطَ','الْمُسْتَقِيمَ'], nudge:'اهدنا الصراط المستقيم.'},
-    {text:'صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ', words:['صِرَاطَ','الَّذِينَ','أَنْعَمْتَ','عَلَيْهِمْ','غَيْرِ','الْمَغْضُوبِ','عَلَيْهِمْ','وَلَا','الضَّالِّينَ'], nudge:'نأخذها على مراحل صغيرة يا ريم.'}
+  {surahId:'fatiha', surahName:'الفاتحة', symbol:'opening', label:'نأخذها ببطء', audioCode:'001-fatiha', verseTexts:[
+    'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
+    'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',
+    'الرَّحْمَٰنِ الرَّحِيمِ',
+    'مَالِكِ يَوْمِ الدِّينِ',
+    'إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ',
+    'اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ',
+    'صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ'
   ]},
-  {id:'asr', name:'العصر', symbol:'calmsun', label:'سورة صغيرة عن قيمة الوقت', audio:'103-asr', ayahs:[
-    {text:'وَالْعَصْرِ', words:['وَالْعَصْرِ'], nudge:'آية واحدة قصيرة… والعصر.'},
-    {text:'إِنَّ الْإِنسَانَ لَفِي خُسْرٍ', words:['إِنَّ','الْإِنسَانَ','لَفِي','خُسْرٍ'], nudge:'إنّ الإنسان… لفي خسر.'},
-    {text:'إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ', words:['إِلَّا','الَّذِينَ','آمَنُوا','وَعَمِلُوا','الصَّالِحَاتِ','وَتَوَاصَوْا','بِالْحَقِّ','وَتَوَاصَوْا','بِالصَّبْرِ'], nudge:'آية طويلة… نأخذها كلمة كلمة يا ريم.'}
+  {surahId:'asr', surahName:'العصر', symbol:'calmsun', label:'سورة صغيرة عن قيمة الوقت', audioCode:'103-asr', verseTexts:[
+    'وَالْعَصْرِ',
+    'إِنَّ الْإِنسَانَ لَفِي خُسْرٍ',
+    'إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ'
   ]}
 ];
+
+function pad(n){ return String(n).padStart(2,'0'); }
+function pad3(n){ return String(n).padStart(3,'0'); }
+
+// آية من كلمتين أو أقل تُقال دفعة واحدة بلا تقسيم؛ الآيات الأطول تُقسَّم إلى مقاطع من كلمتين لتسهيل الترديد.
+function autoSegments(fullText){
+  const words = fullText.split(/\s+/).filter(Boolean);
+  if(words.length <= 2) return [];
+  const groups = [];
+  for(let i=0;i<words.length;i+=2) groups.push(words.slice(i,i+2).join(' '));
+  return groups;
+}
+function buildSurahs(raw){
+  return raw.map(s => {
+    const verses = s.verseTexts.map((fullText, i) => {
+      const verseNumber = i+1;
+      const verseId = `${s.surahId}-v${verseNumber}`;
+      const segmentTexts = autoSegments(fullText);
+      const segments = segmentTexts.map((segmentText, si) => ({
+        segmentId: `${verseId}-s${si+1}`,
+        segmentOrder: si+1,
+        segmentText
+      }));
+      return {
+        verseId, surahId: s.surahId, verseNumber, fullText,
+        audio: `${s.audioCode}-${pad(verseNumber)}`,
+        segments
+      };
+    });
+    return {surahId:s.surahId, surahName:s.surahName, symbol:s.symbol, label:s.label, audioCode:s.audioCode, verses};
+  });
+}
+const surahs = buildSurahs(RAW_SURAHS);
 
 const GIFTS = [
   {id:'surah-fatiha', stars:0, icon:'🌅', type:'سورة', title:'سورة الفاتحة بالتكرار', note:'هدية البداية: نسمع الفاتحة بهدوء ونردد.', url:'https://www.youtube.com/watch?v=Uufkkk6D2lk'},
@@ -70,14 +105,16 @@ const voicePlayer = $('voicePlayer');
 
 const state = {
   surahIndex: Number(localStorage.getItem('rim.surahIndex') || 0),
-  ayahIndex: Number(localStorage.getItem('rim.ayahIndex') || 0),
+  verseIndex: Number(localStorage.getItem('rim.ayahIndex') || 0),
   repeats: 0,
   totalStars: Number(localStorage.getItem('rim.totalStars') || 0),
   repeatGoal: Math.min(5, Math.max(1, Number(localStorage.getItem('rim.repeatGoal') || 3))),
   repeatGapSec: Math.min(8, Math.max(3, Number(localStorage.getItem('rim.repeatGapSec') || 4))),
   autoRepeatEnabled: localStorage.getItem('rim.autoRepeat') !== 'off',
-  completed: JSON.parse(localStorage.getItem('rim.completed') || '{}'),
+  completed: JSON.parse(localStorage.getItem('rim.completed') || '{}'), // سورة "مكتملة" = سُجّلت السورة كاملة، وليس فقط بلوغ آخر آية
   progress: JSON.parse(localStorage.getItem('rim.progress') || '{}'),
+  surahState: JSON.parse(localStorage.getItem('rim.surahState') || '{}'), // {introHeard, versesComplete} لكل سورة
+  segmentDone: JSON.parse(localStorage.getItem('rim.segmentDone') || '{}'), // verseId -> true بعد أول تدريب مقاطع
   recorder: null,
   chunks: [],
   recordUrl: '',
@@ -87,28 +124,38 @@ const state = {
   ayahChunks: [],
   encourageRecorder: null,
   encourageChunks: [],
+  segRecorder: null,
+  segChunks: [],
+  segRecordUrl: '',
+  surahRecorder: null,
+  surahChunks: [],
+  surahRecordUrl: '',
+  segmentIndex: 0,
+  inSegmentMode: false,
   learningStage: 'listen',
   stageToken: 0
 };
 
 function persist(){
   localStorage.setItem('rim.surahIndex', state.surahIndex);
-  localStorage.setItem('rim.ayahIndex', state.ayahIndex);
+  localStorage.setItem('rim.ayahIndex', state.verseIndex);
   localStorage.setItem('rim.totalStars', state.totalStars);
   localStorage.setItem('rim.repeatGoal', state.repeatGoal);
   localStorage.setItem('rim.repeatGapSec', state.repeatGapSec);
   localStorage.setItem('rim.autoRepeat', state.autoRepeatEnabled ? 'on' : 'off');
   localStorage.setItem('rim.completed', JSON.stringify(state.completed));
   localStorage.setItem('rim.progress', JSON.stringify(state.progress));
+  localStorage.setItem('rim.surahState', JSON.stringify(state.surahState));
+  localStorage.setItem('rim.segmentDone', JSON.stringify(state.segmentDone));
   localStorage.setItem('rim.fatherLine', state.fatherLine);
   localStorage.setItem('rim.onlineAudio', state.onlineAudio ? 'on' : 'off');
 }
 function currentSurah(){ return surahs[state.surahIndex] || surahs[0]; }
-function currentAyah(){ const s=currentSurah(); return s.ayahs[Math.min(state.ayahIndex, s.ayahs.length-1)]; }
-function pad(n){ return String(n).padStart(2,'0'); }
-function pad3(n){ return String(n).padStart(3,'0'); }
-function ayahVoiceKey(idx = state.ayahIndex){ return `${currentSurah().id}#${idx}`; }
+function currentVerse(){ const s=currentSurah(); return s.verses[Math.min(state.verseIndex, s.verses.length-1)]; }
+function currentSegment(){ const v=currentVerse(); return v.segments[Math.min(state.segmentIndex, v.segments.length-1)]; }
+function verseVoiceKey(idx = state.verseIndex){ return `${currentSurah().surahId}#${idx}`; }
 function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+function formatArabicDate(ts){ return new Date(ts).toLocaleDateString('ar', {year:'numeric', month:'long', day:'numeric'}); }
 
 // ---------- تخزين محلي في المتصفح لصوت الأب (تلاوة + تشجيع) ولتسجيلات ريم — لا تُغيَّر هذه الطبقة ----------
 function openVoiceDB(){
@@ -184,6 +231,20 @@ async function idbClear(store){
   }catch(e){ return false; }
 }
 
+// تهجير غير مدمّر: التسجيلات القديمة (قبل هذا التحديث) لم تحمل حقل type، فنُصنّفها "آية" مع وسم legacy، دون حذف أي شيء.
+async function migrateLegacyRecordings(){
+  if(localStorage.getItem('rim.recordingsMigrated') === 'yes') return;
+  const all = await idbGetAll('rimRecordings');
+  for(const rec of all){
+    if(!rec.type){
+      rec.type = 'verse';
+      rec.legacy = true;
+      await idbPut('rimRecordings', undefined, rec);
+    }
+  }
+  localStorage.setItem('rim.recordingsMigrated', 'yes');
+}
+
 // ---------- تنقل الشاشات ----------
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active', s.id===id));
@@ -196,21 +257,23 @@ function showScreen(id){
 }
 function openSurah(i){
   state.surahIndex = i;
-  state.ayahIndex = Math.min(state.progress[surahs[i].id] || 0, surahs[i].ayahs.length - 1);
+  state.verseIndex = Math.min(state.progress[surahs[i].surahId] || 0, surahs[i].verses.length - 1);
   state.repeats = 0;
+  state.segmentIndex = 0;
+  state.inSegmentMode = false;
   persist();
   showScreen('journeyScreen');
 }
 function renderSurahCards(){
   $('surahCardsGrid').innerHTML = surahs.map((s,i)=>{
-    const done = !!state.completed[s.id];
-    const prog = Math.min(state.progress[s.id] || 0, s.ayahs.length-1);
-    const pct = done ? 100 : Math.round((prog / s.ayahs.length) * 100);
+    const done = !!state.completed[s.surahId];
+    const prog = Math.min(state.progress[s.surahId] || 0, s.verses.length-1);
+    const pct = done ? 100 : Math.round((prog / s.verses.length) * 100);
     return `
     <button class="surah-card" data-i="${i}" type="button">
       <div class="surah-symbol ${s.symbol}" aria-hidden="true"></div>
-      <strong>سورة ${s.name}</strong>
-      <span>${s.ayahs.length} آيات</span>
+      <strong>سورة ${s.surahName}</strong>
+      <span>${s.verses.length} آيات</span>
       <div class="surah-progress"><i style="width:${pct}%"></i></div>
       ${done ? '<em class="done-tag">✓ ختمت</em>' : ''}
     </button>`;
@@ -220,32 +283,40 @@ function renderSurahCards(){
 
 // ---------- شاشة الآية: عنصر واحد رئيسي في كل مرحلة ----------
 function renderAyahScreen(){
-  const s=currentSurah(), a=currentAyah();
-  $('journeyMode').textContent = state.completed[s.id] ? 'مراجعة سورة محفوظة' : 'رحلة الحفظ';
-  $('surahName').textContent = `سورة ${s.name}`;
+  const s=currentSurah(), v=currentVerse();
+  $('journeyMode').textContent = state.completed[s.surahId] ? 'مراجعة سورة محفوظة' : 'رحلة الحفظ';
+  $('surahName').textContent = `سورة ${s.surahName}`;
   $('totalStars').textContent = state.totalStars;
-  $('ayahCount').textContent = `آية ${state.ayahIndex+1} / ${s.ayahs.length}`;
-  $('ayahText').textContent = a.text;
-  $('wordCloud').innerHTML = a.words.map(w=>`<span class="word" tabindex="0" role="button">${w}</span>`).join('');
-  document.querySelectorAll('.word').forEach(chip => chip.addEventListener('click', () => playAyah(true)));
-  $('wordCloud').hidden = true;
-  $('pathLine').innerHTML = s.ayahs.map((_,i)=>`<span class="step ${i<state.ayahIndex?'done':''} ${i===state.ayahIndex?'active':''}">${i+1}</span>`).join('');
+  $('ayahCount').textContent = `آية ${state.verseIndex+1} / ${s.verses.length}`;
+  $('ayahText').textContent = v.fullText;
+  $('ayahText').hidden = false;
+  $('segmentText').hidden = true;
+  updateSegmentLabel('');
+  $('pathLine').innerHTML = s.verses.map((_,i)=>`<span class="step ${i<state.verseIndex?'done':''} ${i===state.verseIndex?'active':''}">${i+1}</span>`).join('');
   $('rewardBanner').hidden = true;
   $('recordJoyCard').hidden = true;
   $('rimRecordPlayer').hidden = true;
   $('recordStatus').hidden = true;
-  setLearningStage('listen');
+  state.segmentIndex = 0;
+  state.inSegmentMode = false;
+
+  const surahProgress = state.surahState[s.surahId] || {};
+  if(state.verseIndex === 0 && !surahProgress.introHeard){
+    setLearningStage('surah-intro');
+  }else{
+    setLearningStage('listen');
+  }
 }
 
 function renderGarden(){
   $('bigStars').textContent = `${state.totalStars} ⭐`;
   const badges = surahs.map(s=>`
-    <div class="badge-card">${state.completed[s.id]?'✓':'🌱'} سورة ${s.name}<small>${state.completed[s.id]?'أتمتها ريم':'في انتظار وردة جديدة'}</small>
-      ${state.completed[s.id] ? `<button class="cert-btn" data-cert="${s.id}" type="button">🖼️ شهادة ريم</button>` : ''}
+    <div class="badge-card">${state.completed[s.surahId]?'✓':'🌱'} سورة ${s.surahName}<small>${state.completed[s.surahId]?'أتمتها ريم':'في انتظار وردة جديدة'}</small>
+      ${state.completed[s.surahId] ? `<button class="cert-btn" data-cert="${s.surahId}" type="button">🖼️ شهادة ريم</button>` : ''}
     </div>`).join('');
   $('badges').innerHTML = badges;
   document.querySelectorAll('.cert-btn').forEach(btn => btn.addEventListener('click', () => {
-    const s = surahs.find(x => x.id === btn.dataset.cert);
+    const s = surahs.find(x => x.surahId === btn.dataset.cert);
     if(s) openCertificate(s);
   }));
 }
@@ -298,27 +369,19 @@ function checkNewGift(){
     if(card) card.classList.add('just-unlocked');
   }, 900);
 }
-function visualWordPlayback(durationMs){
-  const words = [...document.querySelectorAll('.word')];
-  words.forEach(w=>w.classList.remove('active'));
-  if(!words.length) return;
-  const step = Math.max(450, durationMs / words.length);
-  words.forEach((w,i)=>setTimeout(()=>{ words.forEach(x=>x.classList.remove('active')); w.classList.add('active'); }, i*step));
-  setTimeout(()=>words.forEach(x=>x.classList.remove('active')), words.length*step+400);
-}
 
 // ---------- حلّ مصدر تلاوة أي آية: تسجيل الأب، ثم ملف محلي، ثم تلاوة حقيقية عبر الإنترنت. بدون أي نطق آلي مطلقاً ----------
-function audioSrc(idx = state.ayahIndex){
+function audioSrc(idx = state.verseIndex){
   const s=currentSurah();
-  return `assets/audio/${s.audio}-${pad(idx+1)}.mp3`;
+  return `assets/audio/${s.verses[idx].audio}.mp3`;
 }
-function onlineAudioSrc(idx = state.ayahIndex){
+function onlineAudioSrc(idx = state.verseIndex){
   const s=currentSurah();
-  const code = s.audio.split('-')[0];
+  const code = s.audioCode.split('-')[0];
   return `https://everyayah.com/data/Alafasy_128kbps/${code}${pad3(idx+1)}.mp3`;
 }
 async function resolvePlayableAudio(idx){
-  const fatherClip = await idbGet('ayahVoice', ayahVoiceKey(idx));
+  const fatherClip = await idbGet('ayahVoice', verseVoiceKey(idx));
   if(fatherClip) return {src: URL.createObjectURL(fatherClip), isBlob:true};
   return {src: audioSrc(idx), fallback: state.onlineAudio ? onlineAudioSrc(idx) : null};
 }
@@ -349,23 +412,23 @@ function playResolvedAwaitable(resolved, rate){
     setTimeout(finish, 12000);
   });
 }
-async function playAyah(slow=false){
-  const resolved = await resolvePlayableAudio(state.ayahIndex);
+function visualWordPlayback(){ /* أُبقيت للتوافق مع الاستدعاءات القديمة؛ لا كلمات منفصلة بعد الآن */ }
+async function playVerse(slow=false){
+  const resolved = await resolvePlayableAudio(state.verseIndex);
   if(!resolved.fallback && !resolved.isBlob){
-    // لا تسجيل شخصي ولا اتصال بالإنترنت مفعّل: نعرض رسالة لطيفة بدل الصمت التام
     if(!state.onlineAudio){
       $('nudgeText') && ($('nudgeText').textContent = 'لا يوجد تسجيل بعد لهذه الآية. سجّلي مع أبي، أو فعّلي التلاوة عبر الإنترنت من وضع الأب.');
     }
   }
   playResolvedAwaitable(resolved, slow ? .82 : 1);
 }
-async function playAyahAwaitable(idx, slow=false){
+async function playVerseAwaitable(idx, slow=false){
   const resolved = await resolvePlayableAudio(idx);
   await playResolvedAwaitable(resolved, slow ? .82 : 1);
 }
-async function playAyahRangeAwaitable(fromIdx, toIdx){
+async function playVerseRangeAwaitable(fromIdx, toIdx){
   for(let i=fromIdx;i<=toIdx;i++){
-    await playAyahAwaitable(i, false);
+    await playVerseAwaitable(i, false);
     if(i < toIdx) await sleep(500);
   }
 }
@@ -428,7 +491,8 @@ function giveStar(text, photo){
   playRandomEncouragement();
   checkNewGift();
 }
-function giveStarForAyah(){
+// نجمة تُمنح فقط عند تسجيل الآية كاملة (وليس عند تدريب مقطع)
+function giveStarForVerse(){
   const firstAyahEver = localStorage.getItem('rim.firstAyahRewardShown') !== 'yes';
   if(firstAyahEver){
     localStorage.setItem('rim.firstAyahRewardShown', 'yes');
@@ -437,50 +501,130 @@ function giveStarForAyah(){
     giveStar(state.fatherLine);
   }
 }
+// الانتقال بين الآيات: عند انتهاء آخر آية، تكون "آيات السورة" قد اكتملت تعليمياً، لكن السورة لا تُحتسب "مكتملة" إلا بعد تسجيلها كاملة
 function nextAyah(){
   const s=currentSurah();
-  state.progress[s.id] = state.ayahIndex;
-  if(state.ayahIndex < s.ayahs.length-1){ state.ayahIndex++; state.repeats=0; persist(); renderAyahScreen(); }
-  else {
-    const firstTimeThisSurah = !state.completed[s.id];
-    state.completed[s.id]=true;
-    state.progress[s.id] = s.ayahs.length - 1;
+  state.progress[s.surahId] = state.verseIndex;
+  if(state.verseIndex < s.verses.length-1){
+    state.verseIndex++; state.repeats=0; state.segmentIndex=0; state.inSegmentMode=false;
+    persist(); renderAyahScreen();
+  }else{
+    state.surahState[s.surahId] = state.surahState[s.surahId] || {};
+    state.surahState[s.surahId].versesComplete = true;
+    state.progress[s.surahId] = s.verses.length - 1;
     persist();
-    setLearningStage('done'); // نمنع إعادة منح النجمة إن ضغطت ريم على الزر مرة أخرى بعد ختم السورة
-    if(firstTimeThisSurah){
-      giveStar(`أتممتِ سورة ${s.name} يا ريم… هدية جميلة لقلبك.`, 'assets/rim-v2/surah-complete.webp');
-      const firstSurahEver = localStorage.getItem('rim.firstSurahRewardShown') !== 'yes';
-      if(firstSurahEver){
-        localStorage.setItem('rim.firstSurahRewardShown', 'yes');
-        setTimeout(()=>{ setRewardPhoto('assets/rim-v2/surah-complete.webp'); $('rewardTitle').textContent='🌙 أول سورة كاملة لريم'; $('rewardText').textContent=FATHER_SIGNATURE; $('rewardBanner').hidden=false; celebrateSoftly(); }, 900);
-      }
-      setTimeout(()=>openCertificate(s), 1600);
-    }else{
-      toast('أحسنتِ يا ريم، راجعتِ السورة كاملة 🌸');
-    }
+    toast(`أتممتِ آيات سورة ${s.surahName} يا ريم، الآن نسجل السورة كاملة 🌸`);
+    setLearningStage('surah-record-offer');
   }
 }
 
-// ---------- منهج "المصحف المعلّم": استماع تلقائي متكرر بفواصل هادئة، ثم تسجيل، ثم ربط الآية بما سبقها ----------
+// ---------- منهج "المصحف المعلّم": سماع السورة أولاً، ثم استماع متكرر للآية، فتدريب مقاطعها، ثم تسجيلها، ثم ربطها بما سبق ----------
+function updateSegmentLabel(text){
+  const el = $('segmentLabel');
+  if(!el) return;
+  el.textContent = text;
+  el.hidden = !text;
+}
+function showSegmentRecordBtn(){ const b=$('segmentRecordBtn'); if(b) b.hidden=false; }
+function hideSegmentRecordBtn(){ const b=$('segmentRecordBtn'); if(b) b.hidden=true; }
+function enterSegmentMode(){
+  state.segmentIndex = 0;
+  state.inSegmentMode = true;
+  setLearningStage('segment');
+}
 function setLearningStage(stage){
   state.learningStage = stage;
   const btn = $('recordBtn');
   const help = $('helpToggleBtn');
   btn.disabled = false;
-  if(stage === 'listen'){
+  btn.classList.remove('recording');
+  hideSegmentRecordBtn();
+  if(stage !== 'segment' && stage !== 'segment-next'){
+    $('ayahText').hidden = false;
+    $('segmentText').hidden = true;
+    updateSegmentLabel('');
+  }
+
+  if(stage === 'surah-intro'){
+    const s = currentSurah();
+    btn.textContent = `🔊 نسمع سورة ${s.surahName} كاملة`;
+    btn.onclick = async () => {
+      btn.disabled = true;
+      await playVerseRangeAwaitable(0, s.verses.length-1);
+      btn.disabled = false;
+      setLearningStage('surah-intro-done');
+    };
+  }else if(stage === 'surah-intro-done'){
+    btn.textContent = '▶️ نبدأ الآية الأولى';
+    btn.onclick = () => {
+      const s = currentSurah();
+      state.surahState[s.surahId] = state.surahState[s.surahId] || {};
+      state.surahState[s.surahId].introHeard = true;
+      persist();
+      setLearningStage('listen');
+    };
+  }else if(stage === 'listen'){
     btn.textContent = '🔊 اسمعي يا ريم';
-    btn.classList.remove('recording');
     btn.onclick = runListenCycle;
     if(help) help.hidden = false;
+  }else if(stage === 'segment-offer'){
+    btn.textContent = '🧩 نقسمها معاً';
+    btn.onclick = enterSegmentMode;
+  }else if(stage === 'segment'){
+    const v = currentVerse(), seg = currentSegment();
+    $('ayahText').hidden = true;
+    $('segmentText').hidden = false;
+    $('segmentText').textContent = seg.segmentText;
+    updateSegmentLabel(`المقطع ${seg.segmentOrder} من ${v.segments.length}`);
+    showSegmentRecordBtn();
+    btn.textContent = '🔊 كرري هذا المقطع';
+    btn.onclick = async () => {
+      btn.disabled = true;
+      await playVerseAwaitable(state.verseIndex, true);
+      btn.disabled = false;
+      setLearningStage('segment-next');
+    };
+  }else if(stage === 'segment-next'){
+    const v = currentVerse();
+    const isLast = state.segmentIndex >= v.segments.length - 1;
+    const seg = currentSegment();
+    $('ayahText').hidden = true;
+    $('segmentText').hidden = false;
+    $('segmentText').textContent = seg.segmentText;
+    updateSegmentLabel(`المقطع ${seg.segmentOrder} من ${v.segments.length}`);
+    showSegmentRecordBtn();
+    btn.textContent = isLast ? '✅ نقول الآية كاملة' : '➡️ المقطع التالي';
+    btn.onclick = () => {
+      if(isLast){
+        state.segmentDone[v.verseId] = true;
+        state.inSegmentMode = false;
+        persist();
+        setLearningStage('verse-recap');
+      }else{
+        state.segmentIndex++;
+        setLearningStage('segment');
+      }
+    };
+  }else if(stage === 'verse-recap'){
+    btn.textContent = '🔊 نقول الآية كاملة الآن';
+    btn.onclick = async () => {
+      btn.disabled = true;
+      await playVerseAwaitable(state.verseIndex, false);
+      btn.disabled = false;
+      setLearningStage('record');
+    };
   }else if(stage === 'record'){
     btn.textContent = RECORD_BTN_IDLE_LABEL;
     btn.onclick = toggleRecord;
   }else if(stage === 'star'){
     btn.textContent = '⭐ نجمتي';
-    btn.onclick = () => { giveStarForAyah(); setLearningStage('next'); };
+    btn.onclick = () => { giveStarForVerse(); setLearningStage('next'); };
   }else if(stage === 'next'){
     btn.textContent = '➡️ نكمل؟';
     btn.onclick = goToNextAyahWithLink;
+  }else if(stage === 'surah-record-offer'){
+    btn.textContent = SURAH_RECORD_IDLE_LABEL;
+    btn.onclick = toggleSurahRecord;
   }else if(stage === 'done'){
     btn.textContent = '🌙 سورة أخرى؟';
     btn.onclick = () => showScreen('surahPickerScreen');
@@ -494,21 +638,26 @@ async function runListenCycle(){
   const times = state.autoRepeatEnabled ? state.repeatGoal : 1;
   for(let i=0;i<times;i++){
     if(state.stageToken !== myToken) return;
-    await playAyahAwaitable(state.ayahIndex, false);
+    await playVerseAwaitable(state.verseIndex, false);
     if(state.stageToken !== myToken) return;
     if(i < times-1) await sleep(state.repeatGapSec*1000);
   }
   if(state.stageToken !== myToken) return;
   btn.disabled = false;
-  setLearningStage('record');
+  const v = currentVerse();
+  if(v.segments.length > 1 && !state.segmentDone[v.verseId]){
+    setLearningStage('segment-offer');
+  }else{
+    setLearningStage('record');
+  }
 }
 async function goToNextAyahWithLink(){
   const myToken = ++state.stageToken;
   const btn = $('recordBtn');
-  if(state.ayahIndex >= 1){
+  if(state.verseIndex >= 1){
     btn.disabled = true;
-    btn.textContent = 'نربطها بما سبق…';
-    await playAyahRangeAwaitable(0, state.ayahIndex);
+    btn.textContent = state.verseIndex === 1 ? 'نردد الآيتين معاً…' : `نردد الآيات 1 إلى ${state.verseIndex+1}…`;
+    await playVerseRangeAwaitable(0, state.verseIndex);
     if(state.stageToken !== myToken) return;
   }
   recordActiveDay();
@@ -516,7 +665,7 @@ async function goToNextAyahWithLink(){
 }
 function playFullSurah(){
   const s = currentSurah();
-  playAyahRangeAwaitable(0, s.ayahs.length-1);
+  playVerseRangeAwaitable(0, s.verses.length-1);
 }
 
 // ---------- متابعة الحضور: أيام متتالية وعودة بعد انقطاع ----------
@@ -597,6 +746,7 @@ function clearRecordTimer(){
   if(state.recordTimerId){ clearTimeout(state.recordTimerId); state.recordTimerId = null; }
 }
 
+// تسجيل الآية كاملة — النواة الأصلية غير مُعدَّلة سوى بإضافة حقل type:'verse' للتصنيف
 async function toggleRecord(){
   const btn = $('recordBtn');
 
@@ -666,18 +816,20 @@ async function toggleRecord(){
       if(!wasAutoStopped) setRecordStatus('أحسنتِ يا ريم، هذا صوتك الجميل 🌸');
       showRecordJoyCard();
 
-      const s = currentSurah(), a = currentAyah();
+      const s = currentSurah(), v = currentVerse();
       const rec = {
         id: `${Date.now()}-${Math.random().toString(36).slice(2,8)}`,
-        surahId: s.id,
-        surahName: s.name,
-        ayahIndex: state.ayahIndex,
-        ayahText: a.text,
+        surahId: s.surahId,
+        surahName: s.surahName,
+        ayahIndex: state.verseIndex,
+        verseNumber: v.verseNumber,
+        ayahText: v.fullText,
         createdAt: Date.now(),
         starsAtRecording: state.totalStars,
         audioBlob: blob,
         mimeType: usedMime,
-        isBest: false
+        isBest: false,
+        type: 'verse'
       };
       const saved = await idbPut('rimRecordings', undefined, rec);
       console.log('saved to IndexedDB', saved, rec.id);
@@ -712,30 +864,277 @@ async function toggleRecord(){
   }
 }
 
-// ---------- ألبوم صوت ريم: استعراض/تشغيل/حذف/تمييز أفضل قراءة ----------
-function recordingBadges(r, all, indexInAll){
+// ---------- تسجيل مقطع تدريبي قصير (اختياري، لا يُحتسب كآية) — نسخة منفصلة بحالتها الخاصة ولا تمس منطق التسجيل الأصلي ----------
+const SEGMENT_RECORD_IDLE_LABEL = '🎙️ سجلي هذا المقطع';
+const SEGMENT_RECORD_ACTIVE_LABEL = '⏹️ إيقاف تسجيل المقطع';
+const SEGMENT_MAX_RECORD_MS = 15000;
+
+function clearSegRecordTimer(){
+  if(state.segRecordTimerId){ clearTimeout(state.segRecordTimerId); state.segRecordTimerId = null; }
+}
+async function toggleSegmentRecord(){
+  const btn = $('segmentRecordBtn');
+  if(!btn) return;
+
+  if(state.segRecorder && state.segRecorder.state === 'recording'){
+    state.segRecordAutoStopped = false;
+    clearSegRecordTimer();
+    state.segRecorder.stop();
+    return;
+  }
+
+  if(!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) || typeof MediaRecorder === 'undefined'){
+    setRecordStatus('هذا الهاتف لا يسمح بالتسجيل من المتصفح. جرّب Chrome أو فعّل إذن الميكروفون.');
+    return;
+  }
+
+  let stream;
+  try{
+    stream = await navigator.mediaDevices.getUserMedia({audio:true});
+  }catch(e){
+    setRecordStatus('يجب السماح للميكروفون من إعدادات المتصفح حتى تسجل ريم صوتها.');
+    return;
+  }
+
+  try{
+    const mimeType = pickSupportedMimeType();
+    state.segChunks = [];
+    state.segRecordMime = mimeType || 'audio/webm';
+    state.segRecorder = mimeType ? new MediaRecorder(stream, {mimeType}) : new MediaRecorder(stream);
+
+    state.segRecorder.ondataavailable = e => { if(e.data && e.data.size > 0) state.segChunks.push(e.data); };
+
+    state.segRecorder.onerror = (e) => {
+      console.log('segment recording error', e.error || e);
+      setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
+      clearSegRecordTimer();
+      stream.getTracks().forEach(t=>t.stop());
+      btn.textContent = SEGMENT_RECORD_IDLE_LABEL;
+      btn.classList.remove('recording');
+    };
+
+    state.segRecorder.onstop = async () => {
+      clearSegRecordTimer();
+      stream.getTracks().forEach(t=>t.stop());
+      btn.textContent = SEGMENT_RECORD_IDLE_LABEL;
+      btn.classList.remove('recording');
+
+      const usedMime = state.segRecorder.mimeType || state.segRecordMime || 'audio/webm';
+      const blob = new Blob(state.segChunks, {type: usedMime});
+      if(!blob.size){
+        setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
+        return;
+      }
+      if(state.segRecordUrl) URL.revokeObjectURL(state.segRecordUrl);
+      state.segRecordUrl = URL.createObjectURL(blob);
+      setRecordStatus('سمعنا تدريبك على المقطع يا ريم 🌸');
+
+      const s = currentSurah(), v = currentVerse(), seg = currentSegment();
+      const rec = {
+        id: `${Date.now()}-${Math.random().toString(36).slice(2,8)}`,
+        surahId: s.surahId,
+        surahName: s.surahName,
+        verseNumber: v.verseNumber,
+        segmentOrder: seg.segmentOrder,
+        ayahText: seg.segmentText,
+        createdAt: Date.now(),
+        starsAtRecording: state.totalStars,
+        audioBlob: blob,
+        mimeType: usedMime,
+        isBest: false,
+        type: 'segment'
+      };
+      await idbPut('rimRecordings', undefined, rec);
+      refreshRimRecordingsIfOpen();
+    };
+
+    state.segRecorder.start();
+    btn.textContent = SEGMENT_RECORD_ACTIVE_LABEL;
+    btn.classList.add('recording');
+    setRecordStatus('ريم تسجل المقطع الآن 🎙️');
+    state.segRecordAutoStopped = false;
+    clearSegRecordTimer();
+    state.segRecordTimerId = setTimeout(() => {
+      if(state.segRecorder && state.segRecorder.state === 'recording'){
+        state.segRecordAutoStopped = true;
+        state.segRecorder.stop();
+      }
+    }, SEGMENT_MAX_RECORD_MS);
+  }catch(e){
+    setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
+    stream.getTracks().forEach(t=>t.stop());
+  }
+}
+
+// ---------- تسجيل السورة كاملة بعد إتمام آياتها — نسخة منفصلة بحالتها الخاصة، وهي التي تُحدث "ختم السورة" فعلياً ----------
+const SURAH_RECORD_IDLE_LABEL = '🎙️ سجلي السورة كاملة';
+const SURAH_RECORD_ACTIVE_LABEL = '⏹️ أوقفي تسجيل السورة';
+const SURAH_MAX_RECORD_MS = 90000;
+
+function clearSurahRecordTimer(){
+  if(state.surahRecordTimerId){ clearTimeout(state.surahRecordTimerId); state.surahRecordTimerId = null; }
+}
+async function toggleSurahRecord(){
+  const btn = $('recordBtn');
+
+  if(state.surahRecorder && state.surahRecorder.state === 'recording'){
+    state.surahRecordAutoStopped = false;
+    clearSurahRecordTimer();
+    state.surahRecorder.stop();
+    return;
+  }
+
+  if(!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) || typeof MediaRecorder === 'undefined'){
+    setRecordStatus('هذا الهاتف لا يسمح بالتسجيل من المتصفح. جرّب Chrome أو فعّل إذن الميكروفون.');
+    return;
+  }
+
+  let stream;
+  try{
+    stream = await navigator.mediaDevices.getUserMedia({audio:true});
+  }catch(e){
+    setRecordStatus('يجب السماح للميكروفون من إعدادات المتصفح حتى تسجل ريم صوتها.');
+    return;
+  }
+
+  try{
+    const mimeType = pickSupportedMimeType();
+    state.surahChunks = [];
+    state.surahRecordMime = mimeType || 'audio/webm';
+    state.surahRecorder = mimeType ? new MediaRecorder(stream, {mimeType}) : new MediaRecorder(stream);
+
+    state.surahRecorder.ondataavailable = e => { if(e.data && e.data.size > 0) state.surahChunks.push(e.data); };
+
+    state.surahRecorder.onerror = (e) => {
+      console.log('surah recording error', e.error || e);
+      setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
+      clearSurahRecordTimer();
+      stream.getTracks().forEach(t=>t.stop());
+      btn.textContent = SURAH_RECORD_IDLE_LABEL;
+      btn.classList.remove('recording');
+    };
+
+    state.surahRecorder.onstop = async () => {
+      clearSurahRecordTimer();
+      stream.getTracks().forEach(t=>t.stop());
+      btn.classList.remove('recording');
+
+      const wasAutoStopped = state.surahRecordAutoStopped;
+      state.surahRecordAutoStopped = false;
+      if(wasAutoStopped) setRecordStatus('انتهى تسجيل السورة يا ريم، أحسنتِ 🌸');
+
+      const usedMime = state.surahRecorder.mimeType || state.surahRecordMime || 'audio/webm';
+      const blob = new Blob(state.surahChunks, {type: usedMime});
+
+      if(!blob.size){
+        setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
+        btn.textContent = SURAH_RECORD_IDLE_LABEL;
+        return;
+      }
+
+      if(state.surahRecordUrl) URL.revokeObjectURL(state.surahRecordUrl);
+      state.surahRecordUrl = URL.createObjectURL(blob);
+      showRimRecordingPlayer(state.surahRecordUrl);
+      if(!wasAutoStopped) setRecordStatus('أحسنتِ يا ريم، سجلتِ السورة كاملة 🌸');
+
+      const s = currentSurah();
+      const rec = {
+        id: `${Date.now()}-${Math.random().toString(36).slice(2,8)}`,
+        surahId: s.surahId,
+        surahName: s.surahName,
+        createdAt: Date.now(),
+        starsAtRecording: state.totalStars,
+        audioBlob: blob,
+        mimeType: usedMime,
+        isBest: false,
+        type: 'surah',
+        totalVerses: s.verses.length
+      };
+      await idbPut('rimRecordings', undefined, rec);
+      refreshRimRecordingsIfOpen();
+
+      const firstTimeThisSurah = !state.completed[s.surahId];
+      state.completed[s.surahId] = true;
+      persist();
+
+      if(firstTimeThisSurah){
+        giveStar(`أتممتِ سورة ${s.surahName} يا ريم… هدية جميلة لقلبك.`, 'assets/rim-v2/surah-complete.webp');
+        const firstSurahEver = localStorage.getItem('rim.firstSurahRewardShown') !== 'yes';
+        if(firstSurahEver){
+          localStorage.setItem('rim.firstSurahRewardShown', 'yes');
+          setTimeout(()=>{ setRewardPhoto('assets/rim-v2/surah-complete.webp'); $('rewardTitle').textContent='🌙 أول سورة كاملة لريم'; $('rewardText').textContent=FATHER_SIGNATURE; $('rewardBanner').hidden=false; celebrateSoftly(); }, 900);
+        }
+        setTimeout(()=>openCertificate(s), 1600);
+      }else{
+        toast('أحسنتِ يا ريم، سجلتِ السورة كاملة مرة أخرى 🌸');
+      }
+      setLearningStage('done');
+    };
+
+    state.surahRecorder.start();
+    btn.textContent = SURAH_RECORD_ACTIVE_LABEL;
+    btn.classList.add('recording');
+    setRecordStatus('ريم تسجل السورة كاملة الآن 🎙️');
+    state.surahRecordAutoStopped = false;
+    clearSurahRecordTimer();
+    state.surahRecordTimerId = setTimeout(() => {
+      if(state.surahRecorder && state.surahRecorder.state === 'recording'){
+        state.surahRecordAutoStopped = true;
+        state.surahRecorder.stop();
+      }
+    }, SURAH_MAX_RECORD_MS);
+  }catch(e){
+    setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
+    stream.getTracks().forEach(t=>t.stop());
+  }
+}
+
+// ---------- ألبوم صوت ريم: استعراض/تشغيل/حذف/تمييز أفضل قراءة، مع تصنيف حسب نوع التسجيل ----------
+let recordingsFilter = 'all';
+function typeLabel(type){
+  if(type==='segment') return 'تدريب على مقطع';
+  if(type==='surah') return 'تسجيل السورة كاملة';
+  return 'تسجيل آية كاملة';
+}
+function filteredRecordings(all){
+  if(recordingsFilter === 'all') return all;
+  return all.filter(r => (r.type || 'verse') === recordingsFilter);
+}
+function recordingBadges(r, all){
   const badges = [];
   const sameSurah = all.filter(x=>x.surahId===r.surahId);
-  if(indexInAll === all.length-1) badges.push('أول محاولة');
+  if(all.length && r.id === all[all.length-1].id) badges.push('أول محاولة');
   if(r.isBest) badges.push('صوت جميل');
   if(sameSurah.length >= 3) badges.push('تقدم رائع');
   return badges;
 }
 async function renderRimRecordings(){
-  const recordings = await idbGetAll('rimRecordings');
-  recordings.sort((a,b)=> b.createdAt - a.createdAt);
-  console.log('loaded recordings count', recordings.length);
+  const all = await idbGetAll('rimRecordings');
+  all.sort((a,b)=> b.createdAt - a.createdAt);
+  const recordings = filteredRecordings(all);
+  console.log('loaded recordings count', all.length, 'shown', recordings.length);
 
   $('recordingsEmpty').hidden = recordings.length > 0;
   $('recordingsList').innerHTML = recordings.map((r,i) => {
-    const badges = recordingBadges(r, recordings, i);
+    const badges = recordingBadges(r, all);
     const phrase = albumEncouragements[i % albumEncouragements.length];
+    const type = r.type || 'verse';
+    const verseNum = r.verseNumber || (r.ayahIndex!=null ? r.ayahIndex+1 : '؟');
+    const title = type==='surah'
+      ? `🎧 سورة ${r.surahName} كاملة`
+      : type==='segment'
+        ? `🧩 سورة ${r.surahName} — مقطع من الآية ${verseNum}`
+        : `🎙️ سورة ${r.surahName} — الآية ${verseNum}`;
+    const sub = type==='surah'
+      ? `${r.totalVerses || ''} آيات مسجّلة معاً`.trim()
+      : (r.ayahText || '').slice(0, 40) + ((r.ayahText||'').length>40?'…':'');
     return `
     <div class="recording-item" data-id="${r.id}">
       <div class="rec-info">
-        <b>🎙️ سورة ${r.surahName} — الآية ${r.ayahIndex + 1}</b>
-        <p class="rec-ayah">${(r.ayahText || '').slice(0, 40)}${(r.ayahText||'').length>40?'…':''}</p>
-        <small>${new Date(r.createdAt).toLocaleDateString('ar', {year:'numeric', month:'long', day:'numeric'})}</small>
+        <span class="rec-type-badge rec-type-${type}">${typeLabel(type)}</span>
+        <b>${title}</b>
+        <p class="rec-ayah">${sub}</p>
+        <small>${formatArabicDate(r.createdAt)}</small>
         <div class="rec-badges">${badges.map(b=>`<span class="rec-badge">${b}</span>`).join('')}</div>
         <p class="rec-phrase">${phrase}</p>
       </div>
@@ -786,17 +1185,22 @@ async function renderVoiceFollowUp(){
   recordings.sort((a,b)=> b.createdAt - a.createdAt);
   $('followUpCount').textContent = String(recordings.length);
   const last = recordings[0];
-  $('followUpLast').textContent = last
-    ? `سورة ${last.surahName} — آية ${last.ayahIndex+1} (${new Date(last.createdAt).toLocaleDateString('ar', {year:'numeric', month:'long', day:'numeric'})})`
-    : 'لا يوجد بعد';
+  if(!last){
+    $('followUpLast').textContent = 'لا يوجد بعد';
+  }else if(last.type === 'surah'){
+    $('followUpLast').textContent = `سورة ${last.surahName} كاملة (${formatArabicDate(last.createdAt)})`;
+  }else{
+    const verseNum = last.verseNumber || (last.ayahIndex!=null ? last.ayahIndex+1 : '؟');
+    $('followUpLast').textContent = `سورة ${last.surahName} — آية ${verseNum} (${formatArabicDate(last.createdAt)})`;
+  }
   const s = currentSurah();
-  $('followUpSurah').textContent = `سورة ${s.name}`;
-  $('followUpAyah').textContent = `آية ${state.ayahIndex+1} / ${s.ayahs.length}`;
+  $('followUpSurah').textContent = `سورة ${s.surahName}`;
+  $('followUpAyah').textContent = `آية ${state.verseIndex+1} / ${s.verses.length}`;
 }
 
 // ---------- استوديو صوت الأب: تلاوة شخصية للآية + عبارات تشجيع — لا تُغيَّر هذه الطبقة ----------
 async function refreshVoiceStudio(){
-  const clip = await idbGet('ayahVoice', ayahVoiceKey());
+  const clip = await idbGet('ayahVoice', verseVoiceKey());
   $('ayahVoiceStatus').textContent = clip ? 'تم تسجيل تلاوتك لهذه الآية ✓' : 'لا يوجد تسجيل بعد لهذه الآية';
   $('playAyahVoiceBtn').disabled = !clip;
   $('clearAyahVoiceBtn').disabled = !clip;
@@ -816,18 +1220,18 @@ async function toggleAyahRecord(){
     state.ayahRecorder.onstop = async () => {
       stream.getTracks().forEach(t=>t.stop());
       const blob = new Blob(state.ayahChunks, {type:'audio/webm'});
-      await idbPut('ayahVoice', ayahVoiceKey(), blob);
+      await idbPut('ayahVoice', verseVoiceKey(), blob);
       refreshVoiceStudio();
     };
     state.ayahRecorder.start(); btn.textContent='إيقاف التسجيل'; btn.classList.add('recording');
   }catch(e){ $('ayahVoiceStatus').textContent = 'يحتاج إذن الميكروفون من المتصفح.'; }
 }
 async function playAyahVoice(){
-  const clip = await idbGet('ayahVoice', ayahVoiceKey());
+  const clip = await idbGet('ayahVoice', verseVoiceKey());
   if(clip){ voicePlayer.src = URL.createObjectURL(clip); voicePlayer.play().catch(()=>{}); }
 }
 async function clearAyahVoice(){
-  await idbDelete('ayahVoice', ayahVoiceKey());
+  await idbDelete('ayahVoice', verseVoiceKey());
   refreshVoiceStudio();
 }
 async function toggleEncourageRecord(){
@@ -855,7 +1259,7 @@ async function clearEncouragements(){
   refreshVoiceStudio();
 }
 
-// ---------- شهادة إنجاز قابلة للحفظ والمشاركة، تُرسم عند إتمام كل سورة ----------
+// ---------- شهادة إنجاز قابلة للحفظ والمشاركة، تُرسم عند تسجيل كل سورة كاملة ----------
 function loadImage(src){
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -902,7 +1306,7 @@ async function drawCertificate(surahObj){
   ctx.fillText('ريم', W/2, 715);
   ctx.font = '38px sans-serif';
   ctx.fillStyle = '#6b6156';
-  ctx.fillText(`أتمّت بفضل الله حفظ سورة ${surahObj.name}`, W/2, 800);
+  ctx.fillText(`أتمّت بفضل الله حفظ سورة ${surahObj.surahName}`, W/2, 800);
   ctx.font = '30px sans-serif';
   ctx.fillStyle = '#8a8074';
   const dateStr = new Date().toLocaleDateString('ar', {year:'numeric', month:'long', day:'numeric'});
@@ -933,7 +1337,7 @@ function downloadCertificate(){
   }, 'image/png');
 }
 
-// ---------- المساعدة الاختيارية: سماع ببطء + نقسمها معاً + سماع السورة كاملة ----------
+// ---------- المساعدة الاختيارية: سماع ببطء + سماع السورة كاملة + ألبوم صوت ريم ----------
 function toggleHelp(){
   const panel = $('helpPanel');
   panel.hidden = !panel.hidden;
@@ -942,8 +1346,9 @@ function toggleHelp(){
 function init(){
   renderSurahCards(); renderGarden();
   checkWelcomeBack();
+  migrateLegacyRecordings();
   $('startJourneyBtn').onclick=()=> showScreen('surahPickerScreen');
-  $('shortcutListen').onclick=()=> { showScreen('journeyScreen'); setTimeout(()=>playAyah(false),300); };
+  $('shortcutListen').onclick=()=> { showScreen('journeyScreen'); setTimeout(()=>playVerse(false),300); };
   $('shortcutMemorize').onclick=()=> showScreen('surahPickerScreen');
   $('shortcutGifts').onclick=()=> showScreen('giftsScreen');
   $('homeBtn').onclick=()=> showScreen('homeScreen');
@@ -951,6 +1356,7 @@ function init(){
   $('backToHomeFromPicker').onclick=()=> showScreen('homeScreen');
 
   $('recordBtn').onclick=toggleRecord; // القيمة الابتدائية؛ setLearningStage تُعيد ضبطها حسب المرحلة
+  $('segmentRecordBtn').onclick=toggleSegmentRecord;
   $('playRecordBtn').onclick=()=>{ if(state.recordUrl) new Audio(state.recordUrl).play(); };
   $('openRimRecordingsBtn').onclick=openRimAlbum;
   $('closeRecordingsBtn').onclick=()=> $('recordingsDialog').close();
@@ -958,9 +1364,16 @@ function init(){
   $('joyRetryBtn').onclick=()=>{ $('recordJoyCard').hidden = true; toggleRecord(); };
   $('speakRewardBtn').onclick=()=> speak($('rewardText').textContent);
 
+  document.querySelectorAll('#recordingsFilters .filter-btn').forEach(b=>{
+    b.addEventListener('click', () => {
+      recordingsFilter = b.dataset.filter;
+      document.querySelectorAll('#recordingsFilters .filter-btn').forEach(x=>x.classList.toggle('active', x===b));
+      renderRimRecordings();
+    });
+  });
+
   $('helpToggleBtn').onclick=toggleHelp;
-  $('helpSlowBtn').onclick=()=> playAyah(true);
-  $('helpSplitBtn').onclick=()=>{ $('wordCloud').hidden = !$('wordCloud').hidden; };
+  $('helpSlowBtn').onclick=()=> playVerse(true);
   $('helpFullSurahBtn').onclick=()=> playFullSurah();
 
   document.querySelectorAll('.nav-item').forEach(b=>b.onclick=()=>showScreen(b.dataset.target));
@@ -984,7 +1397,7 @@ function init(){
     persist();
     $('parentDialog').close();
   };
-  $('resetProgress').onclick=()=>{ if(confirm('هل تريد فعلاً إعادة النجوم والتقدم؟')){ state.totalStars=0; state.completed={}; state.progress={}; state.ayahIndex=0; state.repeats=0; persist(); renderSurahCards(); renderGarden(); }};
+  $('resetProgress').onclick=()=>{ if(confirm('هل تريد فعلاً إعادة النجوم والتقدم؟')){ state.totalStars=0; state.completed={}; state.progress={}; state.surahState={}; state.segmentDone={}; state.verseIndex=0; state.repeats=0; persist(); renderSurahCards(); renderGarden(); }};
   $('openAlbumFromParent').onclick=()=>{ $('parentDialog').close(); openRimAlbum(); };
   $('recordAyahBtn').onclick=toggleAyahRecord;
   $('playAyahVoiceBtn').onclick=playAyahVoice;
