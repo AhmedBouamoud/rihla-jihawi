@@ -210,9 +210,15 @@ select,input[type=text]{width:100%;border:1px solid var(--stroke);background:#ff
 .enc-track-top input[type=checkbox]{width:auto;flex:0 0 auto}
 .enc-track-top input[type=text]{flex:1;min-width:120px;padding:7px 10px;border-radius:12px}
 .enc-missing-badge{background:#fff5f2;color:#a5432f;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:900;white-space:nowrap}
-.enc-track-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.enc-track-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center}
 .enc-track-actions select{flex:1;min-width:90px;padding:7px 8px;font-size:13px}
 .enc-track-actions button{min-height:38px;padding:7px 10px;font-size:13px}
+.enc-priority-label{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:var(--muted);margin:0;flex:0 0 auto}
+.enc-priority-label input[type=number]{width:48px;padding:6px;border-radius:10px;text-align:center;font-size:13px}
+.enc-track-flags{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;font-size:12px;font-weight:700;color:var(--muted)}
+.enc-track-flags label{display:flex;align-items:center;gap:5px;margin:0;font-weight:700}
+.enc-track-flags input{width:auto}
+#encouragementVolume{width:100%;margin-top:4px}
 
 .cert-dialog-card{text-align:center}
 #certificateCanvas{width:100%;max-width:320px;height:auto;border-radius:20px;box-shadow:var(--shadow);margin:8px auto 0;display:block}
