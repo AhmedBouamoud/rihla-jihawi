@@ -116,6 +116,20 @@ button,input,select{font:inherit}
 .badge-card small{display:block;color:var(--muted);margin-top:6px;font-weight:700}
 .badge-card .cert-btn{margin-top:10px;width:100%;border:0;border-radius:14px;background:#fff;color:var(--gold-deep);font-weight:1000;padding:9px 10px;cursor:pointer;border:1px solid var(--stroke)}
 
+.family-card{margin:14px 0 0;padding:10px;background:#fff;border:1px solid var(--stroke);border-radius:22px;box-shadow:var(--shadow);text-align:center}
+.family-card img{width:100%;max-height:200px;object-fit:cover;object-position:center 20%;border-radius:16px;display:block}
+.family-card figcaption{margin-top:8px;font-weight:900;color:var(--muted)}
+.family-card.empty{display:none}
+
+.moments-strip{margin-top:14px}
+.moments-title{display:block;color:var(--muted);font-weight:900;font-size:13px;margin-bottom:8px}
+.moments-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.moments-scroll img{flex:0 0 auto;width:92px;height:115px;object-fit:cover;object-position:center 18%;border-radius:16px;scroll-snap-align:start;box-shadow:var(--shadow)}
+
+.follow-up-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.follow-up-head img{width:44px;height:44px;border-radius:14px;object-fit:cover;object-position:center 15%}
+.follow-up-head h3{margin:0;font-size:17px}
+
 /* ---------- صندوق نور ريم ---------- */
 .gift-stats{display:flex;align-items:center;gap:14px;padding:16px;margin-bottom:14px;background:#fff;border:1px solid var(--stroke);border-radius:22px}
 .gift-icon-big{font-size:30px}
@@ -125,7 +139,8 @@ button,input,select{font:inherit}
 .gift-card{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:center;background:#fff;border:1px solid var(--stroke);border-radius:22px;padding:14px;box-shadow:var(--shadow);transition:box-shadow .3s ease}
 .gift-card.locked{filter:saturate(.55);opacity:.68}
 .gift-card.open.just-unlocked{box-shadow:0 0 0 6px rgba(217,184,119,.35)}
-.gift-icon{width:56px;height:56px;border-radius:18px;display:grid;place-items:center;background:var(--cream2);font-size:26px}
+.gift-icon{width:56px;height:56px;border-radius:18px;display:grid;place-items:center;background:var(--cream2);font-size:26px;overflow:hidden}
+.gift-icon img{width:100%;height:100%;object-fit:cover;object-position:center 15%}
 .gift-type{color:var(--sky-deep);font-size:11px;font-weight:1000}
 .gift-card h3{margin:4px 0;font-size:16px}
 .gift-card p{margin:0 0 10px;color:var(--muted);line-height:1.5;font-weight:700;font-size:14px}
@@ -185,7 +200,7 @@ select,input[type=text]{width:100%;border:1px solid var(--stroke);background:#ff
 
 .album-photo{margin:0 0 14px;text-align:center}
 .album-photo img{width:100%;max-height:160px;object-fit:cover;border-radius:18px;display:block}
-.album-photo .soft-fallback{position:static;height:120px;border-radius:18px;display:block}
+.album-photo.empty .soft-fallback{position:static;height:120px;border-radius:18px;display:block}
 .album-photo.empty img{display:none}
 
 .recording-item{background:#fff;border:1px solid var(--stroke);border-radius:20px;padding:14px;margin-bottom:12px}

@@ -27,7 +27,10 @@
     <!-- الصفحة الرئيسية: هادئة جداً -->
     <section class="screen home-screen active" id="homeScreen">
       <figure class="rim-frame main-frame">
-        <img src="assets/rim/rim-hero.jpg" alt="ريم" onerror="this.parentElement.classList.add('empty'); this.remove();" />
+        <picture>
+          <source media="(min-width:480px)" srcset="assets/rim-v2/hero-wide.webp" />
+          <img src="assets/rim-v2/hero.webp" alt="ريم" onerror="this.parentElement.classList.add('empty'); this.remove();" />
+        </picture>
         <div class="soft-fallback" aria-hidden="true"></div>
       </figure>
 
@@ -84,7 +87,7 @@
 
       <section class="reward-banner" id="rewardBanner" hidden>
         <figure class="rim-frame reward-frame">
-          <img src="assets/rim/rim-reward.jpg" alt="ريم فرحة" onerror="this.parentElement.classList.add('empty'); this.remove();" />
+          <img id="rewardPhoto" src="assets/rim-v2/reward.webp" alt="ريم فرحة" loading="lazy" onerror="this.parentElement.classList.add('empty'); this.remove();" />
           <div class="soft-fallback small" aria-hidden="true"></div>
         </figure>
         <div>
@@ -113,6 +116,21 @@
         <p>كل نجمة تعني محاولة جميلة، وكل محاولة خطوة نحو الحفظ.</p>
         <div class="big-stars" id="bigStars">0 ⭐</div>
         <div class="badges" id="badges"></div>
+      </div>
+
+      <figure class="family-card">
+        <img src="assets/rim-v2/special-family.webp" alt="ريم وأبوها" loading="lazy" onerror="this.parentElement.classList.add('empty'); this.remove();" />
+        <figcaption>ريم وأبوها 💛</figcaption>
+      </figure>
+
+      <div class="moments-strip">
+        <span class="moments-title">لحظات نور ريم</span>
+        <div class="moments-scroll">
+          <img src="assets/rim-v2/first-voice.webp" alt="" loading="lazy" />
+          <img src="assets/rim-v2/prayer-room.webp" alt="" loading="lazy" />
+          <img src="assets/rim-v2/pride-embrace.webp" alt="" loading="lazy" />
+          <img src="assets/rim-v2/listening.webp" alt="" loading="lazy" />
+        </div>
       </div>
     </section>
 
@@ -183,7 +201,10 @@
       </div>
 
       <div class="follow-up">
-        <h3>📊 متابعة صوت ريم</h3>
+        <div class="follow-up-head">
+          <img src="assets/rim-v2/pride-embrace.webp" alt="" loading="lazy" />
+          <h3>📊 متابعة صوت ريم</h3>
+        </div>
         <div class="follow-up-grid">
           <div><span>عدد التسجيلات</span><b id="followUpCount">0</b></div>
           <div><span>آخر تسجيل</span><b id="followUpLast">لا يوجد بعد</b></div>
@@ -239,7 +260,7 @@
       <button class="close" id="closeRecordingsBtn" type="button">×</button>
       <h2>ألبوم صوت ريم</h2>
       <figure class="album-photo">
-        <img src="assets/rim/rim-family.jpg" alt="ريم وأبوها" onerror="this.parentElement.classList.add('empty'); this.remove();" />
+        <img src="assets/rim-v2/album-header.webp" alt="ريم وأبوها" loading="lazy" onerror="this.parentElement.classList.add('empty'); this.remove();" />
         <div class="soft-fallback small" aria-hidden="true"></div>
       </figure>
       <p id="recordingsEmpty">لا توجد تسجيلات بعد. سجّلي صوتك يا ريم من شاشة الحفظ.</p>
