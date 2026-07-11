@@ -393,6 +393,7 @@ function nextAyah(){
 }
 const RECORD_BTN_IDLE_LABEL = '🎙️ سجلي صوتك يا ريم';
 const RECORD_BTN_ACTIVE_LABEL = '⏹️ أوقفي التسجيل';
+const MAX_RECORD_MS = 25000; // مدة كافية لآية قصيرة، مناسبة لطفلة ولا تُتعب الانتباه
 
 function setRecordStatus(msg){
   const el = $('recordStatus');
@@ -413,11 +414,31 @@ function showRimRecordingPlayer(url){
   player.hidden = false;
   $('playRecordBtn').disabled = false;
 }
+function showRecordJoyCard(){
+  $('recordJoyCard').hidden = false;
+}
+function showFirstRecordingGift(){
+  state.totalStars += 1;
+  persist();
+  $('totalStars').textContent = state.totalStars;
+  $('rewardTitle').textContent = '🎁 هدية: أول صوت لريم';
+  $('rewardText').textContent = 'بابا سعيد جداً بأول تسجيل لصوتك يا ريم! هذه بداية جميلة.';
+  $('rewardBanner').hidden = false;
+  triggerConfetti();
+  playChime();
+  vibrateCelebrate();
+}
+
+function clearRecordTimer(){
+  if(state.recordTimerId){ clearTimeout(state.recordTimerId); state.recordTimerId = null; }
+}
 
 async function toggleRecord(){
   const btn = $('recordBtn');
 
   if(state.recorder && state.recorder.state === 'recording'){
+    state.recordAutoStopped = false;
+    clearRecordTimer();
     state.recorder.stop();
     return;
   }
@@ -433,7 +454,7 @@ async function toggleRecord(){
     stream = await navigator.mediaDevices.getUserMedia({audio:true});
   }catch(e){
     console.log('recording permission denied', e);
-    setRecordStatus('يجب السماح للميكروفون حتى نسجل صوت ريم.');
+    setRecordStatus('يجب السماح للميكروفون من إعدادات المتصفح حتى تسجل ريم صوتها.');
     return;
   }
 
@@ -448,6 +469,7 @@ async function toggleRecord(){
     state.recorder.onerror = (e) => {
       console.log('recording error', e.error || e);
       setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
+      clearRecordTimer();
       stream.getTracks().forEach(t=>t.stop());
       btn.textContent = RECORD_BTN_IDLE_LABEL;
       btn.classList.remove('recording');
@@ -455,9 +477,15 @@ async function toggleRecord(){
 
     state.recorder.onstop = async () => {
       console.log('recording stopped');
+      clearRecordTimer();
       stream.getTracks().forEach(t=>t.stop());
       btn.textContent = RECORD_BTN_IDLE_LABEL;
       btn.classList.remove('recording');
+      $('recordJoyCard').hidden = true;
+
+      const wasAutoStopped = state.recordAutoStopped;
+      state.recordAutoStopped = false;
+      if(wasAutoStopped) setRecordStatus('انتهى التسجيل يا ريم، نسمع صوتك الآن؟');
 
       const usedMime = state.recorder.mimeType || state.recordMime || 'audio/webm';
       const blob = new Blob(state.chunks, {type: usedMime});
@@ -471,7 +499,8 @@ async function toggleRecord(){
       if(state.recordUrl) URL.revokeObjectURL(state.recordUrl);
       state.recordUrl = URL.createObjectURL(blob);
       showRimRecordingPlayer(state.recordUrl);
-      setRecordStatus('أحسنتِ يا ريم، هذا صوتك الجميل 🌸');
+      if(!wasAutoStopped) setRecordStatus('أحسنتِ يا ريم، هذا صوتك الجميل 🌸');
+      showRecordJoyCard();
 
       const s = currentSurah(), a = currentAyah();
       const rec = {
@@ -481,6 +510,7 @@ async function toggleRecord(){
         ayahIndex: state.ayahIndex,
         ayahText: a.text,
         createdAt: Date.now(),
+        starsAtRecording: state.totalStars,
         audioBlob: blob,
         mimeType: usedMime,
         isBest: false
@@ -488,6 +518,11 @@ async function toggleRecord(){
       const saved = await idbPut('rimRecordings', undefined, rec);
       console.log('saved to IndexedDB', saved, rec.id);
       refreshRimRecordingsIfOpen();
+
+      if(localStorage.getItem('rim.firstRecordingRewardShown') !== 'yes'){
+        localStorage.setItem('rim.firstRecordingRewardShown', 'yes');
+        setTimeout(()=>showFirstRecordingGift(), 1200);
+      }
     };
 
     state.recorder.start();
@@ -495,6 +530,14 @@ async function toggleRecord(){
     btn.textContent = RECORD_BTN_ACTIVE_LABEL;
     btn.classList.add('recording');
     setRecordStatus('ريم تسجل الآن 🎙️');
+    state.recordAutoStopped = false;
+    clearRecordTimer();
+    state.recordTimerId = setTimeout(() => {
+      if(state.recorder && state.recorder.state === 'recording'){
+        state.recordAutoStopped = true;
+        state.recorder.stop();
+      }
+    }, MAX_RECORD_MS);
   }catch(e){
     console.log('recording error', e);
     setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
@@ -512,13 +555,13 @@ async function renderRimRecordings(){
   $('recordingsList').innerHTML = recordings.map(r => `
     <div class="recording-item" data-id="${r.id}">
       <div class="rec-info">
-        سورة ${r.surahName} • آية ${r.ayahIndex + 1}
-        <small>${new Date(r.createdAt).toLocaleDateString('ar', {year:'numeric', month:'long', day:'numeric'})}</small>
+        🎙️ سورة ${r.surahName} — الآية ${r.ayahIndex + 1}
+        <small>${new Date(r.createdAt).toLocaleDateString('ar', {year:'numeric', month:'long', day:'numeric'})}${r.starsAtRecording !== undefined ? ` • ⭐ ${r.starsAtRecording} وقتها` : ''}</small>
       </div>
       <div class="rec-actions">
         <button class="play-rec" data-id="${r.id}" type="button">▶ تشغيل</button>
-        <button class="best ${r.isBest ? 'active' : ''}" data-id="${r.id}" type="button">${r.isBest ? '⭐ الأفضل' : '☆ أفضل قراءة'}</button>
         <button class="danger del-rec" data-id="${r.id}" type="button">🗑️ حذف</button>
+        <button class="best ${r.isBest ? 'active' : ''}" data-id="${r.id}" type="button" title="أفضل قراءة">${r.isBest ? '⭐' : '☆'}</button>
       </div>
     </div>`).join('');
 
@@ -706,6 +749,8 @@ function init(){
   $('playRecordBtn').onclick=()=>{ if(state.recordUrl) new Audio(state.recordUrl).play(); };
   $('openRimRecordingsBtn').onclick=()=>{ renderRimRecordings(); $('recordingsDialog').showModal(); };
   $('closeRecordingsBtn').onclick=()=> $('recordingsDialog').close();
+  $('joyPlayBtn').onclick=()=>{ if(state.recordUrl) new Audio(state.recordUrl).play(); };
+  $('joyRetryBtn').onclick=()=>{ $('recordJoyCard').hidden = true; toggleRecord(); };
   $('speakNudgeBtn').onclick=()=> speak($('nudgeText').textContent);
   $('speakRewardBtn').onclick=()=> speak($('rewardText').textContent);
   document.querySelectorAll('.nav-item').forEach(b=>b.onclick=()=>showScreen(b.dataset.target));
