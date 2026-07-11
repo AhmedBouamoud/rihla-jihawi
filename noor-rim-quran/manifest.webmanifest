@@ -1,13 +1,13 @@
 {
-  "name": "نور ريم — هديتي القرآنية",
+  "name": "نور ريم — حديقة نور ريم",
   "short_name": "نور ريم",
-  "description": "تطبيق شخصي لريم لحفظ السور القصيرة بالسماع والتكرار والتشجيع.",
+  "description": "تطبيق شخصي لريم لحفظ السور القصيرة بصوتها وصوت أبيها، في حديقة هادئة خاصة بها.",
   "start_url": "./index.html",
   "display": "standalone",
   "dir": "rtl",
   "lang": "ar",
-  "background_color": "#fff7ed",
-  "theme_color": "#1f8f72",
+  "background_color": "#fbf3e7",
+  "theme_color": "#f6ede0",
   "icons": [
     {"src": "assets/icons/icon-192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any maskable"},
     {"src": "assets/icons/icon-512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any maskable"}

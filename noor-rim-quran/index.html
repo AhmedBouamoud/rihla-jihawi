@@ -3,72 +3,56 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#1f8f72" />
+  <meta name="theme-color" content="#f6ede0" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="نور ريم" />
-  <meta name="description" content="هدية قرآنية شخصية لريم: حفظ السور القصيرة بالسماع، التكرار، الصورة، التشجيع، والنجوم." />
-  <title>نور ريم — هديتي القرآنية</title>
+  <meta name="description" content="حديقة نور ريم: تطبيق شخصي هادئ يساعد ريم على حفظ السور القصيرة بصوتها وصوت أبيها." />
+  <title>نور ريم — حديقة نور ريم</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="aurora" aria-hidden="true"></div>
-  <div class="sparkles" aria-hidden="true"></div>
+  <div class="soft-glow" id="softGlow" aria-hidden="true"></div>
 
   <main class="phone-app" id="app">
     <header class="app-header">
       <button class="round-btn" id="homeBtn" type="button" aria-label="الرئيسية">⌂</button>
       <div class="brand">
         <div class="brand-mark">ريم</div>
-        <div>
-          <h1>نور ريم</h1>
-          <p>هديتي القرآنية</p>
-        </div>
+        <p>حديقة نور ريم</p>
       </div>
-      <button class="round-btn" id="parentBtn" type="button" aria-label="وضع الأب">♡</button>
+      <button class="round-btn ghost" id="parentBtn" type="button" aria-label="وضع الأب">♡</button>
     </header>
 
+    <!-- الصفحة الرئيسية: هادئة جداً -->
     <section class="screen home-screen active" id="homeScreen">
-      <div class="hero-orbit">
-        <div class="halo"></div>
-        <figure class="rim-frame main-frame">
-          <img src="assets/rim/rim-hero.jpg" alt="ريم" onerror="this.parentElement.classList.add('empty'); this.remove();" />
-          <figcaption>ضعي صورة ريم هنا<br><small>assets/rim/rim-hero.jpg</small></figcaption>
-        </figure>
-        <div class="mini-card mini-1">🌙 آية صغيرة</div>
-        <div class="mini-card mini-2">⭐ نجمة لريم</div>
+      <figure class="rim-frame main-frame">
+        <img src="assets/rim/rim-hero.jpg" alt="ريم" onerror="this.parentElement.classList.add('empty'); this.remove();" />
+        <div class="soft-fallback" aria-hidden="true"></div>
+      </figure>
+
+      <p class="home-line">هيا يا ريم، نسمع نور القرآن</p>
+      <button class="primary huge" id="startJourneyBtn" type="button">نبدأ</button>
+
+      <div class="home-shortcuts">
+        <button class="shortcut" id="shortcutListen" type="button"><span>🔊</span>أسمع السورة</button>
+        <button class="shortcut" id="shortcutMemorize" type="button"><span>🌙</span>أحفظ آية</button>
+        <button class="shortcut" id="shortcutGifts" type="button"><span>🎁</span>أفرح بهديتي</button>
       </div>
-
-      <div class="welcome-card glass-card">
-        <span class="kicker">بسم الله نبدأ</span>
-        <h2>أهلاً ريم… اليوم نحفظ بنور وفرح.</h2>
-        <p>نسمع، نردد، نستريح، ثم نفرح. لا استعجال، لا ضغط، فقط خطوة صغيرة كل يوم.</p>
-        <div class="home-actions">
-          <button class="primary action" id="startJourneyBtn" type="button">ابدئي رحلة النور</button>
-          <button class="secondary action" id="quickListenBtn" type="button">أسمع فقط</button>
-        </div>
-      </div>
-
-      <section class="today-gift glass-card">
-        <div>
-          <span class="gift-icon">🎁</span>
-          <h3>هدية اليوم</h3>
-          <p id="dailyMessage">ريم، قلبك جميل… نحفظ آية واحدة فقط.</p>
-        </div>
-        <button class="tiny-btn" id="newMessageBtn" type="button">رسالة أخرى</button>
-      </section>
-
-      <section class="surah-section">
-        <div class="section-head">
-          <h3>اختاري وردة الحفظ</h3>
-          <p>سورة واحدة اليوم تكفي يا ريم.</p>
-        </div>
-        <div class="surah-flowers" id="surahFlowers"></div>
-      </section>
     </section>
 
+    <!-- اختيار السورة -->
+    <section class="screen picker-screen" id="surahPickerScreen">
+      <div class="picker-head">
+        <button class="back-btn" id="backToHomeFromPicker" type="button">رجوع</button>
+        <h2>اختاري وردة الحفظ</h2>
+      </div>
+      <div class="surah-cards" id="surahCardsGrid"></div>
+    </section>
+
+    <!-- شاشة الآية: عنصر واحد رئيسي -->
     <section class="screen journey-screen" id="journeyScreen" aria-live="polite">
-      <div class="journey-top glass-card">
+      <div class="journey-top">
         <button class="back-btn" id="backBtn" type="button">رجوع</button>
         <div>
           <span class="kicker" id="journeyMode">رحلة الحفظ</span>
@@ -77,84 +61,64 @@
         <div class="stars-box"><span id="totalStars">0</span> ⭐</div>
       </div>
 
-      <div class="path-card glass-card">
-        <div class="path-line" id="pathLine"></div>
-      </div>
+      <div class="path-line" id="pathLine"></div>
 
-      <article class="ayah-card glass-card">
-        <div class="ayah-tools">
-          <span id="ayahCount">آية 1 / 4</span>
-          <span id="repeatBadge">تكرار 0 / 3</span>
-        </div>
+      <article class="ayah-card">
+        <span class="ayah-count" id="ayahCount">آية 1 / 4</span>
         <p class="ayah-text" id="ayahText"></p>
-        <div class="word-cloud" id="wordCloud"></div>
-        <div class="nudge-row">
-          <div class="nudge" id="nudgeText">اسمعي أولاً يا ريم… ثم رددي بهدوء.</div>
-          <button class="speak-btn" id="speakNudgeBtn" type="button" aria-label="اقرأ الرسالة بصوت عالٍ" title="اقرأ الرسالة">🔈</button>
-        </div>
+        <div class="word-cloud" id="wordCloud" hidden></div>
       </article>
 
-      <section class="player-panel glass-card">
-        <button class="big-play" id="playAyahBtn" type="button"><span>🔊</span> أسمع الآية</button>
-        <button class="big-play soft" id="playSlowBtn" type="button"><span>🐢</span> سماع ببطء</button>
-        <button class="big-play warm" id="rimTurnBtn" type="button"><span>🎤</span> دور ريم الآن</button>
-        <button class="big-play next" id="nextBtn" type="button"><span>➡</span> الآية التالية</button>
-      </section>
+      <button class="primary huge main-action" id="recordBtn" type="button">🔊 اسمعي يا ريم</button>
+      <p class="record-status" id="recordStatus" hidden></p>
+      <audio id="rimRecordPlayer" controls hidden></audio>
+      <button class="tiny-btn" id="playRecordBtn" type="button" disabled>🔊 تشغيل صوت ريم</button>
 
-      <section class="record-panel glass-card">
-        <div class="record-copy">
-          <h3>أبي يسمعني</h3>
-          <p>نسجل صوت ريم ونسمعه معاً. عند الصعوبة نقول: قريب جداً يا ريم… نعيدها معاً.</p>
+      <div class="record-joy-card" id="recordJoyCard" hidden>
+        <p>برافو ريم! سمعت صوتك الجميل 🌸</p>
+        <div class="record-joy-actions">
+          <button class="secondary" id="joyPlayBtn" type="button">🔊 أسمع صوتي</button>
+          <button class="tiny-btn" id="joyRetryBtn" type="button">🔁 أعيد المحاولة</button>
         </div>
-        <div class="record-actions">
-          <button class="record" id="recordBtn" type="button">🎙️ سجلي صوتك يا ريم</button>
-          <button class="tiny-btn" id="playRecordBtn" type="button" disabled>تشغيل صوت ريم</button>
-          <button class="tiny-btn" id="openRimRecordingsBtn" type="button">🎧 تسجيلات ريم</button>
-        </div>
-        <p class="record-status" id="recordStatus" hidden></p>
-        <audio id="rimRecordPlayer" controls hidden></audio>
-        <div class="record-joy-card" id="recordJoyCard" hidden>
-          <p>برافو ريم! سمعت صوتك الجميل 🌸</p>
-          <div class="record-joy-actions">
-            <button class="secondary" id="joyPlayBtn" type="button">🔊 أسمع صوتي</button>
-            <button class="tiny-btn" id="joyRetryBtn" type="button">🔁 أعيد المحاولة</button>
-          </div>
-        </div>
-      </section>
+      </div>
 
-      <section class="reward-banner glass-card" id="rewardBanner" hidden>
+      <section class="reward-banner" id="rewardBanner" hidden>
         <figure class="rim-frame reward-frame">
           <img src="assets/rim/rim-reward.jpg" alt="ريم فرحة" onerror="this.parentElement.classList.add('empty'); this.remove();" />
-          <figcaption>صورة المكافأة<br><small>assets/rim/rim-reward.jpg</small></figcaption>
+          <div class="soft-fallback small" aria-hidden="true"></div>
         </figure>
         <div>
-          <span class="gift-icon">🏅</span>
           <h3 id="rewardTitle">أحسنت يا ريم</h3>
           <div class="nudge-row">
             <p id="rewardText">قلبك يضيء بالقرآن.</p>
-            <button class="speak-btn" id="speakRewardBtn" type="button" aria-label="اقرأ رسالة المكافأة" title="اقرأ الرسالة">🔈</button>
+            <button class="speak-btn" id="speakRewardBtn" type="button" aria-label="اقرأ الرسالة">🔈</button>
           </div>
         </div>
       </section>
+
+      <button class="help-toggle" id="helpToggleBtn" type="button">🧩 مساعدة</button>
+      <div class="help-panel" id="helpPanel" hidden>
+        <button class="tiny-btn" id="helpSlowBtn" type="button">🐢 سماع ببطء</button>
+        <button class="tiny-btn" id="helpSplitBtn" type="button">🧩 نقسمها معاً</button>
+        <button class="tiny-btn" id="helpFullSurahBtn" type="button">📖 أسمع السورة كاملة</button>
+        <button class="tiny-btn" id="openRimRecordingsBtn" type="button">🎧 ألبوم صوت ريم</button>
+      </div>
     </section>
 
+    <!-- حديقة إنجازات ريم -->
     <section class="screen garden-screen" id="gardenScreen">
-      <div class="glass-card certificate">
+      <div class="certificate">
         <span class="kicker">حديقة إنجازات ريم</span>
         <h2>نجوم ريم</h2>
         <p>كل نجمة تعني محاولة جميلة، وكل محاولة خطوة نحو الحفظ.</p>
         <div class="big-stars" id="bigStars">0 ⭐</div>
         <div class="badges" id="badges"></div>
       </div>
-
-      <figure class="glass-card family-photo">
-        <img src="assets/rim/rim-family.jpg" alt="ريم وأبوها" onerror="this.parentElement.classList.add('empty'); this.remove();" />
-        <figcaption>ريم وأبوها… أجمل فريق 💛</figcaption>
-      </figure>
     </section>
 
+    <!-- صندوق نور ريم -->
     <section class="screen gifts-screen" id="giftsScreen">
-      <div class="glass-card gift-stats">
+      <div class="gift-stats">
         <span class="gift-icon-big">⭐</span>
         <div>
           <strong id="giftStarsText">0 نجمة</strong>
@@ -162,12 +126,12 @@
         </div>
       </div>
       <div class="gift-grid" id="giftGrid"></div>
-      <p class="glass-card safe-note">ملاحظة للأب: روابط YouTube قد تُظهر إعلانات أو اقتراحات خارجة عن سيطرة التطبيق؛ يُفضّل فتحها بحساب YouTube Kids أو تحت إشرافك المباشر.</p>
+      <p class="safe-note">ملاحظة للأب: روابط YouTube قد تُظهر إعلانات أو اقتراحات خارجة عن سيطرة التطبيق؛ يُفضّل فتحها بحساب YouTube Kids أو تحت إشرافك المباشر.</p>
     </section>
 
     <nav class="bottom-nav" aria-label="التنقل">
       <button class="nav-item active" data-target="homeScreen" type="button">🏠<span>البداية</span></button>
-      <button class="nav-item" data-target="journeyScreen" type="button">🌙<span>الحفظ</span></button>
+      <button class="nav-item" data-target="surahPickerScreen" type="button">🌙<span>الحفظ</span></button>
       <button class="nav-item" data-target="gardenScreen" type="button">⭐<span>نجومي</span></button>
       <button class="nav-item" data-target="giftsScreen" type="button">🎁<span>هدايا</span></button>
     </nav>
@@ -176,26 +140,57 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <dialog class="parent-dialog" id="parentDialog">
-    <form method="dialog" class="dialog-card glass-card">
+    <form method="dialog" class="dialog-card">
       <button class="close" value="close" type="submit">×</button>
       <h2>وضع الأب أحمد</h2>
       <p>هنا نضبط تجربة ريم بهدوء. لا توجد كلمة خطأ داخل التطبيق.</p>
-      <label>عدد التكرارات قبل النجمة</label>
+
+      <label>عدد مرات تكرار الآية تلقائياً (1 إلى 5)</label>
       <select id="repeatSelect">
-        <option value="2">2 — جلسة خفيفة جداً</option>
+        <option value="1">1 — مرة واحدة</option>
+        <option value="2">2 — مرتان</option>
         <option value="3">3 — مناسب كبداية</option>
-        <option value="5">5 — تدريب أقوى</option>
-        <option value="7">7 — مراجعة متقدمة</option>
+        <option value="4">4</option>
+        <option value="5">5 — مراجعة متقدمة</option>
       </select>
+
+      <label>مدة الانتظار بين كل تكرار (بالثواني)</label>
+      <select id="gapSelect">
+        <option value="3">3 ثوانٍ</option>
+        <option value="4">4 ثوانٍ</option>
+        <option value="5">5 ثوانٍ</option>
+        <option value="6">6 ثوانٍ</option>
+        <option value="7">7 ثوانٍ</option>
+        <option value="8">8 ثوانٍ</option>
+      </select>
+
+      <label class="switch-line">
+        <input id="autoRepeatToggle" type="checkbox" checked />
+        تفعيل التكرار التلقائي عند سماع الآية
+      </label>
+
       <label>عبارة الأب الخاصة</label>
       <input id="fatherLine" type="text" maxlength="90" placeholder="مثلاً: أحسنت يا ريم، أبي فخور بك" />
+
       <label class="switch-line">
         <input id="onlineAudio" type="checkbox" checked />
         تشغيل تلاوة حقيقية عبر الإنترنت عند غياب تسجيل الأب أو الملف المحلي
       </label>
+
       <div class="dialog-actions">
         <button class="primary" id="saveParent" type="button">حفظ</button>
         <button class="secondary" id="resetProgress" type="button">إعادة النجوم</button>
+      </div>
+
+      <div class="follow-up">
+        <h3>📊 متابعة صوت ريم</h3>
+        <div class="follow-up-grid">
+          <div><span>عدد التسجيلات</span><b id="followUpCount">0</b></div>
+          <div><span>آخر تسجيل</span><b id="followUpLast">لا يوجد بعد</b></div>
+          <div><span>السورة الحالية</span><b id="followUpSurah">—</b></div>
+          <div><span>الآية الحالية</span><b id="followUpAyah">—</b></div>
+        </div>
+        <button class="secondary" id="openAlbumFromParent" type="button">🎧 فتح ألبوم صوت ريم</button>
       </div>
 
       <div class="voice-studio">
@@ -225,17 +220,13 @@
           </div>
         </div>
       </div>
-
-      <div class="note">
-        ضع صور ريم في <code>assets/rim/</code>، وضع تلاوات الآيات في <code>assets/audio/</code> إن توفرت. التطبيق يعمل على الهاتف ويمكن إضافته للشاشة الرئيسية.
-      </div>
     </form>
   </dialog>
 
   <dialog class="parent-dialog" id="certificateDialog">
-    <div class="dialog-card glass-card cert-dialog-card">
+    <div class="dialog-card cert-dialog-card">
       <button class="close" id="closeCertificateBtn" type="button">×</button>
-      <h2>🌙 شهادة إنجاز ريم</h2>
+      <h2>شهادة إنجاز ريم</h2>
       <canvas id="certificateCanvas" width="1000" height="1400"></canvas>
       <div class="dialog-actions">
         <button class="primary" id="downloadCertificateBtn" type="button">💾 حفظ الشهادة</button>
@@ -244,10 +235,14 @@
   </dialog>
 
   <dialog class="parent-dialog" id="recordingsDialog">
-    <div class="dialog-card glass-card">
+    <div class="dialog-card">
       <button class="close" id="closeRecordingsBtn" type="button">×</button>
-      <h2>🎧 تسجيلات ريم</h2>
-      <p id="recordingsEmpty">لا توجد تسجيلات بعد. سجّلي صوتك يا ريم من زر 🎙️.</p>
+      <h2>ألبوم صوت ريم</h2>
+      <figure class="album-photo">
+        <img src="assets/rim/rim-family.jpg" alt="ريم وأبوها" onerror="this.parentElement.classList.add('empty'); this.remove();" />
+        <div class="soft-fallback small" aria-hidden="true"></div>
+      </figure>
+      <p id="recordingsEmpty">لا توجد تسجيلات بعد. سجّلي صوتك يا ريم من شاشة الحفظ.</p>
       <div id="recordingsList"></div>
       <audio id="recordingsPlayer" controls hidden></audio>
     </div>
@@ -255,7 +250,6 @@
 
   <audio id="audioPlayer" preload="none"></audio>
   <audio id="voicePlayer" preload="none"></audio>
-  <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
   <script src="app.js"></script>
 </body>
 </html>

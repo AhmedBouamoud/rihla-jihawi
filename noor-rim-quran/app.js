@@ -1,16 +1,16 @@
 const surahs = [
-  {id:'ikhlas', name:'الإخلاص', icon:'🌸', label:'قصيرة ومحبوبة', audio:'112-ikhlas', color:'#f5c6d8', ayahs:[
+  {id:'ikhlas', name:'الإخلاص', symbol:'halo', label:'قصيرة ومحبوبة', audio:'112-ikhlas', ayahs:[
     {text:'قُلْ هُوَ اللَّهُ أَحَدٌ', words:['قُلْ','هُوَ','اللَّهُ','أَحَدٌ'], nudge:'قُلْ… هُوَ… اللهُ… أَحَدٌ'},
     {text:'اللَّهُ الصَّمَدُ', words:['اللَّهُ','الصَّمَدُ'], nudge:'الصَّمَدُ: الصَّـ / مَـ / دُ'},
     {text:'لَمْ يَلِدْ وَلَمْ يُولَدْ', words:['لَمْ','يَلِدْ','وَلَمْ','يُولَدْ'], nudge:'كلمات قصيرة… نرددها بهدوء.'},
     {text:'وَلَمْ يَكُنْ لَّهُ كُفُوًا أَحَدٌ', words:['وَلَمْ','يَكُنْ','لَّهُ','كُفُوًا','أَحَدٌ'], nudge:'كُفُوًا… نعيدها معاً يا ريم.'}
   ]},
-  {id:'kawthar', name:'الكوثر', icon:'💧', label:'ثلاث آيات فقط', audio:'108-kawthar', color:'#bfefff', ayahs:[
+  {id:'kawthar', name:'الكوثر', symbol:'droplet', label:'ثلاث آيات فقط', audio:'108-kawthar', ayahs:[
     {text:'إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ', words:['إِنَّا','أَعْطَيْنَاكَ','الْكَوْثَرَ'], nudge:'أَعْطَيْـ / نَاكَ… الكوثر.'},
     {text:'فَصَلِّ لِرَبِّكَ وَانْحَرْ', words:['فَصَلِّ','لِرَبِّكَ','وَانْحَرْ'], nudge:'فَصَلِّ… لربك… وانحر.'},
     {text:'إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ', words:['إِنَّ','شَانِئَكَ','هُوَ','الْأَبْتَرُ'], nudge:'نقسمها: شا / نِئَ / كَ.'}
   ]},
-  {id:'nas', name:'الناس', icon:'🕊️', label:'سكينة وطمأنينة', audio:'114-nas', color:'#d9f7e8', ayahs:[
+  {id:'nas', name:'الناس', symbol:'embrace', label:'سكينة وطمأنينة', audio:'114-nas', ayahs:[
     {text:'قُلْ أَعُوذُ بِرَبِّ النَّاسِ', words:['قُلْ','أَعُوذُ','بِرَبِّ','النَّاسِ'], nudge:'أَعُوذُ… نمدها بهدوء.'},
     {text:'مَلِكِ النَّاسِ', words:['مَلِكِ','النَّاسِ'], nudge:'كلمتان فقط يا ريم.'},
     {text:'إِلَٰهِ النَّاسِ', words:['إِلَٰهِ','النَّاسِ'], nudge:'إله الناس… صوت هادئ.'},
@@ -18,14 +18,14 @@ const surahs = [
     {text:'الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ', words:['الَّذِي','يُوَسْوِسُ','فِي','صُدُورِ','النَّاسِ'], nudge:'نقرأ كلمة كلمة.'},
     {text:'مِنَ الْجِنَّةِ وَالنَّاسِ', words:['مِنَ','الْجِنَّةِ','وَالنَّاسِ'], nudge:'آخر آية… أحسنت يا ريم.'}
   ]},
-  {id:'falaq', name:'الفلق', icon:'🌅', label:'نور وحماية', audio:'113-falaq', color:'#ffe7b6', ayahs:[
+  {id:'falaq', name:'الفلق', symbol:'sunrise', label:'نور وحماية', audio:'113-falaq', ayahs:[
     {text:'قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ', words:['قُلْ','أَعُوذُ','بِرَبِّ','الْفَلَقِ'], nudge:'الفلق… نور الصباح.'},
     {text:'مِنْ شَرِّ مَا خَلَقَ', words:['مِنْ','شَرِّ','مَا','خَلَقَ'], nudge:'أربع كلمات قصيرة.'},
     {text:'وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ', words:['وَمِنْ','شَرِّ','غَاسِقٍ','إِذَا','وَقَبَ'], nudge:'غاسقٍ… إذا… وقب.'},
     {text:'وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ', words:['وَمِنْ','شَرِّ','النَّفَّاثَاتِ','فِي','الْعُقَدِ'], nudge:'النَّفَّاثات… نقسمها بهدوء.'},
     {text:'وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ', words:['وَمِنْ','شَرِّ','حَاسِدٍ','إِذَا','حَسَدَ'], nudge:'آخر آية في سورة الفلق.'}
   ]},
-  {id:'fatiha', name:'الفاتحة', icon:'🌙', label:'نأخذها ببطء', audio:'001-fatiha', color:'#e6dbff', ayahs:[
+  {id:'fatiha', name:'الفاتحة', symbol:'opening', label:'نأخذها ببطء', audio:'001-fatiha', ayahs:[
     {text:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', words:['بِسْمِ','اللَّهِ','الرَّحْمَٰنِ','الرَّحِيمِ'], nudge:'بسم الله… بداية النور.'},
     {text:'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ', words:['الْحَمْدُ','لِلَّهِ','رَبِّ','الْعَالَمِينَ'], nudge:'الحمد لله… بهدوء.'},
     {text:'الرَّحْمَٰنِ الرَّحِيمِ', words:['الرَّحْمَٰنِ','الرَّحِيمِ'], nudge:'كلمتان جميلتان.'},
@@ -34,7 +34,7 @@ const surahs = [
     {text:'اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ', words:['اهْدِنَا','الصِّرَاطَ','الْمُسْتَقِيمَ'], nudge:'اهدنا الصراط المستقيم.'},
     {text:'صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ', words:['صِرَاطَ','الَّذِينَ','أَنْعَمْتَ','عَلَيْهِمْ','غَيْرِ','الْمَغْضُوبِ','عَلَيْهِمْ','وَلَا','الضَّالِّينَ'], nudge:'نأخذها على مراحل صغيرة يا ريم.'}
   ]},
-  {id:'asr', name:'العصر', icon:'⏳', label:'سورة صغيرة عن قيمة الوقت', audio:'103-asr', color:'#ffd9c2', ayahs:[
+  {id:'asr', name:'العصر', symbol:'calmsun', label:'سورة صغيرة عن قيمة الوقت', audio:'103-asr', ayahs:[
     {text:'وَالْعَصْرِ', words:['وَالْعَصْرِ'], nudge:'آية واحدة قصيرة… والعصر.'},
     {text:'إِنَّ الْإِنسَانَ لَفِي خُسْرٍ', words:['إِنَّ','الْإِنسَانَ','لَفِي','خُسْرٍ'], nudge:'إنّ الإنسان… لفي خسر.'},
     {text:'إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ', words:['إِلَّا','الَّذِينَ','آمَنُوا','وَعَمِلُوا','الصَّالِحَاتِ','وَتَوَاصَوْا','بِالْحَقِّ','وَتَوَاصَوْا','بِالصَّبْرِ'], nudge:'آية طويلة… نأخذها كلمة كلمة يا ريم.'}
@@ -52,6 +52,7 @@ const GIFTS = [
   {id:'kids-surahs-playlist', stars:14, icon:'📿', type:'قائمة', title:'سور قصيرة للأطفال مع الترديد', note:'مكتبة مراجعة إضافية حين تصبح ريم جاهزة.', url:'https://www.youtube.com/playlist?list=PLs49icgnNB22d4IfrLab__oqgrkiBKePS'}
 ];
 
+const FATHER_SIGNATURE = 'أنا فخور بك يا ريم — بابا';
 const messages = [
   'ريم، قلبك جميل… نحفظ آية واحدة فقط.',
   'لا استعجال يا ريم، النور يأتي خطوة خطوة.',
@@ -61,16 +62,22 @@ const messages = [
   'أحسنت يا ريم… القرآن صديقك اللطيف.'
 ];
 const rewards = ['أحسنت يا ريم، قلبك يضيء بالقرآن.', 'نجمة جديدة لبطلتي ريم.', 'قريب جداً يا ريم… نعيدها معاً ونفرح.', 'ما شاء الله، محاولة جميلة.', 'خطوة صغيرة… نور كبير.'];
+const albumEncouragements = ['صوتك جميل يا ريم 🌸', 'كل محاولة منك كنز.', 'نور صوتك يفرحنا.', 'ما شاء الله عليك يا بطلة.'];
+
 const $ = (id)=>document.getElementById(id);
 const audioPlayer = $('audioPlayer');
 const voicePlayer = $('voicePlayer');
+
 const state = {
   surahIndex: Number(localStorage.getItem('rim.surahIndex') || 0),
   ayahIndex: Number(localStorage.getItem('rim.ayahIndex') || 0),
   repeats: 0,
   totalStars: Number(localStorage.getItem('rim.totalStars') || 0),
-  repeatGoal: Number(localStorage.getItem('rim.repeatGoal') || 3),
+  repeatGoal: Math.min(5, Math.max(1, Number(localStorage.getItem('rim.repeatGoal') || 3))),
+  repeatGapSec: Math.min(8, Math.max(3, Number(localStorage.getItem('rim.repeatGapSec') || 4))),
+  autoRepeatEnabled: localStorage.getItem('rim.autoRepeat') !== 'off',
   completed: JSON.parse(localStorage.getItem('rim.completed') || '{}'),
+  progress: JSON.parse(localStorage.getItem('rim.progress') || '{}'),
   recorder: null,
   chunks: [],
   recordUrl: '',
@@ -79,7 +86,9 @@ const state = {
   ayahRecorder: null,
   ayahChunks: [],
   encourageRecorder: null,
-  encourageChunks: []
+  encourageChunks: [],
+  learningStage: 'listen',
+  stageToken: 0
 };
 
 function persist(){
@@ -87,7 +96,10 @@ function persist(){
   localStorage.setItem('rim.ayahIndex', state.ayahIndex);
   localStorage.setItem('rim.totalStars', state.totalStars);
   localStorage.setItem('rim.repeatGoal', state.repeatGoal);
+  localStorage.setItem('rim.repeatGapSec', state.repeatGapSec);
+  localStorage.setItem('rim.autoRepeat', state.autoRepeatEnabled ? 'on' : 'off');
   localStorage.setItem('rim.completed', JSON.stringify(state.completed));
+  localStorage.setItem('rim.progress', JSON.stringify(state.progress));
   localStorage.setItem('rim.fatherLine', state.fatherLine);
   localStorage.setItem('rim.onlineAudio', state.onlineAudio ? 'on' : 'off');
 }
@@ -95,9 +107,10 @@ function currentSurah(){ return surahs[state.surahIndex] || surahs[0]; }
 function currentAyah(){ const s=currentSurah(); return s.ayahs[Math.min(state.ayahIndex, s.ayahs.length-1)]; }
 function pad(n){ return String(n).padStart(2,'0'); }
 function pad3(n){ return String(n).padStart(3,'0'); }
-function ayahVoiceKey(){ return `${currentSurah().id}#${state.ayahIndex}`; }
+function ayahVoiceKey(idx = state.ayahIndex){ return `${currentSurah().id}#${idx}`; }
+function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
 
-// ---------- تخزين محلي في المتصفح لصوت الأب (تلاوة + تشجيع) ----------
+// ---------- تخزين محلي في المتصفح لصوت الأب (تلاوة + تشجيع) ولتسجيلات ريم — لا تُغيَّر هذه الطبقة ----------
 function openVoiceDB(){
   return new Promise((resolve, reject) => {
     if(!('indexedDB' in window)) { reject(new Error('no-indexeddb')); return; }
@@ -171,44 +184,63 @@ async function idbClear(store){
   }catch(e){ return false; }
 }
 
+// ---------- تنقل الشاشات ----------
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active', s.id===id));
   document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active', b.dataset.target===id));
-  if(id==='journeyScreen') renderJourney();
+  if(id==='surahPickerScreen') renderSurahCards();
+  if(id==='journeyScreen') renderAyahScreen();
   if(id==='gardenScreen') renderGarden();
   if(id==='giftsScreen') renderGifts();
   window.scrollTo({top:0, behavior:'smooth'});
 }
-function renderFlowers(){
-  $('surahFlowers').innerHTML = surahs.map((s,i)=>`
-    <button class="flower" style="--flower:${s.color}" data-i="${i}" type="button">
-      ${state.completed[s.id] ? '<span class="done">ختمت ✓</span>' : ''}
-      <div class="petal">${s.icon}</div>
-      <strong>سورة ${s.name}</strong>
-      <span>${s.label}</span>
-    </button>`).join('');
-  document.querySelectorAll('.flower').forEach(btn=>btn.addEventListener('click',()=>{
-    state.surahIndex = Number(btn.dataset.i); state.ayahIndex=0; state.repeats=0; persist(); showScreen('journeyScreen');
-  }));
+function openSurah(i){
+  state.surahIndex = i;
+  state.ayahIndex = Math.min(state.progress[surahs[i].id] || 0, surahs[i].ayahs.length - 1);
+  state.repeats = 0;
+  persist();
+  showScreen('journeyScreen');
 }
-function renderJourney(){
+function renderSurahCards(){
+  $('surahCardsGrid').innerHTML = surahs.map((s,i)=>{
+    const done = !!state.completed[s.id];
+    const prog = Math.min(state.progress[s.id] || 0, s.ayahs.length-1);
+    const pct = done ? 100 : Math.round((prog / s.ayahs.length) * 100);
+    return `
+    <button class="surah-card" data-i="${i}" type="button">
+      <div class="surah-symbol ${s.symbol}" aria-hidden="true"></div>
+      <strong>سورة ${s.name}</strong>
+      <span>${s.ayahs.length} آيات</span>
+      <div class="surah-progress"><i style="width:${pct}%"></i></div>
+      ${done ? '<em class="done-tag">✓ ختمت</em>' : ''}
+    </button>`;
+  }).join('');
+  document.querySelectorAll('.surah-card').forEach(btn=>btn.addEventListener('click',()=> openSurah(Number(btn.dataset.i))));
+}
+
+// ---------- شاشة الآية: عنصر واحد رئيسي في كل مرحلة ----------
+function renderAyahScreen(){
   const s=currentSurah(), a=currentAyah();
-  $('journeyMode').textContent = state.completed[s.id] ? 'مراجعة سورة محفوظة 🔁' : 'رحلة الحفظ';
+  $('journeyMode').textContent = state.completed[s.id] ? 'مراجعة سورة محفوظة' : 'رحلة الحفظ';
   $('surahName').textContent = `سورة ${s.name}`;
   $('totalStars').textContent = state.totalStars;
   $('ayahCount').textContent = `آية ${state.ayahIndex+1} / ${s.ayahs.length}`;
-  $('repeatBadge').textContent = `تكرار ${state.repeats} / ${state.repeatGoal}`;
   $('ayahText').textContent = a.text;
-  $('nudgeText').textContent = a.nudge || 'اسمعي أولاً يا ريم.';
   $('wordCloud').innerHTML = a.words.map(w=>`<span class="word" tabindex="0" role="button">${w}</span>`).join('');
   document.querySelectorAll('.word').forEach(chip => chip.addEventListener('click', () => playAyah(true)));
+  $('wordCloud').hidden = true;
   $('pathLine').innerHTML = s.ayahs.map((_,i)=>`<span class="step ${i<state.ayahIndex?'done':''} ${i===state.ayahIndex?'active':''}">${i+1}</span>`).join('');
   $('rewardBanner').hidden = true;
+  $('recordJoyCard').hidden = true;
+  $('rimRecordPlayer').hidden = true;
+  $('recordStatus').hidden = true;
+  setLearningStage('listen');
 }
+
 function renderGarden(){
   $('bigStars').textContent = `${state.totalStars} ⭐`;
   const badges = surahs.map(s=>`
-    <div class="badge-card">${state.completed[s.id]?'🏅':'🌱'} سورة ${s.name}<small>${state.completed[s.id]?'أتمتها ريم':'في انتظار وردة جديدة'}</small>
+    <div class="badge-card">${state.completed[s.id]?'✓':'🌱'} سورة ${s.name}<small>${state.completed[s.id]?'أتمتها ريم':'في انتظار وردة جديدة'}</small>
       ${state.completed[s.id] ? `<button class="cert-btn" data-cert="${s.id}" type="button">🖼️ شهادة ريم</button>` : ''}
     </div>`).join('');
   $('badges').innerHTML = badges;
@@ -218,7 +250,7 @@ function renderGarden(){
   }));
 }
 
-// ---------- صندوق هدايا ريم: أناشيد وسور على يوتيوب، تُفتح تدريجياً بالنجوم، تحت إشراف الأب ----------
+// ---------- صندوق نور ريم: أناشيد وسور على يوتيوب، تُفتح تدريجياً بالنجوم، تحت إشراف الأب ----------
 function giftUnlocked(gift){ return state.totalStars >= gift.stars; }
 function findGift(id){ return GIFTS.find(g=>g.id===id) || GIFTS[0]; }
 function toast(msg){
@@ -237,9 +269,9 @@ function openGift(gift){
 function renderGifts(){
   const next = GIFTS.find(g=>!giftUnlocked(g));
   $('giftStarsText').textContent = `${state.totalStars} نجمة`;
-  $('giftUnlockText').textContent = next ? `الهدية القادمة: ${next.title} عند ${next.stars} نجوم.` : 'كل الهدايا مفتوحة يا ريم. نراجع ونفرح.';
+  $('giftUnlockText').textContent = next ? `الهدية القادمة عند ${next.stars} نجوم.` : 'كل الهدايا مفتوحة يا ريم. نراجع ونفرح.';
   $('giftGrid').innerHTML = GIFTS.map(g=>`
-    <article class="gift-card ${giftUnlocked(g)?'':'locked'}">
+    <article class="gift-card ${giftUnlocked(g)?'open':'locked'}">
       <div class="gift-icon">${giftUnlocked(g)?g.icon:'🔒'}</div>
       <div>
         <span class="gift-type">${g.type} • ${g.stars} نجوم</span>
@@ -252,7 +284,12 @@ function renderGifts(){
 }
 function checkNewGift(){
   const gift = GIFTS.find(g=>g.stars===state.totalStars);
-  if(gift) setTimeout(()=>toast(`🎁 فتحتِ هدية جديدة: ${gift.title}`), 900);
+  if(!gift) return;
+  setTimeout(()=>{
+    toast(`🎁 فتحتِ هدية جديدة: ${gift.title}`);
+    const card = document.querySelector(`#giftGrid button[data-gift="${gift.id}"]`)?.closest('.gift-card');
+    if(card) card.classList.add('just-unlocked');
+  }, 900);
 }
 function visualWordPlayback(durationMs){
   const words = [...document.querySelectorAll('.word')];
@@ -262,48 +299,68 @@ function visualWordPlayback(durationMs){
   words.forEach((w,i)=>setTimeout(()=>{ words.forEach(x=>x.classList.remove('active')); w.classList.add('active'); }, i*step));
   setTimeout(()=>words.forEach(x=>x.classList.remove('active')), words.length*step+400);
 }
-function audioSrc(){
+
+// ---------- حلّ مصدر تلاوة أي آية: تسجيل الأب، ثم ملف محلي، ثم تلاوة حقيقية عبر الإنترنت. بدون أي نطق آلي مطلقاً ----------
+function audioSrc(idx = state.ayahIndex){
   const s=currentSurah();
-  return `assets/audio/${s.audio}-${pad(state.ayahIndex+1)}.mp3`;
+  return `assets/audio/${s.audio}-${pad(idx+1)}.mp3`;
 }
-function onlineAudioSrc(){
+function onlineAudioSrc(idx = state.ayahIndex){
   const s=currentSurah();
   const code = s.audio.split('-')[0];
-  return `https://everyayah.com/data/Alafasy_128kbps/${code}${pad3(state.ayahIndex+1)}.mp3`;
+  return `https://everyayah.com/data/Alafasy_128kbps/${code}${pad3(idx+1)}.mp3`;
 }
+async function resolvePlayableAudio(idx){
+  const fatherClip = await idbGet('ayahVoice', ayahVoiceKey(idx));
+  if(fatherClip) return {src: URL.createObjectURL(fatherClip), isBlob:true};
+  return {src: audioSrc(idx), fallback: state.onlineAudio ? onlineAudioSrc(idx) : null};
+}
+function playResolvedAwaitable(resolved, rate){
+  return new Promise((resolve) => {
+    audioPlayer.onerror = null;
+    audioPlayer.onended = null;
+    let settled = false;
+    const finish = () => { if(!settled){ settled = true; resolve(); } };
 
-// ترتيب محاولة تشغيل التلاوة: تسجيل الأب الشخصي لهذه الآية، ثم ملف محلي، ثم تلاوة حقيقية عبر الإنترنت (بدون أي نطق آلي).
-async function playAyah(slow=false){
-  const rate = slow ? .82 : 1;
-  audioPlayer.onerror = null;
+    const tryFallback = () => {
+      if(!resolved.fallback){ finish(); return; }
+      audioPlayer.onerror = finish;
+      audioPlayer.onended = finish;
+      audioPlayer.src = resolved.fallback;
+      audioPlayer.playbackRate = rate;
+      audioPlayer.play().catch(finish);
+    };
 
-  const fatherClip = await idbGet('ayahVoice', ayahVoiceKey());
-  if(fatherClip){
-    audioPlayer.src = URL.createObjectURL(fatherClip);
+    audioPlayer.onended = finish;
+    audioPlayer.onerror = resolved.isBlob ? finish : tryFallback;
+    audioPlayer.src = resolved.src;
     audioPlayer.playbackRate = rate;
     audioPlayer.onloadedmetadata = () => visualWordPlayback(isFinite(audioPlayer.duration) && audioPlayer.duration>0 ? audioPlayer.duration*1000 : 3200);
     visualWordPlayback(3200);
-    audioPlayer.play().catch(()=>{});
-    return;
-  }
-
-  const useOnline = () => {
+    audioPlayer.play().catch(resolved.isBlob ? finish : tryFallback);
+    // شبكة الأمان: لا يجب أن تعلق الدورة التلقائية أبداً بلا سبب
+    setTimeout(finish, 12000);
+  });
+}
+async function playAyah(slow=false){
+  const resolved = await resolvePlayableAudio(state.ayahIndex);
+  if(!resolved.fallback && !resolved.isBlob){
+    // لا تسجيل شخصي ولا اتصال بالإنترنت مفعّل: نعرض رسالة لطيفة بدل الصمت التام
     if(!state.onlineAudio){
-      $('nudgeText').textContent = 'لا يوجد تسجيل بعد لهذه الآية. سجّلي مع أبي، أو فعّلي التلاوة عبر الإنترنت من وضع الأب.';
-      return;
+      $('nudgeText') && ($('nudgeText').textContent = 'لا يوجد تسجيل بعد لهذه الآية. سجّلي مع أبي، أو فعّلي التلاوة عبر الإنترنت من وضع الأب.');
     }
-    audioPlayer.onerror = () => { $('nudgeText').textContent = 'تعذّر تشغيل الصوت الآن. تحقّقي من الاتصال بالإنترنت.'; };
-    audioPlayer.src = onlineAudioSrc();
-    audioPlayer.playbackRate = rate;
-    audioPlayer.play().catch(()=>{});
-  };
-
-  audioPlayer.onerror = useOnline;
-  audioPlayer.src = audioSrc();
-  audioPlayer.playbackRate = rate;
-  audioPlayer.play().catch(useOnline);
-  audioPlayer.onloadedmetadata = () => visualWordPlayback(isFinite(audioPlayer.duration) && audioPlayer.duration>0 ? audioPlayer.duration*1000 : 3200);
-  visualWordPlayback(3200);
+  }
+  playResolvedAwaitable(resolved, slow ? .82 : 1);
+}
+async function playAyahAwaitable(idx, slow=false){
+  const resolved = await resolvePlayableAudio(idx);
+  await playResolvedAwaitable(resolved, slow ? .82 : 1);
+}
+async function playAyahRangeAwaitable(fromIdx, toIdx){
+  for(let i=fromIdx;i<=toIdx;i++){
+    await playAyahAwaitable(i, false);
+    if(i < toIdx) await sleep(500);
+  }
 }
 
 // قراءة رسائل التشجيع (وليس آيات القرآن) بصوت المتصفح، لمساعدة ريم على الفهم رغم صعوبة القراءة.
@@ -320,38 +377,24 @@ function speak(text){
   }catch(e){ /* القراءة الصوتية للواجهة اختيارية */ }
 }
 
-function triggerConfetti(){
-  const layer = $('confettiLayer');
-  if(!layer) return;
-  const colors = ['#1f8f72','#e3b84d','#f3adc4','#bfefff','#62c7a0'];
-  for(let i=0;i<28;i++){
-    const piece = document.createElement('i');
-    piece.className = 'confetti-piece';
-    piece.style.left = `${Math.random()*100}%`;
-    piece.style.background = colors[i % colors.length];
-    piece.style.animationDuration = `${1.6 + Math.random()*1.2}s`;
-    piece.style.animationDelay = `${Math.random()*0.3}s`;
-    layer.appendChild(piece);
-    setTimeout(()=>piece.remove(), 3200);
+// ---------- احتفال هادئ: توهّج ناعم ونغمة واحدة لطيفة، بلا قصاصات ولا اهتزاز ولا ضجيج ----------
+function celebrateSoftly(){
+  const glow = $('softGlow');
+  if(glow){
+    glow.classList.remove('pulse');
+    void glow.offsetWidth;
+    glow.classList.add('pulse');
   }
-}
-function playChime(){
   try{
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    [523.25, 659.25, 783.99].forEach((freq,i)=>{
-      const osc = ctx.createOscillator(), gain = ctx.createGain();
-      osc.type = 'sine'; osc.frequency.value = freq;
-      gain.gain.setValueAtTime(0.0001, ctx.currentTime + i*0.14);
-      gain.gain.linearRampToValueAtTime(0.16, ctx.currentTime + i*0.14 + 0.03);
-      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + i*0.14 + 0.5);
-      osc.connect(gain).connect(ctx.destination);
-      osc.start(ctx.currentTime + i*0.14);
-      osc.stop(ctx.currentTime + i*0.14 + 0.55);
-    });
-  }catch(e){ /* النغمة التشجيعية اختيارية */ }
-}
-function vibrateCelebrate(){
-  try{ if(navigator.vibrate) navigator.vibrate([90,50,90,50,140]); }catch(e){}
+    const osc = ctx.createOscillator(), gain = ctx.createGain();
+    osc.type = 'sine'; osc.frequency.value = 659.25;
+    gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.13, ctx.currentTime + 0.05);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.7);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + 0.75);
+  }catch(e){ /* النغمة اختيارية */ }
 }
 async function playRandomEncouragement(){
   const clips = await idbGetAll('encourage');
@@ -369,29 +412,139 @@ function giveStar(text){
   $('rewardTitle').textContent = 'أحسنت يا ريم';
   $('rewardText').textContent = text || rewards[Math.floor(Math.random()*rewards.length)];
   $('rewardBanner').hidden = false;
-  triggerConfetti();
-  playChime();
-  vibrateCelebrate();
+  celebrateSoftly();
   playRandomEncouragement();
   checkNewGift();
 }
-function rimTurn(){
-  state.repeats += 1;
-  if(state.repeats >= state.repeatGoal) giveStar(state.fatherLine);
-  else $('nudgeText').textContent = `دور ريم الآن… محاولة ${state.repeats} من ${state.repeatGoal}.`;
-  persist(); renderJourney();
-  if(state.repeats===0) $('rewardBanner').hidden = false;
+function giveStarForAyah(){
+  const firstAyahEver = localStorage.getItem('rim.firstAyahRewardShown') !== 'yes';
+  if(firstAyahEver){
+    localStorage.setItem('rim.firstAyahRewardShown', 'yes');
+    giveStar(`أول آية تحفظينها يا ريم! ${FATHER_SIGNATURE}`);
+  }else{
+    giveStar(state.fatherLine);
+  }
 }
 function nextAyah(){
   const s=currentSurah();
-  if(state.ayahIndex < s.ayahs.length-1){ state.ayahIndex++; state.repeats=0; persist(); renderJourney(); }
+  state.progress[s.id] = state.ayahIndex;
+  if(state.ayahIndex < s.ayahs.length-1){ state.ayahIndex++; state.repeats=0; persist(); renderAyahScreen(); }
   else {
-    const firstTime = !state.completed[s.id];
-    state.completed[s.id]=true; giveStar(`أتممتِ سورة ${s.name} يا ريم… هدية جميلة لقلبك.`); persist(); renderFlowers(); renderGarden();
-    if(firstTime) setTimeout(()=>openCertificate(s), 1400);
+    const firstTimeThisSurah = !state.completed[s.id];
+    state.completed[s.id]=true;
+    state.progress[s.id] = s.ayahs.length - 1;
+    persist();
+    setLearningStage('done'); // نمنع إعادة منح النجمة إن ضغطت ريم على الزر مرة أخرى بعد ختم السورة
+    if(firstTimeThisSurah){
+      giveStar(`أتممتِ سورة ${s.name} يا ريم… هدية جميلة لقلبك.`);
+      const firstSurahEver = localStorage.getItem('rim.firstSurahRewardShown') !== 'yes';
+      if(firstSurahEver){
+        localStorage.setItem('rim.firstSurahRewardShown', 'yes');
+        setTimeout(()=>{ $('rewardTitle').textContent='🌙 أول سورة كاملة لريم'; $('rewardText').textContent=FATHER_SIGNATURE; $('rewardBanner').hidden=false; celebrateSoftly(); }, 900);
+      }
+      setTimeout(()=>openCertificate(s), 1600);
+    }else{
+      toast('أحسنتِ يا ريم، راجعتِ السورة كاملة 🌸');
+    }
   }
 }
-const RECORD_BTN_IDLE_LABEL = '🎙️ سجلي صوتك يا ريم';
+
+// ---------- منهج "المصحف المعلّم": استماع تلقائي متكرر بفواصل هادئة، ثم تسجيل، ثم ربط الآية بما سبقها ----------
+function setLearningStage(stage){
+  state.learningStage = stage;
+  const btn = $('recordBtn');
+  const help = $('helpToggleBtn');
+  btn.disabled = false;
+  if(stage === 'listen'){
+    btn.textContent = '🔊 اسمعي يا ريم';
+    btn.classList.remove('recording');
+    btn.onclick = runListenCycle;
+    if(help) help.hidden = false;
+  }else if(stage === 'record'){
+    btn.textContent = RECORD_BTN_IDLE_LABEL;
+    btn.onclick = toggleRecord;
+  }else if(stage === 'star'){
+    btn.textContent = '⭐ نجمتي';
+    btn.onclick = () => { giveStarForAyah(); setLearningStage('next'); };
+  }else if(stage === 'next'){
+    btn.textContent = '➡️ نكمل؟';
+    btn.onclick = goToNextAyahWithLink;
+  }else if(stage === 'done'){
+    btn.textContent = '🌙 سورة أخرى؟';
+    btn.onclick = () => showScreen('surahPickerScreen');
+  }
+}
+async function runListenCycle(){
+  const myToken = ++state.stageToken;
+  const btn = $('recordBtn');
+  btn.disabled = true;
+  btn.textContent = 'اسمعي يا ريم…';
+  const times = state.autoRepeatEnabled ? state.repeatGoal : 1;
+  for(let i=0;i<times;i++){
+    if(state.stageToken !== myToken) return;
+    await playAyahAwaitable(state.ayahIndex, false);
+    if(state.stageToken !== myToken) return;
+    if(i < times-1) await sleep(state.repeatGapSec*1000);
+  }
+  if(state.stageToken !== myToken) return;
+  btn.disabled = false;
+  setLearningStage('record');
+}
+async function goToNextAyahWithLink(){
+  const myToken = ++state.stageToken;
+  const btn = $('recordBtn');
+  if(state.ayahIndex >= 1){
+    btn.disabled = true;
+    btn.textContent = 'نربطها بما سبق…';
+    await playAyahRangeAwaitable(0, state.ayahIndex);
+    if(state.stageToken !== myToken) return;
+  }
+  recordActiveDay();
+  nextAyah();
+}
+function playFullSurah(){
+  const s = currentSurah();
+  playAyahRangeAwaitable(0, s.ayahs.length-1);
+}
+
+// ---------- متابعة الحضور: أيام متتالية وعودة بعد انقطاع ----------
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+function recordActiveDay(){
+  const today = todayStr();
+  const dates = JSON.parse(localStorage.getItem('rim.activeDates') || '[]');
+  const last = localStorage.getItem('rim.lastActiveDate');
+  if(last && last !== today){
+    const gapDays = Math.round((new Date(today) - new Date(last)) / 86400000);
+    if(gapDays >= 3 && localStorage.getItem('rim.welcomeBackPending') !== today){
+      localStorage.setItem('rim.welcomeBackPending', today);
+    }
+  }
+  if(!dates.includes(today)) dates.push(today);
+  while(dates.length > 30) dates.shift();
+  localStorage.setItem('rim.activeDates', JSON.stringify(dates));
+  localStorage.setItem('rim.lastActiveDate', today);
+
+  const last3 = dates.slice(-3);
+  let isStreak3 = last3.length === 3;
+  if(isStreak3){
+    for(let i=1;i<last3.length;i++){
+      if(Math.round((new Date(last3[i]) - new Date(last3[i-1]))/86400000) !== 1) isStreak3 = false;
+    }
+  }
+  if(isStreak3 && localStorage.getItem('rim.streak3Shown') !== 'yes'){
+    localStorage.setItem('rim.streak3Shown', 'yes');
+    setTimeout(()=>{ $('rewardTitle').textContent='🌟 ثلاثة أيام مع القرآن'; $('rewardText').textContent=`ريم واظبت ثلاثة أيام. ${FATHER_SIGNATURE}`; $('rewardBanner').hidden=false; celebrateSoftly(); }, 500);
+  }
+}
+function checkWelcomeBack(){
+  const pending = localStorage.getItem('rim.welcomeBackPending');
+  if(pending && pending === todayStr()){
+    localStorage.removeItem('rim.welcomeBackPending');
+    setTimeout(()=> toast(`اشتقنا لك يا ريم 💛 ${FATHER_SIGNATURE}`), 800);
+  }
+}
+
+const RECORD_BTN_IDLE_LABEL = '🎙️ سجّلي صوتك';
 const RECORD_BTN_ACTIVE_LABEL = '⏹️ أوقفي التسجيل';
 const MAX_RECORD_MS = 25000; // مدة كافية لآية قصيرة، مناسبة لطفلة ولا تُتعب الانتباه
 
@@ -422,11 +575,9 @@ function showFirstRecordingGift(){
   persist();
   $('totalStars').textContent = state.totalStars;
   $('rewardTitle').textContent = '🎁 هدية: أول صوت لريم';
-  $('rewardText').textContent = 'بابا سعيد جداً بأول تسجيل لصوتك يا ريم! هذه بداية جميلة.';
+  $('rewardText').textContent = FATHER_SIGNATURE;
   $('rewardBanner').hidden = false;
-  triggerConfetti();
-  playChime();
-  vibrateCelebrate();
+  celebrateSoftly();
 }
 
 function clearRecordTimer(){
@@ -523,6 +674,9 @@ async function toggleRecord(){
         localStorage.setItem('rim.firstRecordingRewardShown', 'yes');
         setTimeout(()=>showFirstRecordingGift(), 1200);
       }
+
+      // ننتقل لمرحلة النجمة بعد أن ترى ريم بطاقة الفرح، دون المساس بمنطق التسجيل أعلاه.
+      if(state.learningStage === 'record') setLearningStage('star');
     };
 
     state.recorder.start();
@@ -545,25 +699,40 @@ async function toggleRecord(){
   }
 }
 
-// ---------- شاشة "تسجيلات ريم": استعراض/تشغيل/حذف/تمييز أفضل قراءة ----------
+// ---------- ألبوم صوت ريم: استعراض/تشغيل/حذف/تمييز أفضل قراءة ----------
+function recordingBadges(r, all, indexInAll){
+  const badges = [];
+  const sameSurah = all.filter(x=>x.surahId===r.surahId);
+  if(indexInAll === all.length-1) badges.push('أول محاولة');
+  if(r.isBest) badges.push('صوت جميل');
+  if(sameSurah.length >= 3) badges.push('تقدم رائع');
+  return badges;
+}
 async function renderRimRecordings(){
   const recordings = await idbGetAll('rimRecordings');
   recordings.sort((a,b)=> b.createdAt - a.createdAt);
   console.log('loaded recordings count', recordings.length);
 
   $('recordingsEmpty').hidden = recordings.length > 0;
-  $('recordingsList').innerHTML = recordings.map(r => `
+  $('recordingsList').innerHTML = recordings.map((r,i) => {
+    const badges = recordingBadges(r, recordings, i);
+    const phrase = albumEncouragements[i % albumEncouragements.length];
+    return `
     <div class="recording-item" data-id="${r.id}">
       <div class="rec-info">
-        🎙️ سورة ${r.surahName} — الآية ${r.ayahIndex + 1}
-        <small>${new Date(r.createdAt).toLocaleDateString('ar', {year:'numeric', month:'long', day:'numeric'})}${r.starsAtRecording !== undefined ? ` • ⭐ ${r.starsAtRecording} وقتها` : ''}</small>
+        <b>🎙️ سورة ${r.surahName} — الآية ${r.ayahIndex + 1}</b>
+        <p class="rec-ayah">${(r.ayahText || '').slice(0, 40)}${(r.ayahText||'').length>40?'…':''}</p>
+        <small>${new Date(r.createdAt).toLocaleDateString('ar', {year:'numeric', month:'long', day:'numeric'})}</small>
+        <div class="rec-badges">${badges.map(b=>`<span class="rec-badge">${b}</span>`).join('')}</div>
+        <p class="rec-phrase">${phrase}</p>
       </div>
       <div class="rec-actions">
         <button class="play-rec" data-id="${r.id}" type="button">▶ تشغيل</button>
         <button class="danger del-rec" data-id="${r.id}" type="button">🗑️ حذف</button>
         <button class="best ${r.isBest ? 'active' : ''}" data-id="${r.id}" type="button" title="أفضل قراءة">${r.isBest ? '⭐' : '☆'}</button>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 
   document.querySelectorAll('#recordingsList .play-rec').forEach(btn => btn.addEventListener('click', async () => {
     const rec = await idbGet('rimRecordings', btn.dataset.id);
@@ -593,8 +762,26 @@ async function renderRimRecordings(){
 function refreshRimRecordingsIfOpen(){
   if($('recordingsDialog').open) renderRimRecordings();
 }
+async function openRimAlbum(){
+  await renderRimRecordings();
+  $('recordingsDialog').showModal();
+}
 
-// ---------- استوديو صوت الأب: تلاوة شخصية للآية + عبارات تشجيع ----------
+// ---------- لوحة الأب: متابعة صوت ريم ----------
+async function renderVoiceFollowUp(){
+  const recordings = await idbGetAll('rimRecordings');
+  recordings.sort((a,b)=> b.createdAt - a.createdAt);
+  $('followUpCount').textContent = String(recordings.length);
+  const last = recordings[0];
+  $('followUpLast').textContent = last
+    ? `سورة ${last.surahName} — آية ${last.ayahIndex+1} (${new Date(last.createdAt).toLocaleDateString('ar', {year:'numeric', month:'long', day:'numeric'})})`
+    : 'لا يوجد بعد';
+  const s = currentSurah();
+  $('followUpSurah').textContent = `سورة ${s.name}`;
+  $('followUpAyah').textContent = `آية ${state.ayahIndex+1} / ${s.ayahs.length}`;
+}
+
+// ---------- استوديو صوت الأب: تلاوة شخصية للآية + عبارات تشجيع — لا تُغيَّر هذه الطبقة ----------
 async function refreshVoiceStudio(){
   const clip = await idbGet('ayahVoice', ayahVoiceKey());
   $('ayahVoiceStatus').textContent = clip ? 'تم تسجيل تلاوتك لهذه الآية ✓' : 'لا يوجد تسجيل بعد لهذه الآية';
@@ -670,11 +857,11 @@ async function drawCertificate(surahObj){
   const W = canvas.width, H = canvas.height;
 
   const grad = ctx.createLinearGradient(0, 0, 0, H);
-  grad.addColorStop(0, '#fff7ed'); grad.addColorStop(1, '#effdf5');
+  grad.addColorStop(0, '#fdf8f0'); grad.addColorStop(1, '#eef6f8');
   ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
 
-  ctx.strokeStyle = '#e3b84d'; ctx.lineWidth = 14; ctx.strokeRect(28, 28, W-56, H-56);
-  ctx.strokeStyle = '#1f8f72'; ctx.lineWidth = 4; ctx.strokeRect(48, 48, W-96, H-96);
+  ctx.strokeStyle = '#d9b877'; ctx.lineWidth = 14; ctx.strokeRect(28, 28, W-56, H-56);
+  ctx.strokeStyle = '#9cc7da'; ctx.lineWidth = 4; ctx.strokeRect(48, 48, W-96, H-96);
 
   try{
     const img = await loadImage('assets/rim/rim-reward.jpg');
@@ -694,27 +881,27 @@ async function drawCertificate(surahObj){
 
   ctx.direction = 'rtl';
   ctx.textAlign = 'center';
-  ctx.fillStyle = '#1f8f72';
+  ctx.fillStyle = '#5a8ba0';
   ctx.font = 'bold 48px sans-serif';
-  ctx.fillText('🌙 شهادة إنجاز 🌙', W/2, 610);
-  ctx.fillStyle = '#0f2a22';
+  ctx.fillText('شهادة إنجاز', W/2, 610);
+  ctx.fillStyle = '#3a3229';
   ctx.font = 'bold 76px sans-serif';
   ctx.fillText('ريم', W/2, 715);
   ctx.font = '38px sans-serif';
-  ctx.fillStyle = '#276751';
+  ctx.fillStyle = '#6b6156';
   ctx.fillText(`أتمّت بفضل الله حفظ سورة ${surahObj.name}`, W/2, 800);
   ctx.font = '30px sans-serif';
-  ctx.fillStyle = '#6d7c75';
+  ctx.fillStyle = '#8a8074';
   const dateStr = new Date().toLocaleDateString('ar', {year:'numeric', month:'long', day:'numeric'});
   ctx.fillText(dateStr, W/2, 855);
   ctx.font = '58px sans-serif';
   ctx.fillText('⭐ ⭐ ⭐', W/2, 960);
   ctx.font = '30px sans-serif';
-  ctx.fillStyle = '#9a6e12';
+  ctx.fillStyle = '#b48a3f';
   ctx.fillText(`مجموع نجوم ريم: ${state.totalStars}`, W/2, 1015);
   ctx.font = '26px sans-serif';
-  ctx.fillStyle = '#6d7c75';
-  ctx.fillText('هدية بابا أحمد لريم — بحب لا ينتهي 💛', W/2, H-90);
+  ctx.fillStyle = '#8a8074';
+  ctx.fillText(FATHER_SIGNATURE, W/2, H-90);
 }
 async function openCertificate(surahObj){
   await drawCertificate(surahObj);
@@ -733,41 +920,59 @@ function downloadCertificate(){
   }, 'image/png');
 }
 
+// ---------- المساعدة الاختيارية: سماع ببطء + نقسمها معاً + سماع السورة كاملة ----------
+function toggleHelp(){
+  const panel = $('helpPanel');
+  panel.hidden = !panel.hidden;
+}
+
 function init(){
-  renderFlowers(); renderJourney(); renderGarden();
-  $('dailyMessage').textContent = messages[new Date().getDate()%messages.length];
-  $('newMessageBtn').onclick=()=> $('dailyMessage').textContent = messages[Math.floor(Math.random()*messages.length)];
-  $('startJourneyBtn').onclick=()=> showScreen('journeyScreen');
-  $('quickListenBtn').onclick=()=> { showScreen('journeyScreen'); setTimeout(()=>playAyah(false),300); };
+  renderSurahCards(); renderGarden();
+  checkWelcomeBack();
+  $('startJourneyBtn').onclick=()=> showScreen('surahPickerScreen');
+  $('shortcutListen').onclick=()=> { showScreen('journeyScreen'); setTimeout(()=>playAyah(false),300); };
+  $('shortcutMemorize').onclick=()=> showScreen('surahPickerScreen');
+  $('shortcutGifts').onclick=()=> showScreen('giftsScreen');
   $('homeBtn').onclick=()=> showScreen('homeScreen');
-  $('backBtn').onclick=()=> showScreen('homeScreen');
-  $('playAyahBtn').onclick=()=>playAyah(false);
-  $('playSlowBtn').onclick=()=>playAyah(true);
-  $('rimTurnBtn').onclick=rimTurn;
-  $('nextBtn').onclick=nextAyah;
-  $('recordBtn').onclick=toggleRecord;
+  $('backBtn').onclick=()=> showScreen('surahPickerScreen');
+  $('backToHomeFromPicker').onclick=()=> showScreen('homeScreen');
+
+  $('recordBtn').onclick=toggleRecord; // القيمة الابتدائية؛ setLearningStage تُعيد ضبطها حسب المرحلة
   $('playRecordBtn').onclick=()=>{ if(state.recordUrl) new Audio(state.recordUrl).play(); };
-  $('openRimRecordingsBtn').onclick=()=>{ renderRimRecordings(); $('recordingsDialog').showModal(); };
+  $('openRimRecordingsBtn').onclick=openRimAlbum;
   $('closeRecordingsBtn').onclick=()=> $('recordingsDialog').close();
   $('joyPlayBtn').onclick=()=>{ if(state.recordUrl) new Audio(state.recordUrl).play(); };
   $('joyRetryBtn').onclick=()=>{ $('recordJoyCard').hidden = true; toggleRecord(); };
-  $('speakNudgeBtn').onclick=()=> speak($('nudgeText').textContent);
   $('speakRewardBtn').onclick=()=> speak($('rewardText').textContent);
+
+  $('helpToggleBtn').onclick=toggleHelp;
+  $('helpSlowBtn').onclick=()=> playAyah(true);
+  $('helpSplitBtn').onclick=()=>{ $('wordCloud').hidden = !$('wordCloud').hidden; };
+  $('helpFullSurahBtn').onclick=()=> playFullSurah();
+
   document.querySelectorAll('.nav-item').forEach(b=>b.onclick=()=>showScreen(b.dataset.target));
+
   $('parentBtn').onclick=()=>{
     $('repeatSelect').value=state.repeatGoal;
+    $('gapSelect').value=state.repeatGapSec;
+    $('autoRepeatToggle').checked = state.autoRepeatEnabled;
     $('fatherLine').value=state.fatherLine;
     $('onlineAudio').checked = state.onlineAudio;
     refreshVoiceStudio();
+    renderVoiceFollowUp();
     $('parentDialog').showModal();
   };
   $('saveParent').onclick=()=>{
     state.repeatGoal=Number($('repeatSelect').value);
+    state.repeatGapSec=Number($('gapSelect').value);
+    state.autoRepeatEnabled=$('autoRepeatToggle').checked;
     state.fatherLine=$('fatherLine').value.trim() || state.fatherLine;
     state.onlineAudio=$('onlineAudio').checked;
-    persist(); renderJourney(); $('parentDialog').close();
+    persist();
+    $('parentDialog').close();
   };
-  $('resetProgress').onclick=()=>{ if(confirm('هل تريد فعلاً إعادة النجوم والتقدم؟')){ state.totalStars=0; state.completed={}; state.ayahIndex=0; state.repeats=0; persist(); renderFlowers(); renderJourney(); renderGarden(); }};
+  $('resetProgress').onclick=()=>{ if(confirm('هل تريد فعلاً إعادة النجوم والتقدم؟')){ state.totalStars=0; state.completed={}; state.progress={}; state.ayahIndex=0; state.repeats=0; persist(); renderSurahCards(); renderGarden(); }};
+  $('openAlbumFromParent').onclick=()=>{ $('parentDialog').close(); openRimAlbum(); };
   $('recordAyahBtn').onclick=toggleAyahRecord;
   $('playAyahVoiceBtn').onclick=playAyahVoice;
   $('clearAyahVoiceBtn').onclick=clearAyahVoice;
@@ -775,6 +980,7 @@ function init(){
   $('clearEncourageBtn').onclick=clearEncouragements;
   $('closeCertificateBtn').onclick=()=> $('certificateDialog').close();
   $('downloadCertificateBtn').onclick=downloadCertificate;
+
   if('serviceWorker' in navigator){
     // نضمن أن أي تحديث جديد للتطبيق (بعد إصلاح أو تطوير) يصل فعلياً لهاتف ريم بدل البقاء عالقاً في نسخة مخزَّنة قديمة.
     let reloadedOnce = false;
