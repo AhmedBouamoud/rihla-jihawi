@@ -13,6 +13,11 @@
 </head>
 <body>
   <div class="soft-glow" id="softGlow" aria-hidden="true"></div>
+  <div class="encouragement-card" id="encouragementCard" hidden>
+    <span class="enc-card-icon" aria-hidden="true">✨</span>
+    <span class="enc-card-name" id="encouragementCardName"></span>
+    <button class="enc-card-stop" id="encouragementStopBtn" type="button" aria-label="إيقاف صوت التشجيع">⏹</button>
+  </div>
 
   <main class="phone-app" id="app">
     <header class="app-header">
@@ -242,6 +247,19 @@
           </div>
         </div>
       </div>
+
+      <div class="encouragement-settings">
+        <h3>🔔 أصوات تشجيع ريم</h3>
+        <p>خمسة أصوات تشجيع قصيرة وهادئة تُشغَّل عند إنجاز حقيقي فقط — لا تعمل مع القرآن ولا أثناء تسجيل ريم أبداً.</p>
+        <label class="switch-line">
+          <input id="encouragementMasterToggle" type="checkbox" checked />
+          تفعيل أصوات التشجيع
+        </label>
+        <div id="encouragementTrackList"></div>
+        <div class="dialog-actions">
+          <button class="secondary" id="resetEncouragementDefaults" type="button">↺ استعادة الإعدادات الافتراضية</button>
+        </div>
+      </div>
     </form>
   </dialog>
 
@@ -278,6 +296,7 @@
 
   <audio id="audioPlayer" preload="none"></audio>
   <audio id="voicePlayer" preload="none"></audio>
+  <audio id="encouragementPlayer" preload="none"></audio>
   <script src="app.js"></script>
 </body>
 </html>
