@@ -266,20 +266,27 @@ function openGift(gift){
   window.open(gift.url, '_blank', 'noopener,noreferrer');
   toast('فتحت هدية ريم في نافذة جديدة 🎁');
 }
+const GIFT_THUMB_POOL = ['assets/rim-v2/listening.webp', 'assets/rim-v2/prayer-room.webp', 'assets/rim-v2/first-ayah.webp', 'assets/rim-v2/first-voice.webp'];
 function renderGifts(){
   const next = GIFTS.find(g=>!giftUnlocked(g));
   $('giftStarsText').textContent = `${state.totalStars} نجمة`;
   $('giftUnlockText').textContent = next ? `الهدية القادمة عند ${next.stars} نجوم.` : 'كل الهدايا مفتوحة يا ريم. نراجع ونفرح.';
-  $('giftGrid').innerHTML = GIFTS.map(g=>`
-    <article class="gift-card ${giftUnlocked(g)?'open':'locked'}">
-      <div class="gift-icon">${giftUnlocked(g)?g.icon:'🔒'}</div>
+  $('giftGrid').innerHTML = GIFTS.map((g,i)=>{
+    const unlocked = giftUnlocked(g);
+    const icon = unlocked
+      ? `<img src="${GIFT_THUMB_POOL[i % GIFT_THUMB_POOL.length]}" alt="" loading="lazy" />`
+      : '🔒';
+    return `
+    <article class="gift-card ${unlocked?'open':'locked'}">
+      <div class="gift-icon">${icon}</div>
       <div>
         <span class="gift-type">${g.type} • ${g.stars} نجوم</span>
         <h3>${g.title}</h3>
         <p>${g.note}</p>
-        <button class="${giftUnlocked(g)?'primary':'secondary'}" data-gift="${g.id}" type="button">${giftUnlocked(g)?'افتحي الهدية':'مقفلة الآن'}</button>
+        <button class="${unlocked?'primary':'secondary'}" data-gift="${g.id}" type="button">${unlocked?'افتحي الهدية':'مقفلة الآن'}</button>
       </div>
-    </article>`).join('');
+    </article>`;
+  }).join('');
   document.querySelectorAll('#giftGrid button[data-gift]').forEach(btn=>btn.addEventListener('click',()=>openGift(findGift(btn.dataset.gift))));
 }
 function checkNewGift(){
@@ -404,13 +411,18 @@ async function playRandomEncouragement(){
   voicePlayer.play().catch(()=>{});
 }
 
-function giveStar(text){
+function setRewardPhoto(src){
+  const img = $('rewardPhoto');
+  if(img) img.src = src;
+}
+function giveStar(text, photo){
   state.totalStars += 1;
   state.repeats = 0;
   persist();
   $('totalStars').textContent = state.totalStars;
   $('rewardTitle').textContent = 'أحسنت يا ريم';
   $('rewardText').textContent = text || rewards[Math.floor(Math.random()*rewards.length)];
+  setRewardPhoto(photo || 'assets/rim-v2/reward.webp');
   $('rewardBanner').hidden = false;
   celebrateSoftly();
   playRandomEncouragement();
@@ -420,7 +432,7 @@ function giveStarForAyah(){
   const firstAyahEver = localStorage.getItem('rim.firstAyahRewardShown') !== 'yes';
   if(firstAyahEver){
     localStorage.setItem('rim.firstAyahRewardShown', 'yes');
-    giveStar(`أول آية تحفظينها يا ريم! ${FATHER_SIGNATURE}`);
+    giveStar(`أول آية تحفظينها يا ريم! ${FATHER_SIGNATURE}`, 'assets/rim-v2/first-ayah.webp');
   }else{
     giveStar(state.fatherLine);
   }
@@ -436,11 +448,11 @@ function nextAyah(){
     persist();
     setLearningStage('done'); // نمنع إعادة منح النجمة إن ضغطت ريم على الزر مرة أخرى بعد ختم السورة
     if(firstTimeThisSurah){
-      giveStar(`أتممتِ سورة ${s.name} يا ريم… هدية جميلة لقلبك.`);
+      giveStar(`أتممتِ سورة ${s.name} يا ريم… هدية جميلة لقلبك.`, 'assets/rim-v2/surah-complete.webp');
       const firstSurahEver = localStorage.getItem('rim.firstSurahRewardShown') !== 'yes';
       if(firstSurahEver){
         localStorage.setItem('rim.firstSurahRewardShown', 'yes');
-        setTimeout(()=>{ $('rewardTitle').textContent='🌙 أول سورة كاملة لريم'; $('rewardText').textContent=FATHER_SIGNATURE; $('rewardBanner').hidden=false; celebrateSoftly(); }, 900);
+        setTimeout(()=>{ setRewardPhoto('assets/rim-v2/surah-complete.webp'); $('rewardTitle').textContent='🌙 أول سورة كاملة لريم'; $('rewardText').textContent=FATHER_SIGNATURE; $('rewardBanner').hidden=false; celebrateSoftly(); }, 900);
       }
       setTimeout(()=>openCertificate(s), 1600);
     }else{
@@ -533,7 +545,7 @@ function recordActiveDay(){
   }
   if(isStreak3 && localStorage.getItem('rim.streak3Shown') !== 'yes'){
     localStorage.setItem('rim.streak3Shown', 'yes');
-    setTimeout(()=>{ $('rewardTitle').textContent='🌟 ثلاثة أيام مع القرآن'; $('rewardText').textContent=`ريم واظبت ثلاثة أيام. ${FATHER_SIGNATURE}`; $('rewardBanner').hidden=false; celebrateSoftly(); }, 500);
+    setTimeout(()=>{ setRewardPhoto('assets/rim-v2/special-family.webp'); $('rewardTitle').textContent='🌟 ثلاثة أيام مع القرآن'; $('rewardText').textContent=`ريم واظبت ثلاثة أيام. ${FATHER_SIGNATURE}`; $('rewardBanner').hidden=false; celebrateSoftly(); }, 500);
   }
 }
 function checkWelcomeBack(){
@@ -576,6 +588,7 @@ function showFirstRecordingGift(){
   $('totalStars').textContent = state.totalStars;
   $('rewardTitle').textContent = '🎁 هدية: أول صوت لريم';
   $('rewardText').textContent = FATHER_SIGNATURE;
+  setRewardPhoto('assets/rim-v2/first-voice.webp');
   $('rewardBanner').hidden = false;
   celebrateSoftly();
 }

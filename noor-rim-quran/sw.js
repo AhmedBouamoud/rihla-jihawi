@@ -1,8 +1,13 @@
-const CACHE = 'noor-rim-hadiya-v6';
+const CACHE = 'noor-rim-hadiya-v7';
 const AUDIO_CACHE = 'noor-rim-audio-v1';
 const ASSETS = ['./','./index.html','./style.css','./app.js','./manifest.webmanifest',
   './assets/icons/icon-192.svg','./assets/icons/icon-512.svg',
-  './assets/rim/rim-hero.jpg','./assets/rim/rim-reward.jpg','./assets/rim/rim-family.jpg'];
+  './assets/rim/rim-reward.jpg',
+  './assets/rim-v2/hero.webp','./assets/rim-v2/hero-wide.webp','./assets/rim-v2/reward.webp',
+  './assets/rim-v2/album-header.webp','./assets/rim-v2/surah-complete.webp',
+  './assets/rim-v2/first-voice.webp','./assets/rim-v2/first-ayah.webp',
+  './assets/rim-v2/special-family.webp','./assets/rim-v2/listening.webp',
+  './assets/rim-v2/prayer-room.webp','./assets/rim-v2/pride-embrace.webp'];
 
 self.addEventListener('install', e => {
   self.skipWaiting();
