@@ -161,6 +161,13 @@ button,input,select{font:inherit}
 .soft-glow.pulse{animation:softglow 1.4s ease-out}
 @keyframes softglow{0%{opacity:0}30%{opacity:1}100%{opacity:0}}
 
+/* ---------- بطاقة صوت التشجيع: صغيرة وغير مزعجة، لا تحجب أي عنصر رئيسي ---------- */
+.encouragement-card{position:fixed;top:14px;right:50%;transform:translateX(50%);z-index:70;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--gold);border-radius:999px;padding:8px 10px 8px 8px;box-shadow:var(--shadow);max-width:min(320px,90vw);animation:encFadeIn .3s ease}
+@keyframes encFadeIn{from{opacity:0;transform:translateX(50%) translateY(-8px)}to{opacity:1;transform:translateX(50%) translateY(0)}}
+.enc-card-icon{font-size:16px}
+.enc-card-name{flex:1;font-weight:900;font-size:13px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.enc-card-stop{flex:0 0 auto;width:30px;height:30px;border:0;border-radius:50%;background:var(--cream2);color:var(--muted);font-size:13px;cursor:pointer}
+
 /* ---------- الحوارات ---------- */
 .parent-dialog{width:min(480px,94vw);border:0;border-radius:28px;padding:0;background:transparent;max-height:92svh}
 .parent-dialog::backdrop{background:rgba(58,50,41,.35)}
@@ -194,6 +201,18 @@ select,input[type=text]{width:100%;border:1px solid var(--stroke);background:#ff
 @keyframes pulseRec{to{box-shadow:0 0 0 8px rgba(198,91,74,.14)}}
 .tiny-btn.danger{color:#a5432f;border-color:#f0d3ca;background:#fff5f2}
 .tiny-btn:disabled,.record-actions button:disabled{opacity:.5;cursor:not-allowed}
+
+.encouragement-settings{margin-top:18px;padding-top:14px;border-top:1px dashed var(--stroke)}
+.encouragement-settings h3{margin:0 0 6px;font-size:17px}
+.encouragement-settings>p{margin:0 0 12px}
+.enc-track-row{background:#fff;border:1px solid var(--stroke);border-radius:16px;padding:10px;margin-bottom:8px}
+.enc-track-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.enc-track-top input[type=checkbox]{width:auto;flex:0 0 auto}
+.enc-track-top input[type=text]{flex:1;min-width:120px;padding:7px 10px;border-radius:12px}
+.enc-missing-badge{background:#fff5f2;color:#a5432f;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:900;white-space:nowrap}
+.enc-track-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.enc-track-actions select{flex:1;min-width:90px;padding:7px 8px;font-size:13px}
+.enc-track-actions button{min-height:38px;padding:7px 10px;font-size:13px}
 
 .cert-dialog-card{text-align:center}
 #certificateCanvas{width:100%;max-width:320px;height:auto;border-radius:20px;box-shadow:var(--shadow);margin:8px auto 0;display:block}
