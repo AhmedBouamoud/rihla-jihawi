@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d1438">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="assets/css/style.css">
+<title>المحطة 4 — كهف المرآة</title>
+
+
+<meta name="description" content="عالم نون: مغامرة عربية خيالية للأطفال عبر خمس محطات تعليمية تفاعلية.">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="المحطة الرابعة — كهف المرآة البلورية">
+<meta property="og:description" content="مغامرة عربية خيالية للأطفال لتعلم الأصوات والحروف باللعب.">
+<meta property="og:image" content="assets/img/social-preview.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+
+</head>
+<body data-page="station4">
+<div class="app-shell">
+
+<div id="offlineBadge" class="offline-badge"></div>
+<div id="installBanner" class="install-banner">
+  <p><strong>ثَبِّتْ عَالَمَ نُون</strong><br>ليفتح مثل تطبيق ويعمل بصورة أفضل على الهاتف.</p>
+  <button id="installApp" class="btn primary">تَثْبِيت</button>
+  <button id="closeInstall" class="icon-btn" aria-label="إغلاق">×</button>
+</div>
+
+<div class="stars"></div>
+<div id="voiceCaption" class="voice-caption hidden"><span class="face">🗣️</span><span id="voiceText"></span></div>
+<button id="repeatVoice" class="repeat-voice" aria-label="إعادة الاستماع">🔊</button>
+<div class="page">
+
+<header class="topbar">
+  <button class="icon-btn" onclick="location.href='index.html'">→</button>
+  <span class="grow pill">المَحَطَّةُ 4 مِنْ 5</span>
+  <button class="icon-btn ask-voice">❓</button>
+</header>
+<section class="hero">
+  <img src="assets/img/station4-cave.webp" alt="كهف المرآة البلورية" loading="lazy" decoding="async">
+  <div class="overlay"></div>
+  <div class="caption"><h2>كَهْفُ المِرْآةِ البِلَّوْرِيَّة</h2><p>اُرْسُمْ خَيْطَ النُّورِ فَوْقَ المَسَارِ، حَتَّى تَعْكِسَ المِرْآةُ النُّورَ مَرَّةً أُخْرَى.</p></div>
+</section>
+<section class="card canvas-box">
+  <canvas id="traceCanvas" width="900" height="700"></canvas>
+  <div class="trace-row"><span id="traceStatus">اِبْدَأْ مِنَ النُّقْطَةِ المُضِيئَة</span><div class="trace-meter"><i id="traceMeterFill"></i></div></div>
+  <div class="actions">
+    <button id="clearTrace" class="btn secondary">مَسْح</button>
+    <button id="checkTrace" class="btn secondary">تَحَقَّقْ</button>
+  </div>
+</section>
+<div class="nav-bottom">
+  <button class="btn secondary" onclick="location.href='index.html'">الخَرِيطَة</button>
+  <button id="nextStation4" class="btn primary hidden" onclick="location.href='station5.html'">إِلَى القَصْر</button>
+</div>
+
+</div>
+<div id="toast" class="toast"></div>
+</div>
+<script src="assets/js/app.js"></script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));}</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d1438">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="assets/css/style.css">
+<title>المحطة 3 — جسر الإيقاع</title>
+
+
+<meta name="description" content="عالم نون: مغامرة عربية خيالية للأطفال عبر خمس محطات تعليمية تفاعلية.">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="المحطة الثالثة — جسر الإيقاع">
+<meta property="og:description" content="مغامرة عربية خيالية للأطفال لتعلم الأصوات والحروف باللعب.">
+<meta property="og:image" content="assets/img/social-preview.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+
+</head>
+<body data-page="station3">
+<div class="app-shell">
+
+<div id="offlineBadge" class="offline-badge"></div>
+<div id="installBanner" class="install-banner">
+  <p><strong>ثَبِّتْ عَالَمَ نُون</strong><br>ليفتح مثل تطبيق ويعمل بصورة أفضل على الهاتف.</p>
+  <button id="installApp" class="btn primary">تَثْبِيت</button>
+  <button id="closeInstall" class="icon-btn" aria-label="إغلاق">×</button>
+</div>
+
+<div class="stars"></div>
+<div id="voiceCaption" class="voice-caption hidden"><span class="face">🗣️</span><span id="voiceText"></span></div>
+<button id="repeatVoice" class="repeat-voice" aria-label="إعادة الاستماع">🔊</button>
+<div class="page">
+
+<header class="topbar">
+  <button class="icon-btn" onclick="location.href='index.html'">→</button>
+  <span class="grow pill">المَحَطَّةُ 3 مِنْ 5</span>
+  <button class="icon-btn ask-voice">❓</button>
+</header>
+<section class="hero">
+  <img src="assets/img/station3-bridge.webp" alt="جسر الإيقاع" loading="lazy" decoding="async">
+  <div class="overlay"></div>
+  <div class="caption"><h2>جِسْرُ الإِيقَاع</h2><p>الجِسْرُ لا يَفْتَحُ طَرِيقَهُ إِلَّا لِمَنْ يُصْغِي ثُمَّ يُعِيدُ الإِيقَاعَ صَحِيحًا.</p></div>
+</section>
+<section class="card">
+  <div class="sequence" id="sequenceLights"></div>
+  <div class="drums">
+    <button class="drum" data-hit="م">🥁<small>طَبْلُ م</small></button>
+    <button class="drum" data-hit="ب">🪘<small>طَبْلُ ب</small></button>
+  </div>
+  <p id="rhythmStatus" style="text-align:center;margin:14px 0 0">اِسْتَمِعْ أَوَّلًا...</p>
+  <div class="actions" style="margin-top:10px"><button id="replaySequence" class="btn secondary block">أَعِدِ الإِيقَاع</button></div>
+</section>
+<div class="nav-bottom">
+  <button class="btn secondary" onclick="location.href='index.html'">الخَرِيطَة</button>
+  <button id="nextStation3" class="btn primary hidden" onclick="location.href='station4.html'">إِلَى الكَهْف</button>
+</div>
+
+</div>
+<div id="toast" class="toast"></div>
+</div>
+<script src="assets/js/app.js"></script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));}</script>
+</body>
+</html>
