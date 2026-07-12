@@ -1,5 +1,5 @@
 
-const CACHE = 'alam-noon-release-v1';
+const CACHE = 'alam-noon-release-v2';
 const ASSETS = [
   "./",
   "./index.html",
