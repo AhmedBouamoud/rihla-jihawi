@@ -97,9 +97,9 @@ function setupOnlineStatus(){
 
 function hardenLocalState(){
   if(!APP.state.completed || typeof APP.state.completed !== 'object'){
-    APP.state.completed = {1:false,2:false,3:false,4:false,5:false};
+    APP.state.completed = {1:false,2:false,3:false,4:false,5:false,6:false,7:false};
   }
-  for(let i=1;i<=5;i++){
+  for(let i=1;i<=7;i++){
     if(typeof APP.state.completed[i] !== 'boolean') APP.state.completed[i] = false;
   }
   saveState();
@@ -142,6 +142,8 @@ function pickArabicVoice(){
 if('speechSynthesis' in window){
   pickArabicVoice();
   speechSynthesis.onvoiceschanged = pickArabicVoice;
+  // بعض الأجهزة لا تُحمّل قائمة الأصوات أبداً — بعد مهلة نعتبرها محسومة
+  setTimeout(()=>{ pickArabicVoice(); voicesLoaded = true; }, 2500);
 }
 function clipSrc(text, clip){
   if(clip && window.VOICE_FILES && window.VOICE_FILES[clip]) return window.VOICE_FILES[clip];
@@ -153,6 +155,7 @@ function endSpeech(noon){
   if(noon) noon.classList.remove('talk');
 }
 function playClip(src, noon){
+  if('speechSynthesis' in window) speechSynthesis.cancel();
   const a = APP.audioEl || (APP.audioEl = new Audio());
   a.onended = ()=>endSpeech(noon);
   a.onerror = ()=>endSpeech(noon);
@@ -169,8 +172,9 @@ function speak(text, clip){
   if(APP.audioEl){ APP.audioEl.pause(); }
   const hasTTS = 'speechSynthesis' in window;
   const src = clipSrc(text, clip);
-  // لا صوت عربي متاح في الجهاز الآن؟ نستعمل النطق المولّد المرفق مع التطبيق
-  if(src && (!hasTTS || !arVoice)){ playClip(src, noon); return; }
+  // صوت الجهاز العربي أولاً دائماً؛ والمقاطع المولّدة فقط عند التأكد من غيابه
+  // (يمنع خلط صوتين مختلفين عند تأخر تحميل قائمة الأصوات)
+  if(src && (!hasTTS || (voicesLoaded && !arVoice))){ playClip(src, noon); return; }
   if(hasTTS){
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
@@ -225,7 +229,7 @@ function mountKeys(){
 function updateKeychain(bump){
   const el = document.getElementById('keyChain');
   if(!el) return;
-  const n = Object.values(APP.state.completed).filter(Boolean).length;
+  let n = 0; for(let i=1;i<=5;i++) if(APP.state.completed[i]) n++;
   el.innerHTML = '🗝️ <b>'+n+'</b>/5';
   if(bump){ el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); }
 }
@@ -276,7 +280,10 @@ function unlock(station){
   APP.state.unlocked = Math.max(APP.state.unlocked, station+1);
   if(!APP.state.awards.includes('station'+station)){ APP.state.awards.push('station'+station); }
   saveState();
-  if(first){ SFX.key(); updateKeychain(true); toast('🗝️ حَصَلْتَ عَلَى المِفْتَاحِ رَقْم '+station+'!'); }
+  if(first){
+    SFX.key(); updateKeychain(true);
+    toast(station<=5 ? '🗝️ حَصَلْتَ عَلَى المِفْتَاحِ رَقْم '+station+'!' : '✨ تَحَرَّرَتْ رُوحُ حَرْفٍ جَدِيدَة!');
+  }
 }
 function setChildNameEverywhere(){
   document.querySelectorAll('[data-child-name]').forEach(el=>el.textContent = APP.state.childName);
@@ -290,6 +297,9 @@ function pageIntro(){
     station3:'هَذَا جِسْرُ الإِيقَاع. اِسْمَعِ الطُّبُولَ جَيِّدًا: مَ... بَ... ثُمَّ أَعِدِ الإِيقَاعَ نَفْسَهُ بِالضَّغْطِ عَلَى الطَّبْلَيْنِ بِالتَّرْتِيب.',
     station4:'هَذَا كَهْفُ المِرْآة، وَهُنَا يَسْكُنُ حَرْفِي أَنَا: حَرْفُ نُون! نْ... مِثْلَ نَجْمَة وَنُور. مَرِّرْ إِصْبَعَكَ فَوْقَ الحَرْفِ الكَبِيرِ لِتَرْسُمَهُ بِخَيْطِ النُّور.',
     station5:'وَصَلْنَا قَصْرَ النُّجُوم، وَهُنَا المِفْتَاحُ الأَخِير! سَأَسْأَلُكَ عَنِ الأَصْوَاتِ الَّتِي تَعَلَّمْنَاهَا. اِضْغَطِ الإِجَابَةَ لِتَسْمَعَهَا، ثُمَّ اضْغَطْهَا ثَانِيَةً لِتَخْتَارَهَا.',
+    station6:'وَصَلْنَا نَهْرَ الحُرُوف! حُرُوفٌ صَغِيرَةٌ تَسْبَحُ فِي المَاء. اِنْظُرْ إِلَى الحَرْفِ المَطْلُوبِ فَوْقَ النَّهْر، وَاصْطَدْهُ بِلَمْسِهِ قَبْلَ أَنْ يَهْرُب!',
+    station7:'هَذِهِ وَرْشَةُ الكَلِمَات! اِضْغَطِ الحُرُوفَ بِالتَّرْتِيبِ الصَّحِيحِ لِتَطِيرَ إِلَى أَمَاكِنِهَا، فَتَصْنَعَ الآلَةُ كَلِمَةً جَدِيدَة.',
+    spirits:'هَذَا أَلْبُومُ أَرْوَاحِ الحُرُوف. كُلَّمَا أَكْمَلْتَ مُهِمَّةً تَحَرَّرَتْ رُوحٌ جَدِيدَة. اِضْغَطْ عَلَى أَيِّ رُوحٍ لِتَسْمَعَهَا.',
     parents:'هَذِهِ لَوْحَةُ الوَالِدَيْن. مِنْ هُنَا يُمْكِنُ مُتَابَعَةُ التَّقَدُّمِ وَإِعَادَةُ الرِّحْلَة.'
   };
   if(APP.state.autoVoice && voiceMap[APP.page]) setTimeout(()=>speak(voiceMap[APP.page], 'intro-'+APP.page), 400);
@@ -328,8 +338,10 @@ function initHome(){
     for(let i=1;i<=5;i++){ if(!APP.state.completed[i]){ next=i; break; } if(i===5) next=5; }
     startBtn.onclick = ()=> location.href = 'station'+next+'.html';
   }
+  const shc = document.getElementById('spiritHomeCount');
+  if(shc) shc.textContent = '✨ ' + spiritsFreedCount() + '/8';
   // المدينة تحتفل عند اكتمال الرحلة كلها
-  const all = Object.values(APP.state.completed).every(Boolean);
+  let all = true; for(let i=1;i<=5;i++) if(!APP.state.completed[i]) all = false;
   if(all && !sessionStorage.getItem('alamNoonCityParty')){
     sessionStorage.setItem('alamNoonCityParty','1');
     setTimeout(()=>{ celebrate(34); toast('أَضَأْتَ المَدِينَةَ كُلَّهَا يَا '+APP.state.childName+'! 🌟'); }, 900);
@@ -616,9 +628,187 @@ function initStation5(){
   });
 }
 
+/* ============ المحطة 6: نهر الحروف — اصطياد الحروف السابحة ============ */
+function initStation6(){
+  const area = document.getElementById('riverArea');
+  const targetEl = document.getElementById('riverTarget');
+  const caughtEl = document.getElementById('riverCaught');
+  const roundsEl = document.getElementById('riverRounds');
+  const ROUNDS = [
+    {t:'م', clip:'l-m', hunt:'hunt-m'},
+    {t:'ب', clip:'l-b', hunt:'hunt-b'},
+    {t:'س', clip:'l-s', hunt:'hunt-s'},
+  ];
+  const POOL = ['م','ب','س','ن','ل','ر'];
+  let round = 0, caught = 0, running = true;
+  function announce(){
+    const r = ROUNDS[round];
+    targetEl.textContent = r.t;
+    caughtEl.textContent = caught;
+    [...roundsEl.children].forEach((d,i)=>d.classList.toggle('on', i<=round));
+    speak('اِصْطَدْ ثَلَاثَةَ حُرُوفِ ' + r.t, r.hunt);
+  }
+  function spawn(){
+    if(!running) return;
+    const good = Math.random() > .45;
+    const r = ROUNDS[round];
+    const ch = good ? r.t : POOL.filter(x=>x!==r.t)[Math.floor(Math.random()*5)];
+    const f = document.createElement('button');
+    f.className = 'drift' + (ch===r.t ? ' good' : '');
+    f.textContent = ch;
+    const y0 = 14 + Math.random()*62; // نسبة من ارتفاع النهر
+    f.style.top = y0 + '%';
+    f.style.right = '-70px';
+    area.appendChild(f);
+    let x = -70; // من اليمين إلى اليسار مع تموّج
+    const vx = .8 + Math.random()*.7, amp = 6 + Math.random()*7, ph = Math.random()*6;
+    function step(){
+      if(!f.isConnected) return;
+      x += vx;
+      f.style.right = x + 'px';
+      f.style.top = (y0 + Math.sin(x/34 + ph)*amp*.6) + '%';
+      if(x > area.clientWidth + 40){ f.remove(); return; }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+    f.onclick = ()=>{
+      const fx = f.offsetLeft + 30, fy = f.offsetTop + 30;
+      const isGood = f.textContent === ROUNDS[round].t;
+      f.remove();
+      if(isGood){
+        SFX.pop(); burst(area, fx, fy, '💧', 9);
+        speak(ROUNDS[round].t, ROUNDS[round].clip);
+        caught++; caughtEl.textContent = caught;
+        if(caught >= 3){
+          if(round < ROUNDS.length-1){
+            round++; caught = 0;
+            SFX.good();
+            setTimeout(announce, 900);
+          }else{
+            running = false;
+            unlock(6);
+            document.getElementById('nextStation6').classList.remove('hidden');
+            celebrate();
+            setTimeout(()=>speak('مُدْهِش! نَظَّفْتَ النَّهْرَ مِنَ الحُرُوفِ الضَّائِعَة، وَتَحَرَّرَتْ رُوحُ حَرْفِ سِين!', 'done6'), 700);
+          }
+        }
+      }else{
+        SFX.bad(); burst(area, fx, fy, '💨', 4);
+        speak('لَيْسَ هَذَا هُوَ الحَرْفُ المَطْلُوب', 'no6');
+      }
+    };
+  }
+  announce();
+  for(let i=0;i<3;i++) setTimeout(spawn, 500 + i*400);
+  const inter = setInterval(()=>{ if(!running){ clearInterval(inter); return; } spawn(); }, 950);
+}
+
+/* ============ المحطة 7: ورشة الكلمات — تركيب الكلمة حرفاً حرفاً ============ */
+function initStation7(){
+  const WORDS = [
+    {w:'مَوْز', e:'🍌', letters:['م','و','ز'], clip:'made-mawz', ask:'build-mawz'},
+    {w:'بَاب', e:'🚪', letters:['ب','ا','ب'], clip:'made-bab',  ask:'build-bab'},
+    {w:'نُور', e:'💡', letters:['ن','و','ر'], clip:'made-nur',  ask:'build-nur'},
+  ];
+  const TILE_CLIPS = {'م':'l-m','و':'l-wa','ز':'l-za','ب':'l-b','ا':'l-aa','ن':'l-na','ر':'l-ra','س':'l-s','ل':'l-l','ت':'l-ta'};
+  const DISTRACT = ['س','ل','ت'];
+  const slots = document.getElementById('wordSlots');
+  const pool = document.getElementById('letterPool');
+  const out = document.getElementById('machineOut');
+  const doneEl = document.getElementById('wordsDone');
+  const roundsEl = document.getElementById('wordRounds');
+  let wi = 0, li = 0;
+  function setup(){
+    const W = WORDS[wi];
+    document.getElementById('wordTargetEmoji').textContent = W.e;
+    [...roundsEl.children].forEach((d,i)=>d.classList.toggle('on', i<=wi));
+    out.classList.add('hidden');
+    li = 0;
+    slots.innerHTML = '';
+    W.letters.forEach(()=>{ const sl=document.createElement('span'); sl.className='slot'; slots.appendChild(sl); });
+    const tiles = [...W.letters, DISTRACT[wi % DISTRACT.length], DISTRACT[(wi+1) % DISTRACT.length]];
+    tiles.sort(()=>Math.random()-.5);
+    pool.innerHTML = '';
+    tiles.forEach(ch=>{
+      const t = document.createElement('button');
+      t.className = 'tile'; t.textContent = ch;
+      t.onclick = ()=>{
+        if(t.disabled) return;
+        SFX.tap();
+        speak(ch, TILE_CLIPS[ch]);
+        if(ch === W.letters[li]){
+          t.disabled = true; t.classList.add('used');
+          const sl = slots.children[li];
+          sl.textContent = ch; sl.classList.add('filled');
+          SFX.good();
+          li++;
+          if(li === W.letters.length){
+            setTimeout(()=>{
+              document.getElementById('machineEmoji').textContent = W.e;
+              document.getElementById('machineWord').textContent = W.w;
+              out.classList.remove('hidden');
+              out.classList.remove('made'); void out.offsetWidth; out.classList.add('made');
+              SFX.key();
+              speak('رَائِع! صَنَعْنَا كَلِمَةَ ' + W.w + '!', W.clip);
+              wi++;
+              doneEl.textContent = wi;
+              if(wi < WORDS.length){
+                setTimeout(setup, 2300);
+              }else{
+                unlock(7);
+                document.getElementById('nextStation7').classList.remove('hidden');
+                celebrate();
+                setTimeout(()=>speak('عَمَلٌ رَائِع! صَنَعْنَا ثَلَاثَ كَلِمَات، وَتَحَرَّرَتْ رُوحَا حَرْفَيْ رَاء وَوَاو!', 'done7'), 1400);
+              }
+            }, 500);
+          }
+        }else{
+          t.classList.remove('shake'); void t.offsetWidth; t.classList.add('shake');
+          SFX.bad();
+        }
+      };
+      pool.appendChild(t);
+    });
+    speak('رَكِّبْ كَلِمَةَ ' + W.w, W.ask);
+  }
+  setup();
+}
+
+/* ============ ألبوم أرواح الحروف — الجمع والمكافأة ============ */
+const SPIRITS = [
+  {k:'m', img:'spirit-m', name:'رُوحُ مِيم',  clip:'sp-m', line:'أَنَا رُوحُ حَرْفِ مِيم. مْ... مِثْلَ مَوْز وَمَاء وَمِفْتَاح.', need:c=>c[1]},
+  {k:'b', img:'spirit-b', name:'رُوحُ بَاء',  clip:'sp-b', line:'أَنَا رُوحُ حَرْفِ بَاء. بْ... مِثْلَ بَاب وَبَالُون.', need:c=>c[2]},
+  {k:'n', img:'spirit-n', name:'رُوحُ نُون',  clip:'sp-n', line:'أَنَا رُوحُ حَرْفِ نُون. نْ... مِثْلَ نَجْمَة وَنُور.', need:c=>c[4]},
+  {k:'s', img:'spirit-s', name:'رُوحُ سِين',  clip:'sp-s', line:'أَنَا رُوحُ حَرْفِ سِين. سْ... مِثْلَ سَمَكَة وَسَمَاء.', need:c=>c[6]},
+  {k:'r', img:'spirit-r', name:'رُوحُ رَاء',  clip:'sp-r', line:'أَنَا رُوحُ حَرْفِ رَاء. رْ... مِثْلَ رُمَّان وَرِيشَة.', need:c=>c[7]},
+  {k:'w', img:'spirit-w', name:'رُوحُ وَاو',  clip:'sp-w', line:'أَنَا رُوحُ حَرْفِ وَاو. وْ... مِثْلَ وَرْدَة وَوَلَد.', need:c=>c[7]},
+  {k:'d', img:'spirit-d', name:'رُوحٌ نَائِمَة', clip:'sp-locked', line:'أَنَا رُوحٌ نَائِمَة... سَتُوقِظُنِي مُهِمَّاتٌ جَدِيدَةٌ قَرِيبًا!', need:()=>false},
+  {k:'f', img:'spirit-f', name:'رُوحٌ نَائِمَة', clip:'sp-locked', line:'أَنَا رُوحٌ نَائِمَة... سَتُوقِظُنِي مُهِمَّاتٌ جَدِيدَةٌ قَرِيبًا!', need:()=>false},
+];
+function spiritsFreedCount(){
+  return SPIRITS.filter(sp=>sp.need(APP.state.completed)).length;
+}
+function initSpirits(){
+  const grid = document.getElementById('spiritGrid');
+  document.getElementById('spiritCount').textContent = spiritsFreedCount();
+  SPIRITS.forEach(sp=>{
+    const free = sp.need(APP.state.completed);
+    const card = document.createElement('button');
+    card.className = 'spirit-card' + (free ? '' : ' locked');
+    card.innerHTML = `<img src="assets/img/${sp.img}.webp" alt="${sp.name}" loading="lazy" decoding="async">
+      <b>${free ? sp.name : '🔒 ' + sp.name}</b>`;
+    card.onclick = ()=>{
+      SFX.tap();
+      card.classList.remove('hop'); void card.offsetWidth; card.classList.add('hop');
+      speak(sp.line, sp.clip);
+    };
+    grid.appendChild(card);
+  });
+}
+
 function initParents(){
   document.getElementById('parentChild').textContent = APP.state.childName;
-  document.getElementById('parentProgress').textContent = Object.values(APP.state.completed).filter(Boolean).length + ' / 5';
+  document.getElementById('parentProgress').textContent = Object.values(APP.state.completed).filter(Boolean).length + ' / 7';
   document.getElementById('voiceRate').value = APP.state.voiceRate;
   document.getElementById('autoVoice').checked = APP.state.autoVoice;
   document.getElementById('voiceRate').oninput = e=>{ APP.state.voiceRate = Number(e.target.value); saveState(); };
@@ -638,6 +828,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
   if(APP.page === 'station3') initStation3();
   if(APP.page === 'station4') initStation4();
   if(APP.page === 'station5') initStation5();
+  if(APP.page === 'station6') initStation6();
+  if(APP.page === 'station7') initStation7();
+  if(APP.page === 'spirits') initSpirits();
   if(APP.page === 'parents') initParents();
   document.querySelectorAll('.ask-voice').forEach(btn=>btn.onclick=()=>repeatVoice());
 });

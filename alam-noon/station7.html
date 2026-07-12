@@ -6,20 +6,20 @@
 <meta name="theme-color" content="#0d1438">
 <link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="assets/css/style.css">
-<title>المحطة 5 — قصر النجوم</title>
+<title>المحطة 7 — ورشة الكلمات</title>
 
 
 <meta name="description" content="عالم نون: مغامرة عربية خيالية للأطفال عبر خمس محطات تعليمية تفاعلية.">
 <meta name="robots" content="index,follow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="المحطة الخامسة — قصر النجوم">
+<meta property="og:title" content="وَرْشَةُ الكَلِمَات">
 <meta property="og:description" content="مغامرة عربية خيالية للأطفال لتعلم الأصوات والحروف باللعب.">
 <meta property="og:image" content="assets/img/social-preview.webp">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
 
 </head>
-<body data-page="station5">
+<body data-page="station7">
 <div class="app-shell">
 
 <div id="offlineBadge" class="offline-badge"></div>
@@ -36,29 +36,25 @@
 
 <header class="topbar">
   <button class="icon-btn" onclick="location.href='index.html'">→</button>
-  <span class="grow pill">المَحَطَّةُ 5 مِنْ 5</span>
+  <span class="grow pill">وَرْشَةُ الكَلِمَات</span>
   <button class="icon-btn ask-voice">❓</button>
 </header>
 <section class="hero">
-  <img src="assets/img/station5-celestial-palace.webp" alt="القصر السماوي للنجوم" loading="lazy" decoding="async">
+  <img src="assets/img/station7-workshop.webp" alt="ورشة الكلمات" loading="lazy" decoding="async">
   <div class="overlay"></div>
-  <div class="caption"><h2>قَصْرُ النُّجُوم</h2><p>هُنَا المِفْتَاحُ الأَخِير. أَجِبْ عَنْ أَسْئِلَةِ الرِّحْلَةِ لِتُضِيءَ المَدِينَةَ كُلَّهَا.</p></div>
+  <div class="caption"><h2>وَرْشَةُ الكَلِمَات</h2><p>آلَةُ المُخْتَرِعَةِ لُولُو تَصْنَعُ الأَشْيَاءَ مِنَ الكَلِمَات! رَكِّبِ الحُرُوفَ بِالتَّرْتِيبِ لِتَعْمَلَ الآلَة.</p></div>
 </section>
 <section class="card">
-  <div class="mission-title"><h3>اخْتِبَارُ الأَصْوَات</h3><p>اِضْغَطِ الصُّورَةَ لِتَسْمَعَ كَلِمَتَهَا، ثُمَّ اضْغَطْهَا ثَانِيَةً لِتَخْتَارَهَا.</p></div>
-  <div class="progress-bar"><i id="finalProgress"></i></div>
-  <div id="quizWrap" class="quiz-list" style="margin-top:12px"></div>
+  <div class="round-banner"><span>🔧 نَصْنَعُ كَلِمَة</span><b id="wordTargetEmoji" class="target-letter">🍌</b><span><b id="wordsDone">0</b> / 3</span></div>
+  <div id="machineOut" class="machine-out hidden"><span id="machineEmoji">🍌</span><b id="machineWord">مَوْز</b></div>
+  <div id="wordSlots" class="word-slots"></div>
+  <div id="letterPool" class="letter-pool"></div>
+  <div class="round-dots" id="wordRounds"><i class="on"></i><i></i><i></i></div>
 </section>
-<section id="endingBlock" class="card hidden">
-  <h2>مَبْرُوك!</h2>
-  <div class="hero" style="min-height:200px;margin:10px 0"><img src="assets/img/finale-celebration.webp" alt="احتفال مدينة الأصوات" loading="lazy" decoding="async"></div>
-  <p>أَعَدْتَ المَفَاتِيحَ الخَمْسَةَ، وَأَصْبَحَتْ مَدِينَةُ الأَصْوَاتِ مُضِيئَةً مِنْ جَدِيد.</p>
-  <div class="actions">
-    <button class="btn primary" onclick="location.href='station6.html'">المُغَامَرَةُ تَسْتَمِرّ: نَهْرُ الحُرُوف 🎣</button>
-    <button class="btn secondary" onclick="location.href='index.html'">العَوْدَةُ إِلَى الخَرِيطَة</button>
-    <button class="btn secondary" onclick="location.href='parents.html'">لَوْحَةُ الوَالِدَيْن</button>
-  </div>
-</section>
+<div class="nav-bottom">
+  <button class="btn secondary" onclick="location.href='index.html'">الخَرِيطَة</button>
+  <button id="nextStation7" class="btn primary hidden" onclick="location.href='spirits.html'">زُرْ أَرْوَاحَ الحُرُوف</button>
+</div>
 
 </div>
 <div id="toast" class="toast"></div>
