@@ -1,4 +1,59 @@
 
+/* ============ محرك المؤثرات الصوتية (WebAudio — بلا أي ملفات خارجية) ============ */
+const SFX = (()=>{
+  let ctx = null;
+  function ac(){
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC) return null;
+    ctx = ctx || new AC();
+    if(ctx.state === 'suspended') ctx.resume();
+    return ctx;
+  }
+  function tone({f=440,f2=0,type='sine',dur=.2,peak=.16,at=0}){
+    const c = ac(); if(!c) return;
+    const t0 = c.currentTime + at;
+    const o = c.createOscillator(), g = c.createGain();
+    o.type = type;
+    o.frequency.setValueAtTime(f, t0);
+    if(f2) o.frequency.exponentialRampToValueAtTime(f2, t0+dur);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.linearRampToValueAtTime(peak, t0+.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0+dur);
+    o.connect(g).connect(c.destination);
+    o.start(t0); o.stop(t0+dur+.06);
+  }
+  function noise({dur=.15,peak=.2,at=0,freq=1800}){
+    const c = ac(); if(!c) return;
+    const t0 = c.currentTime + at;
+    const len = Math.max(1, Math.floor(c.sampleRate*dur));
+    const buf = c.createBuffer(1, len, c.sampleRate);
+    const d = buf.getChannelData(0);
+    for(let i=0;i<len;i++) d[i] = Math.random()*2-1;
+    const s = c.createBufferSource(); s.buffer = buf;
+    const fl = c.createBiquadFilter(); fl.type='bandpass'; fl.frequency.value=freq; fl.Q.value=.8;
+    const g = c.createGain();
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.linearRampToValueAtTime(peak, t0+.006);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0+dur);
+    s.connect(fl); fl.connect(g); g.connect(c.destination);
+    s.start(t0);
+  }
+  return {
+    unlock(){ ac(); },
+    tap(){ tone({f:540,dur:.07,peak:.07,type:'triangle'}); },
+    good(){ tone({f:660,dur:.13,type:'triangle'}); tone({f:990,dur:.22,at:.09,type:'triangle'}); },
+    bad(){ tone({f:210,f2:140,dur:.28,peak:.11}); },
+    pop(){ noise({dur:.11,peak:.3,freq:2600}); tone({f:640,f2:1400,dur:.09,peak:.09,type:'square'}); },
+    drum(kind){
+      if(kind==='م'){ tone({f:150,f2:52,dur:.3,peak:.5}); noise({dur:.03,peak:.1,freq:420}); }
+      else { tone({f:290,f2:120,dur:.2,peak:.4,type:'triangle'}); noise({dur:.05,peak:.16,freq:1300}); }
+    },
+    key(){ [660,880,1174,1568].forEach((f,i)=>tone({f,dur:.18,at:i*.09,type:'triangle',peak:.13})); },
+    win(){ [523,659,784,1046,1318].forEach((f,i)=>tone({f,dur:.32,at:i*.12,type:'triangle',peak:.15})); },
+    spark(){ tone({f:1400,f2:2500,dur:.11,peak:.06}); }
+  };
+})();
+document.addEventListener('pointerdown', ()=>SFX.unlock(), {once:true, capture:true});
 
 let deferredInstallPrompt = null;
 function setupInstallPrompt(){
@@ -32,7 +87,7 @@ function setupOnlineStatus(){
   const badge = document.getElementById('offlineBadge');
   if(!badge) return;
   const update = ()=>{
-    badge.textContent = navigator.onLine ? 'عُدْنَا إِلَى الاِتِّصَال' : 'أَنْتَ الآنَ دُونَ اِتِّصَال';
+    badge.textContent = navigator.onLine ? 'عُدْنَا إِلَى الاِتِّصَال' : 'أَنْتَ الآنَ دُونَ اِتِّصَال';
     badge.classList.add('show');
     setTimeout(()=>badge.classList.remove('show'), 2200);
   };
@@ -76,15 +131,32 @@ function toast(msg){
   t.textContent = msg; t.classList.add('show');
   clearTimeout(t._timer); t._timer = setTimeout(()=>t.classList.remove('show'),2200);
 }
+
+/* ============ الصوت المنطوق: اختيار صوت عربي إن وُجد + ربط بشخصية نون ============ */
+let arVoice = null;
+function pickArabicVoice(){
+  const vs = speechSynthesis.getVoices();
+  arVoice = vs.find(v=>/^ar[-_]/i.test(v.lang) || v.lang==='ar') || null;
+}
+if('speechSynthesis' in window){
+  pickArabicVoice();
+  speechSynthesis.onvoiceschanged = pickArabicVoice;
+}
 function speak(text){
   APP.lastVoice = text;
   if(APP.voiceText){APP.voiceText.textContent = text;}
   if(APP.voiceCaption){APP.voiceCaption.classList.remove('hidden');}
+  const noon = document.getElementById('noonBuddy');
+  if(noon){ noon.classList.add('talk'); clearTimeout(noon._talkTimer); noon._talkTimer = setTimeout(()=>noon.classList.remove('talk'), Math.min(9000, 380*text.split(' ').length)); }
   if('speechSynthesis' in window){
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang='ar-SA'; u.rate=APP.state.voiceRate; u.pitch=1.02;
-    u.onend=()=>setTimeout(()=>APP.voiceCaption && APP.voiceCaption.classList.add('hidden'),600);
+    if(arVoice) u.voice = arVoice;
+    u.onend=()=>{
+      setTimeout(()=>APP.voiceCaption && APP.voiceCaption.classList.add('hidden'),600);
+      if(noon) noon.classList.remove('talk');
+    };
     speechSynthesis.speak(u);
   }
 }
@@ -95,29 +167,107 @@ function initVoice(){
   const repeat = document.getElementById('repeatVoice');
   if(repeat) repeat.onclick = repeatVoice;
 }
+
+/* ============ شخصية «نون» المرافقة (SVG مرسومة بالكود) ============ */
+function mountNoon(){
+  if(document.getElementById('noonBuddy')) return;
+  const wrap = document.createElement('button');
+  wrap.id = 'noonBuddy';
+  wrap.setAttribute('aria-label','نون — اضغط لإعادة الاستماع');
+  wrap.innerHTML = `
+  <svg viewBox="0 0 120 120" role="img">
+    <circle class="noon-dot" cx="60" cy="24" r="9" fill="#ffd64c" stroke="#b97a1d" stroke-width="3"/>
+    <path d="M16 46 C16 92 104 92 104 46 L90 46 C90 76 30 76 30 46 Z"
+          fill="#ffd977" stroke="#b97a1d" stroke-width="4" stroke-linejoin="round"/>
+    <circle class="noon-eye" cx="46" cy="62" r="4.6" fill="#3a2a12"/>
+    <circle class="noon-eye" cx="74" cy="62" r="4.6" fill="#3a2a12"/>
+    <path class="noon-mouth" d="M50 71 Q60 79 70 71" fill="none" stroke="#3a2a12" stroke-width="3.4" stroke-linecap="round"/>
+    <circle cx="38" cy="69" r="4" fill="#ff9d76" opacity=".55"/>
+    <circle cx="82" cy="69" r="4" fill="#ff9d76" opacity=".55"/>
+  </svg>`;
+  wrap.onclick = ()=>{ SFX.tap(); repeatVoice(); };
+  document.body.appendChild(wrap);
+}
+
+/* ============ سلسلة مفاتيح الطفل — تظهر في أعلى كل صفحة ============ */
+function mountKeys(){
+  const bar = document.querySelector('.topbar');
+  if(!bar || document.getElementById('keyChain')) return;
+  const el = document.createElement('span');
+  el.id = 'keyChain';
+  el.className = 'pill keychain';
+  bar.appendChild(el);
+  updateKeychain(false);
+}
+function updateKeychain(bump){
+  const el = document.getElementById('keyChain');
+  if(!el) return;
+  const n = Object.values(APP.state.completed).filter(Boolean).length;
+  el.innerHTML = '🗝️ <b>'+n+'</b>/5';
+  if(bump){ el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); }
+}
+
+/* ============ احتفال النجاح: نجوم متطايرة + قفزة نون + لحن فوز ============ */
+function celebrate(count){
+  SFX.win();
+  const noon = document.getElementById('noonBuddy');
+  if(noon){ noon.classList.add('happy'); setTimeout(()=>noon.classList.remove('happy'), 1900); }
+  const n = count || 24;
+  const icons = ['⭐','✨','🌟','💛','🗝️'];
+  for(let i=0;i<n;i++){
+    const s = document.createElement('i');
+    s.className = 'confetti';
+    s.textContent = icons[i % icons.length];
+    s.style.left = (4 + Math.random()*92) + '%';
+    s.style.fontSize = (14 + Math.random()*20) + 'px';
+    s.style.animationDuration = (1.4 + Math.random()*1.3) + 's';
+    s.style.animationDelay = (Math.random()*.5) + 's';
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(), 3400);
+  }
+}
+
+/* انفجار شرارات صغير داخل عنصر (بالونات، رسم، أفران) */
+function burst(parent, x, y, icon, count){
+  for(let i=0;i<(count||8);i++){
+    const p = document.createElement('i');
+    p.className = 'spark';
+    p.textContent = icon || '✨';
+    const a = Math.random()*Math.PI*2, r = 26 + Math.random()*44;
+    p.style.setProperty('--dx', Math.cos(a)*r + 'px');
+    p.style.setProperty('--dy', Math.sin(a)*r + 'px');
+    p.style.left = x + 'px'; p.style.top = y + 'px';
+    parent.appendChild(p);
+    setTimeout(()=>p.remove(), 700);
+  }
+}
+
 function lockNumberForStation(station){
   // station1 unlocked from start; for others require previous completion
   if(station===1) return false;
   return !APP.state.completed[station-1];
 }
 function unlock(station){
+  const first = !APP.state.completed[station];
   APP.state.completed[station] = true;
   APP.state.unlocked = Math.max(APP.state.unlocked, station+1);
   if(!APP.state.awards.includes('station'+station)){ APP.state.awards.push('station'+station); }
   saveState();
+  if(first){ SFX.key(); updateKeychain(true); toast('🗝️ حَصَلْتَ عَلَى المِفْتَاحِ رَقْم '+station+'!'); }
 }
 function setChildNameEverywhere(){
   document.querySelectorAll('[data-child-name]').forEach(el=>el.textContent = APP.state.childName);
 }
 function pageIntro(){
+  const name = APP.state.childName;
   const voiceMap = {
-    home:'مَرْحَبًا بِكَ فِي عَالَمِ نُون. فِي هَذِهِ اللَّيْلَةِ سَرَقَ ظِلُّ الصَّمْتِ خَمْسَةَ مَفَاتِيحَ مِنْ مَدِينَةِ الأَصْوَات. سَنُعِيدُهَا مَحَطَّةً بَعْدَ مَحَطَّة.',
-    station1:'المَحَطَّةُ الأُولَى: سِرُّ المَخْبَزِ الذَّهَبِي. أَعِدْ صَوْتَ م بِاخْتِيَارِ الكَلِمَاتِ الصَّحِيحَة.',
-    station2:'المَحَطَّةُ الثَّانِيَة: غَابَةُ البَالُونَاتِ. اِلْتَقِطْ بَالُونَاتِ صَوْتِ ب.',
-    station3:'المَحَطَّةُ الثَّالِثَة: جِسْرُ الإِيقَاعِ. اِسْتَمِعْ ثُمَّ أَعِدِ الإِيقَاعَ عَلَى الطُّبُول.',
-    station4:'المَحَطَّةُ الرَّابِعَة: كَهْفُ المِرْآةِ البِلَّوْرِيَّةِ. اِرْسُمْ خَيْطَ النُّورِ فَوْقَ المَسَار.',
-    station5:'المَحَطَّةُ الخَامِسَة: قَصْرُ النُّجُومِ. أَجِبْ عَنْ أَسْئِلَةِ النِّهَايَةِ لِتُعِيدَ آخِرَ مِفْتَاح.',
-    parents:'هَذِهِ لَوْحَةُ الوَالِدَيْن. مِنْ هُنَا يُمْكِنُ مُتَابَعَةُ التَّقَدُّمِ وَإِعَادَةُ الرِّحْلَة.'
+    home:'مَرْحَبًا يَا '+name+'! أَنَا نُون، صَدِيقُكَ فِي الرِّحْلَة. سَرَقَ ظِلُّ الصَّمْتِ خَمْسَةَ مَفَاتِيحَ مِنْ مَدِينَةِ الأَصْوَات، فَانْطَفَأَتْ أَنْوَارُهَا. هَيَّا نُعِيدُهَا مَعًا، مِفْتَاحًا بَعْدَ مِفْتَاح!',
+    station1:'هَذَا مَخْبَزُ العَمِّ مِيم. أَفْرَانُهُ انْطَفَأَتْ لِأَنَّ صَوْتَ "مْ" ضَاع. اِضْغَطْ عَلَى أَيِّ بِطَاقَةٍ لِتَسْمَعَ كَلِمَتَهَا، فَإِنْ بَدَأَتْ بِصَوْتِ "مْ" اضْغَطْهَا مَرَّةً ثَانِيَةً لِتُشْعِلَ فُرْنًا!',
+    station2:'وَصَلْنَا غَابَةَ البَالُونَات! البَالُونَاتُ الزَّرْقَاءُ تَحْمِلُ صَوْتَ "بْ". اِلْمِسْهَا لِتُفَرْقِعَهَا، وَاحْذَرِ البَالُونَاتِ البُرْتُقَالِيَّةَ فَهِيَ لِأَصْوَاتٍ أُخْرَى.',
+    station3:'هَذَا جِسْرُ الإِيقَاع. اِسْمَعِ الطُّبُولَ جَيِّدًا: مَ... بَ... ثُمَّ أَعِدِ الإِيقَاعَ نَفْسَهُ بِالضَّغْطِ عَلَى الطَّبْلَيْنِ بِالتَّرْتِيب.',
+    station4:'هَذَا كَهْفُ المِرْآة، وَهُنَا يَسْكُنُ حَرْفِي أَنَا: حَرْفُ نُون! نْ... مِثْلَ نَجْمَة وَنُور. مَرِّرْ إِصْبَعَكَ فَوْقَ الحَرْفِ الكَبِيرِ لِتَرْسُمَهُ بِخَيْطِ النُّور.',
+    station5:'وَصَلْنَا قَصْرَ النُّجُوم، وَهُنَا المِفْتَاحُ الأَخِير! سَأَسْأَلُكَ عَنِ الأَصْوَاتِ الَّتِي تَعَلَّمْنَاهَا. اِضْغَطِ الإِجَابَةَ لِتَسْمَعَهَا، ثُمَّ اضْغَطْهَا ثَانِيَةً لِتَخْتَارَهَا.',
+    parents:'هَذِهِ لَوْحَةُ الوَالِدَيْن. مِنْ هُنَا يُمْكِنُ مُتَابَعَةُ التَّقَدُّمِ وَإِعَادَةُ الرِّحْلَة.'
   };
   if(APP.state.autoVoice && voiceMap[APP.page]) setTimeout(()=>speak(voiceMap[APP.page]), 400);
 }
@@ -127,7 +277,7 @@ function initHome(){
   if(nameInput){
     nameInput.value = APP.state.childName;
     document.getElementById('saveChildName').onclick = ()=>{
-      APP.state.childName = nameInput.value.trim() || 'بَطَل'; saveState(); setChildNameEverywhere(); toast('تَمَّ حِفْظُ الاسْم');
+      APP.state.childName = nameInput.value.trim() || 'بَطَل'; saveState(); setChildNameEverywhere(); SFX.good(); toast('تَمَّ حِفْظُ الاسْم');
     };
   }
   const cards = document.querySelectorAll('[data-station-card]');
@@ -136,15 +286,16 @@ function initHome(){
     const locked = lockNumberForStation(st);
     if(locked){
       card.classList.add('locked');
-      card.querySelector('.station-action').textContent = 'مُقْفَلَة';
+      card.querySelector('.station-action').textContent = '🔒 مُقْفَلَة';
       card.querySelector('.station-action').setAttribute('disabled','disabled');
     }else{
       card.querySelector('.station-action').onclick = ()=>location.href = card.querySelector('.station-action').dataset.href;
     }
     if(APP.state.completed[st]){
+      card.classList.add('done');
       const badge = document.createElement('span');
-      badge.className = 'pill';
-      badge.textContent = '✓ مُكْتَمِلَة';
+      badge.className = 'pill key-badge';
+      badge.textContent = '🗝️ مُكْتَمِلَة';
       card.querySelector('.meta').prepend(badge);
     }
   });
@@ -154,35 +305,62 @@ function initHome(){
     for(let i=1;i<=5;i++){ if(!APP.state.completed[i]){ next=i; break; } if(i===5) next=5; }
     startBtn.onclick = ()=> location.href = 'station'+next+'.html';
   }
+  // المدينة تحتفل عند اكتمال الرحلة كلها
+  const all = Object.values(APP.state.completed).every(Boolean);
+  if(all && !sessionStorage.getItem('alamNoonCityParty')){
+    sessionStorage.setItem('alamNoonCityParty','1');
+    setTimeout(()=>{ celebrate(34); toast('أَضَأْتَ المَدِينَةَ كُلَّهَا يَا '+APP.state.childName+'! 🌟'); }, 900);
+  }
 }
 
+/* ============ المحطة 1: اسمع أولاً ثم اختر — وكل إجابة تُشعل فرناً ============ */
 function initStation1(){
   let score = 0;
   const target = 3;
   const scoreEl = document.getElementById('scoreStation1');
+  const ovens = document.querySelectorAll('.oven');
+  let armed = null;
+  function disarm(){ if(armed){ armed.classList.remove('armed'); armed = null; } }
   document.querySelectorAll('.choice').forEach(btn=>{
     btn.onclick = ()=>{
       if(btn.dataset.done) return;
+      // اللمسة الأولى: اسمع الكلمة فقط
+      if(armed !== btn){
+        disarm();
+        armed = btn; btn.classList.add('armed');
+        SFX.tap();
+        speak(btn.dataset.word);
+        return;
+      }
+      // اللمسة الثانية: اختيار
+      disarm();
       const good = btn.dataset.good === '1';
       if(good){
         btn.dataset.done = '1';
         btn.classList.add('ok');
+        SFX.good();
+        const r = btn.getBoundingClientRect(), pr = btn.parentElement.getBoundingClientRect();
+        burst(btn.parentElement, r.left - pr.left + r.width/2, r.top - pr.top + r.height/2, '✨', 8);
         score++; scoreEl.textContent = score;
-        speak('أَحْسَنْتَ. '+btn.dataset.word);
+        if(ovens[score-1]){ ovens[score-1].classList.add('lit'); }
+        speak('أَحْسَنْتَ! '+btn.dataset.word+' تَبْدَأُ بِصَوْتِ مْ. اِشْتَعَلَ فُرْن!');
         if(score >= target){
           unlock(1);
           document.getElementById('nextStation1').classList.remove('hidden');
-          speak('رَائِع. عَادَ صَوْتُ م إِلَى المَخْبَز. تَمَّ فَتْحُ غَابَةِ البَالُونَات.');
+          celebrate();
+          setTimeout(()=>speak('رَائِع يَا '+APP.state.childName+'! عَادَ صَوْتُ مْ وَاشْتَعَلَتِ الأَفْرَانُ كُلُّهَا. خُذِ المِفْتَاحَ الأَوَّل، وَهَيَّا إِلَى غَابَةِ البَالُونَات!'), 700);
         }
       }else{
         btn.classList.add('bad');
+        SFX.bad();
         setTimeout(()=>btn.classList.remove('bad'),350);
-        speak(btn.dataset.word + ' لا تَبْدَأُ بِصَوْتِ م');
+        speak(btn.dataset.word + ' تَبْدَأُ بِصَوْتٍ آخَر، لَيْسَ مْ. جَرِّبْ غَيْرَهَا!');
       }
     };
   });
 }
 
+/* ============ المحطة 2: بالونات تتمايل وتنفجر بشرارات وصوت حقيقي ============ */
 function initStation2(){
   let score=0, running=true;
   const area = document.getElementById('balloonArea');
@@ -196,25 +374,38 @@ function initStation2(){
     const b = document.createElement('button');
     b.className = 'balloon ' + (good?'good':'bad');
     b.textContent = (good?labelsGood:labelsBad)[Math.floor(Math.random()*(good?labelsGood.length:labelsBad.length))];
-    b.style.left = (8 + Math.random()*(area.clientWidth-78)) + 'px';
-    b.style.top = (8 + Math.random()*220) + 'px';
+    const baseX = 8 + Math.random()*(area.clientWidth-82);
+    const y0 = 30 + Math.random()*200;
+    b.style.left = baseX + 'px';
+    b.style.top = y0 + 'px';
     b.onclick = ()=>{
+      const bx = b.offsetLeft + 35, by = b.offsetTop + 40;
       b.remove();
       if(good){
+        SFX.pop();
+        burst(area, bx, by, '✨', 10);
         score++; scoreEl.textContent = score; speak(b.textContent);
         if(score >= needed){
           running=false; unlock(2); document.getElementById('nextStation2').classList.remove('hidden');
-          speak('أَبْلَيْتَ بَلاءً حَسَنًا. فُتِحَ جِسْرُ الإِيقَاع.');
+          celebrate();
+          setTimeout(()=>speak('أَبْلَيْتَ بَلَاءً حَسَنًا! جَمَعْتَ بَالُونَاتِ صَوْتِ بْ كُلَّهَا، وَفُتِحَ جِسْرُ الإِيقَاع.'), 700);
         }
-      }else{ speak('لَيْسَ هَذَا صَوْتَ ب'); toast('اِبْحَثْ عَنْ ب');}
+      }else{
+        SFX.bad();
+        burst(area, bx, by, '💨', 5);
+        speak('لَيْسَ هَذَا صَوْتَ بْ'); toast('اِبْحَثْ عَنِ البَالُونَاتِ الزَّرْقَاء 🎈');
+      }
     };
     area.appendChild(b);
-    const life = setTimeout(()=>b.remove(), 3800);
-    let y = parseFloat(b.style.top);
+    setTimeout(()=>b.remove(), 4200);
+    let y = y0;
     let dy = -0.35 - Math.random()*.35;
+    const sway = 10 + Math.random()*8, phase = Math.random()*6;
     function step(){
       if(!b.isConnected) return;
-      y += dy; b.style.top = y+'px';
+      y += dy;
+      b.style.top = y+'px';
+      b.style.left = (baseX + Math.sin((y0-y)/26 + phase)*sway) + 'px';
       if(y < -95){ b.remove(); return; }
       requestAnimationFrame(step);
     }
@@ -224,6 +415,7 @@ function initStation2(){
   const inter = setInterval(()=>{ if(!running){ clearInterval(inter); return; } spawn(); }, 800);
 }
 
+/* ============ المحطة 3: طبول بصوت حقيقي وموجات اهتزاز ============ */
 function initStation3(){
   const sequence = ['م','ب','م','ب'];
   const seqWrap = document.getElementById('sequenceLights');
@@ -235,20 +427,31 @@ function initStation3(){
     [...seqWrap.children].forEach(el=>el.classList.remove('on'));
     if(i>=0 && seqWrap.children[i]) seqWrap.children[i].classList.add('on');
   }
+  function thump(btn){
+    btn.classList.remove('hit'); void btn.offsetWidth; btn.classList.add('hit');
+    setTimeout(()=>btn.classList.remove('hit'), 300);
+  }
   function playSeq(){
     if(playing) return;
-    idx = 0; playing=true; status.textContent='اِسْتَمِعْ أَوَّلًا...';
+    idx = 0; playing=true; status.textContent='اِسْتَمِعْ أَوَّلًا...';
     sequence.forEach((label,i)=>{
-      setTimeout(()=>{ highlight(i); speak(label==='م'?'مَ':'بَ'); }, i*900);
+      setTimeout(()=>{
+        highlight(i);
+        SFX.drum(label);
+        const btn = document.querySelector('.drum[data-hit="'+label+'"]');
+        if(btn) thump(btn);
+        speak(label==='م'?'مَ':'بَ');
+      }, i*900);
     });
     setTimeout(()=>{ playing=false; highlight(-1); status.textContent='الآنَ أَعِدِ الإِيقَاعَ.'; }, sequence.length*900 + 300);
   }
   document.getElementById('replaySequence').onclick = playSeq;
   document.querySelectorAll('.drum').forEach(btn=>{
     btn.onclick = ()=>{
-      if(playing){ toast('اِنْتَظِرْ حَتَّى يَنْتَهِي الإِيقَاع'); return; }
-      btn.classList.add('hit'); setTimeout(()=>btn.classList.remove('hit'),150);
+      if(playing){ toast('اِنْتَظِرْ حَتَّى يَنْتَهِي الإِيقَاع'); return; }
+      thump(btn);
       const val = btn.dataset.hit;
+      SFX.drum(val);
       speak(val==='م'?'مَ':'بَ');
       if(val === sequence[idx]){
         highlight(idx); idx++;
@@ -256,23 +459,27 @@ function initStation3(){
         if(idx === sequence.length){
           unlock(3);
           document.getElementById('nextStation3').classList.remove('hidden');
-          speak('مُمْتَاز. تَجَاوَزْتَ جِسْرَ الإِيقَاع، وَفُتِحَ كَهْفُ المِرْآة.');
+          celebrate();
+          setTimeout(()=>speak('مُمْتَاز! عَزَفْتَ الإِيقَاعَ صَحِيحًا وَعَبَرْنَا الجِسْر. فُتِحَ كَهْفُ المِرْآة!'), 700);
         }
       }else{
         idx = 0; highlight(-1); status.textContent='لَا بَأْسَ. أَعِدِ الإِيقَاع.';
-        speak('لَا بَأْسَ. اِسْتَمِعْ ثُمَّ حَاوِلْ مَرَّةً أُخْرَى.');
+        SFX.bad();
+        speak('لَا بَأْسَ. اِسْتَمِعْ ثُمَّ حَاوِلْ مَرَّةً أُخْرَى.');
       }
     };
   });
   playSeq();
 }
 
+/* ============ المحطة 4: رسم حرف ن بشرارات نور ============ */
 function initStation4(){
   const cv = document.getElementById('traceCanvas');
   const ctx = cv.getContext('2d');
   const meter = document.getElementById('traceMeterFill');
   const text = document.getElementById('traceStatus');
-  let draw=false, last=null, dist=0;
+  const box = cv.closest('.canvas-box');
+  let draw=false, last=null, dist=0, sparkAt=0;
   function drawGuide(){
     ctx.clearRect(0,0,cv.width,cv.height);
     ctx.fillStyle='#fffaf0'; ctx.fillRect(0,0,cv.width,cv.height);
@@ -282,20 +489,23 @@ function initStation4(){
     ctx.strokeText('ن', cv.width/2, cv.height/2+25);
     ctx.restore();
     ctx.save(); ctx.beginPath(); ctx.arc(670,210,22,0,Math.PI*2); ctx.fillStyle='#ffd64c'; ctx.shadowColor='#ffc400'; ctx.shadowBlur=20; ctx.fill(); ctx.restore();
-    meter.style.width='0%'; text.textContent='اِبْدَأْ مِنَ النُّقْطَةِ المُضِيئَة'; dist=0;
+    meter.style.width='0%'; text.textContent='اِبْدَأْ مِنَ النُّقْطَةِ المُضِيئَة'; dist=0;
     document.getElementById('nextStation4').classList.add('hidden');
   }
-  function pos(e){ const r=cv.getBoundingClientRect(); return {x:(e.clientX-r.left)*(cv.width/r.width), y:(e.clientY-r.top)*(cv.height/r.height)}; }
+  function pos(e){ const r=cv.getBoundingClientRect(); const br=box.getBoundingClientRect(); return {x:(e.clientX-r.left)*(cv.width/r.width), y:(e.clientY-r.top)*(cv.height/r.height), cx:e.clientX-br.left, cy:e.clientY-br.top}; }
   function start(e){ e.preventDefault(); draw=true; last=pos(e); ctx.beginPath(); ctx.moveTo(last.x,last.y); }
   function move(e){
     if(!draw) return;
     e.preventDefault();
     const p=pos(e); const d=Math.hypot(p.x-last.x,p.y-last.y); if(d<2) return;
-    ctx.save(); ctx.setLineDash([]); ctx.strokeStyle='#f2a137'; ctx.lineWidth=36; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.lineTo(p.x,p.y); ctx.stroke(); ctx.restore();
+    ctx.save(); ctx.setLineDash([]); ctx.strokeStyle='#f2a137'; ctx.lineWidth=36; ctx.lineCap='round'; ctx.lineJoin='round';
+    ctx.shadowColor='#ffc400'; ctx.shadowBlur=14;
+    ctx.lineTo(p.x,p.y); ctx.stroke(); ctx.restore();
     last=p; dist += Math.min(d,65);
+    if(dist - sparkAt > 130){ sparkAt = dist; SFX.spark(); burst(box, p.cx, p.cy, '✨', 3); }
     const pct = Math.min(100, Math.round(dist/15));
     meter.style.width = pct+'%';
-    text.textContent = pct<70 ? 'وَاصِلِ الرَّسْم' : (pct<100 ? 'قَرِيبٌ جِدًّا' : 'رَائِع! أَكْمَلْتَ الأَثَر');
+    text.textContent = pct<70 ? 'وَاصِلِ الرَّسْم' : (pct<100 ? 'قَرِيبٌ جِدًّا' : 'رَائِع! أَكْمَلْتَ الأَثَر');
     if(pct>=100) document.getElementById('nextStation4').classList.remove('hidden');
   }
   function end(){ draw=false; last=null; }
@@ -303,57 +513,82 @@ function initStation4(){
   cv.addEventListener('pointermove',move,{passive:false});
   cv.addEventListener('pointerup',end,{passive:false});
   cv.addEventListener('pointercancel',end,{passive:false});
-  document.getElementById('clearTrace').onclick = drawGuide;
+  document.getElementById('clearTrace').onclick = ()=>{ SFX.tap(); drawGuide(); };
   document.getElementById('checkTrace').onclick = ()=>{
-    if(dist < 950){ speak('رَسْمُكَ جَيِّد. واصِلْ قَلِيلًا ثُمَّ تَحَقَّقْ.'); return; }
+    if(dist < 950){ speak('رَسْمُكَ جَيِّد. وَاصِلْ فَوْقَ الحَرْفِ قَلِيلًا ثُمَّ تَحَقَّقْ.'); return; }
     unlock(4);
     document.getElementById('nextStation4').classList.remove('hidden');
-    speak('أَحْسَنْتَ. اِنْعَكَسَ النُّورُ فِي المِرْآة، وَفُتِحَ قَصْرُ النُّجُوم.');
+    celebrate();
+    setTimeout(()=>speak('أَحْسَنْتَ! رَسَمْتَ حَرْفَ نُون بِخَيْطِ النُّور: نْ... مِثْلَ نَجْمَة. اِنْعَكَسَ النُّورُ وَفُتِحَ قَصْرُ النُّجُوم!'), 700);
   };
   drawGuide();
 }
 
+/* ============ المحطة 5: اختبار الأصوات — اسمع ثم اختر الصورة ============ */
 function initStation5(){
   const data = [
-    {q:'أَيُّ كَلِمَةٍ تَبْدَأُ بِصَوْتِ م؟', a1:'مَوْز', a2:'بَاب', ok:1},
-    {q:'أَيُّ حَرْفٍ كُنَّا نَلْتَقِطُهُ فِي غَابَةِ البَالُونَات؟', a1:'ب', a2:'س', ok:1},
-    {q:'عَلَى جِسْرِ الإِيقَاعِ، هَلْ نُصْغِي أَوَّلًا أَمْ نَضْغَطُ بِسُرْعَة؟', a1:'نُصْغِي أَوَّلًا', a2:'نَضْغَطُ بِسُرْعَة', ok:1},
-    {q:'فِي كَهْفِ المِرْآةِ، مَاذَا كُنَّا نَرْسُم؟', a1:'خَيْطَ النُّور', a2:'سُلَّمًا', ok:1},
-    {q:'مَا اِسْمُ المَكَانِ الأَخِيرِ؟', a1:'قَصْرُ النُّجُوم', a2:'سُوقُ الأَلْوَان', ok:1},
+    {q:'أَيْنَ الكَلِمَةُ الَّتِي تَبْدَأُ بِصَوْتِ مْ؟', opts:[{e:'🍌',w:'مَوْز',ok:1},{e:'🚪',w:'بَاب',ok:0}]},
+    {q:'أَيْنَ الكَلِمَةُ الَّتِي تَبْدَأُ بِصَوْتِ بْ؟', opts:[{e:'🎈',w:'بَالُون',ok:1},{e:'💧',w:'مَاء',ok:0}]},
+    {q:'أَيْنَ الكَلِمَةُ الَّتِي تَبْدَأُ بِصَوْتِ نْ؟', opts:[{e:'⭐',w:'نَجْمَة',ok:1},{e:'🍎',w:'تُفَّاحَة',ok:0}]},
+    {q:'أَيْنَ الكَلِمَةُ الَّتِي تَبْدَأُ بِصَوْتِ مْ؟', opts:[{e:'🥄',w:'مِلْعَقَة',ok:1},{e:'⭐',w:'نَجْمَة',ok:0}]},
+    {q:'أَيْنَ الكَلِمَةُ الَّتِي تَبْدَأُ بِصَوْتِ نْ؟', opts:[{e:'🔥',w:'نَار',ok:1},{e:'🎈',w:'بَالُون',ok:0}]},
   ];
   const wrap = document.getElementById('quizWrap');
   const progress = document.getElementById('finalProgress');
-  let correct = 0;
-  data.forEach((item, i)=>{
+  let doneCount = 0;
+  const items = data.map((item, i)=>{
+    const opts = Math.random() > .5 ? [item.opts[0], item.opts[1]] : [item.opts[1], item.opts[0]];
     const div = document.createElement('div');
-    div.className = 'quiz-item';
-    div.innerHTML = `<strong>${i+1}. ${item.q}</strong>
+    div.className = 'quiz-item' + (i===0 ? '' : ' hidden');
+    div.innerHTML = `<div class="quiz-q"><button class="icon-btn quiz-say" aria-label="اسمع السؤال">🔊</button><strong>${i+1}. ${item.q}</strong></div>
       <div class="answer-row">
-        <button class="answer-btn">${item.a1}</button>
-        <button class="answer-btn">${item.a2}</button>
+        ${opts.map(o=>`<button class="answer-btn pic" data-ok="${o.ok}" data-word="${o.w}"><span class="emoji">${o.e}</span><b>${o.w}</b></button>`).join('')}
       </div>`;
+    div.querySelector('.quiz-say').onclick = ()=>speak(item.q);
+    let armed = null;
     const buttons = div.querySelectorAll('.answer-btn');
-    buttons.forEach((b, idx)=>{
+    buttons.forEach(b=>{
       b.onclick = ()=>{
         if(div.dataset.done) return;
+        // اللمسة الأولى: اسمع الكلمة
+        if(armed !== b){
+          buttons.forEach(x=>x.classList.remove('armed'));
+          armed = b; b.classList.add('armed');
+          SFX.tap();
+          speak(b.dataset.word);
+          return;
+        }
+        // اللمسة الثانية: اختيار
+        b.classList.remove('armed'); armed = null;
         div.dataset.done='1';
-        if(idx+1 === item.ok){
+        const good = b.dataset.ok === '1';
+        if(good){
           b.classList.add('correct');
-          correct++; progress.style.width = Math.round(correct/data.length*100) + '%';
-          speak('إِجَابَةٌ صَحِيحَة');
+          SFX.good();
+          speak('إِجَابَةٌ صَحِيحَة! '+b.dataset.word);
         }else{
           b.classList.add('bad');
-          buttons[item.ok-1].classList.add('correct');
-          speak('لَا بَأْسَ. هَذِهِ هِيَ الإِجَابَةُ الصَّحِيحَة.');
+          SFX.bad();
+          const right = [...buttons].find(x=>x.dataset.ok==='1');
+          right.classList.add('correct');
+          speak('لَا بَأْسَ. الإِجَابَةُ الصَّحِيحَةُ هِيَ: '+right.dataset.word);
         }
-        if([...wrap.children].every(x=>x.dataset.done==='1')){
+        doneCount++;
+        progress.style.width = Math.round(doneCount/data.length*100) + '%';
+        const next = items[i+1];
+        if(next){
+          setTimeout(()=>{ next.classList.remove('hidden'); if(APP.state.autoVoice) speak(data[i+1].q); next.scrollIntoView({behavior:'smooth', block:'center'}); }, 1400);
+        }else{
           unlock(5);
           document.getElementById('endingBlock').classList.remove('hidden');
-          speak('مَبْرُوك! أَعَدْتَ المِفْتَاحَ الأَخِيرَ، وَأَضَأْتَ مَدِينَةَ الأَصْوَاتِ كُلَّهَا.');
+          celebrate(36);
+          setTimeout(()=>speak('مَبْرُوك يَا '+APP.state.childName+'! أَعَدْتَ المِفْتَاحَ الأَخِيرَ، وَأَضَأْتَ مَدِينَةَ الأَصْوَاتِ كُلَّهَا!'), 800);
+          setTimeout(()=>document.getElementById('endingBlock').scrollIntoView({behavior:'smooth'}), 1500);
         }
       };
     });
     wrap.appendChild(div);
+    return div;
   });
 }
 
@@ -372,7 +607,7 @@ function initParents(){
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{
-  hardenLocalState(); initVoice(); setChildNameEverywhere(); pageIntro(); setupInstallPrompt(); setupOnlineStatus();
+  hardenLocalState(); initVoice(); setChildNameEverywhere(); mountNoon(); mountKeys(); pageIntro(); setupInstallPrompt(); setupOnlineStatus();
   if(APP.page === 'home') initHome();
   if(APP.page === 'station1') initStation1();
   if(APP.page === 'station2') initStation2();

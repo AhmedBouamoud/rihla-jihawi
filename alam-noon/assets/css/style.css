@@ -153,3 +153,70 @@ button[disabled] { cursor: not-allowed; }
     scroll-behavior:auto !important;
   }
 }
+
+/* ============ تطوير الحركية: شخصية نون، المفاتيح، الاحتفالات، الأفران ============ */
+
+/* شخصية نون المرافقة */
+#noonBuddy{position:fixed;z-index:85;right:12px;bottom:calc(84px + env(safe-area-inset-bottom));width:84px;height:84px;border:0;background:none;padding:0;cursor:pointer;filter:drop-shadow(0 10px 18px rgba(6,14,40,.4));animation:noonBob 3.2s ease-in-out infinite}
+#noonBuddy svg{width:100%;height:100%}
+#noonBuddy .noon-dot{animation:dotFloat 3.2s ease-in-out infinite;transform-origin:60px 24px}
+#noonBuddy .noon-eye{animation:blink 4.6s infinite}
+#noonBuddy.talk{animation:noonTalk .5s ease-in-out infinite}
+#noonBuddy.talk .noon-dot{animation:dotTalk .5s ease-in-out infinite}
+#noonBuddy.happy{animation:noonJump .62s ease-in-out 3}
+@keyframes noonBob{50%{transform:translateY(-7px)}}
+@keyframes dotFloat{50%{transform:translateY(-5px)}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes noonTalk{50%{transform:translateY(-3px) rotate(-3deg)}}
+@keyframes dotTalk{50%{transform:translateY(-9px) scale(1.15)}}
+@keyframes noonJump{35%{transform:translateY(-26px) rotate(-8deg) scale(1.08)}70%{transform:translateY(0) rotate(5deg)}}
+
+/* سلسلة المفاتيح */
+.keychain{font-size:14px;white-space:nowrap}
+.keychain b{color:var(--gold)}
+.keychain.bump{animation:keyBump .55s ease}
+@keyframes keyBump{35%{transform:scale(1.25);background:rgba(255,214,76,.4)}}
+
+/* نجوم الاحتفال */
+.confetti{position:fixed;z-index:130;top:-6vh;pointer-events:none;font-style:normal;animation:confettiFall 1.8s ease-in forwards}
+@keyframes confettiFall{
+  0%{transform:translateY(0) rotate(0);opacity:0}
+  10%{opacity:1}
+  100%{transform:translateY(112vh) rotate(520deg);opacity:.9}
+}
+
+/* شرارات الانفجار الصغيرة */
+.spark{position:absolute;z-index:20;pointer-events:none;font-style:normal;font-size:16px;transform:translate(-50%,-50%);animation:sparkFly .65s ease-out forwards}
+@keyframes sparkFly{to{transform:translate(calc(var(--dx) - 50%),calc(var(--dy) - 50%)) scale(.35);opacity:0}}
+
+/* أفران المحطة الأولى */
+.ovens{display:flex;justify-content:center;gap:14px;margin:4px 0 12px}
+.oven{position:relative;width:74px;height:74px;border-radius:20px;display:grid;place-items:center;font-size:34px;background:#2a2f52;border:2px solid rgba(255,255,255,.16);filter:grayscale(1) brightness(.65);transition:filter .5s ease, box-shadow .5s ease}
+.oven .flame{position:absolute;top:-13px;font-size:22px;font-style:normal;opacity:0;transform:scale(.3);transition:.35s ease}
+.oven.lit{filter:none;background:#5a3b16;box-shadow:0 0 26px rgba(255,178,56,.55);animation:ovenGlow 1.6s ease-in-out infinite}
+.oven.lit .flame{opacity:1;transform:scale(1);animation:flameDance .5s ease-in-out infinite alternate}
+@keyframes ovenGlow{50%{box-shadow:0 0 40px rgba(255,178,56,.85)}}
+@keyframes flameDance{to{transform:scale(1.18) rotate(6deg)}}
+
+/* البطاقة المسموعة (اللمسة الأولى) */
+.choice.armed,.answer-btn.armed{outline:4px solid var(--gold);transform:scale(1.03);box-shadow:0 0 24px rgba(255,190,59,.5)}
+.answer-btn.bad{animation:shake .35s;outline:4px solid var(--danger)}
+
+/* الطبول: موجة اهتزاز */
+.drum{position:relative;overflow:visible}
+.drum.hit{animation:drumThump .3s ease}
+.drum.hit::after{content:"";position:absolute;inset:-4px;border-radius:inherit;border:3px solid rgba(255,214,76,.8);animation:drumWave .45s ease-out forwards}
+@keyframes drumThump{30%{transform:scale(.93) rotate(-2deg)}70%{transform:scale(1.03)}}
+@keyframes drumWave{to{transform:scale(1.22);opacity:0}}
+
+/* خريطة الرئيسية: المحطات المكتملة تتوهج */
+.station-card.done{border-color:rgba(255,214,76,.65);box-shadow:0 0 24px rgba(255,190,59,.28), var(--shadow)}
+.station-card.done img{filter:saturate(1.15) brightness(1.06)}
+.key-badge{background:rgba(255,214,76,.25);border:1px solid rgba(255,214,76,.5);font-size:12px}
+
+/* أسئلة المحطة الخامسة المصوّرة */
+.quiz-q{display:flex;align-items:center;gap:10px;line-height:1.7}
+.quiz-q .icon-btn{flex:none;width:42px;height:42px;font-size:17px}
+.answer-btn.pic{min-height:104px}
+.answer-btn.pic .emoji{display:block;font-size:40px;margin-bottom:6px}
+.canvas-box{position:relative}
