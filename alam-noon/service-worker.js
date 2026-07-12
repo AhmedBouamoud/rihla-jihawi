@@ -1,5 +1,5 @@
 
-const CACHE = 'alam-noon-release-v2';
+const CACHE = 'alam-noon-release-v3';
 const ASSETS = [
   "./",
   "./index.html",
@@ -16,12 +16,13 @@ const ASSETS = [
   "./assets/icons/icon-192.png",
   "./assets/icons/icon-512.png",
   "./assets/icons/icon-maskable-512.png",
-  "./assets/img/city-home.webp",
+  "./assets/img/home-world.webp",
   "./assets/img/station1-bakery.webp",
-  "./assets/img/station2-forest.webp",
-  "./assets/img/station3-bridge.webp",
+  "./assets/img/station2-enchanted-forest.webp",
+  "./assets/img/station3-musical-path.webp",
   "./assets/img/station4-cave.webp",
-  "./assets/img/station5-palace.webp",
+  "./assets/img/station5-celestial-palace.webp",
+  "./assets/img/finale-celebration.webp",
   "./assets/img/social-preview.webp"
 ];
 
