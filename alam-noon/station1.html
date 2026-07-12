@@ -53,12 +53,12 @@
   </div>
   <div class="status-row"><span>🏮 المِفْتَاحُ 1</span><span>✓ <b id="scoreStation1">0</b> / 3</span></div>
   <div class="choice-grid">
-    <button class="choice" data-good="1" data-word="مَاء"><span class="emoji">💧</span><b>مَاء</b></button>
-    <button class="choice" data-good="0" data-word="بَاب"><span class="emoji">🚪</span><b>بَاب</b></button>
-    <button class="choice" data-good="1" data-word="مَوْز"><span class="emoji">🍌</span><b>مَوْز</b></button>
-    <button class="choice" data-good="0" data-word="تُفَّاحَة"><span class="emoji">🍎</span><b>تُفَّاحَة</b></button>
-    <button class="choice" data-good="1" data-word="مِلْعَقَة"><span class="emoji">🥄</span><b>مِلْعَقَة</b></button>
-    <button class="choice" data-good="0" data-word="سَمَكَة"><span class="emoji">🐟</span><b>سَمَكَة</b></button>
+    <button class="choice" data-good="1" data-word="مَاء" data-slug="maa"><span class="emoji">💧</span><b>مَاء</b></button>
+    <button class="choice" data-good="0" data-word="بَاب" data-slug="bab"><span class="emoji">🚪</span><b>بَاب</b></button>
+    <button class="choice" data-good="1" data-word="مَوْز" data-slug="mawz"><span class="emoji">🍌</span><b>مَوْز</b></button>
+    <button class="choice" data-good="0" data-word="تُفَّاحَة" data-slug="tuffaha"><span class="emoji">🍎</span><b>تُفَّاحَة</b></button>
+    <button class="choice" data-good="1" data-word="مِلْعَقَة" data-slug="milaaqa"><span class="emoji">🥄</span><b>مِلْعَقَة</b></button>
+    <button class="choice" data-good="0" data-word="سَمَكَة" data-slug="samaka"><span class="emoji">🐟</span><b>سَمَكَة</b></button>
   </div>
 </section>
 <div class="nav-bottom">
@@ -69,6 +69,7 @@
 </div>
 <div id="toast" class="toast"></div>
 </div>
+<script src="assets/js/voice-map.js"></script>
 <script src="assets/js/app.js"></script>
 <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));}</script>
 </body>

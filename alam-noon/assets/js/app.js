@@ -132,35 +132,58 @@ function toast(msg){
   clearTimeout(t._timer); t._timer = setTimeout(()=>t.classList.remove('show'),2200);
 }
 
-/* ============ الصوت المنطوق: اختيار صوت عربي إن وُجد + ربط بشخصية نون ============ */
-let arVoice = null;
+/* ============ الصوت المنطوق: صوت الجهاز العربي أولاً، وملفات mp3 المولّدة ضماناً ============ */
+let arVoice = null, voicesLoaded = false;
 function pickArabicVoice(){
   const vs = speechSynthesis.getVoices();
+  if(vs.length) voicesLoaded = true;
   arVoice = vs.find(v=>/^ar[-_]/i.test(v.lang) || v.lang==='ar') || null;
 }
 if('speechSynthesis' in window){
   pickArabicVoice();
   speechSynthesis.onvoiceschanged = pickArabicVoice;
 }
-function speak(text){
-  APP.lastVoice = text;
+function clipSrc(text, clip){
+  if(clip && window.VOICE_FILES && window.VOICE_FILES[clip]) return window.VOICE_FILES[clip];
+  if(window.VOICE_MAP && window.VOICE_MAP[text]) return window.VOICE_MAP[text];
+  return null;
+}
+function endSpeech(noon){
+  setTimeout(()=>APP.voiceCaption && APP.voiceCaption.classList.add('hidden'),600);
+  if(noon) noon.classList.remove('talk');
+}
+function playClip(src, noon){
+  const a = APP.audioEl || (APP.audioEl = new Audio());
+  a.onended = ()=>endSpeech(noon);
+  a.onerror = ()=>endSpeech(noon);
+  a.src = src;
+  a.playbackRate = Math.min(1.25, Math.max(.75, APP.state.voiceRate / 0.78));
+  a.play().catch(()=>endSpeech(noon));
+}
+function speak(text, clip){
+  APP.lastVoice = text; APP.lastClip = clip;
   if(APP.voiceText){APP.voiceText.textContent = text;}
   if(APP.voiceCaption){APP.voiceCaption.classList.remove('hidden');}
   const noon = document.getElementById('noonBuddy');
   if(noon){ noon.classList.add('talk'); clearTimeout(noon._talkTimer); noon._talkTimer = setTimeout(()=>noon.classList.remove('talk'), Math.min(9000, 380*text.split(' ').length)); }
-  if('speechSynthesis' in window){
+  if(APP.audioEl){ APP.audioEl.pause(); }
+  const hasTTS = 'speechSynthesis' in window;
+  const src = clipSrc(text, clip);
+  // لا صوت عربي متاح في الجهاز الآن؟ نستعمل النطق المولّد المرفق مع التطبيق
+  if(src && (!hasTTS || !arVoice)){ playClip(src, noon); return; }
+  if(hasTTS){
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang='ar-SA'; u.rate=APP.state.voiceRate; u.pitch=1.02;
     if(arVoice) u.voice = arVoice;
-    u.onend=()=>{
-      setTimeout(()=>APP.voiceCaption && APP.voiceCaption.classList.add('hidden'),600);
-      if(noon) noon.classList.remove('talk');
-    };
+    u.onend = ()=>endSpeech(noon);
+    u.onerror = ()=>{ if(src) playClip(src, noon); else endSpeech(noon); };
     speechSynthesis.speak(u);
+  }else if(src){
+    playClip(src, noon);
   }
 }
-function repeatVoice(){ if(APP.lastVoice) speak(APP.lastVoice); }
+function repeatVoice(){ if(APP.lastVoice) speak(APP.lastVoice, APP.lastClip); }
 function initVoice(){
   APP.voiceCaption = document.getElementById('voiceCaption');
   APP.voiceText = document.getElementById('voiceText');
@@ -269,7 +292,7 @@ function pageIntro(){
     station5:'وَصَلْنَا قَصْرَ النُّجُوم، وَهُنَا المِفْتَاحُ الأَخِير! سَأَسْأَلُكَ عَنِ الأَصْوَاتِ الَّتِي تَعَلَّمْنَاهَا. اِضْغَطِ الإِجَابَةَ لِتَسْمَعَهَا، ثُمَّ اضْغَطْهَا ثَانِيَةً لِتَخْتَارَهَا.',
     parents:'هَذِهِ لَوْحَةُ الوَالِدَيْن. مِنْ هُنَا يُمْكِنُ مُتَابَعَةُ التَّقَدُّمِ وَإِعَادَةُ الرِّحْلَة.'
   };
-  if(APP.state.autoVoice && voiceMap[APP.page]) setTimeout(()=>speak(voiceMap[APP.page]), 400);
+  if(APP.state.autoVoice && voiceMap[APP.page]) setTimeout(()=>speak(voiceMap[APP.page], 'intro-'+APP.page), 400);
 }
 
 function initHome(){
@@ -329,7 +352,7 @@ function initStation1(){
         disarm();
         armed = btn; btn.classList.add('armed');
         SFX.tap();
-        speak(btn.dataset.word);
+        speak(btn.dataset.word, 'word-'+btn.dataset.slug);
         return;
       }
       // اللمسة الثانية: اختيار
@@ -343,24 +366,25 @@ function initStation1(){
         burst(btn.parentElement, r.left - pr.left + r.width/2, r.top - pr.top + r.height/2, '✨', 8);
         score++; scoreEl.textContent = score;
         if(ovens[score-1]){ ovens[score-1].classList.add('lit'); }
-        speak('أَحْسَنْتَ! '+btn.dataset.word+' تَبْدَأُ بِصَوْتِ مْ. اِشْتَعَلَ فُرْن!');
+        speak('أَحْسَنْتَ! '+btn.dataset.word+' تَبْدَأُ بِصَوْتِ مْ. اِشْتَعَلَ فُرْن!', 'ok1-'+btn.dataset.slug);
         if(score >= target){
           unlock(1);
           document.getElementById('nextStation1').classList.remove('hidden');
           celebrate();
-          setTimeout(()=>speak('رَائِع يَا '+APP.state.childName+'! عَادَ صَوْتُ مْ وَاشْتَعَلَتِ الأَفْرَانُ كُلُّهَا. خُذِ المِفْتَاحَ الأَوَّل، وَهَيَّا إِلَى غَابَةِ البَالُونَات!'), 700);
+          setTimeout(()=>speak('رَائِع يَا '+APP.state.childName+'! عَادَ صَوْتُ مْ وَاشْتَعَلَتِ الأَفْرَانُ كُلُّهَا. خُذِ المِفْتَاحَ الأَوَّل، وَهَيَّا إِلَى غَابَةِ البَالُونَات!', 'done1'), 700);
         }
       }else{
         btn.classList.add('bad');
         SFX.bad();
         setTimeout(()=>btn.classList.remove('bad'),350);
-        speak(btn.dataset.word + ' تَبْدَأُ بِصَوْتٍ آخَر، لَيْسَ مْ. جَرِّبْ غَيْرَهَا!');
+        speak(btn.dataset.word + ' تَبْدَأُ بِصَوْتٍ آخَر، لَيْسَ مْ. جَرِّبْ غَيْرَهَا!', 'no1-'+btn.dataset.slug);
       }
     };
   });
 }
 
 /* ============ المحطة 2: بالونات تتمايل وتنفجر بشرارات وصوت حقيقي ============ */
+const LETTER_CLIPS = {'ب':'l-b','بَ':'l-ba','بُ':'l-bu','م':'l-m','س':'l-s','ل':'l-l','مَ':'l-ma'};
 function initStation2(){
   let score=0, running=true;
   const area = document.getElementById('balloonArea');
@@ -384,16 +408,16 @@ function initStation2(){
       if(good){
         SFX.pop();
         burst(area, bx, by, '✨', 10);
-        score++; scoreEl.textContent = score; speak(b.textContent);
+        score++; scoreEl.textContent = score; speak(b.textContent, LETTER_CLIPS[b.textContent]);
         if(score >= needed){
           running=false; unlock(2); document.getElementById('nextStation2').classList.remove('hidden');
           celebrate();
-          setTimeout(()=>speak('أَبْلَيْتَ بَلَاءً حَسَنًا! جَمَعْتَ بَالُونَاتِ صَوْتِ بْ كُلَّهَا، وَفُتِحَ جِسْرُ الإِيقَاع.'), 700);
+          setTimeout(()=>speak('أَبْلَيْتَ بَلَاءً حَسَنًا! جَمَعْتَ بَالُونَاتِ صَوْتِ بْ كُلَّهَا، وَفُتِحَ جِسْرُ الإِيقَاع.', 'done2'), 700);
         }
       }else{
         SFX.bad();
         burst(area, bx, by, '💨', 5);
-        speak('لَيْسَ هَذَا صَوْتَ بْ'); toast('اِبْحَثْ عَنِ البَالُونَاتِ الزَّرْقَاء 🎈');
+        speak('لَيْسَ هَذَا صَوْتَ بْ', 'no2'); toast('اِبْحَثْ عَنِ البَالُونَاتِ الزَّرْقَاء 🎈');
       }
     };
     area.appendChild(b);
@@ -440,7 +464,7 @@ function initStation3(){
         SFX.drum(label);
         const btn = document.querySelector('.drum[data-hit="'+label+'"]');
         if(btn) thump(btn);
-        speak(label==='م'?'مَ':'بَ');
+        speak(label==='م'?'مَ':'بَ', label==='م'?'l-ma':'l-ba');
       }, i*900);
     });
     setTimeout(()=>{ playing=false; highlight(-1); status.textContent='الآنَ أَعِدِ الإِيقَاعَ.'; }, sequence.length*900 + 300);
@@ -452,7 +476,7 @@ function initStation3(){
       thump(btn);
       const val = btn.dataset.hit;
       SFX.drum(val);
-      speak(val==='م'?'مَ':'بَ');
+      speak(val==='م'?'مَ':'بَ', val==='م'?'l-ma':'l-ba');
       if(val === sequence[idx]){
         highlight(idx); idx++;
         status.textContent = 'أَحْسَنْتَ! ' + idx + ' / ' + sequence.length;
@@ -460,12 +484,12 @@ function initStation3(){
           unlock(3);
           document.getElementById('nextStation3').classList.remove('hidden');
           celebrate();
-          setTimeout(()=>speak('مُمْتَاز! عَزَفْتَ الإِيقَاعَ صَحِيحًا وَعَبَرْنَا الجِسْر. فُتِحَ كَهْفُ المِرْآة!'), 700);
+          setTimeout(()=>speak('مُمْتَاز! عَزَفْتَ الإِيقَاعَ صَحِيحًا وَعَبَرْنَا الجِسْر. فُتِحَ كَهْفُ المِرْآة!', 'done3'), 700);
         }
       }else{
         idx = 0; highlight(-1); status.textContent='لَا بَأْسَ. أَعِدِ الإِيقَاع.';
         SFX.bad();
-        speak('لَا بَأْسَ. اِسْتَمِعْ ثُمَّ حَاوِلْ مَرَّةً أُخْرَى.');
+        speak('لَا بَأْسَ. اِسْتَمِعْ ثُمَّ حَاوِلْ مَرَّةً أُخْرَى.', 'no3');
       }
     };
   });
@@ -515,11 +539,11 @@ function initStation4(){
   cv.addEventListener('pointercancel',end,{passive:false});
   document.getElementById('clearTrace').onclick = ()=>{ SFX.tap(); drawGuide(); };
   document.getElementById('checkTrace').onclick = ()=>{
-    if(dist < 950){ speak('رَسْمُكَ جَيِّد. وَاصِلْ فَوْقَ الحَرْفِ قَلِيلًا ثُمَّ تَحَقَّقْ.'); return; }
+    if(dist < 950){ speak('رَسْمُكَ جَيِّد. وَاصِلْ فَوْقَ الحَرْفِ قَلِيلًا ثُمَّ تَحَقَّقْ.', 'more4'); return; }
     unlock(4);
     document.getElementById('nextStation4').classList.remove('hidden');
     celebrate();
-    setTimeout(()=>speak('أَحْسَنْتَ! رَسَمْتَ حَرْفَ نُون بِخَيْطِ النُّور: نْ... مِثْلَ نَجْمَة. اِنْعَكَسَ النُّورُ وَفُتِحَ قَصْرُ النُّجُوم!'), 700);
+    setTimeout(()=>speak('أَحْسَنْتَ! رَسَمْتَ حَرْفَ نُون بِخَيْطِ النُّور: نْ... مِثْلَ نَجْمَة. اِنْعَكَسَ النُّورُ وَفُتِحَ قَصْرُ النُّجُوم!', 'done4'), 700);
   };
   drawGuide();
 }
@@ -527,11 +551,11 @@ function initStation4(){
 /* ============ المحطة 5: اختبار الأصوات — اسمع ثم اختر الصورة ============ */
 function initStation5(){
   const data = [
-    {q:'أَيْنَ الكَلِمَةُ الَّتِي تَبْدَأُ بِصَوْتِ مْ؟', opts:[{e:'🍌',w:'مَوْز',ok:1},{e:'🚪',w:'بَاب',ok:0}]},
-    {q:'أَيْنَ الكَلِمَةُ الَّتِي تَبْدَأُ بِصَوْتِ بْ؟', opts:[{e:'🎈',w:'بَالُون',ok:1},{e:'💧',w:'مَاء',ok:0}]},
-    {q:'أَيْنَ الكَلِمَةُ الَّتِي تَبْدَأُ بِصَوْتِ نْ؟', opts:[{e:'⭐',w:'نَجْمَة',ok:1},{e:'🍎',w:'تُفَّاحَة',ok:0}]},
-    {q:'أَيْنَ الكَلِمَةُ الَّتِي تَبْدَأُ بِصَوْتِ مْ؟', opts:[{e:'🥄',w:'مِلْعَقَة',ok:1},{e:'⭐',w:'نَجْمَة',ok:0}]},
-    {q:'أَيْنَ الكَلِمَةُ الَّتِي تَبْدَأُ بِصَوْتِ نْ؟', opts:[{e:'🔥',w:'نَار',ok:1},{e:'🎈',w:'بَالُون',ok:0}]},
+    {q:'أَيْنَ الكَلِمَةُ الَّتِي تَبْدَأُ بِصَوْتِ مْ؟', qc:'q-m', opts:[{e:'🍌',w:'مَوْز',c:'mawz',ok:1},{e:'🚪',w:'بَاب',c:'bab',ok:0}]},
+    {q:'أَيْنَ الكَلِمَةُ الَّتِي تَبْدَأُ بِصَوْتِ بْ؟', qc:'q-b', opts:[{e:'🎈',w:'بَالُون',c:'balloon',ok:1},{e:'💧',w:'مَاء',c:'maa',ok:0}]},
+    {q:'أَيْنَ الكَلِمَةُ الَّتِي تَبْدَأُ بِصَوْتِ نْ؟', qc:'q-n', opts:[{e:'⭐',w:'نَجْمَة',c:'najma',ok:1},{e:'🍎',w:'تُفَّاحَة',c:'tuffaha',ok:0}]},
+    {q:'أَيْنَ الكَلِمَةُ الَّتِي تَبْدَأُ بِصَوْتِ مْ؟', qc:'q-m', opts:[{e:'🥄',w:'مِلْعَقَة',c:'milaaqa',ok:1},{e:'⭐',w:'نَجْمَة',c:'najma',ok:0}]},
+    {q:'أَيْنَ الكَلِمَةُ الَّتِي تَبْدَأُ بِصَوْتِ نْ؟', qc:'q-n', opts:[{e:'🔥',w:'نَار',c:'nar',ok:1},{e:'🎈',w:'بَالُون',c:'balloon',ok:0}]},
   ];
   const wrap = document.getElementById('quizWrap');
   const progress = document.getElementById('finalProgress');
@@ -542,9 +566,9 @@ function initStation5(){
     div.className = 'quiz-item' + (i===0 ? '' : ' hidden');
     div.innerHTML = `<div class="quiz-q"><button class="icon-btn quiz-say" aria-label="اسمع السؤال">🔊</button><strong>${i+1}. ${item.q}</strong></div>
       <div class="answer-row">
-        ${opts.map(o=>`<button class="answer-btn pic" data-ok="${o.ok}" data-word="${o.w}"><span class="emoji">${o.e}</span><b>${o.w}</b></button>`).join('')}
+        ${opts.map(o=>`<button class="answer-btn pic" data-ok="${o.ok}" data-word="${o.w}" data-clip="${o.c}"><span class="emoji">${o.e}</span><b>${o.w}</b></button>`).join('')}
       </div>`;
-    div.querySelector('.quiz-say').onclick = ()=>speak(item.q);
+    div.querySelector('.quiz-say').onclick = ()=>speak(item.q, item.qc);
     let armed = null;
     const buttons = div.querySelectorAll('.answer-btn');
     buttons.forEach(b=>{
@@ -555,7 +579,7 @@ function initStation5(){
           buttons.forEach(x=>x.classList.remove('armed'));
           armed = b; b.classList.add('armed');
           SFX.tap();
-          speak(b.dataset.word);
+          speak(b.dataset.word, 'word-'+b.dataset.clip);
           return;
         }
         // اللمسة الثانية: اختيار
@@ -565,24 +589,24 @@ function initStation5(){
         if(good){
           b.classList.add('correct');
           SFX.good();
-          speak('إِجَابَةٌ صَحِيحَة! '+b.dataset.word);
+          speak('إِجَابَةٌ صَحِيحَة! '+b.dataset.word, 'ok5-'+b.dataset.clip);
         }else{
           b.classList.add('bad');
           SFX.bad();
           const right = [...buttons].find(x=>x.dataset.ok==='1');
           right.classList.add('correct');
-          speak('لَا بَأْسَ. الإِجَابَةُ الصَّحِيحَةُ هِيَ: '+right.dataset.word);
+          speak('لَا بَأْسَ. الإِجَابَةُ الصَّحِيحَةُ هِيَ: '+right.dataset.word, 'fix5-'+right.dataset.clip);
         }
         doneCount++;
         progress.style.width = Math.round(doneCount/data.length*100) + '%';
         const next = items[i+1];
         if(next){
-          setTimeout(()=>{ next.classList.remove('hidden'); if(APP.state.autoVoice) speak(data[i+1].q); next.scrollIntoView({behavior:'smooth', block:'center'}); }, 1400);
+          setTimeout(()=>{ next.classList.remove('hidden'); if(APP.state.autoVoice) speak(data[i+1].q, data[i+1].qc); next.scrollIntoView({behavior:'smooth', block:'center'}); }, 1400);
         }else{
           unlock(5);
           document.getElementById('endingBlock').classList.remove('hidden');
           celebrate(36);
-          setTimeout(()=>speak('مَبْرُوك يَا '+APP.state.childName+'! أَعَدْتَ المِفْتَاحَ الأَخِيرَ، وَأَضَأْتَ مَدِينَةَ الأَصْوَاتِ كُلَّهَا!'), 800);
+          setTimeout(()=>speak('مَبْرُوك يَا '+APP.state.childName+'! أَعَدْتَ المِفْتَاحَ الأَخِيرَ، وَأَضَأْتَ مَدِينَةَ الأَصْوَاتِ كُلَّهَا!', 'done5'), 800);
           setTimeout(()=>document.getElementById('endingBlock').scrollIntoView({behavior:'smooth'}), 1500);
         }
       };
