@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="assets/css/style.css">
+<title>فحص الصوت — عالم نون</title>
+<style>
+.diag-btn{display:flex;width:100%;margin-bottom:10px;font-size:18px}
+#log{background:rgba(0,0,0,.35);border-radius:16px;padding:12px;font-size:13px;line-height:2;direction:rtl;text-align:right;min-height:120px;word-break:break-word}
+#log .ok{color:#7dffb5}
+#log .bad{color:#ff9aa2}
+#log .info{color:#ffe48a}
+.big-status{font-size:22px;text-align:center;padding:10px;border-radius:14px;background:rgba(255,255,255,.12);margin-bottom:10px}
+</style>
+</head>
+<body data-page="soundtest">
+<div class="app-shell">
+<div class="page">
+<header class="topbar">
+  <button class="icon-btn" onclick="location.href='parents.html'">→</button>
+  <span class="grow pill">🔧 فَحْصُ الصَّوْت</span>
+</header>
+
+<section class="card">
+  <div id="bigStatus" class="big-status">اِضْغَطِ الأَزْرَارَ الثَّلَاثَةَ بِالتَّرْتِيب</div>
+  <button id="t1" class="btn primary diag-btn">1️⃣ جَرَس (مُؤَثِّرَات)</button>
+  <button id="t2" class="btn primary diag-btn">2️⃣ المَقْطَعُ المُرْفَق (mp3)</button>
+  <button id="t3" class="btn primary diag-btn">3️⃣ قِرَاءَةُ الجِهَاز (TTS)</button>
+  <button id="copy" class="btn secondary diag-btn">📋 اِنْسَخِ التَّقْرِير</button>
+</section>
+
+<section class="card">
+  <h3>نَتِيجَةُ الفَحْص</h3>
+  <div id="log"></div>
+</section>
+
+</div>
+</div>
+<script>
+const log = document.getElementById('log');
+const big = document.getElementById('bigStatus');
+const lines = [];
+function add(cls, msg){
+  const t = new Date().toISOString().slice(11,19);
+  lines.push(`[${t}] ${msg}`);
+  const d = document.createElement('div');
+  d.className = cls; d.textContent = msg;
+  log.prepend(d);
+}
+add('info', 'المتصفح: ' + navigator.userAgent);
+add('info', 'الرابط: ' + location.host);
+
+// معلومات أصوات الجهاز
+function dumpVoices(where){
+  if(!('speechSynthesis' in window)){ add('bad', '❌ لا يوجد speechSynthesis في هذا المتصفح'); return; }
+  const vs = speechSynthesis.getVoices();
+  const ar = vs.filter(v=>/^ar/i.test(v.lang));
+  add('info', `(${where}) عدد أصوات الجهاز: ${vs.length} — العربية منها: ${ar.length}`);
+  ar.slice(0,5).forEach(v=>add('info', `صوت عربي: ${v.name} | ${v.lang} | ${v.localService?'محلي':'شبكة'}`));
+}
+dumpVoices('عند الفتح');
+if('speechSynthesis' in window) speechSynthesis.onvoiceschanged = ()=>dumpVoices('بعد التحميل');
+
+// 1: WebAudio
+document.getElementById('t1').onclick = ()=>{
+  try{
+    const AC = window.AudioContext || window.webkitAudioContext;
+    const c = new AC(); if(c.state==='suspended') c.resume();
+    const o=c.createOscillator(), g=c.createGain();
+    o.frequency.value=880; g.gain.value=.2;
+    o.connect(g).connect(c.destination); o.start(); o.stop(c.currentTime+.5);
+    add('ok', '✅ 1: أُرسل الجرس — هل سمعتَه؟ حالة الصوت: ' + c.state);
+    big.textContent = 'هَلْ سَمِعْتَ الجَرَس؟';
+  }catch(e){ add('bad', '❌ 1: فشل WebAudio: ' + e.message); }
+};
+
+// 2: المقطع المرفق
+document.getElementById('t2').onclick = ()=>{
+  const a = new Audio('assets/audio/intro-home.mp3');
+  a.onplaying = ()=>{ add('ok', '✅ 2: المقطع المرفق يعمل الآن — هل تسمع صوتاً أنثوياً آلياً؟'); big.textContent='هَلْ تَسْمَعُ المَقْطَع؟'; };
+  a.onerror  = ()=>add('bad', '❌ 2: تعذر تحميل المقطع (شبكة/ملف): ' + (a.error && a.error.code));
+  a.onended  = ()=>add('ok', '✅ 2: انتهى المقطع كاملاً دون انقطاع');
+  a.play().then(()=>add('ok', '✅ 2: play() قُبل')).catch(e=>add('bad', '❌ 2: play() رُفض: ' + e.name));
+};
+
+// 3: قراءة الجهاز
+document.getElementById('t3').onclick = ()=>{
+  if(!('speechSynthesis' in window)){ add('bad','❌ 3: speechSynthesis غير موجود'); return; }
+  dumpVoices('قبل القراءة');
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance('مَرْحَبًا! هَذَا اخْتِبَارُ قِرَاءَةِ جِهَازِك. هَلْ تَسْمَعُنِي بِوُضُوح؟');
+  u.lang='ar-SA'; u.rate=.85;
+  const ar = speechSynthesis.getVoices().find(v=>/^ar/i.test(v.lang));
+  if(ar){ u.voice = ar; add('info', '3: سيُستعمل الصوت: ' + ar.name); }
+  else add('info', '3: لا صوت عربي — سيُجرَّب lang فقط');
+  u.onstart = ()=>{ add('ok','✅ 3: بدأت القراءة فعلاً'); big.textContent='هَلْ تَسْمَعُ قِرَاءَةَ الجِهَاز؟'; };
+  u.onend   = ()=>add('ok','✅ 3: انتهت القراءة كاملة');
+  u.onerror = e=>add('bad','❌ 3: خطأ القراءة: ' + e.error);
+  speechSynthesis.speak(u);
+  setTimeout(()=>{ if(!speechSynthesis.speaking) add('bad','⚠️ 3: لم تبدأ القراءة خلال ثانيتين (محرك معطل أو محجوب)'); }, 2000);
+};
+
+// نسخ التقرير
+document.getElementById('copy').onclick = async ()=>{
+  const txt = lines.join('\n');
+  try{ await navigator.clipboard.writeText(txt); big.textContent='✅ نُسِخَ التَّقْرِير — أَلْصِقْهُ فِي المُحَادَثَة'; }
+  catch(e){ big.textContent='تعذر النسخ — صوّر الشاشة'; }
+};
+</script>
+</body>
+</html>
