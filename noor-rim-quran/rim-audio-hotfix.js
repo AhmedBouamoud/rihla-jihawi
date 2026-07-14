@@ -4,6 +4,8 @@
 // - الآية تُشغَّل كملف آية كامل، والسورة كملف سورة كامل.
 (function rimAudioHotfix(){
   'use strict';
+  if(window.__rimAudioHotfixLoaded) return;
+  window.__rimAudioHotfixLoaded = true;
 
   const SEGMENT_STAGES = new Set(['segment-offer', 'segment', 'segment-next', 'verse-recap']);
   const FULL_SURAH_BASE = 'https://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/';
