@@ -53,13 +53,13 @@
     await window.playFileAwaitable(fullSurahUrl(surah), {});
   };
 
-  // إزالة عناصر المقاطع المخفية وأرشيفها من الواجهة، دون تغيير تصميم باقي الموقع.
+  // تبقى عناصر المقاطع موجودة تقنياً حتى لا يتعطل المحرك القديم، لكنها مخفية دائماً ولا تدخل المسار.
   const segmentRecordBtn = document.getElementById('segmentRecordBtn');
-  if(segmentRecordBtn) segmentRecordBtn.remove();
   const segmentLabel = document.getElementById('segmentLabel');
-  if(segmentLabel) segmentLabel.remove();
   const segmentText = document.getElementById('segmentText');
-  if(segmentText) segmentText.remove();
+  if(segmentRecordBtn){ segmentRecordBtn.hidden = true; segmentRecordBtn.setAttribute('aria-hidden', 'true'); }
+  if(segmentLabel){ segmentLabel.hidden = true; segmentLabel.setAttribute('aria-hidden', 'true'); }
+  if(segmentText){ segmentText.hidden = true; segmentText.setAttribute('aria-hidden', 'true'); }
   document.querySelectorAll('[data-filter="segment"]').forEach(el => el.remove());
 
   // إن كانت جلسة قديمة محفوظة داخل مرحلة مقطع، نخرج منها فوراً إلى تسجيل الآية كاملة.
