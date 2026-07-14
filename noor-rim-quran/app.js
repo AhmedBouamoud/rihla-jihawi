@@ -46,12 +46,23 @@ const RAW_SURAHS = [
 function pad(n){ return String(n).padStart(2,'0'); }
 function pad3(n){ return String(n).padStart(3,'0'); }
 
-// آية من كلمتين أو أقل تُقال دفعة واحدة بلا تقسيم؛ الآيات الأطول تُقسَّم إلى مقاطع من كلمتين لتسهيل الترديد.
+// تبسيط الحفظ (بطلب الأب): الآية تُحفظ كاملة دائماً. فقط الآية الطويلة التي تتجاوز نحو ثلاثة أسطر
+// بالخط الكبير الحالي (أكثر من 8 كلمات) تُقسَّم إلى جزأين أو ثلاثة أجزاء كبيرة — لا مقاطع صغيرة كثيرة.
+const LONG_VERSE_WORD_LIMIT = 8;
+const SEGMENT_MAX_WORDS = 5;
 function autoSegments(fullText){
   const words = fullText.split(/\s+/).filter(Boolean);
-  if(words.length <= 2) return [];
+  if(words.length <= LONG_VERSE_WORD_LIMIT) return [];
+  const parts = Math.ceil(words.length / SEGMENT_MAX_WORDS);
+  const base = Math.floor(words.length / parts);
+  let rem = words.length % parts;
   const groups = [];
-  for(let i=0;i<words.length;i+=2) groups.push(words.slice(i,i+2).join(' '));
+  let at = 0;
+  for(let p=0; p<parts; p++){
+    const size = base + (rem-- > 0 ? 1 : 0);
+    groups.push({wordFrom: at, wordTo: at + size - 1, segmentText: words.slice(at, at + size).join(' ')});
+    at += size;
+  }
   return groups;
 }
 function buildSurahs(raw){
@@ -59,11 +70,12 @@ function buildSurahs(raw){
     const verses = s.verseTexts.map((fullText, i) => {
       const verseNumber = i+1;
       const verseId = `${s.surahId}-v${verseNumber}`;
-      const segmentTexts = autoSegments(fullText);
-      const segments = segmentTexts.map((segmentText, si) => ({
+      const segments = autoSegments(fullText).map((g, si) => ({
         segmentId: `${verseId}-s${si+1}`,
         segmentOrder: si+1,
-        segmentText
+        segmentText: g.segmentText,
+        wordFrom: g.wordFrom,
+        wordTo: g.wordTo
       }));
       return {
         verseId, surahId: s.surahId, verseNumber, fullText,
@@ -539,15 +551,13 @@ async function getVerseTiming(s, idx){
   if(!defined.length) return null;
   return {url: t.url, firstStart: defined[0].start, lastEnd: defined[defined.length-1].end, words: t.words};
 }
-// شريحة مقطع تدريبي: كلمتا المجموعة نفساهما اللتان تظهران على الشاشة — وإلا لا شيء (لا تخمين)
+// شريحة جزء تدريبي: كلمات الجزء نفسها التي تظهر على الشاشة — وإلا لا شيء (لا تخمين)
 async function getSegmentSlice(s, v, seg){
   const t = await getVerseTiming(s, v.verseNumber - 1);
   if(!t) return null;
   const ourWords = v.fullText.split(/\s+/).filter(Boolean).length;
   if(Math.abs(t.words.length - ourWords) > 1) return null; // ترقيم الكلمات غير متطابق: لا قصّ غير مؤكد
-  const a = (seg.segmentOrder - 1) * 2;
-  const b = Math.min(a + 1, ourWords - 1);
-  const wa = t.words[a], wb = t.words[b] || wa;
+  const wa = t.words[seg.wordFrom], wb = t.words[Math.min(seg.wordTo, t.words.length - 1)] || wa;
   if(!wa || !wb || !(wb.end > wa.start)) return null;
   return {url: t.url, startMs: wa.start, endMs: wb.end};
 }
@@ -585,9 +595,6 @@ async function noorRimAudioReport(){
       targets.push({نوع:'آية (يُستعمل البديل عبر الإنترنت)', سورة:s.surahName, ملف:localAyahSrc(s, i)});
       v.segments.forEach(seg => targets.push({نوع:'مقطع (يُتخطى سماع المقطع)', سورة:s.surahName, ملف:localSegmentSrc(s, v, seg)}));
     });
-  }
-  for(const key of Object.keys(GUIDANCE)){
-    targets.push({نوع:'توجيه صوتي (يُستعمل صوت المتصفح مؤقتاً)', سورة:'—', ملف:GUIDANCE[key].file});
   }
   const checks = await Promise.all(targets.map(t => audioFileAvailable(t.ملف)));
   const missing = targets.filter((t, i) => !checks[i]);
@@ -819,47 +826,10 @@ function speak(text){
   }catch(e){ /* القراءة الصوتية للواجهة اختيارية */ }
 }
 
-// ---------- التوجيه الصوتي لريم: عبارة قصيرة عند كل مرحلة حتى تعرف أين تضغط دون قراءة ----------
-// الأولوية لملفات توجيه بشرية مسجَّلة في assets/voice/guidance/ (يسجّلها الأب بنفس الأسماء أدناه).
-// عند غياب الملف، يُستعمل صوت المتصفح مؤقتاً للتوجيه فقط — تلاوة القرآن لا تمر من هنا إطلاقاً.
-const GUIDANCE = {
-  'surah-intro':   {file:'assets/voice/guidance/press-listen-surah.mp3',    text:'يا ريم، اضغطي على الزر الذي يتحرك لنسمع السورة'},
-  'listen':        {file:'assets/voice/guidance/press-listen-ayah.mp3',     text:'يا ريم، اضغطي على الزر الذي يتحرك لنسمع'},
-  'segment':       {file:'assets/voice/guidance/press-listen-segment.mp3',  text:'اضغطي على الزر الذي يتحرك لنسمع هذا الجزء'},
-  'record':        {file:'assets/voice/guidance/press-record.mp3',          text:'والآن يا ريم، اضغطي هنا وسجلي صوتك'},
-  'play-recording':{file:'assets/voice/guidance/press-play-your-voice.mp3', text:'اضغطي هنا واسمعي صوتك'},
-  'retry':         {file:'assets/voice/guidance/press-retry.mp3',           text:'لا بأس يا ريم، اضغطي هنا وحاولي مرة أخرى'},
-  'success':       {file:'assets/voice/guidance/well-done.mp3',             text:'أحسنت يا ريم'},
-  'next':          {file:'assets/voice/guidance/press-next.mp3',            text:'اضغطي هنا لنكمل'},
-  'wait':          {file:'assets/voice/guidance/wait-listen-first.mp3',     text:'اسمعي أولاً يا ريم، ثم اضغطي الزر المضيء'}
-};
-let lastGuidance = {key:'', at:0};
+// ---------- توجيه ريم بالحركة فقط (بطلب الأب): لا تعليمات صوتية للأزرار — الزر المطلوب يتحرك لتراه ----------
 function stopGuidance(){
   if('speechSynthesis' in window){ try{ window.speechSynthesis.cancel(); }catch(e){} }
 }
-async function playGuidance(key, opts={}){
-  const g = GUIDANCE[key];
-  if(!g) return;
-  const now = Date.now();
-  if(!opts.force && lastGuidance.key === key && now - lastGuidance.at < 8000) return; // مرة واحدة، بلا إزعاج
-  // التوجيه لا يقاطع أي صوت محمي: قرآن، تسجيل ريم، استماعها لصوتها، صوت الأب، أغنية الهدية، أو توجيهاً آخر
-  if(isProtectedAudioActive()) return;
-  if(!giftSongPlayer.paused) return;
-  if('speechSynthesis' in window && window.speechSynthesis.speaking) return;
-  lastGuidance = {key, at: now};
-  if(await audioFileAvailable(g.file)){
-    voicePlayer.src = g.file;
-    voicePlayer.play().catch(()=>{});
-  }else{
-    speak(g.text);
-  }
-}
-// عبارة التوجيه المناسبة لكل مرحلة تعلم — تُشغَّل مرة واحدة عند دخول المرحلة
-const STAGE_GUIDANCE = {
-  'surah-intro':'surah-intro', 'surah-intro-done':'next', 'listen':'listen',
-  'segment-offer':'next', 'segment':'segment', 'segment-next':'next', 'verse-recap':'listen',
-  'record':'record', 'star':'success', 'next':'next', 'surah-record-offer':'record', 'done':'next'
-};
 
 // ---------- مساعدات اللمس: نقرة تأكيد خفيفة، منع الضغط المزدوج، إبراز الزر المطلوب، تعطيل مؤقت لغير المناسب ----------
 function isRimRecordingNow(){
@@ -888,11 +858,10 @@ function setRimGuide(btn, on){
   document.querySelectorAll('.rim-guide').forEach(b => b.classList.remove('rim-guide'));
   if(on && btn && !btn.disabled) btn.classList.add('rim-guide');
 }
-// «لا بأس يا ريم»: عند تعثر التسجيل يعود النبض للزر الصحيح مع عبارة الأب المسجلة أو التوجيه
+// عند تعثر التسجيل: يعود النبض للزر الصحيح، مع صوت التشجيع الموجود أصلاً في التطبيق (إن كان مفعّلاً)
 function encourageRetry(btn){
   if(btn) setRimGuide(btn, true);
-  const played = AudioManager.play('retry');
-  if(!played) playGuidance('retry', {force:true});
+  AudioManager.play('retry');
 }
 const SECONDARY_AUDIO_BTN_IDS = ['helpSlowBtn','helpFullSurahBtn','openRimRecordingsBtn','playRecordBtn','segmentRecordBtn','joyPlayBtn','joyRetryBtn'];
 // عدّاد لا علم ثنائي: تدفق أُلغي وتدفق جديد بدأ قد يتداخلان زمنياً، فلا يجوز أن يمسح المُلغى حالة الانشغال عن الجديد
@@ -907,8 +876,7 @@ function secondaryAudioAction(fn){
   return () => {
     if(tapGuard()) return;
     if(state.mainFlowBusy || isRimRecordingNow()){
-      uiTick();
-      playGuidance('wait', {force:true});
+      uiTick(); // نقرة فقط — الزر النابض هو الدليل، بلا تعليمات صوتية
       return;
     }
     fn();
@@ -1227,14 +1195,8 @@ function setLearningStage(stage){
     btn.onclick = () => showScreen('surahPickerScreen');
   }
 
-  // ريم لا تقرأ النص: الزر المطلوب في هذه المرحلة ينبض بهالة خفيفة، وعبارة توجيه قصيرة تُسمَع مرة واحدة
+  // ريم لا تقرأ النص: الزر المطلوب في هذه المرحلة يتحرك وحده (نبض وهالة خفيفة) — هذا دليلها الوحيد
   setRimGuide(btn, true);
-  const guidanceKey = STAGE_GUIDANCE[stage];
-  if(guidanceKey){
-    setTimeout(() => {
-      if(state.learningStage === stage && $('journeyScreen').classList.contains('active')) playGuidance(guidanceKey);
-    }, 700);
-  }
 }
 async function runListenCycle(){
   const btn = $('recordBtn');
@@ -1466,9 +1428,8 @@ async function toggleRecord(){
 
       // ننتقل لمرحلة النجمة بعد أن ترى ريم بطاقة الفرح، دون المساس بمنطق التسجيل أعلاه.
       if(state.learningStage === 'record') setLearningStage('star');
-      // بعد التسجيل مباشرة: التوجيه والإبراز على زر «أسمع صوتي» حتى تسمع ريم تسجيلها دون قراءة
+      // بعد التسجيل مباشرة: ينتقل النبض إلى زر «أسمع صوتي» حتى تسمع ريم تسجيلها دون قراءة
       setRimGuide($('joyPlayBtn'), true);
-      playGuidance('play-recording', {force:true});
     };
 
     state.recorder.start();
@@ -1511,7 +1472,7 @@ async function toggleSegmentRecord(){
     return;
   }
 
-  if(state.mainFlowBusy){ uiTick(); playGuidance('wait', {force:true}); return; } // غير نشط أثناء صوت المرحلة
+  if(state.mainFlowBusy){ uiTick(); return; } // غير نشط أثناء صوت المرحلة — نقرة فقط
   if(tapGuard() || state.recStarting || isRimRecordingNow()) return;
   state.recStarting = true;
   startRimRecording();
@@ -2035,14 +1996,13 @@ function init(){
   // بعد أن تسمع ريم صوتها في مرحلة النجمة: تشجيع قصير وينتقل الإبراز تلقائياً إلى الزر التالي
   $('rimRecordPlayer').addEventListener('ended', ()=>{
     if(state.learningStage === 'star' || state.learningStage === 'next'){
-      setRimGuide($('recordBtn'), true);
-      playGuidance('success');
+      setRimGuide($('recordBtn'), true); // بعد سماع صوتها ينتقل النبض تلقائياً للخطوة التالية
     }
   });
   $('openRimRecordingsBtn').onclick=secondaryAudioAction(openRimAlbum);
   $('closeRecordingsBtn').onclick=()=> $('recordingsDialog').close();
   $('joyRetryBtn').onclick=()=>{
-    if(state.mainFlowBusy || isRimRecordingNow()){ uiTick(); playGuidance('wait', {force:true}); return; }
+    if(state.mainFlowBusy || isRimRecordingNow()){ uiTick(); return; }
     $('recordJoyCard').hidden = true;
     toggleRecord();
   };
