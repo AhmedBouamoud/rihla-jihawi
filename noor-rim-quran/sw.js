@@ -1,5 +1,5 @@
-const CACHE = 'noor-rim-hadiya-v14';
-const AUDIO_CACHE = 'noor-rim-audio-v2';
+const CACHE = 'noor-rim-hadiya-v15';
+const AUDIO_CACHE = 'noor-rim-audio-v3';
 const ASSETS = ['./','./index.html','./style.css','./app.js','./rim-audio-hotfix.js','./audio-manager.js','./manifest.webmanifest',
   './assets/icons/icon-192.svg','./assets/icons/icon-512.svg',
   './assets/rim/rim-reward.jpg',
@@ -25,39 +25,9 @@ function isQuranAudio(url){
     || url.includes('everyayah.com') || url.includes('verses.quran.com') || url.includes('download.quranicaudio.com');
 }
 
-async function combinedAppResponse(request){
-  const cache = await caches.open(CACHE);
-  let base = await cache.match('./app.js');
-  let hotfix = await cache.match('./rim-audio-hotfix.js');
-  if(!base){
-    base = await fetch(new URL('./app.js', request.url), {cache:'no-store'});
-    if(base && base.ok) cache.put('./app.js', base.clone());
-  }
-  if(!hotfix){
-    hotfix = await fetch(new URL('./rim-audio-hotfix.js', request.url), {cache:'no-store'});
-    if(hotfix && hotfix.ok) cache.put('./rim-audio-hotfix.js', hotfix.clone());
-  }
-  if(!base || !base.ok) return fetch(request);
-  const baseText = await base.text();
-  const hotfixText = hotfix && hotfix.ok ? await hotfix.text() : '';
-  return new Response(`${baseText}\n\n${hotfixText}`, {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/javascript; charset=utf-8',
-      'Cache-Control': 'no-store'
-    }
-  });
-}
-
 self.addEventListener('fetch', e => {
   if(e.request.method !== 'GET') return;
   const url = e.request.url;
-
-  // app.js يُقدَّم مع طبقة الإصلاح في ملف واحد، دون تغيير HTML أو تصميم الموقع.
-  if(new URL(url).pathname.endsWith('/noor-rim-quran/app.js')){
-    e.respondWith(combinedAppResponse(e.request));
-    return;
-  }
 
   if(isQuranAudio(url)){
     e.respondWith(
@@ -75,5 +45,6 @@ self.addEventListener('fetch', e => {
     );
     return;
   }
+
   e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
 });
