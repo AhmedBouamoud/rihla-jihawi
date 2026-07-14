@@ -1,4 +1,4 @@
-const CACHE = 'noor-rim-hadiya-v12';
+const CACHE = 'noor-rim-hadiya-v13';
 const AUDIO_CACHE = 'noor-rim-audio-v1';
 const ASSETS = ['./','./index.html','./style.css','./app.js','./audio-manager.js','./manifest.webmanifest',
   './assets/icons/icon-192.svg','./assets/icons/icon-512.svg',
@@ -21,7 +21,8 @@ self.addEventListener('activate', e => e.waitUntil(
 ));
 
 function isAyahAudio(url){
-  return url.includes('/assets/audio/') || url.includes('/assets/voice/') || url.includes('everyayah.com');
+  return url.includes('/assets/audio/') || url.includes('/assets/voice/')
+    || url.includes('everyayah.com') || url.includes('verses.quran.com') || url.includes('download.quranicaudio.com');
 }
 
 // تلاوة الآية (محلية أو عبر الإنترنت) وملفات التوجيه تُحفظ بعد أول سماع، فتشتغل ريم بلا إنترنت لاحقاً.

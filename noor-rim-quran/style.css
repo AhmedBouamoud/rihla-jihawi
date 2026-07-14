@@ -268,7 +268,8 @@ button{touch-action:manipulation;-webkit-tap-highlight-color:rgba(217,184,119,.2
   50%{box-shadow:0 0 0 14px rgba(217,184,119,0);transform:scale(1.03)}
   100%{box-shadow:0 0 0 0 rgba(217,184,119,0);transform:scale(1)}
 }
-.rim-dim{opacity:.45;filter:saturate(.6)}
+/* .rim-dim: تعطيل مؤقت منطقي فقط أثناء الخطوة الجارية — بلا أي تغيير في مظهر الزر (بطلب الأب) */
+.rim-dim{}
 .main-action:active,.tiny-btn:active,.secondary:active{transform:scale(.97)}
 
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
