@@ -1,4 +1,4 @@
-const CACHE = 'noor-rim-hadiya-v11';
+const CACHE = 'noor-rim-hadiya-v12';
 const AUDIO_CACHE = 'noor-rim-audio-v1';
 const ASSETS = ['./','./index.html','./style.css','./app.js','./audio-manager.js','./manifest.webmanifest',
   './assets/icons/icon-192.svg','./assets/icons/icon-512.svg',
@@ -21,11 +21,13 @@ self.addEventListener('activate', e => e.waitUntil(
 ));
 
 function isAyahAudio(url){
-  return url.includes('/assets/audio/') || url.includes('everyayah.com');
+  return url.includes('/assets/audio/') || url.includes('/assets/voice/') || url.includes('everyayah.com');
 }
 
-// تلاوة الآية (محلية أو عبر الإنترنت) تُحفظ بعد أول سماع، فتشتغل ريم بلا إنترنت لاحقاً.
+// تلاوة الآية (محلية أو عبر الإنترنت) وملفات التوجيه تُحفظ بعد أول سماع، فتشتغل ريم بلا إنترنت لاحقاً.
 self.addEventListener('fetch', e => {
+  // طلبات HEAD (فحص وجود الملفات الصوتية) تمر مباشرة للشبكة: Cache API لا يقبل غير GET
+  if(e.request.method !== 'GET') return;
   const url = e.request.url;
   if(isAyahAudio(url)){
     e.respondWith(
