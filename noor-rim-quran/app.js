@@ -46,12 +46,23 @@ const RAW_SURAHS = [
 function pad(n){ return String(n).padStart(2,'0'); }
 function pad3(n){ return String(n).padStart(3,'0'); }
 
-// آية من كلمتين أو أقل تُقال دفعة واحدة بلا تقسيم؛ الآيات الأطول تُقسَّم إلى مقاطع من كلمتين لتسهيل الترديد.
+// تبسيط الحفظ (بطلب الأب): الآية تُحفظ كاملة دائماً. فقط الآية الطويلة التي تتجاوز نحو ثلاثة أسطر
+// بالخط الكبير الحالي (أكثر من 8 كلمات) تُقسَّم إلى جزأين أو ثلاثة أجزاء كبيرة — لا مقاطع صغيرة كثيرة.
+const LONG_VERSE_WORD_LIMIT = 8;
+const SEGMENT_MAX_WORDS = 5;
 function autoSegments(fullText){
   const words = fullText.split(/\s+/).filter(Boolean);
-  if(words.length <= 2) return [];
+  if(words.length <= LONG_VERSE_WORD_LIMIT) return [];
+  const parts = Math.ceil(words.length / SEGMENT_MAX_WORDS);
+  const base = Math.floor(words.length / parts);
+  let rem = words.length % parts;
   const groups = [];
-  for(let i=0;i<words.length;i+=2) groups.push(words.slice(i,i+2).join(' '));
+  let at = 0;
+  for(let p=0; p<parts; p++){
+    const size = base + (rem-- > 0 ? 1 : 0);
+    groups.push({wordFrom: at, wordTo: at + size - 1, segmentText: words.slice(at, at + size).join(' ')});
+    at += size;
+  }
   return groups;
 }
 function buildSurahs(raw){
@@ -59,11 +70,12 @@ function buildSurahs(raw){
     const verses = s.verseTexts.map((fullText, i) => {
       const verseNumber = i+1;
       const verseId = `${s.surahId}-v${verseNumber}`;
-      const segmentTexts = autoSegments(fullText);
-      const segments = segmentTexts.map((segmentText, si) => ({
+      const segments = autoSegments(fullText).map((g, si) => ({
         segmentId: `${verseId}-s${si+1}`,
         segmentOrder: si+1,
-        segmentText
+        segmentText: g.segmentText,
+        wordFrom: g.wordFrom,
+        wordTo: g.wordTo
       }));
       return {
         verseId, surahId: s.surahId, verseNumber, fullText,
@@ -137,7 +149,9 @@ const state = {
   segmentIndex: 0,
   inSegmentMode: false,
   learningStage: 'listen',
-  stageToken: 0
+  stageToken: 0,
+  mainFlowBusy: false,
+  recStarting: false
 };
 
 function persist(){
@@ -157,7 +171,8 @@ function persist(){
 function currentSurah(){ return surahs[state.surahIndex] || surahs[0]; }
 function currentVerse(){ const s=currentSurah(); return s.verses[Math.min(state.verseIndex, s.verses.length-1)]; }
 function currentSegment(){ const v=currentVerse(); return v.segments[Math.min(state.segmentIndex, v.segments.length-1)]; }
-function verseVoiceKey(idx = state.verseIndex){ return `${currentSurah().surahId}#${idx}`; }
+function fatherVoiceKey(s, idx){ return `${s.surahId}#${idx}`; } // الصيغة الوحيدة المعتمدة لمفتاح تلاوة الأب
+function verseVoiceKey(idx = state.verseIndex){ return fatherVoiceKey(currentSurah(), idx); }
 function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
 function formatArabicDate(ts){ return new Date(ts).toLocaleDateString('ar', {year:'numeric', month:'long', day:'numeric'}); }
 
@@ -251,6 +266,9 @@ async function migrateLegacyRecordings(){
 
 // ---------- تنقل الشاشات ----------
 function showScreen(id){
+  // أي تنقل يلغي فوراً كل تلاوة أو تكرار جارٍ: لا يبقى صوت آية سابقة يعمل خلف شاشة جديدة
+  state.stageToken++;
+  stopAllAudio();
   document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active', s.id===id));
   document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active', b.dataset.target===id));
   if(id==='surahPickerScreen') renderSurahCards();
@@ -266,6 +284,7 @@ function openSurah(i){
   state.segmentIndex = 0;
   state.inSegmentMode = false;
   persist();
+  getChapterTimings(surahChapterNumber(surahs[i])); // تحميل توقيتات السورة مسبقاً بالخلفية قبل أول ضغطة
   showScreen('journeyScreen');
 }
 function renderSurahCards(){
@@ -386,70 +405,411 @@ function checkNewGift(){
   }, 900);
 }
 
-// ---------- حلّ مصدر تلاوة أي آية: تسجيل الأب، ثم ملف محلي، ثم تلاوة حقيقية عبر الإنترنت. بدون أي نطق آلي مطلقاً ----------
-function audioSrc(idx = state.verseIndex){
-  const s=currentSurah();
-  return `assets/audio/${s.verses[idx].audio}.mp3`;
-}
-function onlineAudioSrc(idx = state.verseIndex){
-  const s=currentSurah();
+// ---------- خريطة ربط الصوت الصريحة: كل سورة وآية ومقطع مربوط بمساره الحقيقي، بلا أي افتراض ضمني ----------
+// المصادر بالأولوية: تسجيل الأب (IndexedDB) ← ملف محلي داخل المشروع ← تلاوة حقيقية عبر الإنترنت (everyayah).
+// المقطع لا يُشغَّل أبداً من ملف الآية ولا من صوت آلي: إمّا ملف مقطع حقيقي موجود، أو يُتخطى تدريب السماع ويُسجَّل نقصه.
+function localAyahSrc(s, idx){ return `assets/audio/${s.verses[idx].audio}.mp3`; }
+function onlineAyahSrc(s, idx){
   const code = s.audioCode.split('-')[0];
   return `https://everyayah.com/data/Alafasy_128kbps/${code}${pad3(idx+1)}.mp3`;
 }
-async function resolvePlayableAudio(idx){
-  const fatherClip = await idbGet('ayahVoice', verseVoiceKey(idx));
-  if(fatherClip) return {src: URL.createObjectURL(fatherClip), isBlob:true};
-  return {src: audioSrc(idx), fallback: state.onlineAudio ? onlineAudioSrc(idx) : null};
-}
-function playResolvedAwaitable(resolved, rate){
-  AudioManager.stop(); // القرآن له أولوية مطلقة: أي صوت آخر (تشجيع أو أغنية هدية) يتوقف فوراً ويُعاد لبدايته عند بدء التلاوة
-  giftSongPlayer.pause();
-  giftSongPlayer.currentTime = 0;
-  return new Promise((resolve) => {
-    audioPlayer.onerror = null;
-    audioPlayer.onended = null;
-    let settled = false;
-    const finish = () => { if(!settled){ settled = true; resolve(); } };
+function localFullSurahSrc(s){ return `assets/audio/full/${s.audioCode}.mp3`; }
+function localSegmentSrc(s, v, seg){ return `assets/audio/segments/${v.audio}-s${seg.segmentOrder}.mp3`; }
+const QURAN_AUDIO_MAP = surahs.map(s => ({
+  surahId: s.surahId,
+  fullAudio: localFullSurahSrc(s),
+  ayahs: s.verses.map((v, i) => ({
+    number: v.verseNumber,
+    audio: localAyahSrc(s, i),
+    onlineAudio: onlineAyahSrc(s, i),
+    fatherVoiceKey: fatherVoiceKey(s, i),
+    segments: v.segments.map(seg => ({id: seg.segmentOrder, audio: localSegmentSrc(s, v, seg)}))
+  }))
+}));
 
+// فحص وجود الملفات الفعلي (بلا تخمين): نتائجه تُحفظ للجلسة حتى لا نكرر الطلبات على الهاتف.
+// دون اتصال (أو مع مضيف لا يجيب على HEAD) نرجع لكاش عامل الخدمة: ملف سُمع من قبل يبقى "موجوداً" بلا إنترنت،
+// وفشل الشبكة لا يُثبَّت في الذاكرة حتى تُعاد المحاولة تلقائياً إن عاد الاتصال في نفس الجلسة.
+const fileAvailability = new Map();
+async function audioFileAvailable(url){
+  if(fileAvailability.has(url)) return fileAvailability.get(url);
+  let ok = false, definite = true;
+  try{
+    const res = await fetch(url, {method:'HEAD', cache:'no-store'});
+    ok = res.ok && !(res.headers.get('content-type') || '').includes('text/html');
+    if(!res.ok && res.status !== 404) definite = false;
+  }catch(e){ definite = false; }
+  if(!ok && !definite){
+    try{ ok = !!(window.caches && await caches.match(url)); }catch(e){ ok = false; }
+    if(!ok) return false; // لا نثبّت نتيجة فشل شبكة
+  }
+  fileAvailability.set(url, ok);
+  return ok;
+}
+async function verseSegmentFilesExist(s, v){
+  if(!v.segments.length) return false;
+  const checks = await Promise.all(v.segments.map(seg => audioFileAvailable(localSegmentSrc(s, v, seg))));
+  return checks.every(Boolean);
+}
+
+// ---------- توقيتات الكلمات الموثوقة (quran.com — نفس قارئ everyayah: مشاري العفاسي) ----------
+// بها نشغّل من ملف التلاوة الحقيقي: الآية من أول كلمتها إلى آخرها بالضبط (بلا بسملة مقحمة داخل التكرار)،
+// والمقطع كلماته هو فقط — قصّ بحدود كلمات مُراجَعة من مصدر موثوق، لا قصّاً عشوائياً ولا صوتاً آلياً.
+// عند تعذر البيانات (انقطاع أو تغيّر المصدر) يستمر كل شيء على المسار الاحتياطي القائم (everyayah بملفات كاملة).
+const QDC_RECITER_ID = 7; // مشاري راشد العفاسي
+const VERSES_AUDIO_BASE = 'https://verses.quran.com/';
+function normalizeWordSegments(segs){
+  if(!Array.isArray(segs) || !segs.length) return null;
+  const entries = segs.filter(x => Array.isArray(x) && x.length >= 3 && x.slice(0,3).every(n => typeof n === 'number' && isFinite(n)));
+  if(!entries.length) return null;
+  const zeroBased = entries.some(e => e[0] === 0);
+  const words = [];
+  for(const e of entries){
+    const idx = zeroBased ? e[0] : e[0] - 1;
+    const start = e[1], end = e[2];
+    if(idx < 0 || start < 0 || !(end > start) || end > 7200000) continue;
+    words[idx] = {start, end};
+  }
+  const defined = words.filter(Boolean);
+  if(!defined.length) return null;
+  for(let i=1;i<defined.length;i++){ if(defined[i].start < defined[i-1].start) return null; } // ترتيب زمني سليم إجباري
+  return words;
+}
+const TIMING_SOURCES = [
+  { // ملف لكل آية + توقيت كلماتها داخله
+    url: c => `https://api.quran.com/api/v4/quran/recitations/${QDC_RECITER_ID}?chapter_number=${c}`,
+    parse: (data) => {
+      const out = {};
+      for(const f of (data && data.audio_files) || []){
+        if(!f || !f.verse_key || !f.url) continue;
+        const words = normalizeWordSegments(f.segments);
+        if(!words) continue;
+        const src = /^https?:/i.test(f.url) ? f.url : VERSES_AUDIO_BASE + String(f.url).replace(/^\/+/, '');
+        out[f.verse_key] = {url: src, words};
+      }
+      return out;
+    }
+  },
+  { // ملف واحد للسورة + توقيت كل آية وكلماتها على خط زمن الملف
+    url: c => `https://api.qurancdn.com/api/qdc/audio/reciters/${QDC_RECITER_ID}/audio_files?chapter=${c}&segments=true`,
+    parse: (data) => {
+      const file = data && Array.isArray(data.audio_files) && data.audio_files[0];
+      if(!file || !file.audio_url || !Array.isArray(file.verse_timings)) return {};
+      const out = {};
+      for(const vt of file.verse_timings){
+        if(!vt || !vt.verse_key) continue;
+        let words = normalizeWordSegments(vt.segments);
+        if(!words && typeof vt.timestamp_from === 'number' && typeof vt.timestamp_to === 'number' && vt.timestamp_to > vt.timestamp_from){
+          words = [{start: vt.timestamp_from, end: vt.timestamp_to}];
+        }
+        if(!words) continue;
+        out[vt.verse_key] = {url: file.audio_url, words};
+      }
+      return out;
+    }
+  }
+];
+const chapterTimingsCache = new Map(); // chapter -> Promise<map|null>
+function getChapterTimings(chapter){
+  if(!isFinite(chapter) || chapter < 1) return Promise.resolve(null);
+  if(chapterTimingsCache.has(chapter)) return chapterTimingsCache.get(chapter);
+  const lsKey = `rim.verseTimings.v1.${chapter}`;
+  const p = (async () => {
+    try{
+      const saved = localStorage.getItem(lsKey);
+      if(saved){
+        const parsed = JSON.parse(saved);
+        if(parsed && Object.keys(parsed).length) return parsed;
+      }
+    }catch(e){ /* نتجاهل كاش تالفاً */ }
+    for(const source of TIMING_SOURCES){
+      try{
+        const ctrl = ('AbortController' in window) ? new AbortController() : null;
+        const timer = ctrl ? setTimeout(() => ctrl.abort(), 8000) : null;
+        const res = await fetch(source.url(chapter), ctrl ? {signal: ctrl.signal} : {});
+        if(timer) clearTimeout(timer);
+        if(!res.ok) continue;
+        const map = source.parse(await res.json());
+        if(map && Object.keys(map).length){
+          try{ localStorage.setItem(lsKey, JSON.stringify(map)); }catch(e){}
+          return map;
+        }
+      }catch(e){ /* المصدر التالي أو المسار الاحتياطي */ }
+    }
+    return null;
+  })();
+  chapterTimingsCache.set(chapter, p);
+  return p;
+}
+function surahChapterNumber(s){ return parseInt(s.audioCode, 10); }
+async function getVerseTiming(s, idx){
+  const chapter = surahChapterNumber(s);
+  const map = await getChapterTimings(chapter);
+  const t = map && map[`${chapter}:${idx+1}`];
+  if(!t || !t.url || !Array.isArray(t.words)) return null;
+  const defined = t.words.filter(Boolean);
+  if(!defined.length) return null;
+  return {url: t.url, firstStart: defined[0].start, lastEnd: defined[defined.length-1].end, words: t.words};
+}
+// شريحة جزء تدريبي: كلمات الجزء نفسها التي تظهر على الشاشة — وإلا لا شيء (لا تخمين)
+async function getSegmentSlice(s, v, seg){
+  const t = await getVerseTiming(s, v.verseNumber - 1);
+  if(!t) return null;
+  const ourWords = v.fullText.split(/\s+/).filter(Boolean).length;
+  if(Math.abs(t.words.length - ourWords) > 1) return null; // ترقيم الكلمات غير متطابق: لا قصّ غير مؤكد
+  const wa = t.words[seg.wordFrom], wb = t.words[Math.min(seg.wordTo, t.words.length - 1)] || wa;
+  if(!wa || !wb || !(wb.end > wa.start)) return null;
+  return {url: t.url, startMs: wa.start, endMs: wb.end};
+}
+// مهلة ناعمة: أول استعمال لا ينتظر الشبكة طويلاً — يشتغل الاحتياطي فوراً ويكتمل التحميل بالخلفية للمرات القادمة
+function withSoftTimeout(promise, ms){
+  return Promise.race([promise, sleep(ms).then(() => undefined)]);
+}
+// الشرائح تحتاج قفزاً دقيقاً مضموناً: نجلب ملف التلاوة ونشغّله كـBlob محلي (قابل للقفز دائماً، حتى من
+// كاش عامل الخدمة دون إنترنت). إن منع المضيف القراءة (CORS) نستعمل الرابط مباشرة (القفز عبر نطاقات الشبكة).
+const seekableUrlCache = new Map(); // url -> Promise<objectURL|url>
+function getSeekableUrl(url){
+  if(seekableUrlCache.has(url)) return seekableUrlCache.get(url);
+  const p = (async () => {
+    try{
+      const res = await fetch(url);
+      if(!res.ok) return url;
+      const blob = await res.blob();
+      if(!blob || !blob.size) return url;
+      return URL.createObjectURL(blob);
+    }catch(e){ return url; }
+  })();
+  seekableUrlCache.set(url, p);
+  return p;
+}
+async function playSliceAwaitable(url, startMs, endMs, opts = {}){
+  const src = (await withSoftTimeout(getSeekableUrl(url), 4000)) || url;
+  await playFileAwaitable(src, {...opts, startMs, endMs});
+}
+// تقرير للأب/المطوّر من وحدة تحكم المتصفح: window.noorRimAudioReport() يعرض كل ملف ناقص
+async function noorRimAudioReport(){
+  const targets = [];
+  for(const s of surahs){
+    targets.push({نوع:'سورة كاملة', سورة:s.surahName, ملف:localFullSurahSrc(s)});
+    s.verses.forEach((v, i) => {
+      targets.push({نوع:'آية (يُستعمل البديل عبر الإنترنت)', سورة:s.surahName, ملف:localAyahSrc(s, i)});
+      v.segments.forEach(seg => targets.push({نوع:'مقطع (يُتخطى سماع المقطع)', سورة:s.surahName, ملف:localSegmentSrc(s, v, seg)}));
+    });
+  }
+  const checks = await Promise.all(targets.map(t => audioFileAvailable(t.ملف)));
+  const missing = targets.filter((t, i) => !checks[i]);
+  console.table(missing);
+  return {map: QURAN_AUDIO_MAP, missing};
+}
+window.noorRimAudioReport = noorRimAudioReport;
+
+// ---------- المشغّل المركزي الوحيد للتلاوة: عنصر صوتي واحد، ورمز إلغاء واحد، ولا يُسمح بأي تشغيل متوازٍ ----------
+// كان الخلل الجذري هنا: مؤقّت أمان قديم كان "ينهي" وعد التشغيل بعد 12 ثانية بينما الصوت لا يزال يعمل،
+// فتتقدم دورات التكرار وتشغّل ملفاً جديداً فوق الملف السابق (تداخل صوتين وتكرار البسملة وخلط الملفات).
+let quranToken = 0;
+let activeQuranFinish = null; // إنهاء فوري للوعد المعلّق عند الإلغاء، بلا انتظار دورة المراقب
+function cancelQuranPlayback(){
+  quranToken++;
+  audioPlayer.onended = null;
+  audioPlayer.onerror = null;
+  audioPlayer.pause();
+  audioPlayer.muted = false;
+  try{ audioPlayer.currentTime = 0; }catch(e){ /* قد لا يوجد مصدر بعد */ }
+  if(activeQuranFinish) activeQuranFinish();
+}
+function playFileAwaitable(src, {rate = 1, fallback = null, isBlob = false, startMs = null, endMs = null} = {}){
+  const myToken = ++quranToken;
+  if(activeQuranFinish) activeQuranFinish(); // التلاوة السابقة تُحسم فوراً قبل أن تبدأ الجديدة
+  stopSecondaryAudio(); // قبل أي تلاوة: يتوقف كل مصدر صوتي آخر ويُصفَّر
+
+  // شريحة زمنية دقيقة داخل ملف تلاوة حقيقي (آية بلا بسملة مقحمة، أو مقطع بكلماته فقط)
+  const wantsSlice = typeof startMs === 'number' && typeof endMs === 'number' && endMs > startMs;
+
+  return new Promise((resolve) => {
+    let settled = false, watchdog = null, sliceTimer = null, lastTime = -1, stallSeconds = 0, pausedSeconds = 0;
+    const seekToStart = () => { try{ audioPlayer.currentTime = startMs / 1000; }catch(e){ /* يعاد ضبطه عند توفر البيانات */ } };
+    const finish = () => {
+      if(settled) return;
+      settled = true;
+      clearInterval(watchdog);
+      clearInterval(sliceTimer);
+      audioPlayer.muted = false;
+      audioPlayer.removeEventListener('loadedmetadata', seekToStart);
+      if(activeQuranFinish === finish) activeQuranFinish = null;
+      if(isBlob){ try{ URL.revokeObjectURL(src); }catch(e){} }
+      resolve();
+    };
+    activeQuranFinish = finish;
     const tryFallback = () => {
-      if(!resolved.fallback){ finish(); return; }
+      if(settled) return;
+      if(myToken !== quranToken || !fallback){ finish(); return; }
+      audioPlayer.removeEventListener('loadedmetadata', seekToStart);
+      clearInterval(sliceTimer); // الملف الاحتياطي ملف آية كامل: يُشغَّل كاملاً بلا شريحة
+      audioPlayer.muted = false;
       audioPlayer.onerror = finish;
-      audioPlayer.onended = finish;
-      audioPlayer.src = resolved.fallback;
+      audioPlayer.src = fallback;
       audioPlayer.playbackRate = rate;
       audioPlayer.play().catch(finish);
     };
 
     audioPlayer.onended = finish;
-    audioPlayer.onerror = resolved.isBlob ? finish : tryFallback;
-    audioPlayer.src = resolved.src;
+    audioPlayer.onerror = isBlob ? finish : tryFallback;
+    audioPlayer.src = src;
     audioPlayer.playbackRate = rate;
-    audioPlayer.onloadedmetadata = () => visualWordPlayback(isFinite(audioPlayer.duration) && audioPlayer.duration>0 ? audioPlayer.duration*1000 : 3200);
-    visualWordPlayback(3200);
-    audioPlayer.play().catch(resolved.isBlob ? finish : tryFallback);
-    // شبكة الأمان: لا يجب أن تعلق الدورة التلقائية أبداً بلا سبب
-    setTimeout(finish, 12000);
+    if(wantsSlice){
+      const targetStart = startMs / 1000;
+      let seekConfirmed = targetStart <= 0.3, seekAttempts = 0;
+      // لا يُسمع أي شيء قبل بداية الشريحة (كالبسملة المدمجة في الملف) حتى يثبت الموضع الصحيح
+      if(!seekConfirmed) audioPlayer.muted = true;
+      audioPlayer.addEventListener('loadedmetadata', seekToStart, {once:true});
+      if(audioPlayer.readyState >= 1) seekToStart();
+      // فاحص دقيق (60 ملّي): يثبّت بداية الشريحة بإعادة المحاولة، ثم يوقف الصوت عند نهايتها بالضبط
+      sliceTimer = setInterval(() => {
+        if(settled){ clearInterval(sliceTimer); return; }
+        if(myToken !== quranToken) return;
+        if(!seekConfirmed){
+          if(audioPlayer.currentTime >= targetStart - 0.3){
+            seekConfirmed = true;
+            audioPlayer.muted = false;
+            return;
+          }
+          seekAttempts++;
+          if(seekAttempts > 25){
+            // المصدر لا يقبل القفز إطلاقاً: الملف الاحتياطي الكامل أفضل من شريحة خاطئة أو صمت معلّق
+            if(fallback && !isBlob){ tryFallback(); } else { audioPlayer.pause(); finish(); }
+            return;
+          }
+          if(audioPlayer.readyState >= 1 && !audioPlayer.seeking) seekToStart();
+          return;
+        }
+        if(!audioPlayer.paused && audioPlayer.currentTime >= (endMs / 1000) - 0.03){
+          audioPlayer.pause();
+          finish();
+        }
+      }, 60);
+    }
+    audioPlayer.play().catch(isBlob ? finish : tryFallback);
+
+    // مراقب واحد كل ثانية — لا يُنهي أبداً بينما الصوت لا يزال يتقدم، فلا يمكن أن يبدأ ملف فوق ملف:
+    // • الإلغاء أو ended يُنهيان فوراً. • وصول نهاية الملف دون حدث ended (خلل معروف في بعض المتصفحات) يُنهي.
+    // • تعليق حقيقي أثناء "التشغيل" (شبكة) يُوقف ويُنهي بعد 20 ث. • إيقاف خارجي (قفل الهاتف/مكالمة) يُمهل 30 ث ثم يُنهي بهدوء.
+    watchdog = setInterval(() => {
+      if(settled){ clearInterval(watchdog); return; }
+      if(myToken !== quranToken || audioPlayer.ended){ finish(); return; }
+      if(isFinite(audioPlayer.duration) && audioPlayer.duration > 0 && audioPlayer.currentTime >= audioPlayer.duration - 0.05){ finish(); return; }
+      if(audioPlayer.paused){
+        pausedSeconds++;
+        if(pausedSeconds >= 30) finish();
+        return;
+      }
+      pausedSeconds = 0;
+      if(audioPlayer.currentTime !== lastTime){
+        lastTime = audioPlayer.currentTime;
+        stallSeconds = 0;
+        return;
+      }
+      stallSeconds++;
+      if(stallSeconds >= 20){ audioPlayer.pause(); finish(); }
+    }, 1000);
   });
 }
-function visualWordPlayback(){ /* أُبقيت للتوافق مع الاستدعاءات القديمة؛ لا كلمات منفصلة بعد الآن */ }
-async function playVerse(slow=false){
-  const resolved = await resolvePlayableAudio(state.verseIndex);
-  if(!resolved.fallback && !resolved.isBlob){
-    if(!state.onlineAudio){
-      $('nudgeText') && ($('nudgeText').textContent = 'لا يوجد تسجيل بعد لهذه الآية. سجّلي مع أبي، أو فعّلي التلاوة عبر الإنترنت من وضع الأب.');
-    }
+// حلّ مصدر الآية بالأولوية: تسجيل الأب ← ملف محلي ← شريحة زمنية دقيقة من تلاوة حقيقية ← ملف everyayah كامل
+async function resolvePlayableAudio(s, idx){
+  const fatherClip = await idbGet('ayahVoice', fatherVoiceKey(s, idx));
+  if(fatherClip) return {src: URL.createObjectURL(fatherClip), isBlob:true};
+  if(await audioFileAvailable(localAyahSrc(s, idx))) return {src: localAyahSrc(s, idx)};
+  if(!state.onlineAudio) return {src: localAyahSrc(s, idx), noSource:true};
+  const t = await withSoftTimeout(getVerseTiming(s, idx), 3000);
+  if(t){
+    const src = (await withSoftTimeout(getSeekableUrl(t.url), 4000)) || t.url;
+    return {src, startMs: t.firstStart, endMs: t.lastEnd, fallback: onlineAyahSrc(s, idx)};
   }
-  playResolvedAwaitable(resolved, slow ? .82 : 1);
+  return {src: onlineAyahSrc(s, idx)};
 }
-async function playVerseAwaitable(idx, slow=false){
-  const resolved = await resolvePlayableAudio(idx);
-  await playResolvedAwaitable(resolved, slow ? .82 : 1);
+async function playVerseAwaitable(s, idx, slow=false){
+  const resolved = await resolvePlayableAudio(s, idx);
+  await playFileAwaitable(resolved.src, {rate: slow ? .82 : 1, fallback: resolved.fallback, isBlob: resolved.isBlob, startMs: resolved.startMs, endMs: resolved.endMs});
 }
-async function playVerseRangeAwaitable(fromIdx, toIdx){
+async function playVerse(slow=false){
+  state.stageToken++; // أي دورة تكرار أو تسلسل جارٍ يُلغى قبل التشغيل المنفرد
+  const s = currentSurah();
+  const resolved = await resolvePlayableAudio(s, state.verseIndex);
+  if(resolved.noSource){
+    $('nudgeText') && ($('nudgeText').textContent = 'لا يوجد تسجيل بعد لهذه الآية. سجّلي مع أبي، أو فعّلي التلاوة عبر الإنترنت من وضع الأب.');
+  }
+  await playFileAwaitable(resolved.src, {rate: slow ? .82 : 1, fallback: resolved.fallback, isBlob: resolved.isBlob, startMs: resolved.startMs, endMs: resolved.endMs});
+}
+// بداية سورة غير الفاتحة: بسملة واحدة حقيقية فقط ثم الآية الأولى — ولا تتكرر البسملة بعدها داخل أي آية
+async function playSurahOpeningAwaitable(s, flowToken){
+  const cancelled = () => flowToken !== undefined && flowToken !== state.stageToken;
+  if(surahChapterNumber(s) === 1){ await playVerseAwaitable(s, 0, false); return; } // بسملة الفاتحة هي آيتها الأولى
+  const resolved = await resolvePlayableAudio(s, 0);
+  if(cancelled()) return;
+  // تسجيل الأب أو ملف محلي أو ملف everyayah كامل: يُشغَّل كما هو (ملف everyayah يحمل بسملته أصلاً)
+  if(resolved.isBlob || resolved.startMs === undefined){
+    await playFileAwaitable(resolved.src, {fallback: resolved.fallback, isBlob: resolved.isBlob});
+    return;
+  }
+  if(resolved.startMs > 3000){
+    // ملف الآية نفسه يحمل بسملة قبل أول كلمة: نشغّله من بدايته حتى آخر كلمة الآية
+    await playFileAwaitable(resolved.src, {startMs: 0, endMs: resolved.endMs, fallback: resolved.fallback});
+    return;
+  }
+  // الملف بلا بسملة: نقدّم بسملة حقيقية (الفاتحة ١:١ لنفس القارئ) ثم الآية بشريحتها
+  const fatiha = surahs.find(x => surahChapterNumber(x) === 1);
+  const bas = fatiha ? await withSoftTimeout(getVerseTiming(fatiha, 0), 2000) : null;
+  if(cancelled()) return;
+  if(bas) await playSliceAwaitable(bas.url, bas.firstStart, bas.lastEnd);
+  if(cancelled()) return;
+  await playFileAwaitable(resolved.src, {startMs: resolved.startMs, endMs: resolved.endMs, fallback: resolved.fallback});
+}
+// تسلسل آيات لسورة محددة بالذات (لا "السورة الحالية" وقت كل آية): تغيير السورة أو المرحلة يوقف التسلسل فوراً
+async function playVerseRangeAwaitable(s, fromIdx, toIdx, flowToken){
   for(let i=fromIdx;i<=toIdx;i++){
-    await playVerseAwaitable(i, false);
+    if(flowToken !== undefined && flowToken !== state.stageToken) return;
+    if(i === 0){
+      await playSurahOpeningAwaitable(s, flowToken);
+    }else{
+      await playVerseAwaitable(s, i, false);
+    }
+    if(flowToken !== undefined && flowToken !== state.stageToken) return;
     if(i < toIdx) await sleep(500);
   }
+}
+// السورة كاملة: ملف السورة الكاملة الحقيقي إن وُجد، وإلا تسلسل آياتها بالترتيب (بسملة واحدة في البداية فقط)
+async function playFullSurahAwaitable(s, flowToken){
+  if(await audioFileAvailable(localFullSurahSrc(s))){
+    if(flowToken !== undefined && flowToken !== state.stageToken) return;
+    await playFileAwaitable(localFullSurahSrc(s), {});
+  }else{
+    await playVerseRangeAwaitable(s, 0, s.verses.length-1, flowToken);
+  }
+}
+// مقطع تعليمي: ملف مقطع حقيقي، أو شريحة كلماته الدقيقة من تلاوة حقيقية — يُمنع منعاً مطلقاً تشغيل ملف الآية مكانه
+async function playSegmentAwaitable(s, v, seg){
+  const src = localSegmentSrc(s, v, seg);
+  if(await audioFileAvailable(src)){
+    await playFileAwaitable(src, {});
+    return true;
+  }
+  if(state.onlineAudio){
+    const slice = await withSoftTimeout(getSegmentSlice(s, v, seg), 3000);
+    if(slice){
+      await playSliceAwaitable(slice.url, slice.startMs, slice.endMs);
+      return true;
+    }
+  }
+  return false;
+}
+// هل تدريب مقاطع هذه الآية ممكن بصوت حقيقي؟ (ملفات مقاطع موجودة، أو شرائح زمنية مؤكدة لكل مقاطعها)
+async function verseSegmentsPlayable(s, v){
+  if(!v.segments.length) return false;
+  if(await verseSegmentFilesExist(s, v)) return true;
+  if(!state.onlineAudio) return false;
+  for(const seg of v.segments){
+    if(!await getSegmentSlice(s, v, seg)) return false;
+  }
+  return true;
 }
 
 // قراءة رسائل التشجيع (وليس آيات القرآن) بصوت المتصفح، لمساعدة ريم على الفهم رغم صعوبة القراءة.
@@ -464,6 +824,78 @@ function speak(text){
     utter.rate = 0.9;
     window.speechSynthesis.speak(utter);
   }catch(e){ /* القراءة الصوتية للواجهة اختيارية */ }
+}
+
+// ---------- توجيه ريم بالحركة فقط (بطلب الأب): لا تعليمات صوتية للأزرار — الزر المطلوب يتحرك لتراه ----------
+function stopGuidance(){
+  if('speechSynthesis' in window){ try{ window.speechSynthesis.cancel(); }catch(e){} }
+}
+
+// ---------- مساعدات اللمس: نقرة تأكيد خفيفة، منع الضغط المزدوج، إبراز الزر المطلوب، تعطيل مؤقت لغير المناسب ----------
+function isRimRecordingNow(){
+  return [state.recorder, state.segRecorder, state.surahRecorder, state.ayahRecorder, state.encourageRecorder]
+    .some(r => r && r.state === 'recording');
+}
+function uiTick(){
+  try{
+    const ctx = uiTick._ctx || (uiTick._ctx = new (window.AudioContext || window.webkitAudioContext)());
+    const osc = ctx.createOscillator(), gain = ctx.createGain();
+    osc.type = 'sine'; osc.frequency.value = 1180;
+    gain.gain.setValueAtTime(0.05, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.09);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + 0.1);
+  }catch(e){ /* نغمة اللمس اختيارية */ }
+}
+let lastAudioTapAt = 0;
+function tapGuard(){
+  const now = Date.now();
+  if(now - lastAudioTapAt < 450) return true; // الضغط المزدوج السريع لا يشغّل الصوت مرتين
+  lastAudioTapAt = now;
+  return false;
+}
+function setRimGuide(btn, on){
+  document.querySelectorAll('.rim-guide').forEach(b => b.classList.remove('rim-guide'));
+  if(on && btn && !btn.disabled) btn.classList.add('rim-guide');
+}
+// عند تعثر التسجيل: يعود النبض للزر الصحيح، مع صوت التشجيع الموجود أصلاً في التطبيق (إن كان مفعّلاً)
+function encourageRetry(btn){
+  if(btn) setRimGuide(btn, true);
+  AudioManager.play('retry');
+}
+const SECONDARY_AUDIO_BTN_IDS = ['helpSlowBtn','helpFullSurahBtn','openRimRecordingsBtn','playRecordBtn','segmentRecordBtn','joyPlayBtn','joyRetryBtn'];
+// عدّاد لا علم ثنائي: تدفق أُلغي وتدفق جديد بدأ قد يتداخلان زمنياً، فلا يجوز أن يمسح المُلغى حالة الانشغال عن الجديد
+let mainBusyCount = 0;
+function setMainBusy(v){
+  mainBusyCount = Math.max(0, mainBusyCount + (v ? 1 : -1));
+  state.mainFlowBusy = mainBusyCount > 0;
+  SECONDARY_AUDIO_BTN_IDS.forEach(id => { const el = $(id); if(el) el.classList.toggle('rim-dim', state.mainFlowBusy); });
+}
+// الأزرار الثانوية: أثناء انشغال الزر الرئيسي أو التسجيل تصبح غير نشطة مؤقتاً، مع توجيه بدل رسالة مكتوبة
+function secondaryAudioAction(fn){
+  return () => {
+    if(tapGuard()) return;
+    if(state.mainFlowBusy || isRimRecordingNow()){
+      uiTick(); // نقرة فقط — الزر النابض هو الدليل، بلا تعليمات صوتية
+      return;
+    }
+    fn();
+  };
+}
+// تغليف تشغيل الزر الرئيسي: تعطيل أثناء الصوت، إلغاء أي تدفق سابق، وإعادة التفعيل مضمونة دائماً.
+// يعيد null عند صدّ ضغطة مزدوجة سريعة حتى لا يتقدم منطق المراحل بلا تشغيل فعلي.
+async function runMainPlayFlow(btn, playFn){
+  if(tapGuard()) return null;
+  const myToken = ++state.stageToken;
+  btn.disabled = true;
+  setMainBusy(true);
+  try{
+    await playFn(myToken);
+  }finally{
+    setMainBusy(false);
+    btn.disabled = false;
+  }
+  return myToken;
 }
 
 // ---------- احتفال هادئ: توهّج ناعم ونغمة واحدة لطيفة، بلا قصاصات ولا اهتزاز ولا ضجيج ----------
@@ -488,8 +920,7 @@ function celebrateSoftly(){
 async function playRandomEncouragement(){
   const clips = await idbGetAll('encourage');
   if(!clips.length) return;
-  stopQuranAudio();
-  AudioManager.stop();
+  stopAllAudio(); // كل المصادر بلا استثناء (بما فيها أغنية الهدية وتسجيلات ريم) قبل صوت التشجيع
   const blob = clips[Math.floor(Math.random()*clips.length)];
   voicePlayer.src = URL.createObjectURL(blob);
   voicePlayer.play().catch(()=>{});
@@ -497,24 +928,26 @@ async function playRandomEncouragement(){
 
 // ---------- ربط AudioManager بتجربة ريم: يمنع تشغيل أكثر من مصدر صوتي واحد في اللحظة نفسها (قرآن / تشجيع / تسجيل ريم / أغنية هدية) ----------
 function stopQuranAudio(){
-  audioPlayer.pause();
-  audioPlayer.currentTime = 0;
+  cancelQuranPlayback();
 }
-function playQuranAudio(src){
+// كل المصادر عدا مشغّل القرآن — القائمة الوحيدة المعتمدة؛ أي مشغّل جديد يُضاف هنا فقط
+function stopSecondaryAudio(){
   AudioManager.stop();
-  audioPlayer.src = src;
-  return audioPlayer.play();
-}
-function stopAllAudio(){
-  stopQuranAudio();
-  AudioManager.stop();
+  stopGuidance();
   voicePlayer.pause();
   voicePlayer.currentTime = 0;
   giftSongPlayer.pause();
   giftSongPlayer.currentTime = 0;
+  const rimP = $('rimRecordPlayer'); if(rimP){ rimP.pause(); }
+  const recP = $('recordingsPlayer'); if(recP){ recP.pause(); }
 }
-// يجب استدعاؤها فوراً عند بدء أي تسجيل لصوت ريم، لإيقاف كل مصدر صوتي آخر قبل فتح الميكروفون
+function stopAllAudio(){
+  cancelQuranPlayback();          // يوقف التلاوة ويحسم أي دورة تشغيل معلّقة عليها
+  stopSecondaryAudio();
+}
+// يجب استدعاؤها فوراً عند بدء أي تسجيل لصوت ريم، لإيقاف كل مصدر صوتي آخر وإلغاء أي تكرار جارٍ قبل فتح الميكروفون
 function startRimRecording(){
+  state.stageToken++;
   stopAllAudio();
 }
 // صحيح فقط إن كان صوت "محمي" يعمل الآن (قرآن، تسجيل ريم بأنواعه، الاستماع لتسجيلها، صوت الأب) — عندها يُمنع أي صوت تلقائي من AudioManager
@@ -677,10 +1110,8 @@ function setLearningStage(stage){
     const s = currentSurah();
     btn.textContent = `🔊 نسمع سورة ${s.surahName} كاملة`;
     btn.onclick = async () => {
-      btn.disabled = true;
-      await playVerseRangeAwaitable(0, s.verses.length-1);
-      btn.disabled = false;
-      setLearningStage('surah-intro-done');
+      const myToken = await runMainPlayFlow(btn, (token) => playFullSurahAwaitable(s, token));
+      if(myToken === state.stageToken) setLearningStage('surah-intro-done');
     };
   }else if(stage === 'surah-intro-done'){
     btn.textContent = '▶️ نبدأ الآية الأولى';
@@ -699,7 +1130,7 @@ function setLearningStage(stage){
     btn.textContent = '🧩 نقسمها معاً';
     btn.onclick = enterSegmentMode;
   }else if(stage === 'segment'){
-    const v = currentVerse(), seg = currentSegment();
+    const s = currentSurah(), v = currentVerse(), seg = currentSegment();
     $('ayahText').hidden = true;
     $('segmentText').hidden = false;
     $('segmentText').textContent = seg.segmentText;
@@ -707,10 +1138,17 @@ function setLearningStage(stage){
     showSegmentRecordBtn();
     btn.textContent = '🔊 كرري هذا المقطع';
     btn.onclick = async () => {
-      btn.disabled = true;
-      await playVerseAwaitable(state.verseIndex, true);
-      btn.disabled = false;
-      setLearningStage('segment-next');
+      // زر المقطع يشغّل ملف المقطع الحقيقي فقط؛ لا يشغّل ملف الآية أبداً
+      let played = false;
+      const myToken = await runMainPlayFlow(btn, async () => { played = await playSegmentAwaitable(s, v, seg); });
+      if(myToken === null || myToken !== state.stageToken) return;
+      if(played){
+        setLearningStage('segment-next');
+      }else{
+        // الملف غير متاح الآن (انقطاع مثلاً): لا تقدم صامت ولا تشغيل لملف الآية مكانه — نعود لسماع الآية كاملة
+        setRecordStatus('هذا الجزء غير متوفر الآن يا ريم، نسمع الآية كاملة معاً 🌸');
+        setLearningStage('verse-recap');
+      }
     };
   }else if(stage === 'segment-next'){
     const v = currentVerse();
@@ -736,10 +1174,9 @@ function setLearningStage(stage){
   }else if(stage === 'verse-recap'){
     btn.textContent = '🔊 نقول الآية كاملة الآن';
     btn.onclick = async () => {
-      btn.disabled = true;
-      await playVerseAwaitable(state.verseIndex, false);
-      btn.disabled = false;
-      setLearningStage('record');
+      const s = currentSurah(), idx = state.verseIndex;
+      const myToken = await runMainPlayFlow(btn, () => playVerseAwaitable(s, idx, false));
+      if(myToken === state.stageToken) setLearningStage('record');
     };
   }else if(stage === 'record'){
     btn.textContent = RECORD_BTN_IDLE_LABEL;
@@ -757,43 +1194,53 @@ function setLearningStage(stage){
     btn.textContent = '🌙 سورة أخرى؟';
     btn.onclick = () => showScreen('surahPickerScreen');
   }
+
+  // ريم لا تقرأ النص: الزر المطلوب في هذه المرحلة يتحرك وحده (نبض وهالة خفيفة) — هذا دليلها الوحيد
+  setRimGuide(btn, true);
 }
 async function runListenCycle(){
-  const myToken = ++state.stageToken;
   const btn = $('recordBtn');
-  btn.disabled = true;
-  btn.textContent = 'اسمعي يا ريم…';
-  const times = state.autoRepeatEnabled ? state.repeatGoal : 1;
-  for(let i=0;i<times;i++){
-    if(state.stageToken !== myToken) return;
-    await playVerseAwaitable(state.verseIndex, false);
-    if(state.stageToken !== myToken) return;
-    if(i < times-1) await sleep(state.repeatGapSec*1000);
-  }
-  if(state.stageToken !== myToken) return;
-  btn.disabled = false;
-  const v = currentVerse();
-  if(v.segments.length > 1 && !state.segmentDone[v.verseId]){
-    setLearningStage('segment-offer');
-  }else{
-    setLearningStage('record');
-  }
+  const s = currentSurah(), idx = state.verseIndex, v = currentVerse();
+  // فحص إمكانية تدريب المقاطع (ملفات أو شرائح زمنية) يجري بالتوازي مع الاستماع، فلا فجوة انتظار بعد الصوت
+  const wantsSegments = v.segments.length > 1 && !state.segmentDone[v.verseId];
+  const segAvailPromise = wantsSegments ? verseSegmentsPlayable(s, v).catch(()=>false) : Promise.resolve(false);
+  // التكرار: الآية الحالية نفسها فقط، بعدد المرات ومدة الانتظار المحددين في لوحة الأب، ثم يتوقف الصوت
+  const myToken = await runMainPlayFlow(btn, async (token) => {
+    btn.textContent = 'اسمعي يا ريم…';
+    const times = state.autoRepeatEnabled ? state.repeatGoal : 1;
+    for(let i=0;i<times;i++){
+      if(state.stageToken !== token) return;
+      await playVerseAwaitable(s, idx, false);
+      if(state.stageToken !== token) return;
+      if(i < times-1) await sleep(state.repeatGapSec*1000);
+    }
+  });
+  if(myToken === null || myToken !== state.stageToken) return;
+  // تدريب المقاطع يُعرض فقط إن كانت ملفات المقاطع الحقيقية موجودة فعلاً — لا نشغّل ملف الآية مكان المقطع أبداً
+  const segsAvailable = await segAvailPromise;
+  if(myToken !== state.stageToken) return;
+  setLearningStage(segsAvailable ? 'segment-offer' : 'record');
 }
 async function goToNextAyahWithLink(){
-  const myToken = ++state.stageToken;
   const btn = $('recordBtn');
-  if(state.verseIndex >= 1){
-    btn.disabled = true;
-    btn.textContent = state.verseIndex === 1 ? 'نردد الآيتين معاً…' : `نردد الآيات 1 إلى ${state.verseIndex+1}…`;
-    await playVerseRangeAwaitable(0, state.verseIndex);
-    if(state.stageToken !== myToken) return;
+  const s = currentSurah(), idx = state.verseIndex;
+  if(idx >= 1){
+    const myToken = await runMainPlayFlow(btn, (token) => {
+      btn.textContent = idx === 1 ? 'نردد الآيتين معاً…' : `نردد الآيات 1 إلى ${idx+1}…`;
+      return playVerseRangeAwaitable(s, 0, idx, token);
+    });
+    if(myToken === null || myToken !== state.stageToken) return;
+  }else if(tapGuard()){
+    return; // الآية الأولى بلا ترديد: الضغطة المزدوجة السريعة لا تتخطى آية كاملة
   }
   recordActiveDay();
   nextAyah();
 }
 function playFullSurah(){
   const s = currentSurah();
-  playVerseRangeAwaitable(0, s.verses.length-1);
+  const myToken = ++state.stageToken;
+  setMainBusy(true);
+  playFullSurahAwaitable(s, myToken).finally(() => setMainBusy(false));
 }
 
 // ---------- متابعة الحضور: أيام متتالية وعودة بعد انقطاع ----------
@@ -885,12 +1332,15 @@ async function toggleRecord(){
     return;
   }
 
+  if(tapGuard() || state.recStarting) return; // ضغطة مزدوجة سريعة لا تفتح مسجّلين معاً
+  state.recStarting = true;
   startRimRecording();
 
   if(!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) || typeof MediaRecorder === 'undefined'){
     console.log('recording not supported on this browser');
+    state.recStarting = false;
     setRecordStatus('هذا الهاتف لا يسمح بالتسجيل من المتصفح. جرّب Chrome أو فعّل إذن الميكروفون.');
-    AudioManager.play('retry');
+    encourageRetry(btn);
     return;
   }
 
@@ -899,10 +1349,12 @@ async function toggleRecord(){
     stream = await navigator.mediaDevices.getUserMedia({audio:true});
   }catch(e){
     console.log('recording permission denied', e);
+    state.recStarting = false;
     setRecordStatus('يجب السماح للميكروفون من إعدادات المتصفح حتى تسجل ريم صوتها.');
-    AudioManager.play('retry');
+    encourageRetry(btn);
     return;
   }
+  state.recStarting = false;
 
   try{
     const mimeType = pickSupportedMimeType();
@@ -919,7 +1371,7 @@ async function toggleRecord(){
       stream.getTracks().forEach(t=>t.stop());
       btn.textContent = RECORD_BTN_IDLE_LABEL;
       btn.classList.remove('recording');
-      AudioManager.play('retry');
+      encourageRetry(btn);
     };
 
     state.recorder.onstop = async () => {
@@ -940,7 +1392,7 @@ async function toggleRecord(){
 
       if(!blob.size){
         setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
-        AudioManager.play('retry');
+        encourageRetry(btn);
         return;
       }
 
@@ -976,6 +1428,8 @@ async function toggleRecord(){
 
       // ننتقل لمرحلة النجمة بعد أن ترى ريم بطاقة الفرح، دون المساس بمنطق التسجيل أعلاه.
       if(state.learningStage === 'record') setLearningStage('star');
+      // بعد التسجيل مباشرة: ينتقل النبض إلى زر «أسمع صوتي» حتى تسمع ريم تسجيلها دون قراءة
+      setRimGuide($('joyPlayBtn'), true);
     };
 
     state.recorder.start();
@@ -994,7 +1448,7 @@ async function toggleRecord(){
   }catch(e){
     console.log('recording error', e);
     setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
-    AudioManager.play('retry');
+    encourageRetry(btn);
     stream.getTracks().forEach(t=>t.stop());
   }
 }
@@ -1018,11 +1472,15 @@ async function toggleSegmentRecord(){
     return;
   }
 
+  if(state.mainFlowBusy){ uiTick(); return; } // غير نشط أثناء صوت المرحلة — نقرة فقط
+  if(tapGuard() || state.recStarting || isRimRecordingNow()) return;
+  state.recStarting = true;
   startRimRecording();
 
   if(!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) || typeof MediaRecorder === 'undefined'){
+    state.recStarting = false;
     setRecordStatus('هذا الهاتف لا يسمح بالتسجيل من المتصفح. جرّب Chrome أو فعّل إذن الميكروفون.');
-    AudioManager.play('retry');
+    encourageRetry(btn);
     return;
   }
 
@@ -1030,10 +1488,12 @@ async function toggleSegmentRecord(){
   try{
     stream = await navigator.mediaDevices.getUserMedia({audio:true});
   }catch(e){
+    state.recStarting = false;
     setRecordStatus('يجب السماح للميكروفون من إعدادات المتصفح حتى تسجل ريم صوتها.');
-    AudioManager.play('retry');
+    encourageRetry(btn);
     return;
   }
+  state.recStarting = false;
 
   try{
     const mimeType = pickSupportedMimeType();
@@ -1050,7 +1510,7 @@ async function toggleSegmentRecord(){
       stream.getTracks().forEach(t=>t.stop());
       btn.textContent = SEGMENT_RECORD_IDLE_LABEL;
       btn.classList.remove('recording');
-      AudioManager.play('retry');
+      encourageRetry(btn);
     };
 
     state.segRecorder.onstop = async () => {
@@ -1063,7 +1523,7 @@ async function toggleSegmentRecord(){
       const blob = new Blob(state.segChunks, {type: usedMime});
       if(!blob.size){
         setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
-        AudioManager.play('retry');
+        encourageRetry(btn);
         return;
       }
       if(state.segRecordUrl) URL.revokeObjectURL(state.segRecordUrl);
@@ -1103,7 +1563,7 @@ async function toggleSegmentRecord(){
     }, SEGMENT_MAX_RECORD_MS);
   }catch(e){
     setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
-    AudioManager.play('retry');
+    encourageRetry(btn);
     stream.getTracks().forEach(t=>t.stop());
   }
 }
@@ -1126,11 +1586,14 @@ async function toggleSurahRecord(){
     return;
   }
 
+  if(tapGuard() || state.recStarting || isRimRecordingNow()) return;
+  state.recStarting = true;
   startRimRecording();
 
   if(!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) || typeof MediaRecorder === 'undefined'){
+    state.recStarting = false;
     setRecordStatus('هذا الهاتف لا يسمح بالتسجيل من المتصفح. جرّب Chrome أو فعّل إذن الميكروفون.');
-    AudioManager.play('retry');
+    encourageRetry(btn);
     return;
   }
 
@@ -1138,10 +1601,12 @@ async function toggleSurahRecord(){
   try{
     stream = await navigator.mediaDevices.getUserMedia({audio:true});
   }catch(e){
+    state.recStarting = false;
     setRecordStatus('يجب السماح للميكروفون من إعدادات المتصفح حتى تسجل ريم صوتها.');
-    AudioManager.play('retry');
+    encourageRetry(btn);
     return;
   }
+  state.recStarting = false;
 
   try{
     const mimeType = pickSupportedMimeType();
@@ -1158,7 +1623,7 @@ async function toggleSurahRecord(){
       stream.getTracks().forEach(t=>t.stop());
       btn.textContent = SURAH_RECORD_IDLE_LABEL;
       btn.classList.remove('recording');
-      AudioManager.play('retry');
+      encourageRetry(btn);
     };
 
     state.surahRecorder.onstop = async () => {
@@ -1176,7 +1641,7 @@ async function toggleSurahRecord(){
       if(!blob.size){
         setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
         btn.textContent = SURAH_RECORD_IDLE_LABEL;
-        AudioManager.play('retry');
+        encourageRetry(btn);
         return;
       }
 
@@ -1234,7 +1699,7 @@ async function toggleSurahRecord(){
     }, SURAH_MAX_RECORD_MS);
   }catch(e){
     setRecordStatus('لم نستطع التسجيل الآن. جرّب إعادة فتح الصفحة أو استعمال Chrome.');
-    AudioManager.play('retry');
+    encourageRetry(btn);
     stream.getTracks().forEach(t=>t.stop());
   }
 }
@@ -1299,6 +1764,7 @@ async function renderRimRecordings(){
   document.querySelectorAll('#recordingsList .play-rec').forEach(btn => btn.addEventListener('click', async () => {
     const rec = await idbGet('rimRecordings', btn.dataset.id);
     if(!rec) return;
+    stopAllAudio(); // تسجيلات الألبوم تمر أيضاً بقاعدة "صوت واحد فقط"
     const player = $('recordingsPlayer');
     if(player.dataset.blobUrl) URL.revokeObjectURL(player.dataset.blobUrl);
     const url = URL.createObjectURL(rec.audioBlob);
@@ -1516,12 +1982,34 @@ function init(){
 
   $('recordBtn').onclick=toggleRecord; // القيمة الابتدائية؛ setLearningStage تُعيد ضبطها حسب المرحلة
   $('segmentRecordBtn').onclick=toggleSegmentRecord;
-  $('playRecordBtn').onclick=()=>{ if(state.recordUrl) new Audio(state.recordUrl).play(); };
-  $('openRimRecordingsBtn').onclick=openRimAlbum;
+  // تشغيل صوت ريم عبر مشغّلها الوحيد الموجود (بلا Audio instances جديدة)، مع إيقاف كل صوت آخر أولاً
+  const playRimLastRecording = secondaryAudioAction(()=>{
+    if(!state.recordUrl) return;
+    stopAllAudio();
+    const p = $('rimRecordPlayer');
+    p.src = state.recordUrl;
+    p.currentTime = 0;
+    p.play().catch(()=>{});
+  });
+  $('playRecordBtn').onclick=playRimLastRecording;
+  $('joyPlayBtn').onclick=playRimLastRecording;
+  // بعد أن تسمع ريم صوتها في مرحلة النجمة: تشجيع قصير وينتقل الإبراز تلقائياً إلى الزر التالي
+  $('rimRecordPlayer').addEventListener('ended', ()=>{
+    if(state.learningStage === 'star' || state.learningStage === 'next'){
+      setRimGuide($('recordBtn'), true); // بعد سماع صوتها ينتقل النبض تلقائياً للخطوة التالية
+    }
+  });
+  $('openRimRecordingsBtn').onclick=secondaryAudioAction(openRimAlbum);
   $('closeRecordingsBtn').onclick=()=> $('recordingsDialog').close();
-  $('joyPlayBtn').onclick=()=>{ if(state.recordUrl) new Audio(state.recordUrl).play(); };
-  $('joyRetryBtn').onclick=()=>{ $('recordJoyCard').hidden = true; toggleRecord(); };
+  $('joyRetryBtn').onclick=()=>{
+    if(state.mainFlowBusy || isRimRecordingNow()){ uiTick(); return; }
+    $('recordJoyCard').hidden = true;
+    toggleRecord();
+  };
   $('speakRewardBtn').onclick=()=> speak($('rewardText').textContent);
+  // لمسة الزر الرئيسي: نقرة تأكيد فورية وإيقاف النبض بمجرد الضغط
+  $('recordBtn').addEventListener('pointerdown', ()=>{ $('recordBtn').classList.remove('rim-guide'); uiTick(); });
+  $('joyPlayBtn').addEventListener('pointerdown', ()=>{ $('joyPlayBtn').classList.remove('rim-guide'); });
 
   document.querySelectorAll('#recordingsFilters .filter-btn').forEach(b=>{
     b.addEventListener('click', () => {
@@ -1532,8 +2020,8 @@ function init(){
   });
 
   $('helpToggleBtn').onclick=toggleHelp;
-  $('helpSlowBtn').onclick=()=> playVerse(true);
-  $('helpFullSurahBtn').onclick=()=> playFullSurah();
+  $('helpSlowBtn').onclick=secondaryAudioAction(()=> playVerse(true));
+  $('helpFullSurahBtn').onclick=secondaryAudioAction(()=> playFullSurah());
 
   document.querySelectorAll('.nav-item').forEach(b=>b.onclick=()=>showScreen(b.dataset.target));
 

@@ -1,6 +1,6 @@
-const CACHE = 'noor-rim-hadiya-v11';
-const AUDIO_CACHE = 'noor-rim-audio-v1';
-const ASSETS = ['./','./index.html','./style.css','./app.js','./audio-manager.js','./manifest.webmanifest',
+const CACHE = 'noor-rim-hadiya-v15';
+const AUDIO_CACHE = 'noor-rim-audio-v3';
+const ASSETS = ['./','./index.html','./style.css','./app.js','./rim-audio-hotfix.js','./audio-manager.js','./manifest.webmanifest',
   './assets/icons/icon-192.svg','./assets/icons/icon-512.svg',
   './assets/rim/rim-reward.jpg',
   './assets/rim-v2/hero.webp','./assets/rim-v2/hero-wide.webp','./assets/rim-v2/reward.webp',
@@ -20,14 +20,16 @@ self.addEventListener('activate', e => e.waitUntil(
   ])
 ));
 
-function isAyahAudio(url){
-  return url.includes('/assets/audio/') || url.includes('everyayah.com');
+function isQuranAudio(url){
+  return url.includes('/assets/audio/') || url.includes('/assets/voice/')
+    || url.includes('everyayah.com') || url.includes('verses.quran.com') || url.includes('download.quranicaudio.com');
 }
 
-// تلاوة الآية (محلية أو عبر الإنترنت) تُحفظ بعد أول سماع، فتشتغل ريم بلا إنترنت لاحقاً.
 self.addEventListener('fetch', e => {
+  if(e.request.method !== 'GET') return;
   const url = e.request.url;
-  if(isAyahAudio(url)){
+
+  if(isQuranAudio(url)){
     e.respondWith(
       caches.open(AUDIO_CACHE).then(async cache => {
         const cached = await cache.match(e.request);
@@ -43,5 +45,6 @@ self.addEventListener('fetch', e => {
     );
     return;
   }
+
   e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
 });
