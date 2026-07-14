@@ -73,13 +73,10 @@
 
       <article class="ayah-card">
         <span class="ayah-count" id="ayahCount">آية 1 / 4</span>
-        <span class="segment-label" id="segmentLabel" hidden></span>
         <p class="ayah-text" id="ayahText"></p>
-        <p class="segment-text" id="segmentText" hidden></p>
       </article>
 
       <button class="primary huge main-action" id="recordBtn" type="button">🔊 اسمعي يا ريم</button>
-      <button class="tiny-btn segment-record-btn" id="segmentRecordBtn" type="button" hidden>🎙️ سجلي هذا المقطع</button>
       <p class="record-status" id="recordStatus" hidden></p>
       <audio id="rimRecordPlayer" controls hidden></audio>
       <button class="tiny-btn" id="playRecordBtn" type="button" disabled>🔊 تشغيل صوت ريم</button>
@@ -298,7 +295,6 @@
         <button class="filter-btn active" data-filter="all" type="button">الكل</button>
         <button class="filter-btn" data-filter="surah" type="button">السور الكاملة</button>
         <button class="filter-btn" data-filter="verse" type="button">الآيات</button>
-        <button class="filter-btn" data-filter="segment" type="button">التدريبات القصيرة</button>
       </div>
       <p id="recordingsEmpty">لا توجد تسجيلات بعد. سجّلي صوتك يا ريم من شاشة الحفظ.</p>
       <div id="recordingsList"></div>
@@ -311,5 +307,6 @@
   <audio id="encouragementPlayer" preload="none"></audio>
   <script src="audio-manager.js"></script>
   <script src="app.js"></script>
+  <script src="rim-audio-hotfix.js"></script>
 </body>
 </html>
