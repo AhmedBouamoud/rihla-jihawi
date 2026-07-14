@@ -1,6 +1,6 @@
-const CACHE = 'noor-rim-hadiya-v13';
-const AUDIO_CACHE = 'noor-rim-audio-v1';
-const ASSETS = ['./','./index.html','./style.css','./app.js','./audio-manager.js','./manifest.webmanifest',
+const CACHE = 'noor-rim-hadiya-v14';
+const AUDIO_CACHE = 'noor-rim-audio-v2';
+const ASSETS = ['./','./index.html','./style.css','./app.js','./rim-audio-hotfix.js','./audio-manager.js','./manifest.webmanifest',
   './assets/icons/icon-192.svg','./assets/icons/icon-512.svg',
   './assets/rim/rim-reward.jpg',
   './assets/rim-v2/hero.webp','./assets/rim-v2/hero-wide.webp','./assets/rim-v2/reward.webp',
@@ -20,17 +20,46 @@ self.addEventListener('activate', e => e.waitUntil(
   ])
 ));
 
-function isAyahAudio(url){
+function isQuranAudio(url){
   return url.includes('/assets/audio/') || url.includes('/assets/voice/')
     || url.includes('everyayah.com') || url.includes('verses.quran.com') || url.includes('download.quranicaudio.com');
 }
 
-// تلاوة الآية (محلية أو عبر الإنترنت) وملفات التوجيه تُحفظ بعد أول سماع، فتشتغل ريم بلا إنترنت لاحقاً.
+async function combinedAppResponse(request){
+  const cache = await caches.open(CACHE);
+  let base = await cache.match('./app.js');
+  let hotfix = await cache.match('./rim-audio-hotfix.js');
+  if(!base){
+    base = await fetch(new URL('./app.js', request.url), {cache:'no-store'});
+    if(base && base.ok) cache.put('./app.js', base.clone());
+  }
+  if(!hotfix){
+    hotfix = await fetch(new URL('./rim-audio-hotfix.js', request.url), {cache:'no-store'});
+    if(hotfix && hotfix.ok) cache.put('./rim-audio-hotfix.js', hotfix.clone());
+  }
+  if(!base || !base.ok) return fetch(request);
+  const baseText = await base.text();
+  const hotfixText = hotfix && hotfix.ok ? await hotfix.text() : '';
+  return new Response(`${baseText}\n\n${hotfixText}`, {
+    status: 200,
+    headers: {
+      'Content-Type': 'application/javascript; charset=utf-8',
+      'Cache-Control': 'no-store'
+    }
+  });
+}
+
 self.addEventListener('fetch', e => {
-  // طلبات HEAD (فحص وجود الملفات الصوتية) تمر مباشرة للشبكة: Cache API لا يقبل غير GET
   if(e.request.method !== 'GET') return;
   const url = e.request.url;
-  if(isAyahAudio(url)){
+
+  // app.js يُقدَّم مع طبقة الإصلاح في ملف واحد، دون تغيير HTML أو تصميم الموقع.
+  if(new URL(url).pathname.endsWith('/noor-rim-quran/app.js')){
+    e.respondWith(combinedAppResponse(e.request));
+    return;
+  }
+
+  if(isQuranAudio(url)){
     e.respondWith(
       caches.open(AUDIO_CACHE).then(async cache => {
         const cached = await cache.match(e.request);
