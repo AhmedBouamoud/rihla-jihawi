@@ -149,8 +149,23 @@ tr,td,th{page-break-inside:avoid}.footer{font-size:9.5px;margin:5px 0}@page{size
 <button class="secondary" onclick="fillClassAll(true)">استبدال الأقسام</button>
 <button class="yellow" onclick="exportBackup()">نسخ احتياطي</button>
 <button class="light" onclick="importBackup()">استرجاع</button>
+<button class="green" onclick="exportDaftarToWord('wordExportArea')">📄 تصدير إلى Word (DOCX)</button>
 <button class="danger" onclick="resetAll()">إرجاع الأصل</button>
 </div>
+
+<section class="smart-panel screen-only" id="cloudBackupPanel">
+<h2>☁️ النسخ الاحتياطي السحابي (Google Drive)</h2>
+<div class="notice" style="margin-bottom:10px"><strong>كيف يعمل؟</strong> يحفظ نسخة من بيانات الدفتر داخل مجلد خاص وآمن في حساب Google الخاص بك (appDataFolder) لا يطّلع عليه أي تطبيق آخر. يتطلب اتصالاً بالإنترنت وحساب Google، والتطبيق يعمل بشكل طبيعي كاملاً بدونه. إن لم تفتح نافذة تسجيل الدخول داخل التطبيق المثبت، جرّب فتح نفس الصفحة عبر متصفح Chrome لإتمام الربط.</div>
+<div class="smart-grid" style="grid-template-columns:1.4fr .8fr .8fr;align-items:end">
+<div>
+<label>Google Client ID (مرة واحدة فقط)</label>
+<input id="googleClientId" placeholder="xxxxxxxx.apps.googleusercontent.com" oninput="saveGoogleClientId()">
+</div>
+<div><button class="green" style="width:100%" onclick="backupToGoogleDrive()">حفظ نسخة احتياطية سحابية</button></div>
+<div><button class="secondary" style="width:100%" onclick="restoreFromGoogleDrive()">استعادة البيانات من السحاب</button></div>
+</div>
+<div id="cloudBackupStatus" style="margin-top:10px;color:#374151;font-size:12.5px"></div>
+</section>
 
 <section class="smart-panel screen-only">
 <h2>المساعد الذكي للدرس الكامل وتقسيم الحصص</h2>
@@ -198,7 +213,7 @@ tr,td,th{page-break-inside:avoid}.footer{font-size:9.5px;margin:5px 0}@page{size
 <div class="print-header" id="printHeader"></div>
 <section id="singleLessonPrint" class="single-print"></section>
 
-<section class="table-wrap">
+<section class="table-wrap" id="wordExportArea">
 <table id="journalTable">
 <thead><tr>
 <th class="date-col">تاريخ الحصة</th><th class="class-col">القسم</th><th class="comp-col">المكون</th><th class="sem-col">الأسدوس</th><th class="lesson-col">الدرس</th><th class="session-col">الحصة</th><th class="type-col">النوع</th><th class="elements-col">عناصر الدرس</th><th class="tools-col">الوسائل والأنشطة</th><th class="note-col">ملاحظات</th><th class="actions-col screen-only">تدبير</th>
@@ -666,6 +681,189 @@ function exportBackup(){let payload={meta:JSON.parse(localStorage.getItem(STORAG
 function importBackup(){let text=prompt("ألصق النسخة الاحتياطية هنا:");if(!text)return;try{let p=JSON.parse(text);if(p.state){state=p.state;localStorage.setItem(STORAGE_STATE,JSON.stringify(state))}if(p.meta){localStorage.setItem(STORAGE_META,JSON.stringify(p.meta));loadMeta()}render();alert("تم الاسترجاع بنجاح.")}catch(e){alert("تعذر الاسترجاع. تأكد من النص.")}}
 function resetAll(){if(!confirm("سيتم حذف كل التعديلات والعودة إلى الأصل. هل أنت متأكد؟"))return;localStorage.removeItem(STORAGE_STATE);state=makeState();saveState();render()}
 
+function exportDaftarToWord(elementId, customFilename){
+    const element = document.getElementById(elementId);
+    if(!element){
+        console.error("Target printable element not found");
+        return;
+    }
+    updatePrintHeader();
+    const cls = globalClass.value.trim();
+    const filename = customFilename || ("دفتر_النصوص_الذكي" + (cls ? "_" + cls : ""));
+
+    const htmlDocument = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office'
+              xmlns:w='urn:schemas-microsoft-com:office:word'
+              xmlns='http://www.w3.org/TR/REC-html40' dir='rtl'>
+        <head>
+            <meta charset='utf-8'>
+            <title>دفتر النصوص</title>
+            <style>
+                body{font-family:'Arial','Traditional Arabic',sans-serif;direction:rtl;text-align:right;padding:20px;color:#1f2937}
+                .print-header{font-weight:bold;font-size:14px;margin-bottom:14px;border:1px solid #4a4a4a;padding:8px;background:#fff7ed}
+                table{border-collapse:collapse;width:100%;direction:rtl;margin-top:12px}
+                th,td{border:1px solid #4a4a4a;padding:8px;text-align:right;font-size:12px;vertical-align:top}
+                th{background-color:#1e3f20;color:#ffffff;font-weight:bold}
+                .section-row td{background:#7c2d12!important;color:#fff!important;font-weight:bold}
+                .section-row.geo td{background:#1e3a8a!important}
+                .lesson-row td{background:#fff7ed!important}
+                .lesson-row.geo td{background:#eff6ff!important}
+                .lesson-title{font-weight:bold}
+                .domain{color:#64748b;font-size:11px}
+                .pill{border:1px solid #777;padding:2px 6px;border-radius:10px;font-size:11px}
+                .print-value{display:block!important}
+                .print-value.multiline{white-space:pre-wrap}
+                .screen-control,.screen-only,.toolbar,.actions,.lesson-actions,.element-actions,.element-tools,.smart-panel,.actions-col{display:none!important}
+                .cover-page{text-align:center;margin-bottom:50px;page-break-after:always}
+            </style>
+        </head>
+        <body>
+            ${printHeader.outerHTML}
+            ${element.innerHTML}
+        </body>
+        </html>
+    `;
+
+    const blob = new Blob(['﻿', htmlDocument], {
+        type: 'application/msword;charset=utf-8'
+    });
+
+    if(window.AndroidBridge && window.AndroidBridge.saveWordFile){
+        const reader = new FileReader();
+        reader.onloadend = function(){
+            const base64 = String(reader.result).split(',')[1];
+            AndroidBridge.saveWordFile(base64, `${filename}.doc`);
+        };
+        reader.readAsDataURL(blob);
+        return;
+    }
+
+    const downloadUrl = URL.createObjectURL(blob);
+    const downloadLink = document.createElement("a");
+    document.body.appendChild(downloadLink);
+    downloadLink.href = downloadUrl;
+    downloadLink.download = `${filename}.doc`;
+    downloadLink.click();
+
+    document.body.removeChild(downloadLink);
+    URL.revokeObjectURL(downloadUrl);
+}
+
+const GOOGLE_CLIENT_ID_KEY = "daftar_google_client_id";
+const DRIVE_BACKUP_FILENAME = "daftar_ostad_v5_backup.json";
+const DRIVE_SCOPE = "https://www.googleapis.com/auth/drive.appdata";
+let googleTokenClient = null;
+let googleAccessToken = null;
+
+function loadGoogleClientId(){ return localStorage.getItem(GOOGLE_CLIENT_ID_KEY) || "" }
+function saveGoogleClientId(){ localStorage.setItem(GOOGLE_CLIENT_ID_KEY, googleClientId.value.trim()) }
+function setCloudStatus(text){ const el=document.getElementById("cloudBackupStatus"); if(el) el.textContent=text }
+
+function loadGisScript(){
+    return new Promise((resolve, reject) => {
+        if(window.google && window.google.accounts && window.google.accounts.oauth2){ resolve(); return }
+        const script = document.createElement("script");
+        script.src = "https://accounts.google.com/gsi/client";
+        script.async = true;
+        script.onload = () => resolve();
+        script.onerror = () => reject(new Error("تعذر تحميل خدمة تسجيل الدخول من Google. تحقق من اتصال الإنترنت."));
+        document.head.appendChild(script);
+    });
+}
+
+function getGoogleAccessToken(){
+    return loadGisScript().then(() => new Promise((resolve, reject) => {
+        const clientId = loadGoogleClientId();
+        if(!clientId){ reject(new Error("أدخل Google Client ID أولاً.")); return }
+        try{
+            googleTokenClient = google.accounts.oauth2.initTokenClient({
+                client_id: clientId,
+                scope: DRIVE_SCOPE,
+                callback: (resp) => {
+                    if(resp.error){ reject(new Error(resp.error)); return }
+                    googleAccessToken = resp.access_token;
+                    resolve(googleAccessToken);
+                }
+            });
+            googleTokenClient.requestAccessToken({ prompt: googleAccessToken ? "" : "consent" });
+        }catch(e){ reject(e) }
+    }));
+}
+
+async function findExistingDriveBackup(accessToken){
+    const res = await fetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=name='${DRIVE_BACKUP_FILENAME}'&fields=files(id,name)`, {
+        headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    if(!res.ok) throw new Error("تعذر البحث عن النسخة الاحتياطية السابقة.");
+    const data = await res.json();
+    return (data.files && data.files[0]) || null;
+}
+
+async function uploadBackupToGoogleDrive(accessToken, appStateJson, existingFileId){
+    const fileContent = JSON.stringify(appStateJson);
+    const fileBlob = new Blob([fileContent], { type: 'application/json' });
+
+    const metadata = existingFileId
+        ? { name: DRIVE_BACKUP_FILENAME, mimeType: 'application/json' }
+        : { name: DRIVE_BACKUP_FILENAME, mimeType: 'application/json', parents: ['appDataFolder'] };
+
+    const formData = new FormData();
+    formData.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+    formData.append('file', fileBlob);
+
+    const url = existingFileId
+        ? `https://www.googleapis.com/upload/drive/v3/files/${existingFileId}?uploadType=multipart`
+        : 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
+
+    const response = await fetch(url, {
+        method: existingFileId ? 'PATCH' : 'POST',
+        headers: { 'Authorization': `Bearer ${accessToken}` },
+        body: formData
+    });
+
+    if(!response.ok) throw new Error('فشل رفع الملف إلى Google Drive.');
+    return await response.json();
+}
+
+async function backupToGoogleDrive(){
+    setCloudStatus("جارٍ الاتصال بـ Google...");
+    try{
+        const token = await getGoogleAccessToken();
+        const payload = { meta: JSON.parse(localStorage.getItem(STORAGE_META) || "{}"), state };
+        setCloudStatus("جارٍ رفع النسخة الاحتياطية...");
+        const existing = await findExistingDriveBackup(token);
+        await uploadBackupToGoogleDrive(token, payload, existing && existing.id);
+        setCloudStatus("تم حفظ النسخة الاحتياطية السحابية بنجاح ✅");
+    }catch(e){
+        console.error("Drive Backup Error:", e);
+        setCloudStatus("تعذر الحفظ السحابي: " + (e && e.message ? e.message : "خطأ غير معروف"));
+    }
+}
+
+async function restoreFromGoogleDrive(){
+    if(!confirm("سيتم استبدال البيانات الحالية بأحدث نسخة سحابية. هل تريد المتابعة؟")) return;
+    setCloudStatus("جارٍ الاتصال بـ Google...");
+    try{
+        const token = await getGoogleAccessToken();
+        setCloudStatus("جارٍ البحث عن النسخة الاحتياطية...");
+        const existing = await findExistingDriveBackup(token);
+        if(!existing){ setCloudStatus("لا توجد نسخة احتياطية سحابية بعد."); return }
+        setCloudStatus("جارٍ تنزيل البيانات...");
+        const res = await fetch(`https://www.googleapis.com/drive/v3/files/${existing.id}?alt=media`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if(!res.ok) throw new Error("تعذر تنزيل النسخة الاحتياطية.");
+        const payload = await res.json();
+        if(payload.state){ state = payload.state; localStorage.setItem(STORAGE_STATE, JSON.stringify(state)) }
+        if(payload.meta){ localStorage.setItem(STORAGE_META, JSON.stringify(payload.meta)) }
+        setCloudStatus("تم الاسترجاع بنجاح، جارٍ التحديث...");
+        setTimeout(() => location.reload(), 600);
+    }catch(e){
+        console.error("Drive Restore Error:", e);
+        setCloudStatus("تعذر الاسترجاع السحابي: " + (e && e.message ? e.message : "خطأ غير معروف"));
+    }
+}
+
 window.addEventListener("beforeprint",()=>{
   let cls=globalClass.value.trim();
   if(cls){
@@ -688,6 +886,7 @@ window.addEventListener("afterprint",()=>{
   clearPrintSelection();
 });
 loadState();loadMeta();render();
+googleClientId.value = loadGoogleClientId();
 </script>
 </body>
 </html>
