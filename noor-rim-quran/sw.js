@@ -1,13 +1,14 @@
-const CACHE = 'noor-rim-hadiya-v15';
+const CACHE = 'noor-rim-hadiya-v18';
 const AUDIO_CACHE = 'noor-rim-audio-v3';
-const ASSETS = ['./','./index.html','./style.css','./app.js','./rim-audio-hotfix.js','./audio-manager.js','./manifest.webmanifest',
+const ASSETS = ['./','./index.html','./style.css','./app.js','./rim-audio-hotfix.js','./rim-v3-visuals.js','./audio-manager.js','./manifest.webmanifest',
   './assets/icons/icon-192.svg','./assets/icons/icon-512.svg',
   './assets/rim/rim-reward.jpg',
   './assets/rim-v2/hero.webp','./assets/rim-v2/hero-wide.webp','./assets/rim-v2/reward.webp',
   './assets/rim-v2/album-header.webp','./assets/rim-v2/surah-complete.webp',
   './assets/rim-v2/first-voice.webp','./assets/rim-v2/first-ayah.webp',
   './assets/rim-v2/special-family.webp','./assets/rim-v2/listening.webp',
-  './assets/rim-v2/prayer-room.webp','./assets/rim-v2/pride-embrace.webp'];
+  './assets/rim-v2/prayer-room.webp','./assets/rim-v2/pride-embrace.webp',
+  './assets/rim-v3/hero.b64','./assets/rim-v3/quran-hug.b64','./assets/rim-v3/father-reading.b64'];
 
 self.addEventListener('install', e => {
   self.skipWaiting();
