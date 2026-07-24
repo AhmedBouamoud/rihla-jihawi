@@ -13,8 +13,6 @@
   const FULL_SURAH_BASE = 'https://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/';
   const ORIGINAL_SURAHS_COUNT = 6;
 
-  // المستوى الثاني: نضيفه دائماً في نهاية القائمة حتى تبقى فهارس وتقدم السور الأصلية بلا تغيير.
-  // لا تدخل البسملة ضمن عداد الآيات.
   const LEVEL_TWO_SURAHS = [
     {surahId:'nasr', surahName:'النصر', symbol:'calmsun', label:'ثلاث آيات قصيرة', audioCode:'110-nasr', verseTexts:[
       'إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ',
@@ -65,10 +63,8 @@
     const existing = new Set(surahs.map(s => s.surahId));
     const additions = buildSurahs(LEVEL_TWO_SURAHS.filter(s => !existing.has(s.surahId)));
     if(!additions.length) return;
-
     surahs.push(...additions);
 
-    // نحافظ على تقرير الصوت الداخلي متوافقاً مع السور المضافة من دون تغيير محرك الصوت نفسه.
     if(typeof QURAN_AUDIO_MAP !== 'undefined' && Array.isArray(QURAN_AUDIO_MAP)){
       QURAN_AUDIO_MAP.push(...additions.map(s => ({
         surahId: s.surahId,
@@ -86,7 +82,6 @@
 
   addLevelTwoSurahs();
 
-  // تنظيم السور إلى مستويين من دون شاشة أو زر جديد؛ الشبكة تبقى عمودين كما في النسخة الأصلية.
   function installBalancedSurahPicker(){
     const style = document.createElement('style');
     style.id = 'rim-v2-level-style';
@@ -145,7 +140,6 @@
     return `${FULL_SURAH_BASE}${chapter}.mp3`;
   }
 
-  // 1) إلغاء المقاطع نهائياً من مسار التعلم، مع إبقاء الواجهة العامة كما هي.
   const originalSetLearningStage = window.setLearningStage;
   if(typeof originalSetLearningStage === 'function'){
     window.setLearningStage = function(stage){
@@ -159,11 +153,8 @@
   window.verseSegmentFilesExist = async function(){ return false; };
   window.verseSegmentsPlayable = async function(){ return false; };
   window.playSegmentAwaitable = async function(){ return false; };
-
-  // 2) إلغاء أوامر الضغط الصوتية فقط. أصوات النجاح والتشجيع تبقى كما هي.
   window.playGuidance = async function(){ return false; };
 
-  // 3) الآية الكاملة: تسجيل الأب إن وُجد، وإلا ملف الآية الحقيقي مباشرة.
   window.resolvePlayableAudio = async function(surah, verseIndex){
     try{
       if(typeof window.idbGet === 'function' && typeof window.fatherVoiceKey === 'function'){
@@ -178,13 +169,11 @@
     return {src: `https://everyayah.com/data/Alafasy_128kbps/${String(parseInt(surah.audioCode, 10)).padStart(3,'0')}${String(verseIndex + 1).padStart(3,'0')}.mp3`, isBlob: false};
   };
 
-  // 4) السورة الكاملة: ملف واحد متصل للسورة، لا تجميع آيات ولا فواصل مصطنعة.
   window.playFullSurahAwaitable = async function(surah){
     if(typeof window.playFileAwaitable !== 'function') return;
     await window.playFileAwaitable(fullSurahUrl(surah), {});
   };
 
-  // تبقى عناصر المقاطع موجودة تقنياً حتى لا يتعطل المحرك القديم، لكنها مخفية دائماً ولا تدخل المسار.
   const segmentRecordBtn = document.getElementById('segmentRecordBtn');
   const segmentLabel = document.getElementById('segmentLabel');
   const segmentText = document.getElementById('segmentText');
@@ -193,7 +182,14 @@
   if(segmentText){ segmentText.hidden = true; segmentText.setAttribute('aria-hidden', 'true'); }
   document.querySelectorAll('[data-filter="segment"]').forEach(el => el.remove());
 
-  // إن كانت جلسة قديمة محفوظة داخل مرحلة مقطع، نخرج منها فوراً إلى تسجيل الآية كاملة.
+  // تحميل هوية الصور الجديدة بعد تهيئة الواجهة، مع بقاء صور النسخة الأولى كبديل آمن عند أي فشل.
+  if(!document.querySelector('script[data-rim-v3-visuals]')){
+    const visualScript = document.createElement('script');
+    visualScript.src = 'rim-v3-visuals.js';
+    visualScript.dataset.rimV3Visuals = '1';
+    document.body.appendChild(visualScript);
+  }
+
   setTimeout(() => {
     const mainBtn = document.getElementById('recordBtn');
     const label = mainBtn ? mainBtn.textContent : '';
