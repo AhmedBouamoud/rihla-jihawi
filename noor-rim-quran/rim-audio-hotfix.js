@@ -3,6 +3,7 @@
 // - لا تعليمات صوتية للضغط على الأزرار؛ الحركة وحدها ترشد ريم.
 // - الآية تُشغَّل كملف آية كامل، والسورة كملف سورة كامل.
 // - المستوى الثاني يضيف سوراً جديدة من دون تغيير السور الست الأصلية أو فهارسها المحفوظة.
+// - شاشة اختيار السور تبقى متوازنة: الحديقة الأولى ثم الحديقة الجديدة، داخل الشاشة نفسها.
 (function rimAudioHotfix(){
   'use strict';
   if(window.__rimAudioHotfixLoaded) return;
@@ -10,9 +11,10 @@
 
   const SEGMENT_STAGES = new Set(['segment-offer', 'segment', 'segment-next', 'verse-recap']);
   const FULL_SURAH_BASE = 'https://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/';
+  const ORIGINAL_SURAHS_COUNT = 6;
 
   // المستوى الثاني: نضيفه دائماً في نهاية القائمة حتى تبقى فهارس وتقدم السور الأصلية بلا تغيير.
-  // النصوص راجعت آية بآية قبل إدخالها في الكود، ولا تدخل البسملة ضمن عداد الآيات.
+  // لا تدخل البسملة ضمن عداد الآيات.
   const LEVEL_TWO_SURAHS = [
     {surahId:'nasr', surahName:'النصر', symbol:'calmsun', label:'ثلاث آيات قصيرة', audioCode:'110-nasr', verseTexts:[
       'إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ',
@@ -80,13 +82,63 @@
         }))
       })));
     }
-
-    // app.js يكون قد أنهى التهيئة قبل تحميل هذه الطبقة؛ نحدّث الشاشتين المعنيتين فقط.
-    if(typeof renderSurahCards === 'function') renderSurahCards();
-    if(typeof renderGarden === 'function') renderGarden();
   }
 
   addLevelTwoSurahs();
+
+  // تنظيم السور إلى مستويين من دون شاشة أو زر جديد؛ الشبكة تبقى عمودين كما في النسخة الأصلية.
+  function installBalancedSurahPicker(){
+    const style = document.createElement('style');
+    style.id = 'rim-v2-level-style';
+    style.textContent = `
+      .surah-cards.surah-levels{display:block}
+      .surah-level-block + .surah-level-block{margin-top:18px}
+      .surah-level-title{display:flex;align-items:center;gap:9px;margin:2px 2px 10px}
+      .surah-level-title span{background:#fff;border:1px solid var(--stroke);border-radius:999px;padding:5px 10px;color:var(--sage-deep);font-size:12px;font-weight:1000;white-space:nowrap}
+      .surah-level-title::after{content:"";height:1px;background:var(--stroke);flex:1}
+      .surah-level-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    `;
+    if(!document.getElementById(style.id)) document.head.appendChild(style);
+
+    window.renderSurahCards = function(){
+      const root = document.getElementById('surahCardsGrid');
+      if(!root || typeof surahs === 'undefined' || typeof state === 'undefined') return;
+
+      const card = (s, i) => {
+        const done = !!state.completed[s.surahId];
+        const prog = Math.min(state.progress[s.surahId] || 0, s.verses.length - 1);
+        const pct = done ? 100 : Math.round((prog / s.verses.length) * 100);
+        return `
+          <button class="surah-card" data-i="${i}" type="button">
+            <div class="surah-symbol ${s.symbol}" aria-hidden="true"></div>
+            <strong>سورة ${s.surahName}</strong>
+            <span>${s.verses.length} آيات</span>
+            <div class="surah-progress"><i style="width:${pct}%"></i></div>
+            ${done ? '<em class="done-tag">✓ ختمت</em>' : ''}
+          </button>`;
+      };
+
+      const first = surahs.slice(0, ORIGINAL_SURAHS_COUNT).map((s, i) => card(s, i)).join('');
+      const second = surahs.slice(ORIGINAL_SURAHS_COUNT).map((s, i) => card(s, i + ORIGINAL_SURAHS_COUNT)).join('');
+      root.classList.add('surah-levels');
+      root.innerHTML = `
+        <section class="surah-level-block" aria-label="الحديقة الأولى">
+          <div class="surah-level-title"><span>🌱 الحديقة الأولى</span></div>
+          <div class="surah-level-grid">${first}</div>
+        </section>
+        <section class="surah-level-block" aria-label="الحديقة الجديدة">
+          <div class="surah-level-title"><span>🌸 الحديقة الجديدة</span></div>
+          <div class="surah-level-grid">${second}</div>
+        </section>`;
+
+      root.querySelectorAll('.surah-card').forEach(btn => btn.addEventListener('click', () => openSurah(Number(btn.dataset.i))));
+    };
+
+    window.renderSurahCards();
+    if(typeof renderGarden === 'function') renderGarden();
+  }
+
+  installBalancedSurahPicker();
 
   function fullSurahUrl(surah){
     const chapter = String(parseInt(surah.audioCode, 10)).padStart(3, '0');
@@ -112,7 +164,6 @@
   window.playGuidance = async function(){ return false; };
 
   // 3) الآية الكاملة: تسجيل الأب إن وُجد، وإلا ملف الآية الحقيقي مباشرة.
-  // نتجاوز نظام الشرائح والتوقيتات المعقد لأنه كان سبباً في الصمت أو القطع على بعض الهواتف.
   window.resolvePlayableAudio = async function(surah, verseIndex){
     try{
       if(typeof window.idbGet === 'function' && typeof window.fatherVoiceKey === 'function'){
