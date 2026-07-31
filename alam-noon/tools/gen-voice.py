@@ -123,10 +123,10 @@ cb = CB(_cb)
 rate = lib.espeak_Initialize(AUDIO_OUTPUT_SYNCHRONOUS, 0, data_path.encode(), 0)
 assert rate > 0, 'espeak init failed'
 lib.espeak_SetSynthCallback(cb)
-assert lib.espeak_SetVoiceByName(b'ar') == 0, 'no arabic voice'
+assert lib.espeak_SetVoiceByName(b'ar+f3') == 0, 'no arabic voice'  # نبرة أنثوية أوضح للأطفال
 # إبطاء وتليين مناسبان للأطفال
-lib.espeak_SetParameter(1, 130, 0)   # espeakRATE
-lib.espeak_SetParameter(3, 60, 0)    # espeakPITCH أعلى قليلاً (طفولي)
+lib.espeak_SetParameter(1, 118, 0)   # espeakRATE أبطأ لوضوح المخارج
+lib.espeak_SetParameter(3, 55, 0)    # espeakPITCH
 lib.espeak_SetParameter(2, 150, 0)   # espeakVOLUME
 
 def synth(text):

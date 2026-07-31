@@ -161,7 +161,17 @@ function playClip(src, noon){
   a.onerror = ()=>endSpeech(noon);
   a.src = src;
   a.playbackRate = Math.min(1.25, Math.max(.75, APP.state.voiceRate / 0.78));
-  a.play().catch(()=>endSpeech(noon));
+  a.play().then(()=>{ APP.audioOk = true; }).catch(()=>endSpeech(noon));
+}
+// تقسيم النص جملاً قصيرة: يتفادى خلل Chrome المعروف بقطع القراءة الطويلة بعد ~15 ثانية
+function chunkText(t){
+  const out = []; let cur = '';
+  t.split(' ').forEach(w=>{
+    cur += (cur ? ' ' : '') + w;
+    if(/[.!؟:]$/.test(w) && cur.length > 14){ out.push(cur); cur = ''; }
+  });
+  if(cur) out.push(cur);
+  return out.length ? out : [t];
 }
 function speak(text, clip){
   APP.lastVoice = text; APP.lastClip = clip;
@@ -177,16 +187,36 @@ function speak(text, clip){
   if(src && (!hasTTS || (voicesLoaded && !arVoice))){ playClip(src, noon); return; }
   if(hasTTS){
     speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang='ar-SA'; u.rate=APP.state.voiceRate; u.pitch=1.02;
-    if(arVoice) u.voice = arVoice;
-    u.onend = ()=>endSpeech(noon);
-    u.onerror = ()=>{ if(src) playClip(src, noon); else endSpeech(noon); };
-    speechSynthesis.speak(u);
+    const parts = chunkText(text);
+    let failed = false;
+    parts.forEach((part, i)=>{
+      const u = new SpeechSynthesisUtterance(part);
+      u.lang='ar-SA'; u.rate=APP.state.voiceRate; u.pitch=1.02;
+      if(arVoice) u.voice = arVoice;
+      u.onstart = ()=>{ APP.audioOk = true; };
+      if(i === parts.length-1) u.onend = ()=>endSpeech(noon);
+      u.onerror = ()=>{
+        if(failed) return;
+        failed = true;
+        speechSynthesis.cancel();
+        if(src) playClip(src, noon); else endSpeech(noon);
+      };
+      speechSynthesis.speak(u);
+    });
   }else if(src){
     playClip(src, noon);
   }
 }
+// خلل معروف في Chrome: القراءة "تتجمد" أحياناً في منتصف الجملة — إنعاش دوري يبقيها مستمرة
+if('speechSynthesis' in window){
+  setInterval(()=>{ if(speechSynthesis.speaking && !speechSynthesis.paused) speechSynthesis.resume(); }, 4000);
+}
+// المتصفح يحجب أي صوت قبل أول لمسة: عند أول لمسة نعيد قراءة ما ضاع صامتاً
+document.addEventListener('pointerdown', ()=>{
+  setTimeout(()=>{
+    if(!APP.audioOk && APP.state.autoVoice && APP.lastVoice) speak(APP.lastVoice, APP.lastClip);
+  }, 300);
+}, {once:true, capture:true});
 function repeatVoice(){ if(APP.lastVoice) speak(APP.lastVoice, APP.lastClip); }
 function initVoice(){
   APP.voiceCaption = document.getElementById('voiceCaption');
