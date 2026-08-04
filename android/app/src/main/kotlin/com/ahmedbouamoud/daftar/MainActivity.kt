@@ -2,15 +2,21 @@ package com.ahmedbouamoud.daftar
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.ContentValues
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.print.PrintManager
+import android.provider.MediaStore
+import android.util.Base64
 import android.view.Menu
 import android.view.MenuItem
 import android.webkit.*
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
@@ -121,6 +127,38 @@ class MainActivity : AppCompatActivity() {
                 val clip = ClipData.newPlainText("نسخة احتياطية - دفتر النصوص", text)
                 clipboard.setPrimaryClip(clip)
                 Toast.makeText(this@MainActivity, "تم نسخ النسخة الاحتياطية", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        @JavascriptInterface
+        fun saveWordFile(base64Data: String, fileName: String) {
+            runOnUiThread {
+                try {
+                    val bytes = Base64.decode(base64Data, Base64.DEFAULT)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        val values = ContentValues().apply {
+                            put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+                            put(MediaStore.MediaColumns.MIME_TYPE, "application/msword")
+                            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+                        }
+                        val uri = contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)
+                        if (uri != null) {
+                            contentResolver.openOutputStream(uri)?.use { it.write(bytes) }
+                            Toast.makeText(this@MainActivity, "تم حفظ الملف في التنزيلات: $fileName", Toast.LENGTH_LONG).show()
+                        } else {
+                            Toast.makeText(this@MainActivity, "تعذر حفظ الملف", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        val dir = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+                        if (dir != null) {
+                            if (!dir.exists()) dir.mkdirs()
+                            File(dir, fileName).writeBytes(bytes)
+                            Toast.makeText(this@MainActivity, "تم حفظ الملف: ${dir.absolutePath}/$fileName", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    Toast.makeText(this@MainActivity, "خطأ أثناء حفظ الملف: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
