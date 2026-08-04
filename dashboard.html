@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>لوحة مشاريع أحمد بوعمود</title>
+  <meta name="theme-color" content="#1e3a5f" />
+  <link rel="manifest" href="dashboard-manifest.json" />
+  <link rel="apple-touch-icon" href="icons/dashboard-icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -127,6 +130,28 @@
       background: var(--primary);
       border-color: var(--primary);
       color: white;
+    }
+    .filter-btn .count-badge { opacity: 0.65; font-size: 0.72rem; margin-right: 2px; }
+
+    .sort-select {
+      padding: 8px 30px 8px 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      color: var(--text);
+      background: white;
+      cursor: pointer;
+      outline: none;
+      direction: rtl;
+    }
+    .sort-select:focus { border-color: var(--accent); }
+
+    .results-info {
+      padding: 0 24px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      min-height: 18px;
     }
 
     /* ===== GRID ===== */
@@ -419,6 +444,7 @@
       .grid { padding: 14px; gap: 12px; }
       header { padding: 20px 16px 14px; }
       .controls { padding: 12px 16px; }
+      .results-info { padding: 0 16px; }
     }
   </style>
 </head>
@@ -434,27 +460,34 @@
     <div class="stat-pill"><span id="total-count">0</span> مشروع</div>
     <div class="stat-pill"><span id="active-count">0</span> نشط</div>
     <div class="stat-pill"><span id="progress-count">0</span> قيد الإنجاز</div>
-    <div class="stat-pill">على Netlify: <span>10</span></div>
-    <div class="stat-pill">آخر تحديث: <span>27 يونيو 2026</span></div>
+    <div class="stat-pill"><span id="archived-count">0</span> مؤرشف</div>
+    <div class="stat-pill">على Netlify: <span id="netlify-count">0</span></div>
+    <div class="stat-pill">آخر تحديث: <span id="last-updated">—</span></div>
   </div>
 </header>
 
 <div class="controls">
   <div class="search-box">
     <span class="search-icon">🔍</span>
-    <input type="text" id="search" placeholder="ابحث عن مشروع..." oninput="filterProjects()" />
+    <input type="text" id="search" placeholder="ابحث عن مشروع... (اختصار: /)" oninput="filterProjects()" />
   </div>
+  <select id="sort" class="sort-select" onchange="applySort()">
+    <option value="recent">🕓 الأحدث أولاً</option>
+    <option value="name">🔤 الاسم (أ-ي)</option>
+    <option value="status">📶 الحالة</option>
+  </select>
   <div class="filters">
-    <button class="filter-btn active" onclick="setFilter('all', this)">الكل</button>
-    <button class="filter-btn" onclick="setFilter('education', this)">🎓 تعليمية</button>
-    <button class="filter-btn" onclick="setFilter('agency', this)">✈️ وكالتي</button>
-    <button class="filter-btn" onclick="setFilter('health', this)">🌿 صحة</button>
-    <button class="filter-btn" onclick="setFilter('personal', this)">💛 شخصية</button>
-    <button class="filter-btn" onclick="setFilter('resource', this)">📁 موارد</button>
-    <button class="filter-btn" onclick="setFilter('cafe', this)">☕ مشاريع المقاهي</button>
-    <button class="filter-btn" onclick="setFilter('other', this)">📌 أخرى</button>
+    <button class="filter-btn active" data-cat="all" onclick="setFilter('all', this)">الكل <span class="count-badge"></span></button>
+    <button class="filter-btn" data-cat="education" onclick="setFilter('education', this)">🎓 تعليمية <span class="count-badge"></span></button>
+    <button class="filter-btn" data-cat="agency" onclick="setFilter('agency', this)">✈️ وكالتي <span class="count-badge"></span></button>
+    <button class="filter-btn" data-cat="health" onclick="setFilter('health', this)">🌿 صحة <span class="count-badge"></span></button>
+    <button class="filter-btn" data-cat="personal" onclick="setFilter('personal', this)">💛 شخصية <span class="count-badge"></span></button>
+    <button class="filter-btn" data-cat="resource" onclick="setFilter('resource', this)">📁 موارد <span class="count-badge"></span></button>
+    <button class="filter-btn" data-cat="cafe" onclick="setFilter('cafe', this)">☕ مشاريع المقاهي <span class="count-badge"></span></button>
+    <button class="filter-btn" data-cat="other" onclick="setFilter('other', this)">📌 أخرى <span class="count-badge"></span></button>
   </div>
 </div>
+<div class="results-info" id="results-info"></div>
 
 <div class="grid" id="grid"></div>
 
@@ -748,7 +781,34 @@ const PROJECTS = [
   }
 ];
 
+const MONTHS = {
+  'يناير': 1, 'فبراير': 2, 'مارس': 3,
+  'أبريل': 4, 'أبر': 4,
+  'ماي': 5, 'مايو': 5,
+  'يونيو': 6, 'يون': 6,
+  'يوليوز': 7, 'يوليو': 7,
+  'غشت': 8, 'أغسطس': 8,
+  'شتنبر': 9, 'سبتمبر': 9,
+  'أكتوبر': 10,
+  'نونبر': 11, 'نوفمبر': 11,
+  'دجنبر': 12, 'ديسمبر': 12
+};
+function parseArabicDate(str) {
+  const parts = (str || '').trim().split(/\s+/);
+  if (parts.length < 3) return new Date(0);
+  const day = parseInt(parts[0], 10) || 1;
+  const month = MONTHS[parts[1]] || 1;
+  const year = parseInt(parts[2], 10) || 1970;
+  return new Date(year, month - 1, day);
+}
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
 let currentFilter = 'all';
+let currentSort = 'recent';
 let currentNote = null;
 
 function getNotes() {
@@ -768,7 +828,7 @@ function renderCard(p) {
   const notes = getNotes();
   const note = notes[p.id] || '';
   const noteHtml = note
-    ? `<div class="note-display">📌 ${note}</div>`
+    ? `<div class="note-display">📌 ${escapeHtml(note)}</div>`
     : '';
   const linksHtml = [
     p.github ? `<a href="${p.github}" target="_blank" class="link-btn link-github">⚙ GitHub</a>` : '',
@@ -815,6 +875,13 @@ function filterProjects() {
   const empty   = document.getElementById('empty-state');
   if (cafePh) cafePh.style.display = (visible === 0 && currentFilter === 'cafe') ? '' : 'none';
   if (empty)  empty.style.display  = (visible === 0 && currentFilter !== 'cafe') ? '' : 'none';
+
+  const info = document.getElementById('results-info');
+  if (info) {
+    info.textContent = (query || currentFilter !== 'all')
+      ? `عرض ${visible} من ${PROJECTS.length} مشروعاً`
+      : '';
+  }
 }
 
 function setFilter(cat, btn) {
@@ -822,6 +889,24 @@ function setFilter(cat, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   filterProjects();
+}
+
+function getSortedProjects() {
+  const list = [...PROJECTS];
+  if (currentSort === 'name') {
+    list.sort((a, b) => a.name.localeCompare(b.name, 'ar'));
+  } else if (currentSort === 'status') {
+    const order = { active: 0, progress: 1, archived: 2 };
+    list.sort((a, b) => (order[a.status] ?? 3) - (order[b.status] ?? 3));
+  } else {
+    list.sort((a, b) => parseArabicDate(b.updated) - parseArabicDate(a.updated));
+  }
+  return list;
+}
+
+function applySort() {
+  currentSort = document.getElementById('sort').value;
+  renderAll();
 }
 
 function openModal(id, name) {
@@ -849,15 +934,39 @@ function saveNote() {
   renderAll();
 }
 
-function renderAll() {
+function renderStats() {
   const active = PROJECTS.filter(p => p.status === 'active').length;
   const progress = PROJECTS.filter(p => p.status === 'progress').length;
+  const archived = PROJECTS.filter(p => p.status === 'archived').length;
   document.getElementById('total-count').textContent = PROJECTS.length;
   document.getElementById('active-count').textContent = active;
   document.getElementById('progress-count').textContent = progress;
+  document.getElementById('archived-count').textContent = archived;
+
+  const netlifySites = new Set(
+    PROJECTS.filter(p => p.netlify).map(p => p.netlify.split('/sites/')[1] || p.netlify)
+  );
+  document.getElementById('netlify-count').textContent = netlifySites.size;
+
+  const latest = PROJECTS.reduce(
+    (best, p) => (parseArabicDate(p.updated) > parseArabicDate(best.updated) ? p : best),
+    PROJECTS[0]
+  );
+  document.getElementById('last-updated').textContent = latest ? latest.updated : '—';
+
+  const counts = { all: PROJECTS.length };
+  PROJECTS.forEach(p => { counts[p.category] = (counts[p.category] || 0) + 1; });
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    const badge = btn.querySelector('.count-badge');
+    if (badge) badge.textContent = `(${counts[btn.dataset.cat] || 0})`;
+  });
+}
+
+function renderAll() {
+  renderStats();
 
   const grid = document.getElementById('grid');
-  grid.innerHTML = PROJECTS.map(renderCard).join('') +
+  grid.innerHTML = getSortedProjects().map(renderCard).join('') +
     `<div class="cafe-placeholder" id="cafe-placeholder" style="display:none">
       <div class="cp-icon">☕</div>
       <div class="cp-bar"></div>
@@ -874,7 +983,22 @@ function renderAll() {
 document.getElementById('modal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+  const tag = document.activeElement.tagName;
+  if (e.key === '/' && tag !== 'INPUT' && tag !== 'TEXTAREA') {
+    e.preventDefault();
+    document.getElementById('search').focus();
+  }
+});
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./dashboard-sw.js').catch(function (err) {
+      console.warn('SW registration failed:', err);
+    });
+  });
+}
 
 renderAll();
 </script>
