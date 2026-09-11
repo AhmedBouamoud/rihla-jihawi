@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>الاجتماعيات — الأولى إعدادي | ذ. أحمد بوعمود</title>
+<meta name="theme-color" content="#0f766e">
+<meta name="description" content="موقع تفاعلي شامل لمادة الاجتماعيات — السنة الأولى إعدادي: التاريخ والجغرافيا والتربية على المواطنة — ملخصات ومصطلحات واختبارات — إعداد ذ. أحمد بوعمود، مؤسسة الحنان الخاصة، أكادير">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="https://rihla-jihawi.netlify.app/icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0fdfa; --paper:#ffffff; --ink:#0f172a; --muted:#64748b;
+  --primary:#0f766e; --primary2:#14b8a6;
+  --hist:#b45309; --hist2:#f59e0b;
+  --geo:#1d4ed8; --geo2:#38bdf8;
+  --civ:#7c3aed; --civ2:#c084fc;
+  --line:#c7ece6; --card:#ffffff; --shadow:0 24px 60px rgba(13,110,100,.14);
+  --radius:24px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; font-family:'Tajawal', system-ui, -apple-system, Segoe UI, sans-serif; color:var(--ink);
+  background:
+    radial-gradient(circle at 8% 4%, rgba(20,184,166,.16), transparent 30%),
+    radial-gradient(circle at 92% 8%, rgba(37,99,235,.10), transparent 28%),
+    linear-gradient(180deg,#f0fdfa,#f7fefc 40%,#ecfeff 100%);
+  min-height:100vh;
+}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1180px,94vw);margin:auto}
+.hidden{display:none!important}
+img{max-width:100%}
+/* ===== Hero ===== */
+.hero{position:relative; overflow:hidden; padding:30px 0 24px; border-bottom:1px solid rgba(15,118,110,.12)}
+.hero:before{content:"";position:absolute;inset:-100px -80px auto auto;width:330px;height:330px;background:rgba(20,184,166,.16);border-radius:50%;filter:blur(2px)}
+.hero:after{content:"";position:absolute;left:-90px;bottom:-120px;width:350px;height:350px;background:rgba(37,99,235,.10);border-radius:50%}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;position:relative;z-index:1}
+.brand{display:flex;align-items:center;gap:12px}
+.home-btn{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#ecfdf5,#ccfbf1);border:2px solid rgba(20,184,166,.3);font-size:1.5rem;box-shadow:0 4px 14px rgba(13,110,100,.15);flex-shrink:0}
+.logo{width:60px;height:60px;border-radius:20px;display:grid;place-items:center;color:white;font-size:30px;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--primary2));box-shadow:0 16px 35px rgba(13,110,100,.28)}
+.brand h1{margin:0;font-size:clamp(22px,3vw,40px);font-weight:900;color:#0f766e;line-height:1.1}
+.brand p{margin:4px 0 0;color:var(--muted);font-weight:700}
+.badge{background:rgba(255,255,255,.82);border:1px solid rgba(15,118,110,.14);box-shadow:var(--shadow);border-radius:999px;padding:10px 18px;font-weight:800;color:#0f766e;white-space:nowrap}
+.heroGrid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;position:relative;z-index:1;margin-top:26px}
+.heroCard{background:rgba(255,255,255,.85);border:1px solid rgba(15,118,110,.14);box-shadow:var(--shadow);border-radius:30px;padding:24px}
+.heroCard h2{font-size:clamp(23px,3.2vw,42px);margin:0 0 12px;color:#0f766e;line-height:1.25}
+.heroCard p{font-size:18px;line-height:1.9;margin:0;color:#475569}
+.heroActions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.btn{border:0;border-radius:16px;padding:12px 17px;font-family:inherit;font-weight:900;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:8px;box-shadow:0 12px 24px rgba(15,118,110,.12);background:white;color:var(--ink)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(15,118,110,.18)}
+.btn.primary{background:linear-gradient(135deg,var(--primary),var(--primary2));color:white}
+.btn.gold{background:linear-gradient(135deg,var(--hist),var(--hist2));color:white}
+.btn.blue{background:linear-gradient(135deg,var(--geo),var(--geo2));color:white}
+.btn.purple{background:linear-gradient(135deg,var(--civ),var(--civ2));color:white}
+.btn.ghost{background:#fff;border:1px solid rgba(15,118,110,.18)}
+.btn.small{padding:8px 12px;border-radius:12px;font-size:14px}
+.heroPics{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hpic{background:rgba(255,255,255,.82);border:1px solid rgba(15,118,110,.14);border-radius:22px;padding:16px;text-align:center;box-shadow:0 12px 26px rgba(13,110,100,.08)}
+.hpic .em{font-size:40px;display:block}
+.hpic b{display:block;margin-top:6px;color:#0f766e;font-weight:900}
+.hpic span{font-size:13px;color:#64748b;font-weight:700}
+/* ===== Nav ===== */
+nav{position:sticky;top:0;z-index:20;background:rgba(240,253,250,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(15,118,110,.12)}
+.navIn{display:flex;gap:8px;overflow:auto;padding:10px 0}
+.navIn a{white-space:nowrap;padding:10px 13px;border-radius:999px;background:#fff;border:1px solid rgba(15,118,110,.12);font-weight:800;color:#0f766e}
+.navIn a:hover{background:#ecfdf5}
+/* ===== Sections ===== */
+main{padding:26px 0 60px}
+.section{margin:26px 0;background:rgba(255,255,255,.82);border:1px solid rgba(15,118,110,.12);box-shadow:var(--shadow);border-radius:32px;padding:24px}
+.sectionTitle{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:18px;flex-wrap:wrap}
+.sectionTitle h2{margin:0;color:#0f766e;font-size:clamp(21px,2.5vw,32px);font-weight:900}
+.sectionTitle p{margin:5px 0 0;color:var(--muted);font-weight:700}
+.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(20,184,166,.12);border:1px solid rgba(15,118,110,.16);color:#0f766e;padding:8px 13px;border-radius:999px;font-weight:900}
+.subj-hist .sectionTitle h2,.subj-hist .pill{color:#b45309}
+.subj-hist .pill{background:rgba(245,158,11,.13);border-color:rgba(180,83,9,.2)}
+.subj-geo .sectionTitle h2,.subj-geo .pill{color:#1d4ed8}
+.subj-geo .pill{background:rgba(37,99,235,.1);border-color:rgba(29,78,216,.2)}
+.subj-civ .sectionTitle h2,.subj-civ .pill{color:#7c3aed}
+.subj-civ .pill{background:rgba(124,58,237,.1);border-color:rgba(124,58,237,.2)}
+/* ===== Lesson cards ===== */
+.lessons{display:grid;gap:14px}
+.lesson{background:#fff;border:1px solid rgba(15,118,110,.14);border-radius:22px;overflow:hidden;box-shadow:0 12px 25px rgba(13,110,100,.06)}
+.lHead{display:flex;align-items:center;gap:12px;padding:16px 18px;cursor:pointer;user-select:none}
+.lHead .lIcon{width:46px;height:46px;flex-shrink:0;border-radius:15px;display:grid;place-items:center;font-size:24px;background:linear-gradient(135deg,#ecfdf5,#ccfbf1)}
+.subj-hist .lHead .lIcon{background:linear-gradient(135deg,#fffbeb,#fde68a)}
+.subj-geo .lHead .lIcon{background:linear-gradient(135deg,#eff6ff,#bfdbfe)}
+.subj-civ .lHead .lIcon{background:linear-gradient(135deg,#f5f3ff,#ddd6fe)}
+.lHead h3{margin:0;font-size:19px;font-weight:900;color:#0f172a;flex:1}
+.lHead .num{font-size:13px;color:#94a3b8;font-weight:800}
+.lHead .chev{font-size:20px;color:#0f766e;transition:.25s;flex-shrink:0}
+.lesson.open .chev{transform:rotate(180deg)}
+.lBody{display:none;padding:0 18px 18px;border-top:1px solid #eef2f2}
+.lesson.open .lBody{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(-6px)}to{opacity:1}}
+.lBody p{color:#475569;line-height:1.9;font-weight:600;margin:12px 0}
+.lBody ul{padding-right:20px;margin:8px 0;color:#475569;line-height:1.95;font-weight:600}
+.lBody li{margin:3px 0}
+.lBody h4{margin:14px 0 6px;color:#0f766e;font-weight:900;font-size:16px}
+.subj-hist .lBody h4{color:#b45309}.subj-geo .lBody h4{color:#1d4ed8}.subj-civ .lBody h4{color:#7c3aed}
+.keys{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.keyTag{background:#f0fdfa;border:1px solid #c7ece6;color:#0f766e;padding:6px 11px;border-radius:999px;font-weight:800;font-size:14px}
+.note{background:#f0fdfa;border:1px dashed #14b8a6;border-radius:16px;padding:13px 15px;color:#115e59;font-weight:800;line-height:1.85;margin-top:12px}
+/* ===== Timeline ===== */
+.tl{position:relative;padding:10px 0;margin-top:6px}
+.tl:before{content:"";position:absolute;right:22px;top:0;bottom:0;width:4px;border-radius:4px;background:linear-gradient(180deg,#f59e0b,#b45309)}
+.tlItem{position:relative;padding:0 56px 20px 0}
+.tlItem:last-child{padding-bottom:0}
+.tlDot{position:absolute;right:12px;top:2px;width:24px;height:24px;border-radius:50%;background:#fff;border:5px solid #b45309;box-shadow:0 0 0 6px rgba(245,158,11,.14)}
+.tlItem .yr{font-weight:900;color:#b45309;font-size:17px}
+.tlItem .ev{font-weight:800;color:#334155;line-height:1.7}
+/* ===== Quiz ===== */
+.quizBar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:9px 14px;border-radius:999px;border:1px solid #c7ece6;background:#fff;font-weight:900;color:#0f766e;cursor:pointer;font-family:inherit;font-size:14px}
+.chip.active{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;border-color:transparent}
+.qCard{background:#fff;border:1px solid rgba(15,118,110,.14);border-radius:22px;padding:20px;box-shadow:0 12px 26px rgba(13,110,100,.07)}
+.qMeta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.qTagS{font-size:13px;font-weight:900;padding:5px 11px;border-radius:999px}
+.qTagS.hist{background:#fffbeb;color:#b45309}.qTagS.geo{background:#eff6ff;color:#1d4ed8}.qTagS.civ{background:#f5f3ff;color:#7c3aed}
+.qProg{font-weight:900;color:#0f766e}
+.qText{font-size:21px;font-weight:900;color:#0f172a;line-height:1.6;margin:6px 0 16px}
+.opts{display:grid;gap:10px}
+.opt{text-align:right;padding:14px 16px;border-radius:16px;border:2px solid #e2e8f0;background:#fff;font-family:inherit;font-weight:800;font-size:16px;color:#334155;cursor:pointer;transition:.15s}
+.opt:hover:not(:disabled){border-color:#14b8a6;background:#f0fdfa}
+.opt.correct{border-color:#16a34a;background:#dcfce7;color:#166534}
+.opt.wrong{border-color:#dc2626;background:#fee2e2;color:#991b1b}
+.opt:disabled{cursor:default}
+.qFb{margin-top:14px;border-radius:16px;padding:13px 15px;font-weight:800;line-height:1.8;display:none}
+.qFb.show{display:block}
+.qFb.ok{background:#ecfdf5;border:1px dashed #10b981;color:#065f46}
+.qFb.no{background:#fff1f2;border:1px dashed #fb7185;color:#9f1239}
+.qNav{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+.scoreBox{text-align:center;padding:24px}
+.scoreNum{font-size:52px;font-weight:900;color:#0f766e;line-height:1}
+.scoreMsg{font-size:19px;font-weight:900;color:#334155;margin:12px 0}
+.progressline{height:12px;border-radius:999px;background:#d7f3ee;overflow:hidden;margin:12px 0}
+.progressline span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--primary2));width:0;transition:.4s}
+/* ===== Glossary ===== */
+.glTools{margin-bottom:14px}
+.glTools input{width:100%;padding:13px 15px;border:1px solid #c7ece6;border-radius:15px;background:#fff;font-family:inherit;font-size:16px;color:#0f172a;outline:none}
+.glTools input:focus{border-color:#14b8a6;box-shadow:0 0 0 4px rgba(20,184,166,.12)}
+.glGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.glItem{background:#fff;border:1px solid rgba(15,118,110,.14);border-radius:16px;padding:14px 16px}
+.glItem b{display:block;color:#0f766e;font-size:17px;margin-bottom:4px}
+.glItem span{color:#475569;font-weight:600;line-height:1.75}
+.glItem em{font-style:normal;font-size:12px;font-weight:900;padding:2px 8px;border-radius:999px;background:#f0fdfa;color:#0f766e;margin-right:6px}
+/* ===== Stats strip ===== */
+.statStrip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.statBox{background:#fff;border:1px solid rgba(15,118,110,.14);border-radius:18px;padding:16px;text-align:center}
+.statBox strong{display:block;color:#0f766e;font-size:28px;font-weight:900}
+.statBox span{color:#64748b;font-weight:800;font-size:14px}
+/* ===== Footer ===== */
+.footer{text-align:center;color:#0f766e;font-weight:800;padding:30px 10px;line-height:2}
+.footer b{color:#115e59}
+.toast{position:fixed;bottom:18px;right:18px;z-index:100;background:#0f172a;color:white;padding:12px 16px;border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.2);font-weight:900;opacity:0;transform:translateY(20px);transition:.25s}
+.toast.show{opacity:1;transform:none}
+/* ===== Responsive ===== */
+@media (max-width:900px){
+  .heroGrid,.glGrid,.statStrip{grid-template-columns:1fr}
+  .heroPics{grid-template-columns:1fr 1fr}
+  .statStrip{grid-template-columns:1fr 1fr}
+  .badge{display:none}
+  .section{padding:18px;border-radius:24px}
+  .heroCard{padding:18px}
+  .brand h1{font-size:24px}
+  .logo{width:52px;height:52px}
+}
+@media print{
+  nav,.heroActions,.btn,.chip,.qNav,.noPrint,.toast{display:none!important}
+  body{background:white}
+  .section,.lesson,.qCard{box-shadow:none!important}
+  .lBody{display:block!important}
+  .lesson.open .chev,.chev{display:none}
+}
+</style>
+</head>
+<body>
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <a class="home-btn" href="https://rihla-jihawi.netlify.app/" title="العودة إلى البوابة الرئيسية">🏠</a>
+        <div class="logo">🌍</div>
+        <img src="https://rihla-jihawi.netlify.app/assets/logo-hanane.jpg" alt="مؤسسة الحنان الخاصة" style="width:52px;height:52px;border-radius:14px;object-fit:cover;border:2px solid rgba(20,184,166,.3);box-shadow:0 4px 12px rgba(13,110,100,.15)">
+        <div>
+          <h1>الاجتماعيات — الأولى إعدادي</h1>
+          <p>تاريخ · جغرافيا · تربية على المواطنة</p>
+        </div>
+      </div>
+      <div class="badge">إعداد: الأستاذ أحمد بوعمود</div>
+    </div>
+    <div class="heroGrid">
+      <div class="heroCard">
+        <h2>موقعك الشامل لمادة الاجتماعيات في السنة الأولى إعدادي</h2>
+        <p>ملخصات واضحة لكل درس، ومصطلحات مفتاحية، وخط زمني للحضارات، واختبارات تفاعلية تصحّح إجاباتك فوراً وتحسب نقطتك. راجع، افهم، ثم اختبر نفسك في التاريخ والجغرافيا والتربية على المواطنة.</p>
+        <div class="heroActions">
+          <a class="btn gold" href="#history">🏛️ التاريخ</a>
+          <a class="btn blue" href="#geography">🗺️ الجغرافيا</a>
+          <a class="btn purple" href="#civics">⚖️ المواطنة</a>
+          <a class="btn primary" href="#quiz">🎯 اختبر نفسك</a>
+          <button class="btn ghost" onclick="window.print()">🖨️ طباعة الملخصات</button>
+        </div>
+      </div>
+      <div class="heroPics" aria-hidden="true">
+        <div class="hpic"><span class="em">🏛️</span><b>التاريخ</b><span>7 دروس</span></div>
+        <div class="hpic"><span class="em">🗺️</span><b>الجغرافيا</b><span>6 دروس</span></div>
+        <div class="hpic"><span class="em">⚖️</span><b>المواطنة</b><span>7 دروس</span></div>
+        <div class="hpic"><span class="em">🎯</span><b>اختبارات</b><span>+30 سؤالاً</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="noPrint"><div class="wrap navIn">
+  <a href="https://rihla-jihawi.netlify.app/" style="background:linear-gradient(135deg,#ecfdf5,#ccfbf1);color:#0f766e;border-color:rgba(20,184,166,.3)">🏠 البوابة</a>
+  <a href="#intro">لماذا الاجتماعيات؟</a>
+  <a href="#history">التاريخ</a>
+  <a href="#timeline">الخط الزمني</a>
+  <a href="#geography">الجغرافيا</a>
+  <a href="#civics">التربية على المواطنة</a>
+  <a href="#quiz">اختبر نفسك</a>
+  <a href="#glossary">معجم المصطلحات</a>
+</div></nav>
+
+<main class="wrap">
+
+<!-- INTRO -->
+<section class="section" id="intro">
+  <div class="sectionTitle"><div><h2>ما هي مادة الاجتماعيات؟</h2><p>ثلاثة مكوّنات يجمعها هدف واحد: فهم الإنسان في الزمان والمكان والمجتمع.</p></div><span class="pill">🧭 مدخل عام</span></div>
+  <div class="lessons">
+    <div class="lesson subj-hist" style="border-color:rgba(180,83,9,.18)">
+      <div class="lHead"><div class="lIcon" style="background:linear-gradient(135deg,#fffbeb,#fde68a)">🏛️</div><h3>التاريخ</h3></div>
+      <div class="lBody" style="display:block;border-top:1px solid #eef2f2"><p>علمٌ يدرس ماضي الإنسان: كيف عاش، وكيف بنى أولى الحضارات، وما الأحداث الكبرى التي غيّرت حياته. في الأولى إعدادي نرحل من عصور ما قبل التاريخ إلى الحضارات القديمة والمغرب القديم.</p></div>
+    </div>
+    <div class="lesson subj-geo" style="border-color:rgba(29,78,216,.18)">
+      <div class="lHead"><div class="lIcon" style="background:linear-gradient(135deg,#eff6ff,#bfdbfe)">🗺️</div><h3>الجغرافيا</h3></div>
+      <div class="lBody" style="display:block;border-top:1px solid #eef2f2"><p>علمٌ يدرس المجال (سطح الأرض) وما فيه من تضاريس ومناخ وسكان وأنشطة. نتعلّم كيف نمثّل المجال بالخريطة، ونحدّد المواقع بخطوط الطول والعرض.</p></div>
+    </div>
+    <div class="lesson subj-civ" style="border-color:rgba(124,58,237,.18)">
+      <div class="lHead"><div class="lIcon" style="background:linear-gradient(135deg,#f5f3ff,#ddd6fe)">⚖️</div><h3>التربية على المواطنة</h3></div>
+      <div class="lBody" style="display:block;border-top:1px solid #eef2f2"><p>مكوّنٌ يربّينا على قيم الحرية والمساواة والكرامة والتضامن، ويعرّفنا بحقوقنا وواجباتنا داخل الأسرة والمدرسة والمجتمع لنكون مواطنين صالحين.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section class="section subj-hist" id="history">
+  <div class="sectionTitle"><div><h2>🏛️ التاريخ</h2><p>من الإنسان الأول إلى الممالك الأمازيغية بالمغرب القديم.</p></div><span class="pill">7 دروس</span></div>
+  <div class="lessons" id="histLessons"></div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section subj-hist" id="timeline">
+  <div class="sectionTitle"><div><h2>⏳ الخط الزمني للحضارات القديمة</h2><p>ترتيب المحطات الكبرى من الأقدم إلى الأحدث.</p></div><span class="pill">📌 تعاقب الأحداث</span></div>
+  <div class="tl" id="timeline-box"></div>
+  <div class="note">تذكّر: كل ما قبل ميلاد المسيح نكتب بجانبه <b>ق.م</b>، والزمن قبل الميلاد يسير تنازلياً (3000 ق.م أقدم من 500 ق.م). القرن = 100 سنة، والألفية = 1000 سنة.</div>
+</section>
+
+<!-- GEOGRAPHY -->
+<section class="section subj-geo" id="geography">
+  <div class="sectionTitle"><div><h2>🗺️ الجغرافيا</h2><p>المجال الجغرافي، الخريطة، الكرة الأرضية، التضاريس والمناخ.</p></div><span class="pill">6 دروس</span></div>
+  <div class="lessons" id="geoLessons"></div>
+</section>
+
+<!-- CIVICS -->
+<section class="section subj-civ" id="civics">
+  <div class="sectionTitle"><div><h2>⚖️ التربية على المواطنة</h2><p>القيم والحقوق والواجبات في الأسرة والمدرسة والمجتمع.</p></div><span class="pill">7 دروس</span></div>
+  <div class="lessons" id="civLessons"></div>
+</section>
+
+<!-- QUIZ -->
+<section class="section" id="quiz">
+  <div class="sectionTitle"><div><h2>🎯 اختبر نفسك</h2><p>أجب عن الأسئلة، وسيُصحَّح لك فوراً مع الشرح. اختر المكوّن الذي تريد التمرّن عليه.</p></div><span class="pill" id="bestPill">أفضل نتيجة: —</span></div>
+  <div class="quizBar noPrint">
+    <div class="filters" id="quizFilters">
+      <button class="chip active" data-f="all">🌐 الكل</button>
+      <button class="chip" data-f="hist">🏛️ تاريخ</button>
+      <button class="chip" data-f="geo">🗺️ جغرافيا</button>
+      <button class="chip" data-f="civ">⚖️ مواطنة</button>
+    </div>
+    <button class="btn primary small" id="restartBtn">🔄 اختبار جديد</button>
+  </div>
+  <div id="quizArea"></div>
+</section>
+
+<!-- GLOSSARY -->
+<section class="section" id="glossary">
+  <div class="sectionTitle"><div><h2>📖 معجم المصطلحات</h2><p>أهم المفاهيم التي يجب أن تحفظ تعريفها. ابحث عن أي مصطلح.</p></div><span class="pill" id="glCount"></span></div>
+  <div class="glTools noPrint"><input id="glSearch" type="search" placeholder="🔎 ابحث عن مصطلح... (مثال: خط الاستواء، الحضارة، الديمقراطية)"></div>
+  <div class="glGrid" id="glGrid"></div>
+</section>
+
+<!-- STATS -->
+<section class="section noPrint">
+  <div class="sectionTitle"><div><h2>📊 محتوى الموقع</h2></div></div>
+  <div class="statStrip">
+    <div class="statBox"><strong>20</strong><span>درساً ملخّصاً</span></div>
+    <div class="statBox"><strong id="stQ">0</strong><span>سؤال تفاعلي</span></div>
+    <div class="statBox"><strong id="stG">0</strong><span>مصطلحاً في المعجم</span></div>
+    <div class="statBox"><strong>3</strong><span>مكوّنات للمادة</span></div>
+  </div>
+</section>
+
+</main>
+
+<div class="footer">
+  🌍 موقع الاجتماعيات — <b>السنة الأولى إعدادي</b> — تاريخ وجغرافيا وتربية على المواطنة<br>
+  ✍️ من إعداد الأستاذ <b>أحمد بوعمود</b> — أستاذ الاجتماعيات<br>
+  مؤسسة الحنان الخاصة | أكادير | 2025-2026
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= DATA: LESSONS ================= */
+const HIST = [
+  {ic:"🗿",t:"عصور ما قبل التاريخ ونشأة الحضارة",b:`
+    <p>عصور ما قبل التاريخ هي المرحلة الطويلة من حياة الإنسان قبل اختراع <b>الكتابة</b>. عرف فيها الإنسان تطوراً كبيراً في أدواته وحياته.</p>
+    <h4>أبرز التحولات</h4>
+    <ul>
+      <li><b>العصر الحجري القديم:</b> عاش الإنسان على الصيد والقنص والجمع والالتقاط، وصنع أدواته من الحجر، واكتشف <b>النار</b>.</li>
+      <li><b>العصر الحجري الحديث (الثورة النيوليتية):</b> عرف الإنسان <b>الزراعة</b> و<b>تدجين الحيوان</b>، فاستقر في قرى بعد أن كان متنقلاً، وظهرت أولى المجتمعات المنظمة.</li>
+    </ul>
+    <p>مع ظهور الكتابة نحو <b>3000 ق.م</b> بدأ عصر التاريخ، ونشأت أولى الحضارات الكبرى.</p>
+    `,k:["ما قبل التاريخ","الثورة النيوليتية","الصيد والقنص","الزراعة","الكتابة"]},
+  {ic:"📜",t:"حضارة بلاد الرافدين",b:`
+    <p>قامت بين نهري <b>دجلة والفرات</b> (العراق حالياً)، ولذلك سُميت "بلاد الرافدين" أو <b>ميزوبوتاميا</b>.</p>
+    <h4>أهم مظاهرها</h4>
+    <ul>
+      <li>اخترع سكانها (السومريون) <b>الكتابة المسمارية</b> على ألواح الطين.</li>
+      <li>وضع الملك <b>حمورابي</b> أقدم قانون مكتوب: <b>شريعة حمورابي</b>.</li>
+      <li>بنوا معابد ضخمة تُسمى <b>الزقورة</b>، وبرعوا في الفلك والحساب.</li>
+    </ul>
+    `,k:["دجلة والفرات","الكتابة المسمارية","حمورابي","الزقورة","السومريون"]},
+  {ic:"🐫",t:"الحضارة المصرية القديمة",b:`
+    <p>قامت على ضفاف نهر <b>النيل</b> الذي كان مصدر الحياة والزراعة، حتى قيل: "مصر هبة النيل".</p>
+    <h4>أهم مظاهرها</h4>
+    <ul>
+      <li>حكمها <b>الفراعنة</b> بسلطة مطلقة، وكان الفرعون يُعتبر إلهاً.</li>
+      <li>اخترع المصريون <b>الكتابة الهيروغليفية</b> (كتابة بالصور والرموز).</li>
+      <li>شيّدوا <b>الأهرامات</b> كمقابر للفراعنة، وبرعوا في التحنيط والطب والفلك.</li>
+    </ul>
+    `,k:["نهر النيل","الفراعنة","الهيروغليفية","الأهرامات","التحنيط"]},
+  {ic:"⚓",t:"الحضارة الفينيقية",b:`
+    <p>قامت على الساحل الشرقي للبحر الأبيض المتوسط (لبنان حالياً). اشتهر الفينيقيون بأنهم <b>تجار وبحّارة</b> ماهرون.</p>
+    <h4>أهم مظاهرها</h4>
+    <ul>
+      <li>اخترعوا <b>الأبجدية الفينيقية</b> (أول أبجدية بحروف)، وهي أصل معظم أبجديات العالم.</li>
+      <li>أسّسوا مدناً ومراكز تجارية عبر المتوسط، أشهرها مدينة <b>قرطاج</b>.</li>
+      <li>اشتهروا بصناعة الصباغ الأرجواني والملاحة البحرية.</li>
+    </ul>
+    `,k:["الفينيقيون","الأبجدية","التجارة","قرطاج","الملاحة"]},
+  {ic:"🏺",t:"الحضارة الإغريقية (اليونانية)",b:`
+    <p>قامت في بلاد اليونان، وتكوّنت من <b>مدن-دول</b> مستقلة أشهرها <b>أثينا</b> و<b>إسبرطة</b>.</p>
+    <h4>أهم مظاهرها</h4>
+    <ul>
+      <li>ظهر بأثينا نظام <b>الديمقراطية</b> (حكم الشعب لنفسه)، وهي أول تجربة ديمقراطية.</li>
+      <li>ازدهرت <b>الفلسفة والعلوم</b> على يد سقراط وأفلاطون وأرسطو.</li>
+      <li>أقام الإغريق <b>الألعاب الأولمبية</b>، وأبدعوا في المسرح والفن والعمارة.</li>
+    </ul>
+    `,k:["الإغريق","المدينة-الدولة","الديمقراطية","أثينا","الفلسفة","الألعاب الأولمبية"]},
+  {ic:"🏛️",t:"الحضارة الرومانية",b:`
+    <p>قامت في مدينة <b>روما</b> بإيطاليا، وتوسّعت حتى صارت إمبراطورية ضخمة تسيطر على حوض المتوسط.</p>
+    <h4>أهم مظاهرها</h4>
+    <ul>
+      <li>مرّت من نظام <b>الجمهورية</b> إلى نظام <b>الإمبراطورية</b>.</li>
+      <li>وضع الرومان <b>القانون الروماني</b> الذي ما زال يؤثر في قوانين العالم.</li>
+      <li>برعوا في العمران: <b>الطرق</b>، <b>المسارح</b>، الحمامات، وأقواس النصر.</li>
+    </ul>
+    `,k:["روما","الجمهورية","الإمبراطورية","القانون الروماني","المسرح"]},
+  {ic:"🐎",t:"المغرب القديم: الممالك الأمازيغية",b:`
+    <p>عرف المغرب القديم قيام <b>ممالك أمازيغية</b> منظمة، أهمها <b>موريطنيا</b> و<b>نوميديا</b>.</p>
+    <h4>أهم المحطات</h4>
+    <ul>
+      <li>حكم <b>يوبا الثاني</b> مملكة موريطنيا، واشتهر بالعلم وتشجيع الثقافة.</li>
+      <li>قاوم الأمازيغ الأطماع الأجنبية؛ ومن رموز المقاومة الملك <b>يوغرطة</b> ضد الرومان.</li>
+      <li>تأثر المغرب القديم بالحضارات المتوسطية (فينيقية ورومانية) مع حفاظه على هويته.</li>
+    </ul>
+    `,k:["المغرب القديم","موريطنيا","نوميديا","يوبا الثاني","يوغرطة","المقاومة"]},
+];
+
+const GEO = [
+  {ic:"🧭",t:"المجال الجغرافي وتمثيله",b:`
+    <p>المجال الجغرافي هو <b>الحيّز</b> الذي يعيش فيه الإنسان ويمارس فيه أنشطته (سهل، جبل، مدينة، بادية...). لا يستطيع الجغرافي حمل المجال، لذلك <b>يمثّله</b>.</p>
+    <h4>وسائل تمثيل المجال</h4>
+    <ul>
+      <li><b>التصميم:</b> رسم لمجال صغير من الأعلى (حي، مدرسة).</li>
+      <li><b>الخريطة:</b> تمثيل مصغّر لسطح الأرض حسب مقياس معيّن.</li>
+      <li><b>الصورة:</b> فوتوغرافية (أرضية أو جوية) أو صورة بالأقمار الاصطناعية.</li>
+    </ul>
+    `,k:["المجال الجغرافي","التصميم","الخريطة","الصورة الجوية"]},
+  {ic:"🗺️",t:"الخريطة: عناصرها ومقياس الرسم",b:`
+    <p>الخريطة تمثيل مصغّر ومسطّح لسطح الأرض أو جزء منه. لقراءتها يجب معرفة عناصرها.</p>
+    <h4>عناصر الخريطة</h4>
+    <ul>
+      <li><b>العنوان:</b> يحدّد موضوع الخريطة.</li>
+      <li><b>المفتاح (المدلول):</b> يشرح معنى الرموز والألوان.</li>
+      <li><b>مقياس الرسم:</b> العلاقة بين المسافة على الخريطة والمسافة الحقيقية.</li>
+      <li><b>الاتجاه:</b> سهم يشير عادة إلى الشمال.</li>
+      <li><b>الإطار:</b> يحيط بالخريطة.</li>
+    </ul>
+    <div class="note">مثال على مقياس الرسم: 1 سم على الخريطة = 100000 سم في الواقع = 1 كلم.</div>
+    `,k:["الخريطة","المفتاح","مقياس الرسم","الاتجاه","التوطين"]},
+  {ic:"🌐",t:"الكرة الأرضية والإحداثيات الجغرافية",b:`
+    <p>لتحديد موقع أي نقطة على سطح الأرض نستعمل شبكة من الخطوط الوهمية.</p>
+    <h4>خطوط أساسية</h4>
+    <ul>
+      <li><b>خطوط العرض:</b> دوائر أفقية موازية لخط الاستواء، تتراوح من 0° إلى 90° شمالاً وجنوباً. أهمها <b>خط الاستواء</b> (0°) الذي يقسم الأرض إلى نصفين.</li>
+      <li><b>خطوط الطول:</b> أنصاف دوائر تصل بين القطبين، أهمها <b>خط غرينتش</b> (0°) الذي يقسم الأرض إلى شرق وغرب.</li>
+      <li><b>الإحداثيات الجغرافية:</b> تحديد موقع نقطة بمعرفة خط طولها وخط عرضها.</li>
+    </ul>
+    `,k:["خطوط العرض","خطوط الطول","خط الاستواء","خط غرينتش","الإحداثيات"]},
+  {ic:"⛰️",t:"أشكال سطح الأرض (التضاريس)",b:`
+    <p>التضاريس هي الأشكال المختلفة لسطح الأرض، وتُقاس بالنسبة لمستوى سطح البحر (<b>الارتفاع</b>).</p>
+    <h4>أهم أشكال التضاريس</h4>
+    <ul>
+      <li><b>الجبال:</b> مرتفعات شاهقة (أكثر من 500 م)، قد تكون في شكل <b>سلاسل</b>.</li>
+      <li><b>الهضاب:</b> مرتفعات مستوية السطح.</li>
+      <li><b>السهول:</b> مساحات منبسطة قليلة الارتفاع، صالحة للزراعة والسكن.</li>
+      <li><b>الأحواض والمنخفضات:</b> مناطق منخفضة محاطة بمرتفعات.</li>
+    </ul>
+    `,k:["التضاريس","الجبال","الهضاب","السهول","الارتفاع"]},
+  {ic:"🌦️",t:"المناخ والعناصر المناخية",b:`
+    <p>المناخ هو متوسط حالة الطقس في منطقة ما خلال مدة طويلة. أما <b>الطقس</b> فهو حالة الجو في مكان ووقت محددين.</p>
+    <h4>العناصر المناخية</h4>
+    <ul>
+      <li><b>الحرارة:</b> تُقاس بالمحرار (الترمومتر)، وتتأثر بالعرض والارتفاع والقرب من البحر.</li>
+      <li><b>التساقطات:</b> أمطار وثلوج وبرد، تُقاس بمقياس التساقطات.</li>
+      <li><b>الرياح:</b> حركة الهواء، تُقاس سرعتها واتجاهها.</li>
+    </ul>
+    <p>نمثّل الحرارة والتساقطات بـ<b>المبيان المناخي</b> لمعرفة نوع المناخ.</p>
+    `,k:["المناخ","الطقس","الحرارة","التساقطات","الرياح","المبيان المناخي"]},
+  {ic:"💧",t:"أغلفة الأرض والبيئة",b:`
+    <p>تتكوّن الأرض من أغلفة مترابطة تشكّل بيئة الحياة.</p>
+    <h4>أغلفة الأرض</h4>
+    <ul>
+      <li><b>الغلاف الصخري (اليابسة):</b> القارات والجبال والسهول.</li>
+      <li><b>الغلاف المائي:</b> المحيطات والبحار والأنهار والبحيرات (يغطي معظم سطح الأرض).</li>
+      <li><b>الغلاف الجوي:</b> طبقة الهواء المحيطة بالأرض، وفيها تحدث الظواهر المناخية.</li>
+    </ul>
+    <p>يجب على الإنسان <b>المحافظة على البيئة</b> من التلوث لضمان استمرار الحياة.</p>
+    `,k:["الغلاف المائي","الغلاف الجوي","اليابسة","البيئة","التلوث"]},
+];
+
+const CIV = [
+  {ic:"🕊️",t:"الحرية",b:`
+    <p>الحرية هي قدرة الإنسان على التفكير والتعبير والتصرّف حسب إرادته، دون إكراه، وفي إطار القانون واحترام حريات الآخرين.</p>
+    <h4>من أنواع الحرية</h4>
+    <ul>
+      <li><b>حرية الرأي والتعبير.</b></li>
+      <li><b>حرية التنقّل.</b></li>
+      <li><b>حرية المعتقد.</b></li>
+    </ul>
+    <div class="note">حريتي تنتهي حين تبدأ حرية غيري؛ فالحرية مسؤولية وليست فوضى.</div>
+    `,k:["الحرية","حرية التعبير","المسؤولية","القانون"]},
+  {ic:"⚖️",t:"المساواة",b:`
+    <p>المساواة تعني أن جميع الناس متساوون في <b>الحقوق والواجبات</b>، دون تمييز بسبب اللون أو الجنس أو الدين أو اللغة أو الأصل.</p>
+    <h4>مظاهر المساواة</h4>
+    <ul>
+      <li>المساواة أمام القانون.</li>
+      <li>المساواة في التعليم والعلاج.</li>
+      <li>المساواة بين الرجل والمرأة في الحقوق.</li>
+    </ul>
+    <p>عكس المساواة هو <b>التمييز</b> وهو سلوك مرفوض.</p>
+    `,k:["المساواة","عدم التمييز","الحقوق","الواجبات"]},
+  {ic:"👑",t:"الكرامة",b:`
+    <p>الكرامة قيمة إنسانية تعني احترام الإنسان لذاته واحترام الآخرين له، لمجرّد كونه إنساناً.</p>
+    <h4>كيف نصون الكرامة؟</h4>
+    <ul>
+      <li>احترام الآخرين وعدم الإهانة أو السخرية.</li>
+      <li>رفض العنف والاستغلال.</li>
+      <li>ضمان الحاجيات الأساسية للإنسان (المأكل، المسكن، التعليم، الصحة).</li>
+    </ul>
+    `,k:["الكرامة","الاحترام","رفض العنف","القيم"]},
+  {ic:"🧒",t:"حقوق الطفل",b:`
+    <p>الطفل هو كل إنسان لم يبلغ <b>18 سنة</b>. أقرّت الأمم المتحدة <b>الاتفاقية الدولية لحقوق الطفل</b> سنة 1989 لحماية الأطفال.</p>
+    <h4>من حقوق الطفل</h4>
+    <ul>
+      <li><b>الحق في الحياة</b> والاسم والجنسية.</li>
+      <li><b>الحق في التعليم</b> والصحة والغذاء.</li>
+      <li><b>الحق في اللعب</b> والراحة والحماية من العنف والاستغلال.</li>
+    </ul>
+    `,k:["حقوق الطفل","اتفاقية 1989","الحماية","الحق في التعليم"]},
+  {ic:"👨‍👩‍👧",t:"الأسرة",b:`
+    <p>الأسرة هي الخلية الأولى في المجتمع، تتكوّن من الأب والأم والأبناء، وفيها ينشأ الطفل ويتعلّم القيم.</p>
+    <h4>أدوار الأسرة</h4>
+    <ul>
+      <li>توفير الحبّ والرعاية والأمان.</li>
+      <li>التربية وتعليم القيم والسلوك الحسن.</li>
+      <li>تلبية الحاجيات المادية والمعنوية.</li>
+    </ul>
+    <p>لكل فرد في الأسرة <b>حقوق وواجبات</b>؛ فالتعاون والاحترام يقوّيان الأسرة.</p>
+    `,k:["الأسرة","التربية","الحقوق والواجبات","التعاون"]},
+  {ic:"🏫",t:"المؤسسة التعليمية والحياة المدرسية",b:`
+    <p>المدرسة فضاء للتعلّم واكتساب القيم والسلوك المدني. الحياة المدرسية هي كل ما يجري داخل المؤسسة من أنشطة وعلاقات.</p>
+    <h4>حقوقي وواجباتي في المدرسة</h4>
+    <ul>
+      <li><b>حقوقي:</b> التعلّم في جوّ سليم، الاحترام، المشاركة في الأنشطة.</li>
+      <li><b>واجباتي:</b> احترام الأساتذة والزملاء، المحافظة على النظافة والممتلكات، احترام النظام الداخلي.</li>
+    </ul>
+    <p>يشارك التلاميذ في تدبير الحياة المدرسية عبر <b>الأندية</b> و<b>مجالس القسم</b>.</p>
+    `,k:["المدرسة","الحياة المدرسية","النظام الداخلي","الأندية التربوية"]},
+  {ic:"🤝",t:"التضامن والمسؤولية",b:`
+    <p>التضامن هو تعاون أفراد المجتمع ومساعدة بعضهم البعض، خاصة المحتاجين. والمسؤولية هي تحمّل الإنسان نتائج أفعاله وواجباته.</p>
+    <h4>مظاهر التضامن</h4>
+    <ul>
+      <li>مساعدة الفقراء والمعوزين وذوي الاحتياجات الخاصة.</li>
+      <li>العمل التطوعي والجمعوي.</li>
+      <li>التعاون في المدرسة والحي والجماعة.</li>
+    </ul>
+    <p>المواطن الصالح <b>مسؤول</b> ومتضامن مع مجتمعه ووطنه.</p>
+    `,k:["التضامن","المسؤولية","العمل التطوعي","المواطنة"]},
+];
+
+/* ================= DATA: TIMELINE ================= */
+const TIMELINE = [
+  {yr:"~ قبل ملايين السنين",ev:"عصور ما قبل التاريخ: ظهور الإنسان الأول واكتشاف النار"},
+  {yr:"~ 3000 ق.م",ev:"ظهور الكتابة ونشأة حضارتي بلاد الرافدين ومصر القديمة"},
+  {yr:"~ 1200 ق.م",ev:"ازدهار الحضارة الفينيقية واختراع الأبجدية"},
+  {yr:"~ 800 ق.م",ev:"تأسيس مدينة قرطاج"},
+  {yr:"~ 500 ق.م",ev:"ازدهار الحضارة الإغريقية والديمقراطية بأثينا"},
+  {yr:"~ 146 ق.م",ev:"صعود الحضارة الرومانية وسيطرتها على المتوسط"},
+  {yr:"~ 25 ق.م",ev:"حكم يوبا الثاني مملكة موريطنيا بالمغرب القديم"},
+];
+
+/* ================= DATA: QUIZ ================= */
+const QUIZ = [
+  {s:"hist",q:"بأي حدث ينتهي عصر ما قبل التاريخ ويبدأ عصر التاريخ؟",o:["اكتشاف النار","اختراع الكتابة","معرفة الزراعة","تدجين الحيوان"],a:1,e:"عصور ما قبل التاريخ هي المرحلة قبل اختراع الكتابة نحو 3000 ق.م."},
+  {s:"hist",q:"بين أي نهرين قامت حضارة بلاد الرافدين؟",o:["النيل والكونغو","دجلة والفرات","الأمازون والسند","الغانج والفرات"],a:1,e:"بلاد الرافدين = ميزوبوتاميا، بين نهري دجلة والفرات."},
+  {s:"hist",q:"من وضع أقدم قانون مكتوب في بلاد الرافدين؟",o:["رمسيس","حمورابي","يوبا الثاني","سقراط"],a:1,e:"شريعة حمورابي أقدم القوانين المكتوبة."},
+  {s:"hist",q:"قيل عن مصر إنها \"هبة\" أي نهر؟",o:["الفرات","النيل","دجلة","السنغال"],a:1,e:"النيل كان مصدر الحياة والزراعة في مصر القديمة."},
+  {s:"hist",q:"ما نوع الكتابة التي اخترعها المصريون القدماء؟",o:["المسمارية","الهيروغليفية","اللاتينية","الأبجدية"],a:1,e:"الهيروغليفية كتابة بالصور والرموز."},
+  {s:"hist",q:"بماذا اشتهر الفينيقيون؟",o:["الزراعة فقط","التجارة والملاحة واختراع الأبجدية","بناء الأهرامات","الفلسفة"],a:1,e:"الفينيقيون تجار وبحّارة، واخترعوا أول أبجدية بحروف."},
+  {s:"hist",q:"أين ظهرت أول تجربة للديمقراطية؟",o:["روما","أثينا","قرطاج","بابل"],a:1,e:"ظهرت الديمقراطية في مدينة أثينا الإغريقية."},
+  {s:"hist",q:"من الفيلسوف الإغريقي المشهور؟",o:["حمورابي","أرسطو","يوغرطة","يوبا"],a:1,e:"سقراط وأفلاطون وأرسطو من أشهر فلاسفة الإغريق."},
+  {s:"hist",q:"ما النظام الذي انتقلت إليه روما بعد الجمهورية؟",o:["الإمبراطورية","الديمقراطية","المملكة الأمازيغية","القبيلة"],a:0,e:"مرّت روما من الجمهورية إلى الإمبراطورية."},
+  {s:"hist",q:"من الملك الذي حكم مملكة موريطنيا بالمغرب القديم؟",o:["حمورابي","يوبا الثاني","أفلاطون","رمسيس"],a:1,e:"يوبا الثاني اشتهر بالعلم وتشجيع الثقافة."},
+  {s:"geo",q:"ما هو التمثيل المصغّر والمسطّح لسطح الأرض؟",o:["الصورة الشمسية","الخريطة","المجسم","المبيان"],a:1,e:"الخريطة تمثيل مصغّر ومسطّح لسطح الأرض حسب مقياس."},
+  {s:"geo",q:"أي عنصر في الخريطة يشرح معنى الرموز والألوان؟",o:["العنوان","المفتاح","الإطار","المقياس"],a:1,e:"المفتاح (المدلول) يشرح الرموز والألوان."},
+  {s:"geo",q:"كم يساوي قياس خط الاستواء بالدرجات؟",o:["90°","0°","180°","45°"],a:1,e:"خط الاستواء هو خط العرض الرئيسي وقياسه 0°."},
+  {s:"geo",q:"أي الخطوط يقسم الأرض إلى شرق وغرب؟",o:["خط الاستواء","خط غرينتش","مدار السرطان","الدائرة القطبية"],a:1,e:"خط غرينتش (0° طول) يقسم الأرض إلى نصفين شرقي وغربي."},
+  {s:"geo",q:"ما هي المرتفعات المستوية السطح؟",o:["السهول","الهضاب","الأحواض","الجبال"],a:1,e:"الهضاب مرتفعات مستوية السطح."},
+  {s:"geo",q:"أي عنصر من العناصر المناخية يُقاس بالمحرار؟",o:["الرياح","الحرارة","التساقطات","الضغط"],a:1,e:"الحرارة تُقاس بالمحرار (الترمومتر)."},
+  {s:"geo",q:"ما الفرق بين الطقس والمناخ؟",o:["لا فرق بينهما","الطقس حالة الجو في وقت محدد، والمناخ متوسط طويل المدى","المناخ لحظي والطقس طويل","كلاهما يخص التضاريس"],a:1,e:"الطقس لحظي، والمناخ متوسط حالة الجو خلال مدة طويلة."},
+  {s:"geo",q:"أي غلاف يضم المحيطات والبحار والأنهار؟",o:["الغلاف الجوي","الغلاف المائي","الغلاف الصخري","الغلاف الحيوي"],a:1,e:"الغلاف المائي يشمل المحيطات والبحار والأنهار والبحيرات."},
+  {s:"civ",q:"متى تنتهي حرية الإنسان؟",o:["لا تنتهي أبداً","حين تبدأ حرية غيره","في المدرسة فقط","عند بلوغه 18"],a:1,e:"حريتي تنتهي حين تبدأ حرية غيري؛ الحرية في إطار القانون."},
+  {s:"civ",q:"ما عكس قيمة المساواة؟",o:["التضامن","التمييز","الكرامة","الحرية"],a:1,e:"التمييز عكس المساواة، وهو سلوك مرفوض."},
+  {s:"civ",q:"من هو الطفل حسب الاتفاقية الدولية؟",o:["كل من هو دون 12 سنة","كل إنسان لم يبلغ 18 سنة","التلميذ فقط","من هو دون 15 سنة"],a:1,e:"الطفل كل إنسان لم يبلغ 18 سنة."},
+  {s:"civ",q:"في أي سنة أُقرّت الاتفاقية الدولية لحقوق الطفل؟",o:["1948","1989","2000","1912"],a:1,e:"أقرّت الأمم المتحدة اتفاقية حقوق الطفل سنة 1989."},
+  {s:"civ",q:"ما هي الخلية الأولى في المجتمع؟",o:["المدرسة","الأسرة","الجماعة","النادي"],a:1,e:"الأسرة هي الخلية الأولى في المجتمع."},
+  {s:"civ",q:"أي مما يلي من واجباتي داخل المدرسة؟",o:["السخرية من الزملاء","احترام الأساتذة والمحافظة على النظافة","إتلاف الممتلكات","الغياب"],a:1,e:"من واجباتي احترام الجميع والمحافظة على المؤسسة والنظام."},
+  {s:"civ",q:"ماذا نسمّي تعاون أفراد المجتمع ومساعدة المحتاجين؟",o:["التمييز","التضامن","الأنانية","المنافسة"],a:1,e:"التضامن هو تعاون أفراد المجتمع ومساعدة بعضهم."},
+];
+
+/* ================= DATA: GLOSSARY ================= */
+const GLOSS = [
+  ["hist","الحضارة","كل ما أنتجه الإنسان من إنجازات مادية ومعنوية عبر التاريخ."],
+  ["hist","ما قبل التاريخ","المرحلة الطويلة من حياة الإنسان قبل اختراع الكتابة."],
+  ["hist","الثورة النيوليتية","انتقال الإنسان من الصيد إلى الزراعة وتدجين الحيوان والاستقرار."],
+  ["hist","الكتابة المسمارية","كتابة اخترعها سكان بلاد الرافدين على ألواح الطين."],
+  ["hist","الهيروغليفية","كتابة مصرية قديمة بالصور والرموز."],
+  ["hist","الأبجدية","نظام كتابة بحروف اخترعه الفينيقيون."],
+  ["hist","الديمقراطية","نظام حكم يشارك فيه الشعب، ظهر بأثينا."],
+  ["hist","الإمبراطورية","نظام حكم واسع يضم شعوباً وأقاليم متعددة تحت حاكم واحد."],
+  ["hist","القرن","مدة زمنية تساوي 100 سنة."],
+  ["hist","ق.م","اختصار \"قبل الميلاد\"، ويسير الزمن فيه تنازلياً."],
+  ["geo","المجال الجغرافي","الحيّز الذي يعيش فيه الإنسان ويمارس فيه أنشطته."],
+  ["geo","الخريطة","تمثيل مصغّر ومسطّح لسطح الأرض حسب مقياس."],
+  ["geo","مقياس الرسم","العلاقة بين المسافة على الخريطة والمسافة الحقيقية."],
+  ["geo","خط الاستواء","أكبر خط عرض (0°) يقسم الأرض إلى نصفين شمالي وجنوبي."],
+  ["geo","خط غرينتش","خط الطول الرئيسي (0°) يقسم الأرض إلى شرق وغرب."],
+  ["geo","التضاريس","الأشكال المختلفة لسطح الأرض: جبال وهضاب وسهول."],
+  ["geo","المناخ","متوسط حالة الطقس في منطقة خلال مدة طويلة."],
+  ["geo","التساقطات","ما يسقط من السماء من أمطار وثلوج وبرد."],
+  ["civ","الحرية","قدرة الإنسان على التصرف بإرادته في إطار القانون واحترام الآخرين."],
+  ["civ","المساواة","تساوي الناس في الحقوق والواجبات دون تمييز."],
+  ["civ","الكرامة","احترام الإنسان لذاته واحترام الآخرين له."],
+  ["civ","التمييز","معاملة الناس معاملة غير متساوية بسبب اللون أو الجنس أو الدين."],
+  ["civ","حقوق الطفل","حقوق يكفلها القانون لكل إنسان دون 18 سنة."],
+  ["civ","التضامن","تعاون أفراد المجتمع ومساعدة المحتاجين."],
+  ["civ","المواطنة","انتماء الفرد لوطنه وتحمّله لحقوقه وواجباته تجاهه."],
+];
+
+/* ================= RENDER LESSONS ================= */
+function lessonHTML(l,i){
+  const keys = l.k.map(k=>`<span class="keyTag">${k}</span>`).join("");
+  return `<div class="lesson">
+    <div class="lHead" onclick="toggleLesson(this)">
+      <div class="lIcon">${l.ic}</div>
+      <h3>${l.t}</h3>
+      <span class="num">الدرس ${i+1}</span>
+      <span class="chev">▾</span>
+    </div>
+    <div class="lBody">${l.b}<h4>مصطلحات مفتاحية</h4><div class="keys">${keys}</div></div>
+  </div>`;
+}
+document.getElementById("histLessons").innerHTML = HIST.map(lessonHTML).join("");
+document.getElementById("geoLessons").innerHTML = GEO.map(lessonHTML).join("");
+document.getElementById("civLessons").innerHTML = CIV.map(lessonHTML).join("");
+function toggleLesson(h){ h.parentElement.classList.toggle("open"); }
+
+/* ================= RENDER TIMELINE ================= */
+document.getElementById("timeline-box").innerHTML = TIMELINE.map(t=>
+  `<div class="tlItem"><div class="tlDot"></div><div class="yr">${t.yr}</div><div class="ev">${t.ev}</div></div>`
+).join("");
+
+/* ================= QUIZ ENGINE ================= */
+let quizFilter="all", quizList=[], qIndex=0, qScore=0, answered=false;
+const area = document.getElementById("quizArea");
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const S_LABEL={hist:{t:"تاريخ",c:"hist"},geo:{t:"جغرافيا",c:"geo"},civ:{t:"مواطنة",c:"civ"}};
+
+function startQuiz(){
+  quizList = shuffle(QUIZ.filter(q=>quizFilter==="all"||q.s===quizFilter));
+  qIndex=0; qScore=0; answered=false;
+  renderQ();
+}
+function renderQ(){
+  if(qIndex>=quizList.length){ renderScore(); return; }
+  const q = quizList[qIndex];
+  const sl = S_LABEL[q.s];
+  const opts = q.o.map((o,i)=>`<button class="opt" onclick="answer(${i})">${o}</button>`).join("");
+  area.innerHTML = `<div class="qCard">
+    <div class="qMeta"><span class="qTagS ${sl.c}">${sl.t}</span><span class="qProg">السؤال ${qIndex+1} / ${quizList.length}</span></div>
+    <div class="progressline"><span style="width:${(qIndex/quizList.length)*100}%"></span></div>
+    <div class="qText">${q.q}</div>
+    <div class="opts">${opts}</div>
+    <div class="qFb" id="qFb"></div>
+    <div class="qNav noPrint"><span></span><button class="btn primary" id="nextBtn" style="display:none" onclick="nextQ()">التالي ◀</button></div>
+  </div>`;
+  answered=false;
+}
+function answer(i){
+  if(answered) return; answered=true;
+  const q = quizList[qIndex];
+  const btns = area.querySelectorAll(".opt");
+  btns.forEach((b,idx)=>{ b.disabled=true; if(idx===q.a) b.classList.add("correct"); });
+  const fb = document.getElementById("qFb");
+  if(i===q.a){ qScore++; btns[i].classList.add("correct"); fb.className="qFb show ok"; fb.innerHTML="✅ إجابة صحيحة! "+q.e; }
+  else{ btns[i].classList.add("wrong"); fb.className="qFb show no"; fb.innerHTML="❌ إجابة خاطئة. "+q.e; }
+  const nb=document.getElementById("nextBtn"); nb.style.display="inline-flex";
+  nb.textContent = (qIndex+1>=quizList.length)?"عرض النتيجة ◀":"التالي ◀";
+}
+function nextQ(){ qIndex++; renderQ(); }
+function renderScore(){
+  const total=quizList.length, pct=Math.round((qScore/total)*100);
+  let msg,emo;
+  if(pct>=80){msg="ممتاز! أداء رائع 👏";emo="🏆";}
+  else if(pct>=50){msg="جيد، واصل المراجعة 💪";emo="🌟";}
+  else{msg="لا بأس، أعد المراجعة وحاول مجدداً 📚";emo="🔁";}
+  // save best
+  let best=0; try{ best=parseInt(localStorage.getItem("oula_best")||"0"); }catch(e){}
+  if(pct>best){ try{localStorage.setItem("oula_best",pct);}catch(e){} best=pct; toast("🎉 رقم قياسي جديد: "+pct+"%"); }
+  updateBest();
+  area.innerHTML = `<div class="qCard scoreBox">
+    <div style="font-size:54px">${emo}</div>
+    <div class="scoreNum">${qScore} / ${total}</div>
+    <div class="progressline" style="max-width:320px;margin:14px auto"><span style="width:${pct}%"></span></div>
+    <div class="scoreMsg">${msg} (${pct}%)</div>
+    <button class="btn primary" onclick="startQuiz()">🔄 حاول مرة أخرى</button>
+  </div>`;
+}
+function updateBest(){
+  let best=0; try{ best=parseInt(localStorage.getItem("oula_best")||"0"); }catch(e){}
+  document.getElementById("bestPill").textContent = best>0 ? ("أفضل نتيجة: "+best+"%") : "أفضل نتيجة: —";
+}
+document.getElementById("quizFilters").addEventListener("click",e=>{
+  const b=e.target.closest(".chip"); if(!b) return;
+  document.querySelectorAll("#quizFilters .chip").forEach(c=>c.classList.remove("active"));
+  b.classList.add("active"); quizFilter=b.dataset.f; startQuiz();
+});
+document.getElementById("restartBtn").addEventListener("click",startQuiz);
+
+/* ================= GLOSSARY ================= */
+function renderGloss(term=""){
+  const t=term.trim();
+  const list = GLOSS.filter(g=> !t || g[1].includes(t) || g[2].includes(t));
+  const grid=document.getElementById("glGrid");
+  if(!list.length){ grid.innerHTML=`<div class="glItem"><span>لا توجد نتائج مطابقة.</span></div>`; return; }
+  grid.innerHTML = list.map(g=>{
+    const lab=S_LABEL[g[0]].t;
+    return `<div class="glItem"><b>${g[1]} <em>${lab}</em></b><span>${g[2]}</span></div>`;
+  }).join("");
+}
+document.getElementById("glSearch").addEventListener("input",e=>renderGloss(e.target.value));
+renderGloss();
+document.getElementById("glCount").textContent = GLOSS.length+" مصطلحاً";
+
+/* ================= STATS ================= */
+document.getElementById("stQ").textContent = QUIZ.length;
+document.getElementById("stG").textContent = GLOSS.length;
+
+/* ================= TOAST ================= */
+let toastT;
+function toast(m){ const t=document.getElementById("toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),2600); }
+
+/* ================= INIT ================= */
+updateBest();
+startQuiz();
+
+/* ================= PWA ================= */
+if("serviceWorker" in navigator){ window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{})); }
+</script>
+</body>
+</html>
