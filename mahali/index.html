@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>رحلة المحلي الذهبية 🏆 — الثالثة إعدادي | ذ. أحمد بوعمود</title>
+<title>رحلة المحلي — الأسدس الأول 🏆 — الثالثة إعدادي | ذ. أحمد بوعمود</title>
 <meta name="theme-color" content="#0f766e">
-<meta name="description" content="تطبيق مراجعة تفاعلي لمادة الاجتماعيات الثالثة إعدادي — 20 محطة بين التاريخ والجغرافيا والتربية على المواطنة والمنهجية.">
+<meta name="description" content="رحلة المحلي — الأسدس الأول: تطبيق مراجعة تفاعلي لمادة الاجتماعيات الثالثة إعدادي استعداداً للامتحان المحلي، عبر 22 محطة بين التاريخ والجغرافيا والتربية على المواطنة والمنهجية.">
 <link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="رحلة المحلي">
@@ -81,8 +82,8 @@ button { cursor: pointer; border: 0; }
   background: var(--card); border:1px solid rgba(14,165,233,.12); border-radius: var(--radius);
   padding: clamp(22px, 4vw, 38px); box-shadow: var(--shadow); position: relative; overflow:hidden;
 }
-.hero-card::before { content:""; position:absolute; width:260px; height:260px; border-radius:50%; top:-90px; right:-90px; background: radial-gradient(circle, rgba(245,158,11,.2), transparent 62%); }
-.hero-card::after { content:""; position:absolute; width:260px; height:260px; border-radius:50%; bottom:-120px; left:-90px; background: radial-gradient(circle, rgba(14,165,233,.18), transparent 62%); }
+.hero-card::before { content:""; position:absolute; width:260px; height:260px; border-radius:50%; top:-90px; right:-90px; background: radial-gradient(circle, rgba(245,158,11,.2), transparent 62%); pointer-events:none; }
+.hero-card::after { content:""; position:absolute; width:260px; height:260px; border-radius:50%; bottom:-120px; left:-90px; background: radial-gradient(circle, rgba(14,165,233,.18), transparent 62%); pointer-events:none; }
 .kicker { display:inline-flex; align-items:center; gap:8px; padding:8px 14px; border-radius:999px; background:#ecfeff; color:#0f766e; font-weight:900; margin-bottom:16px; }
 h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5px; margin:0; font-family:"Cairo","Tajawal",sans-serif; }
 .gradient { background: linear-gradient(135deg, var(--blue), var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent; }
@@ -278,7 +279,7 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 .cert h2 { font-size: clamp(24px,4vw,38px); margin: 8px 0; color:#92400e; font-family:"Cairo","Tajawal",sans-serif; }
 .cert .student { font-size: clamp(26px,4.5vw,34px); font-weight:900; margin: 20px 0; color: var(--primary); }
 .cert p { line-height:2; font-size: clamp(15px,2vw,17px); color:#374151; }
-.toast { position: fixed; bottom: 24px; right: 24px; left: auto; background:#111827; color:white; padding:13px 18px; border-radius:18px; z-index:500; box-shadow: 0 16px 48px rgba(0,0,0,.26); opacity:0; transform:translateY(18px) scale(.97); transition: opacity .25s, transform .25s; max-width: 340px; font-weight:800; font-size:14px; line-height:1.6; }
+.toast { position: fixed; bottom: 24px; right: 24px; left: auto; background:#111827; color:white; padding:13px 18px; border-radius:18px; z-index:500; box-shadow: 0 16px 48px rgba(0,0,0,.26); opacity:0; pointer-events:none; transform:translateY(18px) scale(.97); transition: opacity .25s, transform .25s; max-width: 340px; font-weight:800; font-size:14px; line-height:1.6; }
 .toast.show { opacity:1; transform:translateY(0) scale(1); }
 @media (max-width: 480px) { .toast { left:16px; right:16px; bottom:16px; } }
 
@@ -511,12 +512,195 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 @keyframes lsWiggle{0%,100%{transform:rotate(-4deg);}50%{transform:rotate(4deg);}}
 @keyframes lsBounce{0%{transform:translateY(-180px);opacity:0;}60%{transform:translateY(16px);}80%{transform:translateY(-6px);}100%{transform:translateY(0);opacity:1;}}
 @keyframes lsStarPop{0%{transform:scale(0) rotate(-30deg);opacity:0;}60%{transform:scale(1.4) rotate(8deg);}100%{transform:scale(1) rotate(0);opacity:1;}}
+
+/* HISTORY ENRICHMENT START — تجويد جزيرة الزمن (التاريخ)، لا يمس بقية المكونات */
+.hx-problem{background:linear-gradient(135deg,#fef2f2,#fff7ed);border:1.5px solid rgba(220,38,38,.22);border-radius:20px;padding:18px;margin-bottom:14px;animation:lsFadeUp .4s;}
+.hx-problem .lbl{font-size:.8rem;font-weight:900;color:#dc2626;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.hx-problem p{margin:0;line-height:1.9;color:#374151;font-weight:800;font-size:.98rem;}
+.hx-objectives{background:white;border-radius:20px;box-shadow:0 8px 24px rgba(15,23,42,.06);padding:18px;margin-bottom:14px;animation:lsFadeUp .45s;}
+.hx-objectives .lbl{font-size:.8rem;font-weight:900;color:var(--primary);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.hx-objectives ul{margin:0;padding-inline-start:20px;color:#374151;line-height:1.95;font-size:.92rem;}
+.hx-objectives li{margin-bottom:4px;}
+
+.hx-card{background:white;border-radius:20px;box-shadow:0 8px 24px rgba(15,23,42,.07);padding:18px;margin-bottom:14px;animation:lsFadeUp .4s;}
+.hx-card .lbl{font-size:.8rem;font-weight:900;color:#dc2626;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+
+.hx-icon-chain{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;padding:6px 0;}
+.hx-icon-step{display:flex;flex-direction:column;align-items:center;gap:6px;width:78px;}
+.hx-icon-circle{width:52px;height:52px;border-radius:50%;background:#fef2f2;color:#dc2626;display:grid;place-items:center;box-shadow:0 4px 0 rgba(220,38,38,.18);}
+.hx-icon-circle svg{width:28px;height:28px;}
+.hx-icon-step span{font-size:.72rem;font-weight:800;color:#374151;text-align:center;line-height:1.4;}
+.hx-arrow{color:#dc2626;flex-shrink:0;opacity:.6;}
+.hx-arrow svg{width:18px;height:18px;transform:scaleX(-1);}
+
+.hx-chain{display:flex;flex-direction:column;align-items:stretch;gap:4px;}
+.hx-chain-box{background:#fef2f2;border:1.5px solid rgba(220,38,38,.25);border-radius:16px;padding:12px 16px;text-align:center;font-weight:900;color:#7f1d1d;font-size:.9rem;line-height:1.6;}
+.hx-chain-arrow{display:flex;justify-content:center;color:#dc2626;opacity:.7;padding:2px 0;}
+.hx-chain-arrow svg{width:20px;height:20px;}
+
+.hx-timeline{display:flex;gap:10px;overflow-x:auto;padding:8px 4px 12px;-webkit-overflow-scrolling:touch;}
+.hx-tl-point{flex:0 0 auto;min-width:132px;background:white;border-radius:16px;padding:12px 14px;box-shadow:0 6px 18px rgba(15,23,42,.08);border-top:4px solid var(--tl-color,#dc2626);}
+.hx-tl-point b{display:block;color:var(--tl-color,#dc2626);font-size:.85rem;margin-bottom:4px;}
+.hx-tl-point span{font-size:.78rem;color:#374151;line-height:1.5;display:block;}
+.hx-tl-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:.72rem;font-weight:800;}
+.hx-tl-legend span{display:flex;align-items:center;gap:5px;color:#374151;}
+.hx-tl-legend i{width:10px;height:10px;border-radius:50%;display:inline-block;}
+
+.hx-quad-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.hx-quad{background:#fafafa;border-radius:14px;padding:12px;border-inline-start:4px solid #dc2626;}
+.hx-quad b{display:block;font-size:.78rem;color:#7f1d1d;margin-bottom:6px;}
+.hx-quad ul{margin:0;padding-inline-start:16px;font-size:.76rem;color:#374151;line-height:1.6;}
+@media(max-width:480px){.hx-quad-grid{grid-template-columns:1fr;}}
+
+.hx-map{display:flex;align-items:center;justify-content:center;gap:14px;padding:14px 6px;flex-wrap:wrap;}
+.hx-map-center{width:88px;height:88px;border-radius:50%;background:#fef3c7;display:grid;place-items:center;font-weight:900;font-size:.72rem;color:#92400e;text-align:center;padding:6px;box-shadow:0 4px 0 rgba(146,64,14,.18);}
+.hx-map-arrow{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.72rem;font-weight:900;}
+.hx-map-arrow svg{width:34px;height:20px;}
+.hx-map-arrow.fr{color:#2563eb;}
+.hx-map-arrow.gb{color:#dc2626;}
+.hx-map-chips{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:10px;}
+.hx-map-chips span{background:#f3f4f6;border-radius:999px;padding:5px 10px;font-size:.72rem;font-weight:800;color:#374151;}
+
+.hx-result-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;}
+.hx-result-chips div{background:#fafafa;border-radius:14px;padding:10px;text-align:center;border-top:3px solid #dc2626;}
+.hx-result-chips b{display:block;font-size:.74rem;color:#7f1d1d;margin-bottom:4px;}
+.hx-result-chips span{font-size:.72rem;color:#374151;line-height:1.5;}
+@media(max-width:480px){.hx-result-chips{grid-template-columns:1fr;}}
+
+.hx-activity-hint{background:linear-gradient(135deg,#ecfeff,#f0f9ff);border:1.5px solid rgba(14,165,233,.22);border-radius:16px;padding:12px 14px;margin-bottom:12px;font-size:.85rem;color:#0e7490;font-weight:800;line-height:1.7;text-align:center;}
+
+.hx-match-items{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.hx-match-item{background:white;border:2.5px solid #cffafe;border-radius:14px;padding:10px 14px;font-weight:800;font-size:.86rem;cursor:pointer;box-shadow:0 4px 0 #cffafe;transition:all .15s;color:#132238;}
+.hx-match-item.selected{border-color:var(--gold);box-shadow:0 4px 0 var(--gold-2);}
+.hx-match-item.done{border-color:#16a34a;background:#f0fdf4;box-shadow:0 4px 0 #16a34a;cursor:default;opacity:.85;}
+.hx-match-item.done .hx-match-done-tag{display:inline;margin-inline-start:6px;color:#16a34a;font-weight:900;}
+.hx-match-cats{display:flex;flex-wrap:wrap;gap:8px;}
+.hx-match-cat{background:#fef2f2;border:2.5px solid #fecaca;border-radius:14px;padding:10px 14px;font-weight:900;font-size:.82rem;cursor:pointer;color:#7f1d1d;box-shadow:0 4px 0 #fecaca;transition:all .15s;}
+.hx-match-cat:hover{transform:translateY(-2px);}
+.hx-match-cat.wrong-flash{animation:lsWiggle .4s;background:#fee2e2;}
+.hx-match-progress{margin-top:10px;font-size:.78rem;font-weight:900;color:var(--primary);text-align:center;}
+
+.hx-order-list{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-direction:column;gap:8px;}
+.hx-order-card{background:white;border-radius:14px;box-shadow:0 4px 12px rgba(15,23,42,.08);padding:10px 12px;display:flex;align-items:center;gap:10px;}
+.hx-order-card .txt{flex:1;font-weight:800;font-size:.86rem;color:#132238;line-height:1.6;}
+.hx-order-card .arrows{display:flex;flex-direction:column;gap:3px;}
+.hx-order-card .arrows button{width:30px;height:26px;border:0;border-radius:8px;background:#ecfeff;color:var(--primary);font-weight:900;cursor:pointer;}
+.hx-order-card .arrows button:disabled{opacity:.3;cursor:default;}
+.hx-order-card.correct{border:2px solid #16a34a;background:#f0fdf4;}
+
+.hx-progress-mini{margin-top:12px;background:#fafafa;border-radius:14px;padding:10px 12px;}
+.hx-progress-mini .track{height:8px;border-radius:999px;background:#fee2e2;overflow:hidden;margin-bottom:6px;}
+.hx-progress-mini .track i{display:block;height:100%;background:linear-gradient(90deg,#dc2626,var(--gold));border-radius:999px;transition:width .4s;}
+.hx-progress-mini small{font-weight:900;color:#7f1d1d;font-size:.76rem;}
+.hx-ibn-note{display:flex;align-items:center;gap:10px;background:#fff7ed;border:1.5px solid rgba(217,119,6,.2);border-radius:16px;padding:10px 12px;margin:10px 0;font-size:.82rem;color:#92400e;font-weight:800;line-height:1.7;}
+.hx-ibn-note img{width:36px;height:36px;border-radius:50%;flex-shrink:0;object-fit:cover;}
+.hx-next-lesson-btn{display:block;width:100%;margin-top:10px;}
+.cel-btn.teal{background:linear-gradient(180deg,#2dd4bf,var(--primary));color:white;box-shadow:0 5px 0 #0d5a53;}
+/* HISTORY ENRICHMENT END */
+
+/* HISTORY CONTENT PACK START — طبقة "أفهم قبل أن أجيب" داخل جزيرة الزمن فقط */
+.learn-card{background:white;border-radius:22px;box-shadow:0 8px 24px rgba(15,23,42,.08);padding:18px;margin-bottom:14px;animation:lsFadeUp .4s;}
+.learn-card > .lbl{font-size:.85rem;font-weight:900;color:#dc2626;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.learning-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.learning-tabs button{
+  border:2px solid #fecaca;background:white;color:#7f1d1d;font-family:inherit;font-weight:900;
+  font-size:.78rem;padding:8px 12px;border-radius:12px;cursor:pointer;transition:all .15s;
+}
+.learning-tabs button.active{background:#dc2626;border-color:#dc2626;color:white;}
+.learning-panel{display:none;animation:lsFadeUp .3s;}
+.learning-panel.active{display:block;}
+.learn-p{background:#fafafa;border-radius:14px;padding:12px 14px;margin-bottom:8px;font-size:.88rem;line-height:1.85;color:#374151;}
+.learn-p:last-child{margin-bottom:0;}
+.learn-concepts{display:flex;flex-direction:column;gap:8px;margin-bottom:10px;}
+.learn-concept{background:#ecfeff;border-radius:12px;padding:9px 12px;font-size:.84rem;line-height:1.7;}
+.learn-concept b{color:var(--primary);}
+.learn-dates{display:flex;flex-direction:column;gap:6px;}
+.learn-date{background:#fff7ed;border-radius:12px;padding:8px 12px;font-size:.82rem;line-height:1.6;color:#92400e;display:flex;gap:8px;}
+.learn-date b{flex-shrink:0;color:#b45309;}
+.learn-sub-lists{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
+.learn-sub-list{background:#fafafa;border-radius:12px;padding:10px;border-inline-start:3px solid #dc2626;}
+.learn-sub-list b{display:block;font-size:.74rem;color:#7f1d1d;margin-bottom:5px;}
+.learn-sub-list ul{margin:0;padding-inline-start:15px;font-size:.72rem;color:#374151;line-height:1.6;}
+@media(max-width:480px){.learn-sub-lists{grid-template-columns:1fr;}}
+.learn-summary{background:linear-gradient(135deg,#ecfeff,#f0f9ff);border:1.5px solid rgba(14,165,233,.22);border-radius:16px;padding:14px 16px;font-size:.9rem;color:#0e7490;font-weight:800;line-height:1.85;}
+.learn-transition{display:flex;align-items:center;gap:10px;background:#fff7ed;border:1.5px solid rgba(217,119,6,.2);border-radius:16px;padding:10px 12px;margin-top:12px;font-size:.82rem;color:#92400e;font-weight:800;line-height:1.7;}
+.learn-transition img{width:34px;height:34px;border-radius:50%;flex-shrink:0;object-fit:cover;}
+/* HISTORY CONTENT PACK END */
+
+/* HISTORY VISUAL PACK START — إدماج صور وإنفوغرافيا حقيقية داخل جزيرة الزمن فقط */
+.hx-banner-card{border-radius:22px;overflow:hidden;box-shadow:0 10px 28px rgba(15,23,42,.12);margin:12px 0 16px;}
+.hx-banner-card img{display:block;width:100%;height:auto;max-height:260px;object-fit:cover;}
+.hx-hero-card{border-radius:20px;overflow:hidden;box-shadow:0 8px 24px rgba(15,23,42,.1);margin-bottom:14px;animation:lsFadeUp .4s;}
+.hx-hero-card img{display:block;width:100%;height:auto;max-height:220px;object-fit:cover;}
+.hx-visual-card{background:white;border-radius:20px;box-shadow:0 8px 24px rgba(15,23,42,.07);padding:14px;margin-bottom:14px;animation:lsFadeUp .4s;}
+.hx-visual-card .lbl{font-size:.8rem;font-weight:900;color:#dc2626;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.hx-visual-card img{display:block;width:100%;height:auto;border-radius:14px;}
+.hx-visual-caption{display:block;text-align:center;margin-top:8px;font-size:.76rem;font-weight:800;color:#7f1d1d;opacity:.85;}
+@media(max-width:480px){.hx-banner-card img{max-height:180px;}.hx-hero-card img{max-height:170px;}}
+/* HISTORY VISUAL PACK END */
+
+/* LESSON PICKER START — صفحة استقبال واختيار حر لدروس التاريخ، لا تمس بقية المكونات */
+.ls-landing{background:linear-gradient(135deg, rgba(45,212,191,.12), rgba(59,130,246,.08));border-radius:28px;padding:22px;margin-bottom:18px;display:flex;flex-direction:column;gap:16px;}
+.ls-landing-card{display:flex;align-items:center;gap:16px;}
+.ls-landing-avatar{width:64px;height:64px;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 6px 18px rgba(15,23,42,.12);}
+.ls-landing-avatar img{width:100%;height:100%;object-fit:cover;}
+.ls-landing-text h1{margin:6px 0;font-size:26px;}
+.ls-landing-text p{margin:0;color:var(--muted);line-height:1.85;max-width:640px;}
+.ls-landing-actions{display:flex;flex-wrap:wrap;gap:10px;}
+@media(max-width:640px){.ls-landing-card{flex-direction:column;text-align:center;}.ls-landing-text p{max-width:none;}.ls-landing-actions{justify-content:center;}}
+
+.lesson-picker-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.lesson-pick-card{background:white;border-radius:22px;box-shadow:0 8px 24px rgba(15,23,42,.07);padding:18px;display:flex;flex-direction:column;gap:10px;border-top:4px solid #dc2626;transition:transform .2s,box-shadow .2s;}
+.lesson-pick-card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(15,23,42,.12);}
+.lesson-pick-card .num{width:34px;height:34px;border-radius:50%;background:#fef2f2;color:#dc2626;display:grid;place-items:center;font-weight:900;font-size:.85rem;}
+.lesson-pick-card h3{margin:0;font-size:16px;line-height:1.5;}
+.lesson-pick-card p{margin:0;color:var(--muted);font-size:.82rem;line-height:1.7;flex:1;}
+.lesson-pick-card .stars{font-size:.8rem;font-weight:900;color:#b45309;}
+.lesson-pick-card button{border:0;border-radius:14px;padding:10px;font-weight:900;cursor:pointer;background:linear-gradient(180deg,#2dd4bf,var(--primary));color:white;box-shadow:0 4px 0 #0d5a53;}
+.lesson-pick-card.done{border-top-color:#16a34a;}
+@media(max-width:900px){.lesson-picker-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.lesson-picker-grid{grid-template-columns:1fr;}}
+/* LESSON PICKER END */
+
+/* Review 2026-09: readable lessons and reliable printing. */
+.learn-p,.learn-summary,.learn-concept,.learn-date,.hx-activity-hint{font-size:1rem;line-height:1.95}
+.lesson-pick-card p{font-size:1rem;line-height:1.85}
+.lesson-tools{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.lesson-tools button{flex:1;min-width:140px;min-height:44px}
+.lesson-pick-card .summary-btn{background:#e0f2fe;color:#075985}
+.qdot.missed{background:#dc2626}
+.qdot.ok{background:#15803d}
+.review-score{font-size:2.3rem;font-weight:900;color:#0f766e}
+.review-row{padding:12px 0;border-bottom:1px solid #cbd5e1;line-height:1.8}
+.review-row a{color:#0f766e;text-decoration:underline}
+#lessonPrintArea{display:none}
+.local-note{font-size:.875rem;line-height:1.8;color:#475569}
+.ls-close-btn{width:44px;height:44px}
+.hx-order-card .arrows button{min-width:44px;min-height:44px}
+#lessonPickerSection{scroll-margin-top:120px}
+@media(max-width:640px){.nav{flex-wrap:wrap}.nav-actions{width:100%;justify-content:center}.nav-actions .btn,.hero-controls .btn{font-size:.875rem;min-height:44px;white-space:normal}.brand strong{font-size:1rem}.ls-step-lbl{font-size:.875rem}.ls-top-bar{gap:8px}.fb-sheet{max-height:55dvh;overflow:auto}.lp-hero-actions{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.panel,.mission-card,.stat{opacity:1!important;transform:none!important}}
+@media print{
+ body{background:white!important;overflow:visible!important}
+ body > *{display:none!important}
+ body.print-lesson > #lessonPrintArea{display:block!important;visibility:visible!important;color:#111;background:#fff}
+ #lessonPrintArea *{visibility:visible!important}
+ #lessonPrintArea article{break-after:page;padding:8mm;font:12pt/1.85 Tahoma,Arial,sans-serif}
+ #lessonPrintArea article:last-child{break-after:auto}
+ #lessonPrintArea h1{font-size:20pt;color:#0f766e}
+ #lessonPrintArea h2{font-size:14pt;break-after:avoid}
+ #lessonPrintArea li{break-inside:avoid}
+ body:not(.print-lesson) > #certificateModal{display:block!important;position:static;overflow:visible;background:white;padding:0}
+ #certificateModal .modal-card{box-shadow:none;max-height:none;overflow:visible;border:0;max-width:none}
+ #certificateContent{position:static!important;margin:0!important}
+}
 </style>
 </head>
 <body>
+<div id="lessonPrintArea" dir="rtl"></div>
 <div id="luxurySplash" class="luxury-splash" style="--splash-img:url('assets/panorama.webp')">
   <div class="splash-card">
-    <span class="luxury-title">🧭 رحلة المحلي الذهبية</span>
+    <span class="luxury-title">🧭 رحلة المحلي — الأسدس الأول</span>
     <img src="assets/ibn-battuta.webp" alt="ابن بطوطة" />
     <h2>أهلاً أيها الرحّالة!</h2>
     <p>رحلة من <strong>22 محطة</strong> في التاريخ والجغرافيا والمواطنة والمنهجية — اجمع النجوم واكسب الشهادة!</p>
@@ -528,7 +712,7 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
       <span>🏆 شهادة إتمام</span>
     </div>
     <div class="splash-start">
-      <input id="splashName" placeholder="اكتب اسمك أيها البطل / البطلة" onkeydown="if(event.key==='Enter') startFromSplash()" />
+      <input id="splashName" aria-label="اسم التلميذ" maxlength="80" placeholder="اكتب اسمك أيها البطل / البطلة" onkeydown="if(event.key==='Enter') startFromSplash()" />
       <button class="btn gold" onclick="startFromSplash()">🚀 انطلق في الرحلة</button>
       <button class="btn ghost" onclick="resumeJourney()">▶️ تابع من حيث توقفت</button>
     </div>
@@ -542,8 +726,8 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
     <div class="brand">
       <div class="brand-mark"><img src="assets/ibn-battuta.webp" alt="ابن بطوطة" /></div>
       <div>
-        <strong>رحلة المحلي الذهبية</strong>
-        <small>الثالثة إعدادي — الاجتماعيات — الأسدس الأول</small>
+        <strong>رحلة المحلي — الأسدس الأول</strong>
+        <small>الثالثة إعدادي — الاجتماعيات — استعداداً للامتحان المحلي</small>
       </div>
     </div>
     <div class="nav-actions">
@@ -555,11 +739,40 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 </header>
 
 <main class="app">
+  <!-- LESSON PICKER START -->
+  <section class="ls-landing">
+    <div class="ls-landing-card">
+      <div class="ls-landing-avatar"><img src="assets/ibn-battuta.webp" alt="ابن بطوطة" loading="lazy" /></div>
+      <div class="ls-landing-text">
+        <span class="kicker">🧭 رحلة المحلي — الأسدس الأول</span>
+        <h1>أهلاً بك أيها الرحّالة!</h1>
+        <p>هذه بوابتك للاستعداد للامتحان المحلي في مادة الاجتماعيات — الأسدس الأول، الثالثة إعدادي. اختر أي درس تريد دراسته الآن من دروس التاريخ الستة، دون أي التزام بترتيب معين.</p>
+      </div>
+    </div>
+    <div class="ls-landing-actions">
+      <button type="button" class="btn primary" onclick="scrollToLessonPicker()">📚 ابدأ من دروس التاريخ</button>
+      <button type="button" class="btn ghost" onclick="scrollToRoute(true)">🗺️ تابع خريطتي</button>
+      <button type="button" class="btn gold" onclick="openFinalChallenge()">🏁 التحدي الجامع في التاريخ</button>
+      <button type="button" class="btn info" onclick="openCertificateIfReady()">🏆 شهادتي</button>
+    </div>
+  </section>
+
+  <section id="lessonPickerSection" class="panel">
+    <div class="section-title">
+      <div>
+        <h2>📖 اختر درسك من جزيرة الزمن — التاريخ</h2>
+        <p>كل بطاقة تفتح مساراً خاصاً بها: مدخل بصري، نشاط تفاعلي، اختبار قصير، وشارة الدرس — اختر ما تريد دون الحاجة لإنهاء البقية أولاً.</p>
+      </div>
+    </div>
+    <div class="lesson-tools"><button class="btn ghost" type="button" onclick="printHistorySummary()">طباعة ملخصات التاريخ الستة</button></div><div class="lesson-picker-grid" id="lessonPickerGrid"></div>
+  </section>
+  <!-- LESSON PICKER END -->
+
   <section class="hero">
     <div class="hero-card">
-      <span class="kicker">✨ منصة مراجعة ممتعة وذكية</span>
+      <span class="kicker">🏆 رحلة المحلي — الأسدس الأول</span>
       <h1>استعدّ للامتحان <span class="gradient">المحلي</span> في رحلة لا تُنسى</h1>
-      <p class="lead">من ميناء الانطلاق إلى مغارة التتويج، يرافقك <strong>ابن بطوطة</strong> عبر مسار بحري متعرّج بين جزر التاريخ والجغرافيا والتربية على المواطنة والمنهجية. في كل محطة سؤال وتحدٍّ وصوت ومفاجأة وجائزة، وفي النهاية تنتظرك شهادة الاستعداد.</p>
+      <p class="lead">استعد للامتحان المحلي في الاجتماعيات عبر رحلة تفاعلية ممتعة تجمع بين الدروس، الأسئلة، الشارات، وشهادة الإتمام.</p>
       <div class="theme-chips">
         <span>🏝️ جزر المعرفة</span>
         <span>🧭 مسار متعرّج تفاعلي</span>
@@ -568,7 +781,7 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
         <span>🏆 شهادة نهائية</span>
       </div>
       <div class="hero-controls">
-        <input id="studentName" class="name-input" placeholder="اكتب اسمك أيها البطل / البطلة" />
+        <input id="studentName" aria-label="اسم التلميذ" maxlength="80" class="name-input" placeholder="اكتب اسمك أيها البطل / البطلة" />
         <button class="btn primary" onclick="startJourney()">انطلق في الرحلة ←</button>
         <button class="btn gold" id="certBtn" onclick="openCertificateIfReady()">🏆 الشهادة 🔒</button>
       </div>
@@ -626,7 +839,7 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
     <div class="section-title">
       <div>
         <h2>لوحة الرحلة الكبرى</h2>
-        <p>مسار بصري متعرّج يربط 22 محطة عبر أربع جزر معرفية وصولاً إلى مغارة التتويج.</p>
+        <p>أداة لتتبع تقدّمك وتحدٍّ جامع بعد إنجاز الدروس — مسار بصري يربط 22 محطة عبر أربع جزر معرفية وصولاً إلى مغارة التتويج. ليست ممراً إجبارياً؛ يمكنك دائماً اختيار دروسك من قسم "اختر درسك" أعلاه.</p>
       </div>
       <button class="btn primary" onclick="scrollToRoute(true)">انطلق إلى المحطة الحالية</button>
     </div>
@@ -678,14 +891,14 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
           <img src="assets/treasure-map.webp" alt="خريطة كنز عمودية" />
           <div class="body">
             <h3>مرجع بصري للمسار</h3>
-            <p>هذه الخريطة تذكّر التلميذ بفكرة التطبيق: انطلاق، منعطفات، محطات متتالية، ثم الوصول إلى الكنز النهائي.</p>
+            <p>تتبّع المحطات المنجزة، واختر المحطة المتاحة لمواصلة المراجعة.</p>
           </div>
         </div>
         <div class="side-card">
           <img src="assets/panorama.webp" alt="بانوراما الرحلة" />
           <div class="body">
-            <h3>ألوان البحر والجزر</h3>
-            <p>اعتمدنا هذه اللوحة لتوحيد الهوية البصرية للتطبيق: بحر مشرق، جزر معرفية، وميناء انطلاق ملهم.</p>
+            <h3>محطات المراجعة</h3>
+            <p>ابدأ بالتاريخ، ثم واصل محطات الجغرافيا والمواطنة والمنهجية عبر الخريطة.</p>
           </div>
         </div>
         <div class="side-card">
@@ -712,6 +925,16 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
     <div class="chapter-grid">
       <article class="chapter-panel">
         <div class="top"><div class="icon">🏭</div><h3>جزيرة الزمن — التاريخ</h3><p>6 محطات تراجع التحولات السياسية والاقتصادية والعسكرية في القرن 19 وبداية القرن 20.</p></div>
+        <!-- HISTORY VISUAL PACK START -->
+        <div class="hx-banner-card"><img src="assets/history/00-history-island-banner.webp" alt="بانر جزيرة الزمن في رحلة المحلي" loading="lazy" /></div>
+        <!-- HISTORY VISUAL PACK END -->
+        <!-- HISTORY ENRICHMENT START -->
+        <div class="hx-ibn-note"><img src="assets/ibn-battuta.webp" alt="ابن بطوطة" />يا رحالة المحلي، التاريخ ليس تواريخ تحفظها فقط؛ إنه سلسلة أسباب ونتائج. اربط بين الحدث وما قبله وما بعده، وستصبح الرحلة أسهل.</div>
+        <div class="hx-progress-mini" id="hxProgressBox">
+          <div class="track"><i id="hxProgressFill" style="width:0%"></i></div>
+          <small id="hxProgressLabel">0 / 6 دروس تاريخية مكتملة</small>
+        </div>
+        <!-- HISTORY ENRICHMENT END -->
         <ul>
           <li>ازدهار الرأسمالية والإمبريالية</li>
           <li>الضغط الاستعماري على المغرب</li>
@@ -762,7 +985,7 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
   </section>
 
   <section class="panel">
-    <div class="section-title"><div><h2>المعرض البصري</h2><p>صور منجزة خصيصاً لهذا التطبيق لتجميل التجربة وتقوية هوية الرحلة.</p></div></div>
+    <div class="section-title"><div><h2>المعرض البصري</h2><p>رفيقك وخريطتك خلال رحلة المراجعة.</p></div></div>
     <div class="asset-grid">
       <article class="asset-card"><img src="assets/panorama.webp" alt="مشهد الرحلة" /><div class="body"><h3>بانوراما الجزر</h3><p>تعطي للتلميذ إحساس المغامرة وتدعم مسار الرحلة المتعرج بين المحطات.</p></div></article>
       <article class="asset-card"><img src="assets/ibn-battuta.webp" alt="ابن بطوطة" /><div class="body"><h3>الماسكوت: ابن بطوطة</h3><p>رفيق الرحلة الذي يقدّم التشجيع والنصائح ويمنح التطبيق روحاً إنسانية محببة.</p></div></article>
@@ -779,7 +1002,7 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 
   <footer class="footer">
     ✍️ إعداد وتصور: الأستاذ أحمد بوعمود — أستاذ الاجتماعيات<br />
-    مؤسسة الحنان الخاصة | أكادير | رحلة المحلي الذهبية<br /><br />
+    مؤسسة الحنان الخاصة | أكادير | رحلة المحلي — الأسدس الأول<br /><br />
     <button onclick="openAdmin()" style="background:transparent;border:1px solid rgba(100,116,139,.25);color:var(--muted);cursor:pointer;font-size:12px;padding:6px 14px;border-radius:999px;font-family:inherit;">دخول الأستاذ</button>
     &nbsp;
     <button onclick="resetProgressConfirm()" style="background:transparent;border:1px solid rgba(100,116,139,.25);color:var(--muted);cursor:pointer;font-size:12px;padding:6px 14px;border-radius:999px;font-family:inherit;">إعادة الرحلة من الصفر</button>
@@ -789,12 +1012,19 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
 <!-- ══ STATION SCREEN ══ -->
 <div id="stationScreen" class="ls-screen">
   <div class="ls-top-bar">
-    <button class="ls-close-btn" onclick="closeStationScreen()" aria-label="إغلاق">✕</button>
+    <button class="ls-close-btn" aria-label="إغلاق الدرس" onclick="closeStationScreen()">✕</button>
     <div class="ls-prog-track"><span class="ls-prog-fill" id="lsProgFill"></span></div>
     <span class="ls-step-lbl" id="lsStepLbl"></span>
   </div>
   <div class="ls-body">
     <div id="stageIntro"></div>
+    <!-- HISTORY CONTENT PACK START -->
+    <div id="stageLearn" style="display:none;"></div>
+    <!-- HISTORY CONTENT PACK END -->
+    <!-- HISTORY ENRICHMENT START -->
+    <div id="stageInfographic" style="display:none;"></div>
+    <div id="stageActivity" style="display:none;"></div>
+    <!-- HISTORY ENRICHMENT END -->
     <div id="stageQuiz" style="display:none;"></div>
   </div>
   <div id="fbSheet" class="fb-sheet">
@@ -827,6 +1057,9 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
       <button class="cel-btn gold" onclick="closeCelebration()">متابعة الرحلة ←</button>
       <button class="cel-btn ghost" onclick="replayStation()">إعادة المحطة</button>
     </div>
+    <!-- HISTORY ENRICHMENT START -->
+    <div id="celExtraActions"></div>
+    <!-- HISTORY ENRICHMENT END -->
   </div>
 </div>
 
@@ -860,7 +1093,7 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
           <div class="field" style="justify-content:end"><button class="btn primary" onclick="checkAdminPin()">دخول</button></div>
         </div>
       </div>
-      <div id="adminEditor" class="hidden" style="margin-top:14px">
+      <div id="adminEditor" class="hidden" style="margin-top:14px"><p class="local-note">التعديلات تُحفظ على هذا الجهاز فقط. صدّر بنك الأسئلة للاحتفاظ بنسخة. رمز الدخول حاجز مبسط، وليس حسابًا محميًا.</p>
         <div class="form-grid">
           <div class="field"><label>اختر المحطة</label><select id="adminStation" onchange="loadAdminQuestion()"></select></div>
           <div class="field"><label>اختر السؤال</label><select id="adminQuestion" onchange="loadAdminQuestion()"></select></div>
@@ -895,7 +1128,7 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
     <div class="modal-body">
       <div id="certificateContent" class="cert">
         <div style="font-size:54px">🏆</div>
-        <h2>شهادة إتمام رحلة المحلي الذهبية</h2>
+        <h2>شهادة إتمام رحلة المحلي — الأسدس الأول</h2>
         <p>مادة الاجتماعيات — الثالثة إعدادي — الأسدس الأول</p>
         <p>تُمنح هذه الشهادة للتلميذ(ة):</p>
         <div id="certName" class="student">................</div>
@@ -909,7 +1142,7 @@ h1 { font-size: clamp(32px, 5.5vw, 62px); line-height:1.1; letter-spacing: -0.5p
   </div>
 </div>
 
-<div id="toast" class="toast"></div>
+<div id="toast" role="status" aria-live="polite" class="toast"></div>
 
 <script>
 const DEFAULT_STATIONS = [
@@ -1923,7 +2156,7 @@ const MILESTONES = [
 ];
 const BADGES = [
   { id:'start', label:'بداية الرحلة', icon:'🚀', desc:'أنجز أول محطة.', test: () => Object.keys(progress.completed).length >= 1 },
-  { id:'history', label:'المؤرخ الصغير', icon:'🏭', desc:'أكمل محطات التاريخ الست.', test: () => completedRange(1,6) },
+  { id:'history', label:'مؤرخ رحلة المحلي', icon:'🏭', desc:'أكمل محطات التاريخ الست.', test: () => completedRange(1,6) },
   { id:'geo', label:'الجغرافي الذكي', icon:'🗺️', desc:'أكمل محطات الجغرافيا الست.', test: () => completedRange(7,12) },
   { id:'citizen', label:'المواطن المسؤول', icon:'🤲', desc:'أكمل محطات المواطنة الست.', test: () => completedRange(13,18) },
   { id:'method', label:'سيد المنهجية', icon:'📜', desc:'أكمل محطات المنهجية الأربع.', test: () => completedRange(19,22) },
@@ -1948,21 +2181,683 @@ const MASCOT_MESSAGES = [
   '💬 يقول ابن بطوطة: «ركز جيداً، المحطة القادمة تحتاج انتباهك كله.»'
 ];
 
+/* HISTORY ENRICHMENT START — بيانات وأدوات تجويد جزيرة الزمن (التاريخ) فقط. لا يمس هذا القسم الجغرافيا أو المواطنة أو المنهجية أو نظام QCM/الشهادة الحالي. */
+function hxIsHistory(id) { return id >= 1 && id <= 6; }
+
+function hxIconSvg(name) {
+  const common = 'viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"';
+  const icons = {
+    gear: `<svg ${common}><circle cx="24" cy="24" r="8"/><path d="M24 4v6M24 38v6M44 24h-6M10 24H4M37.6 10.4l-4.2 4.2M14.6 33.4l-4.2 4.2M37.6 37.6l-4.2-4.2M14.6 14.6l-4.2-4.2"/></svg>`,
+    factory: `<svg ${common}><path d="M6 42V22l8 6v-6l8 6v-6l10 6V16h6v26z"/><path d="M14 16v-4M22 16v-4"/><rect x="10" y="30" width="6" height="6"/></svg>`,
+    crates: `<svg ${common}><rect x="6" y="20" width="16" height="16" rx="2"/><rect x="24" y="14" width="18" height="20" rx="2"/><path d="M6 28h16M24 24h18"/></svg>`,
+    ship: `<svg ${common}><path d="M8 28h32l-4 12H12z"/><path d="M24 28V8M24 8h10l-4 8M24 14h-8"/></svg>`,
+    bank: `<svg ${common}><path d="M6 20 24 8l18 12"/><rect x="6" y="20" width="36" height="4"/><path d="M10 24v14M18 24v14M30 24v14M38 24v14"/><rect x="6" y="38" width="36" height="4"/></svg>`
+  };
+  return icons[name] || icons.gear;
+}
+function hxArrowSvg() { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h14M12 6l6 6-6 6"/></svg>'; }
+function hxArrowDownSvg() { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v14M6 12l6 6 6-6"/></svg>'; }
+
+const HISTORY_ENRICHMENT = {
+  1: {
+    problem: 'كيف ساهمت التحولات الصناعية والمالية في ازدهار الرأسمالية الأوروبية خلال القرن 19م؟',
+    objectives: [
+      'تعرف مظاهر ازدهار الرأسمالية الأوروبية.',
+      'ربط الاختراعات بتطور الإنتاج والمواصلات.',
+      'فهم الانتقال من الرأسمالية الصناعية إلى الرأسمالية المالية.'
+    ],
+    infographic: { type:'iconChain', steps:[
+      {icon:'gear', label:'اختراعات'},
+      {icon:'factory', label:'مصانع'},
+      {icon:'crates', label:'إنتاج كبير'},
+      {icon:'ship', label:'تجارة عالمية'},
+      {icon:'bank', label:'رأسمالية صناعية ومالية'}
+    ]},
+    activity: { type:'match', hint:'اضغط على بطاقة الاختراع، ثم اختر التحول الذي ساهم فيه.',
+      items:[
+        {id:'a1', text:'الآلة البخارية', cat:'نمو الإنتاج'},
+        {id:'a2', text:'السكك الحديدية', cat:'سرعة النقل'},
+        {id:'a3', text:'المصنع', cat:'تركيز العمال'},
+        {id:'a4', text:'الأبناك', cat:'تمويل المشاريع'},
+        {id:'a5', text:'البورصة', cat:'تداول الأسهم'}
+      ]
+    },
+    successMsg: 'أحسنت! ربطت كل اختراع بالتحول الذي صنعه.'
+  },
+  2: {
+    problem: 'كيف أدى تطور الرأسمالية الأوروبية إلى ظهور الإمبريالية والتوسع خارج أوروبا؟',
+    objectives: [
+      'تعرف مفهوم الإمبريالية.',
+      'تصنيف دوافع التوسع الإمبريالي.',
+      'ربط الرأسمالية بالحاجة إلى المواد الأولية والأسواق ومجالات الاستثمار.'
+    ],
+    infographic: { type:'chain', steps:[
+      'الرأسمالية الصناعية والمالية',
+      'الحاجة إلى المواد الأولية والأسواق والاستثمار',
+      'التنافس بين الدول الأوروبية',
+      'الإمبريالية'
+    ]},
+    activity: { type:'match', hint:'اضغط على البطاقة، ثم اختر الصنف المناسب لها.',
+      items:[
+        {id:'b1', text:'البحث عن المواد الأولية', cat:'دوافع اقتصادية'},
+        {id:'b2', text:'تصريف فائض الإنتاج', cat:'دوافع اقتصادية'},
+        {id:'b3', text:'البحث عن مجالات الاستثمار', cat:'دوافع اقتصادية'},
+        {id:'b4', text:'التنافس بين الدول الكبرى', cat:'دوافع سياسية'},
+        {id:'b5', text:'التخلص من فائض السكان', cat:'دوافع اجتماعية'},
+        {id:'b6', text:'نشر الحضارة (مبرر مزعوم)', cat:'تبريرات حضارية مزعومة'}
+      ]
+    },
+    successMsg: 'أحسنت! صنّفت دوافع الإمبريالية بدقة.'
+  },
+  3: {
+    problem: 'كيف تدرج الضغط الأوروبي على المغرب من الهزائم العسكرية إلى فرض الحماية سنة 1912؟',
+    objectives: [
+      'ترتيب أهم مراحل الضغط الاستعماري على المغرب.',
+      'التمييز بين الضغط العسكري والاقتصادي والدبلوماسي والسياسي.',
+      'فهم كيف مهدت هذه الضغوط لفرض الحماية.'
+    ],
+    infographic: { type:'timeline', points:[
+      {y:'1844', l:'معركة إيسلي', c:'#dc2626'},
+      {y:'1845', l:'معاهدة للا مغنية', c:'#7c3aed'},
+      {y:'1859-60', l:'حرب تطوان', c:'#dc2626'},
+      {y:'أواخر ق.19', l:'تزايد الامتيازات الأجنبية', c:'#059669'},
+      {y:'1906', l:'مؤتمر الجزيرة الخضراء', c:'#0369a1'},
+      {y:'1912', l:'فرض الحماية', c:'#0369a1'}
+    ], legend:[{c:'#dc2626',l:'عسكري'},{c:'#7c3aed',l:'دبلوماسي'},{c:'#059669',l:'اقتصادي'},{c:'#0369a1',l:'سياسي'}] },
+    activity: { type:'order', hint:'رتّب مراحل الضغط الاستعماري من الأقدم إلى الأحدث.',
+      items:[
+        {id:'c1', text:'معركة إيسلي'},
+        {id:'c2', text:'معاهدة للا مغنية'},
+        {id:'c3', text:'حرب تطوان'},
+        {id:'c4', text:'تزايد الامتيازات الأجنبية'},
+        {id:'c5', text:'مؤتمر الجزيرة الخضراء'},
+        {id:'c6', text:'فرض الحماية'}
+      ]
+    },
+    successMsg: 'أحسنت! عندما ترتب الأحداث ترى كيف تحول الضغط إلى حماية.'
+  },
+  4: {
+    problem: 'كيف تحولت التوترات الأوروبية إلى حرب عالمية، وما أبرز نتائجها؟',
+    objectives: [
+      'تعرف الأسباب غير المباشرة والمباشرة للحرب.',
+      'ترتيب أهم أحداث الحرب.',
+      'استنتاج نتائجها البشرية والاقتصادية والسياسية.'
+    ],
+    infographic: { type:'quadrant',
+      quads:[
+        {title:'أسباب غير مباشرة', items:['التنافس الإمبريالي','التحالفات العسكرية','سباق التسلح','النزعة القومية']},
+        {title:'السبب المباشر', items:['اغتيال ولي عهد النمسا-المجر بسراييفو 1914']},
+        {title:'النتائج البشرية والاقتصادية', items:['قتلى وجرحى بالملايين','دمار وديون']},
+        {title:'النتائج السياسية', items:['معاهدات الصلح','سقوط إمبراطوريات','تأسيس عصبة الأمم']}
+      ],
+      timeline:[{y:'1914',l:'اندلاع الحرب'},{y:'1917',l:'دخول أمريكا'},{y:'1918',l:'نهاية الحرب'},{y:'1919',l:'مؤتمر الصلح'}]
+    },
+    activity: { type:'order', hint:'رتّب أحداث الحرب العالمية الأولى زمنياً.',
+      items:[
+        {id:'d1', text:'اغتيال ولي عهد النمسا-المجر'},
+        {id:'d2', text:'اندلاع الحرب'},
+        {id:'d3', text:'حرب الخنادق'},
+        {id:'d4', text:'دخول الولايات المتحدة الحرب'},
+        {id:'d5', text:'نهاية الحرب'},
+        {id:'d6', text:'مؤتمر الصلح'}
+      ]
+    },
+    successMsg: 'أحسنت! هكذا تسلسلت أحداث الحرب الكبرى.'
+  },
+  5: {
+    problem: 'كيف أدى ضعف الدولة العثمانية والحرب العالمية الأولى إلى تدخل استعماري في المشرق العربي؟',
+    objectives: [
+      'تعرف عوامل ضعف الإمبراطورية العثمانية.',
+      'فهم أثر الحرب العالمية الأولى في تفككها.',
+      'ربط اتفاقيات التقسيم والانتداب بالتدخل الاستعماري في المشرق.'
+    ],
+    infographic: { type:'chain', steps:[
+      'ضعف الدولة العثمانية',
+      'تزايد التدخل الأوروبي',
+      'الحرب العالمية الأولى',
+      'تفكك الإمبراطورية',
+      'اتفاقية سايكس بيكو',
+      'الانتداب على المشرق العربي'
+    ], map:true },
+    activity: { type:'match', hint:'اضغط على السبب، ثم اختر نتيجته المباشرة.',
+      items:[
+        {id:'e1', text:'ضعف الدولة العثمانية', cat:'تزايد التدخل الأوروبي'},
+        {id:'e2', text:'الحرب العالمية الأولى', cat:'تفكك الإمبراطورية'},
+        {id:'e3', text:'اتفاقية سايكس بيكو', cat:'تقسيم المشرق العربي'},
+        {id:'e4', text:'الانتداب', cat:'سيطرة استعمارية مباشرة أو غير مباشرة'}
+      ]
+    },
+    successMsg: 'أحسنت! فهمت خيط الأحداث من الضعف العثماني إلى الانتداب.'
+  },
+  6: {
+    problem: 'كيف تحولت أزمة البورصة الأمريكية سنة 1929 إلى أزمة اقتصادية عالمية؟',
+    objectives: [
+      'تعرف أسباب أزمة 1929.',
+      'تتبع مظاهر انتشار الأزمة.',
+      'استنتاج نتائجها الاقتصادية والاجتماعية والسياسية.'
+    ],
+    infographic: { type:'chain', steps:[
+      'المضاربات في البورصة',
+      'انهيار وول ستريت',
+      'إفلاس الأبناك',
+      'إغلاق المصانع',
+      'انتشار البطالة',
+      'تدخل الدولة'
+    ], results:[
+      {t:'اقتصادية', d:'إفلاس وتراجع الإنتاج'},
+      {t:'اجتماعية', d:'بطالة وفقر'},
+      {t:'سياسية', d:'صعود الأنظمة الشمولية'}
+    ]},
+    activity: { type:'order', hint:'رتّب مراحل انتشار أزمة 1929.',
+      items:[
+        {id:'f1', text:'المضاربات في البورصة'},
+        {id:'f2', text:'انهيار وول ستريت'},
+        {id:'f3', text:'إفلاس الأبناك'},
+        {id:'f4', text:'إغلاق المصانع'},
+        {id:'f5', text:'انتشار البطالة'},
+        {id:'f6', text:'تدخل الدولة'}
+      ]
+    },
+    successMsg: 'رائع! فهمت كيف تنتقل الأزمة من البورصة إلى المجتمع.'
+  }
+};
+
+function hxRenderProblemObjectives(st) {
+  const hx = HISTORY_ENRICHMENT[st.id];
+  if (!hx) return '';
+  return `
+    <div class="hx-problem"><div class="lbl">❓ السؤال الإشكالي</div><p>${hx.problem}</p></div>
+    <div class="hx-objectives"><div class="lbl">🎯 أهداف التعلم</div><ul>${hx.objectives.map(o=>'<li>'+o+'</li>').join('')}</ul></div>
+  `;
+}
+
+function hxRenderInfographic(container, st) {
+  const info = HISTORY_ENRICHMENT[st.id].infographic;
+  let html = hxRenderRealInfographic(st); /* HISTORY VISUAL PACK */
+  html += '<div class="hx-card"><div class="lbl">🖼️ إنفوغرافيا الدرس</div>';
+  if (info.type === 'iconChain') {
+    html += '<div class="hx-icon-chain">';
+    info.steps.forEach((s,i) => {
+      if (i>0) html += '<span class="hx-arrow">'+hxArrowSvg()+'</span>';
+      html += '<div class="hx-icon-step"><span class="hx-icon-circle">'+hxIconSvg(s.icon)+'</span><span>'+s.label+'</span></div>';
+    });
+    html += '</div>';
+  } else if (info.type === 'chain') {
+    html += '<div class="hx-chain">';
+    info.steps.forEach((s,i) => {
+      if (i>0) html += '<div class="hx-chain-arrow">'+hxArrowDownSvg()+'</div>';
+      html += '<div class="hx-chain-box">'+s+'</div>';
+    });
+    html += '</div>';
+    if (info.map) {
+      html += '<div class="hx-map"><div class="hx-map-arrow fr">'+hxArrowSvg()+'<span>فرنسا</span></div>'
+        + '<div class="hx-map-center">المشرق<br/>العربي</div>'
+        + '<div class="hx-map-arrow gb">'+hxArrowSvg()+'<span>بريطانيا</span></div></div>'
+        + '<div class="hx-map-chips"><span>سايكس بيكو</span><span>الانتداب</span><span>التقسيم</span></div>';
+    }
+    if (info.results) {
+      html += '<div class="hx-result-chips">'+info.results.map(r=>'<div><b>'+r.t+'</b><span>'+r.d+'</span></div>').join('')+'</div>';
+    }
+  } else if (info.type === 'timeline') {
+    html += '<div class="hx-timeline">'+info.points.map(p=>'<div class="hx-tl-point" style="--tl-color:'+p.c+'"><b>'+p.y+'</b><span>'+p.l+'</span></div>').join('')+'</div>';
+    html += '<div class="hx-tl-legend">'+info.legend.map(g=>'<span><i style="background:'+g.c+'"></i>'+g.l+'</span>').join('')+'</div>';
+  } else if (info.type === 'quadrant') {
+    html += '<div class="hx-quad-grid">'+info.quads.map(q=>'<div class="hx-quad"><b>'+q.title+'</b><ul>'+q.items.map(it=>'<li>'+it+'</li>').join('')+'</ul></div>').join('')+'</div>';
+    html += '<div class="hx-timeline">'+info.timeline.map(p=>'<div class="hx-tl-point"><b>'+p.y+'</b><span>'+p.l+'</span></div>').join('')+'</div>';
+  }
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function hxShakeEl(el) {
+  el.style.animation = 'none';
+  void el.offsetWidth;
+  el.style.animation = 'lsWiggle .4s';
+}
+function hxMascotHint(text) {
+  const el = document.getElementById('guideText');
+  if (el) el.textContent = text || 'اقتربت من الطريق الصحيح. فكّر في العلاقة جيداً وحاول من جديد.';
+}
+
+function hxRenderActivity(container, st, onComplete) {
+  const act = HISTORY_ENRICHMENT[st.id].activity;
+  if (act.type === 'match') hxRenderMatchActivity(container, act, onComplete);
+  else hxRenderOrderActivity(container, act, onComplete);
+}
+
+function hxRenderMatchActivity(container, act, onComplete) {
+  const items = shuffled(act.items);
+  const cats = [...new Set(act.items.map(i => i.cat))].sort(() => Math.random() - 0.5);
+  let doneCount = 0, selectedId = null;
+  container.innerHTML = `
+    <div class="hx-activity-hint">🎯 ${act.hint}</div>
+    <div class="hx-match-items" id="hxMatchItems"></div>
+    <div class="hx-match-cats" id="hxMatchCats"></div>
+    <div class="hx-match-progress" id="hxMatchProg">0 / ${items.length} مطابقة صحيحة</div>
+  `;
+  const itemsEl = container.querySelector('#hxMatchItems');
+  const catsEl = container.querySelector('#hxMatchCats');
+  items.forEach(it => {
+    const btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'hx-match-item'; btn.dataset.id = it.id;
+    btn.textContent = it.text;
+    btn.addEventListener('click', () => {
+      if (btn.classList.contains('done')) return;
+      itemsEl.querySelectorAll('.hx-match-item').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedId = it.id;
+    });
+    itemsEl.appendChild(btn);
+  });
+  cats.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'hx-match-cat';
+    btn.textContent = cat;
+    btn.addEventListener('click', () => {
+      if (!selectedId) { hxShakeEl(catsEl); return; }
+      const item = act.items.find(i => i.id === selectedId);
+      const itemBtn = itemsEl.querySelector('[data-id="'+selectedId+'"]');
+      if (item.cat === cat) {
+        itemBtn.classList.add('done');
+        itemBtn.classList.remove('selected');
+        itemBtn.innerHTML = item.text + '<span class="hx-match-done-tag">✔</span>';
+        doneCount++;
+        container.querySelector('#hxMatchProg').textContent = doneCount + ' / ' + items.length + ' مطابقة صحيحة';
+        selectedId = null;
+        if (typeof playTone === 'function') playTone('good');
+        if (doneCount === items.length) setTimeout(() => onComplete(true), 350);
+      } else {
+        btn.classList.add('wrong-flash');
+        setTimeout(() => btn.classList.remove('wrong-flash'), 400);
+        if (typeof playTone === 'function') playTone('bad');
+        hxMascotHint();
+      }
+    });
+    catsEl.appendChild(btn);
+  });
+}
+
+function hxRenderOrderActivity(container, act, onComplete) {
+  const items = shuffled(act.items);
+  container.innerHTML = `
+    <div class="hx-activity-hint">🎯 ${act.hint}</div>
+    <ul class="hx-order-list" id="hxOrderList"></ul>
+    <button type="button" class="lbtn teal" id="hxOrderCheck" style="width:100%">تحقق من الترتيب</button>
+  `;
+  const list = container.querySelector('#hxOrderList');
+  items.forEach(it => {
+    const li = document.createElement('li');
+    li.className = 'hx-order-card'; li.dataset.id = it.id;
+    li.innerHTML = '<span class="txt">'+it.text+'</span><span class="arrows"><button type="button" class="up" aria-label="نقل الحدث إلى الأعلى">▲</button><button type="button" class="down" aria-label="نقل الحدث إلى الأسفل">▼</button></span>';
+    list.appendChild(li);
+    li.querySelector('.up').addEventListener('click', () => { const p = li.previousElementSibling; if (p) list.insertBefore(li, p); });
+    li.querySelector('.down').addEventListener('click', () => { const n = li.nextElementSibling; if (n) list.insertBefore(n, li); });
+  });
+  container.querySelector('#hxOrderCheck').addEventListener('click', () => {
+    const order = [...list.querySelectorAll('.hx-order-card')].map(c => c.dataset.id);
+    const correct = act.items.map(i => i.id);
+    const ok = order.every((id,i) => id === correct[i]);
+    if (ok) {
+      list.querySelectorAll('.hx-order-card').forEach(c => c.classList.add('correct'));
+      if (typeof playTone === 'function') playTone('good');
+      setTimeout(() => onComplete(true), 400);
+    } else {
+      hxShakeEl(list);
+      if (typeof playTone === 'function') playTone('bad');
+      hxMascotHint();
+    }
+  });
+}
+
+function updateHistoryProgressUI() {
+  const fill = document.getElementById('hxProgressFill');
+  const label = document.getElementById('hxProgressLabel');
+  if (!fill || !label) return;
+  let done = 0;
+  for (let i = 1; i <= 6; i++) if (progress.completed[i] !== undefined) done++;
+  fill.style.width = Math.round(done/6*100) + '%';
+  label.textContent = done + ' / 6 دروس تاريخية مكتملة';
+}
+/* HISTORY ENRICHMENT END */
+
+/* HISTORY VISUAL PACK START — صور وإنفوغرافيا حقيقية لدروس التاريخ، لا تمس بقية المكونات */
+const HISTORY_VISUALS = {
+  1: { infographic: { file:'01-capitalism-infographic.webp', alt:'إنفوغرافيا ازدهار الرأسمالية الأوروبية خلال القرن 19م' } },
+  2: { infographic: { file:'02-imperialism-infographic.webp', alt:'إنفوغرافيا الإمبريالية وليدة الرأسمالية' } },
+  3: {
+    hero: { file:'04-pressure-morocco-hero.webp', alt:'صورة افتتاحية للضغط الاستعماري على المغرب' },
+    infographic: { file:'03-pressure-morocco-infographic.webp', alt:'إنفوغرافيا الضغط الاستعماري على المغرب' }
+  },
+  4: {
+    hero: { file:'06-ww1-hero.webp', alt:'صورة افتتاحية للحرب العالمية الأولى' },
+    infographic: { file:'05-ww1-infographic.webp', alt:'إنفوغرافيا الحرب العالمية الأولى الأسباب والنتائج' }
+  },
+  5: { infographic: { file:'07-ottoman-infographic.webp', alt:'إنفوغرافيا انهيار الإمبراطورية العثمانية والتدخل الاستعماري في المشرق العربي' } },
+  6: {
+    hero: { file:'09-crisis1929-hero.webp', alt:'صورة افتتاحية لأزمة 1929' },
+    infographic: { file:'08-crisis1929-infographic.webp', alt:'إنفوغرافيا أزمة 1929 الأسباب والمظاهر والنتائج' }
+  }
+};
+function hxRenderHero(st) {
+  const v = HISTORY_VISUALS[st.id];
+  if (!v || !v.hero) return '';
+  return `<div class="hx-hero-card"><img src="assets/history/${v.hero.file}" alt="${v.hero.alt}" loading="lazy" /></div>`;
+}
+function hxRenderRealInfographic(st) {
+  const v = HISTORY_VISUALS[st.id];
+  if (!v || !v.infographic) return '';
+  return `<div class="hx-visual-card"><div class="lbl">🖼️ خريطة الفهم</div><img src="assets/history/${v.infographic.file}" alt="${v.infographic.alt}" loading="lazy" /><small class="hx-visual-caption">تأمل هذه الخطاطة ثم انتقل إلى النشاط.</small></div>`;
+}
+/* HISTORY VISUAL PACK END */
+
+/* HISTORY CONTENT PACK START — طبقة "أفهم قبل أن أجيب" (مادة علمية شارحة قبل النشاط وQCM) */
+const HISTORY_LEARN = {
+  1: {
+    idea: 'ازدهرت الرأسمالية الأوروبية خلال القرن 19م بفضل الثورة الصناعية وما رافقها من اختراعات وتقنيات جديدة. فقد أدى استعمال الآلة البخارية، وتوسع المصانع، وتطور السكك الحديدية والملاحة، إلى ارتفاع الإنتاج وتوسع المبادلات. ومع تراكم الأرباح، ازداد دور الأبناك والبورصات والشركات الكبرى، فانتقلت الرأسمالية من طابع صناعي إلى طابع مالي أكثر تنظيماً وقوة.',
+    explain: [
+      'خلال القرن 19م تغيرت أوروبا بسرعة. لم يعد الإنتاج يعتمد أساساً على الورشات الصغيرة والعمل اليدوي، بل أصبح يعتمد على المصانع والآلات والطاقة البخارية. هذا التحول سمح بإنتاج كميات كبيرة في وقت أقل، فاحتاجت الدول الأوروبية إلى نقل أسرع وأسواق أوسع.',
+      'ساعدت السكك الحديدية والسفن البخارية على ربط مناطق الإنتاج بمناطق الاستهلاك، كما ساعدت على نقل المواد الأولية والبضائع. ونتيجة لذلك نمت التجارة الداخلية والخارجية، وبدأت الشركات تكبر وتحتاج إلى أموال ضخمة.',
+      'هنا برز دور الأبناك والبورصات. فالأبناك وفرت القروض للمقاولات والمصانع، أما البورصة فسهّلت تداول الأسهم وجمع رؤوس الأموال. وهكذا لم تعد الرأسمالية صناعية فقط، بل أصبحت مالية أيضاً، تسيّرها الأبناك والشركات الكبرى.',
+      'اجتماعياً، ظهرت طبقة برجوازية تملك المصانع ورؤوس الأموال، وطبقة عاملة تبيع قوة عملها داخل المصانع. لذلك كان ازدهار الرأسمالية مصحوباً بتغيرات اجتماعية كبيرة، مثل نمو المدن، وتزايد العمال، وبداية ظهور التنظيمات النقابية.'
+    ],
+    concepts: [
+      {term:'الرأسمالية', def:'نظام اقتصادي يقوم على الملكية الخاصة لوسائل الإنتاج، واستثمار رأس المال، والسعي إلى تحقيق الربح.'},
+      {term:'الثورة الصناعية', def:'تحولات تقنية واقتصادية بدأت باستعمال الآلات والطاقة البخارية، وأدت إلى توسع المصانع والإنتاج.'},
+      {term:'الرأسمالية الصناعية', def:'مرحلة ارتبطت بتطور المصانع والآلة والإنتاج الكبير.'},
+      {term:'الرأسمالية المالية', def:'مرحلة أصبح فيها للأبناك والبورصات والشركات الكبرى دور رئيسي في توجيه الاقتصاد.'},
+      {term:'البورصة', def:'سوق يتم فيها بيع وشراء الأسهم والسندات.'},
+      {term:'البرجوازية', def:'طبقة اجتماعية تملك رؤوس الأموال والمصانع والشركات.'},
+      {term:'الطبقة العاملة', def:'فئة اجتماعية تشتغل في المصانع مقابل أجر.'}
+    ],
+    dates: [
+      {y:'القرن 19م', l:'مرحلة كبرى لازدهار الرأسمالية الصناعية والمالية في أوروبا.'},
+      {y:'الثورة الصناعية', l:'انطلقت من إنجلترا ثم انتشرت في بلدان أوروبية أخرى.'},
+      {y:'توسع السكك الحديدية', l:'ساعد على ربط الأسواق وتسريع النقل.'}
+    ],
+    subLists: [
+      {label:'أسباب الازدهار', items:['تطور الاختراعات والآلات','استعمال الطاقة البخارية والفحم','توسع المصانع والإنتاج الكبير','تطور النقل (سكك حديدية وسفن بخارية)','نمو الأبناك والبورصات والشركات الكبرى','تراكم رؤوس الأموال وتوسع المبادلات']},
+      {label:'نتائج الازدهار', items:['ارتفاع الإنتاج الصناعي','توسع المبادلات التجارية','نمو المدن الصناعية','بروز البرجوازية والطبقة العاملة','احتداد التنافس بين الدول الأوروبية','البحث عن مواد أولية وأسواق (مهّد للإمبريالية)']}
+    ],
+    summary: 'شهدت أوروبا خلال القرن 19م ازدهاراً كبيراً للرأسمالية نتيجة الثورة الصناعية وتطور الآلات والمصانع ووسائل النقل. ومع نمو الأبناك والبورصات والشركات الكبرى، تطورت الرأسمالية من صناعية إلى مالية، ونتج عن ذلك نمو الإنتاج والتجارة وظهور تحولات اجتماعية عميقة.',
+    transition: 'قبل أن تربط البطاقات، تذكر أن كل اختراع لم يكن مجرد آلة، بل كان سبباً في تغيير طريقة الإنتاج والنقل والتمويل.'
+  },
+  2: {
+    idea: 'أدى ازدهار الرأسمالية الصناعية والمالية في أوروبا إلى حاجة متزايدة للمواد الأولية والأسواق ومجالات الاستثمار. ومع احتداد التنافس بين الدول الأوروبية، اتجهت هذه الدول إلى السيطرة على مناطق واسعة في إفريقيا وآسيا، وهو ما يعرف بالإمبريالية. وقد بررت الدول الاستعمارية توسعها بشعارات حضارية مزعومة، بينما كانت الدوافع الاقتصادية والسياسية هي الأهم.',
+    explain: [
+      'عندما تطورت المصانع الأوروبية، أصبحت تحتاج إلى مواد أولية كثيرة مثل القطن والمعادن والمطاط. كما أن الإنتاج الكبير احتاج إلى أسواق جديدة لتصريف البضائع. لذلك بدأت الدول الصناعية تبحث خارج أوروبا عن مناطق توفر لها المواد الأولية وتشتري منتجاتها.',
+      'لم يكن الأمر اقتصادياً فقط، بل كان سياسياً أيضاً. فكل دولة أوروبية أرادت أن تثبت قوتها وتوسع نفوذها وتنافس باقي الدول. لذلك أصبح امتلاك المستعمرات علامة على القوة والمكانة الدولية.',
+      'كما استعملت الدول الأوروبية مبررات اجتماعية وحضارية، مثل الادعاء بأنها تنشر الحضارة أو الدين أو التعليم. لكن هذه المبررات كانت تخفي في الغالب أهدافاً استعمارية تقوم على السيطرة والاستغلال.',
+      'وهكذا يمكن القول إن الإمبريالية كانت نتيجة مباشرة لازدهار الرأسمالية. فالرأسمالية وفرت القوة الصناعية والمالية، والإمبريالية وفرت المواد الأولية والأسواق ومجالات الاستثمار.'
+    ],
+    concepts: [
+      {term:'الإمبريالية', def:'سياسة توسعية تهدف من خلالها دولة قوية إلى السيطرة على شعوب ومجالات أخرى اقتصادياً وسياسياً وعسكرياً.'},
+      {term:'الاستعمار', def:'إخضاع بلد أو شعب لسيطرة دولة أجنبية واستغلال موارده.'},
+      {term:'المواد الأولية', def:'موارد طبيعية تستعمل في الصناعة مثل القطن، المعادن، المطاط، والفحم.'},
+      {term:'السوق', def:'مجال لتصريف المنتجات وبيعها.'},
+      {term:'مجال الاستثمار', def:'منطقة توظف فيها رؤوس الأموال لتحقيق الربح.'},
+      {term:'المبرر الحضاري', def:'خطاب استعملته الدول الاستعمارية لتبرير السيطرة، مثل ادعاء نشر الحضارة.'}
+    ],
+    dates: [],
+    subLists: [
+      {label:'دوافع اقتصادية', items:['البحث عن المواد الأولية','تصريف فائض الإنتاج الصناعي','إيجاد مجالات لاستثمار رؤوس الأموال']},
+      {label:'دوافع سياسية', items:['توسيع النفوذ الدولي','التحكم في المواقع الاستراتيجية','التنافس بين الدول الكبرى']},
+      {label:'دوافع اجتماعية', items:['البحث عن مجالات للهجرة','تصريف الأزمات الاجتماعية الداخلية']},
+      {label:'تبريرات حضارية مزعومة', items:['نشر الحضارة أو التعليم أو الدين (خطاب يخفي السيطرة والاستغلال)']},
+      {label:'مظاهر الإمبريالية', items:['احتلال عسكري مباشر','فرض الحماية','التحكم الاقتصادي عبر الشركات والقروض','السيطرة على الموانئ والممرات','تقسيم مناطق النفوذ بين القوى الاستعمارية']}
+    ],
+    summary: 'ظهرت الإمبريالية نتيجة تطور الرأسمالية الأوروبية خلال القرن 19م. فقد احتاجت الدول الصناعية إلى المواد الأولية والأسواق ومجالات الاستثمار، كما رغبت في توسيع نفوذها السياسي. لذلك سيطرت على مناطق واسعة من إفريقيا وآسيا، مستعملة مبررات حضارية تخفي أهدافاً اقتصادية واستعمارية.',
+    transition: 'لا تخلط بين الدافع الحقيقي والمبرر المعلن؛ فالدول الاستعمارية تحدثت عن الحضارة، لكنها كانت تبحث أساساً عن الربح والنفوذ.'
+  },
+  3: {
+    idea: 'تعرض المغرب خلال القرن 19 وبداية القرن 20 لضغوط استعمارية متزايدة. بدأت هذه الضغوط عسكرية، خاصة بعد هزيمة المغرب في معركة إيسلي وحرب تطوان، ثم اتخذت أشكالاً اقتصادية ودبلوماسية عبر الامتيازات الأجنبية والمعاهدات والمؤتمرات. ومع ضعف الدولة المغربية واحتداد التنافس الأوروبي، انتهى الأمر بفرض الحماية سنة 1912.',
+    explain: [
+      'لم يكن فرض الحماية على المغرب حدثاً مفاجئاً. فقد سبقه مسار طويل من التدخلات والضغوط. في البداية، واجه المغرب ضغوطاً عسكرية، خصوصاً بعد دعمه للأمير عبد القادر الجزائري ضد فرنسا، مما أدى إلى معركة إيسلي سنة 1844، ثم معاهدة للا مغنية سنة 1845.',
+      'بعد ذلك تعرض المغرب لضغط إسباني من خلال حرب تطوان بين 1859 و1860، والتي أضعفت مالية الدولة المغربية بسبب الغرامات والتعويضات. ومع مرور الوقت، تزايدت الامتيازات الأجنبية التي حصل عليها الأوروبيون، مثل الحماية القنصلية والامتيازات التجارية، فضعفت سيادة المخزن على بعض رعاياه ومجاله الاقتصادي.',
+      'حاول المغرب القيام بإصلاحات عسكرية وإدارية ومالية لمواجهة الضغط الأوروبي، لكنها لم تكن كافية بسبب ضعف الإمكانيات وتزايد التدخل الأجنبي. وفي سنة 1906، شكّل مؤتمر الجزيرة الخضراء محطة مهمة لأنه جعل المسألة المغربية موضوعاً دولياً، ومنح فرنسا وإسبانيا نفوذاً متزايداً.',
+      'وفي النهاية، أدى التدخل العسكري والسياسي والاقتصادي إلى فرض معاهدة الحماية سنة 1912، ففقد المغرب جزءاً كبيراً من سيادته، وأصبح خاضعاً للنفوذ الاستعماري الفرنسي والإسباني.'
+    ],
+    concepts: [
+      {term:'الضغط الاستعماري', def:'أساليب عسكرية واقتصادية ودبلوماسية وسياسية تستعملها الدول الاستعمارية لإضعاف بلد والسيطرة عليه.'},
+      {term:'الحماية القنصلية', def:'امتياز كان يمنح لبعض المغاربة حماية أجنبية، مما أضعف سلطة الدولة عليهم.'},
+      {term:'الامتيازات الأجنبية', def:'حقوق خاصة حصل عليها الأجانب في المغرب، مثل التجارة والحماية والتدخل القنصلي.'},
+      {term:'مؤتمر الجزيرة الخضراء', def:'مؤتمر دولي سنة 1906 ناقش المسألة المغربية ومهّد لتزايد النفوذ الأجنبي.'},
+      {term:'الحماية', def:'نظام استعماري يحتفظ فيه البلد ببعض المظاهر الشكلية للسلطة، بينما تتحكم الدولة المستعمِرة في القرار الحقيقي.'}
+    ],
+    dates: [
+      {y:'1844', l:'معركة إيسلي بين المغرب وفرنسا.'},
+      {y:'1845', l:'معاهدة للا مغنية.'},
+      {y:'1859-1860', l:'حرب تطوان بين المغرب وإسبانيا.'},
+      {y:'1880', l:'مؤتمر مدريد الذي رسخ بعض الامتيازات الأجنبية.'},
+      {y:'1906', l:'مؤتمر الجزيرة الخضراء.'},
+      {y:'1912', l:'فرض الحماية على المغرب.'}
+    ],
+    subLists: [
+      {label:'ضغط عسكري', items:['الهزائم العسكرية (إيسلي، تطوان)','التدخلات العسكرية الأجنبية']},
+      {label:'ضغط اقتصادي', items:['الغرامات والتعويضات','الامتيازات التجارية','تزايد الديون والارتباط بالخارج']},
+      {label:'ضغط دبلوماسي', items:['المؤتمرات والمعاهدات','تدخل القناصل الأجانب']},
+      {label:'ضغط سياسي', items:['تقليص سيادة الدولة المغربية','فرض الحماية سنة 1912']}
+    ],
+    summary: 'تصاعد الضغط الاستعماري على المغرب تدريجياً خلال القرن 19 وبداية القرن 20، من هزائم عسكرية إلى امتيازات اقتصادية وتدخلات دبلوماسية وسياسية. ورغم محاولات الإصلاح، استغل الأوروبيون ضعف المغرب وتنافسوا حوله، إلى أن فُرضت عليه الحماية سنة 1912.',
+    transition: 'لا تحفظ التواريخ منفصلة؛ اجعلها سلماً يصعد فيه الضغط خطوة بعد خطوة حتى يصل إلى الحماية.'
+  },
+  4: {
+    idea: 'اندلعت الحرب العالمية الأولى سنة 1914 نتيجة توتر طويل بين الدول الأوروبية بسبب التنافس الإمبريالي والتحالفات العسكرية والسباق نحو التسلح والنزعات القومية. وكانت حادثة اغتيال ولي عهد النمسا في سراييفو السبب المباشر لاشتعال الحرب. وقد خلفت الحرب خسائر بشرية واقتصادية كبيرة، وغيرت الخريطة السياسية لأوروبا والعالم.',
+    explain: [
+      'قبل اندلاع الحرب، كانت أوروبا تعيش توتراً كبيراً. فقد تنافست الدول الكبرى حول المستعمرات والأسواق والنفوذ، كما انقسمت إلى أحلاف عسكرية متقابلة. ومع تطور الصناعة العسكرية، دخلت الدول في سباق نحو التسلح، فصار أي حادث سياسي قادراً على إشعال صراع واسع.',
+      'زادت النزعات القومية من حدة التوتر، خصوصاً في منطقة البلقان، حيث كانت الشعوب تطالب بالاستقلال أو التوسع. وفي سنة 1914، اغتيل ولي عهد النمسا في سراييفو، فتحولت الأزمة إلى حرب بين التحالفات الأوروبية.',
+      'مرت الحرب بمراحل مختلفة. في البداية ظهرت حرب الحركة، ثم تحولت إلى حرب الخنادق، حيث بقي الجنود مدة طويلة في خنادق محصنة وسط ظروف قاسية. وفي سنة 1917 دخلت الولايات المتحدة الحرب إلى جانب دول الوفاق، بينما انسحبت روسيا بعد الثورة، ثم انتهت الحرب سنة 1918.',
+      'خلفت الحرب نتائج خطيرة. فقد سقط ملايين القتلى والجرحى، ودُمرت المصانع والطرق والحقول، وارتفعت الديون. كما انهارت إمبراطوريات كبرى، وظهرت دول جديدة، وعقد مؤتمر الصلح سنة 1919، وتأسست عصبة الأمم بهدف حفظ السلم العالمي.'
+    ],
+    concepts: [
+      {term:'الحرب العالمية الأولى', def:'حرب دولية اندلعت سنة 1914 وانتهت سنة 1918، شاركت فيها قوى كبرى من أوروبا وخارجها.'},
+      {term:'التحالفات العسكرية', def:'اتفاقات بين دول للدفاع المشترك أو مواجهة خصوم معينين.'},
+      {term:'الوفاق الثلاثي', def:'تحالف ضم أساساً فرنسا وبريطانيا وروسيا.'},
+      {term:'التحالف الثلاثي', def:'تحالف ضم ألمانيا والنمسا-هنغاريا وإيطاليا قبل الحرب.'},
+      {term:'حرب الخنادق', def:'أسلوب قتالي يقوم على تمركز الجنود في خنادق طويلة ومحفورة.'},
+      {term:'عصبة الأمم', def:'منظمة دولية تأسست بعد الحرب للحفاظ على السلم.'}
+    ],
+    dates: [
+      {y:'1914', l:'اغتيال ولي عهد النمسا واندلاع الحرب العالمية الأولى.'},
+      {y:'1914-1918', l:'مدة الحرب العالمية الأولى.'},
+      {y:'1917', l:'دخول الولايات المتحدة الحرب وانسحاب روسيا.'},
+      {y:'1918', l:'نهاية الحرب.'},
+      {y:'1919', l:'مؤتمر الصلح ومعاهدة فرساي وتأسيس عصبة الأمم.'}
+    ],
+    subLists: [
+      {label:'أسباب غير مباشرة', items:['التنافس الإمبريالي','التحالفات العسكرية المتقابلة','السباق نحو التسلح','النزعات القومية (خاصة بالبلقان)']},
+      {label:'السبب المباشر', items:['اغتيال ولي عهد النمسا في سراييفو 1914']},
+      {label:'نتائج بشرية واقتصادية', items:['ملايين القتلى والجرحى','دمار المصانع والحقول والطرق وارتفاع الديون']},
+      {label:'نتائج سياسية', items:['سقوط إمبراطوريات كبرى','ظهور دول جديدة','معاهدة فرساي وتأسيس عصبة الأمم']}
+    ],
+    summary: 'اندلعت الحرب العالمية الأولى بسبب التنافس الإمبريالي والتحالفات والتسلح والنزعات القومية، بينما كان اغتيال ولي عهد النمسا السبب المباشر. وقد خلفت الحرب خسائر بشرية واقتصادية هائلة، وأدت إلى تغير الخريطة السياسية بسقوط إمبراطوريات وظهور دول جديدة وتأسيس عصبة الأمم.',
+    transition: 'الحرب لا تبدأ من سبب واحد فقط؛ ابحث دائماً عن التراكمات، ثم عن الشرارة التي أشعلت النار.'
+  },
+  5: {
+    idea: 'دخلت الإمبراطورية العثمانية مرحلة ضعف خلال القرن 19 وبداية القرن 20 بسبب عوامل داخلية وخارجية. وبعد مشاركتها في الحرب العالمية الأولى إلى جانب ألمانيا، تعرضت للهزيمة والتفكك. واستغلت القوى الاستعمارية، خاصة بريطانيا وفرنسا، هذا الوضع لتقسيم المشرق العربي وفرض نظام الانتداب.',
+    explain: [
+      'كانت الإمبراطورية العثمانية في الماضي قوة واسعة تمتد في مناطق كثيرة، لكنها بدأت تضعف تدريجياً. من أسباب هذا الضعف تراجع الجيش والإدارة، وكثرة الديون، وتدخل الدول الأوروبية، وظهور حركات قومية تطالب بالاستقلال في بعض المناطق.',
+      'خلال الحرب العالمية الأولى، دخلت الدولة العثمانية الحرب إلى جانب ألمانيا والنمسا-هنغاريا. وبعد هزيمة هذا المعسكر، ضعفت الدولة العثمانية أكثر، وفقدت السيطرة على عدد من مناطقها، خاصة في المشرق العربي.',
+      'في هذه المرحلة، تدخلت بريطانيا وفرنسا في المنطقة. وقد عُقدت اتفاقات سرية مثل سايكس بيكو سنة 1916، قسمت مناطق النفوذ بينهما. كما صدر وعد بلفور سنة 1917 الذي ارتبط ببداية تعقيد القضية الفلسطينية.',
+      'بعد الحرب، فرضت عصبة الأمم نظام الانتداب، فخضعت مناطق في المشرق العربي للانتداب البريطاني أو الفرنسي. وهكذا لم تحصل الشعوب العربية على استقلال حقيقي، بل انتقلت من سلطة عثمانية ضعيفة إلى سيطرة استعمارية جديدة.'
+    ],
+    concepts: [
+      {term:'الإمبراطورية العثمانية', def:'دولة واسعة حكمت مناطق متعددة لقرون، منها أجزاء من العالم العربي.'},
+      {term:'المشرق العربي', def:'المجال العربي الواقع في غرب آسيا، مثل العراق وسوريا ولبنان وفلسطين والأردن.'},
+      {term:'سايكس بيكو', def:'اتفاقية سرية سنة 1916 بين بريطانيا وفرنسا لتقسيم مناطق النفوذ في المشرق العربي.'},
+      {term:'وعد بلفور', def:'تصريح بريطاني سنة 1917 دعم إقامة وطن قومي لليهود في فلسطين.'},
+      {term:'الانتداب', def:'نظام فرضته عصبة الأمم بعد الحرب، لكنه تحول عملياً إلى شكل من أشكال السيطرة الاستعمارية.'}
+    ],
+    dates: [
+      {y:'1908', l:'ثورة تركيا الفتاة، ضمن محاولات إصلاح الدولة العثمانية.'},
+      {y:'1914-1918', l:'الحرب العالمية الأولى.'},
+      {y:'1916', l:'اتفاقية سايكس بيكو.'},
+      {y:'1917', l:'وعد بلفور.'},
+      {y:'1918', l:'هزيمة الدولة العثمانية في الحرب.'},
+      {y:'بعد 1919', l:'تكريس نظام الانتداب في مناطق من المشرق العربي.'}
+    ],
+    subLists: [
+      {label:'أسباب ضعف الدولة العثمانية', items:['ضعف الجيش والإدارة','التدهور الاقتصادي والديون','التدخل الأوروبي في شؤونها','تنامي الحركات القومية','الهزيمة في الحرب العالمية الأولى']},
+      {label:'نتائج التدخل الاستعماري', items:['تفكك الإمبراطورية العثمانية','تقسيم المشرق العربي إلى مناطق نفوذ','خضوع شعوب عربية للانتداب','نمو الحركات الوطنية المطالبة بالاستقلال','تعقيد القضية الفلسطينية']}
+    ],
+    summary: 'انهارت الإمبراطورية العثمانية نتيجة ضعف داخلي وتدخل أوروبي وهزيمتها في الحرب العالمية الأولى. واستغلت بريطانيا وفرنسا هذا الانهيار لتقسيم المشرق العربي عبر اتفاقات مثل سايكس بيكو وفرض نظام الانتداب، مما أدى إلى سيطرة استعمارية جديدة وظهور حركات وطنية مقاومة.',
+    transition: 'عندما تضعف دولة كبيرة، لا يختفي أثرها بسرعة؛ أحياناً يفتح ضعفها باباً لتدخل قوى أخرى وتقسيم مجالها.'
+  },
+  6: {
+    idea: 'بدأت أزمة 1929 في الولايات المتحدة بانهيار بورصة وول ستريت بعد تضخم المضاربات وضعف التوازن بين الإنتاج والاستهلاك. وسرعان ما انتقلت الأزمة إلى الأبناك والمصانع والتجارة، ثم انتشرت في دول كثيرة بسبب العلاقات الاقتصادية والمالية العالمية. وقد خلفت الأزمة بطالة وفقرًا وتراجعاً في الإنتاج والتجارة، ودفعت الدول إلى التدخل في الاقتصاد.',
+    explain: [
+      'بعد الحرب العالمية الأولى، عرفت الولايات المتحدة نمواً اقتصادياً مهماً، لكن هذا النمو لم يكن متوازناً. فقد زاد الإنتاج الصناعي والفلاحي، بينما لم تكن القدرة الشرائية للسكان دائماً كافية لاستهلاك كل المنتجات. كما انتشرت المضاربات في البورصة، حيث اشترى كثيرون الأسهم أملاً في الربح السريع.',
+      'في أكتوبر 1929 انهارت أسعار الأسهم في بورصة وول ستريت، فخسر المستثمرون أموالاً كبيرة. هذا الانهيار أثر على الأبناك، لأن بعضها كان يمول المضاربات أو يقدم القروض. ومع إفلاس الأبناك، تراجعت القروض والاستثمارات.',
+      'بعد ذلك أغلقت مصانع كثيرة أبوابها بسبب انخفاض الطلب وصعوبة التمويل، فانتشرت البطالة وتراجع دخل الأسر. ومع انخفاض الاستهلاك، زادت الأزمة عمقاً. كما تراجعت التجارة العالمية وانتقلت الأزمة إلى أوروبا ومناطق أخرى مرتبطة بالاقتصاد الأمريكي.',
+      'لمواجهة الأزمة، بدأت بعض الدول تتخلى عن فكرة ترك الاقتصاد يسير وحده، وتدخلت الدولة لتنظيم الإنتاج، ومساعدة العاطلين، وتشجيع الأشغال العمومية. في الولايات المتحدة ارتبط هذا التدخل بسياسة العهد الجديد.'
+    ],
+    concepts: [
+      {term:'الأزمة الاقتصادية', def:'اضطراب كبير يصيب الاقتصاد ويؤدي إلى تراجع الإنتاج والتجارة وارتفاع البطالة.'},
+      {term:'البورصة', def:'سوق بيع وشراء الأسهم والسندات.'},
+      {term:'المضاربة', def:'شراء وبيع الأسهم بهدف الربح السريع، مع تحمل خطر الخسارة.'},
+      {term:'انهيار وول ستريت', def:'سقوط كبير في أسعار الأسهم ببورصة نيويورك سنة 1929.'},
+      {term:'الإفلاس', def:'عجز مؤسسة أو بنك عن أداء ديونه والتزاماته.'},
+      {term:'تدخل الدولة', def:'قيام الدولة بإجراءات اقتصادية واجتماعية للحد من آثار الأزمة.'}
+    ],
+    dates: [
+      {y:'1929', l:'اندلاع الأزمة الاقتصادية العالمية.'},
+      {y:'أكتوبر 1929', l:'انهيار بورصة وول ستريت.'},
+      {y:'الثلاثينيات', l:'انتشار آثار الأزمة ومحاولات مواجهتها في عدة دول.'},
+      {y:'العهد الجديد', l:'سياسة تدخلية في الولايات المتحدة لمواجهة آثار الأزمة.'}
+    ],
+    subLists: [
+      {label:'أسباب الأزمة', items:['تضخم المضاربات في البورصة','ارتفاع الإنتاج أكثر من قدرة السوق','كثرة القروض وسهولة الائتمان','ضعف القدرة الشرائية','ارتباط الاقتصاد الأمريكي باقتصادات أخرى']},
+      {label:'مظاهر اقتصادية واجتماعية', items:['انهيار الأسهم وإفلاس الأبناك','إغلاق المصانع وتراجع الإنتاج','انتشار البطالة وتراجع الدخل','انتقال الأزمة إلى أوروبا والعالم']},
+      {label:'نتائج الأزمة', items:['تزايد تدخل الدولة في الاقتصاد','سياسات اجتماعية لمساعدة العاطلين','تراجع الثقة في الرأسمالية الحرة المطلقة','احتداد التوترات الاجتماعية والسياسية']}
+    ],
+    summary: 'اندلعت أزمة 1929 بسبب المضاربات في البورصة واختلال التوازن بين الإنتاج والاستهلاك وسهولة القروض. بدأت بانهيار وول ستريت ثم امتدت إلى الأبناك والمصانع والتجارة، وانتشرت عالمياً. وخلفت الأزمة بطالة وفقرًا وتراجعاً اقتصادياً، مما دفع الدول إلى التدخل لتنظيم الاقتصاد ومواجهة آثار الأزمة.',
+    transition: 'الأزمة مثل سلسلة؛ إذا سقطت الحلقة الأولى في البورصة، قد تسقط بعدها الأبناك والمصانع والعمل. رتب الحلقات وستفهم الدرس.'
+  }
+};
+
+function hxRenderLearn(container, st) {
+  const lr = HISTORY_LEARN[st.id];
+  const tabs = [
+    { key:'idea', label:'💡 الفكرة الأساسية' },
+    { key:'explain', label:'📖 الشرح المبسط' },
+    { key:'concepts', label:'🔑 مفاهيم وتواريخ' },
+    { key:'summary', label:'📌 خلاصة للحفظ' }
+  ];
+  let tabsHtml = tabs.map((t,i) => `<button type="button" class="learn-tab-btn${i===0?' active':''}" aria-pressed="${i===0}" data-tab="${t.key}">${t.label}</button>`).join('');
+
+  let ideaPanel = `<div class="learn-p">${lr.idea}</div>`;
+  let explainPanel = lr.explain.map(p => `<div class="learn-p">${p}</div>`).join('');
+  let conceptsPanel = `<div class="learn-concepts">${lr.concepts.map(c => `<div class="learn-concept"><b>${c.term}:</b> ${c.def}</div>`).join('')}</div>`;
+  if (lr.dates.length) {
+    conceptsPanel += `<div class="learn-dates">${lr.dates.map(d => `<div class="learn-date"><b>${d.y}</b><span>${d.l}</span></div>`).join('')}</div>`;
+  }
+  let summaryPanel = `<div class="learn-summary">${lr.summary}</div>`;
+  if (lr.subLists && lr.subLists.length) {
+    summaryPanel += `<div class="learn-sub-lists">${lr.subLists.map(sl => `<div class="learn-sub-list"><b>${sl.label}</b><ul>${sl.items.map(it=>'<li>'+it+'</li>').join('')}</ul></div>`).join('')}</div>`;
+  }
+
+  container.innerHTML = `
+    <div class="learn-card">
+      <div class="lbl">📚 أفهم قبل أن أجيب</div><div class="lesson-tools"><button type="button" class="btn ghost" onclick="printHistorySummary(${st.id})">طباعة ملخص الدرس</button></div>
+      <div class="learning-tabs" aria-label="أقسام شرح الدرس">${tabsHtml}</div>
+      <div class="learning-panel active" data-panel="idea">${ideaPanel}</div>
+      <div class="learning-panel" data-panel="explain">${explainPanel}</div>
+      <div class="learning-panel" data-panel="concepts">${conceptsPanel}</div>
+      <div class="learning-panel" data-panel="summary">${summaryPanel}</div>
+      <div class="learn-transition"><img src="assets/ibn-battuta.webp" alt="ابن بطوطة" onerror="this.remove()">${lr.transition}</div>
+    </div>
+  `;
+  container.querySelectorAll('.learn-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      container.querySelectorAll('.learn-tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+      container.querySelectorAll('.learning-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed','true');
+      container.querySelector('[data-panel="' + btn.dataset.tab + '"]').classList.add('active');
+    });
+  });
+}
+
+function hxShowLearnStage() {
+  lsStage = 'learn';
+  document.getElementById('stageIntro').style.display = 'none';
+  document.getElementById('stageLearn').style.display = 'block';
+  document.getElementById('lnMainBtn').textContent = 'فهمت، أبدأ النشاط →';
+  document.getElementById('stationScreen').querySelector('.ls-body').scrollTop = 0;
+  hxRenderLearn(document.getElementById('stageLearn'), currentStation);
+}
+/* HISTORY CONTENT PACK END */
+
+
+let answerHistory = [], feedbackPending = false, quizSession = 0, stationFinished = false;
+function plainText(value) { return typeof value === 'string' && value.trim().length > 0 && value.length <= 6000 && !/[<>]/.test(value); }
+function validQuestionBank(bank) {
+  return Array.isArray(bank) && bank.length === DEFAULT_STATIONS.length && bank.every((st,i) =>
+    st && st.id === DEFAULT_STATIONS[i].id && st.component === DEFAULT_STATIONS[i].component &&
+    ['title','brief','icon'].every(k => plainText(st[k])) && Array.isArray(st.questions) && st.questions.length === 3 &&
+    st.questions.every(q => q && plainText(q.question) && plainText(q.explanation) &&
+      Array.isArray(q.options) && q.options.length >= 2 && q.options.length <= 6 && q.options.every(plainText) &&
+      Number.isInteger(q.correct) && q.correct >= 0 && q.correct < q.options.length));
+}
+function safeWrite(key,value,session=false) {
+  try { (session ? sessionStorage : localStorage).setItem(key,value); return true; }
+  catch(e) { showToast('تعذر الحفظ على هذا الجهاز. يمكنك مواصلة العمل خلال هذه الجلسة.'); return false; }
+}
+function safeRead(key,session=false) {
+  try { return (session ? sessionStorage : localStorage).getItem(key); } catch(e) { return null; }
+}
+function escapeText(value) { return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function shuffled(items) {
+  const out = [...items];
+  for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}
+  return out;
+}
+function printHistorySummary(id) {
+  const selected = stations.filter(st => hxIsHistory(st.id) && (!id || st.id === id));
+  document.getElementById('lessonPrintArea').innerHTML = selected.map(st => {
+    const lr=HISTORY_LEARN[st.id];
+    return `<article><p>الاجتماعيات • الثالثة إعدادي • الأسدس الأول</p><h1>${escapeText(st.title)}</h1>
+      <h2>الخلاصة</h2><p>${escapeText(lr.summary)}</p>
+      ${(lr.subLists||[]).map(sl=>`<h2>${escapeText(sl.label)}</h2><ul>${sl.items.map(x=>`<li>${escapeText(x)}</li>`).join('')}</ul>`).join('')}
+      <h2>المفاهيم الأساسية</h2><ul>${lr.concepts.map(c=>`<li><strong>${escapeText(c.term)}:</strong> ${escapeText(c.def)}</li>`).join('')}</ul>
+      ${lr.dates.length?`<h2>معالم زمنية وأحداث</h2><ul>${lr.dates.map(d=>`<li><strong>${escapeText(d.y)}:</strong> ${escapeText(d.l)}</li>`).join('')}</ul>`:''}
+      <p>إعداد: الأستاذ أحمد بوعمود — مؤسسة الحنان، أكادير</p></article>`;
+  }).join('');
+  document.body.classList.add('print-lesson');
+  window.print();
+}
+window.addEventListener('afterprint',()=>document.body.classList.remove('print-lesson'));
+function finalChallengeResult() {
+  const total=currentStation.questions.length;
+  const results=stations.filter(st=>hxIsHistory(st.id)).map(st=>({st,correct:answerHistory.filter(a=>a.stationId===st.id&&a.correct).length}));
+  lsStage='review';
+  document.getElementById('stageQuiz').innerHTML=`<div class="qcard"><h2>نتيجة التحدي الجامع في التاريخ</h2><p class="review-score">${currentScore} / ${total}</p><p>تدريب للمراجعة، وليس نقطة امتحان رسمي. راجع الدروس التي تحتاج إلى تثبيت.</p>${results.map(r=>`<div class="review-row"><strong>${escapeText(r.st.title)}</strong><p>${r.correct} / 2 إجابات صحيحة</p><button class="btn ghost" onclick="openStation(${r.st.id})">راجع هذا الدرس</button></div>`).join('')}<div class="lesson-tools"><button class="btn primary" onclick="openFinalChallenge()">تحدٍّ جديد</button><button class="btn ghost" onclick="closeStationScreen()">العودة إلى الخريطة</button></div></div>`;
+  document.getElementById('stationScreen').querySelector('.ls-body').scrollTop=0;
+}
+
 function clone(obj) { return JSON.parse(JSON.stringify(obj)); }
 function loadQuestionBank() {
-  try { return JSON.parse(localStorage.getItem(DATA_KEY) || JSON.stringify(DEFAULT_STATIONS)); }
+  try { const bank=JSON.parse(safeRead(DATA_KEY)||'null'); return validQuestionBank(bank) ? bank : clone(DEFAULT_STATIONS); }
   catch(e) { return clone(DEFAULT_STATIONS); }
 }
-function saveQuestionBank() { localStorage.setItem(DATA_KEY, JSON.stringify(stations)); }
+
+function saveQuestionBank() { return safeWrite(DATA_KEY, JSON.stringify(stations)); }
+
 function loadProgress() {
-  const base = { name:'', completed:{}, rewards:{}, bestStars:0 };
+  const base={name:'',completed:{},rewards:{},bestStars:0};
   try {
-    const stored = JSON.parse(localStorage.getItem(PROGRESS_KEY) || 'null');
-    return Object.assign(base, stored || {}, { completed: Object.assign({}, (stored||{}).completed || {}), rewards: Object.assign({}, (stored||{}).rewards || {}) });
+    const saved=JSON.parse(safeRead(PROGRESS_KEY)||'null');
+    if(!saved || typeof saved !== 'object') return base;
+    base.name=typeof saved.name==='string'?saved.name.slice(0,80):'';
+    stations.forEach(st=>{const score=saved.completed?.[st.id];if(Number.isInteger(score)&&score>=0&&score<=3)base.completed[st.id]=score;});
+    MILESTONES.forEach(m=>{if(saved.rewards?.[m.id]===true&&Object.keys(base.completed).length>=m.count)base.rewards[m.id]=true;});
+    base.bestStars=Math.max(0,...Object.values(base.completed));
+    return base;
   } catch(e) { return base; }
 }
-function saveProgress() { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); }
-function loadSoundPref() { const s = localStorage.getItem(SOUND_KEY); return s === null ? true : s === '1'; }
+
+function saveProgress() { return safeWrite(PROGRESS_KEY, JSON.stringify(progress)); }
+
+function loadSoundPref() { return safeRead(SOUND_KEY) === '1'; }
 let stations = loadQuestionBank();
 let progress = loadProgress();
 let soundEnabled = loadSoundPref();
@@ -1974,14 +2869,14 @@ function progressPct() { return Math.round(Object.keys(progress.completed || {})
 function completedRange(a,b) { for(let i=a;i<=b;i++) if(progress.completed[i] === undefined) return false; return true; }
 function currentBadges() { return BADGES.filter(b=>b.test()); }
 function currentStepId() { return stations.find(st => isUnlocked(st.id) && progress.completed[st.id] === undefined)?.id || stations.length; }
-function isUnlocked(id) { return id === 1 || progress.completed[id-1] !== undefined; }
+function isUnlocked(id) { if (hxIsHistory(id)) return true; /* LESSON PICKER: اختيار حر لدروس التاريخ الستة */ return id === 1 || progress.completed[id-1] !== undefined; }
 function stationStars(id) { return Number(progress.completed[id] ?? 0); }
 function levelLabel() { const s=totalStars(); if(s>=55) return 'أسطورة المحلي'; if(s>=50) return 'ممتاز'; if(s>=33) return 'متقدم'; if(s>=17) return 'مجتهد'; return 'مبتدئ'; }
 function unlockedRewardsCount() { return MILESTONES.filter(m => progress.rewards && progress.rewards[m.id]).length; }
 function lastRewardLabel() { const found = MILESTONES.filter(m => progress.rewards && progress.rewards[m.id]); return found.length ? found[found.length-1].label : 'لم تُفتح بعد'; }
 function showToast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
 function updateSoundButton() { const btn = document.getElementById('soundBtn'); btn.textContent = soundEnabled ? '🔊 الصوت: شغّال' : '🔇 الصوت: متوقف'; btn.classList.toggle('sound-off', !soundEnabled); }
-function saveSoundPref() { localStorage.setItem(SOUND_KEY, soundEnabled ? '1' : '0'); }
+function saveSoundPref() { safeWrite(SOUND_KEY, soundEnabled ? '1' : '0'); }
 function toggleSound() { soundEnabled = !soundEnabled; saveSoundPref(); updateSoundButton(); if(soundEnabled) playTone('good'); showToast(soundEnabled ? 'تم تشغيل الأصوات' : 'تم إيقاف الأصوات'); }
 function playPattern(notes=[440], step=120, type='sine', gainValue=.06) {
   if(!soundEnabled) return;
@@ -2080,7 +2975,7 @@ function renderRewards() {
 function hideSplash() {
   const s = document.getElementById('luxurySplash');
   if(s) s.classList.add('hidden');
-  sessionStorage.setItem('rihla_mahali_splash_seen','1');
+  safeWrite('rihla_mahali_splash_seen','1',true);
   playTone('finish');
 }
 
@@ -2095,8 +2990,8 @@ function startFromSplash() {
   if(name) showToast('أشرعت السفينة يا ' + name + '، وبدأت الرحلة!');
   else showToast('انطلق! يمكنك كتابة اسمك في أي وقت.');
   const allDone = Object.keys(progress.completed).length >= stations.length;
-  const nextId = currentStepId();
-  setTimeout(() => { if(allDone) openCertificate(); else openStation(nextId); }, 450);
+  /* LESSON PICKER: لا نفرض فتح محطة خطية؛ نوجّه التلميذ لقسم اختيار الدروس */
+  setTimeout(() => { if(allDone) openCertificate(); else scrollToLessonPicker(); }, 450);
 }
 
 function resumeJourney() {
@@ -2104,19 +2999,22 @@ function resumeJourney() {
   renderAll();
   const done = Object.keys(progress.completed || {}).length;
   const allDone = done >= stations.length;
-  if(done > 0) {
-    if(allDone) {
-      showToast('أتممت الرحلة! يمكنك فتح الشهادة الآن.');
-      setTimeout(() => openCertificate(), 450);
-    } else {
-      showToast('مرحباً مجدداً! تقدمك محفوظ — نواصل الرحلة.');
-      setTimeout(() => openStation(currentStepId()), 450);
-    }
+  const nextHistoryId = [1,2,3,4,5,6].find(id => progress.completed[id] === undefined); /* LESSON PICKER */
+  if(allDone) {
+    showToast('أتممت الرحلة! يمكنك فتح الشهادة الآن.');
+    setTimeout(() => openCertificate(), 450);
+  } else if(nextHistoryId) {
+    showToast('مرحباً مجدداً! نواصل من حيث توقفت في دروس التاريخ.');
+    setTimeout(() => openStation(nextHistoryId), 450);
+  } else if(done > 0) {
+    showToast('أتممت دروس التاريخ! يمكنك متابعة باقي الخريطة الكبرى.');
+    setTimeout(() => scrollToRoute(true), 450);
   } else {
-    showToast('لم تبدأ الرحلة بعد. اكتب اسمك واضغط انطلق!');
+    showToast('لم تبدأ الرحلة بعد. اختر درساً من قسم "اختر درسك"!');
+    setTimeout(() => scrollToLessonPicker(), 450);
   }
 }
-if(sessionStorage.getItem('rihla_mahali_splash_seen') === '1') {
+if(safeRead('rihla_mahali_splash_seen',true) === '1') {
   setTimeout(()=>{ const s=document.getElementById('luxurySplash'); if(s) s.classList.add('hidden'); }, 50);
 }
 function nextRewardInfo() {
@@ -2152,7 +3050,7 @@ function renderStats() {
   if(certBtn) { certBtn.textContent = allDone ? '🏆 افتح الشهادة ✅' : '🏆 الشهادة 🔒'; certBtn.className = allDone ? 'btn gold' : 'btn ghost'; }
   updateSoundButton(); updateMascot(); updateMissionCards();
 }
-function renderAll() { renderStats(); renderRoutePath(); renderRouteNodes(); renderBadges(); renderRewards(); }
+function renderAll() { renderStats(); renderRoutePath(); renderRouteNodes(); renderBadges(); renderRewards(); updateHistoryProgressUI(); renderLessonPicker(); /* HISTORY ENRICHMENT + LESSON PICKER */ }
 function startJourney() {
   const name = document.getElementById('studentName').value.trim();
   if(name) { progress.name = name; saveProgress(); }
@@ -2161,10 +3059,45 @@ function startJourney() {
   if(progress.name) showToast('أشرعت السفينة يا ' + progress.name + '، وبدأت الرحلة!');
   else showToast('انطلق! يمكنك كتابة اسمك في أي وقت.');
   const allDone = Object.keys(progress.completed).length >= stations.length;
-  const nextId = currentStepId();
-  setTimeout(() => { if(allDone) openCertificate(); else openStation(nextId); }, 350);
+  /* LESSON PICKER: لا نفرض فتح محطة خطية؛ نوجّه التلميذ لقسم اختيار الدروس */
+  setTimeout(() => { if(allDone) openCertificate(); else scrollToLessonPicker(); }, 350);
 }
 function scrollToRoute(centerCurrent=false) { const board = document.getElementById('routeBoard'); document.getElementById('routeSection').scrollIntoView({behavior:'smooth', block:'start'}); if(centerCurrent) setTimeout(()=>board.scrollIntoView({behavior:'smooth', block:'center'}), 200); }
+/* LESSON PICKER START */
+function scrollToLessonPicker() { document.getElementById('lessonPickerSection').scrollIntoView({behavior:'smooth', block:'start'}); }
+function openFinalChallenge() {
+  const historyDone = [1,2,3,4,5,6].every(id => progress.completed[id] !== undefined);
+  if(!historyDone){showToast('أكمل دروس التاريخ الستة أولاً لفتح التحدي الجامع');scrollToLessonPicker();return;}
+  currentStation={id:'history-final',component:'التاريخ',title:'التحدي الجامع',challenge:true,
+    questions:shuffled(stations.filter(st=>hxIsHistory(st.id)).flatMap(st=>shuffled(st.questions).slice(0,2).map(q=>({...q,stationId:st.id}))))};
+  currentQuestionIndex=0;currentScore=0;selectedOption=null;answered=false;
+  answerHistory=[];feedbackPending=false;stationFinished=false;quizSession++;
+  document.getElementById('fbSheet').className='fb-sheet';
+  document.getElementById('stationScreen').classList.add('open');document.body.style.overflow='hidden';
+  showQuizStage();
+}
+
+function renderLessonPicker() {
+  const grid = document.getElementById('lessonPickerGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  stations.filter(st => hxIsHistory(st.id)).forEach(st => {
+    const starsEarned = progress.completed[st.id];
+    const done = starsEarned !== undefined;
+    const card = document.createElement('article');
+    card.className = 'lesson-pick-card' + (done ? ' done' : '');
+    card.innerHTML = `
+      <div class="num">${st.id}</div>
+      <h3>${st.icon || '📜'} ${st.title}</h3>
+      <p>${st.brief}</p>
+      <div class="stars">${done ? '⭐'.repeat(starsEarned) + ' مكتمل' : 'لم تبدأ بعد'}</div>
+      <div class="lesson-tools"><button type="button">${done ? '🔁 أعد المحاولة' : '▶️ ابدأ الدرس'}</button><button class="summary-btn" type="button" onclick="printHistorySummary(${st.id})">طباعة الملخص</button></div>
+    `;
+    card.querySelector('button').addEventListener('click', () => openStation(st.id));
+    grid.appendChild(card);
+  });
+}
+/* LESSON PICKER END */
 function randomUnlockedStation() { const arr = stations.filter(st => isUnlocked(st.id)); return arr[Math.floor(Math.random()*arr.length)]; }
 function openRandomStation() { const st = randomUnlockedStation(); if(st) openStation(st.id); }
 function openSurprise(reshuffle=false) { const modal = document.getElementById('surpriseModal'); const txt = SURPRISES[Math.floor(Math.random()*SURPRISES.length)]; document.getElementById('surpriseContent').innerHTML = `<div style="font-size:48px">🧭</div><h2 style="margin:8px 0 10px">رسالة من البوصلة</h2><p style="margin:0; line-height:2; color:#334155; font-weight:800">${txt}</p>`; modal.classList.remove('hidden'); if(!reshuffle) playTone('reward'); }
@@ -2186,6 +3119,8 @@ function updateLsProgress(step, total) {
 function openStation(id) {
   if(!isUnlocked(id)) { showToast('هذه المحطة مغلقة. أكمل المحطة السابقة أولاً'); return; }
   currentStation = stations.find(s=>s.id===id);
+  if(!currentStation) return;
+  answerHistory=[];feedbackPending=false;stationFinished=false;quizSession++;
   currentQuestionIndex=0; currentScore=0; selectedOption=null; answered=false;
   lsStage='intro';
   const screen = document.getElementById('stationScreen');
@@ -2197,6 +3132,7 @@ function openStation(id) {
 }
 
 function closeStationScreen() {
+  quizSession++;feedbackPending=false;
   document.getElementById('stationScreen').classList.remove('open');
   const fb = document.getElementById('fbSheet');
   fb.className = 'fb-sheet';
@@ -2209,10 +3145,12 @@ function showIntroStage() {
   const col = compColor(st.component);
   const theme = COMPONENT_THEMES[st.component] || COMPONENT_THEMES['التاريخ'];
   document.getElementById('stageIntro').style.display = 'block';
+  document.getElementById('stageLearn').style.display = 'none'; /* HISTORY CONTENT PACK */
   document.getElementById('stageQuiz').style.display = 'none';
   document.getElementById('lnMainBtn').style.display = '';
   document.getElementById('lnMainBtn').textContent = 'ابدأ الاختبار →';
   document.getElementById('lnMainBtn').disabled = false;
+  document.getElementById('lnMainBtn').onclick = lnMainAction; /* HISTORY ENRICHMENT: يعيد الربط الافتراضي في حال بقي معطلاً من محطة سابقة */
   updateLsProgress(0, st.questions.length);
   document.getElementById('lsStepLbl').textContent = 'محطة ' + st.id;
   document.getElementById('stageIntro').innerHTML = `
@@ -2222,23 +3160,66 @@ function showIntroStage() {
         <h3>${st.title}</h3>
         <span class="comp-tag" style="background:${col}">${theme.icon} ${st.component}</span>
       </div>
-    </div>
+    </div>` + (hxIsHistory(st.id) ? hxRenderHero(st) : '') + `
     <div class="sum-box">
       <div class="lbl">📋 ملخص المحطة</div>
       <p>${st.brief}</p>
     </div>
     <div class="mis-note">
       🎯 أجب على <strong>${st.questions.length} أسئلة</strong> لإتمام هذه المحطة وجمع النجوم
-    </div>`;
+    </div>` + (hxIsHistory(st.id) ? hxRenderProblemObjectives(st) : '');
+  /* HISTORY ENRICHMENT START */
+  if (hxIsHistory(st.id)) {
+    document.getElementById('lnMainBtn').textContent = 'أفهم قبل أن أجيب →'; /* HISTORY CONTENT PACK */
+  }
+  /* HISTORY ENRICHMENT END */
 }
 
 function lnMainAction() {
+  /* HISTORY ENRICHMENT START */
+  if (lsStage === 'intro' && hxIsHistory(currentStation.id)) { hxShowLearnStage(); return; } /* HISTORY CONTENT PACK: المرحلة الجديدة قبل الإنفوغرافيا */
+  if (lsStage === 'learn') { hxShowInfographicStage(); return; } /* HISTORY CONTENT PACK */
+  if (lsStage === 'infographic') { hxShowActivityStage(); return; }
+  /* HISTORY ENRICHMENT END */
   if(lsStage === 'intro') showQuizStage();
 }
+
+/* HISTORY ENRICHMENT START */
+function hxShowInfographicStage() {
+  lsStage = 'infographic';
+  document.getElementById('stageLearn').style.display = 'none'; /* HISTORY CONTENT PACK */
+  document.getElementById('stageIntro').style.display = 'none';
+  document.getElementById('stageInfographic').style.display = 'block';
+  document.getElementById('lnMainBtn').textContent = 'انتقل إلى النشاط →';
+  document.getElementById('stationScreen').querySelector('.ls-body').scrollTop = 0;
+  hxRenderInfographic(document.getElementById('stageInfographic'), currentStation);
+}
+function hxShowActivityStage() {
+  lsStage = 'activity';
+  document.getElementById('stageInfographic').style.display = 'none';
+  document.getElementById('stageActivity').style.display = 'block';
+  document.getElementById('lnMainBtn').style.display = 'none';
+  document.getElementById('stationScreen').querySelector('.ls-body').scrollTop = 0;
+  hxRenderActivity(document.getElementById('stageActivity'), currentStation, () => {
+    const hx = HISTORY_ENRICHMENT[currentStation.id];
+    hxMascotHint(hx.successMsg);
+    const btn = document.getElementById('lnMainBtn');
+    btn.style.display = '';
+    btn.textContent = 'ابدأ الاختبار →';
+    btn.onclick = showQuizStage;
+  });
+}
+/* HISTORY ENRICHMENT END */
 
 function showQuizStage() {
   lsStage = 'quiz';
   document.getElementById('stageIntro').style.display = 'none';
+  /* HISTORY ENRICHMENT START */
+  document.getElementById('stageLearn').style.display = 'none'; /* HISTORY CONTENT PACK */
+  document.getElementById('stageInfographic').style.display = 'none';
+  document.getElementById('stageActivity').style.display = 'none';
+  document.getElementById('lnMainBtn').onclick = lnMainAction;
+  /* HISTORY ENRICHMENT END */
   document.getElementById('stageQuiz').style.display = 'block';
   document.getElementById('lnMainBtn').style.display = 'none';
   document.getElementById('stationScreen').querySelector('.ls-body').scrollTop = 0;
@@ -2250,12 +3231,12 @@ function renderCurrentQuestion() {
   const q = st.questions[currentQuestionIndex];
   selectedOption = null; answered = false;
   updateLsProgress(currentQuestionIndex + 1, st.questions.length);
-  const letters = ['أ','ب','ج','د'];
+  const letters = ['أ','ب','ج','د','هـ','و'];
   const dotsHtml = st.questions.map((_,i) => {
     let cls = 'qdot';
-    if(i < currentQuestionIndex) cls += ' ok';
+    if(i < currentQuestionIndex) cls += answerHistory[i]?.correct ? ' ok' : ' missed';
     else if(i === currentQuestionIndex) cls += ' on';
-    return `<span class="${cls}"></span>`;
+    return `<span class="${cls}" aria-label="السؤال ${i+1}${i<currentQuestionIndex?(answerHistory[i]?.correct?' صحيح':' يحتاج مراجعة'):''}"></span>`;
   }).join('');
   const optsHtml = q.options.map((opt, i) => `
     <button class="optbtn" type="button" onclick="selectOpt(${i},this)">
@@ -2285,6 +3266,7 @@ function commitAnswer() {
   const q = currentStation.questions[currentQuestionIndex];
   const isRight = selectedOption === q.correct;
   if(isRight) currentScore++;
+  answerHistory.push({correct:isRight,stationId:q.stationId||currentStation.id});
   document.querySelectorAll('.optbtn').forEach((b,i) => {
     b.disabled = true;
     if(i === q.correct) b.classList.add('right');
@@ -2301,17 +3283,17 @@ function commitAnswer() {
 }
 
 function afterFeedback() {
-  document.getElementById('fbSheet').className = 'fb-sheet';
-  const isLast = currentQuestionIndex >= currentStation.questions.length - 1;
-  setTimeout(() => {
-    if(isLast) {
-      showCelebration();
-    } else {
-      currentQuestionIndex++;
-      renderCurrentQuestion();
-      document.getElementById('stationScreen').querySelector('.ls-body').scrollTop = 0;
-    }
-  }, 300);
+  if(!answered || feedbackPending || !currentStation) return;
+  feedbackPending=true;
+  const session=quizSession;
+  document.getElementById('fbSheet').className='fb-sheet';
+  const isLast=currentQuestionIndex>=currentStation.questions.length-1;
+  setTimeout(()=>{
+    if(session!==quizSession) return;
+    feedbackPending=false;
+    if(isLast) showCelebration();
+    else {currentQuestionIndex++;renderCurrentQuestion();document.getElementById('stationScreen').querySelector('.ls-body').scrollTop=0;}
+  },300);
 }
 
 function nextQuestion() { afterFeedback(); }
@@ -2319,6 +3301,9 @@ function openRewardModal(m) { document.getElementById('rewardContent').innerHTML
 function closeRewardModal() { document.getElementById('rewardModal').classList.add('hidden'); }
 function checkMilestones() { const done = Object.keys(progress.completed || {}).length; progress.rewards = progress.rewards || {}; const newly = MILESTONES.find(m => done >= m.count && !progress.rewards[m.id]); if(newly) { progress.rewards[newly.id] = true; saveProgress(); renderAll(); setTimeout(()=>openRewardModal(newly),250); } }
 function showCelebration() {
+  if(stationFinished) return;
+  stationFinished=true;
+  if(currentStation.challenge){finalChallengeResult();return;}
   closeStationScreen();
   const prev = Number(progress.completed[currentStation.id] ?? -1);
   progress.completed[currentStation.id] = Math.max(prev, currentScore);
@@ -2339,7 +3324,7 @@ function showCelebration() {
   document.body.style.overflow = 'hidden';
   document.getElementById('celIco').textContent = icos[currentScore] || '🏆';
   document.getElementById('celTitle').textContent = titles[currentScore] || 'أحسنت!';
-  document.getElementById('celXP').textContent = '+' + (currentScore * 20);
+  document.getElementById('celXP').textContent = '+' + (Math.max(0,currentScore-Math.max(0,prev)) * 20);
   document.getElementById('celMsg').textContent = (msgs[currentScore] || '') + ' — أنجزت ' + done + ' من 22 محطة.';
   const starsEl = document.getElementById('celStars');
   starsEl.innerHTML = '';
@@ -2354,6 +3339,19 @@ function showCelebration() {
   if(currentScore === 3) { confetti(); playTone('reward'); } else { playTone('finish'); }
   checkMilestones();
   if(done === stations.length) setTimeout(openCertificate, 1200);
+  /* HISTORY ENRICHMENT START */
+  const extra = document.getElementById('celExtraActions');
+  if (extra) {
+    if (hxIsHistory(currentStation.id) && currentStation.id < 6) {
+      const nextId = currentStation.id + 1;
+      extra.innerHTML = '<button type="button" class="cel-btn teal hx-next-lesson-btn" onclick="closeCelebration();openStation('+nextId+')">الدرس التاريخي التالي ←</button>';
+    } else if (currentStation.id === 6 && completedRange(1,6)) {
+      extra.innerHTML = '<div class="hx-activity-hint" style="margin-top:14px">🏆 أنهيت جزيرة الزمن — التاريخ بالكامل! شارة "مؤرخ رحلة المحلي" بانتظارك.</div>';
+    } else {
+      extra.innerHTML = '';
+    }
+  }
+  /* HISTORY ENRICHMENT END */
 }
 
 function closeCelebration() {
@@ -2369,7 +3367,7 @@ function replayStation() {
 function finishStation() { showCelebration(); }
 function resetProgressConfirm() { if(confirm('هل تريد فعلاً مسح تقدم التلميذ والبدء من جديد؟')) { progress={name:progress.name||'', completed:{}, rewards:{}, bestStars:0}; saveProgress(); renderAll(); showToast('تم مسح التقدم'); } }
 function openCertificateIfReady() { if(Object.keys(progress.completed).length < stations.length) { showToast('أكمل كل المحطات أولاً لفتح الشهادة'); return; } openCertificate(); }
-function openCertificate() { document.getElementById('certName').textContent = progress.name || '................'; document.getElementById('certStats').textContent = `⭐ النجوم: ${totalStars()}/66 — ⚡ الخبرة: ${xp()} XP — 🏅 الشارات: ${currentBadges().length}/6 — 🎁 الجوائز: ${unlockedRewardsCount()}/4`; document.getElementById('certDate').textContent = 'تاريخ الإتمام: ' + new Date().toLocaleDateString('ar-MA'); document.getElementById('certificateModal').classList.remove('hidden'); playTone('reward'); confetti(); }
+function openCertificate() { document.body.classList.remove('print-lesson'); document.getElementById('certName').textContent = progress.name || '................'; document.getElementById('certStats').textContent = `⭐ النجوم: ${totalStars()}/66 — ⚡ الخبرة: ${xp()} XP — 🏅 الشارات: ${currentBadges().length}/6 — 🎁 الجوائز: ${unlockedRewardsCount()}/4`; document.getElementById('certDate').textContent = 'تاريخ الإتمام: ' + new Date().toLocaleDateString('ar-MA'); document.getElementById('certificateModal').classList.remove('hidden'); playTone('reward'); confetti(); }
 function closeCertificate() { document.getElementById('certificateModal').classList.add('hidden'); }
 function openAdmin() { document.getElementById('adminModal').classList.remove('hidden'); document.getElementById('adminPin').focus(); }
 function closeAdmin() { document.getElementById('adminModal').classList.add('hidden'); }
@@ -2378,9 +3376,32 @@ function setupAdmin() { const s=document.getElementById('adminStation'); s.inner
 function loadAdminQuestion() { const st = stations.find(x=>x.id===Number(document.getElementById('adminStation').value)) || stations[0]; const qi = Number(document.getElementById('adminQuestion').value || 0); const q = st.questions[qi]; document.getElementById('adminTitle').value=st.title; document.getElementById('adminComponent').value=st.component; document.getElementById('adminBrief').value=st.brief; document.getElementById('adminIcon').value=st.icon || '⭐'; document.getElementById('adminQuestionText').value=q.question; document.getElementById('adminOptions').value=q.options.join('\n'); document.getElementById('adminExplanation').value=q.explanation; refreshCorrectSelect(q.options.length, q.correct); }
 function refreshCorrectSelect(n, selected) { const c=document.getElementById('adminCorrect'); c.innerHTML=''; for(let i=0;i<n;i++) { const o=document.createElement('option'); o.value=i; o.textContent=(i+1)+' — الاختيار '+(i+1); c.appendChild(o); } c.value=selected; }
 document.addEventListener('input', (e)=>{ if(e.target && e.target.id==='adminOptions') { const n=e.target.value.split('\n').filter(x=>x.trim()).length; refreshCorrectSelect(Math.max(2,n), Number(document.getElementById('adminCorrect').value || 0)); } });
-function saveAdminQuestion() { const st = stations.find(x=>x.id===Number(document.getElementById('adminStation').value)); const qi = Number(document.getElementById('adminQuestion').value || 0); const opts = document.getElementById('adminOptions').value.split('\n').map(x=>x.trim()).filter(Boolean); if(opts.length < 2) { showToast('يجب إدخال اختيارين على الأقل'); return; } const correct = Number(document.getElementById('adminCorrect').value || 0); if(correct >= opts.length) { showToast('رقم الجواب الصحيح غير مناسب'); return; } st.title=document.getElementById('adminTitle').value.trim(); st.component=document.getElementById('adminComponent').value; st.brief=document.getElementById('adminBrief').value.trim(); st.icon=document.getElementById('adminIcon').value.trim() || componentIcon(st.component); st.questions[qi]={ type:'mcq', question:document.getElementById('adminQuestionText').value.trim(), options:opts, correct, explanation:document.getElementById('adminExplanation').value.trim() }; saveQuestionBank(); renderAll(); setupAdmin(); showToast('تم حفظ التعديل بنجاح'); }
+function saveAdminQuestion() {
+  const id=Number(document.getElementById('adminStation').value), qi=Number(document.getElementById('adminQuestion').value||0);
+  const candidate=clone(stations), st=candidate.find(x=>x.id===id);
+  if(!st) return;
+  st.title=document.getElementById('adminTitle').value.trim();
+  st.component=document.getElementById('adminComponent').value;
+  st.brief=document.getElementById('adminBrief').value.trim();
+  st.icon=document.getElementById('adminIcon').value.trim()||componentIcon(st.component);
+  st.questions[qi]={type:'mcq',question:document.getElementById('adminQuestionText').value.trim(),
+    options:document.getElementById('adminOptions').value.split('\n').map(x=>x.trim()).filter(Boolean),
+    correct:Number(document.getElementById('adminCorrect').value),explanation:document.getElementById('adminExplanation').value.trim()};
+  if(!validQuestionBank(candidate)){showToast('تحقق من النصوص والاختيارات والجواب الصحيح، واحتفظ بمكوّن المحطة الأصلي. النصوص دون وسوم HTML.');return;}
+  stations=candidate;const saved=saveQuestionBank();renderAll();
+  if(saved)showToast('تم حفظ التعديل على هذا الجهاز');
+}
+
 function exportBank() { const blob = new Blob([JSON.stringify(stations, null, 2)], {type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='rihla-mahali-question-bank.json'; a.click(); URL.revokeObjectURL(a.href); }
-function importBank() { try { const imported=JSON.parse(document.getElementById('importText').value); if(!Array.isArray(imported) || imported.length!==22) throw new Error('bad'); stations=imported; saveQuestionBank(); renderAll(); setupAdmin(); showToast('تم استيراد بنك الأسئلة'); } catch(e) { showToast('صيغة JSON غير صحيحة أو لا تحتوي 22 محطة'); } }
+function importBank() {
+  try {
+    const imported=JSON.parse(document.getElementById('importText').value);
+    if(!validQuestionBank(imported)) throw new Error('invalid');
+    stations=imported;const saved=saveQuestionBank();renderAll();setupAdmin();
+    if(saved)showToast('تم استيراد بنك الأسئلة وحفظه على هذا الجهاز');
+  } catch(e) { showToast('بنك غير صالح: يلزم 22 محطة مرتبة، و3 أسئلة لكل محطة، واختيارات وأجوبة صحيحة.'); }
+}
+
 function resetQuestionBank() { if(confirm('سيتم حذف تعديلات الأسئلة والعودة إلى النسخة الأصلية. هل توافق؟')) { stations=clone(DEFAULT_STATIONS); saveQuestionBank(); renderAll(); setupAdmin(); showToast('تمت استعادة الأسئلة الأصلية'); } }
 
 renderAll();
@@ -2389,7 +3410,7 @@ renderAll();
 window.addEventListener('resize', function() { renderRoutePath(); });
 
 /* ── PWA Service Worker ── */
-if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js')
       .then(reg => console.log('SW registered', reg.scope))
